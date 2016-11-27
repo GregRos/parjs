@@ -1,0 +1,18 @@
+import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-action";
+import {quietReturn} from "../../common";
+/**
+ * Created by lifeg on 24/11/2016.
+ */
+
+export class PrsEof extends JaseBaseParserAction {
+    isLoud = false;
+    displayName = "eof";
+    _apply(ps : ParsingState) {
+        if (ps.position === ps.input.length) {
+            ps.result = quietReturn;
+            return true;
+        } else {
+            return false;
+        }
+    }
+}

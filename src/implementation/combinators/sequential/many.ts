@@ -1,0 +1,36 @@
+import {JaseParserAction} from "../../../base/parser-action";
+import {quietReturn, Issues} from "../../common";
+/**
+ * Created by User on 21-Nov-16.
+ */
+export class PrsMany extends JaseParserAction {
+    isLoud : boolean;
+    displayName = "many";
+    constructor(private inner : AnyParserAction, private maxIterations : number, private minSuccesses : number) {
+        super();
+        this.isLoud = inner.isLoud;
+    }
+
+    _apply(ps : ParsingState) {
+        let {inner, maxIterations, minSuccesses} = this;
+        let {position} = ps;
+        let arr = [];
+        let i = 0;
+        while (inner.apply(ps)) {
+            if (i >= maxIterations) break;
+            if (maxIterations < Infinity && ps.position === position) {
+                Issues.guardAgainstInfiniteLoop(this);
+            }
+            position = ps.position;
+            arr.maybePush(ps.result);
+            i++;
+        }
+        if (i < minSuccesses) {
+            return false;
+        }
+        ps.result = arr;
+        //recover from the last failure.
+        ps.position = position;
+        return true;
+    }
+}

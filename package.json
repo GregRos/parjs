@@ -1,0 +1,34 @@
+{
+  "name": "jase",
+  "version": "0.1.0",
+  "description": "A powerful parser-combinator library for JavaScript.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "markdown",
+    "commonmark",
+    "components",
+    "rendering",
+    "rich",
+    "text",
+    "cms",
+    "content",
+    "template"
+  ],
+  "author": "Greg Rosenbaum",
+  "license": "MIT",
+  "dependencies": {
+    "core-js": "^2.4.1",
+    "lodash": "^4.17.2"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/jasmine": "^2.5.37",
+    "@types/lodash": "^4.14.40",
+    "typescript": "^2.0.6"
+  },
+  "optionalDependencies": {}
+}
