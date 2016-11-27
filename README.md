@@ -10,16 +10,16 @@ A parser, in our context, is a function that takes a string and outputs somethin
 
 	Parser<TOut> : (input : string) => TOut
 
-Two examples of parsers would be $a,b$ that just parse the characters `a` and `b`, respectively, and return the characters they parsed. Here are their types:
+Two examples of parsers would be *a,b* that just parse the characters `a` and `b`, respectively, and return the characters they parsed. Here are their types:
 
 	a : (input : string) => string;
 	b : (input : string) => string;
 
-Now let's introduce a *combinator* $C$. $C$ takes a pair of parsers, $p_1, p_2$, and gives us a new parser, denoted $p_1p_2$ that first applies $p_1$ on the input and then (saving the last position) applies $p_2$, and returns the result of both in an array.
+Now let's introduce a *combinator* *C*. *C* takes a pair of parsers, *p_1, p_2*, and gives us a new parser, denoted *p_1p_2* that first applies *p_1* on the input and then (saving the last position) applies *p_2*, and returns the result of both in an array.
 
 Thus it would parse the string `'ab'` and return the array `['a', 'b']`
 
-The type of $C$ would be something like:
+The type of *C* would be something like:
 
 	C : (p1 : Parser<T>, p2 : Parser<T>) => Parser<T[]>
 
@@ -66,7 +66,7 @@ Say we want to parse a string between double quotes: `"hello"`. One way to do th
 
 The final parser would, however, return an array like this: `['"', 'hello']`, even though the initial `"` isn't something we care about. This is one reason to use quiet parsers. In TypeScript, quiet parsers are represented using the interface `QuietParser` and also hold `parser.isLoud === false`. If forced to return a value, they return a special `noResult` token, rather than `null` or `undefined` (which might be returned by the user intentionally).
 
-Some parsers are quiet by default. For example, the `not` combinator returns a parser $P$ that succeeds if the original failed. It doesn't make any sense for this parser to return anything, so it is always a quiet parser.
+Some parsers are quiet by default. For example, the `not` combinator returns a parser *P* that succeeds if the original failed. It doesn't make any sense for this parser to return anything, so it is always a quiet parser.
 
 You can make a parser shut up using the `.quiet` combinator:
 
