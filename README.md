@@ -1,78 +1,88 @@
-# HtmlReactRenderer
-This is a module used for parsing HTML content and rendering it using React intrinsic elements and components.
+# Jase - Parser Combinator Library
+Jase is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
 
-It can be used to embed React components inside Markdown content, among other things, by processing embedded HTML blocks.
+It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it.
 
-## How it works
+Jase is a loose portmanteau of JavaScript and Parse.  It is designed to be used with TypeScript, but you don't have to do so.
 
-The renderer processes your HTML content recursively, replacing regular HTML tags with corresponding intrinsic JSX elements and replacing special custom tags with React components.
+## What's a parser combinator?
+A parser, in our context, is a function that takes a string and outputs something else:
 
-You initialize the renderer with a collection of known name-component pairs. Each key in the object denotes the name of a component and each value either a component class or a string. A string value means that the custom tag will be mapped to an instrinsic JSX element with the specified name.
+	Parser<TOut> : (input : string) => TOut
 
-Here is an example:
+Two examples of parsers would be $a,b$ that just parse the characters `a` and `b`, respectively, and return the characters they parsed. Here are their types:
 
-	let knownComponents = {
-		example : ExampleComponent,
-		other : OtherComponent
-	}
+	a : (input : string) => string;
+	b : (input : string) => string;
 
-### Matching tags to component names
+Now let's introduce a *combinator* $C$. $C$ takes a pair of parsers, $p_1, p_2$, and gives us a new parser, denoted $p_1p_2$ that first applies $p_1$ on the input and then (saving the last position) applies $p_2$, and returns the result of both in an array.
 
-If the renderer finds a tag beginning with `cm-`, it will remove that prefix and try to match the remaining name with one of the known components.
+Thus it would parse the string `'ab'` and return the array `['a', 'b']`
 
-Failure causes it to be emitted as a custom tag with the same name and a warning attribute.
+The type of $C$ would be something like:
 
-### Specifying props
+	C : (p1 : Parser<T>, p2 : Parser<T>) => Parser<T[]>
 
-Props are passed as attribute values. For example, the following HTML tag will be rendered as a React component and the attribute values will be used as props
+So combinators take parsers and transform them in different ways, giving you other parsers.
 
-	<cm-example stringProp="string" numberProp=".1" arrayProp="[1, 2]" objProp="{a:'b'}"/>
+From two simple parsers, we've built a slightly more complex parser. With more combinators, and more basic parsers to start with, you can imagine building parsers even for complex programming languages. You could even build a parser to JavaScript itself.
 
-Attribute values are parsed before being sent as props, so even though the attribute values are strings, HtmlReactRenderer will convert them into different types before sending them onwards.
+## So what does Jase include?
+Jase includes two or three somewhat-separate components:
 
-1. Values that are valid ECMAScript 6 numbers are converted to numeric form, except for legacy octal syntax and similar.
+1. Basic parsers for doing things like parsing specific character types, specific strings, and so on.
+2. Combinators that work on those parsers, allowing you to parse more and more complex stuff.
+3. A system for executing parsers on inputs.
 
-2. The strings `true`, `false`, `null`, `undefined`, `NaN`, and similar are converted to their respective values.
+You could also divide Jase a bit differently, from a more internal perspective:
 
-3. Content that begins with `{` or `[` is parsed as a JavaScript array or object. The parsing is done using the `loose-json` module, which understands such things as `{a : 'b'}` so you can construct simple objects more naturally. Syntax errors in this mode throw an exception rather than fail silently.
+1. An interface for parsers and combinators.
+2. An implementation for parsers and combinators.
+3. Other functions.
 
-4. Anything that isn't recognized as one of the above modes is taken as a string.
+## What's it for?
+Parser combinator libraries are great for building parsers (relatively) simply and easily. Unlike regexes, they're for extracting meaning out of a well-formed language, not just for searching arbitrary text. They are a lot more powerful than regex when used for that purpose.
 
-5. Beginning the value with a `@` character will parse the value verbatim as a string, with that character ignored. So if you want to start a string with that character, you have to escape it (e.g. `@@gmail` will be rendered `@gmail`).
+Their advantage over dedicated parsers is that the user doesn't have to deal with the nuts and bolts of recognizing characters and strings, just with the API of the parser-combinator library which is much closer to the problem domain.
 
-### Specifying children
+They also allow you to easily separate and test different parts of the language you intend to parse and can result in very readable code.
 
-HTML blocks are parsed recursively, with children being parsed before their parents. So for example the following HTML:
+The main disadvantage is probably performance. Parser-combinator libraries necessistate a lot of overhead for creating separate parsers and linking them up together. Another arguable disadvantage is the inability to separate parsing from tokenization.
 
-	<div>
-		<div>
-			Hi
-		</div>
-	</div>
+## Performance
+Jase is designed to perform well, but not to sacrifice performance for usability.
 
-Will be parsed into an equivalent shadow DOM, with the inner `div` element being the child of the outer one.
+This says a lot when writing JavaScript, because it's hard to write optimized JS string processing code *without* sacrificing usability. So 
 
-You can also pass custom components as children of other custom components. This is one alternative to passing arguments as complex props.
+## Loud Parsers and Quiet Parsers
+Jase has two essential kinds of parsers: loud parsers and quiet parsers.
 
-### {![Embed]}
+A loud parser returns a value when it's finished parsing, while a quiet one does not return a value. This is an important distinction.
 
+Say we want to parse a string between double quotes: `"hello"`. One way to do this would be:
 
-	<cm-parent prop="hi">
-		<cm-child index="0"/>
-		<cm-child index="1"/>
-	</cm-parent>
+	let pQuote = Jase.string('"');
+	pQuote.then(Jase.anyChar.manyTill(pQuote))
 
-### Customizing
+The final parser would, however, return an array like this: `['"', 'hello']`, even though the initial `"` isn't something we care about. This is one reason to use quiet parsers. In TypeScript, quiet parsers are represented using the interface `QuietParser` and also hold `parser.isLoud === false`. If forced to return a value, they return a special `noResult` token, rather than `null` or `undefined` (which might be returned by the user intentionally).
 
-#### Tag comprehension
+Some parsers are quiet by default. For example, the `not` combinator returns a parser $P$ that succeeds if the original failed. It doesn't make any sense for this parser to return anything, so it is always a quiet parser.
 
-The `cm-` prefix can be overriden by supplying a custom `nameResolver` when initializing the renderer, so you can have your own custom way of resolving tags.
+You can make a parser shut up using the `.quiet` combinator:
 
-The custom resolver should convert a tag name into a component name. If the tag name has no component name (e.g. in the default case, it doesn't smart with `cm-`) `null` should be returned.).
+	let pQuote = Jase.string('"').quiet;
+	pQuote.then(Jase.anyChar.manyTill(pQuote));
 
-It is recommended that your name resolver use names with dashes because these distinguish custom tags from standard ones.
+The resulting parser will intelligently return only `'hello'`.
 
-#### Parsing prop values
-You can configure the renderer with your own prop value parser which can support additional values. The name of the prop is also supplied, and although it isn't used by the default parser, your custom implementation could do it.
+Another way to handle quiet parsers is used in the `Jase.seq` static combinator. This combinator lets you chian any number of parsers in sequence and returns an array of the parsed results:
 
-It is strongly recommended that you keep complex processing logic out of the value parser and into the component itself.
+	let example = Jase.seq(Jase.digit, Jase.string(",").quiet, Jase.digit);
+
+This combinator never returns a quiet parser, but the returns of quiet parsers will be ignored in the resulting array, giving us `['3', '4']` for the input `'3,4'`.
+
+## Jase internals
+A jase parser object is composed of a `JaseParser` wrapper and a `JaseParserAction` object that defines the actual parsing operation, as well as whether the operation is loud or quiet.
+
+Instance-level combinators for both `LoudParser<T>` and `QuietParser` and defined on `JaseParser`, while `JaseParserAction` only provides a low-level method for doing the actual parsing.
+
