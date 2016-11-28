@@ -16,7 +16,7 @@ export class PrsNewline extends JaseParserAction {
         if (position >= input.length) return false;
         let charAt = input.charCodeAt(position);
 
-        if (matchUnicode && Chars.isUnicodeNewline(charAt)) {
+        if (matchUnicode && Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.result = input.charAt(position);
         }

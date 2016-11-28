@@ -23,7 +23,7 @@ var PrsNewline = (function (_super) {
         if (position >= input.length)
             return false;
         var charAt = input.charCodeAt(position);
-        if (matchUnicode && char_indicators_1.Chars.isUnicodeNewline(charAt)) {
+        if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.result = input.charAt(position);
         }
