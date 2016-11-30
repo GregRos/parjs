@@ -10,19 +10,21 @@ var parser_action_1 = require("../../../base/parser-action");
  */
 var PrsMustCapture = (function (_super) {
     __extends(PrsMustCapture, _super);
-    function PrsMustCapture(inner) {
+    function PrsMustCapture(inner, failType) {
         _super.call(this);
         this.inner = inner;
+        this.failType = failType;
         this.displayName = "mustCapture";
         this.isLoud = inner.isLoud;
     }
     PrsMustCapture.prototype._apply = function (ps) {
-        var inner = this.inner;
+        var _a = this, inner = _a.inner, failType = _a.failType;
         var position = ps.position;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        return position !== ps.position;
+        ps.result = position !== ps.position ? ResultKind.OK : failType;
     };
     return PrsMustCapture;
 }(parser_action_1.JaseParserAction));

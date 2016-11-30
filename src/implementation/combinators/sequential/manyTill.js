@@ -23,27 +23,45 @@ var PrsManyTill = (function (_super) {
         var _a = this, many = _a.many, till = _a.till, tillOptional = _a.tillOptional;
         var position = ps.position;
         var arr = [];
-        var manyFailed = false;
+        var successes = 0;
         while (true) {
-            if (till.apply(ps)) {
+            till.apply(ps);
+            if (ps.result.isOk) {
                 break;
+            }
+            else if (ps.result >= ResultKind.HardFail) {
+                //if till failed hard/fatally, we return the fail result.
+                return;
             }
             //backtrack to before till failed.
             ps.position = position;
-            if (many.apply(ps)) {
-                manyFailed = true;
-                arr.maybePush(ps.result);
-                break;
+            many.apply(ps);
+            if (ps.result.isOk) {
+                arr.maybePush(ps.value);
+            }
+            else if (ps.result.isSoft) {
+                //many failed softly before till...
+                if (!tillOptional) {
+                    //if we parsed at least one element, we fail hard.
+                    ps.result = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+                }
+                else {
+                    //till was optional, so many failing softly is OK.
+                    break;
+                }
+            }
+            else {
+                //many failed hard/fatal
+                return;
             }
             if (ps.position === position) {
                 common_1.Issues.guardAgainstInfiniteLoop(this);
             }
             position = ps.position;
+            successes++;
         }
-        if (!manyFailed || tillOptional) {
-            return false;
-        }
-        ps.result = arr;
+        ps.value = arr;
+        ps.result = ResultKind.OK;
     };
     return PrsManyTill;
 }(parser_action_1.JaseParserAction));

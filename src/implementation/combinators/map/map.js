@@ -21,11 +21,11 @@ var MapParser = (function (_super) {
     }
     MapParser.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, map = _a.map;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        ps.result = map(ps.result);
-        return true;
+        ps.value = map(ps.value);
     };
     return MapParser;
 }(parser_action_1.JaseParserAction));

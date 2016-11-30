@@ -21,11 +21,13 @@ var PrsAltVal = (function (_super) {
     }
     PrsAltVal.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, val = _a.val;
-        if (inner.apply(ps)) {
-            ps.result = val;
-            return true;
+        inner.apply(ps);
+        if (ps.result.isSoft) {
+            //on soft failure, set the value and result to OK
+            ps.value = val;
+            ps.result = ResultKind.OK;
         }
-        return true;
+        //on ok/hard/fatal, propagate the result.
     };
     return PrsAltVal;
 }(parser_action_1.JaseParserAction));

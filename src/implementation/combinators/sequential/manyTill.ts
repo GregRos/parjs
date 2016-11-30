@@ -15,26 +15,40 @@ export class PrsManyTill extends JaseParserAction {
         let {many, till, tillOptional} = this;
         let {position} = ps;
         let arr = [];
-        let manyFailed = false;
+        let successes = 0;
         while (true) {
-            if (till.apply(ps)) {
+            till.apply(ps);
+            if (ps.result.isOk) {
                 break;
+            } else if (ps.result >= ResultKind.HardFail) {
+                //if till failed hard/fatally, we return the fail result.
+                return;
             }
             //backtrack to before till failed.
             ps.position = position;
-            if (many.apply(ps)) {
-                manyFailed = true;
-                arr.maybePush(ps.result);
-                break;
+            many.apply(ps);
+            if (ps.result.isOk) {
+                arr.maybePush(ps.value);
+            } else if (ps.result.isSoft) {
+                //many failed softly before till...
+                if (!tillOptional) {
+                    //if we parsed at least one element, we fail hard.
+                    ps.result = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail
+                } else {
+                    //till was optional, so many failing softly is OK.
+                    break;
+                }
+            } else {
+                //many failed hard/fatal
+                return;
             }
             if (ps.position === position) {
                 Issues.guardAgainstInfiniteLoop(this);
             }
             position = ps.position;
+            successes++;
         }
-        if (!manyFailed || tillOptional) {
-            return false;
-        }
-        ps.result = arr;
+        ps.value = arr;
+        ps.result = ResultKind.OK;
     }
 }

@@ -23,12 +23,13 @@ var PrsString = (function (_super) {
             return false;
         for (var i_1 = 0; i_1 < str.length; i_1++, position++) {
             if (str.charCodeAt(i_1) !== input.charCodeAt(position)) {
-                return false;
+                ps.result = ResultKind.SoftFail;
+                return;
             }
         }
         ps.position += str.length;
-        ps.result = str;
-        return true;
+        ps.value = str;
+        ps.result = ResultKind.OK;
     };
     return PrsString;
 }(parser_action_1.JaseBaseParserAction));

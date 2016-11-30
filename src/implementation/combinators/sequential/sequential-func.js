@@ -21,20 +21,29 @@ var PrsSeqFunc = (function (_super) {
     PrsSeqFunc.prototype._apply = function (ps) {
         var _a = this, initial = _a.initial, parserSelectors = _a.parserSelectors;
         var results = [];
-        if (!initial.apply(ps)) {
-            return false;
+        initial.apply(ps);
+        if (!ps.result.isOk) {
+            //propagate the failure of 'initial' upwards.
+            return;
         }
         for (var i = 0; i < parserSelectors.length; i++) {
             var cur = parserSelectors[i];
-            var prs = cur(ps.result);
+            var prs = cur(ps.value);
             prs.isLoud || common_1.Issues.quietParserNotPermitted(this);
-            if (prs.action) {
-                results.maybePush(ps.result);
+            prs.action.apply(ps);
+            if (ps.result.isOk) {
+                results.maybePush(ps.value);
+            }
+            else if (ps.result.isSoft) {
+                //at this point, even a soft failure becomes a hard one
+                ps.result = ResultKind.HardFail;
             }
             else {
-                return false;
+                return;
             }
         }
+        ps.value = results;
+        return ResultKind.OK;
     };
     return PrsSeqFunc;
 }(parser_action_1.JaseParserAction));

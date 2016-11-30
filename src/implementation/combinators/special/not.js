@@ -5,7 +5,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var parser_action_1 = require("../../../base/parser-action");
-var common_1 = require("../../common");
 /**
  * Created by User on 22-Nov-16.
  */
@@ -21,12 +20,18 @@ var PrsNot = (function (_super) {
     PrsNot.prototype._apply = function (ps) {
         var inner = this.inner;
         var position = ps.position;
-        if (inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (ps.result.isOk) {
+            ps.position = position;
+            ps.result = ResultKind.SoftFail;
         }
-        ps.position = position;
-        ps.result = common_1.quietReturn;
-        return true;
+        else if (ps.result <= ResultKind.HardFail) {
+            //hard fails are okay here
+            ps.result = ResultKind.OK;
+            ps.position = position;
+            return;
+        }
+        //the remaining case is a fatal failure that isn't recovered from.
     };
     return PrsNot;
 }(parser_action_1.JaseParserAction));

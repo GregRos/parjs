@@ -15,29 +15,38 @@ export class PrsManySepBy extends JaseParserAction {
         let {many, sep, maxIterations, isLoud} = this;
         let {position} = ps;
         let arr = [];
-        if (!many.apply(ps)) {
-            return false;
+        many.apply(ps);
+        if (ps.result >= ResultKind.HardFail) {
+            return;
+        } else if (ps.result.isSoft) {
+            ps.value = [];
+            return;
         }
-        let manyFailed = false;
         let i = 0;
         while (true) {
-            if (i > maxIterations) break;
-            if (!sep.apply(ps)) {
+            if (i >= maxIterations) break;
+            sep.apply(ps);
+            if (ps.result.isSoft) {
                 break;
+            } else if (ps.result >= ResultKind.HardFail) {
+                return;
             }
-            if (!many.apply(ps)) {
-                manyFailed = true;
+            many.apply(ps);
+            if (ps.result.isSoft) {
                 break;
+            } else if (ps.result >= ResultKind.HardFail) {
+                return;
             }
-            if (maxIterations < Infinity && ps.position === position) {
+            if (maxIterations >= Infinity && ps.position === position) {
                 Issues.guardAgainstInfiniteLoop(this);
             }
-            arr.maybePush(ps.result);
+            arr.maybePush(ps.value);
             position = ps.position;
             i++;
         }
+        ps.result = ResultKind.OK;
         ps.position = position;
-        ps.result = arr;
+        ps.value = arr;
         return true;
     }
 }

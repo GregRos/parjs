@@ -18,11 +18,13 @@ var PrsStringLen = (function (_super) {
     PrsStringLen.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;
         var length = this.length;
-        if (input.length < position + length)
-            return false;
+        if (input.length < position + length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         ps.position += length;
-        ps.result = input.substr(position, length);
-        return true;
+        ps.value = input.substr(position, length);
+        ps.result = ResultKind.OK;
     };
     return PrsStringLen;
 }(parser_action_1.JaseBaseParserAction));

@@ -10,7 +10,7 @@ export class PrsRest extends JaseBaseParserAction {
         let {position, input} = pr;
         let text = input.substr(Math.min(position, input.length));
         pr.position = input.length;
-        pr.result = text;
-        return true;
+        pr.value = text;
+        pr.result = ResultKind.OK;
     }
 }

@@ -23,30 +23,42 @@ var PrsManySepBy = (function (_super) {
         var _a = this, many = _a.many, sep = _a.sep, maxIterations = _a.maxIterations, isLoud = _a.isLoud;
         var position = ps.position;
         var arr = [];
-        if (!many.apply(ps)) {
-            return false;
+        many.apply(ps);
+        if (ps.result >= ResultKind.HardFail) {
+            return;
         }
-        var manyFailed = false;
+        else if (ps.result.isSoft) {
+            ps.value = [];
+            return;
+        }
         var i = 0;
         while (true) {
-            if (i > maxIterations)
+            if (i >= maxIterations)
                 break;
-            if (!sep.apply(ps)) {
-                break;
-            }
-            if (!many.apply(ps)) {
-                manyFailed = true;
+            sep.apply(ps);
+            if (ps.result.isSoft) {
                 break;
             }
-            if (maxIterations < Infinity && ps.position === position) {
+            else if (ps.result >= ResultKind.HardFail) {
+                return;
+            }
+            many.apply(ps);
+            if (ps.result.isSoft) {
+                break;
+            }
+            else if (ps.result >= ResultKind.HardFail) {
+                return;
+            }
+            if (maxIterations >= Infinity && ps.position === position) {
                 common_1.Issues.guardAgainstInfiniteLoop(this);
             }
-            arr.maybePush(ps.result);
+            arr.maybePush(ps.value);
             position = ps.position;
             i++;
         }
+        ps.result = ResultKind.OK;
         ps.position = position;
-        ps.result = arr;
+        ps.value = arr;
         return true;
     };
     return PrsManySepBy;

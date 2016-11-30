@@ -32,16 +32,21 @@ var PrsAlts = (function (_super) {
             //go over each alternative.
             var cur = alts[i];
             //apply it on the current state.
-            if (cur.apply(ps)) {
-                //if success, return true. The PS records the result.
-                return true;
+            cur.apply(ps);
+            if (ps.result.isOk) {
+                //if success, return. The PS records the result.
+                return;
             }
-            else {
-                //backtrack to the original position and go to the next iteration.
+            else if (ps.result.isSoft) {
+                //backtrack to the original position and try again.
                 ps.position = position;
             }
+            else {
+                //if failure, return false,
+                return;
+            }
         }
-        return false;
+        ps.result = ResultKind.SoftFail;
     };
     return PrsAlts;
 }(parser_action_1.JaseParserAction));

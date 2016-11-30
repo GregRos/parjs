@@ -7,6 +7,6 @@ export class PrsFail extends JaseBaseParserAction {
     displayName = "fail";
 
     _apply(ps : ParsingState) {
-        return false;
+        ps.result =  ResultKind.SoftFail;
     }
 }

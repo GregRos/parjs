@@ -5,17 +5,18 @@ import {JaseParserAction} from "../../../base/parser-action";
 export class PrsMustCapture extends JaseParserAction {
     displayName = "mustCapture";
     isLoud : boolean;
-    constructor(private inner : AnyParserAction) {
+    constructor(private inner : AnyParserAction, private failType : ResultKind) {
         super();
         this.isLoud = inner.isLoud;
     }
 
     _apply(ps : ParsingState) {
-        let {inner} = this;
+        let {inner, failType} = this;
         let {position} = ps;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        return position !== ps.position;
+        ps.result = position !== ps.position ? ResultKind.OK : failType;
     }
 }

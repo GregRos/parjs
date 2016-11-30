@@ -24,12 +24,13 @@ var PrsRegexp = (function (_super) {
         input = input.substr(position);
         var match = regexp.exec(input);
         if (!match) {
-            return false;
+            ps.result = ResultKind.SoftFail;
+            return;
         }
         ps.position = regexp.lastIndex;
         var arr = match.slice();
-        ps.result = arr;
-        return true;
+        ps.value = arr;
+        ps.result = ResultKind.OK;
     };
     return PrsRegexp;
 }(parser_action_1.JaseBaseParserAction));

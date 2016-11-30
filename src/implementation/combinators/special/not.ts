@@ -11,11 +11,17 @@ export class PrsNot extends JaseParserAction {
     _apply(ps : ParsingState) {
         let {inner} = this;
         let {position} = ps;
-        if (inner.apply(ps)) {
-            return false;
+        inner.apply(ps)
+        if (ps.result.isOk) {
+            ps.position = position;
+            ps.result = ResultKind.SoftFail;
         }
-        ps.position = position;
-        ps.result = quietReturn;
-        return true;
+        else if (ps.result <= ResultKind.HardFail) {
+            //hard fails are okay here
+            ps.result = ResultKind.OK;
+            ps.position = position;
+            return;
+        }
+        //the remaining case is a fatal failure that isn't recovered from.
     }
 }

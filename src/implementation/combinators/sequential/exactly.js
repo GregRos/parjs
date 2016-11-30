@@ -5,7 +5,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var parser_action_1 = require("../../../base/parser-action");
-var common_1 = require("../../common");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -22,14 +21,14 @@ var PrsExactly = (function (_super) {
         var _a = this, inner = _a.inner, count = _a.count, isLoud = _a.isLoud;
         var arr = [];
         for (var i = 0; i < count; i++) {
-            if (!inner.apply(ps)) {
+            inner.apply(ps);
+            if (!ps.result.isOk) {
                 //fail because the inner parser has failed.
-                return false;
+                return;
             }
-            isLoud && arr.maybePush(ps.result);
+            arr.maybePush(ps.value);
         }
-        ps.result = isLoud ? arr : common_1.quietReturn;
-        return true;
+        ps.value = arr;
     };
     return PrsExactly;
 }(parser_action_1.JaseParserAction));

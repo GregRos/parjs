@@ -24,9 +24,10 @@ export class AnyStringOf extends JaseBaseParserAction {
             }
             //this means we did not contiue strLoop so curStr passed our tests
             ps.position = position + curStr.length;
-            ps.result = curStr;
-            return true;
+            ps.value = curStr;
+            ps.result = ResultKind.OK;
+            return;
         }
-        return false;
+        ps.result = ResultKind.SoftFail;
     }
 }

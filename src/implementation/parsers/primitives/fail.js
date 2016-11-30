@@ -15,7 +15,7 @@ var PrsFail = (function (_super) {
         this.displayName = "fail";
     }
     PrsFail.prototype._apply = function (ps) {
-        return false;
+        ps.result = ResultKind.SoftFail;
     };
     return PrsFail;
 }(parser_action_1.JaseBaseParserAction));

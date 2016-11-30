@@ -15,10 +15,11 @@ export class PrsCharWhere extends JaseBaseParserAction {
         if (position >= input.length) return false;
         let curChar = input[position];
         if (!predicate(curChar)) {
-            return false;
+            ps.result =  ResultKind.SoftFail;
+            return;
         }
-        ps.result = curChar;
+        ps.value = curChar;
         ps.position++;
-        return true;
+        ps.result = ResultKind.OK;
     }
 }

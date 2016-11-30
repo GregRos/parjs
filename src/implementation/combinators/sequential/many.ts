@@ -16,21 +16,27 @@ export class PrsMany extends JaseParserAction {
         let {position} = ps;
         let arr = [];
         let i = 0;
-        while (inner.apply(ps)) {
+        while (true) {
+            inner.apply(ps);
+            if (!ps.result.isOk) break;
             if (i >= maxIterations) break;
             if (maxIterations < Infinity && ps.position === position) {
                 Issues.guardAgainstInfiniteLoop(this);
             }
             position = ps.position;
-            arr.maybePush(ps.result);
+            arr.maybePush(ps.value);
             i++;
         }
-        if (i < minSuccesses) {
-            return false;
+        if (ps.result >= ResultKind.HardFail) {
+            return;
         }
-        ps.result = arr;
+        if (i < minSuccesses) {
+            ps.result = i === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+            return;
+        }
+        ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        return true;
+        return ResultKind.OK;
     }
 }

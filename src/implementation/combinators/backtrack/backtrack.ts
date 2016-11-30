@@ -13,10 +13,11 @@ export class PrsBacktrack extends JaseParserAction {
     _apply(ps : ParsingState) {
         let {inner} = this;
         let {position} = ps;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (ps.result.isOk) {
+            //if inner succeeded, we backtrack.
+            ps.position = position;
         }
-        ps.position = position;
-        return true;
+        //whatever code ps had, we return it.
     }
 }

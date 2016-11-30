@@ -10,9 +10,6 @@ export class PrsQuiet extends JaseParserAction {
 
     _apply(ps : ParsingState) {
         let {inner} = this;
-        if (!inner.apply(ps)) {
-            return false;
-        }
-        ps.result = quietReturn;
+        inner.apply(ps);
     }
 }

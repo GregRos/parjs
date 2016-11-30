@@ -12,29 +12,30 @@ export class PrsStr extends JaseParserAction {
 
     _apply(ps : ParsingState) {
         let {inner} = this;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        let {result} = ps;
-        let typeStr = typeof result;
+        let {value} = ps;
+        let typeStr = typeof value;
         if (typeStr === "string") {
 
         }
-        else if (result === quietReturn) {
-            ps.result = "";
+        else if (value === quietReturn) {
+            ps.value = "";
         }
-        else if (result === null || result === undefined) {
-            ps.result = Object.prototype.toString.call(result);
+        else if (value === null || value === undefined) {
+            ps.value = Object.prototype.toString.call(value);
         }
-        else if (result instanceof Array) {
-            ps.result = result.join("");
+        else if (value instanceof Array) {
+            ps.value = value.join("");
         }
         else if (typeStr === "symbol") {
-            ps.result = result.description;
+            ps.value = value.description;
         }
         else {
-            ps.result = result.toString();
+            ps.value = value.toString();
         }
-        return true;
+
     }
 }

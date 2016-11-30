@@ -12,10 +12,10 @@ export class PrsWithState extends JaseParserAction{
 
     _apply(ps : ParsingState) {
         let {inner, reducer} = this;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        ps.state = reducer(ps.state, ps.result);
-        return true;
+        ps.state = reducer(ps.state, ps.value);
     }
 }

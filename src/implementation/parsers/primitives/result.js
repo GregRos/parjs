@@ -18,8 +18,8 @@ var PrsResult = (function (_super) {
     }
     PrsResult.prototype._apply = function (ps) {
         var result = this.result;
-        ps.result = result;
-        return true;
+        ps.value = result;
+        ps.result = parser_action_1.ResultKind.OK;
     };
     return PrsResult;
 }(parser_action_1.JaseBaseParserAction));

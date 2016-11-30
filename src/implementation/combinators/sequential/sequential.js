@@ -21,15 +21,23 @@ var PrsSeq = (function (_super) {
         var results = [];
         for (var i = 0; i < parsers.length; i++) {
             var cur = parsers[i];
-            if (cur.apply(ps)) {
-                results.maybePush(ps.result);
+            cur.apply(ps);
+            if (ps.result.isOk) {
+                results.maybePush(ps.value);
+            }
+            else if (ps.result.isSoft && i === 0) {
+                return;
+            }
+            else if (ps.result.isSoft) {
+                ps.result = ResultKind.HardFail;
+                return;
             }
             else {
-                return false;
+                return;
             }
         }
-        ps.result = results;
-        return true;
+        ps.value = results;
+        ps.result = ResultKind.OK;
     };
     return PrsSeq;
 }(parser_action_1.JaseParserAction));

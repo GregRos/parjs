@@ -10,20 +10,20 @@ var parser_action_1 = require("../../../base/parser-action");
  */
 var PrsMapResult = (function (_super) {
     __extends(PrsMapResult, _super);
-    function PrsMapResult(inner, _result) {
+    function PrsMapResult(inner, result) {
         _super.call(this);
         this.inner = inner;
-        this._result = _result;
+        this.result = result;
         this.displayName = "result";
         this.isLoud = true;
     }
     PrsMapResult.prototype._apply = function (ps) {
-        var _a = this, inner = _a.inner, _result = _a._result;
-        if (!inner.apply(ps)) {
-            return false;
+        var _a = this, inner = _a.inner, result = _a.result;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        ps.result = _result;
-        return true;
+        ps.value = result;
     };
     return PrsMapResult;
 }(parser_action_1.JaseParserAction));

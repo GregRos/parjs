@@ -1,4 +1,5 @@
 "use strict";
+var parser_action_1 = require("./parser-action");
 /**
  * Created by User on 22-Nov-16.
  */
@@ -8,17 +9,11 @@ var JaseBaseParser = (function () {
     }
     JaseBaseParser.prototype.parse = function (input) {
         var _a = this, action = _a.action, isLoud = _a.isLoud;
-        var ps = {
-            input: input,
-            position: 0,
-            state: undefined,
-            result: undefined,
-            signal: undefined
-        };
+        var ps = new parser_action_1.BasicParsingState(input);
         if (action.apply(ps) && ps.position === input.length) {
             if (isLoud) {
                 return {
-                    result: ps.result,
+                    result: ps.value,
                     state: ps.state,
                     hasResult: true
                 };

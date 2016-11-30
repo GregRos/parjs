@@ -25,14 +25,18 @@ export class PrsAlts extends JaseParserAction {
             //go over each alternative.
             let cur = alts[i];
             //apply it on the current state.
-            if (cur.apply(ps)) {
-                //if success, return true. The PS records the result.
-                return true;
-            } else {
-                //backtrack to the original position and go to the next iteration.
+            cur.apply(ps);
+            if (ps.result.isOk) {
+                //if success, return. The PS records the result.
+                return;
+            } else if (ps.result.isSoft) {
+                //backtrack to the original position and try again.
                 ps.position = position;
+            } else {
+                //if failure, return false,
+                return;
             }
         }
-        return false;
+        ps.result = ResultKind.SoftFail;
     }
 }

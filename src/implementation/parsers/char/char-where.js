@@ -23,11 +23,12 @@ var PrsCharWhere = (function (_super) {
             return false;
         var curChar = input[position];
         if (!predicate(curChar)) {
-            return false;
+            ps.result = ResultKind.SoftFail;
+            return;
         }
-        ps.result = curChar;
+        ps.value = curChar;
         ps.position++;
-        return true;
+        ps.result = ResultKind.OK;
     };
     return PrsCharWhere;
 }(parser_action_1.JaseBaseParserAction));

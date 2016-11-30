@@ -19,11 +19,11 @@ var PrsWithState = (function (_super) {
     }
     PrsWithState.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, reducer = _a.reducer;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        ps.state = reducer(ps.state, ps.result);
-        return true;
+        ps.state = reducer(ps.state, ps.value);
     };
     return PrsWithState;
 }(parser_action_1.JaseParserAction));

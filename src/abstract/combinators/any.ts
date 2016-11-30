@@ -1,6 +1,14 @@
 
+declare enum ResultKind {
+    OK,
+    SoftFail,
+    HardFail,
+    FatalFail
+}
+
+
 interface AnyParserAction {
-    apply(ps : ParsingState) : boolean;
+    apply(ps : ParsingState) : void;
     isLoud : boolean;
 }
 /**

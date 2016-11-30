@@ -16,8 +16,8 @@ var PrsPosition = (function (_super) {
         this.isLoud = true;
     }
     PrsPosition.prototype._apply = function (ps) {
-        ps.result = ps.position;
-        return true;
+        ps.value = ps.position;
+        ps.result = parser_action_1.ResultKind.OK;
     };
     return PrsPosition;
 }(parser_action_1.JaseParserAction));

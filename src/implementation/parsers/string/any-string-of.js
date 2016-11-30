@@ -27,10 +27,11 @@ var AnyStringOf = (function (_super) {
             }
             //this means we did not contiue strLoop so curStr passed our tests
             ps.position = position + curStr.length;
-            ps.result = curStr;
-            return true;
+            ps.value = curStr;
+            ps.result = ResultKind.OK;
+            return;
         }
-        return false;
+        ps.result = ResultKind.SoftFail;
     };
     return AnyStringOf;
 }(parser_action_1.JaseBaseParserAction));

@@ -15,10 +15,11 @@ export class PrsCharCodeWhere extends JaseBaseParserAction {
         if (position >= input.length) return false;
         let curChar = input.charCodeAt(position);
         if (!predicate(curChar)) {
-            return false;
+            ps.result = ResultKind.SoftFail;
+            return;
         }
-        ps.result = String.fromCharCode(curChar);
+        ps.value = String.fromCharCode(curChar);
         ps.position++;
-        return true;
+        ps.result = ResultKind.OK;
     }
 }

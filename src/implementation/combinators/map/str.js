@@ -19,29 +19,29 @@ var PrsStr = (function (_super) {
     }
     PrsStr.prototype._apply = function (ps) {
         var inner = this.inner;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        var result = ps.result;
-        var typeStr = typeof result;
+        var value = ps.value;
+        var typeStr = typeof value;
         if (typeStr === "string") {
         }
-        else if (result === common_1.quietReturn) {
-            ps.result = "";
+        else if (value === common_1.quietReturn) {
+            ps.value = "";
         }
-        else if (result === null || result === undefined) {
-            ps.result = Object.prototype.toString.call(result);
+        else if (value === null || value === undefined) {
+            ps.value = Object.prototype.toString.call(value);
         }
-        else if (result instanceof Array) {
-            ps.result = result.join("");
+        else if (value instanceof Array) {
+            ps.value = value.join("");
         }
         else if (typeStr === "symbol") {
-            ps.result = result.description;
+            ps.value = value.description;
         }
         else {
-            ps.result = result.toString();
+            ps.value = value.toString();
         }
-        return true;
     };
     return PrsStr;
 }(parser_action_1.JaseParserAction));

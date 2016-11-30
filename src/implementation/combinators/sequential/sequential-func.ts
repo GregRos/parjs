@@ -13,18 +13,26 @@ export class PrsSeqFunc extends JaseParserAction {
     _apply(ps : ParsingState) {
         let {initial, parserSelectors} = this;
         let results = [];
-        if (!initial.apply(ps)) {
-            return false;
+        initial.apply(ps);
+        if (!ps.result.isOk) {
+            //propagate the failure of 'initial' upwards.
+            return;
         }
         for (let i = 0; i < parserSelectors.length; i++) {
             let cur = parserSelectors[i];
-            let prs = cur(ps.result);
+            let prs = cur(ps.value);
             prs.isLoud || Issues.quietParserNotPermitted(this);
-            if (prs.action) {
-                results.maybePush(ps.result);
+            prs.action.apply(ps);
+            if (ps.result.isOk) {
+                results.maybePush(ps.value);
+            } else if (ps.result.isSoft) {
+                //at this point, even a soft failure becomes a hard one
+                ps.result = ResultKind.HardFail;
             } else {
-                return false;
+                return;
             }
         }
+        ps.value = results;
+        return ResultKind.OK;
     }
 }

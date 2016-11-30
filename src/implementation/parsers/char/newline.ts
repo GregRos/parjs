@@ -18,22 +18,23 @@ export class PrsNewline extends JaseParserAction {
 
         if (matchUnicode && Codes.isUnicodeNewline(charAt)) {
             ps.position++;
-            ps.result = input.charAt(position);
+            ps.value = input.charAt(position);
         }
         if (charAt === Codes.newline) {
             ps.position++;
-            ps.result = '\n';
-            return true;
+            ps.value = '\n';
+            ps.result = ResultKind.OK;
         } else if (charAt === Codes.carriageReturn) {
             position++;
             if (position < input.length && input.charCodeAt(position) === Codes.newline) {
                 ps.position = position + 1;
-                ps.result = '\r\n';
-                return true;
+                ps.value = '\r\n';
+                ps.result = ResultKind.OK;
             }
             ps.position = position;
-            ps.result = '\r';
-            return true;
+            ps.value = '\r';
+            ps.result = ResultKind.OK;
         }
+        ps.result = ResultKind.SoftFail;
     }
 }

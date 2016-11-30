@@ -19,8 +19,8 @@ var PrsRest = (function (_super) {
         var position = pr.position, input = pr.input;
         var text = input.substr(Math.min(position, input.length));
         pr.position = input.length;
-        pr.result = text;
-        return true;
+        pr.value = text;
+        pr.result = ResultKind.OK;
     };
     return PrsRest;
 }(parser_action_1.JaseBaseParserAction));

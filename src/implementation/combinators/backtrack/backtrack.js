@@ -19,11 +19,12 @@ var PrsBacktrack = (function (_super) {
     PrsBacktrack.prototype._apply = function (ps) {
         var inner = this.inner;
         var position = ps.position;
-        if (!inner.apply(ps)) {
-            return false;
+        inner.apply(ps);
+        if (ps.result.isOk) {
+            //if inner succeeded, we backtrack.
+            ps.position = position;
         }
-        ps.position = position;
-        return true;
+        //whatever code ps had, we return it.
     };
     return PrsBacktrack;
 }(parser_action_1.JaseParserAction));

@@ -5,14 +5,14 @@ import {JaseParserAction} from "../../../base/parser-action";
 export class PrsMapResult extends JaseParserAction {
     displayName = "result";
     isLoud = true;
-    constructor(private inner : AnyParserAction, private _result : any) {super()}
+    constructor(private inner : AnyParserAction, private result : any) {super()}
 
     _apply(ps : ParsingState) {
-        let {inner, _result} = this;
-        if (!inner.apply(ps)) {
-            return false;
+        let {inner, result} = this;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        ps.result = _result;
-        return true;
+        ps.value = result;
     }
 }

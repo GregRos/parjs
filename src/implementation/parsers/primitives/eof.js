@@ -5,7 +5,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var parser_action_1 = require("../../../base/parser-action");
-var common_1 = require("../../common");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -18,11 +17,10 @@ var PrsEof = (function (_super) {
     }
     PrsEof.prototype._apply = function (ps) {
         if (ps.position === ps.input.length) {
-            ps.result = common_1.quietReturn;
-            return true;
+            ps.result = ResultKind.OK;
         }
         else {
-            return false;
+            ps.result = ResultKind.SoftFail;
         }
     };
     return PrsEof;

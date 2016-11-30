@@ -9,10 +9,9 @@ export class PrsEof extends JaseBaseParserAction {
     displayName = "eof";
     _apply(ps : ParsingState) {
         if (ps.position === ps.input.length) {
-            ps.result = quietReturn;
-            return true;
+            ps.result =  ResultKind.OK;
         } else {
-            return false;
+            ps.result = ResultKind.SoftFail;
         }
     }
 }

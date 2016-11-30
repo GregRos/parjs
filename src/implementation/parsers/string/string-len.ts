@@ -10,9 +10,12 @@ export class PrsStringLen extends JaseBaseParserAction{
     _apply(ps : ParsingState) {
         let {position, input} = ps;
         let {length} = this;
-        if (input.length < position + length) return false;
+        if (input.length < position + length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         ps.position += length;
-        ps.result = input.substr(position, length);
-        return true;
+        ps.value = input.substr(position, length);
+        ps.result = ResultKind.OK;
     }
 }

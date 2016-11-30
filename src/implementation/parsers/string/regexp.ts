@@ -18,11 +18,12 @@ export class PrsRegexp extends JaseBaseParserAction {
         input = input.substr(position);
         let match = regexp.exec(input);
         if (!match) {
-            return false;
+            ps.result = ResultKind.SoftFail;
+            return;
         }
         ps.position = regexp.lastIndex;
         let arr = match.slice();
-        ps.result = arr;
-        return true;
+        ps.value = arr;
+        ps.result = ResultKind.OK;
     }
 }

@@ -11,12 +11,13 @@ var parser_action_1 = require("../../../base/parser-action");
 var _ = require('lodash');
 var char_indicators_1 = require("../../../functions/char-indicators");
 var math_1 = require("../../../functions/math");
+var parselets_1 = require("./parselets");
 var defaultFloatOptions = {
     allowExponent: true,
     allowSign: true,
     allowImplicitZero: true,
     base: 10,
-    allowFractional: true
+    allowFloatingPoint: true
 };
 var PrsFloat = (function (_super) {
     __extends(PrsFloat, _super);
@@ -24,79 +25,111 @@ var PrsFloat = (function (_super) {
         _super.call(this);
         _.defaults(options, defaultFloatOptions);
     }
-    PrsFloat.prototype.parseSign = function (ps) {
-        var sign = 0;
-        var curChar = ps.input.charCodeAt(ps.position);
-        if (curChar === char_indicators_1.Codes.minus) {
-            sign = -1;
-            ps.position++;
-        }
-        else if (curChar === char_indicators_1.Codes.plus) {
-            ps.position++;
-        }
-        return sign;
-    };
-    PrsFloat.prototype.parseDigits = function (ps, positiveExponent) {
-        var position = ps.position, input = ps.input;
-        var base = this.options.base;
-        var exponents = positiveExponent ? math_1.FastMath.PositiveExponents : math_1.FastMath.NegativeExponents;
-        var result = 0;
-        for (var i = 0; position < input.length; position++, i++) {
-            var curCode = input.charCodeAt(position);
-            if (!char_indicators_1.Codes.isDigit(curCode, base)) {
-                break;
-            }
-            result += char_indicators_1.Codes.digitValue(curCode) * exponents[i];
-        }
-        ps.position = position;
-        return result;
-    };
     PrsFloat.prototype._apply = function (ps) {
-        var _a = this.options, allowSign = _a.allowSign, allowFractional = _a.allowFractional, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent, base = _a.base;
+        /*
+            This work is really better done using Jase itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
+
+            We want a configurable number parser that can parse floating point numbers in any base, with or without a sign, and with or without
+            an exponent...
+
+            Here are the rules of this parser.
+
+            Replace {1,2 3, 4} by the digits allowed with the base, which is configurable.
+
+            BASIC NUMBER FORMS - parser must be one of:
+                a. 1234 : integer
+                b. 12.3 : floating point, allowed if {allowFloatingPoint}.
+                c. .123 : floating point, implicit whole part. Requires {allowFloatingPoint && allowImplicitZero}
+                d. 123. : floating point, implicit fractional part. Requires {allowFloatingPoint && allowImplicitZero}
+
+            CONFIGURABLE EXTRAS:
+                a. Sign prefix: (+|-) preceeding the number. Allowed if {allowSign}.
+                b. Exponent suffix: (e|E)(+|-)\d+. Allowed if {allowExponent}. Can be combined with {!allowFloatingPoint}.
+
+            FAILURES:
+                a. '' - no characters consumed. Parser fails.
+                b. '.' - could be understood as an implicit 0.0, but will not be parsed by this parser.
+                c. '1e+' -
+                    with {allowExponent}, this fails after consuming '1e+' because it expected an integer after the + but didn't find one.
+                    without that flag, this succeeds and parses just 1.
+
+            SUCCESSES:
+                a. '1abc' - The parser will just consume and return 1.
+                b. '10e+1' - {allowExponent} can be true even if {allowFloatingPoint} isn't.
+
+            ISSUES:
+                a. If base >= 15 then the character 'e' is a digit and so {allowExponent} must be false since it cannot be parsed.
+                   Otherwise, an error is thrown.
+                b.
+         */
+        var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent, base = _a.base;
         var position = ps.position, input = ps.input;
-        var len = input.length;
-        if (position > len)
+        if (position > input.length)
             return false;
-        var result = 0;
-        var sign = 1;
+        var Sign = 1;
+        var hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
-            sign = this.parseSign(ps);
-            sign = sign === 0 ? 1 : sign;
+            //try parse a sign
+            Sign = parselets_1.Parselets.parseSign(ps);
+            if (Sign === 0) {
+                Sign = 1;
+            }
+            else {
+                hasSign = true;
+            }
         }
-        result += this.parseDigits(ps, true);
-        if (!allowImplicitZero && ps.position === position) {
-            //fail because we don't allow "e+14", ".1", and similar without allowImplicitZero.
-            return false;
-        }
+        //after a sign there needs to come an integer part (if any).
+        var prevPos = ps.position;
+        var Whole = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
+        var Fractional = 0;
+        var Exp = 1;
+        hasWhole = ps.position !== prevPos;
+        //now if allowFloatingPoint, we try to parse a decimal point.
         var nextChar = input.charCodeAt(ps.position);
-        if (allowFractional && nextChar === char_indicators_1.Codes.decimalPoint) {
-            ps.position++;
-            position = ps.position;
-            result += this.parseDigits(ps, false);
-            if (!allowImplicitZero && ps.position === position) {
-                //fail because we don't allow "1.", "1.e+14", etc.
+        prevPos = ps.position;
+        if (allowFloatingPoint && nextChar === char_indicators_1.Codes.decimalPoint) {
+            if (!allowImplicitZero && !hasWhole) {
+                //fail because we don't allow ".1", and similar without allowImplicitZero.
                 return false;
             }
+            //skip to the char after the decimal point
+            ps.position++;
+            var prevFractionalPos = ps.position;
+            //parse the fractional part
+            Fractional = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.NegativeExponents);
+            hasFraction = prevFractionalPos !== ps.position;
+            if (!allowImplicitZero && !hasFraction) {
+                //we encountered something like 212. but allowImplicitZero is false.
+                //that means we need to backtrack to the . character and succeed in parsing the integer.
+                ps.value = Whole;
+                ps.position = prevPos;
+            }
+            //after parseDigits has been invoked, the ps.position is on the next character (which could be e).
             nextChar = input.charCodeAt(ps.position);
+            prevPos = ps.position;
         }
+        if (!hasWhole && !hasFraction) {
+        }
+        //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
+        //if we do allow floating point, then the previous block would've consumed some characters.
         if (allowExponent && (nextChar === char_indicators_1.Codes.e || nextChar === char_indicators_1.Codes.E)) {
             ps.position++;
-            var sign_1 = this.parseSign(ps);
-            if (sign_1 === 0) {
+            var expSign = parselets_1.Parselets.parseSign(ps);
+            if (expSign === 0) {
                 //fail because expected a + or -
                 return false;
             }
-            var position_1 = ps.position;
-            var exp = this.parseDigits(ps, true);
-            if (position_1 === ps.position) {
-                //fail because expected at least one digit after the sign for an exponent.
+            var prevFractionalPos = ps.position;
+            var exp = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
+            if (ps.position === prevFractionalPos) {
+                //we parsed e+ but we did not parse any digits.
                 return false;
             }
-            if (sign_1 < 0) {
-                result *= math_1.FastMath.NegativeExponents[exp];
+            if (expSign < 0) {
+                Exp = math_1.FastMath.NegativeExponents[base][exp];
             }
             else {
-                result *= math_1.FastMath.PositiveExponents[exp];
+                Exp = math_1.FastMath.PositiveExponents[base][exp];
             }
         }
     };

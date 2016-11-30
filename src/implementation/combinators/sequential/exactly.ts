@@ -15,13 +15,13 @@ export class PrsExactly extends JaseParserAction {
         let {inner, count, isLoud} = this;
         let arr = [];
         for (let i = 0; i < count; i++) {
-            if (!inner.apply(ps)) {
+            inner.apply(ps);
+            if (!ps.result.isOk) {
                 //fail because the inner parser has failed.
-                return false;
+                return;
             }
-            isLoud && arr.maybePush(ps.result);
+            arr.maybePush(ps.value);
         }
-        ps.result = isLoud ? arr : quietReturn;
-        return true;
+        ps.value = arr;
     }
 }

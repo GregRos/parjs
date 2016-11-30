@@ -8,18 +8,25 @@ export class PrsSeq extends JaseParserAction {
     constructor(private parsers : AnyParserAction[]) {
         super();
     }
-    _apply(ps : ParsingState) {
+    _apply(ps : ParsingState) : ResultKind {
         let {parsers} = this;
         let results = [];
         for (let i = 0; i < parsers.length; i++) {
             let cur = parsers[i];
-            if (cur.apply(ps)) {
-                results.maybePush(ps.result);
-            } else {
-                return false;
+            cur.apply(ps);
+            if (ps.result.isOk) {
+                results.maybePush(ps.value);
+            } else if (ps.result.isSoft && i === 0) {
+                return;
+            } else if (ps.result.isSoft) {
+                ps.result = ResultKind.HardFail;
+                return;
+            } else { //ps failed hard or fatally
+                return;
             }
         }
-        ps.result = results;
-        return true;
+        ps.value = results;
+        ps.result = ResultKind.OK;
+
     }
 }

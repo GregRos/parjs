@@ -11,20 +11,22 @@ var common_1 = require("../../common");
  */
 var PrsMust = (function (_super) {
     __extends(PrsMust, _super);
-    function PrsMust(inner, requirement) {
+    function PrsMust(inner, requirement, failType) {
         _super.call(this);
         this.inner = inner;
         this.requirement = requirement;
+        this.failType = failType;
         this.displayName = "must";
         this.isLoud = true;
         inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
     }
     PrsMust.prototype._apply = function (ps) {
-        var _a = this, inner = _a.inner, requirement = _a.requirement;
-        if (!inner.apply(ps)) {
-            return false;
+        var _a = this, inner = _a.inner, requirement = _a.requirement, failType = _a.failType;
+        inner.apply(ps);
+        if (!ps.result.isOk) {
+            return;
         }
-        return requirement(ps.result);
+        ps.result = requirement(ps.value) ? ResultKind.OK : failType;
     };
     return PrsMust;
 }(parser_action_1.JaseParserAction));

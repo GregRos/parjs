@@ -16,8 +16,8 @@ var PrsState = (function (_super) {
         this.isLoud = true;
     }
     PrsState.prototype._apply = function (ps) {
-        ps.result = ps.state;
-        return true;
+        ps.value = ps.state;
+        ps.result = parser_action_1.ResultKind.OK;
     };
     return PrsState;
 }(parser_action_1.JaseParserAction));
