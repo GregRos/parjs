@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by User on 22-Nov-16.
  */
@@ -28,6 +28,6 @@ var PrsStringLen = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsStringLen;
-}(parser_action_1.JaseBaseParserAction));
+}(action_1.ParjsBaseParserAction));
 exports.PrsStringLen = PrsStringLen;
 //# sourceMappingURL=string-len.js.map

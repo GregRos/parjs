@@ -1,16 +1,16 @@
-import {JaseParser} from "./combinators";
+import {ParjsParser} from "./combinators";
 import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from '../implementation/parsers';
-import {JaseParserAction} from "../base/parser-action";
+import {ParjsParserAction} from "../base/action";
 import {Chars} from "../functions/char-indicators";
 /**
  * Created by lifeg on 24/11/2016.
  */
 
-function wrap(action : JaseParserAction) {
-    return new JaseParser(action);
+function wrap(action : ParjsParserAction) {
+    return new ParjsParser(action);
 }
 
-export class JaseParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers {
+export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers {
     get anyChar() {
         return wrap(new PrsStringLen(1));
     }
@@ -117,4 +117,4 @@ export class JaseParsers implements CharParsers, StringParsers, PrimitiveParsers
 
 }
 
-export const Jase = new JaseParsers();
+export const Parjs = new ParjsParsers();

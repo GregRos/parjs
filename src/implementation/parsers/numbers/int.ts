@@ -1,4 +1,4 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 import {Chars, Codes} from "../../../functions/char-indicators";
 import {Parselets} from './parselets';
 import {FastMath} from "../../../functions/math";
@@ -11,7 +11,7 @@ import {FastMath} from "../../../functions/math";
     (-|+)\d+
  */
 
-export class PrsInt extends JaseParserAction {
+export class PrsInt extends ParjsParserAction {
     displayName = "int";
     isLoud = true;
     expecting : string;

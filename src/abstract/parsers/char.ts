@@ -22,7 +22,7 @@ interface CharParsers {
 
     /**
      * P parses a single character that matches the predicate.
-     * Equivalent to: Jase.anyChar.require(predicate)
+     * Equivalent to: Parjs.anyChar.require(predicate)
      * @param predicate The predicate the character must match.
      */
 

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -28,6 +28,6 @@ var PrsMustCapture = (function (_super) {
         ps.result = position !== ps.position ? ResultKind.OK : failType;
     };
     return PrsMustCapture;
-}(parser_action_1.JaseParserAction));
+}(action_1.ParjsParserAction));
 exports.PrsMustCapture = PrsMustCapture;
 //# sourceMappingURL=require-capture.js.map

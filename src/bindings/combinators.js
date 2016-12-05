@@ -8,45 +8,45 @@ var __extends = (this && this.__extends) || function (d, b) {
  * Created by User on 22-Nov-16.
  */
 var combinators_1 = require('../implementation/combinators');
-var jase_parser_1 = require("../base/jase-parser");
+var parser_1 = require("../base/parser");
 var _ = require('lodash');
 function wrap(action) {
-    return new JaseParser(action);
+    return new ParjsParser(action);
 }
-var JaseParser = (function (_super) {
-    __extends(JaseParser, _super);
-    function JaseParser() {
+var ParjsParser = (function (_super) {
+    __extends(ParjsParser, _super);
+    function ParjsParser() {
         _super.apply(this, arguments);
     }
-    Object.defineProperty(JaseParser.prototype, "backtrack", {
+    Object.defineProperty(ParjsParser.prototype, "backtrack", {
         get: function () {
             return wrap(new combinators_1.PrsBacktrack(this.action));
         },
         enumerable: true,
         configurable: true
     });
-    JaseParser.prototype.mustCapture = function (failType) {
+    ParjsParser.prototype.mustCapture = function (failType) {
         if (failType === void 0) { failType = ResultKind.HardFail; }
         return wrap(new combinators_1.PrsMustCapture(this.action, failType));
     };
-    JaseParser.prototype.or = function () {
+    ParjsParser.prototype.or = function () {
         var others = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             others[_i - 0] = arguments[_i];
         }
         return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
     };
-    JaseParser.prototype.map = function (f) {
+    ParjsParser.prototype.map = function (f) {
         return wrap(new combinators_1.MapParser(this.action, f));
     };
-    Object.defineProperty(JaseParser.prototype, "quiet", {
+    Object.defineProperty(ParjsParser.prototype, "quiet", {
         get: function () {
             return wrap(new combinators_1.PrsQuiet(this.action));
         },
         enumerable: true,
         configurable: true
     });
-    JaseParser.prototype.then = function (next) {
+    ParjsParser.prototype.then = function (next) {
         if (_.isFunction(next)) {
             return wrap(new combinators_1.PrsSeqFunc(this.action, [next]));
         }
@@ -61,68 +61,68 @@ var JaseParser = (function (_super) {
             return seqParse;
         }
     };
-    JaseParser.prototype.many = function (minSuccesses, maxIters) {
+    ParjsParser.prototype.many = function (minSuccesses, maxIters) {
         if (minSuccesses === void 0) { minSuccesses = 0; }
         if (maxIters === void 0) { maxIters = Infinity; }
         return wrap(new combinators_1.PrsMany(this.action, maxIters, minSuccesses));
     };
-    JaseParser.prototype.manyTill = function (till, tillOptional) {
+    ParjsParser.prototype.manyTill = function (till, tillOptional) {
         if (tillOptional === void 0) { tillOptional = false; }
         return wrap(new combinators_1.PrsManyTill(this.action, till.action, tillOptional));
     };
-    JaseParser.prototype.manySepBy = function (sep, maxIterations) {
+    ParjsParser.prototype.manySepBy = function (sep, maxIterations) {
         if (maxIterations === void 0) { maxIterations = Infinity; }
         return wrap(new combinators_1.PrsManySepBy(this.action, sep.action, maxIterations));
     };
-    JaseParser.prototype.exactly = function (count) {
+    ParjsParser.prototype.exactly = function (count) {
         return wrap(new combinators_1.PrsExactly(this.action, count));
     };
-    JaseParser.prototype.withState = function (reducer) {
+    ParjsParser.prototype.withState = function (reducer) {
         return wrap(new combinators_1.PrsWithState(this.action, reducer));
     };
-    JaseParser.prototype.result = function (r) {
+    ParjsParser.prototype.result = function (r) {
         return wrap(new combinators_1.PrsMapResult(this.action, r));
     };
-    Object.defineProperty(JaseParser.prototype, "not", {
+    Object.defineProperty(ParjsParser.prototype, "not", {
         get: function () {
             return wrap(new combinators_1.PrsNot(this.action));
         },
         enumerable: true,
         configurable: true
     });
-    JaseParser.prototype.orVal = function (x) {
+    ParjsParser.prototype.orVal = function (x) {
         return wrap(new combinators_1.PrsAltVal(this.action, x));
     };
-    JaseParser.prototype.cast = function () {
+    ParjsParser.prototype.cast = function () {
         return this;
     };
-    Object.defineProperty(JaseParser.prototype, "str", {
+    Object.defineProperty(ParjsParser.prototype, "str", {
         get: function () {
             return wrap(new combinators_1.PrsStr(this.action));
         },
         enumerable: true,
         configurable: true
     });
-    JaseParser.prototype.must = function (condition, name, fail) {
+    ParjsParser.prototype.must = function (condition, name, fail) {
         if (name === void 0) { name = "(unnamed condition)"; }
         if (fail === void 0) { fail = ResultKind.HardFail; }
         return wrap(new combinators_1.PrsMust(this.action, condition, fail, name));
     };
-    JaseParser.prototype.mustNotBeOf = function () {
+    ParjsParser.prototype.mustNotBeOf = function () {
         var options = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             options[_i - 0] = arguments[_i];
         }
         return this.must(function (x) { return !options.includes(x); }, "none of: " + options.join(", "));
     };
-    JaseParser.prototype.mustBeOf = function () {
+    ParjsParser.prototype.mustBeOf = function () {
         var options = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             options[_i - 0] = arguments[_i];
         }
         return this.must(function (x) { return options.includes(x); }, "one of: " + options.join(", "));
     };
-    Object.defineProperty(JaseParser.prototype, "mustBeNonEmpty", {
+    Object.defineProperty(ParjsParser.prototype, "mustBeNonEmpty", {
         get: function () {
             return this.must(function (x) {
                 if (x === undefined || x === null || x === "") {
@@ -141,14 +141,14 @@ var JaseParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    JaseParser.prototype.alts = function () {
+    ParjsParser.prototype.alts = function () {
         var others = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             others[_i - 0] = arguments[_i];
         }
         return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
     };
-    return JaseParser;
-}(jase_parser_1.JaseBaseParser));
-exports.JaseParser = JaseParser;
+    return ParjsParser;
+}(parser_1.ParjsBaseParser));
+exports.ParjsParser = ParjsParser;
 //# sourceMappingURL=combinators.js.map

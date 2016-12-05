@@ -1,9 +1,9 @@
-# Jase - Parser Combinator Library
-Jase is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
+# Parjs - Parser Combinator Library
+Preferred pronounciations: *Parse* or *Paris*. You can also pronounce it *par-JS* if you like though.
+
+Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
 
 It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it.
-
-Jase is a loose portmanteau of JavaScript and Parse.  It is designed to be used with TypeScript, but you don't have to do so.
 
 ## What's a parser combinator?
 A parser, in our context, is a function that takes a string and outputs something else:
@@ -27,14 +27,14 @@ So combinators take parsers and transform them in different ways, giving you oth
 
 From two simple parsers, we've built a slightly more complex parser. With more combinators, and more basic parsers to start with, you can imagine building parsers even for complex programming languages. You could even build a parser to JavaScript itself.
 
-## So what does Jase include?
-Jase includes two or three somewhat-separate components:
+## So what does Parjs include?
+Parjs includes two or three somewhat-separate components:
 
 1. Basic parsers for doing things like parsing specific character types, specific strings, and so on.
 2. Combinators that work on those parsers, allowing you to parse more and more complex stuff.
 3. A system for executing parsers on inputs.
 
-You could also divide Jase a bit differently, from a more internal perspective:
+You could also divide Parjs a bit differently, from a more internal perspective:
 
 1. An interface for parsers and combinators.
 2. An implementation for parsers and combinators.
@@ -50,19 +50,23 @@ They also allow you to easily separate and test different parts of the language 
 The main disadvantage is probably performance. Parser-combinator libraries necessistate a lot of overhead for creating separate parsers and linking them up together. Another arguable disadvantage is the inability to separate parsing from tokenization.
 
 ## Performance
-Jase is designed to perform well, but not to sacrifice performance for usability.
+Parjs is designed to perform very well, but doesn't sacrifice performance for usability. At present, it's designed to perform best for medium inputs.
 
-This says a lot when writing JavaScript, because it's hard to write optimized JS string processing code *without* sacrificing usability. So 
+It takes a number of steps to ensure high performance. If you want to contribute, you can use these as guidelines for additional parsers/combinators.
+
+1. Minimize all memory allocations on the heap. In most parser bodies, no new objects are created.
+2. Do as much work as possible during parser *construction* to make the execution extremely efficient.
+3. Use `charCodeAt` internally, instead of `charAt`. Using `charAt` requires creating a new string object.
 
 ## Loud Parsers and Quiet Parsers
-Jase has two essential kinds of parsers: loud parsers and quiet parsers.
+Parjs has two essential kinds of parsers: loud parsers and quiet parsers.
 
 A loud parser returns a value when it's finished parsing, while a quiet one does not return a value. This is an important distinction.
 
 Say we want to parse a string between double quotes: `"hello"`. One way to do this would be:
 
-	let pQuote = Jase.string('"');
-	pQuote.then(Jase.anyChar.manyTill(pQuote))
+	let pQuote = Parjs.string('"');
+	pQuote.then(Parjs.anyChar.manyTill(pQuote))
 
 The final parser would, however, return an array like this: `['"', 'hello']`, even though the initial `"` isn't something we care about. This is one reason to use quiet parsers. In TypeScript, quiet parsers are represented using the interface `QuietParser` and also hold `parser.isLoud === false`. If forced to return a value, they return a special `noResult` token, rather than `null` or `undefined` (which might be returned by the user intentionally).
 
@@ -70,19 +74,18 @@ Some parsers are quiet by default. For example, the `not` combinator returns a p
 
 You can make a parser shut up using the `.quiet` combinator:
 
-	let pQuote = Jase.string('"').quiet;
-	pQuote.then(Jase.anyChar.manyTill(pQuote));
+	let pQuote = Parjs.string('"').quiet;
+	pQuote.then(Parjs.anyChar.manyTill(pQuote));
 
 The resulting parser will intelligently return only `'hello'`.
 
-Another way to handle quiet parsers is used in the `Jase.seq` static combinator. This combinator lets you chian any number of parsers in sequence and returns an array of the parsed results:
+Another way to handle quiet parsers is used in the `Parjs.seq` static combinator. This combinator lets you chian any number of parsers in sequence and returns an array of the parsed results:
 
-	let example = Jase.seq(Jase.digit, Jase.string(",").quiet, Jase.digit);
+	let example = Parjs.seq(Parjs.digit, Parjs.string(",").quiet, Parjs.digit);
 
 This combinator never returns a quiet parser, but the returns of quiet parsers will be ignored in the resulting array, giving us `['3', '4']` for the input `'3,4'`.
 
-## Jase internals
-A jase parser object is composed of a `JaseParser` wrapper and a `JaseParserAction` object that defines the actual parsing operation, as well as whether the operation is loud or quiet.
+## Parjs internals
+A parjs parser object is composed of a `ParjsParser` wrapper and a `ParjsParserAction` object that defines the actual parsing operation, as well as whether the operation is loud or quiet.
 
-Instance-level combinators for both `LoudParser<T>` and `QuietParser` and defined on `JaseParser`, while `JaseParserAction` only provides a low-level method for doing the actual parsing.
-
+Instance-level combinators for both `LoudParser<T>` and `QuietParser` and defined on `ParjsParser`, while `ParjsParserAction` only provides a low-level method for doing the actual parsing.

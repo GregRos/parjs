@@ -1,8 +1,8 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsMustCapture extends JaseParserAction {
+export class PrsMustCapture extends ParjsParserAction {
     displayName = "mustCapture";
     isLoud : boolean;
     expecting : string;

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by User on 22-Nov-16.
  */
@@ -35,6 +35,6 @@ var PrsNot = (function (_super) {
         //the remaining case is a fatal failure that isn't recovered from.
     };
     return PrsNot;
-}(parser_action_1.JaseParserAction));
+}(action_1.ParjsParserAction));
 exports.PrsNot = PrsNot;
 //# sourceMappingURL=not.js.map

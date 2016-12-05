@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -24,6 +24,6 @@ var PrsRest = (function (_super) {
         pr.result = ResultKind.OK;
     };
     return PrsRest;
-}(parser_action_1.JaseBaseParserAction));
+}(action_1.ParjsBaseParserAction));
 exports.PrsRest = PrsRest;
 //# sourceMappingURL=rest.js.map

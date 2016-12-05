@@ -1,8 +1,8 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsBacktrack extends JaseParserAction {
+export class PrsBacktrack extends ParjsParserAction {
     displayName = "backtrack";
     isLoud : boolean;
     expecting : string;

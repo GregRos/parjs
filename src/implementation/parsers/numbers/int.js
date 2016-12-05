@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 var parselets_1 = require('./parselets');
 var math_1 = require("../../../functions/math");
 /**
@@ -39,6 +39,6 @@ var PrsInt = (function (_super) {
         return;
     };
     return PrsInt;
-}(parser_action_1.JaseParserAction));
+}(action_1.ParjsParserAction));
 exports.PrsInt = PrsInt;
 //# sourceMappingURL=int.js.map

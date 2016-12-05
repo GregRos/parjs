@@ -28,7 +28,7 @@ interface StringParsers {
 
     /**
      * P tries to parse the strings in {strings}, and returns the first one that succeeds.. Equivalent to:
-     * Jase.any(strings.map(Jase.string));
+     * Parjs.any(strings.map(Parjs.string));
      * @param strings The strings.
      */
     anyStringOf(...strings : string[]) : LoudParser<string>;
@@ -36,7 +36,7 @@ interface StringParsers {
     /**
      * P parses exactly {length} characters and returns the string that was parsed.
      * Fails if end of input is reached before {length} characters are parsed.
-     * Equivalent to: Jase.anyChar.exactly(length).str
+     * Equivalent to: Parjs.anyChar.exactly(length).str
      * @param length The number of characters to parse.
      */
     stringLen(length : number) : LoudParser<string>;

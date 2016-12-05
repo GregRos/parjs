@@ -1,8 +1,8 @@
-import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction, ParjsBaseParserAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsCharWhere extends JaseBaseParserAction {
+export class PrsCharWhere extends ParjsBaseParserAction {
     displayName ="charWhere";
     isLoud = true;
     expecting : string;

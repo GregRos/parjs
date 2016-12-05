@@ -1,9 +1,9 @@
 import {quietReturn} from "../../common";
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsStr extends JaseParserAction {
+export class PrsStr extends ParjsParserAction {
     displayName = "str";
     isLoud = true;
     expecting : string;

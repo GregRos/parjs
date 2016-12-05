@@ -1,4 +1,4 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 /**
  * Created by User on 28-Nov-16.
  */
@@ -25,7 +25,7 @@ const defaultFloatOptions : FloatOptions = {
     allowFloatingPoint : true
 };
 
-export class PrsFloat extends JaseParserAction {
+export class PrsFloat extends ParjsParserAction {
     private options : FloatOptions & {decimalSeparator : number, exponentIndicators : number[]};
     expecting = "a floating-point number";
     displayName = "float";
@@ -37,7 +37,7 @@ export class PrsFloat extends JaseParserAction {
 
     _apply(ps : ParsingState) {
         /*
-            This work is really better done using Jase itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
+            This work is really better done using Parjs itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
 
             We want a configurable number parser that can parse floating point numbers in any base, with or without a sign, and with or without
             an exponent...

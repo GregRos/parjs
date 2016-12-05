@@ -1,10 +1,10 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 import {Codes, Chars} from "../../../functions/char-indicators";
 /**
  * Created by User on 24-Nov-16.
  */
 
-export class PrsNewline extends JaseParserAction {
+export class PrsNewline extends ParjsParserAction {
     displayName = "newline";
     isLoud = true;
     expecting : string;

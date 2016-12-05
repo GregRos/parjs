@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 var AnyStringOf = (function (_super) {
     __extends(AnyStringOf, _super);
     function AnyStringOf(strs) {
@@ -35,6 +35,6 @@ var AnyStringOf = (function (_super) {
         ps.result = ResultKind.SoftFail;
     };
     return AnyStringOf;
-}(parser_action_1.JaseBaseParserAction));
+}(action_1.ParjsBaseParserAction));
 exports.AnyStringOf = AnyStringOf;
 //# sourceMappingURL=any-string-of.js.map

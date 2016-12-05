@@ -1,9 +1,9 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 import {Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsSeqFunc extends JaseParserAction {
+export class PrsSeqFunc extends ParjsParserAction {
     isLoud = true;
     displayName = "seqFunc";
     expecting : string;

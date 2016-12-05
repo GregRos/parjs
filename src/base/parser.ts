@@ -1,13 +1,13 @@
 import {quietReturn, failReturn} from "../implementation/common";
-import {JaseParserAction, BasicParsingState} from "./parser-action";
+import {ParjsParserAction, BasicParsingState} from "./action";
 /**
  * Created by User on 22-Nov-16.
  */
 
 
 
-export class JaseBaseParser {
-    constructor(public action : JaseParserAction) {}
+export class ParjsBaseParser {
+    constructor(public action : ParjsParserAction) {}
 
     parse(input : string) : any {
         let {action, isLoud} = this;

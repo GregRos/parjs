@@ -1,9 +1,9 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 import {quietReturn, Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsManySepBy extends JaseParserAction {
+export class PrsManySepBy extends ParjsParserAction {
     isLoud : boolean;
     displayName="manySepBy";
     expecting : string;

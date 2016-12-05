@@ -4,16 +4,16 @@
 import {
     PrsSeq
     , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsWithState, PrsAltVal} from '../implementation/combinators';
-import {JaseBaseParser} from "../base/jase-parser";
+import {ParjsBaseParser} from "../base/parser";
 import _ = require('lodash');
-import {JaseParserAction} from "../base/parser-action";
+import {ParjsParserAction} from "../base/action";
 import Result = jasmine.Result;
 
-function wrap(action : JaseParserAction) {
-    return new JaseParser(action);
+function wrap(action : ParjsParserAction) {
+    return new ParjsParser(action);
 }
 
-export class JaseParser extends JaseBaseParser implements LoudParser<any>, QuietParser{
+export class ParjsParser extends ParjsBaseParser implements LoudParser<any>, QuietParser{
     get backtrack() {
         return wrap(new PrsBacktrack(this.action))
     }

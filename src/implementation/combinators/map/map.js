@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
 /**
  * Created by User on 21-Nov-16.
@@ -29,6 +29,6 @@ var MapParser = (function (_super) {
         ps.value = map(ps.value);
     };
     return MapParser;
-}(parser_action_1.JaseParserAction));
+}(action_1.ParjsParserAction));
 exports.MapParser = MapParser;
 //# sourceMappingURL=map.js.map

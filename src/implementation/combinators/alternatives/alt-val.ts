@@ -1,10 +1,10 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 import {Issues, failReturn} from "../../common";
 /**
  * Created by lifeg on 23/11/2016.
  */
 
-export class PrsAltVal extends JaseParserAction {
+export class PrsAltVal extends ParjsParserAction {
     displayName = "altVal";
     isLoud = true;
     expecting : string;

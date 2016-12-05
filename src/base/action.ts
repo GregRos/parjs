@@ -43,7 +43,7 @@ export class BasicParsingState implements ParsingState {
 /**
  * Created by lifeg on 23/11/2016.
  */
-export abstract class JaseParserAction {
+export abstract class ParjsParserAction {
     protected abstract _apply(ps : ParsingState) : void | number;
     abstract expecting : string;
     abstract displayName : string;
@@ -62,6 +62,6 @@ export abstract class JaseParserAction {
     abstract isLoud : boolean;
 }
 
-export abstract class JaseBaseParserAction extends JaseParserAction {
+export abstract class ParjsBaseParserAction extends ParjsParserAction {
     isLoud = true;
 }

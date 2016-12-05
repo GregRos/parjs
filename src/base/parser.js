@@ -1,15 +1,15 @@
 "use strict";
-var parser_action_1 = require("./parser-action");
+var action_1 = require("./action");
 /**
  * Created by User on 22-Nov-16.
  */
-var JaseBaseParser = (function () {
-    function JaseBaseParser(action) {
+var ParjsBaseParser = (function () {
+    function ParjsBaseParser(action) {
         this.action = action;
     }
-    JaseBaseParser.prototype.parse = function (input) {
+    ParjsBaseParser.prototype.parse = function (input) {
         var _a = this, action = _a.action, isLoud = _a.isLoud;
-        var ps = new parser_action_1.BasicParsingState(input);
+        var ps = new action_1.BasicParsingState(input);
         if (action.apply(ps) && ps.position === input.length) {
             if (isLoud) {
                 return {
@@ -29,14 +29,14 @@ var JaseBaseParser = (function () {
             return undefined;
         }
     };
-    Object.defineProperty(JaseBaseParser.prototype, "isLoud", {
+    Object.defineProperty(ParjsBaseParser.prototype, "isLoud", {
         get: function () {
             return this.action.isLoud;
         },
         enumerable: true,
         configurable: true
     });
-    return JaseBaseParser;
+    return ParjsBaseParser;
 }());
-exports.JaseBaseParser = JaseBaseParser;
-//# sourceMappingURL=jase-parser.js.map
+exports.ParjsBaseParser = ParjsBaseParser;
+//# sourceMappingURL=parser.js.map

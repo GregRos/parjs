@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -25,6 +25,6 @@ var PrsEof = (function (_super) {
         }
     };
     return PrsEof;
-}(parser_action_1.JaseBaseParserAction));
+}(action_1.ParjsBaseParserAction));
 exports.PrsEof = PrsEof;
 //# sourceMappingURL=eof.js.map

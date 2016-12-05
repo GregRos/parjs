@@ -60,10 +60,10 @@ exports.BasicParsingState = BasicParsingState;
 /**
  * Created by lifeg on 23/11/2016.
  */
-var JaseParserAction = (function () {
-    function JaseParserAction() {
+var ParjsParserAction = (function () {
+    function ParjsParserAction() {
     }
-    JaseParserAction.prototype.apply = function (ps) {
+    ParjsParserAction.prototype.apply = function (ps) {
         var position = ps.position, state = ps.state;
         ps.result = ResultKind.Uninitialized;
         this._apply(ps);
@@ -75,16 +75,16 @@ var JaseParserAction = (function () {
             ps.value = common_1.quietReturn;
         }
     };
-    return JaseParserAction;
+    return ParjsParserAction;
 }());
-exports.JaseParserAction = JaseParserAction;
-var JaseBaseParserAction = (function (_super) {
-    __extends(JaseBaseParserAction, _super);
-    function JaseBaseParserAction() {
+exports.ParjsParserAction = ParjsParserAction;
+var ParjsBaseParserAction = (function (_super) {
+    __extends(ParjsBaseParserAction, _super);
+    function ParjsBaseParserAction() {
         _super.apply(this, arguments);
         this.isLoud = true;
     }
-    return JaseBaseParserAction;
-}(JaseParserAction));
-exports.JaseBaseParserAction = JaseBaseParserAction;
-//# sourceMappingURL=parser-action.js.map
+    return ParjsBaseParserAction;
+}(ParjsParserAction));
+exports.ParjsBaseParserAction = ParjsBaseParserAction;
+//# sourceMappingURL=action.js.map

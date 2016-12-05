@@ -3,10 +3,10 @@
  * Created by User on 27-Nov-16.
  */
 var parsers_1 = require('./bindings/parsers');
-exports.Jase = parsers_1.Jase;
-exports.JaseParsers = parsers_1.JaseParsers;
-var parser_action_1 = require('./base/parser-action');
-exports.JaseParserAction = parser_action_1.JaseParserAction;
+exports.Parjs = parsers_1.Parjs;
+exports.ParjsParsers = parsers_1.ParjsParsers;
+var action_1 = require('./base/action');
+exports.ParjsParserAction = action_1.ParjsParserAction;
 var combinators_1 = require('./bindings/combinators');
-exports.JaseParser = combinators_1.JaseParser;
+exports.ParjsParser = combinators_1.ParjsParser;
 //# sourceMappingURL=index.js.map

@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -27,6 +27,6 @@ var PrsMapResult = (function (_super) {
         ps.value = result;
     };
     return PrsMapResult;
-}(parser_action_1.JaseParserAction));
+}(action_1.ParjsParserAction));
 exports.PrsMapResult = PrsMapResult;
 //# sourceMappingURL=map-result.js.map

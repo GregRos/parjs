@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var parser_action_1 = require("../../../base/parser-action");
+var action_1 = require("../../../base/action");
 /**
  * Created by User on 28-Nov-16.
  */
@@ -30,7 +30,7 @@ var PrsFloat = (function (_super) {
     }
     PrsFloat.prototype._apply = function (ps) {
         /*
-            This work is really better done using Jase itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
+            This work is really better done using Parjs itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
 
             We want a configurable number parser that can parse floating point numbers in any base, with or without a sign, and with or without
             an exponent...
@@ -149,6 +149,6 @@ var PrsFloat = (function (_super) {
         ps.value = Sign * (Whole + Fractional) * Exp;
     };
     return PrsFloat;
-}(parser_action_1.JaseParserAction));
+}(action_1.ParjsParserAction));
 exports.PrsFloat = PrsFloat;
 //# sourceMappingURL=float.js.map

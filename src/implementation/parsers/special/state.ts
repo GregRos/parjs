@@ -1,9 +1,9 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {ParjsParserAction} from "../../../base/action";
 /**
  * Created by User on 27-Nov-16.
  */
 
-export class PrsState extends JaseParserAction {
+export class PrsState extends ParjsParserAction {
     displayName = "state";
     isLoud = true;
     expecting = "anything";

@@ -1,9 +1,9 @@
-import {JaseParserAction, ResultsClass} from "../../../base/parser-action";
+import {ParjsParserAction, ResultsClass} from "../../../base/action";
 import {Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsMust extends JaseParserAction {
+export class PrsMust extends ParjsParserAction {
     displayName = "must";
     isLoud = true;
     expecting : string;
