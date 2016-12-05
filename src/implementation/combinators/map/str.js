@@ -16,11 +16,12 @@ var PrsStr = (function (_super) {
         this.inner = inner;
         this.displayName = "str";
         this.isLoud = true;
+        this.expecting = inner.expecting;
     }
     PrsStr.prototype._apply = function (ps) {
         var inner = this.inner;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         var value = ps.value;

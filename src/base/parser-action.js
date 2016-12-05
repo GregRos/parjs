@@ -11,34 +11,6 @@ var BasicParsingResult = (function () {
         this.kind = kind;
         this.value = value;
     }
-    Object.defineProperty(BasicParsingResult.prototype, "isOk", {
-        get: function () {
-            return this.kind === ResultKind.OK;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BasicParsingResult.prototype, "isSoft", {
-        get: function () {
-            return this.kind === ResultKind.SoftFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BasicParsingResult.prototype, "isHard", {
-        get: function () {
-            return this.kind === ResultKind.HardFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BasicParsingResult.prototype, "isFatal", {
-        get: function () {
-            return this.kind === ResultKind.FatalFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
     return BasicParsingResult;
 }());
 var ResultsClass = (function () {
@@ -53,8 +25,35 @@ var BasicParsingState = (function () {
         this.position = 0;
         this.state = undefined;
         this.value = undefined;
-        this.result = undefined;
     }
+    Object.defineProperty(BasicParsingState.prototype, "isOk", {
+        get: function () {
+            return this.result === ResultKind.OK;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BasicParsingState.prototype, "isSoft", {
+        get: function () {
+            return this.result === ResultKind.SoftFail;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BasicParsingState.prototype, "isHard", {
+        get: function () {
+            return this.result === ResultKind.HardFail;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(BasicParsingState.prototype, "isFatal", {
+        get: function () {
+            return this.result === ResultKind.FatalFail;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return BasicParsingState;
 }());
 exports.BasicParsingState = BasicParsingState;
@@ -66,9 +65,14 @@ var JaseParserAction = (function () {
     }
     JaseParserAction.prototype.apply = function (ps) {
         var position = ps.position, state = ps.state;
+        ps.result = ResultKind.Uninitialized;
         this._apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             ps.value = common_1.failReturn;
+            ps.expecting = ps.expecting || this.expecting;
+        }
+        else if (!this.isLoud) {
+            ps.value = common_1.quietReturn;
         }
     };
     return JaseParserAction;

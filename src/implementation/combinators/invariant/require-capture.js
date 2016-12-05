@@ -16,12 +16,13 @@ var PrsMustCapture = (function (_super) {
         this.failType = failType;
         this.displayName = "mustCapture";
         this.isLoud = inner.isLoud;
+        this.expecting = "internal parser " + inner.displayName + " to consume input";
     }
     PrsMustCapture.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, failType = _a.failType;
         var position = ps.position;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.result = position !== ps.position ? ResultKind.OK : failType;

@@ -18,6 +18,7 @@ var PrsMany = (function (_super) {
         this.minSuccesses = minSuccesses;
         this.displayName = "many";
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
     PrsMany.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, maxIterations = _a.maxIterations, minSuccesses = _a.minSuccesses;
@@ -26,7 +27,7 @@ var PrsMany = (function (_super) {
         var i = 0;
         while (true) {
             inner.apply(ps);
-            if (!ps.result.isOk)
+            if (!ps.isOk)
                 break;
             if (i >= maxIterations)
                 break;

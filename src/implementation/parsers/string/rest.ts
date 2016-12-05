@@ -6,6 +6,7 @@ import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-actio
 export class PrsRest extends JaseBaseParserAction {
     displayName = "rest";
     isLoud = true;
+    expecting = "zero or more characters";
     _apply(pr : ParsingState) {
         let {position, input} = pr;
         let text = input.substr(Math.min(position, input.length));

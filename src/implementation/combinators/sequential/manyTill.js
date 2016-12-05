@@ -18,6 +18,7 @@ var PrsManyTill = (function (_super) {
         this.tillOptional = tillOptional;
         this.displayName = "manyTill";
         this.isLoud = many.isLoud;
+        this.expecting = many.expecting + " or " + till.expecting;
     }
     PrsManyTill.prototype._apply = function (ps) {
         var _a = this, many = _a.many, till = _a.till, tillOptional = _a.tillOptional;
@@ -26,7 +27,7 @@ var PrsManyTill = (function (_super) {
         var successes = 0;
         while (true) {
             till.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 break;
             }
             else if (ps.result >= ResultKind.HardFail) {
@@ -36,10 +37,10 @@ var PrsManyTill = (function (_super) {
             //backtrack to before till failed.
             ps.position = position;
             many.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 arr.maybePush(ps.value);
             }
-            else if (ps.result.isSoft) {
+            else if (ps.isSoft) {
                 //many failed softly before till...
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.

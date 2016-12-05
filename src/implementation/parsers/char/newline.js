@@ -16,12 +16,15 @@ var PrsNewline = (function (_super) {
         this.matchUnicode = matchUnicode;
         this.displayName = "newline";
         this.isLoud = true;
+        this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
     }
     PrsNewline.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;
         var matchUnicode = this.matchUnicode;
-        if (position >= input.length)
-            return false;
+        if (position >= input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         var charAt = input.charCodeAt(position);
         if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;

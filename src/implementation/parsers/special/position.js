@@ -14,10 +14,11 @@ var PrsPosition = (function (_super) {
         _super.apply(this, arguments);
         this.displayName = "position";
         this.isLoud = true;
+        this.expecting = "anything";
     }
     PrsPosition.prototype._apply = function (ps) {
         ps.value = ps.position;
-        ps.result = parser_action_1.ResultKind.OK;
+        ps.result = ResultKind.OK;
     };
     return PrsPosition;
 }(parser_action_1.JaseParserAction));

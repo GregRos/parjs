@@ -14,9 +14,10 @@ var PrsRegexp = (function (_super) {
         _super.call(this);
         this.regexp = regexp;
         this.displayName = "regexp";
-        var flags = regexp.flags.replace(/(g|y)/i, "");
+        var flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(function (x) { return x; }).join("");
         var normalizedRegexp = new RegExp(regexp.source, flags);
         regexp = normalizedRegexp;
+        this.expecting = "input matching '" + regexp.source + "'";
     }
     PrsRegexp.prototype._apply = function (ps) {
         var input = ps.input, position = ps.position;

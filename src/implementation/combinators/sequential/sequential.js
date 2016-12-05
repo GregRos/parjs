@@ -15,6 +15,12 @@ var PrsSeq = (function (_super) {
         this.parsers = parsers;
         this.isLoud = true;
         this.displayName = "seq";
+        if (parsers.length === 0) {
+            this.expecting = "anything";
+        }
+        else {
+            this.expecting = parsers[0].expecting;
+        }
     }
     PrsSeq.prototype._apply = function (ps) {
         var parsers = this.parsers;
@@ -22,13 +28,13 @@ var PrsSeq = (function (_super) {
         for (var i = 0; i < parsers.length; i++) {
             var cur = parsers[i];
             cur.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 results.maybePush(ps.value);
             }
-            else if (ps.result.isSoft && i === 0) {
+            else if (ps.isSoft && i === 0) {
                 return;
             }
-            else if (ps.result.isSoft) {
+            else if (ps.isSoft) {
                 ps.result = ResultKind.HardFail;
                 return;
             }

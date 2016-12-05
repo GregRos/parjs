@@ -25,6 +25,7 @@ var PrsInt = (function (_super) {
         if (base > 36) {
             throw new Error("invalid base");
         }
+        this.expecting = "a " + (signed ? "signed" : "unsigned") + " integer in base " + base;
     }
     PrsInt.prototype._apply = function (ps) {
         var _a = this, signed = _a.signed, base = _a.base;
@@ -34,7 +35,8 @@ var PrsInt = (function (_super) {
         var value = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
         ps.position = position;
         ps.value = value;
-        return true;
+        ps.result = ResultKind.OK;
+        return;
     };
     return PrsInt;
 }(parser_action_1.JaseParserAction));

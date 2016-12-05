@@ -27,6 +27,9 @@ const defaultFloatOptions : FloatOptions = {
 
 export class PrsFloat extends JaseParserAction {
     private options : FloatOptions & {decimalSeparator : number, exponentIndicators : number[]};
+    expecting = "a floating-point number";
+    displayName = "float";
+    isLoud = true;
     constructor(options : FloatOptions) {
         super();
         _.defaults(options, defaultFloatOptions);
@@ -71,7 +74,10 @@ export class PrsFloat extends JaseParserAction {
          */
         let {options : {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent, base}} = this;
         let {position, input} = ps;
-        if (position > input.length) return false;
+        if (position > input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        };
         let Sign = 1;
         let hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
@@ -92,11 +98,13 @@ export class PrsFloat extends JaseParserAction {
         //now if allowFloatingPoint, we try to parse a decimal point.
         let nextChar = input.charCodeAt(ps.position);
         prevPos = ps.position;
+        if (!allowImplicitZero && !hasWhole) {
+            //fail because we don't allow ".1", and similar without allowImplicitZero.
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         if (allowFloatingPoint && nextChar === Codes.decimalPoint) {
-            if (!allowImplicitZero && !hasWhole) {
-                //fail because we don't allow ".1", and similar without allowImplicitZero.
-                return false;
-            }
+
             //skip to the char after the decimal point
             ps.position++;
             let prevFractionalPos = ps.position;
@@ -106,8 +114,10 @@ export class PrsFloat extends JaseParserAction {
             if (!allowImplicitZero && !hasFraction) {
                 //we encountered something like 212. but allowImplicitZero is false.
                 //that means we need to backtrack to the . character and succeed in parsing the integer.
+                //the remainder is not a valid number.
                 ps.value = Whole;
                 ps.position = prevPos;
+                return;
             }
 
             //after parseDigits has been invoked, the ps.position is on the next character (which could be e).
@@ -116,7 +126,9 @@ export class PrsFloat extends JaseParserAction {
         }
 
         if (!hasWhole && !hasFraction) {
-
+            //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
+            ps.result = ResultKind.SoftFail;
+            return;
         }
         //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
         //if we do allow floating point, then the previous block would've consumed some characters.
@@ -124,14 +136,15 @@ export class PrsFloat extends JaseParserAction {
             ps.position++;
             let expSign = Parselets.parseSign(ps);
             if (expSign === 0) {
-                //fail because expected a + or -
-                return false;
+                ps.result = ResultKind.HardFail;
+                return;
             }
             let prevFractionalPos = ps.position;
             let exp = Parselets.parseDigits(ps, base, FastMath.PositiveExponents);
             if (ps.position === prevFractionalPos) {
                 //we parsed e+ but we did not parse any digits.
-                return false;
+                ps.result = ResultKind.HardFail;
+                return;
             }
             if (expSign < 0) {
                 Exp =  FastMath.NegativeExponents[base][exp];
@@ -139,5 +152,8 @@ export class PrsFloat extends JaseParserAction {
                 Exp =  FastMath.PositiveExponents[base][exp];
             }
         }
+
+        ps.result = ResultKind.OK;
+        ps.value = Sign * (Whole + Fractional) * Exp;
     }
 }

@@ -6,9 +6,11 @@ import {quietReturn, Issues} from "../../common";
 export class PrsMany extends JaseParserAction {
     isLoud : boolean;
     displayName = "many";
+    expecting : string;
     constructor(private inner : AnyParserAction, private maxIterations : number, private minSuccesses : number) {
         super();
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
 
     _apply(ps : ParsingState) {
@@ -18,7 +20,7 @@ export class PrsMany extends JaseParserAction {
         let i = 0;
         while (true) {
             inner.apply(ps);
-            if (!ps.result.isOk) break;
+            if (!ps.isOk) break;
             if (i >= maxIterations) break;
             if (maxIterations < Infinity && ps.position === position) {
                 Issues.guardAgainstInfiniteLoop(this);

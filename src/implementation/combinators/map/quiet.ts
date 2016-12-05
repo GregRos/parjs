@@ -6,7 +6,11 @@ import {JaseParserAction} from "../../../base/parser-action";
 export class PrsQuiet extends JaseParserAction {
     displayName = "quiet";
     isLoud = false;
-    constructor(private inner : AnyParserAction) {super()}
+    expecting : string;
+    constructor(private inner : AnyParserAction) {
+        super();
+        this.expecting = inner.expecting;
+    }
 
     _apply(ps : ParsingState) {
         let {inner} = this;

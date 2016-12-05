@@ -15,13 +15,14 @@ var PrsNot = (function (_super) {
         this.inner = inner;
         this.displayName = "not";
         this.isLoud = false;
+        this.expecting = "not: " + inner.expecting;
     }
     ;
     PrsNot.prototype._apply = function (ps) {
         var inner = this.inner;
         var position = ps.position;
         inner.apply(ps);
-        if (ps.result.isOk) {
+        if (ps.isOk) {
             ps.position = position;
             ps.result = ResultKind.SoftFail;
         }

@@ -38,7 +38,7 @@ interface QuietParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    readonly mustCapture : QuietParser;
+    mustCapture(kind ?: ResultKind) : QuietParser;
 }
 
 /**

@@ -6,15 +6,17 @@ import {quietReturn, Issues} from "../../common";
 export class MapParser extends JaseParserAction {
     displayName = "map";
     isLoud = true;
+    expecting : string;
     constructor(private inner : JaseParserAction, private map : (x : any) => any) {
         super();
         Issues.quietParserNotPermitted(this);
+        this.expecting = inner.expecting;
     }
 
     _apply(ps : ParsingState) {
         let {inner, map} = this;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.value = map(ps.value);

@@ -14,10 +14,11 @@ var PrsState = (function (_super) {
         _super.apply(this, arguments);
         this.displayName = "state";
         this.isLoud = true;
+        this.expecting = "anything";
     }
     PrsState.prototype._apply = function (ps) {
         ps.value = ps.state;
-        ps.result = parser_action_1.ResultKind.OK;
+        ps.result = ResultKind.OK;
     };
     return PrsState;
 }(parser_action_1.JaseParserAction));

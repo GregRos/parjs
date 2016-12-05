@@ -16,11 +16,12 @@ var PrsMapResult = (function (_super) {
         this.result = result;
         this.displayName = "result";
         this.isLoud = true;
+        this.expecting = inner.expecting;
     }
     PrsMapResult.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, result = _a.result;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.value = result;

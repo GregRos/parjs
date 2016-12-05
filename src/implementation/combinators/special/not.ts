@@ -6,13 +6,17 @@ import {quietReturn} from "../../common";
 export class PrsNot extends JaseParserAction {
     displayName = "not";
     isLoud = false;
-    constructor(private inner : AnyParserAction) {super()};
+    expecting : string;
+    constructor(private inner : AnyParserAction) {
+        super();
+        this.expecting = `not: ${inner.expecting}`;
+    };
 
     _apply(ps : ParsingState) {
         let {inner} = this;
         let {position} = ps;
-        inner.apply(ps)
-        if (ps.result.isOk) {
+        inner.apply(ps);
+        if (ps.isOk) {
             ps.position = position;
             ps.result = ResultKind.SoftFail;
         }

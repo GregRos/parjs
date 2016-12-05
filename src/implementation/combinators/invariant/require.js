@@ -11,19 +11,21 @@ var common_1 = require("../../common");
  */
 var PrsMust = (function (_super) {
     __extends(PrsMust, _super);
-    function PrsMust(inner, requirement, failType) {
+    function PrsMust(inner, requirement, failType, qualityName) {
         _super.call(this);
         this.inner = inner;
         this.requirement = requirement;
         this.failType = failType;
+        this.qualityName = qualityName;
         this.displayName = "must";
         this.isLoud = true;
         inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
+        this.expecting = "intenral parser " + inner.displayName + " yielding a result satisfying " + qualityName;
     }
     PrsMust.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, requirement = _a.requirement, failType = _a.failType;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.result = requirement(ps.value) ? ResultKind.OK : failType;

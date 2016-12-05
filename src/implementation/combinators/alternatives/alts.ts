@@ -6,6 +6,7 @@ import {Issues} from "../../common";
 export class PrsAlts extends JaseParserAction {
     isLoud : boolean;
     displayName = "alts";
+    expecting : string;
     constructor(private alts : AnyParserAction[]) {
         super();
         if (alts.length === 0) {
@@ -16,6 +17,7 @@ export class PrsAlts extends JaseParserAction {
             }
         }
         this.isLoud = alts.length === 0 ? false : alts.every(x => x.isLoud === alts[0].isLoud);
+        this.expecting = `any of: ${alts.join(", ")}`;
     }
 
     _apply(ps : ParsingState) {
@@ -26,10 +28,10 @@ export class PrsAlts extends JaseParserAction {
             let cur = alts[i];
             //apply it on the current state.
             cur.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 //if success, return. The PS records the result.
                 return;
-            } else if (ps.result.isSoft) {
+            } else if (ps.isSoft) {
                 //backtrack to the original position and try again.
                 ps.position = position;
             } else {

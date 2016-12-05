@@ -1,4 +1,4 @@
-import {JaseParserAction} from "../../../base/parser-action";
+import {JaseParserAction, ResultsClass} from "../../../base/parser-action";
 import {Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
@@ -6,15 +6,22 @@ import {Issues} from "../../common";
 export class PrsMust extends JaseParserAction {
     displayName = "must";
     isLoud = true;
-    constructor(private inner : AnyParserAction, private requirement : (result : any) => boolean, private failType : ResultKind) {
+    expecting : string;
+    constructor(
+        private inner : AnyParserAction,
+        private requirement : (result : any) => boolean,
+        private failType,
+        private qualityName
+    ) {
         super();
         inner.isLoud || Issues.quietParserNotPermitted(this);
+        this.expecting = `intenral parser ${inner.displayName} yielding a result satisfying ${qualityName}`;
     }
 
     _apply(ps : ParsingState) {
         let {inner, requirement, failType} = this;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.result = requirement(ps.value) ? ResultKind.OK : failType;

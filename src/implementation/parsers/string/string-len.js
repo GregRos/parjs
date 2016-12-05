@@ -14,6 +14,7 @@ var PrsStringLen = (function (_super) {
         _super.call(this);
         this.length = length;
         this.displayName = "stringLen";
+        this.expecting = length + " characters";
     }
     PrsStringLen.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;

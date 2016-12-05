@@ -13,6 +13,7 @@ var PrsFail = (function (_super) {
     function PrsFail() {
         _super.apply(this, arguments);
         this.displayName = "fail";
+        this.expecting = "no input";
     }
     PrsFail.prototype._apply = function (ps) {
         ps.result = ResultKind.SoftFail;

@@ -16,13 +16,14 @@ var PrsExactly = (function (_super) {
         this.count = count;
         this.displayName = "exactly";
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
     PrsExactly.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, count = _a.count, isLoud = _a.isLoud;
         var arr = [];
         for (var i = 0; i < count; i++) {
             inner.apply(ps);
-            if (!ps.result.isOk) {
+            if (!ps.isOk) {
                 //fail because the inner parser has failed.
                 return;
             }

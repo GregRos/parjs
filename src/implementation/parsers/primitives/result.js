@@ -15,11 +15,12 @@ var PrsResult = (function (_super) {
         this.result = result;
         this.displayName = "result";
         this.isLoud = true;
+        this.expecting = "anything";
     }
     PrsResult.prototype._apply = function (ps) {
         var result = this.result;
         ps.value = result;
-        ps.result = parser_action_1.ResultKind.OK;
+        ps.result = ResultKind.OK;
     };
     return PrsResult;
 }(parser_action_1.JaseBaseParserAction));

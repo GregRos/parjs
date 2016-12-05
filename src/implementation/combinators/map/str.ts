@@ -6,14 +6,16 @@ import {JaseParserAction} from "../../../base/parser-action";
 export class PrsStr extends JaseParserAction {
     displayName = "str";
     isLoud = true;
+    expecting : string;
     constructor(private inner : AnyParserAction) {
         super();
+        this.expecting = inner.expecting;
     }
 
     _apply(ps : ParsingState) {
         let {inner} = this;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         let {value} = ps;

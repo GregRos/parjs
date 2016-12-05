@@ -5,10 +5,7 @@ type MessageType = any;
 interface ParsingResult {
     value : any;
     kind : ResultKind;
-    readonly isOk : boolean;
-    readonly isSoft : boolean;
-    readonly isHard : boolean;
-    readonly isFatal : boolean;
+
     message : MessageType;
 }
 
@@ -20,7 +17,12 @@ interface ParsingState {
     position : number;
     value : any;
     state : any;
-    result : ParsingResult;
+    expecting : string;
+    result : ResultKind;
+    readonly isOk : boolean;
+    readonly isSoft : boolean;
+    readonly isHard : boolean;
+    readonly isFatal : boolean;
 }
 
 interface ParsingSignalInterface {

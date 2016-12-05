@@ -15,12 +15,13 @@ var PrsBacktrack = (function (_super) {
         this.inner = inner;
         this.displayName = "backtrack";
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
     PrsBacktrack.prototype._apply = function (ps) {
         var inner = this.inner;
         var position = ps.position;
         inner.apply(ps);
-        if (ps.result.isOk) {
+        if (ps.isOk) {
             //if inner succeeded, we backtrack.
             ps.position = position;
         }

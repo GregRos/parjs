@@ -14,6 +14,7 @@ var PrsEof = (function (_super) {
         _super.apply(this, arguments);
         this.isLoud = false;
         this.displayName = "eof";
+        this.expecting = "end of input";
     }
     PrsEof.prototype._apply = function (ps) {
         if (ps.position === ps.input.length) {

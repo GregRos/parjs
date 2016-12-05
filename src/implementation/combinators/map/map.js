@@ -18,11 +18,12 @@ var MapParser = (function (_super) {
         this.displayName = "map";
         this.isLoud = true;
         common_1.Issues.quietParserNotPermitted(this);
+        this.expecting = inner.expecting;
     }
     MapParser.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, map = _a.map;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.value = map(ps.value);

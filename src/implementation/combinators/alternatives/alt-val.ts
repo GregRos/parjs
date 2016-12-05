@@ -7,15 +7,17 @@ import {Issues, failReturn} from "../../common";
 export class PrsAltVal extends JaseParserAction {
     displayName = "altVal";
     isLoud = true;
+    expecting : string;
     constructor (private inner : AnyParserAction, private val : any) {
         super();
         inner.isLoud || Issues.quietParserNotPermitted(this);
+        this.expecting = `${inner.expecting} or anything`;
     }
 
     _apply(ps : ParsingState) {
         let {inner, val} = this;
         inner.apply(ps);
-        if (ps.result.isSoft) {
+        if (ps.isSoft) {
             //on soft failure, set the value and result to OK
             ps.value = val;
             ps.result = ResultKind.OK;

@@ -7,6 +7,7 @@ import {
 import {JaseBaseParser} from "../base/jase-parser";
 import _ = require('lodash');
 import {JaseParserAction} from "../base/parser-action";
+import Result = jasmine.Result;
 
 function wrap(action : JaseParserAction) {
     return new JaseParser(action);
@@ -17,8 +18,8 @@ export class JaseParser extends JaseBaseParser implements LoudParser<any>, Quiet
         return wrap(new PrsBacktrack(this.action))
     }
 
-    get mustCapture() {
-        return wrap(new PrsMustCapture(this.action));
+    mustCapture(failType = ResultKind.HardFail) {
+        return wrap(new PrsMustCapture(this.action, failType));
     }
 
     or(...others : AnyParser[]) {
@@ -86,16 +87,16 @@ export class JaseParser extends JaseBaseParser implements LoudParser<any>, Quiet
         return wrap(new PrsStr(this.action));
     }
 
-    must(condition : (result : any) => boolean) {
-        return wrap(new PrsMust(this.action, condition));
+    must(condition : (result : any) => boolean, name = "(unnamed condition)", fail = ResultKind.HardFail) {
+        return wrap(new PrsMust(this.action, condition, fail, name));
     }
 
     mustNotBeOf(...options : any[]) {
-        return this.must(x => !options.includes(x));
+        return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`);
     }
 
     mustBeOf(...options : any[]) {
-        return this.must(x => options.includes(x));
+        return this.must(x => options.includes(x), `one of: ${options.join(", ")}`);
     }
 
     get mustBeNonEmpty() {
@@ -111,7 +112,7 @@ export class JaseParser extends JaseBaseParser implements LoudParser<any>, Quiet
                 return Object.getOwnPropertyNames(x).length > 0;
             }
             return true;
-        })
+        }, `be non-empty`, ResultKind.SoftFail);
     }
 
     alts(...others : AnyParser[]) {

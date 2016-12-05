@@ -16,11 +16,12 @@ var PrsWithState = (function (_super) {
         this.reducer = reducer;
         this.displayName = "withState";
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
     PrsWithState.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, reducer = _a.reducer;
         inner.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             return;
         }
         ps.state = reducer(ps.state, ps.value);

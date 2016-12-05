@@ -5,16 +5,18 @@ import {JaseParserAction} from "../../../base/parser-action";
 export class PrsBacktrack extends JaseParserAction {
     displayName = "backtrack";
     isLoud : boolean;
+    expecting : string;
     constructor(private inner : AnyParserAction) {
         super();
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
 
     _apply(ps : ParsingState) {
         let {inner} = this;
         let {position} = ps;
         inner.apply(ps);
-        if (ps.result.isOk) {
+        if (ps.isOk) {
             //if inner succeeded, we backtrack.
             ps.position = position;
         }

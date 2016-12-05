@@ -14,6 +14,7 @@ var PrsRest = (function (_super) {
         _super.apply(this, arguments);
         this.displayName = "rest";
         this.isLoud = true;
+        this.expecting = "zero or more characters";
     }
     PrsRest.prototype._apply = function (pr) {
         var position = pr.position, input = pr.input;

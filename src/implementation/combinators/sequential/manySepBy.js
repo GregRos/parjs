@@ -18,6 +18,7 @@ var PrsManySepBy = (function (_super) {
         this.maxIterations = maxIterations;
         this.displayName = "manySepBy";
         this.isLoud = many.isLoud;
+        this.expecting = many.expecting;
     }
     PrsManySepBy.prototype._apply = function (ps) {
         var _a = this, many = _a.many, sep = _a.sep, maxIterations = _a.maxIterations, isLoud = _a.isLoud;
@@ -27,7 +28,7 @@ var PrsManySepBy = (function (_super) {
         if (ps.result >= ResultKind.HardFail) {
             return;
         }
-        else if (ps.result.isSoft) {
+        else if (ps.isSoft) {
             ps.value = [];
             return;
         }
@@ -36,14 +37,14 @@ var PrsManySepBy = (function (_super) {
             if (i >= maxIterations)
                 break;
             sep.apply(ps);
-            if (ps.result.isSoft) {
+            if (ps.isSoft) {
                 break;
             }
             else if (ps.result >= ResultKind.HardFail) {
                 return;
             }
             many.apply(ps);
-            if (ps.result.isSoft) {
+            if (ps.isSoft) {
                 break;
             }
             else if (ps.result >= ResultKind.HardFail) {
@@ -59,7 +60,7 @@ var PrsManySepBy = (function (_super) {
         ps.result = ResultKind.OK;
         ps.position = position;
         ps.value = arr;
-        return true;
+        return;
     };
     return PrsManySepBy;
 }(parser_action_1.JaseParserAction));

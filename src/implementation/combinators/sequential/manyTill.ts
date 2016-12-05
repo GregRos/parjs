@@ -6,9 +6,11 @@ import {quietReturn, Issues} from "../../common";
 export class PrsManyTill extends JaseParserAction {
     isLoud : boolean;
     displayName = "manyTill";
+    expecting : string;
     constructor(private many : AnyParserAction, private till : AnyParserAction, private tillOptional : boolean) {
         super();
         this.isLoud = many.isLoud;
+        this.expecting = `${many.expecting} or ${till.expecting}`;
     }
 
     _apply(ps : ParsingState) {
@@ -18,7 +20,7 @@ export class PrsManyTill extends JaseParserAction {
         let successes = 0;
         while (true) {
             till.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 break;
             } else if (ps.result >= ResultKind.HardFail) {
                 //if till failed hard/fatally, we return the fail result.
@@ -27,9 +29,9 @@ export class PrsManyTill extends JaseParserAction {
             //backtrack to before till failed.
             ps.position = position;
             many.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 arr.maybePush(ps.value);
-            } else if (ps.result.isSoft) {
+            } else if (ps.isSoft) {
                 //many failed softly before till...
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.

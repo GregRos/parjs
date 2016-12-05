@@ -7,13 +7,18 @@ import {Codes, Chars} from "../../../functions/char-indicators";
 export class PrsNewline extends JaseParserAction {
     displayName = "newline";
     isLoud = true;
+    expecting : string;
     constructor(private matchUnicode : boolean) {
         super();
+        this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
     }
     _apply(ps : ParsingState) {
         let {position, input} = ps;
         let {matchUnicode} = this;
-        if (position >= input.length) return false;
+        if (position >= input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         let charAt = input.charCodeAt(position);
 
         if (matchUnicode && Codes.isUnicodeNewline(charAt)) {

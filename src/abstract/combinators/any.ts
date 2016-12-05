@@ -1,5 +1,6 @@
 
 declare enum ResultKind {
+    Uninitialized,
     OK,
     SoftFail,
     HardFail,
@@ -10,6 +11,8 @@ declare enum ResultKind {
 interface AnyParserAction {
     apply(ps : ParsingState) : void;
     isLoud : boolean;
+    expecting : string;
+    displayName : string;
 }
 /**
  * Created by User on 21-Nov-16.

@@ -5,14 +5,19 @@ import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-actio
 export class PrsCharWhere extends JaseBaseParserAction {
     displayName ="charWhere";
     isLoud = true;
-    constructor(private predicate : (char : string) => boolean) {
+    expecting : string;
+    constructor(private predicate : (char : string) => boolean, property : string = "(some property)") {
         super();
+        this.expecting = `any character satisfying ${property}`;
     }
 
     _apply(ps : ParsingState) {
         let {predicate} = this;
         let {position, input} = ps;
-        if (position >= input.length) return false;
+        if (position >= input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         let curChar = input[position];
         if (!predicate(curChar)) {
             ps.result =  ResultKind.SoftFail;

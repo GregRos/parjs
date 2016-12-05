@@ -6,9 +6,11 @@ import {quietReturn, Issues} from "../../common";
 export class PrsManySepBy extends JaseParserAction {
     isLoud : boolean;
     displayName="manySepBy";
+    expecting : string;
     constructor(private many : AnyParserAction, private sep : AnyParserAction, private maxIterations : number) {
         super();
         this.isLoud = many.isLoud;
+        this.expecting = many.expecting;
     }
 
     _apply(ps : ParsingState) {
@@ -18,7 +20,7 @@ export class PrsManySepBy extends JaseParserAction {
         many.apply(ps);
         if (ps.result >= ResultKind.HardFail) {
             return;
-        } else if (ps.result.isSoft) {
+        } else if (ps.isSoft) {
             ps.value = [];
             return;
         }
@@ -26,13 +28,13 @@ export class PrsManySepBy extends JaseParserAction {
         while (true) {
             if (i >= maxIterations) break;
             sep.apply(ps);
-            if (ps.result.isSoft) {
+            if (ps.isSoft) {
                 break;
             } else if (ps.result >= ResultKind.HardFail) {
                 return;
             }
             many.apply(ps);
-            if (ps.result.isSoft) {
+            if (ps.isSoft) {
                 break;
             } else if (ps.result >= ResultKind.HardFail) {
                 return;
@@ -47,6 +49,6 @@ export class PrsManySepBy extends JaseParserAction {
         ps.result = ResultKind.OK;
         ps.position = position;
         ps.value = arr;
-        return true;
+        return;
     }
 }

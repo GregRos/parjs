@@ -15,6 +15,7 @@ var PrsQuiet = (function (_super) {
         this.inner = inner;
         this.displayName = "quiet";
         this.isLoud = false;
+        this.expecting = inner.expecting;
     }
     PrsQuiet.prototype._apply = function (ps) {
         var inner = this.inner;

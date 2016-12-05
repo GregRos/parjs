@@ -17,12 +17,13 @@ var PrsSeqFunc = (function (_super) {
         this.parserSelectors = parserSelectors;
         this.isLoud = true;
         this.displayName = "seqFunc";
+        this.expecting = initial.expecting;
     }
     PrsSeqFunc.prototype._apply = function (ps) {
         var _a = this, initial = _a.initial, parserSelectors = _a.parserSelectors;
         var results = [];
         initial.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             //propagate the failure of 'initial' upwards.
             return;
         }
@@ -31,10 +32,10 @@ var PrsSeqFunc = (function (_super) {
             var prs = cur(ps.value);
             prs.isLoud || common_1.Issues.quietParserNotPermitted(this);
             prs.action.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 results.maybePush(ps.value);
             }
-            else if (ps.result.isSoft) {
+            else if (ps.isSoft) {
                 //at this point, even a soft failure becomes a hard one
                 ps.result = ResultKind.HardFail;
             }

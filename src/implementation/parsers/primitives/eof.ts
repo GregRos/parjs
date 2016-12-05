@@ -7,6 +7,7 @@ import {quietReturn} from "../../common";
 export class PrsEof extends JaseBaseParserAction {
     isLoud = false;
     displayName = "eof";
+    expecting = "end of input";
     _apply(ps : ParsingState) {
         if (ps.position === ps.input.length) {
             ps.result =  ResultKind.OK;

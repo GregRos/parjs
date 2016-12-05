@@ -14,13 +14,16 @@ var PrsString = (function (_super) {
         _super.call(this);
         this.str = str;
         this.displayName = "string";
+        this.expecting = "'" + str + "'";
     }
     PrsString.prototype._apply = function (ps) {
         var str = this.str;
         var position = ps.position, input = ps.input;
         var i;
-        if (position + str.length > input.length)
-            return false;
+        if (position + str.length > input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         for (var i_1 = 0; i_1 < str.length; i_1++, position++) {
             if (str.charCodeAt(i_1) !== input.charCodeAt(position)) {
                 ps.result = ResultKind.SoftFail;

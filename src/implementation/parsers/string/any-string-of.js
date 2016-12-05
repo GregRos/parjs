@@ -12,6 +12,7 @@ var AnyStringOf = (function (_super) {
         this.strs = strs;
         this.displayName = "anyStringOf";
         this.isLoud = true;
+        this.expecting = "any of " + strs.map(function (x) { return ("'" + x + "'"); }).join(", ");
     }
     AnyStringOf.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;

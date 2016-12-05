@@ -1,4 +1,4 @@
-import {failReturn} from "../implementation/common";
+import {failReturn, quietReturn} from "../implementation/common";
 
 
 class BasicParsingResult implements ParsingResult {
@@ -6,21 +6,7 @@ class BasicParsingResult implements ParsingResult {
     constructor(public kind : ResultKind, public value : any = undefined) {
 
     }
-    get isOk() {
-        return this.kind === ResultKind.OK;
-    }
 
-    get isSoft() {
-        return this.kind === ResultKind.SoftFail;
-    }
-
-    get isHard() {
-        return this.kind === ResultKind.HardFail;
-    }
-
-    get isFatal() {
-        return this.kind === ResultKind.FatalFail;
-    }
 }
 
 export class ResultsClass {
@@ -31,25 +17,46 @@ export class BasicParsingState implements ParsingState {
     position = 0;
     state = undefined;
     value = undefined;
-    result = undefined;
-    constructor(public readonly input : string) {
+    result : ResultKind;
+    expecting : string;
+    constructor(public input : string) {
 
     }
 
+    get isOk() {
+        return this.result === ResultKind.OK;
+    }
+
+    get isSoft() {
+        return this.result === ResultKind.SoftFail;
+    }
+
+    get isHard() {
+        return this.result === ResultKind.HardFail;
+    }
+
+    get isFatal() {
+        return this.result === ResultKind.FatalFail;
+    }
 }
 
 /**
  * Created by lifeg on 23/11/2016.
  */
 export abstract class JaseParserAction {
-    protected abstract _apply(ps : ParsingState) : void;
-
+    protected abstract _apply(ps : ParsingState) : void | number;
+    abstract expecting : string;
     abstract displayName : string;
     apply(ps : ParsingState) : void {
         let {position, state} = ps;
+        ps.result = ResultKind.Uninitialized;
         this._apply(ps);
-        if (!ps.result.isOk) {
+
+        if (!ps.isOk) {
             ps.value = failReturn;
+            ps.expecting = ps.expecting || this.expecting;
+        } else if (!this.isLoud) {
+            ps.value = quietReturn;
         }
     }
     abstract isLoud : boolean;

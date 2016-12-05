@@ -4,8 +4,11 @@ import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-actio
  */
 export class PrsStringLen extends JaseBaseParserAction{
     displayName = "stringLen";
-
-    constructor(private length : number) {super()}
+    expecting : string;
+    constructor(private length : number) {
+       super();
+       this.expecting = `${length} characters`;
+    }
 
     _apply(ps : ParsingState) {
         let {position, input} = ps;

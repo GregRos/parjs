@@ -6,8 +6,10 @@ import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-actio
 export class AnyStringOf extends JaseBaseParserAction {
     displayName ="anyStringOf";
     isLoud = true;
+    expecting : string;
     constructor(private strs : string[]) {
         super();
+        this.expecting = `any of ${strs.map(x => `'${x}'`).join(", ",)}`;
     }
 
     _apply(ps : ParsingState) {

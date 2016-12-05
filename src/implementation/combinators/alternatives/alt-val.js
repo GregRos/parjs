@@ -18,11 +18,12 @@ var PrsAltVal = (function (_super) {
         this.displayName = "altVal";
         this.isLoud = true;
         inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
+        this.expecting = inner.expecting + " or anything";
     }
     PrsAltVal.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, val = _a.val;
         inner.apply(ps);
-        if (ps.result.isSoft) {
+        if (ps.isSoft) {
             //on soft failure, set the value and result to OK
             ps.value = val;
             ps.result = ResultKind.OK;

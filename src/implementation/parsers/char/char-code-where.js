@@ -10,17 +10,22 @@ var parser_action_1 = require("../../../base/parser-action");
  */
 var PrsCharCodeWhere = (function (_super) {
     __extends(PrsCharCodeWhere, _super);
-    function PrsCharCodeWhere(predicate) {
+    function PrsCharCodeWhere(predicate, property) {
+        if (property === void 0) { property = "(a specific property)"; }
         _super.call(this);
         this.predicate = predicate;
         this.displayName = "charCodeWhere";
         this.isLoud = true;
+        this.expecting = "any character satisfying " + property + ".";
     }
     PrsCharCodeWhere.prototype._apply = function (ps) {
         var predicate = this.predicate;
         var position = ps.position, input = ps.input;
-        if (position >= input.length)
-            return false;
+        if (position >= input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
+        ;
         var curChar = input.charCodeAt(position);
         if (!predicate(curChar)) {
             ps.result = ResultKind.SoftFail;

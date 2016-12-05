@@ -25,13 +25,10 @@ var JaseParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(JaseParser.prototype, "mustCapture", {
-        get: function () {
-            return wrap(new combinators_1.PrsMustCapture(this.action));
-        },
-        enumerable: true,
-        configurable: true
-    });
+    JaseParser.prototype.mustCapture = function (failType) {
+        if (failType === void 0) { failType = ResultKind.HardFail; }
+        return wrap(new combinators_1.PrsMustCapture(this.action, failType));
+    };
     JaseParser.prototype.or = function () {
         var others = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -106,22 +103,24 @@ var JaseParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    JaseParser.prototype.must = function (condition) {
-        return wrap(new combinators_1.PrsMust(this.action, condition));
+    JaseParser.prototype.must = function (condition, name, fail) {
+        if (name === void 0) { name = "(unnamed condition)"; }
+        if (fail === void 0) { fail = ResultKind.HardFail; }
+        return wrap(new combinators_1.PrsMust(this.action, condition, fail, name));
     };
     JaseParser.prototype.mustNotBeOf = function () {
         var options = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             options[_i - 0] = arguments[_i];
         }
-        return this.must(function (x) { return !options.includes(x); });
+        return this.must(function (x) { return !options.includes(x); }, "none of: " + options.join(", "));
     };
     JaseParser.prototype.mustBeOf = function () {
         var options = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             options[_i - 0] = arguments[_i];
         }
-        return this.must(function (x) { return options.includes(x); });
+        return this.must(function (x) { return options.includes(x); }, "one of: " + options.join(", "));
     };
     Object.defineProperty(JaseParser.prototype, "mustBeNonEmpty", {
         get: function () {
@@ -137,7 +136,7 @@ var JaseParser = (function (_super) {
                     return Object.getOwnPropertyNames(x).length > 0;
                 }
                 return true;
-            });
+            }, "be non-empty", ResultKind.SoftFail);
         },
         enumerable: true,
         configurable: true

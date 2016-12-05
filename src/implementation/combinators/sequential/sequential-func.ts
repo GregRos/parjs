@@ -6,15 +6,17 @@ import {Issues} from "../../common";
 export class PrsSeqFunc extends JaseParserAction {
     isLoud = true;
     displayName = "seqFunc";
+    expecting : string;
     constructor(private initial : AnyParserAction, private parserSelectors : ((result : any) => LoudParser<any>)[]) {
         super();
+        this.expecting = initial.expecting;
     }
 
     _apply(ps : ParsingState) {
         let {initial, parserSelectors} = this;
         let results = [];
         initial.apply(ps);
-        if (!ps.result.isOk) {
+        if (!ps.isOk) {
             //propagate the failure of 'initial' upwards.
             return;
         }
@@ -23,9 +25,9 @@ export class PrsSeqFunc extends JaseParserAction {
             let prs = cur(ps.value);
             prs.isLoud || Issues.quietParserNotPermitted(this);
             prs.action.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 results.maybePush(ps.value);
-            } else if (ps.result.isSoft) {
+            } else if (ps.isSoft) {
                 //at this point, even a soft failure becomes a hard one
                 ps.result = ResultKind.HardFail;
             } else {

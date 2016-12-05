@@ -5,11 +5,13 @@ import {JaseParserAction, JaseBaseParserAction} from "../../../base/parser-actio
 
 export class PrsRegexp extends JaseBaseParserAction {
     displayName = "regexp";
+    expecting : string;
     constructor(private regexp : RegExp) {
         super();
-        let flags = regexp.flags.replace(/(g|y)/i, "");
+        let flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(x => x).join("");
         let normalizedRegexp = new RegExp(regexp.source, flags);
         regexp = normalizedRegexp;
+        this.expecting = `input matching '${regexp.source}'`;
     }
 
     _apply(ps : ParsingState) {

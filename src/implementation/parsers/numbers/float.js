@@ -23,6 +23,9 @@ var PrsFloat = (function (_super) {
     __extends(PrsFloat, _super);
     function PrsFloat(options) {
         _super.call(this);
+        this.expecting = "a floating-point number";
+        this.displayName = "float";
+        this.isLoud = true;
         _.defaults(options, defaultFloatOptions);
     }
     PrsFloat.prototype._apply = function (ps) {
@@ -64,8 +67,11 @@ var PrsFloat = (function (_super) {
          */
         var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent, base = _a.base;
         var position = ps.position, input = ps.input;
-        if (position > input.length)
-            return false;
+        if (position > input.length) {
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
+        ;
         var Sign = 1;
         var hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
@@ -87,11 +93,12 @@ var PrsFloat = (function (_super) {
         //now if allowFloatingPoint, we try to parse a decimal point.
         var nextChar = input.charCodeAt(ps.position);
         prevPos = ps.position;
+        if (!allowImplicitZero && !hasWhole) {
+            //fail because we don't allow ".1", and similar without allowImplicitZero.
+            ps.result = ResultKind.SoftFail;
+            return;
+        }
         if (allowFloatingPoint && nextChar === char_indicators_1.Codes.decimalPoint) {
-            if (!allowImplicitZero && !hasWhole) {
-                //fail because we don't allow ".1", and similar without allowImplicitZero.
-                return false;
-            }
             //skip to the char after the decimal point
             ps.position++;
             var prevFractionalPos = ps.position;
@@ -101,14 +108,19 @@ var PrsFloat = (function (_super) {
             if (!allowImplicitZero && !hasFraction) {
                 //we encountered something like 212. but allowImplicitZero is false.
                 //that means we need to backtrack to the . character and succeed in parsing the integer.
+                //the remainder is not a valid number.
                 ps.value = Whole;
                 ps.position = prevPos;
+                return;
             }
             //after parseDigits has been invoked, the ps.position is on the next character (which could be e).
             nextChar = input.charCodeAt(ps.position);
             prevPos = ps.position;
         }
         if (!hasWhole && !hasFraction) {
+            //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
+            ps.result = ResultKind.SoftFail;
+            return;
         }
         //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
         //if we do allow floating point, then the previous block would've consumed some characters.
@@ -116,14 +128,15 @@ var PrsFloat = (function (_super) {
             ps.position++;
             var expSign = parselets_1.Parselets.parseSign(ps);
             if (expSign === 0) {
-                //fail because expected a + or -
-                return false;
+                ps.result = ResultKind.HardFail;
+                return;
             }
             var prevFractionalPos = ps.position;
             var exp = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
             if (ps.position === prevFractionalPos) {
                 //we parsed e+ but we did not parse any digits.
-                return false;
+                ps.result = ResultKind.HardFail;
+                return;
             }
             if (expSign < 0) {
                 Exp = math_1.FastMath.NegativeExponents[base][exp];
@@ -132,6 +145,8 @@ var PrsFloat = (function (_super) {
                 Exp = math_1.FastMath.PositiveExponents[base][exp];
             }
         }
+        ps.result = ResultKind.OK;
+        ps.value = Sign * (Whole + Fractional) * Exp;
     };
     return PrsFloat;
 }(parser_action_1.JaseParserAction));

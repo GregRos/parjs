@@ -6,9 +6,11 @@ import {quietReturn} from "../../common";
 export class PrsExactly extends JaseParserAction {
     isLoud : boolean;
     displayName = "exactly";
+    expecting : string;
     constructor(private inner : AnyParserAction, private count : number) {
         super();
         this.isLoud = inner.isLoud;
+        this.expecting = inner.expecting;
     }
 
     _apply(ps : ParsingState) {
@@ -16,7 +18,7 @@ export class PrsExactly extends JaseParserAction {
         let arr = [];
         for (let i = 0; i < count; i++) {
             inner.apply(ps);
-            if (!ps.result.isOk) {
+            if (!ps.isOk) {
                 //fail because the inner parser has failed.
                 return;
             }

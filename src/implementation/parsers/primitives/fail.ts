@@ -5,7 +5,7 @@ import {JaseBaseParserAction} from "../../../base/parser-action";
 
 export class PrsFail extends JaseBaseParserAction {
     displayName = "fail";
-
+    expecting = "no input";
     _apply(ps : ParsingState) {
         ps.result =  ResultKind.SoftFail;
     }

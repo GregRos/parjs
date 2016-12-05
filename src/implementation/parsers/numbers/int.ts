@@ -14,11 +14,13 @@ import {FastMath} from "../../../functions/math";
 export class PrsInt extends JaseParserAction {
     displayName = "int";
     isLoud = true;
+    expecting : string;
     constructor(private signed : boolean, private base : number) {
         super();
         if (base > 36) {
             throw new Error("invalid base");
         }
+        this.expecting = `a ${signed ? "signed" : "unsigned"} integer in base ${base}`;
     }
     _apply(ps : ParsingState) {
         let {signed, base} = this;
@@ -28,6 +30,7 @@ export class PrsInt extends JaseParserAction {
         let value = Parselets.parseDigits(ps, base, FastMath.PositiveExponents);
         ps.position = position;
         ps.value = value;
-        return true;
+        ps.result = ResultKind.OK;
+        return;
     }
 }

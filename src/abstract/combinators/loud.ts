@@ -84,8 +84,10 @@ interface LoudParser<T> {
      * P applies this parser, and further requires that the result fulfill a condition.
      * If the condition is not fulfilled, the parser fails.
      * @param condition The condition. The 2nd parameter is the user state.
+     * @param name The name of the condition the result must satisfy.
+     * @param fail The failure type emitted.
      */
-    must(condition : (result : T, state : any) => boolean) : LoudParser<T>;
+    must(condition : (result : T, state : any) => boolean, name ?: string, fail ?: ResultKind) : LoudParser<T>;
 
     /**
      * P applies this parser and verifies its result is non-empty.
@@ -108,7 +110,7 @@ interface LoudParser<T> {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    readonly mustCapture : LoudParser<T>;
+    mustCapture(kind ?: ResultKind) : LoudParser<T>;
 }
 /**
  * Created by User on 21-Nov-16.

@@ -24,6 +24,7 @@ var PrsAlts = (function (_super) {
             }
         }
         this.isLoud = alts.length === 0 ? false : alts.every(function (x) { return x.isLoud === alts[0].isLoud; });
+        this.expecting = "any of: " + alts.join(", ");
     }
     PrsAlts.prototype._apply = function (ps) {
         var position = ps.position;
@@ -33,11 +34,11 @@ var PrsAlts = (function (_super) {
             var cur = alts[i];
             //apply it on the current state.
             cur.apply(ps);
-            if (ps.result.isOk) {
+            if (ps.isOk) {
                 //if success, return. The PS records the result.
                 return;
             }
-            else if (ps.result.isSoft) {
+            else if (ps.isSoft) {
                 //backtrack to the original position and try again.
                 ps.position = position;
             }
