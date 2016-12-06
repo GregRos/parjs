@@ -5,20 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var common_1 = require("../implementation/common");
-var BasicParsingResult = (function () {
-    function BasicParsingResult(kind, value) {
-        if (value === void 0) { value = undefined; }
-        this.kind = kind;
-        this.value = value;
-    }
-    return BasicParsingResult;
-}());
-var ResultsClass = (function () {
-    function ResultsClass() {
-    }
-    return ResultsClass;
-}());
-exports.ResultsClass = ResultsClass;
+var chai_1 = require('chai');
 var BasicParsingState = (function () {
     function BasicParsingState(input) {
         this.input = input;
@@ -58,33 +45,49 @@ var BasicParsingState = (function () {
 }());
 exports.BasicParsingState = BasicParsingState;
 /**
- * Created by lifeg on 23/11/2016.
+ * A parsing action to perform. A parsing action is a fundamental operation that mutates a ParsingState.
  */
-var ParjsParserAction = (function () {
-    function ParjsParserAction() {
+var ParjsAction = (function () {
+    function ParjsAction() {
     }
-    ParjsParserAction.prototype.apply = function (ps) {
+    /**
+     * Perform the action on the given ParsingState. This is a wrapper around a derived action's _apply method.
+     * @param ps The parsing state.
+     */
+    ParjsAction.prototype.apply = function (ps) {
         var position = ps.position, state = ps.state;
-        ps.result = ResultKind.Uninitialized;
+        //we do this to verify that the ParsingState's fields have been correctly set by the action.
+        ps.result = ResultKind.Unknown;
+        ps.expecting = undefined;
+        ps.value = common_1.UNINITIALIZED_RESULT;
         this._apply(ps);
+        chai_1.assert.notEqual(ps.result, ResultKind.Unknown, "the State's result field must be set");
         if (!ps.isOk) {
-            ps.value = common_1.failReturn;
+            ps.value = common_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
         }
         else if (!this.isLoud) {
-            ps.value = common_1.quietReturn;
+            ps.value = common_1.QUIET_RESULT;
+        }
+        else {
+            chai_1.assert.notEqual(ps.value, common_1.UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
+        }
+        if (!ps.isOk) {
+            chai_1.assert.notEqual(ps.expecting, undefined, "if failure then there must be a reason");
         }
     };
-    return ParjsParserAction;
+    return ParjsAction;
 }());
-exports.ParjsParserAction = ParjsParserAction;
-var ParjsBaseParserAction = (function (_super) {
-    __extends(ParjsBaseParserAction, _super);
-    function ParjsBaseParserAction() {
+exports.ParjsAction = ParjsAction;
+/**
+ * Inherited by parser actions for basic parsers (e.g. string or numeric parsers), rather than combinators.
+ */
+var ParjsBasicAction = (function (_super) {
+    __extends(ParjsBasicAction, _super);
+    function ParjsBasicAction() {
         _super.apply(this, arguments);
         this.isLoud = true;
     }
-    return ParjsBaseParserAction;
-}(ParjsParserAction));
-exports.ParjsBaseParserAction = ParjsBaseParserAction;
-//# sourceMappingURL=action.js.map
+    return ParjsBasicAction;
+}(ParjsAction));
+exports.ParjsBasicAction = ParjsBasicAction;

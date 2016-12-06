@@ -10,6 +10,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var combinators_1 = require('../implementation/combinators');
 var parser_1 = require("../base/parser");
 var _ = require('lodash');
+var predicates_1 = require("../functions/predicates");
 function wrap(action) {
     return new ParjsParser(action);
 }
@@ -125,17 +126,7 @@ var ParjsParser = (function (_super) {
     Object.defineProperty(ParjsParser.prototype, "mustBeNonEmpty", {
         get: function () {
             return this.must(function (x) {
-                if (x === undefined || x === null || x === "") {
-                    return false;
-                }
-                if (x instanceof Array) {
-                    return x.length > 0;
-                }
-                var proto = Object.getPrototypeOf(x);
-                if (proto === Object.prototype || !proto) {
-                    return Object.getOwnPropertyNames(x).length > 0;
-                }
-                return true;
+                return predicates_1.Predicates.nonEmpty(x);
             }, "be non-empty", ResultKind.SoftFail);
         },
         enumerable: true,
@@ -149,6 +140,7 @@ var ParjsParser = (function (_super) {
         return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
     };
     return ParjsParser;
-}(parser_1.ParjsBaseParser));
+}(parser_1.BaseParjsParser));
 exports.ParjsParser = ParjsParser;
-//# sourceMappingURL=combinators.js.map
+
+//# sourceMappingURL=instance-combinators.js.map

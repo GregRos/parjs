@@ -1,8 +1,8 @@
-import {ParjsParserAction, ParjsBaseParserAction} from "../../../base/action";
+import {ParjsAction, ParjsBasicAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsString extends ParjsBaseParserAction  {
+export class PrsString extends ParjsBasicAction  {
     displayName = "string";
     expecting : string;
     constructor(private str : string) {

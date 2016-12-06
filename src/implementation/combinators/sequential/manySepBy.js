@@ -63,6 +63,5 @@ var PrsManySepBy = (function (_super) {
         return;
     };
     return PrsManySepBy;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsManySepBy = PrsManySepBy;
-//# sourceMappingURL=manySepBy.js.map

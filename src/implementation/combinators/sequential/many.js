@@ -51,6 +51,5 @@ var PrsMany = (function (_super) {
         return ResultKind.OK;
     };
     return PrsMany;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsMany = PrsMany;
-//# sourceMappingURL=many.js.map

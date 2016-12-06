@@ -1,9 +1,9 @@
-import {quietReturn} from "../../common";
-import {ParjsParserAction} from "../../../base/action";
+import {QUIET_RESULT} from "../../common";
+import {ParjsAction} from "../../../base/action";
 /**
  * Created by lifeg on 24/11/2016.
  */
-export class PrsQuiet extends ParjsParserAction {
+export class PrsQuiet extends ParjsAction {
     displayName = "quiet";
     isLoud = false;
     expecting : string;

@@ -3,8 +3,8 @@ var char_indicators_1 = require("../../../functions/char-indicators");
 /**
  * Created by User on 29-Nov-16.
  */
-var ParseletType = (function () {
-    function ParseletType() {
+var _ParseletsType = (function () {
+    function _ParseletsType() {
     }
     /**
      * Tries to parse a sequence of digits in {base}. Returns a positive number consisting of the parsed digits.
@@ -14,7 +14,7 @@ var ParseletType = (function () {
      * @param exponents
      * @returns {number}
      */
-    ParseletType.prototype.parseDigits = function (ps, base, exponents) {
+    _ParseletsType.prototype.parseDigits = function (ps, base, exponents) {
         var position = ps.position, input = ps.input;
         var result = 0;
         var length = input.length;
@@ -34,7 +34,7 @@ var ParseletType = (function () {
      * @param ps
      * @returns {number}
      */
-    ParseletType.prototype.parseSign = function (ps) {
+    _ParseletsType.prototype.parseSign = function (ps) {
         var sign = 0;
         var curChar = ps.input.charCodeAt(ps.position);
         if (curChar === char_indicators_1.Codes.minus) {
@@ -46,7 +46,8 @@ var ParseletType = (function () {
         }
         return sign;
     };
-    return ParseletType;
+    return _ParseletsType;
 }());
-exports.Parselets = new ParseletType();
+exports._ParseletsType = _ParseletsType;
+exports.Parselets = new _ParseletsType();
 //# sourceMappingURL=parselets.js.map

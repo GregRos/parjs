@@ -23,6 +23,5 @@ var PrsResult = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsResult;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsResult = PrsResult;
-//# sourceMappingURL=result.js.map

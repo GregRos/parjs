@@ -1,13 +1,13 @@
-import {ParjsParserAction} from "../../../base/action";
-import {quietReturn, Issues} from "../../common";
+import {ParjsAction} from "../../../base/action";
+import {QUIET_RESULT, Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class MapParser extends ParjsParserAction {
+export class MapParser extends ParjsAction {
     displayName = "map";
     isLoud = true;
     expecting : string;
-    constructor(private inner : ParjsParserAction, private map : (x : any) => any) {
+    constructor(private inner : ParjsAction, private map : (x : any) => any) {
         super();
         Issues.quietParserNotPermitted(this);
         this.expecting = inner.expecting;

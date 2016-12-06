@@ -24,6 +24,5 @@ var PrsRest = (function (_super) {
         pr.result = ResultKind.OK;
     };
     return PrsRest;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsRest = PrsRest;
-//# sourceMappingURL=rest.js.map

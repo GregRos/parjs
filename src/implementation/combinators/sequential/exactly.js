@@ -32,6 +32,5 @@ var PrsExactly = (function (_super) {
         ps.value = arr;
     };
     return PrsExactly;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsExactly = PrsExactly;
-//# sourceMappingURL=exactly.js.map

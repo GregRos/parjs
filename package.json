@@ -1,33 +1,52 @@
 {
-  "name": "jase",
-  "version": "0.1.0",
-  "description": "A powerful parser-combinator library for JavaScript.",
+  "name": "parjs",
+  "version": "0.1.3-test",
+  "repository": "https://github.com/GregRos/parjs",
+  "homepage": "https://github.com/GregRos/parjs",
+  "typings": "dist/index",
+  "description": "A parser-combinator library for JavaScript.",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "directories": {
+    "bin": "dist",
+    "test" :"__tests__",
+    "lib" : "dist"
+  },
+  "files" : [
+    "dist/",
+    "src/",
+    "__test__/"
+  ],
   "keywords": [
-    "react",
-    "markdown",
-    "commonmark",
-    "components",
-    "rendering",
-    "rich",
+    "parser",
+    "combinator",
+    "parsing",
     "text",
-    "cms",
-    "content",
-    "template"
+    "string",
+    "parser combinator",
+    "parser-combinator",
+    "functional"
   ],
   "author": "Greg Rosenbaum",
   "license": "MIT",
   "dependencies": {
+    "chai": "^3.5.0",
     "core-js": "^2.4.1",
     "lodash": "^4.17.2"
   },
   "devDependencies": {
+    "@types/chai": "^3.4.34",
     "@types/core-js": "^0.9.34",
     "@types/jasmine": "^2.5.37",
     "@types/lodash": "^4.14.40",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-typescript": "^3.1.3",
+    "jasmine": "^2.5.2",
+    "merge2": "^1.0.2",
     "typescript": "^2.0.6"
   },
   "optionalDependencies": {}

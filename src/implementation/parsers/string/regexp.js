@@ -34,6 +34,5 @@ var PrsRegexp = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsRegexp;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsRegexp = PrsRegexp;
-//# sourceMappingURL=regexp.js.map

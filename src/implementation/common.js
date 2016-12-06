@@ -2,8 +2,9 @@
 /**
  * Created by User on 21-Nov-16.
  */
-exports.quietReturn = Object.create(null);
-exports.failReturn = Object.create(null);
+exports.QUIET_RESULT = Object.create(null);
+exports.FAIL_RESULT = Object.create(null);
+exports.UNINITIALIZED_RESULT = Object.create(null);
 var Issues;
 (function (Issues) {
     function mixedLoudnessNotPermitted(_a) {
@@ -23,6 +24,5 @@ var Issues;
     Issues.quietParserNotPermitted = quietParserNotPermitted;
 })(Issues = exports.Issues || (exports.Issues = {}));
 Array.prototype.maybePush = function (o) {
-    o !== exports.quietReturn && this.push(o);
+    o !== exports.QUIET_RESULT && this.push(o);
 };
-//# sourceMappingURL=common.js.map

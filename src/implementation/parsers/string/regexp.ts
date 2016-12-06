@@ -1,9 +1,9 @@
-import {ParjsParserAction, ParjsBaseParserAction} from "../../../base/action";
+import {ParjsAction, ParjsBasicAction} from "../../../base/action";
 /**
  * Created by User on 24-Nov-16.
  */
 
-export class PrsRegexp extends ParjsBaseParserAction {
+export class PrsRegexp extends ParjsBasicAction {
     displayName = "regexp";
     expecting : string;
     constructor(private regexp : RegExp) {

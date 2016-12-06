@@ -50,6 +50,5 @@ var PrsAlts = (function (_super) {
         ps.result = ResultKind.SoftFail;
     };
     return PrsAlts;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsAlts = PrsAlts;
-//# sourceMappingURL=alts.js.map

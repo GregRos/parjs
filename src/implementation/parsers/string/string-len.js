@@ -28,6 +28,5 @@ var PrsStringLen = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsStringLen;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsStringLen = PrsStringLen;
-//# sourceMappingURL=string-len.js.map

@@ -1,8 +1,8 @@
-import {ParjsParserAction} from "../../../base/action";
+import {ParjsAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsSeq extends ParjsParserAction {
+export class PrsSeq extends ParjsAction {
     isLoud = true;
     displayName = "seq";
     expecting : string;
@@ -23,11 +23,15 @@ export class PrsSeq extends ParjsParserAction {
             if (ps.isOk) {
                 results.maybePush(ps.value);
             } else if (ps.isSoft && i === 0) {
+                //if the first parser failed softly then we propagate a soft failure.
                 return;
             } else if (ps.isSoft) {
                 ps.result = ResultKind.HardFail;
+                //if a i > 0 parser failed softly, this is a hard fail for us.
+                //also, propagate the internal expectation.
                 return;
-            } else { //ps failed hard or fatally
+            } else {
+                //ps failed hard or fatally. The same severity.
                 return;
             }
         }

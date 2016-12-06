@@ -1,9 +1,9 @@
-import {ParjsParserAction, ResultsClass} from "../../../base/action";
+import {ParjsAction} from "../../../base/action";
 import {Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsMust extends ParjsParserAction {
+export class PrsMust extends ParjsAction {
     displayName = "must";
     isLoud = true;
     expecting : string;

@@ -1,9 +1,9 @@
-import {ParjsParserAction} from "../../../base/action";
+import {ParjsAction} from "../../../base/action";
 import {Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsAlts extends ParjsParserAction {
+export class PrsAlts extends ParjsAction {
     isLoud : boolean;
     displayName = "alts";
     expecting : string;

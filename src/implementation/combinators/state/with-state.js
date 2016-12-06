@@ -27,6 +27,5 @@ var PrsWithState = (function (_super) {
         ps.state = reducer(ps.state, ps.value);
     };
     return PrsWithState;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsWithState = PrsWithState;
-//# sourceMappingURL=with-state.js.map

@@ -35,6 +35,5 @@ var PrsNot = (function (_super) {
         //the remaining case is a fatal failure that isn't recovered from.
     };
     return PrsNot;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsNot = PrsNot;
-//# sourceMappingURL=not.js.map

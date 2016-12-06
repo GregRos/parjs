@@ -39,6 +39,6 @@ var PrsInt = (function (_super) {
         return;
     };
     return PrsInt;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsInt = PrsInt;
 //# sourceMappingURL=int.js.map

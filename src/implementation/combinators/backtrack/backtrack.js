@@ -28,6 +28,5 @@ var PrsBacktrack = (function (_super) {
         //whatever code ps had, we return it.
     };
     return PrsBacktrack;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsBacktrack = PrsBacktrack;
-//# sourceMappingURL=backtrack.js.map

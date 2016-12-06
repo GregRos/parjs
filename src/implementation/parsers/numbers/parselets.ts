@@ -4,7 +4,7 @@ import {Codes} from "../../../functions/char-indicators";
  * Created by User on 29-Nov-16.
  */
 
-class ParseletType {
+export class _ParseletsType {
     /**
      * Tries to parse a sequence of digits in {base}. Returns a positive number consisting of the parsed digits.
      * Returns < 0 if no digits were parsed.
@@ -47,4 +47,4 @@ class ParseletType {
     }
 }
 
-export const Parselets = new ParseletType();
+export const Parselets = new _ParseletsType();

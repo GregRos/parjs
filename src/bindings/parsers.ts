@@ -1,16 +1,26 @@
-import {ParjsParser} from "./combinators";
+import {ParjsParser} from "./instance-combinators";
 import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from '../implementation/parsers';
-import {ParjsParserAction} from "../base/action";
+import {PrsAlts, PrsSeq} from '../implementation/combinators';
+import {ParjsAction} from "../base/action";
 import {Chars} from "../functions/char-indicators";
 /**
  * Created by lifeg on 24/11/2016.
  */
 
-function wrap(action : ParjsParserAction) {
+function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
-export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers {
+export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+
+    any(...parsers : AnyParser[]) {
+        return wrap(new PrsAlts(parsers.map(x => x.action)));
+    }
+
+    seq(...parsers : AnyParser[]) {
+        return wrap(new PrsSeq(parsers.map(x => x.action)));
+    }
+
     get anyChar() {
         return wrap(new PrsStringLen(1));
     }
@@ -117,4 +127,4 @@ export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParser
 
 }
 
-export const Parjs = new ParjsParsers();
+export const Parjs = new ParjsParsers() as CharParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;

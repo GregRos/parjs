@@ -21,6 +21,5 @@ var PrsState = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsState;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsState = PrsState;
-//# sourceMappingURL=state.js.map

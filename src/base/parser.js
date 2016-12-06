@@ -3,11 +3,14 @@ var action_1 = require("./action");
 /**
  * Created by User on 22-Nov-16.
  */
-var ParjsBaseParser = (function () {
-    function ParjsBaseParser(action) {
+/**
+ * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
+ */
+var BaseParjsParser = (function () {
+    function BaseParjsParser(action) {
         this.action = action;
     }
-    ParjsBaseParser.prototype.parse = function (input) {
+    BaseParjsParser.prototype.parse = function (input) {
         var _a = this, action = _a.action, isLoud = _a.isLoud;
         var ps = new action_1.BasicParsingState(input);
         if (action.apply(ps) && ps.position === input.length) {
@@ -29,14 +32,13 @@ var ParjsBaseParser = (function () {
             return undefined;
         }
     };
-    Object.defineProperty(ParjsBaseParser.prototype, "isLoud", {
+    Object.defineProperty(BaseParjsParser.prototype, "isLoud", {
         get: function () {
             return this.action.isLoud;
         },
         enumerable: true,
         configurable: true
     });
-    return ParjsBaseParser;
+    return BaseParjsParser;
 }());
-exports.ParjsBaseParser = ParjsBaseParser;
-//# sourceMappingURL=parser.js.map
+exports.BaseParjsParser = BaseParjsParser;

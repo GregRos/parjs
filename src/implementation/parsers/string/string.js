@@ -35,6 +35,5 @@ var PrsString = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsString;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsString = PrsString;
-//# sourceMappingURL=string.js.map

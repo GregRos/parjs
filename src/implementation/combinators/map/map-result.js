@@ -27,6 +27,5 @@ var PrsMapResult = (function (_super) {
         ps.value = result;
     };
     return PrsMapResult;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsMapResult = PrsMapResult;
-//# sourceMappingURL=map-result.js.map

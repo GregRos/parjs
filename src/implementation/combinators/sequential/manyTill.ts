@@ -1,9 +1,9 @@
-import {ParjsParserAction} from "../../../base/action";
-import {quietReturn, Issues} from "../../common";
+import {ParjsAction} from "../../../base/action";
+import {QUIET_RESULT, Issues} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsManyTill extends ParjsParserAction {
+export class PrsManyTill extends ParjsAction {
     isLoud : boolean;
     displayName = "manyTill";
     expecting : string;

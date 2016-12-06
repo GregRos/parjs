@@ -31,6 +31,5 @@ var PrsAltVal = (function (_super) {
         //on ok/hard/fatal, propagate the result.
     };
     return PrsAltVal;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsAltVal = PrsAltVal;
-//# sourceMappingURL=alt-val.js.map

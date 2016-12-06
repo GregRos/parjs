@@ -29,6 +29,5 @@ var MapParser = (function (_super) {
         ps.value = map(ps.value);
     };
     return MapParser;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.MapParser = MapParser;
-//# sourceMappingURL=map.js.map

@@ -36,6 +36,6 @@ var PrsCharCodeWhere = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsCharCodeWhere;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsCharCodeWhere = PrsCharCodeWhere;
 //# sourceMappingURL=char-code-where.js.map

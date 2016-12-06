@@ -1,9 +1,9 @@
-import {ParjsParserAction} from "../../../base/action";
-import {quietReturn} from "../../common";
+import {ParjsAction} from "../../../base/action";
+import {QUIET_RESULT} from "../../common";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsExactly extends ParjsParserAction {
+export class PrsExactly extends ParjsAction {
     isLoud : boolean;
     displayName = "exactly";
     expecting : string;

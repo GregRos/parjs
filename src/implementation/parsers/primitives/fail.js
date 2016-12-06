@@ -19,6 +19,5 @@ var PrsFail = (function (_super) {
         ps.result = ResultKind.SoftFail;
     };
     return PrsFail;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsFail = PrsFail;
-//# sourceMappingURL=fail.js.map

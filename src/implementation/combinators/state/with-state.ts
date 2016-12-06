@@ -1,8 +1,8 @@
-import {ParjsParserAction} from "../../../base/action";
+import {ParjsAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsWithState extends ParjsParserAction{
+export class PrsWithState extends ParjsAction{
     isLoud : boolean;
     displayName = "withState";
     expecting : string;

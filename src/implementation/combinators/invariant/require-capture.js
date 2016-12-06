@@ -28,6 +28,5 @@ var PrsMustCapture = (function (_super) {
         ps.result = position !== ps.position ? ResultKind.OK : failType;
     };
     return PrsMustCapture;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsMustCapture = PrsMustCapture;
-//# sourceMappingURL=require-capture.js.map

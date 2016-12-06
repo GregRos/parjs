@@ -4,16 +4,16 @@
 import {
     PrsSeq
     , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsWithState, PrsAltVal} from '../implementation/combinators';
-import {ParjsBaseParser} from "../base/parser";
+import {BaseParjsParser} from "../base/parser";
 import _ = require('lodash');
-import {ParjsParserAction} from "../base/action";
-import Result = jasmine.Result;
+import {ParjsAction} from "../base/action";
+import {Predicates} from "../functions/predicates";
 
-function wrap(action : ParjsParserAction) {
+function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
-export class ParjsParser extends ParjsBaseParser implements LoudParser<any>, QuietParser{
+export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
     get backtrack() {
         return wrap(new PrsBacktrack(this.action))
     }
@@ -101,17 +101,7 @@ export class ParjsParser extends ParjsBaseParser implements LoudParser<any>, Qui
 
     get mustBeNonEmpty() {
         return this.must(x => {
-            if (x === undefined || x === null || x === "") {
-                return false;
-            }
-            if (x instanceof Array) {
-                return x.length > 0;
-            }
-            let proto = Object.getPrototypeOf(x);
-            if (proto === Object.prototype || !proto) {
-                return Object.getOwnPropertyNames(x).length > 0;
-            }
-            return true;
+            return Predicates.nonEmpty(x);
         }, `be non-empty`, ResultKind.SoftFail);
     }
 

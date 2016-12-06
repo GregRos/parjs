@@ -1,9 +1,11 @@
 /**
  * Created by User on 21-Nov-16.
  */
-export const quietReturn = Object.create(null);
+export const QUIET_RESULT = Object.create(null);
 
-export const failReturn = Object.create(null);
+export const FAIL_RESULT = Object.create(null);
+
+export const UNINITIALIZED_RESULT = Object.create(null);
 
 
 
@@ -27,5 +29,5 @@ declare global {
     }
 }
 Array.prototype.maybePush = function <T> (o : T) {
-    o !== quietReturn && this.push(o);
+    o !== QUIET_RESULT && this.push(o);
 };

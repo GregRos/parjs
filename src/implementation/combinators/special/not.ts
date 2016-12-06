@@ -1,9 +1,9 @@
-import {ParjsParserAction} from "../../../base/action";
-import {quietReturn} from "../../common";
+import {ParjsAction} from "../../../base/action";
+import {QUIET_RESULT} from "../../common";
 /**
  * Created by User on 22-Nov-16.
  */
-export class PrsNot extends ParjsParserAction {
+export class PrsNot extends ParjsAction {
     displayName = "not";
     isLoud = false;
     expecting : string;

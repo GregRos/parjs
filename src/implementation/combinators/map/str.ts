@@ -1,9 +1,9 @@
-import {quietReturn} from "../../common";
-import {ParjsParserAction} from "../../../base/action";
+import {QUIET_RESULT} from "../../common";
+import {ParjsAction} from "../../../base/action";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsStr extends ParjsParserAction {
+export class PrsStr extends ParjsAction {
     displayName = "str";
     isLoud = true;
     expecting : string;
@@ -23,7 +23,7 @@ export class PrsStr extends ParjsParserAction {
         if (typeStr === "string") {
 
         }
-        else if (value === quietReturn) {
+        else if (value === QUIET_RESULT) {
             ps.value = "";
         }
         else if (value === null || value === undefined) {

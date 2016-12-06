@@ -31,6 +31,5 @@ var PrsMust = (function (_super) {
         ps.result = requirement(ps.value) ? ResultKind.OK : failType;
     };
     return PrsMust;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsMust = PrsMust;
-//# sourceMappingURL=require.js.map

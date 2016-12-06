@@ -47,6 +47,5 @@ var PrsSeqFunc = (function (_super) {
         return ResultKind.OK;
     };
     return PrsSeqFunc;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsSeqFunc = PrsSeqFunc;
-//# sourceMappingURL=sequential-func.js.map

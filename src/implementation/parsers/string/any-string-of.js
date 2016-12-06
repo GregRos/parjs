@@ -35,6 +35,5 @@ var AnyStringOf = (function (_super) {
         ps.result = ResultKind.SoftFail;
     };
     return AnyStringOf;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.AnyStringOf = AnyStringOf;
-//# sourceMappingURL=any-string-of.js.map

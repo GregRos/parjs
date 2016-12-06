@@ -49,6 +49,5 @@ var PrsNewline = (function (_super) {
         ps.result = ResultKind.SoftFail;
     };
     return PrsNewline;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsNewline = PrsNewline;
-//# sourceMappingURL=newline.js.map

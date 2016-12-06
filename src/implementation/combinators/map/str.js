@@ -28,7 +28,7 @@ var PrsStr = (function (_super) {
         var typeStr = typeof value;
         if (typeStr === "string") {
         }
-        else if (value === common_1.quietReturn) {
+        else if (value === common_1.QUIET_RESULT) {
             ps.value = "";
         }
         else if (value === null || value === undefined) {
@@ -45,6 +45,5 @@ var PrsStr = (function (_super) {
         }
     };
     return PrsStr;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsStr = PrsStr;
-//# sourceMappingURL=str.js.map

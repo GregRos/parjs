@@ -21,6 +21,5 @@ var PrsPosition = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsPosition;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsPosition = PrsPosition;
-//# sourceMappingURL=position.js.map

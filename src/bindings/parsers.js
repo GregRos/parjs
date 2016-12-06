@@ -1,16 +1,31 @@
 "use strict";
-var combinators_1 = require("./combinators");
+var instance_combinators_1 = require("./instance-combinators");
 var parsers_1 = require('../implementation/parsers');
+var combinators_1 = require('../implementation/combinators');
 var char_indicators_1 = require("../functions/char-indicators");
 /**
  * Created by lifeg on 24/11/2016.
  */
 function wrap(action) {
-    return new combinators_1.ParjsParser(action);
+    return new instance_combinators_1.ParjsParser(action);
 }
 var ParjsParsers = (function () {
     function ParjsParsers() {
     }
+    ParjsParsers.prototype.any = function () {
+        var parsers = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            parsers[_i - 0] = arguments[_i];
+        }
+        return wrap(new combinators_1.PrsAlts(parsers.map(function (x) { return x.action; })));
+    };
+    ParjsParsers.prototype.seq = function () {
+        var parsers = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            parsers[_i - 0] = arguments[_i];
+        }
+        return wrap(new combinators_1.PrsSeq(parsers.map(function (x) { return x.action; })));
+    };
     Object.defineProperty(ParjsParsers.prototype, "anyChar", {
         get: function () {
             return wrap(new parsers_1.PrsStringLen(1));
@@ -169,4 +184,3 @@ var ParjsParsers = (function () {
 }());
 exports.ParjsParsers = ParjsParsers;
 exports.Parjs = new ParjsParsers();
-//# sourceMappingURL=parsers.js.map

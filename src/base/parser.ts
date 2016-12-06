@@ -1,13 +1,15 @@
-import {quietReturn, failReturn} from "../implementation/common";
-import {ParjsParserAction, BasicParsingState} from "./action";
+import {QUIET_RESULT, FAIL_RESULT} from "../implementation/common";
+import {ParjsAction, BasicParsingState} from "./action";
 /**
  * Created by User on 22-Nov-16.
  */
 
 
-
-export class ParjsBaseParser {
-    constructor(public action : ParjsParserAction) {}
+/**
+ * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
+ */
+export class BaseParjsParser {
+    constructor(public action : ParjsAction) {}
 
     parse(input : string) : any {
         let {action, isLoud} = this;

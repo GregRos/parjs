@@ -65,6 +65,5 @@ var PrsManyTill = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsManyTill;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsManyTill = PrsManyTill;
-//# sourceMappingURL=manyTill.js.map

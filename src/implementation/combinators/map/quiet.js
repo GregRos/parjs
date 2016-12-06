@@ -22,6 +22,5 @@ var PrsQuiet = (function (_super) {
         inner.apply(ps);
     };
     return PrsQuiet;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsQuiet = PrsQuiet;
-//# sourceMappingURL=quiet.js.map

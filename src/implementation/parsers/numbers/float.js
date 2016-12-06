@@ -19,6 +19,8 @@ var defaultFloatOptions = {
     base: 10,
     allowFloatingPoint: true
 };
+var msgOneOrMoreDigits = "one or more digits";
+var msgExponentSign = "exponent sign (+ or -)";
 var PrsFloat = (function (_super) {
     __extends(PrsFloat, _super);
     function PrsFloat(options) {
@@ -71,7 +73,6 @@ var PrsFloat = (function (_super) {
             ps.result = ResultKind.SoftFail;
             return;
         }
-        ;
         var Sign = 1;
         var hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
@@ -96,6 +97,7 @@ var PrsFloat = (function (_super) {
         if (!allowImplicitZero && !hasWhole) {
             //fail because we don't allow ".1", and similar without allowImplicitZero.
             ps.result = ResultKind.SoftFail;
+            ps.expecting = msgOneOrMoreDigits;
             return;
         }
         if (allowFloatingPoint && nextChar === char_indicators_1.Codes.decimalPoint) {
@@ -120,6 +122,7 @@ var PrsFloat = (function (_super) {
         if (!hasWhole && !hasFraction) {
             //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
             ps.result = ResultKind.SoftFail;
+            ps.expecting = msgOneOrMoreDigits;
             return;
         }
         //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
@@ -129,6 +132,7 @@ var PrsFloat = (function (_super) {
             var expSign = parselets_1.Parselets.parseSign(ps);
             if (expSign === 0) {
                 ps.result = ResultKind.HardFail;
+                ps.expecting = msgExponentSign;
                 return;
             }
             var prevFractionalPos = ps.position;
@@ -136,6 +140,7 @@ var PrsFloat = (function (_super) {
             if (ps.position === prevFractionalPos) {
                 //we parsed e+ but we did not parse any digits.
                 ps.result = ResultKind.HardFail;
+                ps.expecting = msgOneOrMoreDigits;
                 return;
             }
             if (expSign < 0) {
@@ -149,6 +154,6 @@ var PrsFloat = (function (_super) {
         ps.value = Sign * (Whole + Fractional) * Exp;
     };
     return PrsFloat;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsFloat = PrsFloat;
 //# sourceMappingURL=float.js.map

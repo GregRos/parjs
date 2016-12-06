@@ -1,10 +1,10 @@
-import {ParjsParserAction} from "../../../base/action";
-import {Issues, failReturn} from "../../common";
+import {ParjsAction} from "../../../base/action";
+import {Issues, FAIL_RESULT} from "../../common";
 /**
  * Created by lifeg on 23/11/2016.
  */
 
-export class PrsAltVal extends ParjsParserAction {
+export class PrsAltVal extends ParjsAction {
     displayName = "altVal";
     isLoud = true;
     expecting : string;

@@ -32,13 +32,17 @@ var PrsSeq = (function (_super) {
                 results.maybePush(ps.value);
             }
             else if (ps.isSoft && i === 0) {
+                //if the first parser failed softly then we propagate a soft failure.
                 return;
             }
             else if (ps.isSoft) {
                 ps.result = ResultKind.HardFail;
+                //if a i > 0 parser failed softly, this is a hard fail for us.
+                //also, propagate the internal expectation.
                 return;
             }
             else {
+                //ps failed hard or fatally. The same severity.
                 return;
             }
         }
@@ -46,6 +50,5 @@ var PrsSeq = (function (_super) {
         ps.result = ResultKind.OK;
     };
     return PrsSeq;
-}(action_1.ParjsParserAction));
+}(action_1.ParjsAction));
 exports.PrsSeq = PrsSeq;
-//# sourceMappingURL=sequential.js.map

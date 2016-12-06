@@ -25,6 +25,5 @@ var PrsEof = (function (_super) {
         }
     };
     return PrsEof;
-}(action_1.ParjsBaseParserAction));
+}(action_1.ParjsBasicAction));
 exports.PrsEof = PrsEof;
-//# sourceMappingURL=eof.js.map

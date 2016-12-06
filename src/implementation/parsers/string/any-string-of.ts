@@ -2,8 +2,8 @@
  * Created by User on 22-Nov-16.
  */
 import _ = require('lodash');
-import {ParjsParserAction, ParjsBaseParserAction} from "../../../base/action";
-export class AnyStringOf extends ParjsBaseParserAction {
+import {ParjsAction, ParjsBasicAction} from "../../../base/action";
+export class AnyStringOf extends ParjsBasicAction {
     displayName ="anyStringOf";
     isLoud = true;
     expecting : string;

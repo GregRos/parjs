@@ -1,8 +1,8 @@
-import {ParjsParserAction} from "../../../base/action";
+import {ParjsAction} from "../../../base/action";
 /**
  * Created by lifeg on 24/11/2016.
  */
-export class PrsMapResult extends ParjsParserAction {
+export class PrsMapResult extends ParjsAction {
     displayName = "result";
     isLoud = true;
     expecting : string;
