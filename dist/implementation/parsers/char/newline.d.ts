@@ -1,4 +1,5 @@
 import { ParjsAction } from "../../../base/action";
+import { ParsingState } from "../../../abstract/basics/state";
 /**
  * Created by User on 24-Nov-16.
  */

@@ -1,4 +1,5 @@
 import { ParjsAction } from "../../../base/action";
+import { ParsingState } from "../../../abstract/basics/state";
 export interface FloatOptions {
     allowSign?: boolean;
     allowImplicitZero?: boolean;

@@ -1,5 +1,7 @@
 import {QUIET_RESULT} from "../../common";
 import {ParjsAction} from "../../../base/action";
+import {AnyParserAction} from "../../../abstract/basics/action";
+import {ParsingState} from "../../../abstract/basics/state";
 /**
  * Created by lifeg on 24/11/2016.
  */

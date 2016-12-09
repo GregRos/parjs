@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by lifeg on 23/11/2016.
  */
@@ -26,10 +27,11 @@ var PrsAltVal = (function (_super) {
         if (ps.isSoft) {
             //on soft failure, set the value and result to OK
             ps.value = val;
-            ps.result = ResultKind.OK;
+            ps.kind = result_1.ResultKind.OK;
         }
         //on ok/hard/fatal, propagate the result.
     };
     return PrsAltVal;
 }(action_1.ParjsAction));
 exports.PrsAltVal = PrsAltVal;
+//# sourceMappingURL=alt-val.js.map

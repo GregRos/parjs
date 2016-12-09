@@ -1,25 +1,9 @@
+import {AnyParser} from "./any";
+import {ResultKind, ParserResult} from "../basics/result";
+import {QuietParser} from "./quiet";
+export interface LoudParser<T> extends AnyParser {
+    parse(input : string, initialState ?: any) : ParserResult<T>;
 
-
-
-interface ValueResult<T> {
-    hasResult : true;
-    result : T;
-    state : any;
-}
-
-interface NoValueResult {
-    hasResult : false;
-    state : any;
-}
-
-interface LoudParser<T> extends AnyParser {
-
-}
-
-/**
- * Created by User on 21-Nov-16.
- */
-interface LoudParser<T> extends AnyParser {
     //+++ ALTERNATIVE
 
     /**
@@ -40,20 +24,14 @@ interface LoudParser<T> extends AnyParser {
      * @param parsers The parsers to try.
      */
     or(...parsers : LoudParser<any>[]) : LoudParser<any>;
-}
 
-/**
- * Created by User on 21-Nov-16.
- */
-interface LoudParser<T> {
     //+ Look Ahead
 
     /**
      * P applies this parser. If it succeeds, it backtracks to the original position in the input, effectively succeeding without consuming input.
      */
     readonly backtrack : LoudParser<T>;
-}
-interface LoudParser<T> {
+
     //+++MAPPING
     /**
      *P Applies this parser, and then applies the given function on the result.
@@ -76,9 +54,7 @@ interface LoudParser<T> {
      * For an object, its toString method is invoked.
      */
     readonly str : LoudParser<string>;
-}
 
-interface LoudParser<T> {
     //+++ RESTRICTIONS
     /**
      * P applies this parser, and further requires that the result fulfill a condition.
@@ -111,11 +87,7 @@ interface LoudParser<T> {
      * P applies this parser, and requires that it consume at least one character of the input.
      */
     mustCapture(kind ?: ResultKind) : LoudParser<T>;
-}
-/**
- * Created by User on 21-Nov-16.
- */
-interface LoudParser<T> {
+
     //+++SEQUENTIAL
     /**
      * P applies this parser and then immediately another (quiet) parser and returns the result of this parser.
@@ -165,12 +137,7 @@ interface LoudParser<T> {
      * @param max The maximum number of times this parser is applied.
      */
     manySepBy(delimeter : AnyParser, max ?: number) : LoudParser<T>;
-}
 
-/**
- * Created by User on 21-Nov-16.
- */
-interface LoudParser<T> {
     /**
      * P applies this parser and applies {reducer} to the current state state.
      * The initial internal state is normally undefined.

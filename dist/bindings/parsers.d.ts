@@ -1,5 +1,11 @@
 /// <reference types="core-js" />
 import { ParjsParser } from "./instance-combinators";
+import { CharParsers } from "../abstract/parsers/char";
+import { StringParsers } from "../abstract/parsers/string";
+import { PrimitiveParsers } from "../abstract/parsers/primitives";
+import { SpecialParsers } from "../abstract/parsers/special";
+import { StaticCombinators } from "../abstract/combinators/static";
+import { AnyParser } from "../abstract/combinators/any";
 export declare class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
     any(...parsers: AnyParser[]): ParjsParser;
     seq(...parsers: AnyParser[]): ParjsParser;

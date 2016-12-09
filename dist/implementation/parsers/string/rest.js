@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -21,7 +22,7 @@ var PrsRest = (function (_super) {
         var text = input.substr(Math.min(position, input.length));
         pr.position = input.length;
         pr.value = text;
-        pr.result = ResultKind.OK;
+        pr.kind = result_1.ResultKind.OK;
     };
     return PrsRest;
 }(action_1.ParjsBasicAction));

@@ -1,8 +1,9 @@
+import {LoudParser} from "../combinators/loud";
 /**
  * Created by User on 20-Nov-16.
  */
 
-interface SpecialParsers {
+export interface SpecialParsers {
     /**
      * P succeeds without consuming input and returns the current position in the input.
      */

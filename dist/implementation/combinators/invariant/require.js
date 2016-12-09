@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -28,7 +29,7 @@ var PrsMust = (function (_super) {
         if (!ps.isOk) {
             return;
         }
-        ps.result = requirement(ps.value) ? ResultKind.OK : failType;
+        ps.kind = requirement(ps.value) ? result_1.ResultKind.OK : failType;
     };
     return PrsMust;
 }(action_1.ParjsAction));

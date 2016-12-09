@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 24-Nov-16.
  */
@@ -25,13 +26,13 @@ var PrsRegexp = (function (_super) {
         input = input.substr(position);
         var match = regexp.exec(input);
         if (!match) {
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
         ps.position = regexp.lastIndex;
         var arr = match.slice();
         ps.value = arr;
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsRegexp;
 }(action_1.ParjsBasicAction));

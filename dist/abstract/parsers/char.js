@@ -1,5 +1,3 @@
-/**
- * Created by User on 21-Nov-16.
- */
+"use strict";
 
 //# sourceMappingURL=char.js.map

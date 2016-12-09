@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -36,7 +37,7 @@ var PrsSeq = (function (_super) {
                 return;
             }
             else if (ps.isSoft) {
-                ps.result = ResultKind.HardFail;
+                ps.kind = result_1.ResultKind.HardFail;
                 //if a i > 0 parser failed softly, this is a hard fail for us.
                 //also, propagate the internal expectation.
                 return;
@@ -47,7 +48,7 @@ var PrsSeq = (function (_super) {
             }
         }
         ps.value = results;
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsSeq;
 }(action_1.ParjsAction));

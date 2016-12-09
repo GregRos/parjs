@@ -1,5 +1,6 @@
-import {QUIET_RESULT, FAIL_RESULT} from "../implementation/common";
+import {QUIET_RESULT, FAIL_RESULT, Issues} from "../implementation/common";
 import {ParjsAction, BasicParsingState} from "./action";
+import {ResultKind, ParserResult} from "../abstract/basics/result";
 /**
  * Created by User on 22-Nov-16.
  */
@@ -8,28 +9,44 @@ import {ParjsAction, BasicParsingState} from "./action";
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
-export class BaseParjsParser {
+export abstract class BaseParjsParser {
     constructor(public action : ParjsAction) {}
 
-    parse(input : string) : any {
+    get displayName() {
+        return this.action.displayName;
+    }
+
+    parse(input : string, initialState ?: any) : ParserResult<any> {
+        if (typeof input !== "string") {
+            //catches input === undefined, null
+            throw new Error("input must be a valid string");
+        }
         let {action, isLoud} = this;
         let ps = new BasicParsingState(input);
+        ps.state = initialState;
+        action.apply(ps);
 
-        if (action.apply(ps) && ps.position === input.length) {
-            if (isLoud) {
-                return {
-                    result : ps.value,
-                    state : ps.state,
-                    hasResult : true
-                } as ValueResult<any>;
-            } else {
-                return {
-                    state : ps.state,
-                    hasResult : false
-                } as NoValueResult;
+        if (ps.isOk) {
+            if (ps.position !== input.length) {
+                ps.kind = ResultKind.SoftFail;
+                ps.expecting = "unexpected end of input";
+            }
+        }
+        if (ps.kind === ResultKind.Unknown){
+            throw new Error("should not happen.");
+        }
+        if (ps.kind === ResultKind.OK) {
+            return {
+                value : ps.value === QUIET_RESULT ? undefined : ps.value,
+                state : ps.state,
+                kind : ResultKind.OK
             }
         } else {
-            return undefined;
+            return {
+                state : ps.state,
+                kind : ps.kind,
+                expecting : ps.expecting
+            };
         }
     }
 

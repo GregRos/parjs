@@ -1,8 +1,8 @@
+import {AnyParser} from "./any";
+import {ResultKind, QuietParserResult} from "../basics/result";
+export interface QuietParser extends AnyParser {
+    parse(input : string,initialState ?: any) : QuietParserResult;
 
-/**
- * Created by User on 21-Nov-16.
- */
-interface LoudParser<T> extends AnyParser {
     //+++ ALTERNATIVE
 
     /**
@@ -17,35 +17,29 @@ interface LoudParser<T> extends AnyParser {
      * @param parsers The parsers to try.
      */
     alts(...parsers : QuietParser[]) : QuietParser;
-}
 
-/**
- * Created by User on 21-Nov-16.
- */
-interface QuietParser {
     //+ Look Ahead
 
     /**
      * P applies this parser. If it succeeds, it backtracks to the original position in the input, effectively succeeding without consuming input.
      */
     readonly backtrack: QuietParser;
-}
 
-/**
- * Created by User on 22-Nov-16.
- */
-interface QuietParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
     mustCapture(kind ?: ResultKind) : QuietParser;
-}
 
-/**
- * Created by lifeg on 19/11/2016.
- */
-interface QuietParser extends AnyParser {
+    /**
+     * P applies this parser and then the given parser. P returns the value of the given parser (if any).
+     * @param parser The parser to apply next.
+     */
     then<TParser extends AnyParser>(parser : TParser) : TParser;
+    /**
+     * P applies this parser, and then calls a function to determine which parser to apply next. The function takes no parameters.
+     * P returns the value of the following parser.
+     * @param selector The function that returns the proceeding parser.
+     */
     then<TParser extends AnyParser>(selector : () => TParser) : TParser;
 
     /**
@@ -77,17 +71,11 @@ interface QuietParser extends AnyParser {
      * @param count The number of times to apply this parser.
      */
     exactly(count : number) : QuietParser;
-}
 
-/**
- * Created by User on 21-Nov-16.
- */
-interface QuietParser {
     /**
      * P applies this parser and applies {reducer} to the current state state.
      * The initial internal state is normally undefined.
      * @param reducer Transformation to apply to the state state.
      */
     withState(reducer : (state : any) => any) : QuietParser;
-
 }

@@ -1,4 +1,6 @@
 import {ParjsAction, ParjsBasicAction} from "../../../base/action";
+import {ParsingState} from "../../../abstract/basics/state";
+import {ResultKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 24-Nov-16.
  */
@@ -20,12 +22,12 @@ export class PrsRegexp extends ParjsBasicAction {
         input = input.substr(position);
         let match = regexp.exec(input);
         if (!match) {
-            ps.result = ResultKind.SoftFail;
+            ps.kind = ResultKind.SoftFail;
             return;
         }
         ps.position = regexp.lastIndex;
         let arr = match.slice();
         ps.value = arr;
-        ps.result = ResultKind.OK;
+        ps.kind = ResultKind.OK;
     }
 }

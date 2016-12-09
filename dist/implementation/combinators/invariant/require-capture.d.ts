@@ -1,4 +1,7 @@
 import { ParjsAction } from "../../../base/action";
+import { AnyParserAction } from "../../../abstract/basics/action";
+import { ResultKind } from "../../../abstract/basics/result";
+import { ParsingState } from "../../../abstract/basics/state";
 /**
  * Created by User on 21-Nov-16.
  */

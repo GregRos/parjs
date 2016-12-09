@@ -29,3 +29,4 @@ var PrsMapResult = (function (_super) {
     return PrsMapResult;
 }(action_1.ParjsAction));
 exports.PrsMapResult = PrsMapResult;
+//# sourceMappingURL=map-result.js.map

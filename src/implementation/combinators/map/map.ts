@@ -1,5 +1,6 @@
 import {ParjsAction} from "../../../base/action";
 import {QUIET_RESULT, Issues} from "../../common";
+import {ParsingState} from "../../../abstract/basics/state";
 /**
  * Created by User on 21-Nov-16.
  */

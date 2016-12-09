@@ -1,5 +1,8 @@
 import {ParjsAction} from "../../../base/action";
 import {QUIET_RESULT, Issues} from "../../common";
+import {ResultKind} from "../../../abstract/basics/result";
+import {AnyParserAction} from "../../../abstract/basics/action";
+import {ParsingState} from "../../../abstract/basics/state";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -18,7 +21,7 @@ export class PrsManySepBy extends ParjsAction {
         let {position} = ps;
         let arr = [];
         many.apply(ps);
-        if (ps.result >= ResultKind.HardFail) {
+        if (ps.kind >= ResultKind.HardFail) {
             return;
         } else if (ps.isSoft) {
             ps.value = [];
@@ -30,13 +33,13 @@ export class PrsManySepBy extends ParjsAction {
             sep.apply(ps);
             if (ps.isSoft) {
                 break;
-            } else if (ps.result >= ResultKind.HardFail) {
+            } else if (ps.kind >= ResultKind.HardFail) {
                 return;
             }
             many.apply(ps);
             if (ps.isSoft) {
                 break;
-            } else if (ps.result >= ResultKind.HardFail) {
+            } else if (ps.kind >= ResultKind.HardFail) {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
@@ -46,7 +49,7 @@ export class PrsManySepBy extends ParjsAction {
             position = ps.position;
             i++;
         }
-        ps.result = ResultKind.OK;
+        ps.kind = ResultKind.OK;
         ps.position = position;
         ps.value = arr;
         return;

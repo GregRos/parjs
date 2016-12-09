@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -37,14 +38,14 @@ var PrsSeqFunc = (function (_super) {
             }
             else if (ps.isSoft) {
                 //at this point, even a soft failure becomes a hard one
-                ps.result = ResultKind.HardFail;
+                ps.kind = result_1.ResultKind.HardFail;
             }
             else {
                 return;
             }
         }
         ps.value = results;
-        return ResultKind.OK;
+        return result_1.ResultKind.OK;
     };
     return PrsSeqFunc;
 }(action_1.ParjsAction));

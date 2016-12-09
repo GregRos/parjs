@@ -1,9 +1,11 @@
+import { ParsingState } from "../abstract/basics/state";
+import { ResultKind } from "../abstract/basics/result";
 export declare class BasicParsingState implements ParsingState {
     input: string;
     position: number;
     state: any;
     value: any;
-    result: ResultKind;
+    kind: ResultKind;
     expecting: string;
     constructor(input: string);
     readonly isOk: boolean;

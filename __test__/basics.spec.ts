@@ -1,13 +1,35 @@
 import {Parjs} from "../src/bindings/parsers";
-/**
- * Created by lifeg on 07/12/2016.
- */
-describe("smoke test", () => {
-   let parser = Parjs.anyChar;
-   let input = "a";
-   let failInput = "";
-   expect("can parse", () => {
-       let result = parser.parse(input);
-       result.
-   })
+import {ResultKind, ParserResult, SuccessResult, FailResult} from "../src/abstract/basics/result";
+import {verifySuccess, verifyFailure} from './custom-matchers';
+
+
+
+describe("basics: anyChar example", () => {
+    let parser = Parjs.anyChar;
+    let successInput = "a";
+    let tooMuchInput = "ab";
+    let failInput = "";
+    let uniqueState = {};
+    it("single char input success", () => {
+        let result = parser.parse(successInput, uniqueState) as SuccessResult<string>;
+    });
+    it("empty input failure", () => {
+        let result = parser.parse(failInput, uniqueState) as FailResult;
+        verifyFailure(result, ResultKind.SoftFail, uniqueState);
+    });
+
+    it("fails on too much input", () => {
+        let result = parser.parse(tooMuchInput, uniqueState);
+        verifyFailure(result, ResultKind.SoftFail, uniqueState);
+    });
+
+    describe("non-string inputs", () => {
+        it("throws on null, undefined", () => {
+            expect(() => parser.parse(null)).toThrow();
+            expect(() => parser.parse(undefined)).toThrow();
+        });
+        it("throws on non-string", () => {
+            expect(() => parser.parse(5 as any)).toThrow();
+        });
+    });
 });

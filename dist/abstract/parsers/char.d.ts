@@ -1,7 +1,8 @@
+import { LoudParser } from "../combinators/loud";
 /**
  * Created by User on 21-Nov-16.
  */
-interface CharParsers {
+export interface CharParsers {
     /**
      * P parses a single character. Equivalent to:
      */

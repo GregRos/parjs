@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var common_1 = require("../implementation/common");
 var chai_1 = require('chai');
+var result_1 = require("../abstract/basics/result");
 var BasicParsingState = (function () {
     function BasicParsingState(input) {
         this.input = input;
@@ -15,28 +16,28 @@ var BasicParsingState = (function () {
     }
     Object.defineProperty(BasicParsingState.prototype, "isOk", {
         get: function () {
-            return this.result === ResultKind.OK;
+            return this.kind === result_1.ResultKind.OK;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BasicParsingState.prototype, "isSoft", {
         get: function () {
-            return this.result === ResultKind.SoftFail;
+            return this.kind === result_1.ResultKind.SoftFail;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BasicParsingState.prototype, "isHard", {
         get: function () {
-            return this.result === ResultKind.HardFail;
+            return this.kind === result_1.ResultKind.HardFail;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BasicParsingState.prototype, "isFatal", {
         get: function () {
-            return this.result === ResultKind.FatalFail;
+            return this.kind === result_1.ResultKind.FatalFail;
         },
         enumerable: true,
         configurable: true
@@ -57,11 +58,11 @@ var ParjsAction = (function () {
     ParjsAction.prototype.apply = function (ps) {
         var position = ps.position, state = ps.state;
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
-        ps.result = ResultKind.Unknown;
+        ps.kind = result_1.ResultKind.Unknown;
         ps.expecting = undefined;
         ps.value = common_1.UNINITIALIZED_RESULT;
         this._apply(ps);
-        chai_1.assert.notEqual(ps.result, ResultKind.Unknown, "the State's result field must be set");
+        chai_1.assert.notStrictEqual(ps.kind, result_1.ResultKind.Unknown, "the State's result field must be set");
         if (!ps.isOk) {
             ps.value = common_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
@@ -70,10 +71,10 @@ var ParjsAction = (function () {
             ps.value = common_1.QUIET_RESULT;
         }
         else {
-            chai_1.assert.notEqual(ps.value, common_1.UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
+            chai_1.assert.notStrictEqual(ps.value, common_1.UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
         }
         if (!ps.isOk) {
-            chai_1.assert.notEqual(ps.expecting, undefined, "if failure then there must be a reason");
+            chai_1.assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
         }
     };
     return ParjsAction;

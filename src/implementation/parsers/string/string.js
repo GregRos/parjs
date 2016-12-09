@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -21,19 +22,20 @@ var PrsString = (function (_super) {
         var position = ps.position, input = ps.input;
         var i;
         if (position + str.length > input.length) {
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
         for (var i_1 = 0; i_1 < str.length; i_1++, position++) {
             if (str.charCodeAt(i_1) !== input.charCodeAt(position)) {
-                ps.result = ResultKind.SoftFail;
+                ps.kind = result_1.ResultKind.SoftFail;
                 return;
             }
         }
         ps.position += str.length;
         ps.value = str;
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsString;
 }(action_1.ParjsBasicAction));
 exports.PrsString = PrsString;
+//# sourceMappingURL=string.js.map

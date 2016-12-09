@@ -1,5 +1,9 @@
 import {ParjsAction} from "../../../base/action";
 import {Issues} from "../../common";
+import {ParsingState} from "../../../abstract/basics/state";
+import {ResultKind} from "../../../abstract/basics/result";
+import {AnyParserAction} from "../../../abstract/basics/action";
+import {LoudParser} from "../../../abstract/combinators/loud";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -29,7 +33,7 @@ export class PrsSeqFunc extends ParjsAction {
                 results.maybePush(ps.value);
             } else if (ps.isSoft) {
                 //at this point, even a soft failure becomes a hard one
-                ps.result = ResultKind.HardFail;
+                ps.kind = ResultKind.HardFail;
             } else {
                 return;
             }

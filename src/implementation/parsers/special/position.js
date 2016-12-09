@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 27-Nov-16.
  */
@@ -18,8 +19,9 @@ var PrsPosition = (function (_super) {
     }
     PrsPosition.prototype._apply = function (ps) {
         ps.value = ps.position;
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsPosition;
 }(action_1.ParjsAction));
 exports.PrsPosition = PrsPosition;
+//# sourceMappingURL=position.js.map

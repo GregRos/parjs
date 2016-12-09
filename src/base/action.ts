@@ -1,30 +1,32 @@
 import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "../implementation/common";
 import {assert} from 'chai';
+import {ParsingState} from "../abstract/basics/state";
+import {ResultKind} from "../abstract/basics/result";
 
 export class BasicParsingState implements ParsingState {
     position = 0;
     state = undefined;
     value = undefined;
-    result : ResultKind;
+    kind : ResultKind;
     expecting : string;
     constructor(public input : string) {
 
     }
 
     get isOk() {
-        return this.result === ResultKind.OK;
+        return this.kind === ResultKind.OK;
     }
 
     get isSoft() {
-        return this.result === ResultKind.SoftFail;
+        return this.kind === ResultKind.SoftFail;
     }
 
     get isHard() {
-        return this.result === ResultKind.HardFail;
+        return this.kind === ResultKind.HardFail;
     }
 
     get isFatal() {
-        return this.result === ResultKind.FatalFail;
+        return this.kind === ResultKind.FatalFail;
     }
 }
 
@@ -49,23 +51,23 @@ export abstract class ParjsAction {
         let {position, state} = ps;
 
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
-        ps.result = ResultKind.Unknown;
+        ps.kind = ResultKind.Unknown;
         ps.expecting = undefined;
         ps.value = UNINITIALIZED_RESULT;
 
         this._apply(ps);
-        assert.notEqual(ps.result, ResultKind.Unknown, "the State's result field must be set");
+        assert.notStrictEqual(ps.kind, ResultKind.Unknown, "the State's result field must be set");
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
         } else if (!this.isLoud) {
             ps.value = QUIET_RESULT;
         } else {
-            assert.notEqual(ps.value, UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
+            assert.notStrictEqual(ps.value, UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
         }
 
         if (!ps.isOk) {
-            assert.notEqual(ps.expecting, undefined, "if failure then there must be a reason");
+            assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
         }
     }
 

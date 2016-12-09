@@ -1,43 +1,15 @@
-/**
- *
- */
-declare enum ResultKind {
-    Unknown,
-    OK,
-    SoftFail,
-    HardFail,
-    FatalFail,
-}
-/**
- * An interface for abstracting over parser actions.
- */
-interface AnyParserAction {
-    /**
-     * Applies the parser action on the parsing state.
-     * @param ps The state on which to apply.
-     */
-    apply(ps: ParsingState): void;
-    /**
-     * Whether this parser action returns a value when it succeeds.
-     */
-    isLoud: boolean;
-    /**
-     * A general string that says what the parser action expects for the input.
-     */
-    expecting: string;
-    /**
-     * The display name of the parser action.
-     */
-    displayName: string;
-}
+import { LoudParser } from "./loud";
+import { AnyParserAction } from "../basics/action";
+import { QuietParser } from "./quiet";
 /**
  * Created by User on 21-Nov-16.
  */
-interface AnyParser {
+export interface AnyParser {
+    readonly displayName: string;
     /**
      * Exposes the internal parser action. This bit will generally contain the implementation of the parser instance.
      */
-    action: AnyParserAction;
+    readonly action: AnyParserAction;
     /**
      * P applies this parser, and if it succeeds, returns the given value.
      * @param result The value to return.

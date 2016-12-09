@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -30,7 +31,7 @@ var PrsManyTill = (function (_super) {
             if (ps.isOk) {
                 break;
             }
-            else if (ps.result >= ResultKind.HardFail) {
+            else if (ps.kind >= result_1.ResultKind.HardFail) {
                 //if till failed hard/fatally, we return the fail result.
                 return;
             }
@@ -44,7 +45,7 @@ var PrsManyTill = (function (_super) {
                 //many failed softly before till...
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.
-                    ps.result = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+                    ps.kind = successes === 0 ? result_1.ResultKind.SoftFail : result_1.ResultKind.HardFail;
                 }
                 else {
                     //till was optional, so many failing softly is OK.
@@ -62,7 +63,7 @@ var PrsManyTill = (function (_super) {
             successes++;
         }
         ps.value = arr;
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsManyTill;
 }(action_1.ParjsAction));

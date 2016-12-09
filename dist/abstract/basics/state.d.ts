@@ -1,7 +1,8 @@
+import { ResultKind } from "./result";
 /**
  * Created by User on 21-Nov-16.
  */
-interface ParsingState {
+export interface ParsingState {
     /**
      * The original string input on which parsing is performed. Should not be mutated while parsing.
      */
@@ -26,7 +27,7 @@ interface ParsingState {
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
-    result: ResultKind;
+    kind: ResultKind;
     /**
      * Shorthand for this.result == Okay
      */

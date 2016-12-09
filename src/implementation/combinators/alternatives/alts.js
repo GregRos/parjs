@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -47,8 +48,9 @@ var PrsAlts = (function (_super) {
                 return;
             }
         }
-        ps.result = ResultKind.SoftFail;
+        ps.kind = result_1.ResultKind.SoftFail;
     };
     return PrsAlts;
 }(action_1.ParjsAction));
 exports.PrsAlts = PrsAlts;
+//# sourceMappingURL=alts.js.map

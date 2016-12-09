@@ -1,4 +1,6 @@
 import {ParjsAction, ParjsBasicAction} from "../../../base/action";
+import {ParsingState} from "../../../abstract/basics/state";
+import {ResultKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -12,6 +14,6 @@ export class PrsRest extends ParjsBasicAction {
         let text = input.substr(Math.min(position, input.length));
         pr.position = input.length;
         pr.value = text;
-        pr.result = ResultKind.OK;
+        pr.kind = ResultKind.OK;
     }
 }

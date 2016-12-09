@@ -1,4 +1,6 @@
 import { ParjsAction } from "../../../base/action";
+import { AnyParserAction } from "../../../abstract/basics/action";
+import { ParsingState } from "../../../abstract/basics/state";
 /**
  * Created by User on 22-Nov-16.
  */

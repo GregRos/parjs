@@ -12,6 +12,7 @@ var _ = require('lodash');
 var char_indicators_1 = require("../../../functions/char-indicators");
 var math_1 = require("../../../functions/math");
 var parselets_1 = require("./parselets");
+var result_1 = require("../../../abstract/basics/result");
 var defaultFloatOptions = {
     allowExponent: true,
     allowSign: true,
@@ -70,7 +71,7 @@ var PrsFloat = (function (_super) {
         var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent, base = _a.base;
         var position = ps.position, input = ps.input;
         if (position > input.length) {
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
         var Sign = 1;
@@ -96,7 +97,7 @@ var PrsFloat = (function (_super) {
         prevPos = ps.position;
         if (!allowImplicitZero && !hasWhole) {
             //fail because we don't allow ".1", and similar without allowImplicitZero.
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
             ps.expecting = msgOneOrMoreDigits;
             return;
         }
@@ -121,7 +122,7 @@ var PrsFloat = (function (_super) {
         }
         if (!hasWhole && !hasFraction) {
             //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
             ps.expecting = msgOneOrMoreDigits;
             return;
         }
@@ -131,7 +132,7 @@ var PrsFloat = (function (_super) {
             ps.position++;
             var expSign = parselets_1.Parselets.parseSign(ps);
             if (expSign === 0) {
-                ps.result = ResultKind.HardFail;
+                ps.kind = result_1.ResultKind.HardFail;
                 ps.expecting = msgExponentSign;
                 return;
             }
@@ -139,7 +140,7 @@ var PrsFloat = (function (_super) {
             var exp = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
             if (ps.position === prevFractionalPos) {
                 //we parsed e+ but we did not parse any digits.
-                ps.result = ResultKind.HardFail;
+                ps.kind = result_1.ResultKind.HardFail;
                 ps.expecting = msgOneOrMoreDigits;
                 return;
             }
@@ -150,7 +151,7 @@ var PrsFloat = (function (_super) {
                 Exp = math_1.FastMath.PositiveExponents[base][exp];
             }
         }
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
         ps.value = Sign * (Whole + Fractional) * Exp;
     };
     return PrsFloat;

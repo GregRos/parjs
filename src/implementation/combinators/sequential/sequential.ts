@@ -1,4 +1,7 @@
 import {ParjsAction} from "../../../base/action";
+import {ResultKind} from "../../../abstract/basics/result";
+import {ParsingState} from "../../../abstract/basics/state";
+import {AnyParserAction} from "../../../abstract/basics/action";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -26,7 +29,7 @@ export class PrsSeq extends ParjsAction {
                 //if the first parser failed softly then we propagate a soft failure.
                 return;
             } else if (ps.isSoft) {
-                ps.result = ResultKind.HardFail;
+                ps.kind = ResultKind.HardFail;
                 //if a i > 0 parser failed softly, this is a hard fail for us.
                 //also, propagate the internal expectation.
                 return;
@@ -36,7 +39,7 @@ export class PrsSeq extends ParjsAction {
             }
         }
         ps.value = results;
-        ps.result = ResultKind.OK;
+        ps.kind = ResultKind.OK;
 
     }
 }

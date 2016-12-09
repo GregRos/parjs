@@ -1,4 +1,8 @@
 import { BaseParjsParser } from "../base/parser";
+import { LoudParser } from "../abstract/combinators/loud";
+import { ResultKind } from "../abstract/basics/result";
+import { QuietParser } from "../abstract/combinators/quiet";
+import { AnyParser } from "../abstract/combinators/any";
 export declare class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
     readonly backtrack: ParjsParser;
     mustCapture(failType?: ResultKind): ParjsParser;

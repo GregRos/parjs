@@ -7,6 +7,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var action_1 = require("../../../base/action");
 var parselets_1 = require('./parselets');
 var math_1 = require("../../../functions/math");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 28-Nov-16.
  */
@@ -35,7 +36,7 @@ var PrsInt = (function (_super) {
         var value = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
         ps.position = position;
         ps.value = value;
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
         return;
     };
     return PrsInt;

@@ -1,8 +1,9 @@
 /// <reference types="core-js" />
+import { LoudParser } from "../combinators/loud";
 /**
  * Created by User on 21-Nov-16.
  */
-interface StringParsers {
+export interface StringParsers {
     /**
      * P parses as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
      *

@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -38,18 +39,19 @@ var PrsMany = (function (_super) {
             arr.maybePush(ps.value);
             i++;
         }
-        if (ps.result >= ResultKind.HardFail) {
+        if (ps.kind >= result_1.ResultKind.HardFail) {
             return;
         }
         if (i < minSuccesses) {
-            ps.result = i === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+            ps.kind = i === 0 ? result_1.ResultKind.SoftFail : result_1.ResultKind.HardFail;
             return;
         }
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        return ResultKind.OK;
+        return result_1.ResultKind.OK;
     };
     return PrsMany;
 }(action_1.ParjsAction));
 exports.PrsMany = PrsMany;
+//# sourceMappingURL=many.js.map

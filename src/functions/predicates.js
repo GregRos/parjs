@@ -22,3 +22,4 @@ var _PredicatesType = (function () {
 }());
 exports._PredicatesType = _PredicatesType;
 exports.Predicates = new _PredicatesType();
+//# sourceMappingURL=predicates.js.map

@@ -1,4 +1,2 @@
-/**
- * Created by User on 20-Nov-16.
- */
+"use strict";
 //# sourceMappingURL=special.js.map

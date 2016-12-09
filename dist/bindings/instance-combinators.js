@@ -11,6 +11,7 @@ var combinators_1 = require('../implementation/combinators');
 var parser_1 = require("../base/parser");
 var _ = require('lodash');
 var predicates_1 = require("../functions/predicates");
+var result_1 = require("../abstract/basics/result");
 function wrap(action) {
     return new ParjsParser(action);
 }
@@ -27,7 +28,7 @@ var ParjsParser = (function (_super) {
         configurable: true
     });
     ParjsParser.prototype.mustCapture = function (failType) {
-        if (failType === void 0) { failType = ResultKind.HardFail; }
+        if (failType === void 0) { failType = result_1.ResultKind.HardFail; }
         return wrap(new combinators_1.PrsMustCapture(this.action, failType));
     };
     ParjsParser.prototype.or = function () {
@@ -106,7 +107,7 @@ var ParjsParser = (function (_super) {
     });
     ParjsParser.prototype.must = function (condition, name, fail) {
         if (name === void 0) { name = "(unnamed condition)"; }
-        if (fail === void 0) { fail = ResultKind.HardFail; }
+        if (fail === void 0) { fail = result_1.ResultKind.HardFail; }
         return wrap(new combinators_1.PrsMust(this.action, condition, fail, name));
     };
     ParjsParser.prototype.mustNotBeOf = function () {
@@ -127,7 +128,7 @@ var ParjsParser = (function (_super) {
         get: function () {
             return this.must(function (x) {
                 return predicates_1.Predicates.nonEmpty(x);
-            }, "be non-empty", ResultKind.SoftFail);
+            }, "be non-empty", result_1.ResultKind.SoftFail);
         },
         enumerable: true,
         configurable: true

@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var char_indicators_1 = require("../../../functions/char-indicators");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 24-Nov-16.
  */
@@ -22,32 +23,37 @@ var PrsNewline = (function (_super) {
         var position = ps.position, input = ps.input;
         var matchUnicode = this.matchUnicode;
         if (position >= input.length) {
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
         var charAt = input.charCodeAt(position);
         if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
+            return;
         }
         if (charAt === char_indicators_1.Codes.newline) {
             ps.position++;
             ps.value = '\n';
-            ps.result = ResultKind.OK;
+            ps.kind = result_1.ResultKind.OK;
+            return;
         }
         else if (charAt === char_indicators_1.Codes.carriageReturn) {
             position++;
             if (position < input.length && input.charCodeAt(position) === char_indicators_1.Codes.newline) {
                 ps.position = position + 1;
                 ps.value = '\r\n';
-                ps.result = ResultKind.OK;
+                ps.kind = result_1.ResultKind.OK;
+                return;
             }
             ps.position = position;
             ps.value = '\r';
-            ps.result = ResultKind.OK;
+            ps.kind = result_1.ResultKind.OK;
+            return;
         }
-        ps.result = ResultKind.SoftFail;
+        ps.kind = result_1.ResultKind.SoftFail;
     };
     return PrsNewline;
 }(action_1.ParjsAction));
 exports.PrsNewline = PrsNewline;
+//# sourceMappingURL=newline.js.map

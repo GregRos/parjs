@@ -26,3 +26,4 @@ var Issues;
 Array.prototype.maybePush = function (o) {
     o !== exports.QUIET_RESULT && this.push(o);
 };
+//# sourceMappingURL=common.js.map

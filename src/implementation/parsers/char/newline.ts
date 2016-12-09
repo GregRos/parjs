@@ -1,5 +1,7 @@
 import {ParjsAction} from "../../../base/action";
 import {Codes, Chars} from "../../../functions/char-indicators";
+import {ResultKind} from "../../../abstract/basics/result";
+import {ParsingState} from "../../../abstract/basics/state";
 /**
  * Created by User on 24-Nov-16.
  */
@@ -16,7 +18,7 @@ export class PrsNewline extends ParjsAction {
         let {position, input} = ps;
         let {matchUnicode} = this;
         if (position >= input.length) {
-            ps.result = ResultKind.SoftFail;
+            ps.kind = ResultKind.SoftFail;
             return;
         }
         let charAt = input.charCodeAt(position);
@@ -24,22 +26,26 @@ export class PrsNewline extends ParjsAction {
         if (matchUnicode && Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
+            return;
         }
         if (charAt === Codes.newline) {
             ps.position++;
             ps.value = '\n';
-            ps.result = ResultKind.OK;
+            ps.kind = ResultKind.OK;
+            return;
         } else if (charAt === Codes.carriageReturn) {
             position++;
             if (position < input.length && input.charCodeAt(position) === Codes.newline) {
                 ps.position = position + 1;
                 ps.value = '\r\n';
-                ps.result = ResultKind.OK;
+                ps.kind = ResultKind.OK;
+                return;
             }
             ps.position = position;
             ps.value = '\r';
-            ps.result = ResultKind.OK;
+            ps.kind = ResultKind.OK;
+            return;
         }
-        ps.result = ResultKind.SoftFail;
+        ps.kind = ResultKind.SoftFail;
     }
 }

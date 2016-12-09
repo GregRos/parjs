@@ -2,6 +2,8 @@ import {ParjsAction} from "../../../base/action";
 import {Chars, Codes} from "../../../functions/char-indicators";
 import {Parselets} from './parselets';
 import {FastMath} from "../../../functions/math";
+import {ParsingState} from "../../../abstract/basics/state";
+import {ResultKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 28-Nov-16.
  */
@@ -30,7 +32,7 @@ export class PrsInt extends ParjsAction {
         let value = Parselets.parseDigits(ps, base, FastMath.PositiveExponents);
         ps.position = position;
         ps.value = value;
-        ps.result = ResultKind.OK;
+        ps.kind = ResultKind.OK;
         return;
     }
 }

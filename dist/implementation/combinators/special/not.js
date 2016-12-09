@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 22-Nov-16.
  */
@@ -24,11 +25,11 @@ var PrsNot = (function (_super) {
         inner.apply(ps);
         if (ps.isOk) {
             ps.position = position;
-            ps.result = ResultKind.SoftFail;
+            ps.kind = result_1.ResultKind.SoftFail;
         }
-        else if (ps.result <= ResultKind.HardFail) {
+        else if (ps.kind <= result_1.ResultKind.HardFail) {
             //hard fails are okay here
-            ps.result = ResultKind.OK;
+            ps.kind = result_1.ResultKind.OK;
             ps.position = position;
             return;
         }

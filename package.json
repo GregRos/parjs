@@ -11,10 +11,10 @@
   },
   "directories": {
     "bin": "dist",
-    "test" :"__tests__",
-    "lib" : "dist"
+    "test": "__tests__",
+    "lib": "dist"
   },
-  "files" : [
+  "files": [
     "dist/",
     "src/",
     "__test__/"
@@ -46,6 +46,7 @@
     "gulp-sourcemaps": "^1.9.1",
     "gulp-typescript": "^3.1.3",
     "jasmine": "^2.5.2",
+    "jasmine-spec-reporter": "^2.7.0",
     "merge2": "^1.0.2",
     "typescript": "^2.0.6"
   },

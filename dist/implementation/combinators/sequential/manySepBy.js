@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -25,7 +26,7 @@ var PrsManySepBy = (function (_super) {
         var position = ps.position;
         var arr = [];
         many.apply(ps);
-        if (ps.result >= ResultKind.HardFail) {
+        if (ps.kind >= result_1.ResultKind.HardFail) {
             return;
         }
         else if (ps.isSoft) {
@@ -40,14 +41,14 @@ var PrsManySepBy = (function (_super) {
             if (ps.isSoft) {
                 break;
             }
-            else if (ps.result >= ResultKind.HardFail) {
+            else if (ps.kind >= result_1.ResultKind.HardFail) {
                 return;
             }
             many.apply(ps);
             if (ps.isSoft) {
                 break;
             }
-            else if (ps.result >= ResultKind.HardFail) {
+            else if (ps.kind >= result_1.ResultKind.HardFail) {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
@@ -57,7 +58,7 @@ var PrsManySepBy = (function (_super) {
             position = ps.position;
             i++;
         }
-        ps.result = ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
         ps.position = position;
         ps.value = arr;
         return;

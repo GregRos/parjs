@@ -3,6 +3,8 @@
  */
 import _ = require('lodash');
 import {ParjsAction, ParjsBasicAction} from "../../../base/action";
+import {ParsingState} from "../../../abstract/basics/state";
+import {ResultKind} from "../../../abstract/basics/result";
 export class AnyStringOf extends ParjsBasicAction {
     displayName ="anyStringOf";
     isLoud = true;
@@ -27,9 +29,9 @@ export class AnyStringOf extends ParjsBasicAction {
             //this means we did not contiue strLoop so curStr passed our tests
             ps.position = position + curStr.length;
             ps.value = curStr;
-            ps.result = ResultKind.OK;
+            ps.kind = ResultKind.OK;
             return;
         }
-        ps.result = ResultKind.SoftFail;
+        ps.kind = ResultKind.SoftFail;
     }
 }

@@ -1,5 +1,8 @@
 import {ParjsAction} from "../../../base/action";
 import {Issues, FAIL_RESULT} from "../../common";
+import {AnyParserAction} from "../../../abstract/basics/action";
+import {ParsingState} from "../../../abstract/basics/state";
+import {ResultKind} from "../../../abstract/basics/result";
 /**
  * Created by lifeg on 23/11/2016.
  */
@@ -20,7 +23,7 @@ export class PrsAltVal extends ParjsAction {
         if (ps.isSoft) {
             //on soft failure, set the value and result to OK
             ps.value = val;
-            ps.result = ResultKind.OK;
+            ps.kind = ResultKind.OK;
         }
         //on ok/hard/fatal, propagate the result.
     }

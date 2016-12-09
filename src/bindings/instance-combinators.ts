@@ -8,6 +8,10 @@ import {BaseParjsParser} from "../base/parser";
 import _ = require('lodash');
 import {ParjsAction} from "../base/action";
 import {Predicates} from "../functions/predicates";
+import {LoudParser} from "../abstract/combinators/loud";
+import {ResultKind} from "../abstract/basics/result";
+import {QuietParser} from "../abstract/combinators/quiet";
+import {AnyParser} from "../abstract/combinators/any";
 
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);

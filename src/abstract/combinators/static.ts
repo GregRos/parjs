@@ -1,7 +1,10 @@
+import {LoudParser} from "./loud";
+import {QuietParser} from "./quiet";
+import {AnyParser} from "./any";
 /**
  * Created by lifeg on 19/11/2016.
  */
-interface StaticCombinators {
+export interface StaticCombinators {
     /**
      * P tries the given parsers, one after the other, and returns the value of the first one that succeeds.
      * @param pars The parsers.

@@ -4,8 +4,8 @@
 import {Parjs, ParjsParsers} from './bindings/parsers';
 import {ParjsAction} from './base/action';
 import {ParjsParser} from './bindings/instance-combinators';
+import {QuietParser} from "./abstract/combinators/quiet";
+import {LoudParser} from "./abstract/combinators/loud";
 
-type QParser = QuietParser;
-type LParser<T> = LoudParser<T>;
 
-export {QParser as QuietParser, LParser as LoudParser, Parjs, ParjsParsers, ParjsParser, ParjsAction};
+export {QuietParser, LoudParser, Parjs, ParjsParsers, ParjsParser, ParjsAction};
