@@ -20,6 +20,7 @@ var PrsMany = (function (_super) {
         this.displayName = "many";
         this.isLoud = inner.isLoud;
         this.expecting = inner.expecting;
+        maxIterations >= minSuccesses || common_1.Issues.willAlwaysFail(this);
     }
     PrsMany.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, maxIterations = _a.maxIterations, minSuccesses = _a.minSuccesses;
@@ -32,7 +33,7 @@ var PrsMany = (function (_super) {
                 break;
             if (i >= maxIterations)
                 break;
-            if (maxIterations < Infinity && ps.position === position) {
+            if (maxIterations === Infinity && ps.position === position) {
                 common_1.Issues.guardAgainstInfiniteLoop(this);
             }
             position = ps.position;
@@ -49,7 +50,7 @@ var PrsMany = (function (_super) {
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        return result_1.ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsMany;
 }(action_1.ParjsAction));

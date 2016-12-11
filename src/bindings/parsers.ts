@@ -9,6 +9,7 @@ import {PrimitiveParsers} from "../abstract/parsers/primitives";
 import {SpecialParsers} from "../abstract/parsers/special";
 import {StaticCombinators} from "../abstract/combinators/static";
 import {AnyParser} from "../abstract/combinators/any";
+import {ResultKind} from "../abstract/basics/result";
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -18,6 +19,7 @@ function wrap(action : ParjsAction) {
 }
 
 export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+
 
     any(...parsers : AnyParser[]) {
         return wrap(new PrsAlts(parsers.map(x => x.action)));
@@ -80,7 +82,7 @@ export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParser
     }
 
     get unicodeSpace() {
-        return this.charWhere(Chars.isUnicodeInlineSpace)
+        return this.charWhere(Chars.isUnicodeInlineSpace);
     }
 
     get spaces() {
@@ -119,8 +121,8 @@ export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParser
         return wrap(new PrsEof());
     }
 
-    get fail() {
-        return wrap(new PrsFail());
+    fail(expecting = "", kind = ResultKind.SoftFail) {
+        return wrap(new PrsFail(kind, expecting));
     }
 
     get position() {

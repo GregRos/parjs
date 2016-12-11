@@ -21,6 +21,14 @@ export namespace Issues {
     export function quietParserNotPermitted({displayName} : {displayName : string}) {
         throw new Error(`The combinator ${displayName} expected a loud parser.`);
     }
+
+    export function expectedFailureKind({displayName} : {displayName : string}) {
+        throw new Error(`The combinator ${displayName} expected a failure kind.`);
+    }
+
+    export function willAlwaysFail({displayName} : {displayName : string}) {
+        throw new Error(`The parameters given to ${displayName} will cause it to always fail.`);
+    }
 }
 
 declare global {

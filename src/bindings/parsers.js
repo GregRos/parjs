@@ -3,6 +3,7 @@ var instance_combinators_1 = require("./instance-combinators");
 var parsers_1 = require('../implementation/parsers');
 var combinators_1 = require('../implementation/combinators');
 var char_indicators_1 = require("../functions/char-indicators");
+var result_1 = require("../abstract/basics/result");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -159,13 +160,11 @@ var ParjsParsers = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ParjsParsers.prototype, "fail", {
-        get: function () {
-            return wrap(new parsers_1.PrsFail());
-        },
-        enumerable: true,
-        configurable: true
-    });
+    ParjsParsers.prototype.fail = function (expecting, kind) {
+        if (expecting === void 0) { expecting = ""; }
+        if (kind === void 0) { kind = result_1.ResultKind.SoftFail; }
+        return wrap(new parsers_1.PrsFail(kind, expecting));
+    };
     Object.defineProperty(ParjsParsers.prototype, "position", {
         get: function () {
             return wrap(new parsers_1.PrsPosition());

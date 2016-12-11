@@ -14,6 +14,7 @@ export class PrsMany extends ParjsAction {
         super();
         this.isLoud = inner.isLoud;
         this.expecting = inner.expecting;
+        maxIterations >= minSuccesses || Issues.willAlwaysFail(this);
     }
 
     _apply(ps : ParsingState) {
@@ -25,7 +26,7 @@ export class PrsMany extends ParjsAction {
             inner.apply(ps);
             if (!ps.isOk) break;
             if (i >= maxIterations) break;
-            if (maxIterations < Infinity && ps.position === position) {
+            if (maxIterations === Infinity && ps.position === position) {
                 Issues.guardAgainstInfiniteLoop(this);
             }
             position = ps.position;
@@ -42,6 +43,6 @@ export class PrsMany extends ParjsAction {
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        return ResultKind.OK;
+        ps.kind = ResultKind.OK;
     }
 }

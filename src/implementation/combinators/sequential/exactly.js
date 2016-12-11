@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -24,6 +25,9 @@ var PrsExactly = (function (_super) {
         for (var i = 0; i < count; i++) {
             inner.apply(ps);
             if (!ps.isOk) {
+                if (ps.kind === result_1.ResultKind.SoftFail && i > 0) {
+                    ps.kind = result_1.ResultKind.HardFail;
+                }
                 //fail because the inner parser has failed.
                 return;
             }

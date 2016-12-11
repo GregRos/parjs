@@ -17,7 +17,7 @@ var MapParser = (function (_super) {
         this.map = map;
         this.displayName = "map";
         this.isLoud = true;
-        common_1.Issues.quietParserNotPermitted(this);
+        inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
         this.expecting = inner.expecting;
     }
     MapParser.prototype._apply = function (ps) {

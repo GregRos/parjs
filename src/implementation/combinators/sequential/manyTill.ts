@@ -38,7 +38,8 @@ export class PrsManyTill extends ParjsAction {
                 //many failed softly before till...
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.
-                    ps.kind = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail
+                    ps.kind = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+                    return;
                 } else {
                     //till was optional, so many failing softly is OK.
                     break;

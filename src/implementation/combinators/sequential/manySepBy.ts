@@ -25,8 +25,10 @@ export class PrsManySepBy extends ParjsAction {
             return;
         } else if (ps.isSoft) {
             ps.value = [];
+            ps.kind = ResultKind.OK;
             return;
         }
+        arr.maybePush(ps.value);
         let i = 0;
         while (true) {
             if (i >= maxIterations) break;
@@ -36,6 +38,7 @@ export class PrsManySepBy extends ParjsAction {
             } else if (ps.kind >= ResultKind.HardFail) {
                 return;
             }
+
             many.apply(ps);
             if (ps.isSoft) {
                 break;

@@ -91,7 +91,7 @@ export function verifySuccess(result : ParserResult<any>, value ?: any, state ?:
     expect(result).toHaveMember("value", "expecting value");
     expect(result).not.toHaveMember("expecting", "unexpected 'expecting' attribute");
     if (value !== undefined) {
-        expect(result.value).toBe(value);
+        expect(result.value).toEqual(value);
     }
     if (state !== undefined) {
         expect(result.state).toBe(state);

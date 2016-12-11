@@ -31,8 +31,10 @@ var PrsManySepBy = (function (_super) {
         }
         else if (ps.isSoft) {
             ps.value = [];
+            ps.kind = result_1.ResultKind.OK;
             return;
         }
+        arr.maybePush(ps.value);
         var i = 0;
         while (true) {
             if (i >= maxIterations)

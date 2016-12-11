@@ -10,7 +10,7 @@ export class MapParser extends ParjsAction {
     expecting : string;
     constructor(private inner : ParjsAction, private map : (x : any) => any) {
         super();
-        Issues.quietParserNotPermitted(this);
+        inner.isLoud || Issues.quietParserNotPermitted(this);
         this.expecting = inner.expecting;
     }
 

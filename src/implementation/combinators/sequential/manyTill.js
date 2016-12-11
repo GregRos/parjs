@@ -46,6 +46,7 @@ var PrsManyTill = (function (_super) {
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.
                     ps.kind = successes === 0 ? result_1.ResultKind.SoftFail : result_1.ResultKind.HardFail;
+                    return;
                 }
                 else {
                     //till was optional, so many failing softly is OK.
