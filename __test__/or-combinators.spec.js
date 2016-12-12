@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * Created by lifeg on 12/12/2016.
+ */
+var custom_matchers_1 = require('./custom-matchers');
 var parsers_1 = require("../src/bindings/parsers");
 var result_1 = require("../src/abstract/basics/result");
 var goodInput = "abcd";
@@ -9,6 +13,9 @@ function forParser(parser, f) {
     describe("Parjs." + parser.displayName, function () {
         f(parser);
     });
+}
+if (false) {
+    var s = custom_matchers_1.verifySuccess;
 }
 describe("or combinator", function () {
     it("guards against loud-quiet parser mixing", function () {

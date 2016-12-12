@@ -27,7 +27,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     or(...others : AnyParser[]) {
-        return wrap(new PrsAlts(others.map(x => x.action)));
+        return wrap(new PrsAlts([this, ...others].map(x => x.action)));
     }
 
     map(f : (result : any) => any) {

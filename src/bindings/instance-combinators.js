@@ -36,7 +36,7 @@ var ParjsParser = (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             others[_i - 0] = arguments[_i];
         }
-        return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
+        return wrap(new combinators_1.PrsAlts([this].concat(others).map(function (x) { return x.action; })));
     };
     ParjsParser.prototype.map = function (f) {
         return wrap(new combinators_1.MapParser(this.action, f));

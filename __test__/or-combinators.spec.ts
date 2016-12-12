@@ -20,9 +20,10 @@ function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TP
         f(parser);
     });
 }
-
+if (false) {
+    let s = verifySuccess;
+}
 describe("or combinator", () => {
-
     it("guards against loud-quiet parser mixing", () => {
         expect(() => Parjs.any(Parjs.digit as any, Parjs.digit.quiet))
     });
@@ -49,6 +50,4 @@ describe("or combinator", () => {
             verifyFailure(parser2.parse("cd"), ResultKind.HardFail);
         });
     });
-
-
 });
