@@ -13,26 +13,38 @@ import {ResultKind} from "../../../abstract/basics/result";
     (-|+)\d+
  */
 
+export interface IntOptions {
+    allowSign ?: boolean;
+    base ?: number;
+}
+
 export class PrsInt extends ParjsAction {
     displayName = "int";
     isLoud = true;
     expecting : string;
-    constructor(private signed : boolean, private base : number) {
+    constructor(private options : IntOptions) {
         super();
-        if (base > 36) {
+        if (options.base > 36) {
             throw new Error("invalid base");
         }
-        this.expecting = `a ${signed ? "signed" : "unsigned"} integer in base ${base}`;
+        this.expecting = `a ${options.allowSign ? "signed" : "unsigned"} integer in base ${options.base}`;
     }
     _apply(ps : ParsingState) {
-        let {signed, base} = this;
+        let {options : {allowSign, base}} = this;
         let {position, input} = ps;
         let sign = Parselets.parseSign(ps);
-        sign = sign === 0 ? 1 : sign;
-        let value = Parselets.parseDigits(ps, base, FastMath.PositiveExponents);
-        ps.position = position;
-        ps.value = value;
-        ps.kind = ResultKind.OK;
-        return;
+        let parsedSign = false;
+        if (sign !== 0) {
+            parsedSign = true;
+        } else {
+            sign = 1;
+        }
+        let value = Parselets.parseDigits(ps, base, FastMath.PositiveExponents[base]);
+        if (ps.position === position) {
+            ps.kind = parsedSign ? ResultKind.HardFail : ResultKind.SoftFail;
+        } else {
+            ps.value = value;
+            ps.kind = ResultKind.OK;
+        }
     }
 }

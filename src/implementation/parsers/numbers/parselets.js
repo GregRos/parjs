@@ -9,10 +9,6 @@ var _ParseletsType = (function () {
     /**
      * Tries to parse a sequence of digits in {base}. Returns a positive number consisting of the parsed digits.
      * Returns < 0 if no digits were parsed.
-     * @param ps
-     * @param base
-     * @param exponents
-     * @returns {number}
      */
     _ParseletsType.prototype.parseDigits = function (ps, base, exponents) {
         var position = ps.position, input = ps.input;
@@ -24,9 +20,9 @@ var _ParseletsType = (function () {
             if (!char_indicators_1.Codes.isDigit(curCode, base)) {
                 break;
             }
-            result += char_indicators_1.Codes.digitValue(curCode);
+            result += exponents[i] * char_indicators_1.Codes.digitValue(curCode);
         }
-        ps.position = position;
+        ps.position = position - 1;
         return result;
     };
     /**
@@ -43,6 +39,7 @@ var _ParseletsType = (function () {
         }
         else if (curChar === char_indicators_1.Codes.plus) {
             ps.position++;
+            sign = 1;
         }
         return sign;
     };

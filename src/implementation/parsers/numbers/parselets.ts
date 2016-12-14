@@ -9,24 +9,21 @@ export class _ParseletsType {
     /**
      * Tries to parse a sequence of digits in {base}. Returns a positive number consisting of the parsed digits.
      * Returns < 0 if no digits were parsed.
-     * @param ps
-     * @param base
-     * @param exponents
-     * @returns {number}
      */
-    parseDigits(ps : ParsingState, base : number, exponents : number[][]) {
+    parseDigits(ps : ParsingState, base : number,  exponents : number[]) {
+
         let {position, input} = ps;
         let result = 0;
         let length = input.length;
         let expLength = exponents.length;
-        for (let i = 0; position < length; position++, i++) {
+        for (let i = 0; position < length ; position++, i++) {
             let curCode = input.charCodeAt(position);
             if (!Codes.isDigit(curCode, base)) {
                 break;
             }
-            result += Codes.digitValue(curCode);
+            result += exponents[i] * Codes.digitValue(curCode);
         }
-        ps.position = position;
+        ps.position = position - 1;
         return result;
     }
 
@@ -43,6 +40,7 @@ export class _ParseletsType {
             ps.position++;
         } else if (curChar === Codes.plus) {
             ps.position++;
+            sign = 1;
         }
         return sign;
     }

@@ -89,7 +89,7 @@ var PrsFloat = (function (_super) {
         }
         //after a sign there needs to come an integer part (if any).
         var prevPos = ps.position;
-        var Whole = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
+        var Whole = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents[base]);
         var Fractional = 0;
         var Exp = 1;
         hasWhole = ps.position !== prevPos;
@@ -107,7 +107,7 @@ var PrsFloat = (function (_super) {
             ps.position++;
             var prevFractionalPos = ps.position;
             //parse the fractional part
-            Fractional = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.NegativeExponents);
+            Fractional = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.NegativeExponents[base]);
             hasFraction = prevFractionalPos !== ps.position;
             if (!allowImplicitZero && !hasFraction) {
                 //we encountered something like 212. but allowImplicitZero is false.
@@ -138,7 +138,7 @@ var PrsFloat = (function (_super) {
                 return;
             }
             var prevFractionalPos = ps.position;
-            var exp = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
+            var exp = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents[base]);
             if (ps.position === prevFractionalPos) {
                 //we parsed e+ but we did not parse any digits.
                 ps.kind = result_1.ResultKind.HardFail;

@@ -4,6 +4,9 @@ var parsers_1 = require("../implementation/parsers");
 var combinators_1 = require("../implementation/combinators");
 var char_indicators_1 = require("../functions/char-indicators");
 var result_1 = require("../abstract/basics/result");
+var int_1 = require("../implementation/parsers/numbers/int");
+var float_1 = require("../implementation/parsers/numbers/float");
+var _ = require("lodash");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -179,6 +182,23 @@ var ParjsParsers = (function () {
         enumerable: true,
         configurable: true
     });
+    ParjsParsers.prototype.int = function (options) {
+        options = _.defaults(options, {
+            base: 10,
+            allowSign: true
+        });
+        return wrap(new int_1.PrsInt(options));
+    };
+    ParjsParsers.prototype.float = function (options) {
+        options = _.defaults(options, {
+            base: 10,
+            allowImplicitZero: true,
+            allowExponent: true,
+            allowSign: true,
+            allowFloatingPoint: true
+        });
+        return wrap(new float_1.PrsFloat(options));
+    };
     return ParjsParsers;
 }());
 exports.ParjsParsers = ParjsParsers;

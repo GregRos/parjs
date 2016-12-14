@@ -5,7 +5,7 @@
 var _ = require("lodash");
 var FastMath;
 (function (FastMath) {
-    FastMath.PositiveExponents = _.range(2, 36).map(function (b) { return _.range(0, 256).map(function (e) { return Math.pow(b, e); }); });
-    FastMath.NegativeExponents = _.range(2, 36).map(function (b) { return _.range(0, 256).map(function (n) { return Math.pow(10, -n); }); });
+    FastMath.PositiveExponents = _.range(0, 36).map(function (b) { return b < 2 ? [] : _.range(0, 256).map(function (e) { return Math.pow(b, e); }); });
+    FastMath.NegativeExponents = _.range(0, 36).map(function (b) { return b < 2 ? [] : _.range(0, 256).map(function (n) { return Math.pow(10, -n); }); });
 })(FastMath = exports.FastMath || (exports.FastMath = {}));
 //# sourceMappingURL=math.js.map

@@ -95,7 +95,7 @@ export class PrsFloat extends ParjsAction {
         }
         //after a sign there needs to come an integer part (if any).
         let prevPos = ps.position;
-        let Whole = Parselets.parseDigits(ps, base, FastMath.PositiveExponents);
+        let Whole = Parselets.parseDigits(ps, base, FastMath.PositiveExponents[base]);
         let Fractional = 0;
         let Exp = 1;
         hasWhole = ps.position !== prevPos;
@@ -114,7 +114,7 @@ export class PrsFloat extends ParjsAction {
             ps.position++;
             let prevFractionalPos = ps.position;
             //parse the fractional part
-            Fractional = Parselets.parseDigits(ps, base, FastMath.NegativeExponents);
+            Fractional = Parselets.parseDigits(ps, base, FastMath.NegativeExponents[base]);
             hasFraction = prevFractionalPos !== ps.position;
             if (!allowImplicitZero && !hasFraction) {
                 //we encountered something like 212. but allowImplicitZero is false.
@@ -147,7 +147,7 @@ export class PrsFloat extends ParjsAction {
                 return;
             }
             let prevFractionalPos = ps.position;
-            let exp = Parselets.parseDigits(ps, base, FastMath.PositiveExponents);
+            let exp = Parselets.parseDigits(ps, base, FastMath.PositiveExponents[base]);
             if (ps.position === prevFractionalPos) {
                 //we parsed e+ but we did not parse any digits.
                 ps.kind = ResultKind.HardFail;

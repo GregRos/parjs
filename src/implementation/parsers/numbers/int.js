@@ -8,37 +8,38 @@ var action_1 = require("../../../base/action");
 var parselets_1 = require("./parselets");
 var math_1 = require("../../../functions/math");
 var result_1 = require("../../../abstract/basics/result");
-/**
- * Created by User on 28-Nov-16.
- */
-/*
-    Legal decimal integer format:
-    (-|+)\d+
- */
 var PrsInt = (function (_super) {
     __extends(PrsInt, _super);
-    function PrsInt(signed, base) {
+    function PrsInt(options) {
         var _this = _super.call(this) || this;
-        _this.signed = signed;
-        _this.base = base;
+        _this.options = options;
         _this.displayName = "int";
         _this.isLoud = true;
-        if (base > 36) {
+        if (options.base > 36) {
             throw new Error("invalid base");
         }
-        _this.expecting = "a " + (signed ? "signed" : "unsigned") + " integer in base " + base;
+        _this.expecting = "a " + (options.allowSign ? "signed" : "unsigned") + " integer in base " + options.base;
         return _this;
     }
     PrsInt.prototype._apply = function (ps) {
-        var _a = this, signed = _a.signed, base = _a.base;
+        var _a = this.options, allowSign = _a.allowSign, base = _a.base;
         var position = ps.position, input = ps.input;
         var sign = parselets_1.Parselets.parseSign(ps);
-        sign = sign === 0 ? 1 : sign;
-        var value = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
-        ps.position = position;
-        ps.value = value;
-        ps.kind = result_1.ResultKind.OK;
-        return;
+        var parsedSign = false;
+        if (sign !== 0) {
+            parsedSign = true;
+        }
+        else {
+            sign = 1;
+        }
+        var value = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents[base]);
+        if (ps.position === position) {
+            ps.kind = parsedSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
+        }
+        else {
+            ps.value = value;
+            ps.kind = result_1.ResultKind.OK;
+        }
     };
     return PrsInt;
 }(action_1.ParjsAction));

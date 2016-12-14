@@ -10,6 +10,10 @@ import {SpecialParsers} from "../abstract/parsers/special";
 import {StaticCombinators} from "../abstract/combinators/static";
 import {AnyParser} from "../abstract/combinators/any";
 import {ResultKind} from "../abstract/basics/result";
+import {IntOptions, PrsInt} from "../implementation/parsers/numbers/int";
+import {FloatOptions, PrsFloat} from "../implementation/parsers/numbers/float";
+import {NumericParsers} from "../abstract/parsers/numeric";
+import _ = require('lodash');
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -18,7 +22,7 @@ function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
-export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+export class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
 
 
     any(...parsers : AnyParser[]) {
@@ -133,6 +137,26 @@ export class ParjsParsers implements CharParsers, StringParsers, PrimitiveParser
         return wrap(new PrsState());
     }
 
+    int(options ?: IntOptions) {
+        options = _.defaults(options, {
+            base: 10,
+            allowSign : true
+        });
+        return wrap(new PrsInt(options));
+    }
+
+    float(options ?: FloatOptions) {
+        options = _.defaults(options, {
+            base : 10,
+            allowImplicitZero : true,
+            allowExponent : true,
+            allowSign : true,
+            allowFloatingPoint : true
+        } as FloatOptions);
+
+        return wrap(new PrsFloat(options));
+    }
+
 }
 
-export const Parjs = new ParjsParsers() as CharParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;
+export const Parjs = new ParjsParsers() as CharParsers & NumericParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;
