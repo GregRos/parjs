@@ -12,10 +12,11 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsRest = (function (_super) {
     __extends(PrsRest, _super);
     function PrsRest() {
-        _super.apply(this, arguments);
-        this.displayName = "rest";
-        this.isLoud = true;
-        this.expecting = "zero or more characters";
+        var _this = _super.apply(this, arguments) || this;
+        _this.displayName = "rest";
+        _this.isLoud = true;
+        _this.expecting = "zero or more characters";
+        return _this;
     }
     PrsRest.prototype._apply = function (pr) {
         var position = pr.position, input = pr.input;

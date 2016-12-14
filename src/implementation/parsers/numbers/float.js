@@ -8,7 +8,7 @@ var action_1 = require("../../../base/action");
 /**
  * Created by User on 28-Nov-16.
  */
-var _ = require('lodash');
+var _ = require("lodash");
 var char_indicators_1 = require("../../../functions/char-indicators");
 var math_1 = require("../../../functions/math");
 var parselets_1 = require("./parselets");
@@ -25,11 +25,12 @@ var msgExponentSign = "exponent sign (+ or -)";
 var PrsFloat = (function (_super) {
     __extends(PrsFloat, _super);
     function PrsFloat(options) {
-        _super.call(this);
-        this.expecting = "a floating-point number";
-        this.displayName = "float";
-        this.isLoud = true;
+        var _this = _super.call(this) || this;
+        _this.expecting = "a floating-point number";
+        _this.displayName = "float";
+        _this.isLoud = true;
         _.defaults(options, defaultFloatOptions);
+        return _this;
     }
     PrsFloat.prototype._apply = function (ps) {
         /*

@@ -12,10 +12,11 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsState = (function (_super) {
     __extends(PrsState, _super);
     function PrsState() {
-        _super.apply(this, arguments);
-        this.displayName = "state";
-        this.isLoud = true;
-        this.expecting = "anything";
+        var _this = _super.apply(this, arguments) || this;
+        _this.displayName = "state";
+        _this.isLoud = true;
+        _this.expecting = "anything";
+        return _this;
     }
     PrsState.prototype._apply = function (ps) {
         ps.value = ps.state;

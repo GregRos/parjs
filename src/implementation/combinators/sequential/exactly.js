@@ -12,12 +12,13 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsExactly = (function (_super) {
     __extends(PrsExactly, _super);
     function PrsExactly(inner, count) {
-        _super.call(this);
-        this.inner = inner;
-        this.count = count;
-        this.displayName = "exactly";
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.count = count;
+        _this.displayName = "exactly";
+        _this.isLoud = inner.isLoud;
+        _this.expecting = inner.expecting;
+        return _this;
     }
     PrsExactly.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, count = _a.count, isLoud = _a.isLoud;

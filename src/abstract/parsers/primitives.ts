@@ -18,5 +18,5 @@ export interface PrimitiveParsers {
     /**
      * P fails for any input.
      */
-    fail(expecting ?: string, kind ?: ResultKind) : QuietParser;
+    fail(expecting ?: string, kind ?: ResultKind) : LoudParser<any>;
 }

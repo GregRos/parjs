@@ -13,14 +13,15 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsMany = (function (_super) {
     __extends(PrsMany, _super);
     function PrsMany(inner, maxIterations, minSuccesses) {
-        _super.call(this);
-        this.inner = inner;
-        this.maxIterations = maxIterations;
-        this.minSuccesses = minSuccesses;
-        this.displayName = "many";
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
-        maxIterations >= minSuccesses || common_1.Issues.willAlwaysFail(this);
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.maxIterations = maxIterations;
+        _this.minSuccesses = minSuccesses;
+        _this.displayName = "many";
+        _this.isLoud = inner.isLoud;
+        _this.expecting = inner.expecting;
+        maxIterations >= minSuccesses || common_1.Issues.willAlwaysFail(_this);
+        return _this;
     }
     PrsMany.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, maxIterations = _a.maxIterations, minSuccesses = _a.minSuccesses;

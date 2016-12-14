@@ -13,11 +13,12 @@ var common_1 = require("../../common");
 var PrsFail = (function (_super) {
     __extends(PrsFail, _super);
     function PrsFail(kind, expecting) {
-        _super.call(this);
-        this.kind = kind;
-        this.expecting = expecting;
-        this.displayName = "fail";
-        [result_1.ResultKind.OK, result_1.ResultKind.Unknown].includes(kind) && common_1.Issues.expectedFailureKind(this);
+        var _this = _super.call(this) || this;
+        _this.kind = kind;
+        _this.expecting = expecting;
+        _this.displayName = "fail";
+        [result_1.ResultKind.OK, result_1.ResultKind.Unknown].includes(kind) && common_1.Issues.expectedFailureKind(_this);
+        return _this;
     }
     PrsFail.prototype._apply = function (ps) {
         ps.kind = this.kind;

@@ -9,11 +9,12 @@ var result_1 = require("../../../abstract/basics/result");
 var AnyStringOf = (function (_super) {
     __extends(AnyStringOf, _super);
     function AnyStringOf(strs) {
-        _super.call(this);
-        this.strs = strs;
-        this.displayName = "anyStringOf";
-        this.isLoud = true;
-        this.expecting = "any of " + strs.map(function (x) { return ("'" + x + "'"); }).join(", ");
+        var _this = _super.call(this) || this;
+        _this.strs = strs;
+        _this.displayName = "anyStringOf";
+        _this.isLoud = true;
+        _this.expecting = "any of " + strs.map(function (x) { return "'" + x + "'"; }).join(", ");
+        return _this;
     }
     AnyStringOf.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;

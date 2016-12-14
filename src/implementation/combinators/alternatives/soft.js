@@ -4,30 +4,31 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/**
+ * Created by User on 13-Dec-16.
+ */
 var action_1 = require("../../../base/action");
+var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
-var PrsWithState = (function (_super) {
-    __extends(PrsWithState, _super);
-    function PrsWithState(inner, reducer) {
+var PrsSoft = (function (_super) {
+    __extends(PrsSoft, _super);
+    function PrsSoft(inner) {
         var _this = _super.call(this) || this;
         _this.inner = inner;
-        _this.reducer = reducer;
-        _this.displayName = "withState";
+        _this.displayName = "soft";
         _this.isLoud = inner.isLoud;
         _this.expecting = inner.expecting;
         return _this;
     }
-    PrsWithState.prototype._apply = function (ps) {
-        var _a = this, inner = _a.inner, reducer = _a.reducer;
-        inner.apply(ps);
-        if (!ps.isOk) {
-            return;
+    PrsSoft.prototype._apply = function (ps) {
+        this.inner.apply(ps);
+        if (ps.isHard) {
+            ps.kind = result_1.ResultKind.SoftFail;
         }
-        ps.state = reducer(ps.state, ps.value);
     };
-    return PrsWithState;
+    return PrsSoft;
 }(action_1.ParjsAction));
-exports.PrsWithState = PrsWithState;
-//# sourceMappingURL=with-state.js.map
+exports.PrsSoft = PrsSoft;
+//# sourceMappingURL=soft.js.map

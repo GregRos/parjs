@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var action_1 = require("../../../base/action");
-var parselets_1 = require('./parselets');
+var parselets_1 = require("./parselets");
 var math_1 = require("../../../functions/math");
 var result_1 = require("../../../abstract/basics/result");
 /**
@@ -18,15 +18,16 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsInt = (function (_super) {
     __extends(PrsInt, _super);
     function PrsInt(signed, base) {
-        _super.call(this);
-        this.signed = signed;
-        this.base = base;
-        this.displayName = "int";
-        this.isLoud = true;
+        var _this = _super.call(this) || this;
+        _this.signed = signed;
+        _this.base = base;
+        _this.displayName = "int";
+        _this.isLoud = true;
         if (base > 36) {
             throw new Error("invalid base");
         }
-        this.expecting = "a " + (signed ? "signed" : "unsigned") + " integer in base " + base;
+        _this.expecting = "a " + (signed ? "signed" : "unsigned") + " integer in base " + base;
+        return _this;
     }
     PrsInt.prototype._apply = function (ps) {
         var _a = this, signed = _a.signed, base = _a.base;

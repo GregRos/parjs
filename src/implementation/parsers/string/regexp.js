@@ -12,13 +12,14 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsRegexp = (function (_super) {
     __extends(PrsRegexp, _super);
     function PrsRegexp(regexp) {
-        _super.call(this);
-        this.regexp = regexp;
-        this.displayName = "regexp";
+        var _this = _super.call(this) || this;
+        _this.regexp = regexp;
+        _this.displayName = "regexp";
         var flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(function (x) { return x; }).join("");
         var normalizedRegexp = new RegExp(regexp.source, flags);
         regexp = normalizedRegexp;
-        this.expecting = "input matching '" + regexp.source + "'";
+        _this.expecting = "input matching '" + regexp.source + "'";
+        return _this;
     }
     PrsRegexp.prototype._apply = function (ps) {
         var input = ps.input, position = ps.position;

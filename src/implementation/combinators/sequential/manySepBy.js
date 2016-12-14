@@ -13,13 +13,14 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsManySepBy = (function (_super) {
     __extends(PrsManySepBy, _super);
     function PrsManySepBy(many, sep, maxIterations) {
-        _super.call(this);
-        this.many = many;
-        this.sep = sep;
-        this.maxIterations = maxIterations;
-        this.displayName = "manySepBy";
-        this.isLoud = many.isLoud;
-        this.expecting = many.expecting;
+        var _this = _super.call(this) || this;
+        _this.many = many;
+        _this.sep = sep;
+        _this.maxIterations = maxIterations;
+        _this.displayName = "manySepBy";
+        _this.isLoud = many.isLoud;
+        _this.expecting = many.expecting;
+        return _this;
     }
     PrsManySepBy.prototype._apply = function (ps) {
         var _a = this, many = _a.many, sep = _a.sep, maxIterations = _a.maxIterations, isLoud = _a.isLoud;

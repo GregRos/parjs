@@ -13,13 +13,14 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsAltVal = (function (_super) {
     __extends(PrsAltVal, _super);
     function PrsAltVal(inner, val) {
-        _super.call(this);
-        this.inner = inner;
-        this.val = val;
-        this.displayName = "altVal";
-        this.isLoud = true;
-        inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
-        this.expecting = inner.expecting + " or anything";
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.val = val;
+        _this.displayName = "altVal";
+        _this.isLoud = true;
+        inner.isLoud || common_1.Issues.quietParserNotPermitted(_this);
+        _this.expecting = inner.expecting + " or anything";
+        return _this;
     }
     PrsAltVal.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, val = _a.val;

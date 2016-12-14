@@ -11,11 +11,12 @@ var action_1 = require("../../../base/action");
 var PrsQuiet = (function (_super) {
     __extends(PrsQuiet, _super);
     function PrsQuiet(inner) {
-        _super.call(this);
-        this.inner = inner;
-        this.displayName = "quiet";
-        this.isLoud = false;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.displayName = "quiet";
+        _this.isLoud = false;
+        _this.expecting = inner.expecting;
+        return _this;
     }
     PrsQuiet.prototype._apply = function (ps) {
         var inner = this.inner;

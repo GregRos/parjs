@@ -12,6 +12,8 @@ export interface QuietParser extends AnyParser {
      */
     or(alt : QuietParser) : QuietParser;
 
+    soft : QuietParser;
+
     /**
      * P tries to apply this parser. If it fails, then tries to apply the `parsers` one after the other until one of them succeeds.
      * @param parsers The parsers to try.

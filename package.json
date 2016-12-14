@@ -48,7 +48,7 @@
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^2.7.0",
     "merge2": "^1.0.2",
-    "typescript": "^2.0.6"
+    "typescript": "^2.1.4"
   },
   "optionalDependencies": {}
 }

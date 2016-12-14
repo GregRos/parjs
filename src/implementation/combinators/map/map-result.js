@@ -11,12 +11,13 @@ var action_1 = require("../../../base/action");
 var PrsMapResult = (function (_super) {
     __extends(PrsMapResult, _super);
     function PrsMapResult(inner, result) {
-        _super.call(this);
-        this.inner = inner;
-        this.result = result;
-        this.displayName = "result";
-        this.isLoud = true;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.result = result;
+        _this.displayName = "result";
+        _this.isLoud = true;
+        _this.expecting = inner.expecting;
+        return _this;
     }
     PrsMapResult.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, result = _a.result;

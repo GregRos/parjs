@@ -12,16 +12,17 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsSeq = (function (_super) {
     __extends(PrsSeq, _super);
     function PrsSeq(parsers) {
-        _super.call(this);
-        this.parsers = parsers;
-        this.isLoud = true;
-        this.displayName = "seq";
+        var _this = _super.call(this) || this;
+        _this.parsers = parsers;
+        _this.isLoud = true;
+        _this.displayName = "seq";
         if (parsers.length === 0) {
-            this.expecting = "anything";
+            _this.expecting = "anything";
         }
         else {
-            this.expecting = parsers[0].expecting;
+            _this.expecting = parsers[0].expecting;
         }
+        return _this;
     }
     PrsSeq.prototype._apply = function (ps) {
         var parsers = this.parsers;

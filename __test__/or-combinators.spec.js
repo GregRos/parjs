@@ -2,7 +2,7 @@
 /**
  * Created by lifeg on 12/12/2016.
  */
-var custom_matchers_1 = require('./custom-matchers');
+var custom_matchers_1 = require("./custom-matchers");
 var parsers_1 = require("../src/bindings/parsers");
 var result_1 = require("../src/abstract/basics/result");
 var goodInput = "abcd";
@@ -13,9 +13,6 @@ function forParser(parser, f) {
     describe("Parjs." + parser.displayName, function () {
         f(parser);
     });
-}
-if (false) {
-    var s = custom_matchers_1.verifySuccess;
 }
 describe("or combinator", function () {
     it("guards against loud-quiet parser mixing", function () {
@@ -43,6 +40,60 @@ describe("or combinator", function () {
         it("fails when 2nd fails hard", function () {
             custom_matchers_1.verifyFailure(parser2.parse("cd"), result_1.ResultKind.HardFail);
         });
+    });
+    describe("quiet or quiet", function () {
+        var parser = parsers_1.Parjs.string("ab").quiet.or(parsers_1.Parjs.string("cd").quiet);
+        it("succeeds parsing 2nd, no return", function () {
+            custom_matchers_1.verifySuccess(parser.parse("cd"), undefined);
+        });
+    });
+});
+describe("or val combinator", function () {
+    var parser = parsers_1.Parjs.string("a").then(parsers_1.Parjs.string("b")).str.orVal("c");
+    it("succeeds to parse", function () {
+        custom_matchers_1.verifySuccess(parser.parse("ab"), "ab");
+    });
+    it("if first fails hard, then fail hard", function () {
+        custom_matchers_1.verifyFailure(parser.parse("ax"), result_1.ResultKind.HardFail);
+    });
+    it("if first fail soft, then return value", function () {
+        custom_matchers_1.verifySuccess(parser.parse(""), "c");
+    });
+});
+describe("not combinator", function () {
+    var parser = parsers_1.Parjs.string("a").then(parsers_1.Parjs.string("b")).str.not;
+    it("succeeds on empty input/soft fail", function () {
+        custom_matchers_1.verifySuccess(parser.parse(""), undefined);
+    });
+    it("succeeds on hard fail if we take care of the rest", function () {
+        var parser2 = parser.then(parsers_1.Parjs.rest);
+        custom_matchers_1.verifySuccess(parser2.parse("a"));
+    });
+    it("soft fails on passing input", function () {
+        custom_matchers_1.verifyFailure(parser.parse("ab"), result_1.ResultKind.SoftFail);
+    });
+    it("fails fatally on fatal fail", function () {
+        var parser2 = parsers_1.Parjs.fail("fatal", result_1.ResultKind.FatalFail).not;
+        custom_matchers_1.verifyFailure(parser2.parse(""), result_1.ResultKind.FatalFail);
+    });
+    it("fails on too much input", function () {
+        custom_matchers_1.verifyFailure(parser.parse("a"), result_1.ResultKind.SoftFail);
+    });
+});
+describe("soft combinator", function () {
+    var parser = parsers_1.Parjs.string("a").then(parsers_1.Parjs.string("b")).str.soft;
+    it("succeeds", function () {
+        custom_matchers_1.verifySuccess(parser.parse("ab"), "ab");
+    });
+    it("fails softly on soft fail", function () {
+        custom_matchers_1.verifyFailure(parser.parse("ba"), result_1.ResultKind.SoftFail);
+    });
+    it("fails softly on hard fail", function () {
+        custom_matchers_1.verifyFailure(parser.parse("a"), result_1.ResultKind.SoftFail);
+    });
+    it("fails fatally on fatal fail", function () {
+        var parser2 = parsers_1.Parjs.fail("fatal", result_1.ResultKind.FatalFail).soft;
+        custom_matchers_1.verifyFailure(parser2.parse(""), result_1.ResultKind.FatalFail);
     });
 });
 //# sourceMappingURL=or-combinators.spec.js.map

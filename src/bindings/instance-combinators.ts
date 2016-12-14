@@ -12,6 +12,7 @@ import {LoudParser} from "../abstract/combinators/loud";
 import {ResultKind} from "../abstract/basics/result";
 import {QuietParser} from "../abstract/combinators/quiet";
 import {AnyParser} from "../abstract/combinators/any";
+import {PrsSoft} from "../implementation/combinators/alternatives/soft";
 
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
@@ -36,6 +37,10 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
 
     get quiet() {
         return wrap(new PrsQuiet(this.action));
+    }
+
+    get soft() {
+        return wrap(new PrsSoft(this.action));
     }
 
     then(next : AnyParser | ((result : any) => LoudParser<any>)) {
@@ -106,7 +111,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     get mustBeNonEmpty() {
         return this.must(x => {
             return Predicates.nonEmpty(x);
-        }, `be non-empty`, ResultKind.SoftFail);
+        }, `be non-empty`, ResultKind.HardFail);
     }
 
     alts(...others : AnyParser[]) {

@@ -1,7 +1,7 @@
 "use strict";
 var instance_combinators_1 = require("./instance-combinators");
-var parsers_1 = require('../implementation/parsers');
-var combinators_1 = require('../implementation/combinators');
+var parsers_1 = require("../implementation/parsers");
+var combinators_1 = require("../implementation/combinators");
 var char_indicators_1 = require("../functions/char-indicators");
 var result_1 = require("../abstract/basics/result");
 /**
@@ -16,14 +16,14 @@ var ParjsParsers = (function () {
     ParjsParsers.prototype.any = function () {
         var parsers = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            parsers[_i - 0] = arguments[_i];
+            parsers[_i] = arguments[_i];
         }
         return wrap(new combinators_1.PrsAlts(parsers.map(function (x) { return x.action; })));
     };
     ParjsParsers.prototype.seq = function () {
         var parsers = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            parsers[_i - 0] = arguments[_i];
+            parsers[_i] = arguments[_i];
         }
         return wrap(new combinators_1.PrsSeq(parsers.map(function (x) { return x.action; })));
     };
@@ -140,7 +140,7 @@ var ParjsParsers = (function () {
     ParjsParsers.prototype.anyStringOf = function () {
         var strs = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            strs[_i - 0] = arguments[_i];
+            strs[_i] = arguments[_i];
         }
         return wrap(new parsers_1.AnyStringOf(strs));
     };

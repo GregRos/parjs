@@ -12,11 +12,12 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsResult = (function (_super) {
     __extends(PrsResult, _super);
     function PrsResult(result) {
-        _super.call(this);
-        this.result = result;
-        this.displayName = "result";
-        this.isLoud = true;
-        this.expecting = "anything";
+        var _this = _super.call(this) || this;
+        _this.result = result;
+        _this.displayName = "result";
+        _this.isLoud = true;
+        _this.expecting = "anything";
+        return _this;
     }
     PrsResult.prototype._apply = function (ps) {
         var result = this.result;

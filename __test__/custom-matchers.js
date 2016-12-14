@@ -34,7 +34,7 @@ var CustomMatcherDefs = (function () {
 }());
 exports.CustomMatchers = {};
 var defs = new CustomMatcherDefs();
-var _loop_1 = function(prop) {
+var _loop_1 = function (prop) {
     if (defs.hasOwnProperty(prop))
         return "continue";
     exports.CustomMatchers[prop] = function (a, b) {

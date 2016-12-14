@@ -5,10 +5,10 @@
 /**
  * Created by lifeg on 10/12/2016.
  */
-var custom_matchers_1 = require('./custom-matchers');
+var custom_matchers_1 = require("./custom-matchers");
 var parsers_1 = require("../src/bindings/parsers");
 var result_1 = require("../src/abstract/basics/result");
-var _ = require('lodash');
+var _ = require("lodash");
 var goodInput = "abcd";
 var softBadInput = "a";
 var hardBadInput = "ab";

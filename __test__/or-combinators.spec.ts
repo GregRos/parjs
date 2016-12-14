@@ -20,9 +20,7 @@ function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TP
         f(parser);
     });
 }
-if (false) {
-    let s = verifySuccess;
-}
+
 describe("or combinator", () => {
     it("guards against loud-quiet parser mixing", () => {
         expect(() => Parjs.any(Parjs.digit as any, Parjs.digit.quiet))
@@ -49,5 +47,65 @@ describe("or combinator", () => {
         it("fails when 2nd fails hard", () => {
             verifyFailure(parser2.parse("cd"), ResultKind.HardFail);
         });
+    });
+
+    describe("quiet or quiet", () => {
+        let parser = Parjs.string("ab").quiet.or(Parjs.string("cd").quiet);
+        it("succeeds parsing 2nd, no return", () => {
+            verifySuccess(parser.parse("cd"), undefined);
+        });
+    });
+});
+
+describe("or val combinator", () => {
+    let parser = Parjs.string("a").then(Parjs.string("b")).str.orVal("c");
+    it("succeeds to parse", () => {
+        verifySuccess(parser.parse("ab"), "ab");
+    });
+
+    it("if first fails hard, then fail hard", () => {
+        verifyFailure(parser.parse("ax"), ResultKind.HardFail);
+    });
+
+    it("if first fail soft, then return value", () => {
+        verifySuccess(parser.parse(""), "c");
+    });
+});
+
+describe("not combinator", () => {
+    let parser = Parjs.string("a").then(Parjs.string("b")).str.not;
+    it("succeeds on empty input/soft fail", () => {
+        verifySuccess(parser.parse(""), undefined);
+    });
+    it("succeeds on hard fail if we take care of the rest", () => {
+        let parser2 = parser.then(Parjs.rest);
+        verifySuccess(parser2.parse("a"));
+    });
+    it("soft fails on passing input", () => {
+        verifyFailure(parser.parse("ab"), ResultKind.SoftFail);
+    });
+    it("fails fatally on fatal fail", () => {
+        let parser2 = Parjs.fail("fatal", ResultKind.FatalFail).not;
+        verifyFailure(parser2.parse(""), ResultKind.FatalFail);
+    });
+    it("fails on too much input", () => {
+        verifyFailure(parser.parse("a"), ResultKind.SoftFail);
+    });
+});
+
+describe("soft combinator", () => {
+    let parser = Parjs.string("a").then(Parjs.string("b")).str.soft;
+    it("succeeds", () => {
+        verifySuccess(parser.parse("ab"), "ab");
+    });
+    it("fails softly on soft fail", () => {
+        verifyFailure(parser.parse("ba"), ResultKind.SoftFail);
+    });
+    it("fails softly on hard fail", () => {
+        verifyFailure(parser.parse("a"), ResultKind.SoftFail);
+    });
+    it("fails fatally on fatal fail", () => {
+        let parser2 = Parjs.fail("fatal", ResultKind.FatalFail).soft;
+        verifyFailure(parser2.parse(""), ResultKind.FatalFail);
     });
 });
