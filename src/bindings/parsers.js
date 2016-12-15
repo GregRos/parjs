@@ -183,15 +183,14 @@ var ParjsParsers = (function () {
         configurable: true
     });
     ParjsParsers.prototype.int = function (options) {
-        options = _.defaults(options, {
+        options = _.defaults({}, options, {
             base: 10,
             allowSign: true
         });
         return wrap(new int_1.PrsInt(options));
     };
     ParjsParsers.prototype.float = function (options) {
-        options = _.defaults(options, {
-            base: 10,
+        options = _.defaults({}, options, {
             allowImplicitZero: true,
             allowExponent: true,
             allowSign: true,

@@ -57,10 +57,10 @@ export namespace Codes {
             return code - zero;
         }
         if (isBetween(code, a, z)) {
-            return code - a;
+            return 10 + code - a;
         }
         if (isBetween(code, A, Z)) {
-            return code - A;
+            return 10 + code - A;
         }
         return undefined;
     }

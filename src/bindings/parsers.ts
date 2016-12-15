@@ -138,7 +138,7 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
     }
 
     int(options ?: IntOptions) {
-        options = _.defaults(options, {
+        options = _.defaults({}, options, {
             base: 10,
             allowSign : true
         });
@@ -146,8 +146,7 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
     }
 
     float(options ?: FloatOptions) {
-        options = _.defaults(options, {
-            base : 10,
+        options = _.defaults({}, options, {
             allowImplicitZero : true,
             allowExponent : true,
             allowSign : true,
@@ -156,7 +155,6 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
 
         return wrap(new PrsFloat(options));
     }
-
 }
 
 export const Parjs = new ParjsParsers() as CharParsers & NumericParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;

@@ -58,10 +58,10 @@ var Codes;
             return code - Codes.zero;
         }
         if (isBetween(code, Codes.a, Codes.z)) {
-            return code - Codes.a;
+            return 10 + code - Codes.a;
         }
         if (isBetween(code, Codes.A, Codes.Z)) {
-            return code - Codes.A;
+            return 10 + code - Codes.A;
         }
         return undefined;
     }

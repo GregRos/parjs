@@ -6,24 +6,18 @@ import {ParsingState} from "../../../abstract/basics/state";
  */
 
 export class _ParseletsType {
-    /**
-     * Tries to parse a sequence of digits in {base}. Returns a positive number consisting of the parsed digits.
-     * Returns < 0 if no digits were parsed.
-     */
-    parseDigits(ps : ParsingState, base : number,  exponents : number[]) {
 
+    parseDigitsInBase(ps : ParsingState, base : number) {
         let {position, input} = ps;
-        let result = 0;
         let length = input.length;
-        let expLength = exponents.length;
-        for (let i = 0; position < length ; position++, i++) {
+        let result = 0;
+        for (; position < length ; position++) {
             let curCode = input.charCodeAt(position);
             if (!Codes.isDigit(curCode, base)) {
                 break;
             }
-            result += exponents[i] * Codes.digitValue(curCode);
         }
-        ps.position = position - 1;
+        ps.position = position;
         return result;
     }
 

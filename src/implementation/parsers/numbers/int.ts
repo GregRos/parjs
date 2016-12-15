@@ -32,19 +32,24 @@ export class PrsInt extends ParjsAction {
     _apply(ps : ParsingState) {
         let {options : {allowSign, base}} = this;
         let {position, input} = ps;
-        let sign = Parselets.parseSign(ps);
+        let initPos = ps.position;
+        let sign = allowSign ? Parselets.parseSign(ps) : 0;
         let parsedSign = false;
         if (sign !== 0) {
             parsedSign = true;
         } else {
             sign = 1;
         }
-        let value = Parselets.parseDigits(ps, base, FastMath.PositiveExponents[base]);
+        position = ps.position;
+        Parselets.parseDigitsInBase(ps, base);
+        let value = parseInt(input.substring(initPos, ps.position), base);
+
         if (ps.position === position) {
             ps.kind = parsedSign ? ResultKind.HardFail : ResultKind.SoftFail;
         } else {
             ps.value = value;
             ps.kind = ResultKind.OK;
         }
+
     }
 }

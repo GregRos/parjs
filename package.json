@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
-    "@types/core-js": "^0.9.34",
+    "@types/core-js": "^0.9.35",
     "@types/jasmine": "^2.5.37",
     "@types/lodash": "^4.14.40",
     "del": "^2.2.2",

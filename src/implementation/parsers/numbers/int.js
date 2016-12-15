@@ -6,7 +6,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var parselets_1 = require("./parselets");
-var math_1 = require("../../../functions/math");
 var result_1 = require("../../../abstract/basics/result");
 var PrsInt = (function (_super) {
     __extends(PrsInt, _super);
@@ -24,7 +23,8 @@ var PrsInt = (function (_super) {
     PrsInt.prototype._apply = function (ps) {
         var _a = this.options, allowSign = _a.allowSign, base = _a.base;
         var position = ps.position, input = ps.input;
-        var sign = parselets_1.Parselets.parseSign(ps);
+        var initPos = ps.position;
+        var sign = allowSign ? parselets_1.Parselets.parseSign(ps) : 0;
         var parsedSign = false;
         if (sign !== 0) {
             parsedSign = true;
@@ -32,7 +32,9 @@ var PrsInt = (function (_super) {
         else {
             sign = 1;
         }
-        var value = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents[base]);
+        position = ps.position;
+        parselets_1.Parselets.parseDigitsInBase(ps, base);
+        var value = parseInt(input.substring(initPos, ps.position), base);
         if (ps.position === position) {
             ps.kind = parsedSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
         }
