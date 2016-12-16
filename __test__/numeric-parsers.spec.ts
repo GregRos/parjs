@@ -33,7 +33,7 @@ describe("numeric parsers", () => {
             });
             it("fails hard if there are no digits after sign", () => {
                 verifyFailure(parser.parse("+a"), ResultKind.HardFail);
-            })
+            });
         });
         describe("no sign", () => {
             let parser = Parjs.int({
