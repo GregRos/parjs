@@ -13,11 +13,12 @@ var PrsCharCodeWhere = (function (_super) {
     __extends(PrsCharCodeWhere, _super);
     function PrsCharCodeWhere(predicate, property) {
         if (property === void 0) { property = "(a specific property)"; }
-        _super.call(this);
-        this.predicate = predicate;
-        this.displayName = "charCodeWhere";
-        this.isLoud = true;
-        this.expecting = "any character satisfying " + property + ".";
+        var _this = _super.call(this) || this;
+        _this.predicate = predicate;
+        _this.displayName = "charCodeWhere";
+        _this.isLoud = true;
+        _this.expecting = "any character satisfying " + property + ".";
+        return _this;
     }
     PrsCharCodeWhere.prototype._apply = function (ps) {
         var predicate = this.predicate;
@@ -26,7 +27,6 @@ var PrsCharCodeWhere = (function (_super) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        ;
         var curChar = input.charCodeAt(position);
         if (!predicate(curChar)) {
             ps.kind = result_1.ResultKind.SoftFail;

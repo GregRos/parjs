@@ -12,11 +12,12 @@ var action_1 = require("../../../base/action");
 var PrsStr = (function (_super) {
     __extends(PrsStr, _super);
     function PrsStr(inner) {
-        _super.call(this);
-        this.inner = inner;
-        this.displayName = "str";
-        this.isLoud = true;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.displayName = "str";
+        _this.isLoud = true;
+        _this.expecting = inner.expecting;
+        return _this;
     }
     PrsStr.prototype._apply = function (ps) {
         var inner = this.inner;

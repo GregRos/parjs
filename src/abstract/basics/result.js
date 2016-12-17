@@ -1,6 +1,3 @@
-/**
- * Created by lifeg on 24/11/2016.
- */
 "use strict";
 /**
  *
@@ -13,4 +10,25 @@ var ResultKind;
     ResultKind[ResultKind["HardFail"] = 3] = "HardFail";
     ResultKind[ResultKind["FatalFail"] = 4] = "FatalFail";
 })(ResultKind = exports.ResultKind || (exports.ResultKind = {}));
+function toResultKind(indicator) {
+    if (typeof indicator !== 'number') {
+        switch (indicator) {
+            case "FatalFail":
+                indicator = ResultKind.FatalFail;
+                break;
+            case "HardFail":
+                indicator = ResultKind.HardFail;
+                break;
+            case "SoftFail":
+                indicator = ResultKind.SoftFail;
+                break;
+            default:
+                indicator = ResultKind.Unknown;
+                break;
+        }
+        return indicator;
+    }
+    return indicator;
+}
+exports.toResultKind = toResultKind;
 //# sourceMappingURL=result.js.map

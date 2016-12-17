@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var common_1 = require("../implementation/common");
-var chai_1 = require('chai');
+var chai_1 = require("chai");
 var result_1 = require("../abstract/basics/result");
 var BasicParsingState = (function () {
     function BasicParsingState(input) {
@@ -86,8 +86,9 @@ exports.ParjsAction = ParjsAction;
 var ParjsBasicAction = (function (_super) {
     __extends(ParjsBasicAction, _super);
     function ParjsBasicAction() {
-        _super.apply(this, arguments);
-        this.isLoud = true;
+        var _this = _super.apply(this, arguments) || this;
+        _this.isLoud = true;
+        return _this;
     }
     return ParjsBasicAction;
 }(ParjsAction));

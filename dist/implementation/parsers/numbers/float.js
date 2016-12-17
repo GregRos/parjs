@@ -8,16 +8,14 @@ var action_1 = require("../../../base/action");
 /**
  * Created by User on 28-Nov-16.
  */
-var _ = require('lodash');
+var _ = require("lodash");
 var char_indicators_1 = require("../../../functions/char-indicators");
-var math_1 = require("../../../functions/math");
 var parselets_1 = require("./parselets");
 var result_1 = require("../../../abstract/basics/result");
 var defaultFloatOptions = {
     allowExponent: true,
     allowSign: true,
     allowImplicitZero: true,
-    base: 10,
     allowFloatingPoint: true
 };
 var msgOneOrMoreDigits = "one or more digits";
@@ -25,11 +23,13 @@ var msgExponentSign = "exponent sign (+ or -)";
 var PrsFloat = (function (_super) {
     __extends(PrsFloat, _super);
     function PrsFloat(options) {
-        _super.call(this);
-        this.expecting = "a floating-point number";
-        this.displayName = "float";
-        this.isLoud = true;
-        _.defaults(options, defaultFloatOptions);
+        var _this = _super.call(this) || this;
+        _this.options = options;
+        _this.expecting = "a floating-point number";
+        _this.displayName = "float";
+        _this.isLoud = true;
+        _this.options = _.defaults(options, defaultFloatOptions);
+        return _this;
     }
     PrsFloat.prototype._apply = function (ps) {
         /*
@@ -68,12 +68,13 @@ var PrsFloat = (function (_super) {
                    Otherwise, an error is thrown.
                 b.
          */
-        var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent, base = _a.base;
+        var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent;
         var position = ps.position, input = ps.input;
         if (position > input.length) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
+        var initPos = position;
         var Sign = 1;
         var hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
@@ -88,71 +89,63 @@ var PrsFloat = (function (_super) {
         }
         //after a sign there needs to come an integer part (if any).
         var prevPos = ps.position;
-        var Whole = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
-        var Fractional = 0;
-        var Exp = 1;
+        parselets_1.Parselets.parseDigitsInBase(ps, 10);
         hasWhole = ps.position !== prevPos;
         //now if allowFloatingPoint, we try to parse a decimal point.
         var nextChar = input.charCodeAt(ps.position);
         prevPos = ps.position;
         if (!allowImplicitZero && !hasWhole) {
             //fail because we don't allow ".1", and similar without allowImplicitZero.
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = hasSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
             ps.expecting = msgOneOrMoreDigits;
             return;
         }
-        if (allowFloatingPoint && nextChar === char_indicators_1.Codes.decimalPoint) {
-            //skip to the char after the decimal point
-            ps.position++;
-            var prevFractionalPos = ps.position;
-            //parse the fractional part
-            Fractional = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.NegativeExponents);
-            hasFraction = prevFractionalPos !== ps.position;
-            if (!allowImplicitZero && !hasFraction) {
-                //we encountered something like 212. but allowImplicitZero is false.
-                //that means we need to backtrack to the . character and succeed in parsing the integer.
-                //the remainder is not a valid number.
-                ps.value = Whole;
-                ps.position = prevPos;
-                return;
+        floatingParse: {
+            if (allowFloatingPoint && nextChar === char_indicators_1.Codes.decimalPoint) {
+                //skip to the char after the decimal point
+                ps.position++;
+                var prevFractionalPos = ps.position;
+                //parse the fractional part
+                parselets_1.Parselets.parseDigitsInBase(ps, 10);
+                hasFraction = prevFractionalPos !== ps.position;
+                if (!allowImplicitZero && !hasFraction) {
+                    //we encountered something like 212. but allowImplicitZero is false.
+                    //that means we need to backtrack to the . character and succeed in parsing the integer.
+                    //the remainder is not a valid number.
+                    break floatingParse;
+                }
+                //after parseDigits has been invoked, the ps.position is on the next character (which could be e).
+                nextChar = input.charCodeAt(ps.position);
+                prevPos = ps.position;
             }
-            //after parseDigits has been invoked, the ps.position is on the next character (which could be e).
-            nextChar = input.charCodeAt(ps.position);
-            prevPos = ps.position;
-        }
-        if (!hasWhole && !hasFraction) {
-            //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
-            ps.kind = result_1.ResultKind.SoftFail;
-            ps.expecting = msgOneOrMoreDigits;
-            return;
-        }
-        //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
-        //if we do allow floating point, then the previous block would've consumed some characters.
-        if (allowExponent && (nextChar === char_indicators_1.Codes.e || nextChar === char_indicators_1.Codes.E)) {
-            ps.position++;
-            var expSign = parselets_1.Parselets.parseSign(ps);
-            if (expSign === 0) {
-                ps.kind = result_1.ResultKind.HardFail;
-                ps.expecting = msgExponentSign;
-                return;
-            }
-            var prevFractionalPos = ps.position;
-            var exp = parselets_1.Parselets.parseDigits(ps, base, math_1.FastMath.PositiveExponents);
-            if (ps.position === prevFractionalPos) {
-                //we parsed e+ but we did not parse any digits.
-                ps.kind = result_1.ResultKind.HardFail;
+            if (!hasWhole && !hasFraction) {
+                //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
+                ps.kind = hasSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
                 ps.expecting = msgOneOrMoreDigits;
                 return;
             }
-            if (expSign < 0) {
-                Exp = math_1.FastMath.NegativeExponents[base][exp];
-            }
-            else {
-                Exp = math_1.FastMath.PositiveExponents[base][exp];
+            //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
+            //if we do allow floating point, then the previous block would've consumed some characters.
+            if (allowExponent && (nextChar === char_indicators_1.Codes.e || nextChar === char_indicators_1.Codes.E)) {
+                ps.position++;
+                var expSign = parselets_1.Parselets.parseSign(ps);
+                if (expSign === 0) {
+                    ps.kind = result_1.ResultKind.HardFail;
+                    ps.expecting = msgExponentSign;
+                    return;
+                }
+                var prevFractionalPos = ps.position;
+                parselets_1.Parselets.parseDigitsInBase(ps, 10);
+                if (ps.position === prevFractionalPos) {
+                    //we parsed e+ but we did not parse any digits.
+                    ps.kind = result_1.ResultKind.HardFail;
+                    ps.expecting = msgOneOrMoreDigits;
+                    return;
+                }
             }
         }
         ps.kind = result_1.ResultKind.OK;
-        ps.value = Sign * (Whole + Fractional) * Exp;
+        ps.value = parseFloat(input.substring(initPos, ps.position));
     };
     return PrsFloat;
 }(action_1.ParjsAction));

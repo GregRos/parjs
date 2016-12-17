@@ -19,7 +19,7 @@ export class PrsCharCodeWhere extends ParjsBasicAction {
         if (position >= input.length) {
             ps.kind = ResultKind.SoftFail;
             return;
-        };
+        }
         let curChar = input.charCodeAt(position);
         if (!predicate(curChar)) {
             ps.kind = ResultKind.SoftFail;

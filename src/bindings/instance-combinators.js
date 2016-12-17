@@ -30,7 +30,7 @@ var ParjsParser = (function (_super) {
     });
     ParjsParser.prototype.mustCapture = function (failType) {
         if (failType === void 0) { failType = result_1.ResultKind.HardFail; }
-        return wrap(new combinators_1.PrsMustCapture(this.action, failType));
+        return wrap(new combinators_1.PrsMustCapture(this.action, result_1.toResultKind(failType)));
     };
     ParjsParser.prototype.or = function () {
         var others = [];
@@ -116,7 +116,7 @@ var ParjsParser = (function (_super) {
     ParjsParser.prototype.must = function (condition, name, fail) {
         if (name === void 0) { name = "(unnamed condition)"; }
         if (fail === void 0) { fail = result_1.ResultKind.HardFail; }
-        return wrap(new combinators_1.PrsMust(this.action, condition, fail, name));
+        return wrap(new combinators_1.PrsMust(this.action, condition, result_1.toResultKind(fail), name));
     };
     ParjsParser.prototype.mustNotBeOf = function () {
         var options = [];
@@ -141,13 +141,6 @@ var ParjsParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    ParjsParser.prototype.alts = function () {
-        var others = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            others[_i] = arguments[_i];
-        }
-        return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
-    };
     return ParjsParser;
 }(parser_1.BaseParjsParser));
 exports.ParjsParser = ParjsParser;

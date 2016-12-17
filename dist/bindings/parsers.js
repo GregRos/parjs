@@ -1,8 +1,12 @@
 "use strict";
 var instance_combinators_1 = require("./instance-combinators");
-var parsers_1 = require('../implementation/parsers');
-var combinators_1 = require('../implementation/combinators');
+var parsers_1 = require("../implementation/parsers");
+var combinators_1 = require("../implementation/combinators");
 var char_indicators_1 = require("../functions/char-indicators");
+var result_1 = require("../abstract/basics/result");
+var int_1 = require("../implementation/parsers/numbers/int");
+var float_1 = require("../implementation/parsers/numbers/float");
+var _ = require("lodash");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -15,14 +19,14 @@ var ParjsParsers = (function () {
     ParjsParsers.prototype.any = function () {
         var parsers = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            parsers[_i - 0] = arguments[_i];
+            parsers[_i] = arguments[_i];
         }
         return wrap(new combinators_1.PrsAlts(parsers.map(function (x) { return x.action; })));
     };
     ParjsParsers.prototype.seq = function () {
         var parsers = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            parsers[_i - 0] = arguments[_i];
+            parsers[_i] = arguments[_i];
         }
         return wrap(new combinators_1.PrsSeq(parsers.map(function (x) { return x.action; })));
     };
@@ -139,7 +143,7 @@ var ParjsParsers = (function () {
     ParjsParsers.prototype.anyStringOf = function () {
         var strs = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            strs[_i - 0] = arguments[_i];
+            strs[_i] = arguments[_i];
         }
         return wrap(new parsers_1.AnyStringOf(strs));
     };
@@ -159,13 +163,11 @@ var ParjsParsers = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ParjsParsers.prototype, "fail", {
-        get: function () {
-            return wrap(new parsers_1.PrsFail());
-        },
-        enumerable: true,
-        configurable: true
-    });
+    ParjsParsers.prototype.fail = function (expecting, kind) {
+        if (expecting === void 0) { expecting = ""; }
+        if (kind === void 0) { kind = result_1.ResultKind.SoftFail; }
+        return wrap(new parsers_1.PrsFail(kind, expecting));
+    };
     Object.defineProperty(ParjsParsers.prototype, "position", {
         get: function () {
             return wrap(new parsers_1.PrsPosition());
@@ -180,6 +182,22 @@ var ParjsParsers = (function () {
         enumerable: true,
         configurable: true
     });
+    ParjsParsers.prototype.int = function (options) {
+        options = _.defaults({}, options, {
+            base: 10,
+            allowSign: true
+        });
+        return wrap(new int_1.PrsInt(options));
+    };
+    ParjsParsers.prototype.float = function (options) {
+        options = _.defaults({}, options, {
+            allowImplicitZero: true,
+            allowExponent: true,
+            allowSign: true,
+            allowFloatingPoint: true
+        });
+        return wrap(new float_1.PrsFloat(options));
+    };
     return ParjsParsers;
 }());
 exports.ParjsParsers = ParjsParsers;

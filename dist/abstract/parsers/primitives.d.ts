@@ -1,5 +1,6 @@
 import { LoudParser } from "../combinators/loud";
 import { QuietParser } from "../combinators/quiet";
+import { ResultKind } from "../basics/result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -16,5 +17,5 @@ export interface PrimitiveParsers {
     /**
      * P fails for any input.
      */
-    readonly fail: QuietParser;
+    fail(expecting?: string, kind?: ResultKind): LoudParser<any>;
 }

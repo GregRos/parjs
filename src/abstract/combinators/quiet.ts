@@ -1,5 +1,5 @@
 import {AnyParser} from "./any";
-import {ResultKind, QuietParserResult} from "../basics/result";
+import {ResultKind, QuietParserResult, FailIndicator} from "../basics/result";
 export interface QuietParser extends AnyParser {
     parse(input : string,initialState ?: any) : QuietParserResult;
 
@@ -10,15 +10,9 @@ export interface QuietParser extends AnyParser {
      * The return depends on which parser succeeded.
      * @param alt The loud parser alternatie.
      */
-    or(alt : QuietParser) : QuietParser;
+    or(...alt : QuietParser[]) : QuietParser;
 
     soft : QuietParser;
-
-    /**
-     * P tries to apply this parser. If it fails, then tries to apply the `parsers` one after the other until one of them succeeds.
-     * @param parsers The parsers to try.
-     */
-    alts(...parsers : QuietParser[]) : QuietParser;
 
     //+ Look Ahead
 
@@ -30,7 +24,7 @@ export interface QuietParser extends AnyParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    mustCapture(kind ?: ResultKind) : QuietParser;
+    mustCapture(kind ?: FailIndicator) : QuietParser;
 
     /**
      * P applies this parser and then the given parser. P returns the value of the given parser (if any).

@@ -12,12 +12,13 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsMustCapture = (function (_super) {
     __extends(PrsMustCapture, _super);
     function PrsMustCapture(inner, failType) {
-        _super.call(this);
-        this.inner = inner;
-        this.failType = failType;
-        this.displayName = "mustCapture";
-        this.isLoud = inner.isLoud;
-        this.expecting = "internal parser " + inner.displayName + " to consume input";
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.failType = failType;
+        _this.displayName = "mustCapture";
+        _this.isLoud = inner.isLoud;
+        _this.expecting = "internal parser " + inner.displayName + " to consume input";
+        return _this;
     }
     PrsMustCapture.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, failType = _a.failType;

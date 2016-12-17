@@ -1,7 +1,7 @@
 "use strict";
-var parsers_1 = require("../src/bindings/parsers");
-var result_1 = require("../src/abstract/basics/result");
-var custom_matchers_1 = require("./custom-matchers");
+var parsers_1 = require("../../src/bindings/parsers");
+var result_1 = require("../../src/abstract/basics/result");
+var custom_matchers_1 = require("../custom-matchers");
 describe("basics: anyChar example", function () {
     var parser = parsers_1.Parjs.anyChar;
     var successInput = "a";

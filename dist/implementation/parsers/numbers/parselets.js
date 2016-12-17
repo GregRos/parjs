@@ -6,25 +6,15 @@ var char_indicators_1 = require("../../../functions/char-indicators");
 var _ParseletsType = (function () {
     function _ParseletsType() {
     }
-    /**
-     * Tries to parse a sequence of digits in {base}. Returns a positive number consisting of the parsed digits.
-     * Returns < 0 if no digits were parsed.
-     * @param ps
-     * @param base
-     * @param exponents
-     * @returns {number}
-     */
-    _ParseletsType.prototype.parseDigits = function (ps, base, exponents) {
+    _ParseletsType.prototype.parseDigitsInBase = function (ps, base) {
         var position = ps.position, input = ps.input;
-        var result = 0;
         var length = input.length;
-        var expLength = exponents.length;
-        for (var i = 0; position < length; position++, i++) {
+        var result = 0;
+        for (; position < length; position++) {
             var curCode = input.charCodeAt(position);
             if (!char_indicators_1.Codes.isDigit(curCode, base)) {
                 break;
             }
-            result += char_indicators_1.Codes.digitValue(curCode);
         }
         ps.position = position;
         return result;
@@ -43,6 +33,7 @@ var _ParseletsType = (function () {
         }
         else if (curChar === char_indicators_1.Codes.plus) {
             ps.position++;
+            sign = 1;
         }
         return sign;
     };

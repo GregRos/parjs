@@ -27,7 +27,6 @@ var PrsCharCodeWhere = (function (_super) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        ;
         var curChar = input.charCodeAt(position);
         if (!predicate(curChar)) {
             ps.kind = result_1.ResultKind.SoftFail;

@@ -2,9 +2,9 @@
 /**
  * Created by lifeg on 10/12/2016.
  */
-var custom_matchers_1 = require("./custom-matchers");
-var parsers_1 = require("../src/bindings/parsers");
-var result_1 = require("../src/abstract/basics/result");
+var custom_matchers_1 = require("../../custom-matchers");
+var parsers_1 = require("../../../src/bindings/parsers");
+var result_1 = require("../../../src/abstract/basics/result");
 var goodInput = "abcd";
 var badInput = "";
 var uState = {};
@@ -54,4 +54,4 @@ describe("map combinators", function () {
         });
     });
 });
-//# sourceMappingURL=map-combinators.spec.js.map
+//# sourceMappingURL=mappers.spec.js.map

@@ -1,4 +1,3 @@
-/// <reference types="core-js" />
 import { ParjsParser } from "./instance-combinators";
 import { CharParsers } from "../abstract/parsers/char";
 import { StringParsers } from "../abstract/parsers/string";
@@ -6,7 +5,11 @@ import { PrimitiveParsers } from "../abstract/parsers/primitives";
 import { SpecialParsers } from "../abstract/parsers/special";
 import { StaticCombinators } from "../abstract/combinators/static";
 import { AnyParser } from "../abstract/combinators/any";
-export declare class ParjsParsers implements CharParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+import { ResultKind } from "../abstract/basics/result";
+import { IntOptions } from "../implementation/parsers/numbers/int";
+import { FloatOptions } from "../implementation/parsers/numbers/float";
+import { NumericParsers } from "../abstract/parsers/numeric";
+export declare class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
     any(...parsers: AnyParser[]): ParjsParser;
     seq(...parsers: AnyParser[]): ParjsParser;
     readonly anyChar: ParjsParser;
@@ -32,8 +35,10 @@ export declare class ParjsParsers implements CharParsers, StringParsers, Primiti
     regexp(regex: RegExp): ParjsParser;
     result(x: any): ParjsParser;
     readonly eof: ParjsParser;
-    readonly fail: ParjsParser;
+    fail(expecting?: string, kind?: ResultKind): ParjsParser;
     readonly position: ParjsParser;
     readonly state: ParjsParser;
+    int(options?: IntOptions): ParjsParser;
+    float(options?: FloatOptions): ParjsParser;
 }
-export declare const Parjs: CharParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;
+export declare const Parjs: CharParsers & NumericParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;

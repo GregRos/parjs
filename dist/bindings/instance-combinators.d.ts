@@ -6,9 +6,10 @@ import { AnyParser } from "../abstract/combinators/any";
 export declare class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
     readonly backtrack: ParjsParser;
     mustCapture(failType?: ResultKind): ParjsParser;
-    or(...others: AnyParser[]): ParjsParser;
+    or(...others: AnyParser[]): any;
     map(f: (result: any) => any): ParjsParser;
     readonly quiet: ParjsParser;
+    readonly soft: ParjsParser;
     then(next: AnyParser | ((result: any) => LoudParser<any>)): ParjsParser;
     many(minSuccesses?: number, maxIters?: number): ParjsParser;
     manyTill(till: AnyParser, tillOptional?: boolean): ParjsParser;

@@ -13,12 +13,13 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsSeqFunc = (function (_super) {
     __extends(PrsSeqFunc, _super);
     function PrsSeqFunc(initial, parserSelectors) {
-        _super.call(this);
-        this.initial = initial;
-        this.parserSelectors = parserSelectors;
-        this.isLoud = true;
-        this.displayName = "seqFunc";
-        this.expecting = initial.expecting;
+        var _this = _super.call(this) || this;
+        _this.initial = initial;
+        _this.parserSelectors = parserSelectors;
+        _this.isLoud = true;
+        _this.displayName = "seqFunc";
+        _this.expecting = initial.expecting;
+        return _this;
     }
     PrsSeqFunc.prototype._apply = function (ps) {
         var _a = this, initial = _a.initial, parserSelectors = _a.parserSelectors;

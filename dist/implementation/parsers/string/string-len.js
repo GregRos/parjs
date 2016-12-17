@@ -12,10 +12,11 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsStringLen = (function (_super) {
     __extends(PrsStringLen, _super);
     function PrsStringLen(length) {
-        _super.call(this);
-        this.length = length;
-        this.displayName = "stringLen";
-        this.expecting = length + " characters";
+        var _this = _super.call(this) || this;
+        _this.length = length;
+        _this.displayName = "stringLen";
+        _this.expecting = length + " characters";
+        return _this;
     }
     PrsStringLen.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;

@@ -9,7 +9,7 @@ import {PrimitiveParsers} from "../abstract/parsers/primitives";
 import {SpecialParsers} from "../abstract/parsers/special";
 import {StaticCombinators} from "../abstract/combinators/static";
 import {AnyParser} from "../abstract/combinators/any";
-import {ResultKind} from "../abstract/basics/result";
+import {ResultKind, FailIndicator, toResultKind} from "../abstract/basics/result";
 import {IntOptions, PrsInt} from "../implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "../implementation/parsers/numbers/float";
 import {NumericParsers} from "../abstract/parsers/numeric";
@@ -125,8 +125,8 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
         return wrap(new PrsEof());
     }
 
-    fail(expecting = "", kind = ResultKind.SoftFail) {
-        return wrap(new PrsFail(kind, expecting));
+    fail(expecting = "", kind : FailIndicator = ResultKind.SoftFail) {
+        return wrap(new PrsFail(toResultKind(kind), expecting));
     }
 
     get position() {

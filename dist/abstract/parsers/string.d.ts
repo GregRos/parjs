@@ -1,4 +1,3 @@
-/// <reference types="core-js" />
 import { LoudParser } from "../combinators/loud";
 /**
  * Created by User on 21-Nov-16.

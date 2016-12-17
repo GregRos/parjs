@@ -9,6 +9,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param alt The loud parser alternatie.
      */
     or<S>(alt: LoudParser<S>): LoudParser<T | S>;
+    soft: LoudParser<T>;
     /**
      * Applies this parser. If it fails, P succeeds without consuming input and returns the given value.
      * @param val The value alternative.

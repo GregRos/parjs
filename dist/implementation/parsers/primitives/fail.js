@@ -6,18 +6,23 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var action_1 = require("../../../base/action");
 var result_1 = require("../../../abstract/basics/result");
+var common_1 = require("../../common");
 /**
  * Created by lifeg on 24/11/2016.
  */
 var PrsFail = (function (_super) {
     __extends(PrsFail, _super);
-    function PrsFail() {
-        _super.apply(this, arguments);
-        this.displayName = "fail";
-        this.expecting = "no input";
+    function PrsFail(kind, expecting) {
+        var _this = _super.call(this) || this;
+        _this.kind = kind;
+        _this.expecting = expecting;
+        _this.displayName = "fail";
+        [result_1.ResultKind.OK, result_1.ResultKind.Unknown].includes(kind) && common_1.Issues.expectedFailureKind(_this);
+        return _this;
     }
     PrsFail.prototype._apply = function (ps) {
-        ps.kind = result_1.ResultKind.SoftFail;
+        ps.kind = this.kind;
+        ps.expecting = this.expecting;
     };
     return PrsFail;
 }(action_1.ParjsBasicAction));

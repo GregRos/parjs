@@ -13,13 +13,14 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsManyTill = (function (_super) {
     __extends(PrsManyTill, _super);
     function PrsManyTill(many, till, tillOptional) {
-        _super.call(this);
-        this.many = many;
-        this.till = till;
-        this.tillOptional = tillOptional;
-        this.displayName = "manyTill";
-        this.isLoud = many.isLoud;
-        this.expecting = many.expecting + " or " + till.expecting;
+        var _this = _super.call(this) || this;
+        _this.many = many;
+        _this.till = till;
+        _this.tillOptional = tillOptional;
+        _this.displayName = "manyTill";
+        _this.isLoud = many.isLoud;
+        _this.expecting = many.expecting + " or " + till.expecting;
+        return _this;
     }
     PrsManyTill.prototype._apply = function (ps) {
         var _a = this, many = _a.many, till = _a.till, tillOptional = _a.tillOptional;
@@ -46,6 +47,7 @@ var PrsManyTill = (function (_super) {
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.
                     ps.kind = successes === 0 ? result_1.ResultKind.SoftFail : result_1.ResultKind.HardFail;
+                    return;
                 }
                 else {
                     //till was optional, so many failing softly is OK.

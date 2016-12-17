@@ -12,10 +12,11 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsPosition = (function (_super) {
     __extends(PrsPosition, _super);
     function PrsPosition() {
-        _super.apply(this, arguments);
-        this.displayName = "position";
-        this.isLoud = true;
-        this.expecting = "anything";
+        var _this = _super.apply(this, arguments) || this;
+        _this.displayName = "position";
+        _this.isLoud = true;
+        _this.expecting = "anything";
+        return _this;
     }
     PrsPosition.prototype._apply = function (ps) {
         ps.value = ps.position;

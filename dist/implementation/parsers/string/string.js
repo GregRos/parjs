@@ -12,10 +12,11 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsString = (function (_super) {
     __extends(PrsString, _super);
     function PrsString(str) {
-        _super.call(this);
-        this.str = str;
-        this.displayName = "string";
-        this.expecting = "'" + str + "'";
+        var _this = _super.call(this) || this;
+        _this.str = str;
+        _this.displayName = "string";
+        _this.expecting = "'" + str + "'";
+        return _this;
     }
     PrsString.prototype._apply = function (ps) {
         var str = this.str;

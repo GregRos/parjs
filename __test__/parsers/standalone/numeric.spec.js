@@ -1,7 +1,7 @@
 "use strict";
-var parsers_1 = require("../src/bindings/parsers");
-var custom_matchers_1 = require("./custom-matchers");
-var result_1 = require("../src/abstract/basics/result");
+var parsers_1 = require("../../../src/bindings/parsers");
+var custom_matchers_1 = require("../../custom-matchers");
+var result_1 = require("../../../src/abstract/basics/result");
 /**
  * Created by User on 14-Dec-16.
  */
@@ -157,4 +157,4 @@ describe("numeric parsers", function () {
         });
     });
 });
-//# sourceMappingURL=numeric-parsers.spec.js.map
+//# sourceMappingURL=numeric.spec.js.map

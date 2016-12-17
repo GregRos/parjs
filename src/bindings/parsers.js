@@ -166,7 +166,7 @@ var ParjsParsers = (function () {
     ParjsParsers.prototype.fail = function (expecting, kind) {
         if (expecting === void 0) { expecting = ""; }
         if (kind === void 0) { kind = result_1.ResultKind.SoftFail; }
-        return wrap(new parsers_1.PrsFail(kind, expecting));
+        return wrap(new parsers_1.PrsFail(result_1.toResultKind(kind), expecting));
     };
     Object.defineProperty(ParjsParsers.prototype, "position", {
         get: function () {

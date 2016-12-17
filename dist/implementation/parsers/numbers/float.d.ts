@@ -5,7 +5,6 @@ export interface FloatOptions {
     allowImplicitZero?: boolean;
     allowFloatingPoint?: boolean;
     allowExponent?: boolean;
-    base?: number;
 }
 export declare class PrsFloat extends ParjsAction {
     private options;

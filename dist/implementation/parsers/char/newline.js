@@ -13,11 +13,12 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsNewline = (function (_super) {
     __extends(PrsNewline, _super);
     function PrsNewline(matchUnicode) {
-        _super.call(this);
-        this.matchUnicode = matchUnicode;
-        this.displayName = "newline";
-        this.isLoud = true;
-        this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
+        var _this = _super.call(this) || this;
+        _this.matchUnicode = matchUnicode;
+        _this.displayName = "newline";
+        _this.isLoud = true;
+        _this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
+        return _this;
     }
     PrsNewline.prototype._apply = function (ps) {
         var position = ps.position, input = ps.input;

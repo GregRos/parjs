@@ -1,4 +1,3 @@
-/// <reference types="core-js" />
 /**
  * Created by User on 21-Nov-16.
  */
@@ -13,6 +12,12 @@ export declare namespace Issues {
         displayName: string;
     }): void;
     function quietParserNotPermitted({displayName}: {
+        displayName: string;
+    }): void;
+    function expectedFailureKind({displayName}: {
+        displayName: string;
+    }): void;
+    function willAlwaysFail({displayName}: {
         displayName: string;
     }): void;
 }

@@ -13,13 +13,15 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsMany = (function (_super) {
     __extends(PrsMany, _super);
     function PrsMany(inner, maxIterations, minSuccesses) {
-        _super.call(this);
-        this.inner = inner;
-        this.maxIterations = maxIterations;
-        this.minSuccesses = minSuccesses;
-        this.displayName = "many";
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.maxIterations = maxIterations;
+        _this.minSuccesses = minSuccesses;
+        _this.displayName = "many";
+        _this.isLoud = inner.isLoud;
+        _this.expecting = inner.expecting;
+        maxIterations >= minSuccesses || common_1.Issues.willAlwaysFail(_this);
+        return _this;
     }
     PrsMany.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, maxIterations = _a.maxIterations, minSuccesses = _a.minSuccesses;
@@ -32,7 +34,7 @@ var PrsMany = (function (_super) {
                 break;
             if (i >= maxIterations)
                 break;
-            if (maxIterations < Infinity && ps.position === position) {
+            if (maxIterations === Infinity && ps.position === position) {
                 common_1.Issues.guardAgainstInfiniteLoop(this);
             }
             position = ps.position;
@@ -49,7 +51,7 @@ var PrsMany = (function (_super) {
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        return result_1.ResultKind.OK;
+        ps.kind = result_1.ResultKind.OK;
     };
     return PrsMany;
 }(action_1.ParjsAction));

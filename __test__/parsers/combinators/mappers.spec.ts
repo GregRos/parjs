@@ -1,11 +1,11 @@
 /**
  * Created by lifeg on 10/12/2016.
  */
-import {verifyFailure, verifySuccess} from './custom-matchers';
-import {LoudParser} from "../src/abstract/combinators/loud";
-import {Parjs} from "../src/bindings/parsers";
-import {ResultKind} from "../src/abstract/basics/result";
-import {AnyParser} from "../src/abstract/combinators/any";
+import {verifyFailure, verifySuccess} from '../../custom-matchers';
+import {LoudParser} from "../../../src/abstract/combinators/loud";
+import {Parjs} from "../../../src/bindings/parsers";
+import {ResultKind} from "../../../src/abstract/basics/result";
+import {AnyParser} from "../../../src/abstract/combinators/any";
 
 let goodInput = "abcd";
 let badInput = "";

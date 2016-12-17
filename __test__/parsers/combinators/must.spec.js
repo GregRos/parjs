@@ -2,9 +2,9 @@
 /**
  * Created by lifeg on 12/12/2016.
  */
-var custom_matchers_1 = require("./custom-matchers");
-var parsers_1 = require("../src/bindings/parsers");
-var result_1 = require("../src/abstract/basics/result");
+var custom_matchers_1 = require("../../custom-matchers");
+var parsers_1 = require("../../../src/bindings/parsers");
+var result_1 = require("../../../src/abstract/basics/result");
 var goodInput = "abcd";
 var badInput = "";
 var uState = {};
@@ -69,4 +69,4 @@ describe("must combinators", function () {
         });
     });
 });
-//# sourceMappingURL=must-combinators.spec.js.map
+//# sourceMappingURL=must.spec.js.map

@@ -1,4 +1,3 @@
-/// <reference types="core-js" />
 import { ParjsBasicAction } from "../../../base/action";
 import { ParsingState } from "../../../abstract/basics/state";
 /**

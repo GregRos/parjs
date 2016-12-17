@@ -1,5 +1,5 @@
 import {AnyParser} from "./any";
-import {ResultKind, ParserResult} from "../basics/result";
+import {ResultKind, ParserResult, FailIndicator} from "../basics/result";
 import {QuietParser} from "./quiet";
 export interface LoudParser<T> extends AnyParser {
     parse(input : string, initialState ?: any) : ParserResult<T>;
@@ -65,7 +65,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param name The name of the condition the result must satisfy.
      * @param fail The failure type emitted.
      */
-    must(condition : (result : T, state : any) => boolean, name ?: string, fail ?: ResultKind) : LoudParser<T>;
+    must(condition : (result : T, state : any) => boolean, name ?: string, fail ?: FailIndicator) : LoudParser<T>;
 
     /**
      * P applies this parser and verifies its result is non-empty.
@@ -88,7 +88,7 @@ export interface LoudParser<T> extends AnyParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    mustCapture(kind ?: ResultKind) : LoudParser<T>;
+    mustCapture(kind ?: FailIndicator) : LoudParser<T>;
 
     //+++SEQUENTIAL
     /**

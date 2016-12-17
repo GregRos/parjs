@@ -12,11 +12,12 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsNot = (function (_super) {
     __extends(PrsNot, _super);
     function PrsNot(inner) {
-        _super.call(this);
-        this.inner = inner;
-        this.displayName = "not";
-        this.isLoud = false;
-        this.expecting = "not: " + inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.displayName = "not";
+        _this.isLoud = false;
+        _this.expecting = "not: " + inner.expecting;
+        return _this;
     }
     ;
     PrsNot.prototype._apply = function (ps) {

@@ -9,7 +9,7 @@ import _ = require('lodash');
 import {ParjsAction} from "../base/action";
 import {Predicates} from "../functions/predicates";
 import {LoudParser} from "../abstract/combinators/loud";
-import {ResultKind} from "../abstract/basics/result";
+import {ResultKind, FailIndicator, toResultKind} from "../abstract/basics/result";
 import {QuietParser} from "../abstract/combinators/quiet";
 import {AnyParser} from "../abstract/combinators/any";
 import {PrsSoft} from "../implementation/combinators/alternatives/soft";
@@ -23,8 +23,8 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsBacktrack(this.action))
     }
 
-    mustCapture(failType = ResultKind.HardFail) {
-        return wrap(new PrsMustCapture(this.action, failType));
+    mustCapture(failType : FailIndicator = ResultKind.HardFail) {
+        return wrap(new PrsMustCapture(this.action, toResultKind(failType)));
     }
 
     or(...others : AnyParser[]) {
@@ -96,8 +96,8 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsStr(this.action));
     }
 
-    must(condition : (result : any) => boolean, name = "(unnamed condition)", fail = ResultKind.HardFail) {
-        return wrap(new PrsMust(this.action, condition, fail, name));
+    must(condition : (result : any) => boolean, name = "(unnamed condition)", fail : FailIndicator = ResultKind.HardFail) {
+        return wrap(new PrsMust(this.action, condition, toResultKind(fail), name));
     }
 
     mustNotBeOf(...options : any[]) {
@@ -114,7 +114,4 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         }, `be non-empty`, ResultKind.HardFail);
     }
 
-    alts(...others : AnyParser[]) {
-        return wrap(new PrsAlts(others.map(x => x.action)));
-    }
 }

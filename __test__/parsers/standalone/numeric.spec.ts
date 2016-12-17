@@ -1,13 +1,12 @@
-import {Parjs} from "../src/bindings/parsers";
-import {verifyFailure, verifySuccess} from "./custom-matchers";
-import {ResultKind} from "../src/abstract/basics/result";
+import {Parjs} from "../../../src/bindings/parsers";
+import {verifyFailure, verifySuccess} from "../../custom-matchers";
+import {ResultKind} from "../../../src/abstract/basics/result";
 /**
  * Created by User on 14-Dec-16.
  */
 
 describe("numeric parsers", () => {
     describe("int parser", () => {
-
         describe("default settings", () => {
             let parser = Parjs.int({
                 base : 10,

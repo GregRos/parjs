@@ -13,19 +13,20 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsAlts = (function (_super) {
     __extends(PrsAlts, _super);
     function PrsAlts(alts) {
-        _super.call(this);
-        this.alts = alts;
-        this.displayName = "alts";
+        var _this = _super.call(this) || this;
+        _this.alts = alts;
+        _this.displayName = "alts";
         if (alts.length === 0) {
-            this.isLoud = false;
+            _this.isLoud = false;
         }
         else {
             if (!alts.every(function (x) { return x.isLoud === alts[0].isLoud; })) {
-                common_1.Issues.mixedLoudnessNotPermitted(this);
+                common_1.Issues.mixedLoudnessNotPermitted(_this);
             }
         }
-        this.isLoud = alts.length === 0 ? false : alts.every(function (x) { return x.isLoud === alts[0].isLoud; });
-        this.expecting = "any of: " + alts.join(", ");
+        _this.isLoud = alts.length === 0 ? false : alts.every(function (x) { return x.isLoud === alts[0].isLoud; });
+        _this.expecting = "any of: " + alts.join(", ");
+        return _this;
     }
     PrsAlts.prototype._apply = function (ps) {
         var position = ps.position;

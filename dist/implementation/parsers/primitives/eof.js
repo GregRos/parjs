@@ -12,10 +12,11 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsEof = (function (_super) {
     __extends(PrsEof, _super);
     function PrsEof() {
-        _super.apply(this, arguments);
-        this.isLoud = false;
-        this.displayName = "eof";
-        this.expecting = "end of input";
+        var _this = _super.apply(this, arguments) || this;
+        _this.isLoud = false;
+        _this.displayName = "eof";
+        _this.expecting = "end of input";
+        return _this;
     }
     PrsEof.prototype._apply = function (ps) {
         if (ps.position === ps.input.length) {

@@ -22,6 +22,16 @@ var Issues;
         throw new Error("The combinator " + displayName + " expected a loud parser.");
     }
     Issues.quietParserNotPermitted = quietParserNotPermitted;
+    function expectedFailureKind(_a) {
+        var displayName = _a.displayName;
+        throw new Error("The combinator " + displayName + " expected a failure kind.");
+    }
+    Issues.expectedFailureKind = expectedFailureKind;
+    function willAlwaysFail(_a) {
+        var displayName = _a.displayName;
+        throw new Error("The parameters given to " + displayName + " will cause it to always fail.");
+    }
+    Issues.willAlwaysFail = willAlwaysFail;
 })(Issues = exports.Issues || (exports.Issues = {}));
 Array.prototype.maybePush = function (o) {
     o !== exports.QUIET_RESULT && this.push(o);

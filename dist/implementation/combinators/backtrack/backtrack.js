@@ -11,11 +11,12 @@ var action_1 = require("../../../base/action");
 var PrsBacktrack = (function (_super) {
     __extends(PrsBacktrack, _super);
     function PrsBacktrack(inner) {
-        _super.call(this);
-        this.inner = inner;
-        this.displayName = "backtrack";
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.displayName = "backtrack";
+        _this.isLoud = inner.isLoud;
+        _this.expecting = inner.expecting;
+        return _this;
     }
     PrsBacktrack.prototype._apply = function (ps) {
         var inner = this.inner;

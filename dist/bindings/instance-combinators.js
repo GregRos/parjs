@@ -7,18 +7,19 @@ var __extends = (this && this.__extends) || function (d, b) {
 /**
  * Created by User on 22-Nov-16.
  */
-var combinators_1 = require('../implementation/combinators');
+var combinators_1 = require("../implementation/combinators");
 var parser_1 = require("../base/parser");
-var _ = require('lodash');
+var _ = require("lodash");
 var predicates_1 = require("../functions/predicates");
 var result_1 = require("../abstract/basics/result");
+var soft_1 = require("../implementation/combinators/alternatives/soft");
 function wrap(action) {
     return new ParjsParser(action);
 }
 var ParjsParser = (function (_super) {
     __extends(ParjsParser, _super);
     function ParjsParser() {
-        _super.apply(this, arguments);
+        return _super.apply(this, arguments) || this;
     }
     Object.defineProperty(ParjsParser.prototype, "backtrack", {
         get: function () {
@@ -34,9 +35,9 @@ var ParjsParser = (function (_super) {
     ParjsParser.prototype.or = function () {
         var others = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            others[_i - 0] = arguments[_i];
+            others[_i] = arguments[_i];
         }
-        return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
+        return wrap(new combinators_1.PrsAlts([this].concat(others).map(function (x) { return x.action; })));
     };
     ParjsParser.prototype.map = function (f) {
         return wrap(new combinators_1.MapParser(this.action, f));
@@ -44,6 +45,13 @@ var ParjsParser = (function (_super) {
     Object.defineProperty(ParjsParser.prototype, "quiet", {
         get: function () {
             return wrap(new combinators_1.PrsQuiet(this.action));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ParjsParser.prototype, "soft", {
+        get: function () {
+            return wrap(new soft_1.PrsSoft(this.action));
         },
         enumerable: true,
         configurable: true
@@ -113,14 +121,14 @@ var ParjsParser = (function (_super) {
     ParjsParser.prototype.mustNotBeOf = function () {
         var options = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            options[_i - 0] = arguments[_i];
+            options[_i] = arguments[_i];
         }
         return this.must(function (x) { return !options.includes(x); }, "none of: " + options.join(", "));
     };
     ParjsParser.prototype.mustBeOf = function () {
         var options = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            options[_i - 0] = arguments[_i];
+            options[_i] = arguments[_i];
         }
         return this.must(function (x) { return options.includes(x); }, "one of: " + options.join(", "));
     };
@@ -128,7 +136,7 @@ var ParjsParser = (function (_super) {
         get: function () {
             return this.must(function (x) {
                 return predicates_1.Predicates.nonEmpty(x);
-            }, "be non-empty", result_1.ResultKind.SoftFail);
+            }, "be non-empty", result_1.ResultKind.HardFail);
         },
         enumerable: true,
         configurable: true
@@ -136,7 +144,7 @@ var ParjsParser = (function (_super) {
     ParjsParser.prototype.alts = function () {
         var others = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            others[_i - 0] = arguments[_i];
+            others[_i] = arguments[_i];
         }
         return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
     };

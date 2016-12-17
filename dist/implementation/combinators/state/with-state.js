@@ -11,12 +11,13 @@ var action_1 = require("../../../base/action");
 var PrsWithState = (function (_super) {
     __extends(PrsWithState, _super);
     function PrsWithState(inner, reducer) {
-        _super.call(this);
-        this.inner = inner;
-        this.reducer = reducer;
-        this.displayName = "withState";
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.reducer = reducer;
+        _this.displayName = "withState";
+        _this.isLoud = inner.isLoud;
+        _this.expecting = inner.expecting;
+        return _this;
     }
     PrsWithState.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, reducer = _a.reducer;

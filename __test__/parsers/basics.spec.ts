@@ -1,6 +1,6 @@
-import {Parjs} from "../src/bindings/parsers";
-import {ResultKind, ParserResult, SuccessResult, FailResult} from "../src/abstract/basics/result";
-import {verifySuccess, verifyFailure} from './custom-matchers';
+import {Parjs} from "../../src/bindings/parsers";
+import {ResultKind, ParserResult, SuccessResult, FailResult} from "../../src/abstract/basics/result";
+import {verifySuccess, verifyFailure} from '../custom-matchers';
 
 
 

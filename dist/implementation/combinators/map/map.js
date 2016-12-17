@@ -12,13 +12,14 @@ var common_1 = require("../../common");
 var MapParser = (function (_super) {
     __extends(MapParser, _super);
     function MapParser(inner, map) {
-        _super.call(this);
-        this.inner = inner;
-        this.map = map;
-        this.displayName = "map";
-        this.isLoud = true;
-        common_1.Issues.quietParserNotPermitted(this);
-        this.expecting = inner.expecting;
+        var _this = _super.call(this) || this;
+        _this.inner = inner;
+        _this.map = map;
+        _this.displayName = "map";
+        _this.isLoud = true;
+        inner.isLoud || common_1.Issues.quietParserNotPermitted(_this);
+        _this.expecting = inner.expecting;
+        return _this;
     }
     MapParser.prototype._apply = function (ps) {
         var _a = this, inner = _a.inner, map = _a.map;
