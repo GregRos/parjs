@@ -1,5 +1,6 @@
 import {AnyParser} from "./any";
 import {ResultKind, QuietParserResult, FailIndicator} from "../basics/result";
+import {LoudParser} from "./loud";
 export interface QuietParser extends AnyParser {
     parse(input : string,initialState ?: any) : QuietParserResult;
 
@@ -31,12 +32,19 @@ export interface QuietParser extends AnyParser {
      * @param parser The parser to apply next.
      */
     then<TParser extends AnyParser>(parser : TParser) : TParser;
+
+    then<S>(...loud : (LoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
+
+    then(...quiet : QuietParser[]) : QuietParser;
+
     /**
      * P applies this parser, and then calls a function to determine which parser to apply next. The function takes no parameters.
      * P returns the value of the following parser.
      * @param selector The function that returns the proceeding parser.
      */
     then<TParser extends AnyParser>(selector : () => TParser) : TParser;
+
+
 
     /**
      * P applies this parser repeatedly until it fails.

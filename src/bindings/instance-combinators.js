@@ -9,7 +9,6 @@ var __extends = (this && this.__extends) || function (d, b) {
  */
 var combinators_1 = require("../implementation/combinators");
 var parser_1 = require("../base/parser");
-var _ = require("lodash");
 var predicates_1 = require("../functions/predicates");
 var result_1 = require("../abstract/basics/result");
 var soft_1 = require("../implementation/combinators/alternatives/soft");
@@ -56,18 +55,21 @@ var ParjsParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    ParjsParser.prototype.then = function (next) {
-        if (_.isFunction(next)) {
-            return wrap(new combinators_1.PrsSeqFunc(this.action, [next]));
+    ParjsParser.prototype.then = function () {
+        var next = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            next[_i] = arguments[_i];
+        }
+        var actions = [this.action].concat(next.map(function (x) { return x.action; }));
+        var seqParse = wrap(new combinators_1.PrsSeq(actions));
+        var loudCount = actions.filter(function (x) { return x.isLoud; }).length;
+        if (loudCount === 1) {
+            return seqParse.map(function (x) { return x[0]; });
+        }
+        else if (loudCount === 0) {
+            return seqParse.quiet;
         }
         else {
-            var seqParse = wrap(new combinators_1.PrsSeq([this.action, next.action]));
-            if (this.isLoud !== next.isLoud) {
-                return seqParse.map(function (x) { return x[0]; });
-            }
-            else if (!this.isLoud) {
-                return seqParse.quiet;
-            }
             return seqParse;
         }
     };

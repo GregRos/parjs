@@ -12,7 +12,7 @@ import {ResultKind, ParserResult} from "../abstract/basics/result";
 export abstract class BaseParjsParser {
     constructor(public action : ParjsAction) {}
 
-    get displayName() {
+    get displayName() : string   {
         return this.action.displayName;
     }
 

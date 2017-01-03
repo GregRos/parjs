@@ -1,15 +1,7 @@
-import {ResultKind, ParserResult} from "../src/abstract/basics/result";
+import {ResultKind, ParserResult, FailIndicator, toResultKind} from "../src/abstract/basics/result";
 /**
  * Created by lifeg on 09/12/2016.
  */
-type SuccessArgs = {
-    value ?: any;
-    state ?: any;
-};
-type FailArgs = {
-    state ?: any;
-    kind ?: ResultKind;
-};
 
 declare global {
     namespace jasmine {
@@ -19,7 +11,6 @@ declare global {
             toHaveMember(name : string, failMessage ?: string);
         }
     }
-
 }
 
 class CustomMatcherDefs {
@@ -72,11 +63,13 @@ for (let prop in defs) {
     }
 }
 
-export function verifyFailure(result : ParserResult<any>, failType ?: ResultKind, state ?: any) {
+
+
+export function expectFailure(result : ParserResult<any>, failType ?: FailIndicator, state ?: any) {
     expect(result.kind).toBeAnyOf([ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ResultKind.OK) return;
     if (failType !== undefined){
-        expect(result.kind).toBe(failType);
+        expect(result.kind).toBe(toResultKind(failType));
     }
 
     expect(result.expecting).toHaveType("string", "invaid 'expecting' value");
@@ -85,7 +78,7 @@ export function verifyFailure(result : ParserResult<any>, failType ?: ResultKind
     }
 }
 
-export function verifySuccess(result : ParserResult<any>, value ?: any, state ?: any) {
+export function expectSuccess(result : ParserResult<any>, value ?: any, state ?: any) {
     expect(result.kind).toBe(ResultKind.OK, "kind wasn't OK");
     if (result.kind !== ResultKind.OK) return;
     expect(result).toHaveMember("value", "expecting value");
@@ -95,6 +88,33 @@ export function verifySuccess(result : ParserResult<any>, value ?: any, state ?:
     }
     if (state !== undefined) {
         expect(result.state).toBe(state);
+    }
+}
+
+export interface FailArgs {
+    type ?: FailIndicator;
+    state ?: any;
+}
+
+export interface SuccessArgs {
+    value ?: any;
+    state ?: any;
+}
+
+export interface ExpectResult {
+    toFail(args ?:FailArgs);
+    toSucceed(args ?: SuccessArgs)
+}
+export function expectResult(result : ParserResult<any>) : ExpectResult {
+    return {
+        toFail(args) {
+            args = args || {};
+            expectFailure(result, args.type, args.state);
+        },
+        toSucceed(args) {
+            args = args || {};
+            expectSuccess(result, args.value, args.state);
+        }
     }
 }
 

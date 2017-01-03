@@ -53,20 +53,20 @@ var _loop_1 = function (prop) {
 for (var prop in defs) {
     _loop_1(prop);
 }
-function verifyFailure(result, failType, state) {
+function expectFailure(result, failType, state) {
     expect(result.kind).toBeAnyOf([result_1.ResultKind.FatalFail, result_1.ResultKind.HardFail, result_1.ResultKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === result_1.ResultKind.OK)
         return;
     if (failType !== undefined) {
-        expect(result.kind).toBe(failType);
+        expect(result.kind).toBe(result_1.toResultKind(failType));
     }
     expect(result.expecting).toHaveType("string", "invaid 'expecting' value");
     if (state !== undefined) {
         expect(result.state).toBe(state);
     }
 }
-exports.verifyFailure = verifyFailure;
-function verifySuccess(result, value, state) {
+exports.expectFailure = expectFailure;
+function expectSuccess(result, value, state) {
     expect(result.kind).toBe(result_1.ResultKind.OK, "kind wasn't OK");
     if (result.kind !== result_1.ResultKind.OK)
         return;
@@ -79,7 +79,20 @@ function verifySuccess(result, value, state) {
         expect(result.state).toBe(state);
     }
 }
-exports.verifySuccess = verifySuccess;
+exports.expectSuccess = expectSuccess;
+function expectResult(result) {
+    return {
+        toFail: function (args) {
+            args = args || {};
+            expectFailure(result, args.type, args.state);
+        },
+        toSucceed: function (args) {
+            args = args || {};
+            expectSuccess(result, args.value, args.state);
+        }
+    };
+}
+exports.expectResult = expectResult;
 beforeEach(function () {
     jasmine.addMatchers(exports.CustomMatchers);
 });

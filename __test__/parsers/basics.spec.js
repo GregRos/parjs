@@ -13,11 +13,11 @@ describe("basics: anyChar example", function () {
     });
     it("empty input failure", function () {
         var result = parser.parse(failInput, uniqueState);
-        custom_matchers_1.verifyFailure(result, result_1.ResultKind.SoftFail, uniqueState);
+        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail, uniqueState);
     });
     it("fails on too much input", function () {
         var result = parser.parse(tooMuchInput, uniqueState);
-        custom_matchers_1.verifyFailure(result, result_1.ResultKind.SoftFail, uniqueState);
+        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail, uniqueState);
     });
     describe("non-string inputs", function () {
         it("throws on null, undefined", function () {

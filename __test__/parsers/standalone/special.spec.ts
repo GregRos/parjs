@@ -1,5 +1,5 @@
 import {ResultKind} from "../../../src/abstract/basics/result";
-import {verifyFailure, verifySuccess} from "../../custom-matchers";
+import {expectFailure, expectSuccess} from "../../custom-matchers";
 import {Parjs} from "../../../src/bindings/parsers";
 import {AnyParser} from "../../../src/abstract/combinators/any";
 /**
@@ -12,61 +12,70 @@ function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TP
 }
 
 describe("special parsers", () => {
-    forParser(Parjs.eof, parser => {
+    describe("Parjs.eof", () => {
+        let parser = Parjs.eof;
         let fail = "a";
         let success = "";
         it("success on empty input", () => {
-            verifySuccess(parser.parse(success), undefined);
+            expectSuccess(parser.parse(success), undefined);
         });
         it("fail on non-empty input", () => {
-            verifyFailure(parser.parse(fail), ResultKind.SoftFail);
+            expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
+        it("chain multiple EOF succeeds", () => {
+            let parser2 = parser.then(Parjs.eof);
+            expectSuccess(parser2.parse(""), undefined);
+        })
     });
 
-    forParser(Parjs.state, parser => {
+    describe("Parjs.state", () => {
+        let parser = Parjs.state;
         let uState = {};
         let someInput = "abcd";
         let noInput = "";
         it("succeeds on empty input", () => {
             let result = parser.parse(noInput, uState);
-            verifySuccess(result, uState);
+            expectSuccess(result, uState);
         });
         it("fails on non-empty input", () => {
             let result = parser.parse(someInput, uState);
-            verifyFailure(result);
+            expectFailure(result);
         });
     });
 
-    forParser(Parjs.position, parser => {
+    describe("Parjs.position", ()=> {
+        let parser = Parjs.position;
         let noInput = "";
         it("succeeds on empty input", () => {
             let result = parser.parse(noInput);
-            verifySuccess(result, 0);
+            expectSuccess(result, 0);
         });
         it("fails on non-empty input", () => {
             let result = parser.parse("abc");
-            verifyFailure(result);
+            expectFailure(result);
         })
     });
 
-    forParser(Parjs.result("x"), parser => {
+    describe("Parjs.result(x)", () => {
+        let parser = Parjs.result("x");
         let noInput = "";
         it("succeeds on empty input", () => {
-            verifySuccess(parser.parse(noInput), "x");
+            expectSuccess(parser.parse(noInput), "x");
         });
         it("fails on non-empty input", () => {
-            verifyFailure(parser.parse("a"));
+            expectFailure(parser.parse("a"));
         })
     });
 
-    forParser(Parjs.fail("error", ResultKind.FatalFail), parser => {
+    describe("Parjs.fail", ()=> {
+        let parser = Parjs.fail("error", "FatalFail");
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {
-            verifyFailure(parser.parse(noInput), ResultKind.FatalFail);
+            expectFailure(parser.parse(noInput), ResultKind.FatalFail);
         });
         it("fails on non-empty input", () => {
-            verifyFailure(parser.parse(input), ResultKind.FatalFail);
+            expectFailure(parser.parse(input), ResultKind.FatalFail);
         });
     });
 });

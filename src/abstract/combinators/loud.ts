@@ -103,6 +103,11 @@ export interface LoudParser<T> extends AnyParser {
      */
     then<S>(loud : LoudParser<S>) : LoudParser<[T, S]>;
 
+    then<S>(...loud : (LoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
+
+    then(...quiet : QuietParser[]) : LoudParser<T>;
+
+
     /**
      * Advanced combinator.
      * Applies this parser, and then calls the selector function to determine the parser to apply next.

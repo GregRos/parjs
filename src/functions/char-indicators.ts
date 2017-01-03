@@ -86,7 +86,6 @@ export namespace Codes {
     }
 }
 
-
 export namespace Chars {
     export function isUpper(s : string) {
         return s.toUpperCase() === s;

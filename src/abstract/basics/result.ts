@@ -32,7 +32,7 @@ export type FailIndicator =
     ResultKind.SoftFail | ResultKind.HardFail | ResultKind.FatalFail |
         "SoftFail" | "HardFail" | "FatalFail";
 
-export function toResultKind(indicator : FailIndicator) : ResultKind {
+export function toResultKind(indicator : FailIndicator | ResultKind) : ResultKind {
     if (typeof indicator !== 'number') {
         switch (indicator) {
             case "FatalFail":

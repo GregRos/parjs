@@ -43,16 +43,15 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsSoft(this.action));
     }
 
-    then(next : AnyParser | ((result : any) => LoudParser<any>)) {
-        if (_.isFunction(next)) {
-            return wrap(new PrsSeqFunc(this.action, [next]));
+    then(...next : any[]) : any {
+        let actions = [this.action, ...next.map(x => x.action)];
+        let seqParse = wrap(new PrsSeq(actions));
+        let loudCount = actions.filter(x => x.isLoud).length;
+        if (loudCount === 1) {
+            return seqParse.map(x => x[0]);
+        } else if (loudCount === 0) {
+            return seqParse.quiet;
         } else {
-            let seqParse = wrap(new PrsSeq([this.action, next.action]));
-            if (this.isLoud !== next.isLoud) {
-                return seqParse.map(x => x[0]);
-            } else if (!this.isLoud) {
-                return seqParse.quiet;
-            }
             return seqParse;
         }
     }

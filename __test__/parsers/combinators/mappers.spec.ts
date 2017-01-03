@@ -1,7 +1,7 @@
 /**
  * Created by lifeg on 10/12/2016.
  */
-import {verifyFailure, verifySuccess} from '../../custom-matchers';
+import {expectFailure, expectSuccess, expectResult} from '../../custom-matchers';
 import {LoudParser} from "../../../src/abstract/combinators/loud";
 import {Parjs} from "../../../src/bindings/parsers";
 import {ResultKind} from "../../../src/abstract/basics/result";
@@ -12,53 +12,49 @@ let badInput = "";
 let uState = {};
 let loudParser = Parjs.stringLen(4);
 
-
-
-function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TParser) => void) {
-    describe(`Parjs.${parser.displayName}`, () => {
-        f(parser);
-    });
-}
-
 describe("map combinators", () => {
-    forParser(loudParser.map(x => 1), parser => {
+    describe("map", () => {
+        let parser =loudParser.map(x => 1);
         it("maps on success", () => {
-            verifySuccess(parser.parse(goodInput, uState), 1, uState);
+            expectSuccess(parser.parse(goodInput, uState), 1, uState);
         });
         it("fails on failure", () => {
-            verifyFailure(parser.parse(badInput, uState), ResultKind.SoftFail, uState);
+            expectFailure(parser.parse(badInput, uState), ResultKind.SoftFail, uState);
         });
     });
 
-    forParser(loudParser.result(1), parser => {
+    describe("Parjs.result(1)", () => {
+        let parser = loudParser.result(1);
         it("maps on success", () => {
-            verifySuccess(parser.parse(goodInput, uState), 1);
+            expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
-            verifyFailure(parser.parse(badInput, uState));
+            expectFailure(parser.parse(badInput, uState));
         })
     });
 
-    forParser(loudParser.cast<number>(), parser => {
+    describe("cast", () => {
+        let parser = loudParser.cast<number>();
         it("maps on success", () => {
-            verifySuccess(parser.parse(goodInput), "abcd");
+            expectSuccess(parser.parse(goodInput), "abcd");
         });
         it("fails on failure", () => {
-            verifyFailure(parser.parse(badInput));
+            expectFailure(parser.parse(badInput));
         })
     });
 
-    forParser(loudParser.quiet, parser => {
+    describe("quiet", () => {
+        let parser = loudParser.quiet;
         it("is quiet", () => {
             expect(parser.isLoud).toBe(false);
         });
 
         it("maps to undefined on success", () => {
-           verifySuccess(parser.parse(goodInput), undefined);
+           expectSuccess(parser.parse(goodInput), undefined);
         });
 
         it("fails on failure", () => {
-            verifyFailure(parser.parse(badInput));
+            expectFailure(parser.parse(badInput));
         });
 
         it("does not support loud combinators, like .map", () => {

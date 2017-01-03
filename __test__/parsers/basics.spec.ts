@@ -1,6 +1,6 @@
 import {Parjs} from "../../src/bindings/parsers";
 import {ResultKind, ParserResult, SuccessResult, FailResult} from "../../src/abstract/basics/result";
-import {verifySuccess, verifyFailure} from '../custom-matchers';
+import {expectSuccess, expectFailure} from '../custom-matchers';
 
 
 
@@ -15,12 +15,12 @@ describe("basics: anyChar example", () => {
     });
     it("empty input failure", () => {
         let result = parser.parse(failInput, uniqueState) as FailResult;
-        verifyFailure(result, ResultKind.SoftFail, uniqueState);
+        expectFailure(result, ResultKind.SoftFail, uniqueState);
     });
 
     it("fails on too much input", () => {
         let result = parser.parse(tooMuchInput, uniqueState);
-        verifyFailure(result, ResultKind.SoftFail, uniqueState);
+        expectFailure(result, ResultKind.SoftFail, uniqueState);
     });
 
     describe("non-string inputs", () => {
