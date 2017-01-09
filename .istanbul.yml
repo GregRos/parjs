@@ -1,0 +1,8 @@
+instrumentation:
+  root: .
+  extensions:
+    - .js
+  default-excludes: true
+  excludes:
+    - "**/*.no-cover.js"
+    - "**/__test__/custom-matchers.js" #no need to instrument this test code!

@@ -107,11 +107,15 @@ describe("sequential combinators", function () {
                 var endEof = parser.then(parsers_1.Parjs.eof);
                 custom_matchers_1.expectSuccess(endEof.parse("abab"), ["ab", "ab"]);
             });
+            it("fails hard when many fails hard", function () {
+                var parser2 = parsers_1.Parjs.fail("", "HardFail").many();
+                custom_matchers_1.expectFailure(parser2.parse(""), "HardFail");
+            });
         });
         describe("many with zero-length match", function () {
             var parser = parsers_1.Parjs.result(0).many();
             it("guards against zero match in inner parser", function () {
-                expect(function () { return parser.parse("abab"); }).toThrow();
+                expect(function () { return parser.parse(""); }).toThrow();
             });
             it("ignores guard when given max iterations", function () {
                 var parser = parsers_1.Parjs.result(0).many(undefined, 10);
@@ -164,8 +168,33 @@ describe("sequential combinators", function () {
     });
     describe("manySepBy combinator", function () {
         var parser = fstLoud.manySepBy(parsers_1.Parjs.string(", "));
+        it("works with max iterations", function () {
+            var parser2 = fstLoud.manySepBy(parsers_1.Parjs.string(", "), 2);
+            var parser3 = parser2.then(parsers_1.Parjs.string(", ab").quiet);
+            custom_matchers_1.expectSuccess(parser3.parse("ab, ab, ab"));
+        });
         it("succeeds with empty input", function () {
             custom_matchers_1.expectSuccess(parser.parse(""), []);
+        });
+        it("many fails hard on 1st application", function () {
+            var parser2 = parsers_1.Parjs.fail("", "HardFail").manySepBy(parsers_1.Parjs.result(""));
+            custom_matchers_1.expectFailure(parser2.parse(""), "HardFail");
+        });
+        it("sep fails hard", function () {
+            var parser2 = fstLoud.manySepBy(parsers_1.Parjs.fail("", "HardFail"));
+            custom_matchers_1.expectFailure(parser2.parse("ab, ab"), "HardFail");
+        });
+        it("sep+many that don't consume throw without max iterations", function () {
+            var parser2 = parsers_1.Parjs.string("").manySepBy(parsers_1.Parjs.string(""));
+            expect(function () { return parser2.parse(""); }).toThrow();
+        });
+        it("sep+many that don't consume succeed with max iterations", function () {
+            var parser2 = parsers_1.Parjs.string("").manySepBy(parsers_1.Parjs.string(""), 2);
+            custom_matchers_1.expectSuccess(parser2.parse(""), ["", ""]);
+        });
+        it("many that fails hard on 2nd iteration", function () {
+            var many = parsers_1.Parjs.string("a").then(parsers_1.Parjs.string("b")).str.manySepBy(parsers_1.Parjs.string(", "));
+            custom_matchers_1.expectFailure(many.parse("ab, ac"), "HardFail");
         });
         it("succeeds with non-empty input", function () {
             custom_matchers_1.expectSuccess(parser.parse("ab, ab"), ["ab", "ab"]);
@@ -190,6 +219,14 @@ describe("sequential combinators", function () {
         it("fails hard when till fails hard", function () {
             var parser2 = parsers_1.Parjs.string("a").manyTill(parsers_1.Parjs.fail("", "HardFail"));
             custom_matchers_1.expectFailure(parser2.parse("a"), "HardFail");
+        });
+        it("fails hard when many failed hard", function () {
+            var parser2 = parsers_1.Parjs.fail("", "HardFail").manyTill(parsers_1.Parjs.string("a"));
+            custom_matchers_1.expectFailure(parser2.parse(""), "HardFail");
+        });
+        it("guards against zero-match in many", function () {
+            var parser2 = parsers_1.Parjs.result("").manyTill(parsers_1.Parjs.string("a"));
+            expect(function () { return parser2.parse(" a"); }).toThrow();
         });
         it("till optional mode", function () {
             var parser2 = parsers_1.Parjs.string("a").manyTill(parsers_1.Parjs.string("b"), true);

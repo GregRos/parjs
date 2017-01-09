@@ -29,7 +29,7 @@ export class PrsManySepBy extends ParjsAction {
             return;
         }
         arr.maybePush(ps.value);
-        let i = 0;
+        let i = 1;
         while (true) {
             if (i >= maxIterations) break;
             sep.apply(ps);

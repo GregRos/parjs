@@ -86,15 +86,28 @@ describe("basic string parsers", function () {
         var parser = parsers_1.Parjs.newline;
         var unix = "\n";
         var winNewline = "\r\n";
+        var macNewline = "\r";
         var badInput = "a";
         var empty = "";
         var tooLong1 = "\r\n1";
         var tooLong2 = "\n\r";
+        var allNewlines = "\r\r\n\n\u0085\u0028\u2029";
         it("success unix newline", function () {
             custom_matchers_1.expectSuccess(parser.parse(unix), unix);
         });
         it("success windows newline", function () {
             custom_matchers_1.expectSuccess(parser.parse(winNewline), winNewline);
+        });
+        it("success on mac newline", function () {
+            custom_matchers_1.expectSuccess(parser.parse(macNewline), macNewline);
+        });
+        it("success on all newline string, incl unicode newline", function () {
+            var unicodeNewline = parsers_1.Parjs.unicodeNewline.many();
+            var result = unicodeNewline.parse(allNewlines);
+            expect(result.kind).toBe(result_1.ResultKind.OK);
+            if (result.kind !== result_1.ResultKind.OK)
+                return;
+            expect(result.value.length).toBe(allNewlines.length - 1);
         });
         it("fails on empty", function () {
             custom_matchers_1.expectFailure(parser.parse(empty));

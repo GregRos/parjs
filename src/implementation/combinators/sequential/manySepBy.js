@@ -32,7 +32,7 @@ var PrsManySepBy = (function (_super) {
             return;
         }
         arr.maybePush(ps.value);
-        var i = 0;
+        var i = 1;
         while (true) {
             if (i >= maxIterations)
                 break;

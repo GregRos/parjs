@@ -122,13 +122,16 @@ describe("sequential combinators", () => {
                let endEof = parser.then(Parjs.eof);
                expectSuccess(endEof.parse("abab"), ["ab", "ab"])
            });
-
+           it("fails hard when many fails hard", () => {
+               let parser2 = Parjs.fail("", "HardFail").many();
+               expectFailure(parser2.parse(""), "HardFail");
+           });
        });
 
        describe("many with zero-length match", () => {
            let parser = Parjs.result(0).many();
            it("guards against zero match in inner parser", () => {
-               expect(() => parser.parse("abab")).toThrow();
+               expect(() => parser.parse("")).toThrow();
            });
 
            it("ignores guard when given max iterations", () => {
@@ -188,8 +191,40 @@ describe("sequential combinators", () => {
 
     describe("manySepBy combinator", () => {
         let parser = fstLoud.manySepBy(Parjs.string(", "));
+
+        it("works with max iterations", () => {
+            let parser2 = fstLoud.manySepBy(Parjs.string(", "), 2);
+            let parser3 = parser2.then(Parjs.string(", ab").quiet);
+            expectSuccess(parser3.parse("ab, ab, ab"))
+        });
+
         it("succeeds with empty input", () => {
             expectSuccess(parser.parse(""), []);
+        });
+
+        it("many fails hard on 1st application", () => {
+            let parser2 = Parjs.fail("", "HardFail").manySepBy(Parjs.result(""));
+            expectFailure(parser2.parse(""), "HardFail");
+        });
+
+        it("sep fails hard", () => {
+            let parser2 = fstLoud.manySepBy(Parjs.fail("", "HardFail"));
+            expectFailure(parser2.parse("ab, ab"), "HardFail");
+        });
+
+        it("sep+many that don't consume throw without max iterations", () => {
+            let parser2 = Parjs.string("").manySepBy(Parjs.string(""));
+            expect(() => parser2.parse("")).toThrow();
+        });
+
+        it("sep+many that don't consume succeed with max iterations", () => {
+            let parser2 = Parjs.string("").manySepBy(Parjs.string(""), 2);
+            expectSuccess(parser2.parse(""), ["", ""]);
+        });
+
+        it("many that fails hard on 2nd iteration", () => {
+            let many = Parjs.string("a").then(Parjs.string("b")).str.manySepBy(Parjs.string(", "));
+            expectFailure(many.parse("ab, ac"), "HardFail");
         });
 
         it("succeeds with non-empty input", () => {
@@ -218,6 +253,15 @@ describe("sequential combinators", () => {
             let parser2 = Parjs.string("a").manyTill(Parjs.fail("", "HardFail"));
             expectFailure(parser2.parse("a"), "HardFail");
         });
+        it("fails hard when many failed hard", () => {
+            let parser2 = Parjs.fail("", "HardFail").manyTill(Parjs.string("a"));
+            expectFailure(parser2.parse(""), "HardFail");
+        });
+        it("guards against zero-match in many", () => {
+            let parser2 = Parjs.result("").manyTill(Parjs.string("a"));
+            expect(() => parser2.parse(" a")).toThrow();
+        });
+
         it("till optional mode", () => {
             let parser2 = Parjs.string("a").manyTill(Parjs.string("b"), true);
             expectSuccess(parser2.parse("a"), ["a"]);

@@ -98,16 +98,31 @@ describe("basic string parsers", () => {
         let parser = Parjs.newline;
         let unix = "\n";
         let winNewline = "\r\n";
+        let macNewline = "\r";
         let badInput = "a";
         let empty = "";
         let tooLong1 = "\r\n1";
         let tooLong2 = "\n\r";
+        let allNewlines = "\r\r\n\n\u0085\u0028\u2029";
+
         it("success unix newline", () => {
             expectSuccess(parser.parse(unix), unix)
         });
         it("success windows newline", () => {
             expectSuccess(parser.parse(winNewline), winNewline);
         });
+        it("success on mac newline", () => {
+            expectSuccess(parser.parse(macNewline), macNewline);
+        });
+
+        it("success on all newline string, incl unicode newline", () => {
+            let unicodeNewline = Parjs.unicodeNewline.many();
+            let result = unicodeNewline.parse(allNewlines);
+            expect(result.kind).toBe(ResultKind.OK);
+            if (result.kind !== ResultKind.OK) return;
+            expect(result.value.length).toBe(allNewlines.length - 1);
+        });
+
         it("fails on empty", () => {
             expectFailure(parser.parse(empty));
         });
