@@ -1,9 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 /**
  * Created by User on 22-Nov-16.
  */
@@ -16,7 +12,7 @@ function wrap(action) {
     return new ParjsParser(action);
 }
 var ParjsParser = (function (_super) {
-    __extends(ParjsParser, _super);
+    tslib_1.__extends(ParjsParser, _super);
     function ParjsParser() {
         return _super.apply(this, arguments) || this;
     }
@@ -90,7 +86,14 @@ var ParjsParser = (function (_super) {
         return wrap(new combinators_1.PrsExactly(this.action, count));
     };
     ParjsParser.prototype.withState = function (reducer) {
-        return wrap(new combinators_1.PrsWithState(this.action, reducer));
+        var reducer2;
+        if (typeof reducer !== "function") {
+            reducer2 = function () { return reducer; };
+        }
+        else {
+            reducer2 = reducer;
+        }
+        return wrap(new combinators_1.PrsWithState(this.action, reducer2));
     };
     ParjsParser.prototype.result = function (r) {
         return wrap(new combinators_1.PrsMapResult(this.action, r));

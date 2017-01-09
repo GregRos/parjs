@@ -12,7 +12,22 @@ function forParser(parser, f) {
 }
 describe("or combinator", function () {
     it("guards against loud-quiet parser mixing", function () {
-        expect(function () { return parsers_1.Parjs.any(parsers_1.Parjs.digit, parsers_1.Parjs.digit.quiet); });
+        expect(function () { return parsers_1.Parjs.any(parsers_1.Parjs.digit, parsers_1.Parjs.digit.quiet); }).toThrow();
+    });
+    it("guards against quiet-orVal", function () {
+        expect(function () { return parsers_1.Parjs.eof.orVal(1); }).toThrow();
+    });
+    describe("empty or", function () {
+        var parser = parsers_1.Parjs.any();
+        it("fails on non-empty input", function () {
+            custom_matchers_1.expectFailure(parser.parse("hi"), "SoftFail");
+        });
+        it("fails on empty input", function () {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("is loud", function () {
+            expect(parser.isLoud).toBe(true);
+        });
     });
     describe("loud or loud", function () {
         var parser = parsers_1.Parjs.string("ab").or(parsers_1.Parjs.string("cd"));

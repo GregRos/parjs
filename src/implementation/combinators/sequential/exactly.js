@@ -1,16 +1,12 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
 var PrsExactly = (function (_super) {
-    __extends(PrsExactly, _super);
+    tslib_1.__extends(PrsExactly, _super);
     function PrsExactly(inner, count) {
         var _this = _super.call(this) || this;
         _this.inner = inner;

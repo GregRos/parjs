@@ -214,6 +214,14 @@ describe("sequential combinators", () => {
             let parser2 = parser.then(fstLoud.quiet);
             expectSuccess(parser2.parse("abcdab"), ["ab"]);
         });
+        it("fails hard when till fails hard", () => {
+            let parser2 = Parjs.string("a").manyTill(Parjs.fail("", "HardFail"));
+            expectFailure(parser2.parse("a"), "HardFail");
+        });
+        it("till optional mode", () => {
+            let parser2 = Parjs.string("a").manyTill(Parjs.string("b"), true);
+            expectSuccess(parser2.parse("a"), ["a"]);
+        });
         it("fails soft when many fails 1st time without till", () => {
             expectFailure(parser.parse("1"), ResultKind.SoftFail);
         });

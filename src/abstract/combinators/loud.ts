@@ -151,4 +151,10 @@ export interface LoudParser<T> extends AnyParser {
      * @param reducer Transformation to apply to the state state.
      */
     withState(reducer : (state : any, result : T) => any) : LoudParser<T>;
+
+    /**
+     * P applies this parser and then changes the state to {newState}.
+     * @param newState The new state value to adopt.
+     */
+    withState(newState : any) : LoudParser<T>;
 }

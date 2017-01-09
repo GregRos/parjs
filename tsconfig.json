@@ -4,8 +4,10 @@
         "target": "es5",
         "noImplicitAny": false,
         "sourceMap": true,
+        "importHelpers" : true,
 	  "jsx" : "react",
         "allowUnreachableCode": true
     },
+
   "exclude": ["dist", "node_modules"]
 }

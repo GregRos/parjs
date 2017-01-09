@@ -12,14 +12,11 @@ export class PrsAlts extends ParjsAction {
     expecting : string;
     constructor(private alts : AnyParserAction[]) {
         super();
-        if (alts.length === 0) {
-            this.isLoud = false;
-        } else {
-            if (!alts.every(x => x.isLoud === alts[0].isLoud)) {
-                Issues.mixedLoudnessNotPermitted(this);
-            }
+        //if the list is empty, every won't execute and alts[0] won't be called.
+        if (!alts.every(x => x.isLoud === alts[0].isLoud)) {
+            Issues.mixedLoudnessNotPermitted(this);
         }
-        this.isLoud = alts.length === 0 ? false : alts.every(x => x.isLoud === alts[0].isLoud);
+        this.isLoud = alts.every(x => x.isLoud === alts[0].isLoud);
         this.expecting = `any of: ${alts.join(", ")}`;
     }
 

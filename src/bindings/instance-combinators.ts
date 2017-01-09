@@ -71,8 +71,14 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsExactly(this.action, count));
     }
 
-    withState(reducer : (state : any, result : any) => any) {
-        return wrap(new PrsWithState(this.action, reducer));
+    withState(reducer : ((state : any, result : any) => any) | Object) {
+        let reducer2 : ((state : any, result : any) => any);
+        if (typeof reducer !== "function") {
+            reducer2 = () => reducer;
+        } else {
+            reducer2 = reducer;
+        }
+        return wrap(new PrsWithState(this.action, reducer2));
     }
 
     result(r : any) {

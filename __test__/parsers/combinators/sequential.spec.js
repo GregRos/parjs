@@ -187,6 +187,14 @@ describe("sequential combinators", function () {
             var parser2 = parser.then(fstLoud.quiet);
             custom_matchers_1.expectSuccess(parser2.parse("abcdab"), ["ab"]);
         });
+        it("fails hard when till fails hard", function () {
+            var parser2 = parsers_1.Parjs.string("a").manyTill(parsers_1.Parjs.fail("", "HardFail"));
+            custom_matchers_1.expectFailure(parser2.parse("a"), "HardFail");
+        });
+        it("till optional mode", function () {
+            var parser2 = parsers_1.Parjs.string("a").manyTill(parsers_1.Parjs.string("b"), true);
+            custom_matchers_1.expectSuccess(parser2.parse("a"), ["a"]);
+        });
         it("fails soft when many fails 1st time without till", function () {
             custom_matchers_1.expectFailure(parser.parse("1"), result_1.ResultKind.SoftFail);
         });
