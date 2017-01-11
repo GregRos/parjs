@@ -12,6 +12,8 @@ import {AnyParser} from "../../../src/abstract/combinators/any";
 let uState = {};
 
 describe("basic string parsers", () => {
+
+
     describe("Parjs.anyChar", () =>  {
         let parser = Parjs.anyChar;
         let successInput = "a";
@@ -41,6 +43,9 @@ describe("basic string parsers", () => {
         it("fails on too long input", () => {
             expectFailure(parser.parse("ab"), ResultKind.SoftFail);
         });
+        it("fails on empty input", () => {
+            expectFailure(parser.parse(""), "SoftFail");
+        })
     });
 
     describe("Parjs.noCharOf[abcd]", () => {
@@ -50,6 +55,9 @@ describe("basic string parsers", () => {
         it("success on single char not from list", () => {
             expectSuccess(parser.parse(success), success);
         });
+        it("fails on no input", () => {
+
+        })
         it("fails on single char from list", () => {
             expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
@@ -103,7 +111,7 @@ describe("basic string parsers", () => {
         let empty = "";
         let tooLong1 = "\r\n1";
         let tooLong2 = "\n\r";
-        let allNewlines = "\r\r\n\n\u0085\u0028\u2029";
+        let allNewlines = "\r\r\n\n\u0085\u2028\u2029";
 
         it("success unix newline", () => {
             expectSuccess(parser.parse(unix), unix)
@@ -164,4 +172,27 @@ describe("basic string parsers", () => {
             expectFailure(parser.parse(longInput));
         });
     });
+
+    describe("Parjs.regexp", () => {
+        describe("simple regexp", () => {
+            let parser = Parjs.regexp(/abc/);
+            it("succeeds on input", () => {
+                expectSuccess(parser.parse("abc"), ["abc"]);
+            });
+            it("fails on bad input", () => {
+                expectFailure(parser.parse("ab"), "SoftFail");
+            });
+        });
+
+        describe("multi-match regexp", () => {
+           let parser = Parjs.regexp(/(ab)(c)/);
+           it("succeeds on input", () => {
+               expectSuccess(parser.parse("abc"), ["abc", "ab", "c"]);
+           });
+           let parser2 = parser.then(Parjs.string("de"));
+           it("chains correctly", () => {
+               expectSuccess(parser2.parse("abcde"));
+           });
+        })
+    })
 });

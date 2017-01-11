@@ -58,7 +58,7 @@ var ParjsAction = (function () {
         ps.expecting = undefined;
         ps.value = common_1.UNINITIALIZED_RESULT;
         this._apply(ps);
-        chai_1.assert.notStrictEqual(ps.kind, result_1.ResultKind.Unknown, "the State's result field must be set");
+        chai_1.assert.notStrictEqual(ps.kind, result_1.ResultKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
             ps.value = common_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;

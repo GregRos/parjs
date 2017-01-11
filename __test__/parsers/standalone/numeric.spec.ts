@@ -33,6 +33,7 @@ describe("numeric parsers", () => {
             it("fails hard if there are no digits after sign", () => {
                 expectFailure(parser.parse("+a"), ResultKind.HardFail);
             });
+
         });
         describe("no sign", () => {
             let parser = Parjs.int({
@@ -81,6 +82,10 @@ describe("numeric parsers", () => {
             it("fails soft on dot", () => {
                 expectFailure(parser.parse("."), ResultKind.SoftFail);
             });
+            it("fails on empty input", () => {
+                expectFailure(parser.parse(""), ResultKind.SoftFail);
+            });
+
             it("fails hard on dot after sign", () => {
                 expectFailure(parser.parse("+."), ResultKind.HardFail);
             });
@@ -99,6 +104,9 @@ describe("numeric parsers", () => {
             it("fails softly for just exponent", () =>{
                 expectFailure(parser.parse("e+12"), ResultKind.SoftFail);
             });
+            it("fails when E appears without exponent", () => {
+                expectFailure(parser.parse("1.0e"), "HardFail");
+            })
         });
         describe("no sign", () => {
             let parser = Parjs.float({
@@ -118,6 +126,10 @@ describe("numeric parsers", () => {
             it("fails on implicit zero whole", () => {
                 expectFailure(parser.parse(".1"), ResultKind.SoftFail);
             });
+            it("fails hard on sign and then no implicit zero", () => {
+                expectFailure(parser.parse("+.1"), "HardFail");
+            });
+
             it("succeeds on implicit zero fraction when chained into rest", () => {
                 expectSuccess(parser.then(Parjs.rest.quiet).parse("1."), 1);
             });

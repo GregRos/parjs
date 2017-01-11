@@ -28,4 +28,15 @@ export interface AnyParser {
     readonly not : QuietParser;
 
     readonly isLoud : boolean;
+
+    /**
+     * P applies this parser and maps the result to a string.
+     * This is done differently depending on what this parser returns.
+     * For an array (usually of strings), the elements are concatenated and returned as a single string.
+     * For a quiet parser, an empty string is returned.
+     * For a number, it is turned into a string.
+     * For a symbol, its description text is returned.
+     * For an object, its toString method is invoked.
+     */
+    readonly str : LoudParser<string>;
 }

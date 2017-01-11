@@ -80,6 +80,9 @@ describe("numeric parsers", function () {
             it("fails soft on dot", function () {
                 custom_matchers_1.expectFailure(parser.parse("."), result_1.ResultKind.SoftFail);
             });
+            it("fails on empty input", function () {
+                custom_matchers_1.expectFailure(parser.parse(""), result_1.ResultKind.SoftFail);
+            });
             it("fails hard on dot after sign", function () {
                 custom_matchers_1.expectFailure(parser.parse("+."), result_1.ResultKind.HardFail);
             });
@@ -97,6 +100,9 @@ describe("numeric parsers", function () {
             });
             it("fails softly for just exponent", function () {
                 custom_matchers_1.expectFailure(parser.parse("e+12"), result_1.ResultKind.SoftFail);
+            });
+            it("fails when E appears without exponent", function () {
+                custom_matchers_1.expectFailure(parser.parse("1.0e"), "HardFail");
             });
         });
         describe("no sign", function () {
@@ -116,6 +122,9 @@ describe("numeric parsers", function () {
             });
             it("fails on implicit zero whole", function () {
                 custom_matchers_1.expectFailure(parser.parse(".1"), result_1.ResultKind.SoftFail);
+            });
+            it("fails hard on sign and then no implicit zero", function () {
+                custom_matchers_1.expectFailure(parser.parse("+.1"), "HardFail");
             });
             it("succeeds on implicit zero fraction when chained into rest", function () {
                 custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.quiet).parse("1."), 1);

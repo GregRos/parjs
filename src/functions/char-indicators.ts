@@ -23,7 +23,7 @@ export namespace Codes {
     export const enQuad = 0x2000;
     const inlineSpaces = [0x0020, 0x0009];
     const mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
-    let unicodeNewlines = [0x000a, 0x000b, 0x000c, 0x0085, 0x2028, 0x2029];
+    let unicodeNewlines = [0x0085, 0x2028, 0x2029];
     export const hairSpace = 0x200a;
 
     export function isUnicodeInlineSpace(code : number) {

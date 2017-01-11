@@ -52,5 +52,31 @@ describe("map combinators", function () {
             expect(function () { return parser.map(function (x) { return 1; }); }).toThrow();
         });
     });
+    describe("str", function () {
+        it("quiet", function () {
+            var p = parsers_1.Parjs.eof.str;
+            custom_matchers_1.expectSuccess(p.parse(""), "");
+        });
+        it("null", function () {
+            var p = parsers_1.Parjs.result(null).str;
+            custom_matchers_1.expectSuccess(p.parse(""), "null");
+        });
+        it("undefined", function () {
+            var p = parsers_1.Parjs.result(undefined).str;
+            custom_matchers_1.expectSuccess(p.parse(""), "undefined");
+        });
+        it("string", function () {
+            var p = parsers_1.Parjs.string("a").str;
+            custom_matchers_1.expectSuccess(p.parse("a"), "a");
+        });
+        it("symbol", function () {
+            var p = parsers_1.Parjs.result(Symbol("hi")).str;
+            custom_matchers_1.expectSuccess(p.parse(""), "hi");
+        });
+        it("object", function () {
+            var p = parsers_1.Parjs.result({}).str;
+            custom_matchers_1.expectSuccess(p.parse(""), {}.toString());
+        });
+    });
 });
 //# sourceMappingURL=mappers.spec.js.map

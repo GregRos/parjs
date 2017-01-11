@@ -36,7 +36,7 @@ describe("map combinators", () => {
     describe("cast", () => {
         let parser = loudParser.cast<number>();
         it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput), "abcd");
+            expectSuccess(parser.parse(goodInput), "abcd" as any);
         });
         it("fails on failure", () => {
             expectFailure(parser.parse(badInput));
@@ -61,4 +61,36 @@ describe("map combinators", () => {
             expect(() => (parser as any).map(x => 1)).toThrow();
         });
     });
+
+    describe("str", () => {
+        it("quiet", () => {
+            let p = Parjs.eof.str;
+            expectSuccess(p.parse(""), "");
+        });
+
+        it("null", () => {
+            let p = Parjs.result(null).str;
+            expectSuccess(p.parse(""), "null");
+        });
+
+        it("undefined", () => {
+            let p = Parjs.result(undefined).str;
+            expectSuccess(p.parse(""), "undefined");
+        });
+
+        it("string", () => {
+            let p = Parjs.string("a").str;
+            expectSuccess(p.parse("a"), "a");
+        });
+
+        it("symbol", () => {
+            let p = Parjs.result(Symbol("hi")).str;
+            expectSuccess(p.parse(""), "hi");
+        });
+
+        it("object", () => {
+            let p = Parjs.result({}).str;
+            expectSuccess(p.parse(""), {}.toString());
+        })
+    })
 });

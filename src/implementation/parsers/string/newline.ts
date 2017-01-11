@@ -26,6 +26,7 @@ export class PrsNewline extends ParjsAction {
         if (matchUnicode && Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
+            ps.kind = ResultKind.OK;
             return;
         }
         if (charAt === Codes.newline) {

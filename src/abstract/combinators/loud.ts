@@ -47,15 +47,7 @@ export interface LoudParser<T> extends AnyParser {
      */
     cast<S>() : LoudParser<S>;
 
-    /**
-     * P applies this parser and maps the result to a string.
-     * This is done differently depending on what this parser returns.
-     * For an array (usually of strings), the elements are concatenated and returned as a single string.
-     * For a number, it is turned into a string.
-     * For a symbol, its description text is returned.
-     * For an object, its toString method is invoked.
-     */
-    readonly str : LoudParser<string>;
+
 
     //+++ RESTRICTIONS
     /**
@@ -71,7 +63,7 @@ export interface LoudParser<T> extends AnyParser {
      * P applies this parser and verifies its result is non-empty.
      * An empty result is any of the following: null, undefined, "", [], {}. It is NOT the same as falsy.
      */
-    readonly mustBeNonEmpty : LoudParser<boolean>;
+    readonly mustBeNonEmpty : LoudParser<T>;
 
     /**
      * P applies this parser and requires its result to be identical to {options}.
@@ -143,7 +135,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param delimeter The delimeter parser.
      * @param max The maximum number of times this parser is applied.
      */
-    manySepBy(delimeter : AnyParser, max ?: number) : LoudParser<T>;
+    manySepBy(delimeter : AnyParser, max ?: number) : LoudParser<T[]>;
 
     /**
      * P applies this parser and applies {reducer} to the current state state.

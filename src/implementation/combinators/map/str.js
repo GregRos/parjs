@@ -29,13 +29,13 @@ var PrsStr = (function (_super) {
             ps.value = "";
         }
         else if (value === null || value === undefined) {
-            ps.value = Object.prototype.toString.call(value);
+            ps.value = String(value);
         }
         else if (value instanceof Array) {
             ps.value = value.join("");
         }
         else if (typeStr === "symbol") {
-            ps.value = value.description;
+            ps.value = String(value).slice(7, -1);
         }
         else {
             ps.value = value.toString();

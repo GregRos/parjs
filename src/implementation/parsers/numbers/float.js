@@ -66,7 +66,7 @@ var PrsFloat = (function (_super) {
          */
         var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent;
         var position = ps.position, input = ps.input;
-        if (position > input.length) {
+        if (position >= input.length) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }

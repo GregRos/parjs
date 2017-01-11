@@ -22,6 +22,26 @@ describe("must combinators", () => {
         })
     });
 
+    it("mustBeOf", () => {
+        let parser = Parjs.stringLen(3).mustBeOf("a", "b", "c");
+        it("succeeds when is of", () => {
+            expectSuccess(parser.parse("b"), "b");
+        });
+        it("fails when is not of", () => {
+            expectFailure(parser.parse("d"), "SoftFail");
+        });
+    });
+
+    it("mustBeOf", () => {
+        let parser = Parjs.stringLen(3).mustNotBeOf("a", "b", "c");
+        it("fails when is of", () => {
+            expectFailure(parser.parse("b"), "SoftFail");
+        });
+        it("succeeds when is not of", () => {
+            expectSuccess(parser.parse("d"), "d");
+        });
+    });
+
     describe("mustCapture combinator", () => {
         let parser = Parjs.string("a").then(Parjs.string("b")).str.or(Parjs.eof.result("")).mustCapture(ResultKind.FatalFail);
         it("succeeds if it captures", () => {
@@ -45,6 +65,7 @@ describe("must combinators", () => {
         let emptyUndefined = Parjs.result(undefined);
         let emptyNull = Parjs.result(null);
         let fail = Parjs.fail("", ResultKind.FatalFail);
+        let emptyObj = Parjs.result({});
         it("fails for empty string", () => {
             expectFailure(emptyString.mustBeNonEmpty.parse(""), ResultKind.HardFail);
         });
@@ -63,5 +84,9 @@ describe("must combinators", () => {
         it("fails for fail", () => {
             expectFailure(fail.mustBeNonEmpty.parse(""), ResultKind.FatalFail);
         })
+        it("fails for empty object", () => {
+            expectFailure(emptyObj.mustBeNonEmpty.parse(""), ResultKind.HardFail);
+        });
+
     });
 });

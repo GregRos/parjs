@@ -18,6 +18,24 @@ describe("must combinators", function () {
             custom_matchers_1.expectFailure(parser.parse("abd"), result_1.ResultKind.FatalFail);
         });
     });
+    it("mustBeOf", function () {
+        var parser = parsers_1.Parjs.stringLen(3).mustBeOf("a", "b", "c");
+        it("succeeds when is of", function () {
+            custom_matchers_1.expectSuccess(parser.parse("b"), "b");
+        });
+        it("fails when is not of", function () {
+            custom_matchers_1.expectFailure(parser.parse("d"), "SoftFail");
+        });
+    });
+    it("mustBeOf", function () {
+        var parser = parsers_1.Parjs.stringLen(3).mustNotBeOf("a", "b", "c");
+        it("fails when is of", function () {
+            custom_matchers_1.expectFailure(parser.parse("b"), "SoftFail");
+        });
+        it("succeeds when is not of", function () {
+            custom_matchers_1.expectSuccess(parser.parse("d"), "d");
+        });
+    });
     describe("mustCapture combinator", function () {
         var parser = parsers_1.Parjs.string("a").then(parsers_1.Parjs.string("b")).str.or(parsers_1.Parjs.eof.result("")).mustCapture(result_1.ResultKind.FatalFail);
         it("succeeds if it captures", function () {
@@ -40,6 +58,7 @@ describe("must combinators", function () {
         var emptyUndefined = parsers_1.Parjs.result(undefined);
         var emptyNull = parsers_1.Parjs.result(null);
         var fail = parsers_1.Parjs.fail("", result_1.ResultKind.FatalFail);
+        var emptyObj = parsers_1.Parjs.result({});
         it("fails for empty string", function () {
             custom_matchers_1.expectFailure(emptyString.mustBeNonEmpty.parse(""), result_1.ResultKind.HardFail);
         });
@@ -57,6 +76,9 @@ describe("must combinators", function () {
         });
         it("fails for fail", function () {
             custom_matchers_1.expectFailure(fail.mustBeNonEmpty.parse(""), result_1.ResultKind.FatalFail);
+        });
+        it("fails for empty object", function () {
+            custom_matchers_1.expectFailure(emptyObj.mustBeNonEmpty.parse(""), result_1.ResultKind.HardFail);
         });
     });
 });

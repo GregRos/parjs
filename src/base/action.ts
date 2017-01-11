@@ -56,7 +56,7 @@ export abstract class ParjsAction {
         ps.value = UNINITIALIZED_RESULT;
 
         this._apply(ps);
-        assert.notStrictEqual(ps.kind, ResultKind.Unknown, "the State's result field must be set");
+        assert.notStrictEqual(ps.kind, ResultKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;

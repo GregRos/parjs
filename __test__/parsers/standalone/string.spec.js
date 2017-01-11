@@ -35,6 +35,9 @@ describe("basic string parsers", function () {
         it("fails on too long input", function () {
             custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ResultKind.SoftFail);
         });
+        it("fails on empty input", function () {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
+        });
     });
     describe("Parjs.noCharOf[abcd]", function () {
         var parser = parsers_1.Parjs.noCharOf("abcd");
@@ -42,6 +45,8 @@ describe("basic string parsers", function () {
         var fail = "a";
         it("success on single char not from list", function () {
             custom_matchers_1.expectSuccess(parser.parse(success), success);
+        });
+        it("fails on no input", function () {
         });
         it("fails on single char from list", function () {
             custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
@@ -91,7 +96,7 @@ describe("basic string parsers", function () {
         var empty = "";
         var tooLong1 = "\r\n1";
         var tooLong2 = "\n\r";
-        var allNewlines = "\r\r\n\n\u0085\u0028\u2029";
+        var allNewlines = "\r\r\n\n\u0085\u2028\u2029";
         it("success unix newline", function () {
             custom_matchers_1.expectSuccess(parser.parse(unix), unix);
         });
@@ -146,6 +151,27 @@ describe("basic string parsers", function () {
         });
         it("fails on long input", function () {
             custom_matchers_1.expectFailure(parser.parse(longInput));
+        });
+    });
+    describe("Parjs.regexp", function () {
+        describe("simple regexp", function () {
+            var parser = parsers_1.Parjs.regexp(/abc/);
+            it("succeeds on input", function () {
+                custom_matchers_1.expectSuccess(parser.parse("abc"), ["abc"]);
+            });
+            it("fails on bad input", function () {
+                custom_matchers_1.expectFailure(parser.parse("ab"), "SoftFail");
+            });
+        });
+        describe("multi-match regexp", function () {
+            var parser = parsers_1.Parjs.regexp(/(ab)(c)/);
+            it("succeeds on input", function () {
+                custom_matchers_1.expectSuccess(parser.parse("abc"), ["abc", "ab", "c"]);
+            });
+            var parser2 = parser.then(parsers_1.Parjs.string("de"));
+            it("chains correctly", function () {
+                custom_matchers_1.expectSuccess(parser2.parse("abcde"));
+            });
         });
     });
 });

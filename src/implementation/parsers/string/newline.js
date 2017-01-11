@@ -27,6 +27,7 @@ var PrsNewline = (function (_super) {
         if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
+            ps.kind = result_1.ResultKind.OK;
             return;
         }
         if (charAt === char_indicators_1.Codes.newline) {

@@ -12,7 +12,7 @@ var PrsRegexp = (function (_super) {
         _this.regexp = regexp;
         _this.displayName = "regexp";
         var flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(function (x) { return x; }).join("");
-        var normalizedRegexp = new RegExp(regexp.source, flags);
+        var normalizedRegexp = new RegExp("^" + regexp.source, flags);
         regexp = normalizedRegexp;
         _this.expecting = "input matching '" + regexp.source + "'";
         return _this;
@@ -26,8 +26,8 @@ var PrsRegexp = (function (_super) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        ps.position = regexp.lastIndex;
-        var arr = match.slice();
+        ps.position += match[0].length;
+        var arr = match.slice(0);
         ps.value = arr;
         ps.kind = result_1.ResultKind.OK;
     };

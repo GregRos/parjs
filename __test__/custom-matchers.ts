@@ -78,7 +78,7 @@ export function expectFailure(result : ParserResult<any>, failType ?: FailIndica
     }
 }
 
-export function expectSuccess(result : ParserResult<any>, value ?: any, state ?: any) {
+export function expectSuccess<T>(result : ParserResult<T>, value ?: T, state ?: any) {
     expect(result.kind).toBe(ResultKind.OK, "kind wasn't OK");
     if (result.kind !== ResultKind.OK) return;
     expect(result).toHaveMember("value", "expecting value");

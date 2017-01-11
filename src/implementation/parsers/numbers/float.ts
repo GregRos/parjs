@@ -75,7 +75,7 @@ export class PrsFloat extends ParjsAction {
          */
         let {options : {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent}} = this;
         let {position, input} = ps;
-        if (position > input.length) {
+        if (position >= input.length) {
             ps.kind = ResultKind.SoftFail;
             return;
         }
