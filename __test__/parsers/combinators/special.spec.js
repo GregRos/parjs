@@ -1,6 +1,6 @@
 "use strict";
 var custom_matchers_1 = require("../../custom-matchers");
-var parsers_1 = require("../../../src/bindings/parsers");
+var parsers_1 = require("../../../dist/bindings/parsers");
 var goodInput = "abcd";
 describe("special combinators", function () {
     describe("backtrack", function () {

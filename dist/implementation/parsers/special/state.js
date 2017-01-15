@@ -8,7 +8,7 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsState = (function (_super) {
     tslib_1.__extends(PrsState, _super);
     function PrsState() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.displayName = "state";
         _this.isLoud = true;
         _this.expecting = "anything";

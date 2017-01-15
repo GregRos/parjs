@@ -3,8 +3,8 @@
  * Created by lifeg on 09/12/2016.
  */
 var custom_matchers_1 = require("../../custom-matchers");
-var parsers_1 = require("../../../src/bindings/parsers");
-var result_1 = require("../../../src/abstract/basics/result");
+var parsers_1 = require("../../../dist/bindings/parsers");
+var result_1 = require("../../../dist/abstract/basics/result");
 var uState = {};
 describe("basic string parsers", function () {
     describe("Parjs.anyChar", function () {

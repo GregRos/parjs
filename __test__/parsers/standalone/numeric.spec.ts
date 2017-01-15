@@ -1,6 +1,6 @@
-import {Parjs} from "../../../src/bindings/parsers";
+import {Parjs} from "../../../dist/bindings/parsers";
 import {expectFailure, expectSuccess} from "../../custom-matchers";
-import {ResultKind} from "../../../src/abstract/basics/result";
+import {ResultKind} from "../../../dist/abstract/basics/result";
 /**
  * Created by User on 14-Dec-16.
  */

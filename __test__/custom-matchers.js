@@ -1,5 +1,5 @@
 "use strict";
-var result_1 = require("../src/abstract/basics/result");
+var result_1 = require("../dist/abstract/basics/result");
 var CustomMatcherDefs = (function () {
     function CustomMatcherDefs() {
     }

@@ -14,7 +14,7 @@ function wrap(action) {
 var ParjsParser = (function (_super) {
     tslib_1.__extends(ParjsParser, _super);
     function ParjsParser() {
-        return _super.apply(this, arguments) || this;
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(ParjsParser.prototype, "backtrack", {
         get: function () {

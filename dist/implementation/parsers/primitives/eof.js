@@ -8,7 +8,7 @@ var result_1 = require("../../../abstract/basics/result");
 var PrsEof = (function (_super) {
     tslib_1.__extends(PrsEof, _super);
     function PrsEof() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.isLoud = false;
         _this.displayName = "eof";
         _this.expecting = "end of input";

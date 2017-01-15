@@ -2,10 +2,10 @@
  * Created by lifeg on 12/12/2016.
  */
 import {expectFailure, expectSuccess} from '../../custom-matchers';
-import {LoudParser} from "../../../src/abstract/combinators/loud";
-import {Parjs} from "../../../src/bindings/parsers";
-import {ResultKind} from "../../../src/abstract/basics/result";
-import {AnyParser} from "../../../src/abstract/combinators/any";
+import {LoudParser} from "../../../dist/abstract/combinators/loud";
+import {Parjs} from "../../../dist/bindings/parsers";
+import {ResultKind} from "../../../dist/abstract/basics/result";
+import {AnyParser} from "../../../dist/abstract/combinators/any";
 import _ = require('lodash');
 
 function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TParser) => void) {

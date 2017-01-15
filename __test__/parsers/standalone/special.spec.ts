@@ -1,7 +1,7 @@
-import {ResultKind} from "../../../src/abstract/basics/result";
+import {ResultKind} from "../../../dist/abstract/basics/result";
 import {expectFailure, expectSuccess} from "../../custom-matchers";
-import {Parjs} from "../../../src/bindings/parsers";
-import {AnyParser} from "../../../src/abstract/combinators/any";
+import {Parjs} from "../../../dist/bindings/parsers";
+import {AnyParser} from "../../../dist/abstract/combinators/any";
 /**
  * Created by lifeg on 16/12/2016.
  */

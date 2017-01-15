@@ -1,7 +1,7 @@
 "use strict";
-var result_1 = require("../../../src/abstract/basics/result");
+var result_1 = require("../../../dist/abstract/basics/result");
 var custom_matchers_1 = require("../../custom-matchers");
-var parsers_1 = require("../../../src/bindings/parsers");
+var parsers_1 = require("../../../dist/bindings/parsers");
 /**
  * Created by lifeg on 16/12/2016.
  */

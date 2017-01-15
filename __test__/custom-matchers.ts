@@ -1,4 +1,4 @@
-import {ResultKind, ParserResult, FailIndicator, toResultKind} from "../src/abstract/basics/result";
+import {ResultKind, ParserResult, FailIndicator, toResultKind} from "../dist/abstract/basics/result";
 /**
  * Created by lifeg on 09/12/2016.
  */

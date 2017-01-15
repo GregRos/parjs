@@ -3,8 +3,8 @@
  * Created by lifeg on 12/12/2016.
  */
 var custom_matchers_1 = require("../../custom-matchers");
-var parsers_1 = require("../../../src/bindings/parsers");
-var result_1 = require("../../../src/abstract/basics/result");
+var parsers_1 = require("../../../dist/bindings/parsers");
+var result_1 = require("../../../dist/abstract/basics/result");
 describe("must combinators", function () {
     describe("must combinator", function () {
         var parser = parsers_1.Parjs.stringLen(3).must(function (s) { return s === "abc"; }, "must be 'abc'", result_1.ResultKind.FatalFail);

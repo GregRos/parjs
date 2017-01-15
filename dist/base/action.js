@@ -82,7 +82,7 @@ exports.ParjsAction = ParjsAction;
 var ParjsBasicAction = (function (_super) {
     tslib_1.__extends(ParjsBasicAction, _super);
     function ParjsBasicAction() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.isLoud = true;
         return _this;
     }
