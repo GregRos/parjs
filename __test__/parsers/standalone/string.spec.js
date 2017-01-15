@@ -46,8 +46,6 @@ describe("basic string parsers", function () {
         it("success on single char not from list", function () {
             custom_matchers_1.expectSuccess(parser.parse(success), success);
         });
-        it("fails on no input", function () {
-        });
         it("fails on single char from list", function () {
             custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
         });

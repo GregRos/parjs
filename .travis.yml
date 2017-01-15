@@ -1,0 +1,11 @@
+language: node_js
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - "6.1"

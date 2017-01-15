@@ -55,9 +55,6 @@ describe("basic string parsers", () => {
         it("success on single char not from list", () => {
             expectSuccess(parser.parse(success), success);
         });
-        it("fails on no input", () => {
-
-        })
         it("fails on single char from list", () => {
             expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });

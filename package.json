@@ -7,7 +7,8 @@
   "description": "A parser-combinator library for JavaScript.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./jrunner.js",
+    "cover" : "istanbul cover jrunner.js"
   },
   "directories": {
     "bin": "dist",
