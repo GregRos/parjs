@@ -1,9 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 /**
  * Created by User on 28-Nov-16.
@@ -21,7 +17,7 @@ var defaultFloatOptions = {
 var msgOneOrMoreDigits = "one or more digits";
 var msgExponentSign = "exponent sign (+ or -)";
 var PrsFloat = (function (_super) {
-    __extends(PrsFloat, _super);
+    tslib_1.__extends(PrsFloat, _super);
     function PrsFloat(options) {
         var _this = _super.call(this) || this;
         _this.options = options;
@@ -70,7 +66,7 @@ var PrsFloat = (function (_super) {
          */
         var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent;
         var position = ps.position, input = ps.input;
-        if (position > input.length) {
+        if (position >= input.length) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }

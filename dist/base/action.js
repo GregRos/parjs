@@ -1,9 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var common_1 = require("../implementation/common");
 var chai_1 = require("chai");
 var result_1 = require("../abstract/basics/result");
@@ -62,7 +58,7 @@ var ParjsAction = (function () {
         ps.expecting = undefined;
         ps.value = common_1.UNINITIALIZED_RESULT;
         this._apply(ps);
-        chai_1.assert.notStrictEqual(ps.kind, result_1.ResultKind.Unknown, "the State's result field must be set");
+        chai_1.assert.notStrictEqual(ps.kind, result_1.ResultKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
             ps.value = common_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
@@ -84,7 +80,7 @@ exports.ParjsAction = ParjsAction;
  * Inherited by parser actions for basic parsers (e.g. string or numeric parsers), rather than combinators.
  */
 var ParjsBasicAction = (function (_super) {
-    __extends(ParjsBasicAction, _super);
+    tslib_1.__extends(ParjsBasicAction, _super);
     function ParjsBasicAction() {
         var _this = _super.apply(this, arguments) || this;
         _this.isLoud = true;

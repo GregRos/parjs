@@ -9,7 +9,7 @@ import { PrsStringLen } from './string/string-len';
 import { PrsResult } from './primitives/result';
 import { PrsEof } from './primitives/eof';
 import { PrsFail } from './primitives/fail';
-import { PrsNewline } from './char/newline';
+import { PrsNewline } from './string/newline';
 import { PrsRegexp } from './string/regexp';
 import { PrsPosition } from './special/position';
 import { PrsState } from './special/state';

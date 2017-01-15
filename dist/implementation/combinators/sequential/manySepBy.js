@@ -1,9 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
 var result_1 = require("../../../abstract/basics/result");
@@ -11,7 +7,7 @@ var result_1 = require("../../../abstract/basics/result");
  * Created by User on 21-Nov-16.
  */
 var PrsManySepBy = (function (_super) {
-    __extends(PrsManySepBy, _super);
+    tslib_1.__extends(PrsManySepBy, _super);
     function PrsManySepBy(many, sep, maxIterations) {
         var _this = _super.call(this) || this;
         _this.many = many;
@@ -36,7 +32,7 @@ var PrsManySepBy = (function (_super) {
             return;
         }
         arr.maybePush(ps.value);
-        var i = 0;
+        var i = 1;
         while (true) {
             if (i >= maxIterations)
                 break;

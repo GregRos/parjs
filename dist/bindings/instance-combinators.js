@@ -1,15 +1,10 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 /**
  * Created by User on 22-Nov-16.
  */
 var combinators_1 = require("../implementation/combinators");
 var parser_1 = require("../base/parser");
-var _ = require("lodash");
 var predicates_1 = require("../functions/predicates");
 var result_1 = require("../abstract/basics/result");
 var soft_1 = require("../implementation/combinators/alternatives/soft");
@@ -17,7 +12,7 @@ function wrap(action) {
     return new ParjsParser(action);
 }
 var ParjsParser = (function (_super) {
-    __extends(ParjsParser, _super);
+    tslib_1.__extends(ParjsParser, _super);
     function ParjsParser() {
         return _super.apply(this, arguments) || this;
     }
@@ -30,7 +25,7 @@ var ParjsParser = (function (_super) {
     });
     ParjsParser.prototype.mustCapture = function (failType) {
         if (failType === void 0) { failType = result_1.ResultKind.HardFail; }
-        return wrap(new combinators_1.PrsMustCapture(this.action, failType));
+        return wrap(new combinators_1.PrsMustCapture(this.action, result_1.toResultKind(failType)));
     };
     ParjsParser.prototype.or = function () {
         var others = [];
@@ -56,18 +51,21 @@ var ParjsParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    ParjsParser.prototype.then = function (next) {
-        if (_.isFunction(next)) {
-            return wrap(new combinators_1.PrsSeqFunc(this.action, [next]));
+    ParjsParser.prototype.then = function () {
+        var next = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            next[_i] = arguments[_i];
+        }
+        var actions = [this.action].concat(next.map(function (x) { return x.action; }));
+        var seqParse = wrap(new combinators_1.PrsSeq(actions));
+        var loudCount = actions.filter(function (x) { return x.isLoud; }).length;
+        if (loudCount === 1) {
+            return seqParse.map(function (x) { return x[0]; });
+        }
+        else if (loudCount === 0) {
+            return seqParse.quiet;
         }
         else {
-            var seqParse = wrap(new combinators_1.PrsSeq([this.action, next.action]));
-            if (this.isLoud !== next.isLoud) {
-                return seqParse.map(function (x) { return x[0]; });
-            }
-            else if (!this.isLoud) {
-                return seqParse.quiet;
-            }
             return seqParse;
         }
     };
@@ -88,7 +86,14 @@ var ParjsParser = (function (_super) {
         return wrap(new combinators_1.PrsExactly(this.action, count));
     };
     ParjsParser.prototype.withState = function (reducer) {
-        return wrap(new combinators_1.PrsWithState(this.action, reducer));
+        var reducer2;
+        if (typeof reducer !== "function") {
+            reducer2 = function () { return reducer; };
+        }
+        else {
+            reducer2 = reducer;
+        }
+        return wrap(new combinators_1.PrsWithState(this.action, reducer2));
     };
     ParjsParser.prototype.result = function (r) {
         return wrap(new combinators_1.PrsMapResult(this.action, r));
@@ -116,7 +121,7 @@ var ParjsParser = (function (_super) {
     ParjsParser.prototype.must = function (condition, name, fail) {
         if (name === void 0) { name = "(unnamed condition)"; }
         if (fail === void 0) { fail = result_1.ResultKind.HardFail; }
-        return wrap(new combinators_1.PrsMust(this.action, condition, fail, name));
+        return wrap(new combinators_1.PrsMust(this.action, condition, result_1.toResultKind(fail), name));
     };
     ParjsParser.prototype.mustNotBeOf = function () {
         var options = [];
@@ -141,13 +146,6 @@ var ParjsParser = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    ParjsParser.prototype.alts = function () {
-        var others = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            others[_i] = arguments[_i];
-        }
-        return wrap(new combinators_1.PrsAlts(others.map(function (x) { return x.action; })));
-    };
     return ParjsParser;
 }(parser_1.BaseParjsParser));
 exports.ParjsParser = ParjsParser;

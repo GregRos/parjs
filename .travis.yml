@@ -5,5 +5,10 @@ branches:
 cache:
   directories:
     - node_modules
+install:
+  - npm install -g codecov
+script:
+  - istanbul cover ./jrunner.js --report lcovonly -- -R spec
+  - codecov
 node_js:
   - "6.1"

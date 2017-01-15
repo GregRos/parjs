@@ -5,7 +5,7 @@ import { PrimitiveParsers } from "../abstract/parsers/primitives";
 import { SpecialParsers } from "../abstract/parsers/special";
 import { StaticCombinators } from "../abstract/combinators/static";
 import { AnyParser } from "../abstract/combinators/any";
-import { ResultKind } from "../abstract/basics/result";
+import { FailIndicator } from "../abstract/basics/result";
 import { IntOptions } from "../implementation/parsers/numbers/int";
 import { FloatOptions } from "../implementation/parsers/numbers/float";
 import { NumericParsers } from "../abstract/parsers/numeric";
@@ -35,7 +35,7 @@ export declare class ParjsParsers implements CharParsers, NumericParsers, String
     regexp(regex: RegExp): ParjsParser;
     result(x: any): ParjsParser;
     readonly eof: ParjsParser;
-    fail(expecting?: string, kind?: ResultKind): ParjsParser;
+    fail(expecting?: string, kind?: FailIndicator): ParjsParser;
     readonly position: ParjsParser;
     readonly state: ParjsParser;
     int(options?: IntOptions): ParjsParser;

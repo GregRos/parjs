@@ -1,5 +1,5 @@
 import { AnyParser } from "./any";
-import { ResultKind, ParserResult } from "../basics/result";
+import { ParserResult, FailIndicator } from "../basics/result";
 import { QuietParser } from "./quiet";
 export interface LoudParser<T> extends AnyParser {
     parse(input: string, initialState?: any): ParserResult<T>;
@@ -35,27 +35,18 @@ export interface LoudParser<T> extends AnyParser {
      */
     cast<S>(): LoudParser<S>;
     /**
-     * P applies this parser and maps the result to a string.
-     * This is done differently depending on what this parser returns.
-     * For an array (usually of strings), the elements are concatenated and returned as a single string.
-     * For a number, it is turned into a string.
-     * For a symbol, its description text is returned.
-     * For an object, its toString method is invoked.
-     */
-    readonly str: LoudParser<string>;
-    /**
      * P applies this parser, and further requires that the result fulfill a condition.
      * If the condition is not fulfilled, the parser fails.
      * @param condition The condition. The 2nd parameter is the user state.
      * @param name The name of the condition the result must satisfy.
      * @param fail The failure type emitted.
      */
-    must(condition: (result: T, state: any) => boolean, name?: string, fail?: ResultKind): LoudParser<T>;
+    must(condition: (result: T, state: any) => boolean, name?: string, fail?: FailIndicator): LoudParser<T>;
     /**
      * P applies this parser and verifies its result is non-empty.
      * An empty result is any of the following: null, undefined, "", [], {}. It is NOT the same as falsy.
      */
-    readonly mustBeNonEmpty: LoudParser<boolean>;
+    readonly mustBeNonEmpty: LoudParser<T>;
     /**
      * P applies this parser and requires its result to be identical to {options}.
      * @param options The possible results.
@@ -69,7 +60,7 @@ export interface LoudParser<T> extends AnyParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    mustCapture(kind?: ResultKind): LoudParser<T>;
+    mustCapture(kind?: FailIndicator): LoudParser<T>;
     /**
      * P applies this parser and then immediately another (quiet) parser and returns the result of this parser.
      * @param quiet The quiet parser to follow this one.
@@ -80,6 +71,8 @@ export interface LoudParser<T> extends AnyParser {
      * @param loud The loud parser to follow this one.
      */
     then<S>(loud: LoudParser<S>): LoudParser<[T, S]>;
+    then<S>(...loud: (LoudParser<S> | QuietParser)[]): LoudParser<S[]>;
+    then(...quiet: QuietParser[]): LoudParser<T>;
     /**
      * Advanced combinator.
      * Applies this parser, and then calls the selector function to determine the parser to apply next.
@@ -111,11 +104,16 @@ export interface LoudParser<T> extends AnyParser {
      * @param delimeter The delimeter parser.
      * @param max The maximum number of times this parser is applied.
      */
-    manySepBy(delimeter: AnyParser, max?: number): LoudParser<T>;
+    manySepBy(delimeter: AnyParser, max?: number): LoudParser<T[]>;
     /**
      * P applies this parser and applies {reducer} to the current state state.
      * The initial internal state is normally undefined.
      * @param reducer Transformation to apply to the state state.
      */
     withState(reducer: (state: any, result: T) => any): LoudParser<T>;
+    /**
+     * P applies this parser and then changes the state to {newState}.
+     * @param newState The new state value to adopt.
+     */
+    withState(newState: any): LoudParser<T>;
 }

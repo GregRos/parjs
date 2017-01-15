@@ -24,7 +24,7 @@ var Codes;
     Codes.enQuad = 0x2000;
     var inlineSpaces = [0x0020, 0x0009];
     var mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
-    var unicodeNewlines = [0x000a, 0x000b, 0x000c, 0x0085, 0x2028, 0x2029];
+    var unicodeNewlines = [0x0085, 0x2028, 0x2029];
     Codes.hairSpace = 0x200a;
     function isUnicodeInlineSpace(code) {
         return isBetween(code, Codes.enQuad, Codes.hairSpace) || mixedUnicodeInlineSpaces.includes(code);

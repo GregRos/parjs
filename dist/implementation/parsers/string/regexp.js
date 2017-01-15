@@ -1,22 +1,18 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 var result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 24-Nov-16.
  */
 var PrsRegexp = (function (_super) {
-    __extends(PrsRegexp, _super);
+    tslib_1.__extends(PrsRegexp, _super);
     function PrsRegexp(regexp) {
         var _this = _super.call(this) || this;
         _this.regexp = regexp;
         _this.displayName = "regexp";
         var flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(function (x) { return x; }).join("");
-        var normalizedRegexp = new RegExp(regexp.source, flags);
+        var normalizedRegexp = new RegExp("^" + regexp.source, flags);
         regexp = normalizedRegexp;
         _this.expecting = "input matching '" + regexp.source + "'";
         return _this;
@@ -30,8 +26,8 @@ var PrsRegexp = (function (_super) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        ps.position = regexp.lastIndex;
-        var arr = match.slice();
+        ps.position += match[0].length;
+        var arr = match.slice(0);
         ps.value = arr;
         ps.kind = result_1.ResultKind.OK;
     };

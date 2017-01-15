@@ -1,4 +1,6 @@
 # Parjs - Parser Combinator Library
+<img src="https://travis-ci.org/GregRos/parjs.svg?branch=master"/>
+
 
 Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and in particular its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
 

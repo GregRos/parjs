@@ -1,9 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 var char_indicators_1 = require("../../../functions/char-indicators");
 var result_1 = require("../../../abstract/basics/result");
@@ -11,7 +7,7 @@ var result_1 = require("../../../abstract/basics/result");
  * Created by User on 24-Nov-16.
  */
 var PrsNewline = (function (_super) {
-    __extends(PrsNewline, _super);
+    tslib_1.__extends(PrsNewline, _super);
     function PrsNewline(matchUnicode) {
         var _this = _super.call(this) || this;
         _this.matchUnicode = matchUnicode;
@@ -31,6 +27,7 @@ var PrsNewline = (function (_super) {
         if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
+            ps.kind = result_1.ResultKind.OK;
             return;
         }
         if (charAt === char_indicators_1.Codes.newline) {

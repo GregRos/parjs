@@ -1,9 +1,5 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 var common_1 = require("../../common");
 var result_1 = require("../../../abstract/basics/result");
@@ -11,20 +7,16 @@ var result_1 = require("../../../abstract/basics/result");
  * Created by User on 21-Nov-16.
  */
 var PrsAlts = (function (_super) {
-    __extends(PrsAlts, _super);
+    tslib_1.__extends(PrsAlts, _super);
     function PrsAlts(alts) {
         var _this = _super.call(this) || this;
         _this.alts = alts;
         _this.displayName = "alts";
-        if (alts.length === 0) {
-            _this.isLoud = false;
+        //if the list is empty, every won't execute and alts[0] won't be called.
+        if (!alts.every(function (x) { return x.isLoud === alts[0].isLoud; })) {
+            common_1.Issues.mixedLoudnessNotPermitted(_this);
         }
-        else {
-            if (!alts.every(function (x) { return x.isLoud === alts[0].isLoud; })) {
-                common_1.Issues.mixedLoudnessNotPermitted(_this);
-            }
-        }
-        _this.isLoud = alts.length === 0 ? false : alts.every(function (x) { return x.isLoud === alts[0].isLoud; });
+        _this.isLoud = alts.every(function (x) { return x.isLoud === alts[0].isLoud; });
         _this.expecting = "any of: " + alts.join(", ");
         return _this;
     }

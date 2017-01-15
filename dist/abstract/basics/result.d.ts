@@ -1,6 +1,3 @@
-/**
- * Created by lifeg on 24/11/2016.
- */
 export interface SuccessResult<T> {
     kind: ResultKind.OK;
     value: T;
@@ -23,3 +20,5 @@ export declare enum ResultKind {
     HardFail = 3,
     FatalFail = 4,
 }
+export declare type FailIndicator = ResultKind.SoftFail | ResultKind.HardFail | ResultKind.FatalFail | "SoftFail" | "HardFail" | "FatalFail";
+export declare function toResultKind(indicator: FailIndicator | ResultKind): ResultKind;
