@@ -54,21 +54,21 @@ describe("sequential combinators", () => {
         });
 
         describe("loud then quiet", () => {
-            let parser = fstLoud.then(sndLoud.quiet);
+            let parser = fstLoud.then(sndLoud.q);
             it("succeeds", () => {
                 expectSuccess(parser.parse(goodInput), "ab");
             });
         });
 
         describe("quiet then loud", () => {
-            let parser = fstLoud.quiet.then(sndLoud);
+            let parser = fstLoud.q.then(sndLoud);
             it("succeeds", () => {
                 expectSuccess(parser.parse(goodInput), "cd");
             });
         });
 
         describe("quiet then quiet", () => {
-            let parser = fstLoud.quiet.then(sndLoud.quiet);
+            let parser = fstLoud.q.then(sndLoud.q);
             it("succeeds", () => {
                 expectSuccess(parser.parse(goodInput), undefined);
             });
@@ -85,7 +85,7 @@ describe("sequential combinators", () => {
         });
 
         describe("1 quiet using seq combinator", () => {
-            let parser = Parjs.seq(fstLoud.quiet);
+            let parser = Parjs.seq(fstLoud.q);
             it("succeeds with empty array value", () => {
                 expectSuccess(parser.parse("ab"), []);
             });
@@ -165,7 +165,7 @@ describe("sequential combinators", () => {
        });
 
        describe("many on quiet parser", () => {
-           let parser = fstLoud.quiet.many();
+           let parser = fstLoud.q.many();
            it("succeeds without a value", () => {
                expectSuccess(parser.parse("abab"), undefined);
            })
@@ -178,7 +178,7 @@ describe("sequential combinators", () => {
             expectSuccess(parser.parse("abab"), ["ab", "ab"]);
         });
         it("quiet exactly succeeds without value", () => {
-            let parser = fstLoud.quiet.exactly(2);
+            let parser = fstLoud.q.exactly(2);
             expectSuccess(parser.parse("abab"), undefined);
         });
         it("hard fails with 0 < matches <= N", () => {
@@ -194,7 +194,7 @@ describe("sequential combinators", () => {
 
         it("works with max iterations", () => {
             let parser2 = fstLoud.manySepBy(Parjs.string(", "), 2);
-            let parser3 = parser2.then(Parjs.string(", ab").quiet);
+            let parser3 = parser2.then(Parjs.string(", ab").q);
             expectSuccess(parser3.parse("ab, ab, ab"))
         });
 
@@ -232,7 +232,7 @@ describe("sequential combinators", () => {
         });
 
         it("chains into terminating separator", () => {
-            let parser2 = parser.then(Parjs.string(", ").quiet);
+            let parser2 = parser.then(Parjs.string(", ").q);
             expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"])
         });
         it("fails soft if first many fails", () => {
@@ -246,7 +246,7 @@ describe("sequential combinators", () => {
             expectSuccess(parser.parse("abcd"), ["ab"]);
         });
         it("succeeds matching 1 then till, chains", () => {
-            let parser2 = parser.then(fstLoud.quiet);
+            let parser2 = parser.then(fstLoud.q);
             expectSuccess(parser2.parse("abcdab"), ["ab"]);
         });
         it("fails hard when till fails hard", () => {

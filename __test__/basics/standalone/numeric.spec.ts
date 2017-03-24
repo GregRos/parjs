@@ -28,7 +28,7 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("22a"), ResultKind.SoftFail);
             });
             it("chains into rest", () => {
-                expectSuccess(parser.then(Parjs.rest.quiet).parse("22a"), 22);
+                expectSuccess(parser.then(Parjs.rest.q).parse("22a"), 22);
             });
             it("fails hard if there are no digits after sign", () => {
                 expectFailure(parser.parse("+a"), ResultKind.HardFail);
@@ -131,7 +131,7 @@ describe("numeric parsers", () => {
             });
 
             it("succeeds on implicit zero fraction when chained into rest", () => {
-                expectSuccess(parser.then(Parjs.rest.quiet).parse("1."), 1);
+                expectSuccess(parser.then(Parjs.rest.q).parse("1."), 1);
             });
             it("succeeds on regular", () => {
                 expectSuccess(parser.parse("1.0"), 1.0);
@@ -151,7 +151,7 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("1.0"), ResultKind.SoftFail);
             });
             it("succeeds on floating point with chained rest", () => {
-                expectSuccess(parser.then(Parjs.rest.quiet).parse("1.5"), 1);
+                expectSuccess(parser.then(Parjs.rest.q).parse("1.5"), 1);
             });
             it("succeeds on exponent integer", () => {
                 expectSuccess(parser.parse("23e+2"), 23e+2);
@@ -165,7 +165,7 @@ describe("numeric parsers", () => {
                 expectSuccess(parser.parse("23.12"), 23.12);
             });
             it("succeeds on exponent with trailing rest", () => {
-                expectSuccess(parser.then(Parjs.rest.quiet).parse("12e+2", 12));
+                expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", 12));
             });
         });
     })

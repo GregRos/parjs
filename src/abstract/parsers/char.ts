@@ -8,9 +8,6 @@ export interface CharParsers {
      * P parses a single character. Equivalent to:
      */
     readonly anyChar : LoudParser<string>;
-
-    char(char : string) : LoudParser<string>;
-
     /**
      * P parses a single character that is part of the string {chars}.
      * @param chars The characters to match.

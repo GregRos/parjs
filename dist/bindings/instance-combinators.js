@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 /**
  * Created by User on 22-Nov-16.
@@ -16,6 +17,14 @@ var ParjsParser = (function (_super) {
     function ParjsParser() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    ParjsParser.prototype.between = function (preceding, proceeding) {
+        if (proceeding) {
+            return preceding.q.then(this).then(proceeding.q);
+        }
+        else {
+            return preceding.q.then(this).then(preceding.q);
+        }
+    };
     Object.defineProperty(ParjsParser.prototype, "backtrack", {
         get: function () {
             return wrap(new combinators_1.PrsBacktrack(this.action));
@@ -37,7 +46,7 @@ var ParjsParser = (function (_super) {
     ParjsParser.prototype.map = function (f) {
         return wrap(new combinators_1.MapParser(this.action, f));
     };
-    Object.defineProperty(ParjsParser.prototype, "quiet", {
+    Object.defineProperty(ParjsParser.prototype, "q", {
         get: function () {
             return wrap(new combinators_1.PrsQuiet(this.action));
         },
@@ -63,7 +72,7 @@ var ParjsParser = (function (_super) {
             return seqParse.map(function (x) { return x[0]; });
         }
         else if (loudCount === 0) {
-            return seqParse.quiet;
+            return seqParse.q;
         }
         else {
             return seqParse;

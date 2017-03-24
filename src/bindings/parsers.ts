@@ -16,6 +16,7 @@ import {NumericParsers} from "../abstract/parsers/numeric";
 import {assert} from 'chai';
 import _ = require('lodash');
 import {Issues} from "../implementation/common";
+import {PrsLate} from "../implementation/combinators/special/late";
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -29,6 +30,14 @@ function changeName(parser : ParjsParser, altName : string) {
 }
 
 export class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+
+    get spaces1() {
+        return this.space.many(1);
+    }
+
+    late(resolver : () => AnyParser) {
+        return wrap(new PrsLate(() => resolver().action));
+    }
 
     char(theChar : string) {
         if (theChar.length !== 1) {

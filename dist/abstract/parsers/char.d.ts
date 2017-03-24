@@ -36,6 +36,10 @@ export interface CharParsers {
      */
     readonly asciiLower: LoudParser<string>;
     /**
+     * Parses a single letter [a-zA-Z]
+     */
+    readonly asciiLetter: LoudParser<string>;
+    /**
      * P parses a single upper-case letter character in the range [A-Z].
      */
     readonly asciiUpper: LoudParser<string>;

@@ -2,6 +2,7 @@
  * Created by lifeg on 07/12/2016.
  */
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var _PredicatesType = (function () {
     function _PredicatesType() {
     }

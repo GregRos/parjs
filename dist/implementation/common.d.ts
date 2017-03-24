@@ -5,6 +5,9 @@ export declare const QUIET_RESULT: any;
 export declare const FAIL_RESULT: any;
 export declare const UNINITIALIZED_RESULT: any;
 export declare namespace Issues {
+    function stringWrongLength({displayName}: {
+        displayName: string;
+    }, lengthHint: string): void;
     function mixedLoudnessNotPermitted({displayName}: {
         displayName: string;
     }): void;

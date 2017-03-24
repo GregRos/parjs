@@ -4,11 +4,12 @@ import { FailIndicator } from "../abstract/basics/result";
 import { QuietParser } from "../abstract/combinators/quiet";
 import { AnyParser } from "../abstract/combinators/any";
 export declare class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
+    between(preceding: AnyParser, proceeding?: AnyParser): any;
     readonly backtrack: ParjsParser;
     mustCapture(failType?: FailIndicator): ParjsParser;
     or(...others: AnyParser[]): any;
     map(f: (result: any) => any): ParjsParser;
-    readonly quiet: ParjsParser;
+    readonly q: ParjsParser;
     readonly soft: ParjsParser;
     then(...next: any[]): any;
     many(minSuccesses?: number, maxIters?: number): ParjsParser;

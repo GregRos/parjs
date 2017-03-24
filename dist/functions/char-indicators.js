@@ -2,6 +2,7 @@
  * Created by User on 24-Nov-16.
  */
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Codes;
 (function (Codes) {
     Codes.a = 'a'.charCodeAt(0);
@@ -102,6 +103,10 @@ var Chars;
         return Codes.isDigit(code);
     }
     Chars.isDigit = isDigit;
+    function isAsciiLetter(s) {
+        return Codes.isAsciiLetter(s.charCodeAt(0));
+    }
+    Chars.isAsciiLetter = isAsciiLetter;
     function isHex(s) {
         var code = s.charCodeAt(0);
         return Codes.isHex(code);

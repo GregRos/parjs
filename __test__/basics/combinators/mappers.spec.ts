@@ -44,7 +44,7 @@ describe("map combinators", () => {
     });
 
     describe("quiet", () => {
-        let parser = loudParser.quiet;
+        let parser = loudParser.q;
         it("is quiet", () => {
             expect(parser.isLoud).toBe(false);
         });

@@ -11,6 +11,11 @@ export interface StringParsers {
     readonly spaces : LoudParser<string>;
 
     /**
+     * P parses one or more spaces and returns the result.
+     */
+    readonly spaces1 : LoudParser<string>;
+
+    /**
      * P parses as many Unicode inline white spaces as possible. Returns the parsed text.
      */
     readonly unicodeSpaces : LoudParser<string>;

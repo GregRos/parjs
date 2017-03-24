@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var common_1 = require("../implementation/common");
 var chai_1 = require("chai");

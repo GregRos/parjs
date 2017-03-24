@@ -47,19 +47,19 @@ describe("sequential combinators", function () {
             });
         });
         describe("loud then quiet", function () {
-            var parser = fstLoud.then(sndLoud.quiet);
+            var parser = fstLoud.then(sndLoud.q);
             it("succeeds", function () {
                 custom_matchers_1.expectSuccess(parser.parse(goodInput), "ab");
             });
         });
         describe("quiet then loud", function () {
-            var parser = fstLoud.quiet.then(sndLoud);
+            var parser = fstLoud.q.then(sndLoud);
             it("succeeds", function () {
                 custom_matchers_1.expectSuccess(parser.parse(goodInput), "cd");
             });
         });
         describe("quiet then quiet", function () {
-            var parser = fstLoud.quiet.then(sndLoud.quiet);
+            var parser = fstLoud.q.then(sndLoud.q);
             it("succeeds", function () {
                 custom_matchers_1.expectSuccess(parser.parse(goodInput), undefined);
             });
@@ -74,7 +74,7 @@ describe("sequential combinators", function () {
             });
         });
         describe("1 quiet using seq combinator", function () {
-            var parser = parsers_1.Parjs.seq(fstLoud.quiet);
+            var parser = parsers_1.Parjs.seq(fstLoud.q);
             it("succeeds with empty array value", function () {
                 custom_matchers_1.expectSuccess(parser.parse("ab"), []);
             });
@@ -145,7 +145,7 @@ describe("sequential combinators", function () {
             });
         });
         describe("many on quiet parser", function () {
-            var parser = fstLoud.quiet.many();
+            var parser = fstLoud.q.many();
             it("succeeds without a value", function () {
                 custom_matchers_1.expectSuccess(parser.parse("abab"), undefined);
             });
@@ -157,7 +157,7 @@ describe("sequential combinators", function () {
             custom_matchers_1.expectSuccess(parser.parse("abab"), ["ab", "ab"]);
         });
         it("quiet exactly succeeds without value", function () {
-            var parser = fstLoud.quiet.exactly(2);
+            var parser = fstLoud.q.exactly(2);
             custom_matchers_1.expectSuccess(parser.parse("abab"), undefined);
         });
         it("hard fails with 0 < matches <= N", function () {
@@ -171,7 +171,7 @@ describe("sequential combinators", function () {
         var parser = fstLoud.manySepBy(parsers_1.Parjs.string(", "));
         it("works with max iterations", function () {
             var parser2 = fstLoud.manySepBy(parsers_1.Parjs.string(", "), 2);
-            var parser3 = parser2.then(parsers_1.Parjs.string(", ab").quiet);
+            var parser3 = parser2.then(parsers_1.Parjs.string(", ab").q);
             custom_matchers_1.expectSuccess(parser3.parse("ab, ab, ab"));
         });
         it("succeeds with empty input", function () {
@@ -201,7 +201,7 @@ describe("sequential combinators", function () {
             custom_matchers_1.expectSuccess(parser.parse("ab, ab"), ["ab", "ab"]);
         });
         it("chains into terminating separator", function () {
-            var parser2 = parser.then(parsers_1.Parjs.string(", ").quiet);
+            var parser2 = parser.then(parsers_1.Parjs.string(", ").q);
             custom_matchers_1.expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"]);
         });
         it("fails soft if first many fails", function () {
@@ -214,7 +214,7 @@ describe("sequential combinators", function () {
             custom_matchers_1.expectSuccess(parser.parse("abcd"), ["ab"]);
         });
         it("succeeds matching 1 then till, chains", function () {
-            var parser2 = parser.then(fstLoud.quiet);
+            var parser2 = parser.then(fstLoud.q);
             custom_matchers_1.expectSuccess(parser2.parse("abcdab"), ["ab"]);
         });
         it("fails hard when till fails hard", function () {

@@ -13,7 +13,7 @@ function forParser(parser, f) {
 }
 describe("or combinator", function () {
     it("guards against loud-quiet parser mixing", function () {
-        expect(function () { return parsers_1.Parjs.any(parsers_1.Parjs.digit, parsers_1.Parjs.digit.quiet); }).toThrow();
+        expect(function () { return parsers_1.Parjs.any(parsers_1.Parjs.digit, parsers_1.Parjs.digit.q); }).toThrow();
     });
     it("guards against quiet-orVal", function () {
         expect(function () { return parsers_1.Parjs.eof.orVal(1); }).toThrow();
@@ -54,7 +54,7 @@ describe("or combinator", function () {
         });
     });
     describe("quiet or quiet", function () {
-        var parser = parsers_1.Parjs.string("ab").quiet.or(parsers_1.Parjs.string("cd").quiet);
+        var parser = parsers_1.Parjs.string("ab").q.or(parsers_1.Parjs.string("cd").q);
         it("succeeds parsing 2nd, no return", function () {
             custom_matchers_1.expectSuccess(parser.parse("cd"), undefined);
         });

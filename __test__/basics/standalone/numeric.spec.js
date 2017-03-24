@@ -29,7 +29,7 @@ describe("numeric parsers", function () {
                 custom_matchers_1.expectFailure(parser.parse("22a"), result_1.ResultKind.SoftFail);
             });
             it("chains into rest", function () {
-                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.quiet).parse("22a"), 22);
+                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.q).parse("22a"), 22);
             });
             it("fails hard if there are no digits after sign", function () {
                 custom_matchers_1.expectFailure(parser.parse("+a"), result_1.ResultKind.HardFail);
@@ -128,7 +128,7 @@ describe("numeric parsers", function () {
                 custom_matchers_1.expectFailure(parser.parse("+.1"), "HardFail");
             });
             it("succeeds on implicit zero fraction when chained into rest", function () {
-                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.quiet).parse("1."), 1);
+                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.q).parse("1."), 1);
             });
             it("succeeds on regular", function () {
                 custom_matchers_1.expectSuccess(parser.parse("1.0"), 1.0);
@@ -148,7 +148,7 @@ describe("numeric parsers", function () {
                 custom_matchers_1.expectFailure(parser.parse("1.0"), result_1.ResultKind.SoftFail);
             });
             it("succeeds on floating point with chained rest", function () {
-                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.quiet).parse("1.5"), 1);
+                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.q).parse("1.5"), 1);
             });
             it("succeeds on exponent integer", function () {
                 custom_matchers_1.expectSuccess(parser.parse("23e+2"), 23e+2);
@@ -162,7 +162,7 @@ describe("numeric parsers", function () {
                 custom_matchers_1.expectSuccess(parser.parse("23.12"), 23.12);
             });
             it("succeeds on exponent with trailing rest", function () {
-                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.quiet).parse("12e+2", 12));
+                custom_matchers_1.expectSuccess(parser.then(parsers_1.Parjs.rest.q).parse("12e+2", 12));
             });
         });
     });

@@ -10,6 +10,10 @@ import { IntOptions } from "../implementation/parsers/numbers/int";
 import { FloatOptions } from "../implementation/parsers/numbers/float";
 import { NumericParsers } from "../abstract/parsers/numeric";
 export declare class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+    readonly spaces1: ParjsParser;
+    late(resolver: () => AnyParser): ParjsParser;
+    char(theChar: string): ParjsParser;
+    readonly asciiLetter: ParjsParser;
     any(...parsers: AnyParser[]): ParjsParser;
     seq(...parsers: AnyParser[]): ParjsParser;
     readonly anyChar: ParjsParser;
@@ -20,6 +24,7 @@ export declare class ParjsParsers implements CharParsers, NumericParsers, String
     readonly hex: ParjsParser;
     readonly upper: ParjsParser;
     readonly lower: ParjsParser;
+    readonly letter: ParjsParser;
     readonly asciiLower: ParjsParser;
     readonly asciiUpper: ParjsParser;
     readonly newline: ParjsParser;

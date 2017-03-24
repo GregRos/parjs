@@ -9,6 +9,7 @@ var int_1 = require("../implementation/parsers/numbers/int");
 var float_1 = require("../implementation/parsers/numbers/float");
 var _ = require("lodash");
 var common_1 = require("../implementation/common");
+var late_1 = require("../implementation/combinators/special/late");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -21,6 +22,16 @@ function changeName(parser, altName) {
 var ParjsParsers = (function () {
     function ParjsParsers() {
     }
+    Object.defineProperty(ParjsParsers.prototype, "spaces1", {
+        get: function () {
+            return this.space.many(1);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ParjsParsers.prototype.late = function (resolver) {
+        return wrap(new late_1.PrsLate(function () { return resolver().action; }));
+    };
     ParjsParsers.prototype.char = function (theChar) {
         if (theChar.length !== 1) {
             throw common_1.Issues.stringWrongLength({ displayName: "char" }, "1");

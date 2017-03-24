@@ -39,7 +39,7 @@ describe("map combinators", function () {
         });
     });
     describe("quiet", function () {
-        var parser = loudParser.quiet;
+        var parser = loudParser.q;
         it("is quiet", function () {
             expect(parser.isLoud).toBe(false);
         });

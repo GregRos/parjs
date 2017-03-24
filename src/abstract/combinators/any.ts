@@ -20,7 +20,7 @@ export interface AnyParser {
     /**
      * P applies this parser and forgets the result (if any).
      */
-    readonly quiet : QuietParser;
+    readonly q : QuietParser;
 
     /**
      * P applies this parser and succeeds without consuming input if this parser fails. P fails if this parser succeeds.

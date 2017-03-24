@@ -16,7 +16,7 @@ function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TP
 
 describe("or combinator", () => {
     it("guards against loud-quiet parser mixing", () => {
-        expect(() => Parjs.any(Parjs.digit as any, Parjs.digit.quiet)).toThrow();
+        expect(() => Parjs.any(Parjs.digit as any, Parjs.digit.q)).toThrow();
     });
     it("guards against quiet-orVal", () => {
         expect(() => (Parjs.eof as any as LoudParser<any>).orVal(1)).toThrow();
@@ -59,7 +59,7 @@ describe("or combinator", () => {
     });
 
     describe("quiet or quiet", () => {
-        let parser = Parjs.string("ab").quiet.or(Parjs.string("cd").quiet);
+        let parser = Parjs.string("ab").q.or(Parjs.string("cd").q);
         it("succeeds parsing 2nd, no return", () => {
             expectSuccess(parser.parse("cd"), undefined);
         });

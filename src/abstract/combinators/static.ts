@@ -5,6 +5,10 @@ import {AnyParser} from "./any";
  * Created by lifeg on 19/11/2016.
  */
 export interface StaticCombinators {
+
+    late<T>(resolver : () => LoudParser<T>) : LoudParser<T>;
+    late(resolver : () => QuietParser) : QuietParser;
+
     /**
      * P tries the given parsers, one after the other, and returns the value of the first one that succeeds.
      * @param pars The parsers.

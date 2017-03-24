@@ -35,7 +35,8 @@
   "dependencies": {
     "chai": "^3.5.0",
     "core-js": "^2.4.1",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.2",
+    "typescript": "^2.2.0"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",

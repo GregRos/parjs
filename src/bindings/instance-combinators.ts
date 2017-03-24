@@ -19,6 +19,14 @@ function wrap(action : ParjsAction) {
 }
 
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
+
+    between(preceding : AnyParser, proceeding ?: AnyParser) {
+        if (proceeding) {
+            return preceding.q.then(this).then(proceeding.q);
+        } else {
+            return preceding.q.then(this).then(preceding.q);
+        }
+    }
     get backtrack() {
         return wrap(new PrsBacktrack(this.action))
     }
@@ -35,7 +43,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new MapParser(this.action, f));
     }
 
-    get quiet() {
+    get q() {
         return wrap(new PrsQuiet(this.action));
     }
 
@@ -50,7 +58,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         if (loudCount === 1) {
             return seqParse.map(x => x[0]);
         } else if (loudCount === 0) {
-            return seqParse.quiet;
+            return seqParse.q;
         } else {
             return seqParse;
         }

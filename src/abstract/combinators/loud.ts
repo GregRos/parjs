@@ -82,6 +82,19 @@ export interface LoudParser<T> extends AnyParser {
      */
     mustCapture(kind ?: FailIndicator) : LoudParser<T>;
 
+    /**
+     * P sandwiches this parser between two other parsers. Returns the result of this parser.
+     * @param preceding The preceding parser.
+     * @param proceeding The proceeding parser.
+     */
+    between(preceding : AnyParser, proceeding : AnyParser);
+
+    /**
+     * P applies sandwiches this parser between two instances of the same parser. Returns the result of this parser.
+     * @param precedingAndPreceding The parser this parser is sandwiched between.
+     */
+    between(precedingAndPreceding : AnyParser);
+
     //+++SEQUENTIAL
     /**
      * P applies this parser and then immediately another (quiet) parser and returns the result of this parser.
@@ -95,10 +108,18 @@ export interface LoudParser<T> extends AnyParser {
      */
     then<S>(loud : LoudParser<S>) : LoudParser<[T, S]>;
 
-    then(...loud : (LoudParser<T> | QuietParser)[]) : LoudParser<T[]>;
+    /**
+     * P applies this parser and then immediately a sequence of parsers, each either quiet or loud returning T.
+     * Returns an array containing all the returned values.
+     * @param quietOrLoud The series of quiet or loud parsers.
+     */
+    then(...quietOrLoud : (LoudParser<T> | QuietParser)[]) : LoudParser<T[]>;
 
-    then<S>(...loud : (LoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
-
+    /**
+     * P applies this parser, and them immediately a sequence of quiet parsers.
+     * Returns the result of this parser.
+     * @param quiet The sequence of quiet parsers.
+     */
     then(...quiet : QuietParser[]) : LoudParser<T>;
 
     /**

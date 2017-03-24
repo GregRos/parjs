@@ -37,6 +37,7 @@ export declare namespace Chars {
     function isUpper(s: string): boolean;
     function isLower(s: string): boolean;
     function isDigit(s: string): boolean;
+    function isAsciiLetter(s: string): boolean;
     function isHex(s: string): boolean;
     function isAsciiLower(s: string): boolean;
     function isTab(s: string): boolean;
