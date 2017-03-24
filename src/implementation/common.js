@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by User on 21-Nov-16.
  */
@@ -7,6 +8,11 @@ exports.FAIL_RESULT = Object.create(null);
 exports.UNINITIALIZED_RESULT = Object.create(null);
 var Issues;
 (function (Issues) {
+    function stringWrongLength(_a, lengthHint) {
+        var displayName = _a.displayName;
+        throw new Error("The parser " + displayName + " accepts only strings of length " + lengthHint);
+    }
+    Issues.stringWrongLength = stringWrongLength;
     function mixedLoudnessNotPermitted(_a) {
         var displayName = _a.displayName;
         throw new Error("Parsers of mixed loudness are not permitted as arguments for the combinator '" + displayName + "'");

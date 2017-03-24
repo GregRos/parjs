@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var instance_combinators_1 = require("./instance-combinators");
 var parsers_1 = require("../implementation/parsers");
 var combinators_1 = require("../implementation/combinators");
@@ -7,15 +8,32 @@ var result_1 = require("../abstract/basics/result");
 var int_1 = require("../implementation/parsers/numbers/int");
 var float_1 = require("../implementation/parsers/numbers/float");
 var _ = require("lodash");
+var common_1 = require("../implementation/common");
 /**
  * Created by lifeg on 24/11/2016.
  */
 function wrap(action) {
     return new instance_combinators_1.ParjsParser(action);
 }
+function changeName(parser, altName) {
+    parser.displayName = altName;
+}
 var ParjsParsers = (function () {
     function ParjsParsers() {
     }
+    ParjsParsers.prototype.char = function (theChar) {
+        if (theChar.length !== 1) {
+            throw common_1.Issues.stringWrongLength({ displayName: "char" }, "1");
+        }
+        return this.anyCharOf(theChar);
+    };
+    Object.defineProperty(ParjsParsers.prototype, "asciiLetter", {
+        get: function () {
+            return this.charWhere(char_indicators_1.Chars.isAsciiLetter);
+        },
+        enumerable: true,
+        configurable: true
+    });
     ParjsParsers.prototype.any = function () {
         var parsers = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -70,6 +88,13 @@ var ParjsParsers = (function () {
     Object.defineProperty(ParjsParsers.prototype, "lower", {
         get: function () {
             return this.charWhere(char_indicators_1.Chars.isLower);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ParjsParsers.prototype, "letter", {
+        get: function () {
+            return this.charWhere(function (x) { return char_indicators_1.Chars.isLower(x) || char_indicators_1.Chars.isUpper(x); });
         },
         enumerable: true,
         configurable: true

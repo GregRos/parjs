@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var common_1 = require("../implementation/common");
 var action_1 = require("./action");
 var result_1 = require("../abstract/basics/result");

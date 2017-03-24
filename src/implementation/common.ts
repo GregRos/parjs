@@ -10,6 +10,11 @@ export const UNINITIALIZED_RESULT = Object.create(null);
 
 
 export namespace Issues {
+
+    export function stringWrongLength({displayName} : {displayName : string}, lengthHint : string) {
+        throw new Error(`The parser ${displayName} accepts only strings of length ${lengthHint}`);
+    }
+
     export function mixedLoudnessNotPermitted({displayName} : {displayName : string}) {
         throw new Error(`Parsers of mixed loudness are not permitted as arguments for the combinator '${displayName}'`);
     }

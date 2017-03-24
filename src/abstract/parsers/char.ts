@@ -9,6 +9,8 @@ export interface CharParsers {
      */
     readonly anyChar : LoudParser<string>;
 
+    char(char : string) : LoudParser<string>;
+
     /**
      * P parses a single character that is part of the string {chars}.
      * @param chars The characters to match.
@@ -43,6 +45,11 @@ export interface CharParsers {
      * P parses a single lower-case letter character in the range [a-z]
      */
     readonly asciiLower : LoudParser<string>;
+
+    /**
+     * Parses a single letter [a-zA-Z]
+     */
+    readonly asciiLetter : LoudParser<string>;
 
     /**
      * P parses a single upper-case letter character in the range [A-Z].

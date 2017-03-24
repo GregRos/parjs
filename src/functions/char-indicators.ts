@@ -100,6 +100,10 @@ export namespace Chars {
         return Codes.isDigit(code);
     }
 
+    export function isAsciiLetter(s : string) {
+        return Codes.isAsciiLetter(s.charCodeAt(0));
+    }
+
     export function isHex(s : string) : boolean {
         let code = s.charCodeAt(0);
         return Codes.isHex(code);
@@ -118,6 +122,8 @@ export namespace Chars {
         let code = s.charCodeAt(0);
         return code === Codes.space;
     }
+
+
     export function isInlineSpace(s : string) {
         let code = s.charCodeAt(0);
         return Codes.isInlineSpace(code);

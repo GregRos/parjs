@@ -13,7 +13,9 @@ import {ResultKind, FailIndicator, toResultKind} from "../abstract/basics/result
 import {IntOptions, PrsInt} from "../implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "../implementation/parsers/numbers/float";
 import {NumericParsers} from "../abstract/parsers/numeric";
+import {assert} from 'chai';
 import _ = require('lodash');
+import {Issues} from "../implementation/common";
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -22,7 +24,22 @@ function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
+function changeName(parser : ParjsParser, altName : string) {
+    (parser as {displayName : string}).displayName = altName;
+}
+
 export class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
+
+    char(theChar : string) {
+        if (theChar.length !== 1) {
+            throw Issues.stringWrongLength({displayName : "char"}, "1");
+        }
+        return this.anyCharOf(theChar)
+    }
+
+    get asciiLetter() {
+        return this.charWhere(Chars.isAsciiLetter);
+    }
 
 
     any(...parsers : AnyParser[]) {
@@ -63,6 +80,10 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
 
     get lower() {
         return this.charWhere(Chars.isLower);
+    }
+
+    get letter() {
+        return this.charWhere(x => Chars.isLower(x) || Chars.isUpper(x))
     }
 
     get asciiLower() {

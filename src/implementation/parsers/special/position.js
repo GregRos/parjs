@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var action_1 = require("../../../base/action");
 var result_1 = require("../../../abstract/basics/result");

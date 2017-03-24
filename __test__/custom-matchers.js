@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var result_1 = require("../dist/abstract/basics/result");
 var CustomMatcherDefs = (function () {
     function CustomMatcherDefs() {

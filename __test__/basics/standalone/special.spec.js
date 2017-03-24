@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var result_1 = require("../../../dist/abstract/basics/result");
 var custom_matchers_1 = require("../../custom-matchers");
 var parsers_1 = require("../../../dist/bindings/parsers");
