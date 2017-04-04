@@ -25,7 +25,7 @@ export class PrsManyTill extends ParjsAction {
             till.apply(ps);
             if (ps.isOk) {
                 break;
-            } else if (ps.kind >= ResultKind.HardFail) {
+            } else if (ps.atLeast(ResultKind.HardFail)) {
                 //if till failed hard/fatally, we return the fail result.
                 return;
             }

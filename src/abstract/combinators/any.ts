@@ -27,6 +27,18 @@ export interface AnyParser {
      */
     readonly not : QuietParser;
 
+    /**
+     * P discards the result of this parser, if any, and instead returns its parser state.
+     */
+    readonly state : LoudParser<any>;
+
+
+    /**
+     * P verifies that the parsing state matches the predicate or fails hard.
+     * @param predicate The predicate to verify.
+     */
+    mustState(predicate : (state : any) => boolean);
+
     readonly isLoud : boolean;
 
     /**

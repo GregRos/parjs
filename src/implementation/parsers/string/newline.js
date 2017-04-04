@@ -1,30 +1,26 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var action_1 = require("../../../base/action");
-var char_indicators_1 = require("../../../functions/char-indicators");
-var result_1 = require("../../../abstract/basics/result");
+const action_1 = require("../../../base/action");
+const char_indicators_1 = require("../../../functions/char-indicators");
+const result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 24-Nov-16.
  */
-var PrsNewline = (function (_super) {
-    tslib_1.__extends(PrsNewline, _super);
-    function PrsNewline(matchUnicode) {
-        var _this = _super.call(this) || this;
-        _this.matchUnicode = matchUnicode;
-        _this.displayName = "newline";
-        _this.isLoud = true;
-        _this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
-        return _this;
+class PrsNewline extends action_1.ParjsAction {
+    constructor(matchUnicode) {
+        super();
+        this.matchUnicode = matchUnicode;
+        this.displayName = "newline";
+        this.isLoud = true;
+        this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
     }
-    PrsNewline.prototype._apply = function (ps) {
-        var position = ps.position, input = ps.input;
-        var matchUnicode = this.matchUnicode;
+    _apply(ps) {
+        let { position, input } = ps;
+        let { matchUnicode } = this;
         if (position >= input.length) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        var charAt = input.charCodeAt(position);
+        let charAt = input.charCodeAt(position);
         if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
@@ -51,8 +47,7 @@ var PrsNewline = (function (_super) {
             return;
         }
         ps.kind = result_1.ResultKind.SoftFail;
-    };
-    return PrsNewline;
-}(action_1.ParjsAction));
+    }
+}
 exports.PrsNewline = PrsNewline;
 //# sourceMappingURL=newline.js.map

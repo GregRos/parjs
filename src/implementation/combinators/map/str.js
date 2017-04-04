@@ -1,29 +1,26 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var common_1 = require("../../common");
-var action_1 = require("../../../base/action");
+const common_1 = require("../../common");
+const action_1 = require("../../../base/action");
+const helpers_1 = require("../../../functions/helpers");
 /**
  * Created by User on 21-Nov-16.
  */
-var PrsStr = (function (_super) {
-    tslib_1.__extends(PrsStr, _super);
-    function PrsStr(inner) {
-        var _this = _super.call(this) || this;
-        _this.inner = inner;
-        _this.displayName = "str";
-        _this.isLoud = true;
-        _this.expecting = inner.expecting;
-        return _this;
+class PrsStr extends action_1.ParjsAction {
+    constructor(inner) {
+        super();
+        this.inner = inner;
+        this.displayName = "str";
+        this.isLoud = true;
+        this.expecting = inner.expecting;
     }
-    PrsStr.prototype._apply = function (ps) {
-        var inner = this.inner;
+    _apply(ps) {
+        let { inner } = this;
         inner.apply(ps);
         if (!ps.isOk) {
             return;
         }
-        var value = ps.value;
-        var typeStr = typeof value;
+        let { value } = ps;
+        let typeStr = typeof value;
         if (typeStr === "string") {
         }
         else if (value === common_1.QUIET_RESULT) {
@@ -33,7 +30,7 @@ var PrsStr = (function (_super) {
             ps.value = String(value);
         }
         else if (value instanceof Array) {
-            ps.value = value.join("");
+            ps.value = helpers_1.StringHelpers.recJoin(value);
         }
         else if (typeStr === "symbol") {
             ps.value = String(value).slice(7, -1);
@@ -41,8 +38,7 @@ var PrsStr = (function (_super) {
         else {
             ps.value = value.toString();
         }
-    };
-    return PrsStr;
-}(action_1.ParjsAction));
+    }
+}
 exports.PrsStr = PrsStr;
 //# sourceMappingURL=str.js.map

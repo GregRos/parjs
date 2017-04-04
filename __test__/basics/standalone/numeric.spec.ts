@@ -165,7 +165,7 @@ describe("numeric parsers", () => {
                 expectSuccess(parser.parse("23.12"), 23.12);
             });
             it("succeeds on exponent with trailing rest", () => {
-                expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", 12));
+                expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", {x : 12}));
             });
         });
     })

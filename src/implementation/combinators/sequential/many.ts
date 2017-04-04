@@ -33,7 +33,7 @@ export class PrsMany extends ParjsAction {
             arr.maybePush(ps.value);
             i++;
         }
-        if (ps.kind >= ResultKind.HardFail) {
+        if (ps.atLeast(ResultKind.HardFail)) {
             return;
         }
         if (i < minSuccesses) {

@@ -1,76 +1,75 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var result_1 = require("../../../dist/abstract/basics/result");
-var custom_matchers_1 = require("../../custom-matchers");
-var parsers_1 = require("../../../dist/bindings/parsers");
+const result_1 = require("../../../dist/abstract/basics/result");
+const custom_matchers_1 = require("../../custom-matchers");
+const parsers_1 = require("../../../dist/bindings/parsers");
 /**
  * Created by lifeg on 16/12/2016.
  */
 function forParser(parser, f) {
-    describe("Parjs." + parser.displayName, function () {
+    describe(`Parjs.${parser.displayName}`, () => {
         f(parser);
     });
 }
-describe("special parsers", function () {
-    describe("Parjs.eof", function () {
-        var parser = parsers_1.Parjs.eof;
-        var fail = "a";
-        var success = "";
-        it("success on empty input", function () {
+describe("special parsers", () => {
+    describe("Parjs.eof", () => {
+        let parser = parsers_1.Parjs.eof;
+        let fail = "a";
+        let success = "";
+        it("success on empty input", () => {
             custom_matchers_1.expectSuccess(parser.parse(success), undefined);
         });
-        it("fail on non-empty input", function () {
+        it("fail on non-empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
         });
-        it("chain multiple EOF succeeds", function () {
-            var parser2 = parser.then(parsers_1.Parjs.eof);
+        it("chain multiple EOF succeeds", () => {
+            let parser2 = parser.then(parsers_1.Parjs.eof);
             custom_matchers_1.expectSuccess(parser2.parse(""), undefined);
         });
     });
-    describe("Parjs.state", function () {
-        var parser = parsers_1.Parjs.state;
-        var uState = {};
-        var someInput = "abcd";
-        var noInput = "";
-        it("succeeds on empty input", function () {
-            var result = parser.parse(noInput, uState);
+    describe("Parjs.state", () => {
+        let parser = parsers_1.Parjs.state;
+        let uState = {};
+        let someInput = "abcd";
+        let noInput = "";
+        it("succeeds on empty input", () => {
+            let result = parser.parse(noInput, uState);
             custom_matchers_1.expectSuccess(result, uState);
         });
-        it("fails on non-empty input", function () {
-            var result = parser.parse(someInput, uState);
+        it("fails on non-empty input", () => {
+            let result = parser.parse(someInput, uState);
             custom_matchers_1.expectFailure(result);
         });
     });
-    describe("Parjs.position", function () {
-        var parser = parsers_1.Parjs.position;
-        var noInput = "";
-        it("succeeds on empty input", function () {
-            var result = parser.parse(noInput);
+    describe("Parjs.position", () => {
+        let parser = parsers_1.Parjs.position;
+        let noInput = "";
+        it("succeeds on empty input", () => {
+            let result = parser.parse(noInput);
             custom_matchers_1.expectSuccess(result, 0);
         });
-        it("fails on non-empty input", function () {
-            var result = parser.parse("abc");
+        it("fails on non-empty input", () => {
+            let result = parser.parse("abc");
             custom_matchers_1.expectFailure(result);
         });
     });
-    describe("Parjs.result(x)", function () {
-        var parser = parsers_1.Parjs.result("x");
-        var noInput = "";
-        it("succeeds on empty input", function () {
+    describe("Parjs.result(x)", () => {
+        let parser = parsers_1.Parjs.result("x");
+        let noInput = "";
+        it("succeeds on empty input", () => {
             custom_matchers_1.expectSuccess(parser.parse(noInput), "x");
         });
-        it("fails on non-empty input", function () {
+        it("fails on non-empty input", () => {
             custom_matchers_1.expectFailure(parser.parse("a"));
         });
     });
-    describe("Parjs.fail", function () {
-        var parser = parsers_1.Parjs.fail("error", "FatalFail");
-        var noInput = "";
-        var input = "abc";
-        it("fails on no input", function () {
+    describe("Parjs.fail", () => {
+        let parser = parsers_1.Parjs.fail("error", "FatalFail");
+        let noInput = "";
+        let input = "abc";
+        it("fails on no input", () => {
             custom_matchers_1.expectFailure(parser.parse(noInput), result_1.ResultKind.FatalFail);
         });
-        it("fails on non-empty input", function () {
+        it("fails on non-empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(input), result_1.ResultKind.FatalFail);
         });
     });

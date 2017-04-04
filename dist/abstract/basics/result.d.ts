@@ -1,24 +1,36 @@
-export interface SuccessResult<T> {
-    kind: ResultKind.OK;
+export declare class SuccessResult<T> {
     value: T;
-    state: any;
+    kind: "OK";
+    constructor(value: T);
+    readonly resolve: T;
 }
-export interface FailResult {
-    kind: ResultKind.FatalFail | ResultKind.SoftFail | ResultKind.HardFail;
-    state: any;
+export interface Trace {
+    state: object;
+    position: number;
     expecting: string;
 }
-export declare type ParserResult<T> = SuccessResult<T> | FailResult;
+export declare class FailResult {
+    kind: FailResultKind;
+    trace: Trace;
+    constructor(kind: FailResultKind, trace: Trace);
+    readonly resolve: never;
+}
+export declare type ParserResult<T> = (SuccessResult<T> | FailResult);
 export declare type QuietParserResult = ParserResult<void>;
 /**
  *
  */
-export declare enum ResultKind {
-    Unknown = 0,
-    OK = 1,
-    SoftFail = 2,
-    HardFail = 3,
-    FatalFail = 4,
+export declare module ResultKind {
+    type Unknown = "Unknown";
+    type OK = "OK";
+    type SoftFail = "SoftFail";
+    type HardFail = "HardFail";
+    type FatalFail = "FatalFail";
+    const Unknown: Unknown;
+    const OK: OK;
+    const SoftFail: SoftFail;
+    const HardFail: HardFail;
+    const FatalFail: FatalFail;
 }
-export declare type FailIndicator = ResultKind.SoftFail | ResultKind.HardFail | ResultKind.FatalFail | "SoftFail" | "HardFail" | "FatalFail";
-export declare function toResultKind(indicator: FailIndicator | ResultKind): ResultKind;
+export declare type ResultKind = ResultKind.OK | ResultKind.HardFail | ResultKind.FatalFail | ResultKind.SoftFail | ResultKind.Unknown;
+export declare type FailResultKind = ResultKind.HardFail | ResultKind.FatalFail | ResultKind.SoftFail;

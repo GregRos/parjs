@@ -20,13 +20,13 @@ describe("basic string parsers", () => {
         let failInput = "";
         let tooLongInput = "ab";
         it("succeeds on single char", () => {
-            expectSuccess(parser.parse(successInput, uState), successInput, uState);
+            expectSuccess(parser.parse(successInput, uState), successInput);
         });
         it("fails on empty input", () => {
-            expectFailure(parser.parse(failInput, uState), ResultKind.SoftFail, uState);
+            expectFailure(parser.parse(failInput, uState), ResultKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse(tooLongInput, uState), ResultKind.SoftFail, uState);
+            expectFailure(parser.parse(tooLongInput, uState), ResultKind.SoftFail);
         });
     });
 

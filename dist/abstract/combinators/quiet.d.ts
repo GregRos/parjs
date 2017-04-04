@@ -1,5 +1,5 @@
 import { AnyParser } from "./any";
-import { QuietParserResult, FailIndicator } from "../basics/result";
+import { QuietParserResult, FailResultKind } from "../basics/result";
 import { LoudParser } from "./loud";
 export interface QuietParser extends AnyParser {
     parse(input: string, initialState?: any): QuietParserResult;
@@ -10,6 +10,12 @@ export interface QuietParser extends AnyParser {
      */
     or(...alt: QuietParser[]): QuietParser;
     soft: QuietParser;
+    map<T>(selector: (state: any) => T): LoudParser<T>;
+    /**
+     * P applies this parser, and then calls the specified function on the state.
+     * @param action The action to call.
+     */
+    act(action: (state: any) => void): QuietParser;
     /**
      * P applies this parser. If it succeeds, it backtracks to the original position in the input, effectively succeeding without consuming input.
      */
@@ -17,7 +23,7 @@ export interface QuietParser extends AnyParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    mustCapture(kind?: FailIndicator): QuietParser;
+    mustCapture(kind?: FailResultKind): QuietParser;
     /**
      * P applies this parser and then the given parser. P returns the value of the given parser (if any).
      * @param parser The parser to apply next.

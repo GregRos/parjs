@@ -8,6 +8,6 @@ export declare class PrsCharWhere extends ParjsBasicAction {
     displayName: string;
     isLoud: boolean;
     expecting: string;
-    constructor(predicate: (char: string) => boolean, property?: string);
+    constructor(predicate: (char: string) => boolean, expecting?: string);
     _apply(ps: ParsingState): void;
 }

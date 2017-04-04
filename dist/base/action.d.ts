@@ -8,6 +8,8 @@ export declare class BasicParsingState implements ParsingState {
     kind: ResultKind;
     expecting: string;
     constructor(input: string);
+    atLeast(kind: ResultKind): boolean;
+    atMost(kind: ResultKind): boolean;
     readonly isOk: boolean;
     readonly isSoft: boolean;
     readonly isHard: boolean;

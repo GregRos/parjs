@@ -2,7 +2,6 @@
  * Created by User on 24-Nov-16.
  */
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var Codes;
 (function (Codes) {
     Codes.a = 'a'.charCodeAt(0);
@@ -23,9 +22,9 @@ var Codes;
     Codes.e = Codes.a + 4;
     Codes.E = Codes.A + 4;
     Codes.enQuad = 0x2000;
-    var inlineSpaces = [0x0020, 0x0009];
-    var mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
-    var unicodeNewlines = [0x0085, 0x2028, 0x2029];
+    const inlineSpaces = [0x0020, 0x0009];
+    const mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
+    let unicodeNewlines = [0x0085, 0x2028, 0x2029];
     Codes.hairSpace = 0x200a;
     function isUnicodeInlineSpace(code) {
         return isBetween(code, Codes.enQuad, Codes.hairSpace) || mixedUnicodeInlineSpaces.includes(code);
@@ -43,8 +42,7 @@ var Codes;
         return code >= start && code <= end;
     }
     Codes.isBetween = isBetween;
-    function isDigit(code, base) {
-        if (base === void 0) { base = 10; }
+    function isDigit(code, base = 10) {
         if (base <= 10) {
             return isBetween(code, Codes.zero, Codes.zero + base - 1);
         }
@@ -99,7 +97,7 @@ var Chars;
     }
     Chars.isLower = isLower;
     function isDigit(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return Codes.isDigit(code);
     }
     Chars.isDigit = isDigit;
@@ -108,7 +106,7 @@ var Chars;
     }
     Chars.isAsciiLetter = isAsciiLetter;
     function isHex(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return Codes.isHex(code);
     }
     Chars.isHex = isHex;
@@ -117,28 +115,28 @@ var Chars;
     }
     Chars.isAsciiLower = isAsciiLower;
     function isTab(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return code === Codes.tab;
     }
     Chars.isTab = isTab;
     function isSpace(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return code === Codes.space;
     }
     Chars.isSpace = isSpace;
     function isInlineSpace(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return Codes.isInlineSpace(code);
     }
     Chars.isInlineSpace = isInlineSpace;
     function isUnicodeInlineSpace(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return Codes.isUnicodeInlineSpace(code);
     }
     Chars.isUnicodeInlineSpace = isUnicodeInlineSpace;
     //range: 0x2000 - 0x200a
     function isAsciiUpper(s) {
-        var code = s.charCodeAt(0);
+        let code = s.charCodeAt(0);
         return Codes.isAsciiUpper(code);
     }
     Chars.isAsciiUpper = isAsciiUpper;

@@ -7,7 +7,7 @@ Parjs is a JavaScript library of parser combinators, similar in principle and in
 
 It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it.
 
-Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It's designed to be used from TypeScript too, but that's not absolutely necessary.
+Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It's designed to be used from TypeScript too, but that's not necessary.
 
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
@@ -19,17 +19,18 @@ By combining different parsers in different ways, you can construct parsers for 
 Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are integers. One feature of the expression is that arbitrary amounts of whitespace are allowed between tokens.
 
 	let int = Parjs.int(); //parse an integer, sign allowed
-	let sep = Parjs.string(",").then(Parjs.spaces).quiet; //equivalent to the regex /,\s*/
-	let openingParen = Parjs.string("(").quiet;
-	let closingParen = Parjs.string(")").quiet;
+	let spaces = Parjs.spaces.q;
+	let sep = Parjs.string(",").then(spaces).q; //equivalent to the regex /,\s*/
+	let openingParen = Parjs.string("(").q;
+	let closingParen = Parjs.string(")").q;
 	let separated = int.manySepBy(sep);
-	let final = Parjs.seq(openingParen, Parjs.spaces.quiet, separated, Parjs.spaces.quiet, closingParen).map(x => x[0]);
+	let final = Parjs.seq(openingParen, spaces, separated, spaces, closingParen).map(x => x[0]);
 	
 In the above example, we use built-in basic parsers for specific strings and integers, and we also use several *combinators* that work on those parsers and combine them to give new ones.
 
 First we use `manySepBy`, that parses occurences of parser `p` (in this case, the `int` parser) separated by occurrences of `sep` (in this case, the string `, `). Then we also use then `seq` combinator, that applies multiple parsers in sequence and returns their results in an array.
 
-Parser-combinators allow you to construct complicated parsers in a concise and readable way, a lot closer to the problem domain (recognizing a distinctive grammar) than the bare metal of iterating over characters and comparing them.
+Parser-combinators allow you to construct complicated parsers in a concise and readable way, a lot closer to the problem domain (recognizing a distinctive grammar) than the bare metal of iterating over characters and comparing them or the opaque syntax of regular expressions.
 
 Parser-combinators can also emit informative error messages when parsing fails.
 
@@ -55,11 +56,11 @@ In general, the `Parjs` object in the `parjs` module contains builidng block par
 
 ### Examples of parsers:
 
-1. `Parjs.string(str)` defines a parser that parses the string `str` and returns it.
-2. `Parjs.int(options)` defines a parser that parses an integer with `options` being an object containing options.
+1. `Parjs.string(str)` creates a parser that parses the string `str` and returns it.
+2. `Parjs.int(options)` creates a parser that parses an integer with `options` being an object containing options.
 
 ### Static combinators:
-1. `Parjs.any(p1, p2, ...)` Returns a parser that attempts to parse using `p1, p2, ...` until it succeeds.
+1. `Parjs.any(p1, p2, ...)` Returns a parser that attempts to parse using `p1, p2, ...` until it succeeds, and then returns the result that was parsed.
 2. `Parjs.seq(p1, p2, ...)` Returns a parser that applies `p1, p2, ...` in sequence.
 
 Static combinators are generally used when there isn't a single parser that can be considered *this* parser on which the combinator is principally applied.
@@ -69,6 +70,7 @@ Static combinators are generally used when there isn't a single parser that can 
 2. `p1.map(x => x + 1)` Returns a parser that applies `p1` and then transforms the result using the function `x => x + 1`.
 
 Instance combinators are used when it makes sense for one parser to be a *this* parser, on which the combinator is principally applied.
+
 
 ## Deeper mysteries
 

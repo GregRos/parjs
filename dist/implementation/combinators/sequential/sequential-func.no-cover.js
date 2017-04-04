@@ -1,52 +1,49 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var action_1 = require("../../../base/action");
-var common_1 = require("../../common");
-var result_1 = require("../../../abstract/basics/result");
+const action_1 = require("../../../base/action");
+const result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 21-Nov-16.
  */
-var PrsSeqFunc = (function (_super) {
-    tslib_1.__extends(PrsSeqFunc, _super);
-    function PrsSeqFunc(initial, parserSelectors) {
-        var _this = _super.call(this) || this;
-        _this.initial = initial;
-        _this.parserSelectors = parserSelectors;
-        _this.isLoud = true;
-        _this.displayName = "seqFunc";
-        _this.expecting = initial.expecting;
-        return _this;
+class PrsSeqFunc extends action_1.ParjsAction {
+    constructor(initial, selector, cache) {
+        super();
+        this.initial = initial;
+        this.selector = selector;
+        this.cache = cache;
+        this.isLoud = true;
+        this.displayName = "seqFunc";
+        this.expecting = initial.expecting;
     }
-    PrsSeqFunc.prototype._apply = function (ps) {
-        var _a = this, initial = _a.initial, parserSelectors = _a.parserSelectors;
-        var results = [];
+    _apply(ps) {
+        let { initial, selector, cache } = this;
+        let results = [];
         initial.apply(ps);
         if (!ps.isOk) {
             //propagate the failure of 'initial' upwards.
             return;
         }
-        for (var i = 0; i < parserSelectors.length; i++) {
-            var cur = parserSelectors[i];
-            var prs = cur(ps.value);
-            prs.isLoud || common_1.Issues.quietParserNotPermitted(this);
-            prs.action.apply(ps);
-            if (ps.isOk) {
-                results.maybePush(ps.value);
-            }
-            else if (ps.isSoft) {
-                //at this point, even a soft failure becomes a hard one
-                ps.kind = result_1.ResultKind.HardFail;
-            }
-            else {
-                return;
-            }
+        let next;
+        let initialResult = ps.value;
+        if (cache) {
+            next = cache.get(initialResult);
         }
-        ps.value = results;
-        return result_1.ResultKind.OK;
-    };
-    return PrsSeqFunc;
-}(action_1.ParjsAction));
+        if (!next) {
+            next = selector(initialResult);
+        }
+        if (!next) {
+            ps.kind = result_1.ResultKind.HardFail;
+            ps.expecting = "failed to determine the right parser for the input";
+            return;
+        }
+        if (cache) {
+            cache.set(initialResult, next);
+        }
+        next.action.apply(ps);
+        if (ps.isSoft) {
+            ps.kind = result_1.ResultKind.HardFail;
+        }
+    }
+}
 exports.PrsSeqFunc = PrsSeqFunc;
 
 //# sourceMappingURL=sequential-func.no-cover.js.map

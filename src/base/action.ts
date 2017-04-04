@@ -3,6 +3,27 @@ import {assert} from 'chai';
 import {ParsingState} from "../abstract/basics/state";
 import {ResultKind} from "../abstract/basics/result";
 
+/**
+ * a >= b
+ * @param a
+ * @param b
+ * @returns {any}
+ */
+function worseThan(a : ResultKind, b : ResultKind) {
+    if (a === ResultKind.OK) {
+        return b === ResultKind.OK;
+    }
+    if (a === ResultKind.SoftFail) {
+        return b === ResultKind.SoftFail || b === ResultKind.OK;
+    }
+    if (a === ResultKind.HardFail) {
+        return b !== ResultKind.FatalFail;
+    }
+    if (a === ResultKind.FatalFail) {
+        return true;
+    }
+}
+
 export class BasicParsingState implements ParsingState {
     position = 0;
     state = undefined;
@@ -11,6 +32,14 @@ export class BasicParsingState implements ParsingState {
     expecting : string;
     constructor(public input : string) {
 
+    }
+
+    atLeast(kind : ResultKind) {
+        return worseThan(this.kind, kind);
+    }
+
+    atMost(kind : ResultKind) {
+        return worseThan(kind, this.kind);
     }
 
     get isOk() {

@@ -23,7 +23,7 @@ export class PrsNot extends ParjsAction {
             ps.position = position;
             ps.kind = ResultKind.SoftFail;
         }
-        else if (ps.kind <= ResultKind.HardFail) {
+        else if (ps.kind === ResultKind.HardFail || ps.kind === ResultKind.SoftFail) {
             //hard fails are okay here
             ps.kind = ResultKind.OK;
             ps.position = position;

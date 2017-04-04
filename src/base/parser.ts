@@ -1,6 +1,8 @@
 import {QUIET_RESULT, FAIL_RESULT, Issues} from "../implementation/common";
 import {ParjsAction, BasicParsingState} from "./action";
-import {ResultKind, ParserResult} from "../abstract/basics/result";
+import {ResultKind, ParserResult, SuccessResult, FailResult, Trace} from "../abstract/basics/result";
+import {ParsingFailureSignal} from "./parsing-failure";
+import _ = require('lodash');
 /**
  * Created by User on 22-Nov-16.
  */
@@ -16,6 +18,10 @@ export abstract class BaseParjsParser {
         return this.action.displayName;
     }
 
+    set displayName(name) {
+        this.action.displayName = name;
+    }
+
     parse(input : string, initialState ?: any) : ParserResult<any> {
         if (typeof input !== "string") {
             //catches input === undefined, null
@@ -23,8 +29,18 @@ export abstract class BaseParjsParser {
         }
         let {action, isLoud} = this;
         let ps = new BasicParsingState(input);
-        ps.state = initialState;
-        action.apply(ps);
+        ps.state = _.defaults({}, initialState);
+        try {
+            action.apply(ps);
+        }
+        catch (ex) {
+            if (ex instanceof ParsingFailureSignal) {
+                ps.kind = ex.level;
+                ps.expecting = ex.message;
+            } else {
+                throw ex;
+            }
+        }
 
         if (ps.isOk) {
             if (ps.position !== input.length) {
@@ -32,21 +48,20 @@ export abstract class BaseParjsParser {
                 ps.expecting = "unexpected end of input";
             }
         }
-        if (ps.kind === ResultKind.Unknown){
+        if (ps.kind === ResultKind.Unknown) {
             throw new Error("should not happen.");
         }
+        let ret: ParserResult<any>;
         if (ps.kind === ResultKind.OK) {
-            return {
-                value : ps.value === QUIET_RESULT ? undefined : ps.value,
-                state : ps.state,
-                kind : ResultKind.OK
-            }
-        } else {
-            return {
-                state : ps.state,
-                kind : ps.kind,
-                expecting : ps.expecting
-            };
+            return Object.assign(new SuccessResult(ps.value === QUIET_RESULT ? undefined : ps.value))
+        }
+        else {
+            return new FailResult(ps.kind, {
+                state: ps.state,
+                position: ps.position,
+                expecting: ps.expecting
+            });
+
         }
     }
 

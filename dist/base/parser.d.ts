@@ -9,7 +9,7 @@ import { ParserResult } from "../abstract/basics/result";
 export declare abstract class BaseParjsParser {
     action: ParjsAction;
     constructor(action: ParjsAction);
-    readonly displayName: string;
+    displayName: string;
     parse(input: string, initialState?: any): ParserResult<any>;
     readonly isLoud: boolean;
 }

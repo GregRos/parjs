@@ -1,4 +1,4 @@
-import {ResultKind, ParserResult, FailIndicator, toResultKind} from "../dist/abstract/basics/result";
+import {ResultKind, ParserResult, FailResultKind} from "../dist/abstract/basics/result";
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -65,20 +65,20 @@ for (let prop in defs) {
 
 
 
-export function expectFailure(result : ParserResult<any>, failType ?: FailIndicator, state ?: any) {
+export function expectFailure(result : ParserResult<any>, failType ?: FailResultKind, state ?: any) {
     expect(result.kind).toBeAnyOf([ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ResultKind.OK) return;
     if (failType !== undefined){
-        expect(result.kind).toBe(toResultKind(failType));
+        expect(result.kind).toBe(failType);
     }
 
-    expect(result.expecting).toHaveType("string", "invaid 'expecting' value");
+    expect(result.trace.expecting).toHaveType("string", "invaid 'expecting' value");
     if (state !== undefined) {
-        expect(result.state).toBe(state);
+        expect(result.trace.state).toBe(state);
     }
 }
 
-export function expectSuccess<T>(result : ParserResult<T>, value ?: T, state ?: any) {
+export function expectSuccess<T>(result : ParserResult<T>, value ?: T) {
     expect(result.kind).toBe(ResultKind.OK, "kind wasn't OK");
     if (result.kind !== ResultKind.OK) return;
     expect(result).toHaveMember("value", "expecting value");
@@ -86,13 +86,10 @@ export function expectSuccess<T>(result : ParserResult<T>, value ?: T, state ?: 
     if (value !== undefined) {
         expect(result.value).toEqual(value);
     }
-    if (state !== undefined) {
-        expect(result.state).toBe(state);
-    }
 }
 
 export interface FailArgs {
-    type ?: FailIndicator;
+    type ?: FailResultKind;
     state ?: any;
 }
 
@@ -113,7 +110,7 @@ export function expectResult(result : ParserResult<any>) : ExpectResult {
         },
         toSucceed(args) {
             args = args || {};
-            expectSuccess(result, args.value, args.state);
+            expectSuccess(result, args.value);
         }
     }
 }

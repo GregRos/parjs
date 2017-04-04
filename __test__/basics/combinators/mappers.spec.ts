@@ -16,7 +16,7 @@ describe("map combinators", () => {
     describe("map", () => {
         let parser =loudParser.map(x => 1);
         it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput, uState), 1, uState);
+            expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
             expectFailure(parser.parse(badInput, uState), ResultKind.SoftFail, uState);
@@ -66,6 +66,16 @@ describe("map combinators", () => {
         it("quiet", () => {
             let p = Parjs.eof.str;
             expectSuccess(p.parse(""), "");
+        });
+
+        it("array", () => {
+            let p = Parjs.result(["a", "b", "c"]).str;
+            expectSuccess(p.parse(""), "abc");
+        });
+
+        it("nested array", () => {
+            let p = Parjs.result(["a", ["b", ["c"], "d"], "e"]).str;
+            expectSuccess(p.parse(""), "abcde");
         });
 
         it("null", () => {

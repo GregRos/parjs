@@ -2,6 +2,7 @@ import {QUIET_RESULT} from "../../common";
 import {ParjsAction} from "../../../base/action";
 import {AnyParserAction} from "../../../abstract/basics/action";
 import {ParsingState} from "../../../abstract/basics/state";
+import {StringHelpers} from "../../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -32,7 +33,7 @@ export class PrsStr extends ParjsAction {
             ps.value = String(value);
         }
         else if (value instanceof Array) {
-            ps.value = value.join("");
+            ps.value = StringHelpers.recJoin(value);
         }
         else if (typeStr === "symbol") {
             ps.value = String(value).slice(7, -1);

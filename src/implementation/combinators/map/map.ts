@@ -8,9 +8,8 @@ export class MapParser extends ParjsAction {
     displayName = "map";
     isLoud = true;
     expecting : string;
-    constructor(private inner : ParjsAction, private map : (x : any) => any) {
+    constructor(private inner : ParjsAction, private map : (x : any, y : any) => any) {
         super();
-        inner.isLoud || Issues.quietParserNotPermitted(this);
         this.expecting = inner.expecting;
     }
 
@@ -20,7 +19,7 @@ export class MapParser extends ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.value = map(ps.value);
+        ps.value = map(ps.value, ps.state);
     }
 }
 

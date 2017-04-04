@@ -26,10 +26,5 @@ export interface StaticCombinators {
      */
     seq(...parsers : AnyParser[]) : LoudParser<any[]>;
 
-    /**
-     * P applies the specified parsers in sequence and returns the results in an array.
-     * @param parsers The parser sequence.
-     */
-    seq<T>(...parsers : (QuietParser | LoudParser<T>)[]) : LoudParser<T[]>;
 
 }

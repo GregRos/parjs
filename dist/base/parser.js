@@ -1,34 +1,45 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var common_1 = require("../implementation/common");
-var action_1 = require("./action");
-var result_1 = require("../abstract/basics/result");
+const common_1 = require("../implementation/common");
+const action_1 = require("./action");
+const result_1 = require("../abstract/basics/result");
+const parsing_failure_1 = require("./parsing-failure");
+const _ = require("lodash");
 /**
  * Created by User on 22-Nov-16.
  */
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
-var BaseParjsParser = (function () {
-    function BaseParjsParser(action) {
+class BaseParjsParser {
+    constructor(action) {
         this.action = action;
     }
-    Object.defineProperty(BaseParjsParser.prototype, "displayName", {
-        get: function () {
-            return this.action.displayName;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    BaseParjsParser.prototype.parse = function (input, initialState) {
+    get displayName() {
+        return this.action.displayName;
+    }
+    set displayName(name) {
+        this.action.displayName = name;
+    }
+    parse(input, initialState) {
         if (typeof input !== "string") {
             //catches input === undefined, null
             throw new Error("input must be a valid string");
         }
-        var _a = this, action = _a.action, isLoud = _a.isLoud;
-        var ps = new action_1.BasicParsingState(input);
-        ps.state = initialState;
-        action.apply(ps);
+        let { action, isLoud } = this;
+        let ps = new action_1.BasicParsingState(input);
+        ps.state = _.defaults({}, initialState);
+        try {
+            action.apply(ps);
+        }
+        catch (ex) {
+            if (ex instanceof parsing_failure_1.ParsingFailureSignal) {
+                ps.kind = ex.level;
+                ps.expecting = ex.message;
+            }
+            else {
+                throw ex;
+            }
+        }
         if (ps.isOk) {
             if (ps.position !== input.length) {
                 ps.kind = result_1.ResultKind.SoftFail;
@@ -38,30 +49,22 @@ var BaseParjsParser = (function () {
         if (ps.kind === result_1.ResultKind.Unknown) {
             throw new Error("should not happen.");
         }
+        let ret;
         if (ps.kind === result_1.ResultKind.OK) {
-            return {
-                value: ps.value === common_1.QUIET_RESULT ? undefined : ps.value,
-                state: ps.state,
-                kind: result_1.ResultKind.OK
-            };
+            return Object.assign(new result_1.SuccessResult(ps.value === common_1.QUIET_RESULT ? undefined : ps.value));
         }
         else {
-            return {
+            return new result_1.FailResult(ps.kind, {
                 state: ps.state,
-                kind: ps.kind,
+                position: ps.position,
                 expecting: ps.expecting
-            };
+            });
         }
-    };
-    Object.defineProperty(BaseParjsParser.prototype, "isLoud", {
-        get: function () {
-            return this.action.isLoud;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return BaseParjsParser;
-}());
+    }
+    get isLoud() {
+        return this.action.isLoud;
+    }
+}
 exports.BaseParjsParser = BaseParjsParser;
 
 //# sourceMappingURL=parser.js.map

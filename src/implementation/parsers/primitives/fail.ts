@@ -10,7 +10,7 @@ export class PrsFail extends ParjsBasicAction {
     displayName = "fail";
     constructor(private kind : ResultKind, public expecting : string) {
         super();
-        [ResultKind.OK, ResultKind.Unknown].includes(kind) && Issues.expectedFailureKind(this);
+        [ResultKind.OK as ResultKind, ResultKind.Unknown].includes(kind) && Issues.expectedFailureKind(this);
     }
 
     _apply(ps : ParsingState) {

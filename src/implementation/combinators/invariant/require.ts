@@ -12,7 +12,7 @@ export class PrsMust extends ParjsAction {
     expecting : string;
     constructor(
         private inner : AnyParserAction,
-        private requirement : (result : any) => boolean,
+        private requirement : (result : any, state : any) => boolean,
         private failType,
         private qualityName
     ) {
@@ -27,6 +27,6 @@ export class PrsMust extends ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.kind = requirement(ps.value) ? ResultKind.OK : failType;
+        ps.kind = requirement(ps.value, ps.state) ? ResultKind.OK : failType;
     }
 }

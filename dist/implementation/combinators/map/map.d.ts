@@ -9,6 +9,6 @@ export declare class MapParser extends ParjsAction {
     displayName: string;
     isLoud: boolean;
     expecting: string;
-    constructor(inner: ParjsAction, map: (x: any) => any);
+    constructor(inner: ParjsAction, map: (x: any, y: any) => any);
     _apply(ps: ParsingState): void;
 }

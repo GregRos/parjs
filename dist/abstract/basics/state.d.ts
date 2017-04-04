@@ -28,6 +28,8 @@ export interface ParsingState {
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
     kind: ResultKind;
+    atLeast(kind: ResultKind): any;
+    atMost(kind: ResultKind): any;
     /**
      * Shorthand for this.result == Okay
      */

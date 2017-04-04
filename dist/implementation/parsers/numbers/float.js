@@ -1,34 +1,30 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var action_1 = require("../../../base/action");
+const action_1 = require("../../../base/action");
 /**
  * Created by User on 28-Nov-16.
  */
-var _ = require("lodash");
-var char_indicators_1 = require("../../../functions/char-indicators");
-var parselets_1 = require("./parselets");
-var result_1 = require("../../../abstract/basics/result");
-var defaultFloatOptions = {
+const _ = require("lodash");
+const char_indicators_1 = require("../../../functions/char-indicators");
+const parselets_1 = require("./parselets");
+const result_1 = require("../../../abstract/basics/result");
+const defaultFloatOptions = {
     allowExponent: true,
     allowSign: true,
     allowImplicitZero: true,
     allowFloatingPoint: true
 };
-var msgOneOrMoreDigits = "one or more digits";
-var msgExponentSign = "exponent sign (+ or -)";
-var PrsFloat = (function (_super) {
-    tslib_1.__extends(PrsFloat, _super);
-    function PrsFloat(options) {
-        var _this = _super.call(this) || this;
-        _this.options = options;
-        _this.expecting = "a floating-point number";
-        _this.displayName = "float";
-        _this.isLoud = true;
-        _this.options = _.defaults(options, defaultFloatOptions);
-        return _this;
+const msgOneOrMoreDigits = "one or more digits";
+const msgExponentSign = "exponent sign (+ or -)";
+class PrsFloat extends action_1.ParjsAction {
+    constructor(options) {
+        super();
+        this.options = options;
+        this.expecting = "a floating-point number";
+        this.displayName = "float";
+        this.isLoud = true;
+        this.options = _.defaults(options, defaultFloatOptions);
     }
-    PrsFloat.prototype._apply = function (ps) {
+    _apply(ps) {
         /*
             This work is really better done using Parjs itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
 
@@ -65,15 +61,15 @@ var PrsFloat = (function (_super) {
                    Otherwise, an error is thrown.
                 b.
          */
-        var _a = this.options, allowSign = _a.allowSign, allowFloatingPoint = _a.allowFloatingPoint, allowImplicitZero = _a.allowImplicitZero, allowExponent = _a.allowExponent;
-        var position = ps.position, input = ps.input;
+        let { options: { allowSign, allowFloatingPoint, allowImplicitZero, allowExponent } } = this;
+        let { position, input } = ps;
         if (position >= input.length) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        var initPos = position;
-        var Sign = 1;
-        var hasSign = false, hasWhole = false, hasFraction = false;
+        let initPos = position;
+        let Sign = 1;
+        let hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
             //try parse a sign
             Sign = parselets_1.Parselets.parseSign(ps);
@@ -85,11 +81,11 @@ var PrsFloat = (function (_super) {
             }
         }
         //after a sign there needs to come an integer part (if any).
-        var prevPos = ps.position;
+        let prevPos = ps.position;
         parselets_1.Parselets.parseDigitsInBase(ps, 10);
         hasWhole = ps.position !== prevPos;
         //now if allowFloatingPoint, we try to parse a decimal point.
-        var nextChar = input.charCodeAt(ps.position);
+        let nextChar = input.charCodeAt(ps.position);
         prevPos = ps.position;
         if (!allowImplicitZero && !hasWhole) {
             //fail because we don't allow ".1", and similar without allowImplicitZero.
@@ -101,7 +97,7 @@ var PrsFloat = (function (_super) {
             if (allowFloatingPoint && nextChar === char_indicators_1.Codes.decimalPoint) {
                 //skip to the char after the decimal point
                 ps.position++;
-                var prevFractionalPos = ps.position;
+                let prevFractionalPos = ps.position;
                 //parse the fractional part
                 parselets_1.Parselets.parseDigitsInBase(ps, 10);
                 hasFraction = prevFractionalPos !== ps.position;
@@ -125,13 +121,13 @@ var PrsFloat = (function (_super) {
             //if we do allow floating point, then the previous block would've consumed some characters.
             if (allowExponent && (nextChar === char_indicators_1.Codes.e || nextChar === char_indicators_1.Codes.E)) {
                 ps.position++;
-                var expSign = parselets_1.Parselets.parseSign(ps);
+                let expSign = parselets_1.Parselets.parseSign(ps);
                 if (expSign === 0) {
                     ps.kind = result_1.ResultKind.HardFail;
                     ps.expecting = msgExponentSign;
                     return;
                 }
-                var prevFractionalPos = ps.position;
+                let prevFractionalPos = ps.position;
                 parselets_1.Parselets.parseDigitsInBase(ps, 10);
                 if (ps.position === prevFractionalPos) {
                     //we parsed e+ but we did not parse any digits.
@@ -143,9 +139,8 @@ var PrsFloat = (function (_super) {
         }
         ps.kind = result_1.ResultKind.OK;
         ps.value = parseFloat(input.substring(initPos, ps.position));
-    };
-    return PrsFloat;
-}(action_1.ParjsAction));
+    }
+}
 exports.PrsFloat = PrsFloat;
 
 //# sourceMappingURL=float.js.map

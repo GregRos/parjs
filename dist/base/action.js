@@ -1,59 +1,64 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var common_1 = require("../implementation/common");
-var chai_1 = require("chai");
-var result_1 = require("../abstract/basics/result");
-var BasicParsingState = (function () {
-    function BasicParsingState(input) {
+const common_1 = require("../implementation/common");
+const chai_1 = require("chai");
+const result_1 = require("../abstract/basics/result");
+/**
+ * a >= b
+ * @param a
+ * @param b
+ * @returns {any}
+ */
+function worseThan(a, b) {
+    if (a === result_1.ResultKind.OK) {
+        return b === result_1.ResultKind.OK;
+    }
+    if (a === result_1.ResultKind.SoftFail) {
+        return b === result_1.ResultKind.SoftFail || b === result_1.ResultKind.OK;
+    }
+    if (a === result_1.ResultKind.HardFail) {
+        return b !== result_1.ResultKind.FatalFail;
+    }
+    if (a === result_1.ResultKind.FatalFail) {
+        return true;
+    }
+}
+class BasicParsingState {
+    constructor(input) {
         this.input = input;
         this.position = 0;
         this.state = undefined;
         this.value = undefined;
     }
-    Object.defineProperty(BasicParsingState.prototype, "isOk", {
-        get: function () {
-            return this.kind === result_1.ResultKind.OK;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BasicParsingState.prototype, "isSoft", {
-        get: function () {
-            return this.kind === result_1.ResultKind.SoftFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BasicParsingState.prototype, "isHard", {
-        get: function () {
-            return this.kind === result_1.ResultKind.HardFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BasicParsingState.prototype, "isFatal", {
-        get: function () {
-            return this.kind === result_1.ResultKind.FatalFail;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return BasicParsingState;
-}());
+    atLeast(kind) {
+        return worseThan(this.kind, kind);
+    }
+    atMost(kind) {
+        return worseThan(kind, this.kind);
+    }
+    get isOk() {
+        return this.kind === result_1.ResultKind.OK;
+    }
+    get isSoft() {
+        return this.kind === result_1.ResultKind.SoftFail;
+    }
+    get isHard() {
+        return this.kind === result_1.ResultKind.HardFail;
+    }
+    get isFatal() {
+        return this.kind === result_1.ResultKind.FatalFail;
+    }
+}
 exports.BasicParsingState = BasicParsingState;
 /**
  * A parsing action to perform. A parsing action is a fundamental operation that mutates a ParsingState.
  */
-var ParjsAction = (function () {
-    function ParjsAction() {
-    }
+class ParjsAction {
     /**
      * Perform the action on the given ParsingState. This is a wrapper around a derived action's _apply method.
      * @param ps The parsing state.
      */
-    ParjsAction.prototype.apply = function (ps) {
-        var position = ps.position, state = ps.state;
+    apply(ps) {
+        let { position, state } = ps;
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
         ps.kind = result_1.ResultKind.Unknown;
         ps.expecting = undefined;
@@ -73,22 +78,18 @@ var ParjsAction = (function () {
         if (!ps.isOk) {
             chai_1.assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
         }
-    };
-    return ParjsAction;
-}());
+    }
+}
 exports.ParjsAction = ParjsAction;
 /**
  * Inherited by parser actions for basic parsers (e.g. string or numeric parsers), rather than combinators.
  */
-var ParjsBasicAction = (function (_super) {
-    tslib_1.__extends(ParjsBasicAction, _super);
-    function ParjsBasicAction() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.isLoud = true;
-        return _this;
+class ParjsBasicAction extends ParjsAction {
+    constructor() {
+        super(...arguments);
+        this.isLoud = true;
     }
-    return ParjsBasicAction;
-}(ParjsAction));
+}
 exports.ParjsBasicAction = ParjsBasicAction;
 
 //# sourceMappingURL=action.js.map

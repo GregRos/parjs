@@ -5,10 +5,10 @@ import { PrimitiveParsers } from "../abstract/parsers/primitives";
 import { SpecialParsers } from "../abstract/parsers/special";
 import { StaticCombinators } from "../abstract/combinators/static";
 import { AnyParser } from "../abstract/combinators/any";
-import { FailIndicator } from "../abstract/basics/result";
 import { IntOptions } from "../implementation/parsers/numbers/int";
 import { FloatOptions } from "../implementation/parsers/numbers/float";
 import { NumericParsers } from "../abstract/parsers/numeric";
+import { FailResultKind } from "../../dist/abstract/basics/result";
 export declare class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
     readonly spaces1: ParjsParser;
     late(resolver: () => AnyParser): ParjsParser;
@@ -17,14 +17,13 @@ export declare class ParjsParsers implements CharParsers, NumericParsers, String
     any(...parsers: AnyParser[]): ParjsParser;
     seq(...parsers: AnyParser[]): ParjsParser;
     readonly anyChar: ParjsParser;
-    charWhere(predicate: (char: string) => boolean): ParjsParser;
+    charWhere(predicate: (char: string) => boolean, property?: string): ParjsParser;
     anyCharOf(options: string): ParjsParser;
     noCharOf(options: string): ParjsParser;
     readonly digit: ParjsParser;
     readonly hex: ParjsParser;
     readonly upper: ParjsParser;
     readonly lower: ParjsParser;
-    readonly letter: ParjsParser;
     readonly asciiLower: ParjsParser;
     readonly asciiUpper: ParjsParser;
     readonly newline: ParjsParser;
@@ -40,7 +39,7 @@ export declare class ParjsParsers implements CharParsers, NumericParsers, String
     regexp(regex: RegExp): ParjsParser;
     result(x: any): ParjsParser;
     readonly eof: ParjsParser;
-    fail(expecting?: string, kind?: FailIndicator): ParjsParser;
+    fail(expecting?: string, kind?: FailResultKind): ParjsParser;
     readonly position: ParjsParser;
     readonly state: ParjsParser;
     int(options?: IntOptions): ParjsParser;

@@ -1,32 +1,31 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var parsers_1 = require("../../dist/bindings/parsers");
-var result_1 = require("../../dist/abstract/basics/result");
-var custom_matchers_1 = require("../custom-matchers");
-describe("basics: anyChar example", function () {
-    var parser = parsers_1.Parjs.anyChar;
-    var successInput = "a";
-    var tooMuchInput = "ab";
-    var failInput = "";
-    var uniqueState = {};
-    it("single char input success", function () {
-        var result = parser.parse(successInput, uniqueState);
+const parsers_1 = require("../../dist/bindings/parsers");
+const result_1 = require("../../dist/abstract/basics/result");
+const custom_matchers_1 = require("../custom-matchers");
+describe("basics: anyChar example", () => {
+    let parser = parsers_1.Parjs.anyChar;
+    let successInput = "a";
+    let tooMuchInput = "ab";
+    let failInput = "";
+    let uniqueState = {};
+    it("single char input success", () => {
+        let result = parser.parse(successInput, uniqueState);
     });
-    it("empty input failure", function () {
-        var result = parser.parse(failInput, uniqueState);
+    it("empty input failure", () => {
+        let result = parser.parse(failInput, uniqueState);
         custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail, uniqueState);
     });
-    it("fails on too much input", function () {
-        var result = parser.parse(tooMuchInput, uniqueState);
+    it("fails on too much input", () => {
+        let result = parser.parse(tooMuchInput, uniqueState);
         custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail, uniqueState);
     });
-    describe("non-string inputs", function () {
-        it("throws on null, undefined", function () {
-            expect(function () { return parser.parse(null); }).toThrow();
-            expect(function () { return parser.parse(undefined); }).toThrow();
+    describe("non-string inputs", () => {
+        it("throws on null, undefined", () => {
+            expect(() => parser.parse(null)).toThrow();
+            expect(() => parser.parse(undefined)).toThrow();
         });
-        it("throws on non-string", function () {
-            expect(function () { return parser.parse(5); }).toThrow();
+        it("throws on non-string", () => {
+            expect(() => parser.parse(5)).toThrow();
         });
     });
 });

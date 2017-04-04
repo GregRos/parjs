@@ -2,53 +2,57 @@
  * Created by lifeg on 24/11/2016.
  */
 import _ = require('lodash');
-export interface SuccessResult<T> {
-    kind : ResultKind.OK;
-    value : T;
-    state : any;
+import {ParsingFailureSignal, ParsingFailureError} from "../../base/parsing-failure";
+
+export class SuccessResult<T> {
+    kind = ResultKind.OK;
+    constructor(public value : T){
+
+    }
+
+    get resolve() : T {
+        return this.value;
+    }
 }
 
-export interface FailResult {
-    kind : ResultKind.FatalFail | ResultKind.SoftFail | ResultKind.HardFail;
-    state : any;
+export interface Trace {
+    state : object;
+    position : number;
     expecting : string;
 }
 
-export type ParserResult<T> = SuccessResult<T> | FailResult;
+export class FailResult {
+    constructor(public kind : FailResultKind, public trace : Trace) {
+
+    }
+    get  resolve() : never {
+        throw new ParsingFailureError(this);
+    }
+}
+
+export type ParserResult<T> = (SuccessResult<T> | FailResult)
 
 export type QuietParserResult = ParserResult<void>;
+
 /**
  *
  */
-export enum ResultKind {
-    Unknown,
-    OK,
-    SoftFail,
-    HardFail,
-    FatalFail
+
+export module ResultKind {
+    export type Unknown = "Unknown";
+    export type OK = "OK";
+    export type SoftFail = "SoftFail";
+    export type HardFail = "HardFail";
+    export type FatalFail = "FatalFail";
+
+    export const Unknown : Unknown = "Unknown";
+    export const OK : OK = "OK";
+    export const SoftFail : SoftFail = "SoftFail";
+    export const HardFail : HardFail = "HardFail";
+    export const FatalFail : FatalFail = "FatalFail";
 }
 
-export type FailIndicator =
-    ResultKind.SoftFail | ResultKind.HardFail | ResultKind.FatalFail |
-        "SoftFail" | "HardFail" | "FatalFail";
+export type ResultKind = ResultKind.OK | ResultKind.HardFail | ResultKind.FatalFail | ResultKind.SoftFail | ResultKind.Unknown;
 
-export function toResultKind(indicator : FailIndicator | ResultKind) : ResultKind {
-    if (typeof indicator !== 'number') {
-        switch (indicator) {
-            case "FatalFail":
-                indicator = ResultKind.FatalFail;
-                break;
-            case "HardFail":
-                indicator = ResultKind.HardFail;
-                break;
-            case "SoftFail":
-                indicator = ResultKind.SoftFail;
-                break;
-            default:
-                indicator = ResultKind.Unknown as any;
-                break;
-        }
-        return indicator as ResultKind;
-    }
-    return indicator;
-}
+
+export type FailResultKind = ResultKind.HardFail | ResultKind.FatalFail | ResultKind.SoftFail;

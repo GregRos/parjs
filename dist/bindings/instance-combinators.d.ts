@@ -1,14 +1,18 @@
 import { BaseParjsParser } from "../base/parser";
 import { LoudParser } from "../abstract/combinators/loud";
-import { FailIndicator } from "../abstract/basics/result";
+import { FailResultKind } from "../abstract/basics/result";
 import { QuietParser } from "../abstract/combinators/quiet";
 import { AnyParser } from "../abstract/combinators/any";
 export declare class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
+    thenChoose<TParser extends AnyParser>(selector: (x: any) => TParser, map?: Map<any, TParser>): TParser;
     between(preceding: AnyParser, proceeding?: AnyParser): any;
     readonly backtrack: ParjsParser;
-    mustCapture(failType?: FailIndicator): ParjsParser;
+    mustState(predicate: (state: any) => boolean): ParjsParser;
+    mustCapture(failType?: FailResultKind): ParjsParser;
     or(...others: AnyParser[]): any;
-    map(f: (result: any) => any): ParjsParser;
+    readonly state: LoudParser<any>;
+    map(f: any): ParjsParser;
+    act(f: any): ParjsParser;
     readonly q: ParjsParser;
     readonly soft: ParjsParser;
     then(...next: any[]): any;
@@ -22,8 +26,9 @@ export declare class ParjsParser extends BaseParjsParser implements LoudParser<a
     orVal(x: any): ParjsParser;
     cast(): this;
     readonly str: ParjsParser;
-    must(condition: (result: any) => boolean, name?: string, fail?: FailIndicator): ParjsParser;
+    must(condition: (result: any, state: any) => boolean, name?: string, fail?: FailResultKind): ParjsParser;
     mustNotBeOf(...options: any[]): ParjsParser;
     mustBeOf(...options: any[]): ParjsParser;
     readonly mustBeNonEmpty: ParjsParser;
+    withName(newName: string): this;
 }

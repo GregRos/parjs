@@ -1,30 +1,25 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var tslib_1 = require("tslib");
-var action_1 = require("../../../base/action");
-var result_1 = require("../../../abstract/basics/result");
+const action_1 = require("../../../base/action");
+const result_1 = require("../../../abstract/basics/result");
 /**
  * Created by User on 24-Nov-16.
  */
-var PrsCharCodeWhere = (function (_super) {
-    tslib_1.__extends(PrsCharCodeWhere, _super);
-    function PrsCharCodeWhere(predicate, property) {
-        if (property === void 0) { property = "(a specific property)"; }
-        var _this = _super.call(this) || this;
-        _this.predicate = predicate;
-        _this.displayName = "charCodeWhere";
-        _this.isLoud = true;
-        _this.expecting = "any character satisfying " + property + ".";
-        return _this;
+class PrsCharCodeWhere extends action_1.ParjsBasicAction {
+    constructor(predicate, property = "(a specific property)") {
+        super();
+        this.predicate = predicate;
+        this.displayName = "charCodeWhere";
+        this.isLoud = true;
+        this.expecting = `any character satisfying ${property}.`;
     }
-    PrsCharCodeWhere.prototype._apply = function (ps) {
-        var predicate = this.predicate;
-        var position = ps.position, input = ps.input;
+    _apply(ps) {
+        let { predicate } = this;
+        let { position, input } = ps;
         if (position >= input.length) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
         }
-        var curChar = input.charCodeAt(position);
+        let curChar = input.charCodeAt(position);
         if (!predicate(curChar)) {
             ps.kind = result_1.ResultKind.SoftFail;
             return;
@@ -32,8 +27,7 @@ var PrsCharCodeWhere = (function (_super) {
         ps.value = String.fromCharCode(curChar);
         ps.position++;
         ps.kind = result_1.ResultKind.OK;
-    };
-    return PrsCharCodeWhere;
-}(action_1.ParjsBasicAction));
+    }
+}
 exports.PrsCharCodeWhere = PrsCharCodeWhere;
 //# sourceMappingURL=char-code-where.js.map

@@ -1,241 +1,137 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var instance_combinators_1 = require("./instance-combinators");
-var parsers_1 = require("../implementation/parsers");
-var combinators_1 = require("../implementation/combinators");
-var char_indicators_1 = require("../functions/char-indicators");
-var result_1 = require("../abstract/basics/result");
-var int_1 = require("../implementation/parsers/numbers/int");
-var float_1 = require("../implementation/parsers/numbers/float");
-var _ = require("lodash");
-var common_1 = require("../implementation/common");
-var late_1 = require("../implementation/combinators/special/late");
+const instance_combinators_1 = require("./instance-combinators");
+const parsers_1 = require("../implementation/parsers");
+const combinators_1 = require("../implementation/combinators");
+const char_indicators_1 = require("../functions/char-indicators");
+const result_1 = require("../abstract/basics/result");
+const int_1 = require("../implementation/parsers/numbers/int");
+const float_1 = require("../implementation/parsers/numbers/float");
+const _ = require("lodash");
+const common_1 = require("../implementation/common");
+const late_1 = require("../implementation/combinators/special/late");
 /**
  * Created by lifeg on 24/11/2016.
  */
 function wrap(action) {
     return new instance_combinators_1.ParjsParser(action);
 }
-function changeName(parser, altName) {
-    parser.displayName = altName;
-}
-var ParjsParsers = (function () {
-    function ParjsParsers() {
+class ParjsParsers {
+    get spaces1() {
+        return this.space.many(1).withName("spaces1");
     }
-    Object.defineProperty(ParjsParsers.prototype, "spaces1", {
-        get: function () {
-            return this.space.many(1);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ParjsParsers.prototype.late = function (resolver) {
-        return wrap(new late_1.PrsLate(function () { return resolver().action; }));
-    };
-    ParjsParsers.prototype.char = function (theChar) {
+    late(resolver) {
+        return wrap(new late_1.PrsLate(() => resolver().action)).withName("late");
+    }
+    char(theChar) {
         if (theChar.length !== 1) {
             throw common_1.Issues.stringWrongLength({ displayName: "char" }, "1");
         }
-        return this.anyCharOf(theChar);
-    };
-    Object.defineProperty(ParjsParsers.prototype, "asciiLetter", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isAsciiLetter);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ParjsParsers.prototype.any = function () {
-        var parsers = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            parsers[_i] = arguments[_i];
-        }
-        return wrap(new combinators_1.PrsAlts(parsers.map(function (x) { return x.action; })));
-    };
-    ParjsParsers.prototype.seq = function () {
-        var parsers = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            parsers[_i] = arguments[_i];
-        }
-        return wrap(new combinators_1.PrsSeq(parsers.map(function (x) { return x.action; })));
-    };
-    Object.defineProperty(ParjsParsers.prototype, "anyChar", {
-        get: function () {
-            return wrap(new parsers_1.PrsStringLen(1));
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ParjsParsers.prototype.charWhere = function (predicate) {
-        return wrap(new parsers_1.PrsCharWhere(predicate));
-    };
-    ParjsParsers.prototype.anyCharOf = function (options) {
-        return this.charWhere(function (x) { return options.includes(x); });
-    };
-    ParjsParsers.prototype.noCharOf = function (options) {
-        return this.charWhere(function (x) { return !options.includes(x); });
-    };
-    Object.defineProperty(ParjsParsers.prototype, "digit", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isDigit);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "hex", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isHex);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "upper", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isUpper);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "lower", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isLower);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "letter", {
-        get: function () {
-            return this.charWhere(function (x) { return char_indicators_1.Chars.isLower(x) || char_indicators_1.Chars.isUpper(x); });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "asciiLower", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isAsciiLower);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "asciiUpper", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isAsciiUpper);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "newline", {
-        get: function () {
-            return wrap(new parsers_1.PrsNewline(false));
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "unicodeNewline", {
-        get: function () {
-            return wrap(new parsers_1.PrsNewline(true));
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "space", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isInlineSpace);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "unicodeSpace", {
-        get: function () {
-            return this.charWhere(char_indicators_1.Chars.isUnicodeInlineSpace);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "spaces", {
-        get: function () {
-            return this.space.many().str;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "unicodeSpaces", {
-        get: function () {
-            return this.unicodeSpaces.many().str;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "rest", {
-        get: function () {
-            return wrap(new parsers_1.PrsRest());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ParjsParsers.prototype.string = function (str) {
-        return wrap(new parsers_1.PrsString(str));
-    };
-    ParjsParsers.prototype.anyStringOf = function () {
-        var strs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            strs[_i] = arguments[_i];
-        }
-        return wrap(new parsers_1.AnyStringOf(strs));
-    };
-    ParjsParsers.prototype.stringLen = function (length) {
-        return wrap(new parsers_1.PrsStringLen(length));
-    };
-    ParjsParsers.prototype.regexp = function (regex) {
-        return wrap(new parsers_1.PrsRegexp(regex));
-    };
-    ParjsParsers.prototype.result = function (x) {
-        return wrap(new parsers_1.PrsResult(x));
-    };
-    Object.defineProperty(ParjsParsers.prototype, "eof", {
-        get: function () {
-            return wrap(new parsers_1.PrsEof());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ParjsParsers.prototype.fail = function (expecting, kind) {
-        if (expecting === void 0) { expecting = ""; }
-        if (kind === void 0) { kind = result_1.ResultKind.SoftFail; }
-        return wrap(new parsers_1.PrsFail(result_1.toResultKind(kind), expecting));
-    };
-    Object.defineProperty(ParjsParsers.prototype, "position", {
-        get: function () {
-            return wrap(new parsers_1.PrsPosition());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ParjsParsers.prototype, "state", {
-        get: function () {
-            return wrap(new parsers_1.PrsState());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ParjsParsers.prototype.int = function (options) {
+        return this.anyCharOf(theChar).withName("char");
+    }
+    get asciiLetter() {
+        return this.charWhere(char_indicators_1.Chars.isAsciiLetter).withName("asciiLetter");
+    }
+    any(...parsers) {
+        return wrap(new combinators_1.PrsAlts(parsers.map(x => x.action))).withName("any");
+    }
+    seq(...parsers) {
+        return wrap(new combinators_1.PrsSeq(parsers.map(x => x.action))).withName("seq");
+    }
+    get anyChar() {
+        return wrap(new parsers_1.PrsStringLen(1)).withName("anyChar");
+    }
+    charWhere(predicate, property) {
+        return wrap(new parsers_1.PrsCharWhere(predicate, property)).withName(`charWhere`);
+    }
+    anyCharOf(options) {
+        return this.charWhere(x => options.includes(x), `any of ${options}`).withName("anyCharOf");
+    }
+    noCharOf(options) {
+        return this.charWhere(x => !options.includes(x)).withName("noCharOf");
+    }
+    get digit() {
+        return this.charWhere(char_indicators_1.Chars.isDigit).withName("digit");
+    }
+    get hex() {
+        return this.charWhere(char_indicators_1.Chars.isHex).withName("hex");
+    }
+    get upper() {
+        return this.charWhere(char_indicators_1.Chars.isUpper).withName("upper");
+    }
+    get lower() {
+        return this.charWhere(char_indicators_1.Chars.isLower).withName("lower");
+    }
+    get asciiLower() {
+        return this.charWhere(char_indicators_1.Chars.isAsciiLower).withName("asciiLower");
+    }
+    get asciiUpper() {
+        return this.charWhere(char_indicators_1.Chars.isAsciiUpper).withName("asciiUpper");
+    }
+    get newline() {
+        return wrap(new parsers_1.PrsNewline(false)).withName("newline");
+    }
+    get unicodeNewline() {
+        return wrap(new parsers_1.PrsNewline(true)).withName("unicodeNewline");
+    }
+    get space() {
+        return this.charWhere(char_indicators_1.Chars.isInlineSpace).withName("space");
+    }
+    get unicodeSpace() {
+        return this.charWhere(char_indicators_1.Chars.isUnicodeInlineSpace).withName("unicodeSpace");
+    }
+    get spaces() {
+        return this.space.many().str.withName("spaces");
+    }
+    get unicodeSpaces() {
+        return this.unicodeSpaces.many().str.withName("unicodeSpaces");
+    }
+    get rest() {
+        return wrap(new parsers_1.PrsRest()).withName("rest");
+    }
+    string(str) {
+        return wrap(new parsers_1.PrsString(str)).withName("string");
+    }
+    anyStringOf(...strs) {
+        return wrap(new parsers_1.AnyStringOf(strs)).withName("anyStringOf");
+    }
+    stringLen(length) {
+        return wrap(new parsers_1.PrsStringLen(length)).withName("stringLen");
+    }
+    regexp(regex) {
+        return wrap(new parsers_1.PrsRegexp(regex)).withName("regexp");
+    }
+    result(x) {
+        return wrap(new parsers_1.PrsResult(x)).withName("result");
+    }
+    get eof() {
+        return wrap(new parsers_1.PrsEof()).withName("eof");
+    }
+    fail(expecting = "", kind = result_1.ResultKind.SoftFail) {
+        return wrap(new parsers_1.PrsFail(kind, expecting)).withName("fail");
+    }
+    get position() {
+        return wrap(new parsers_1.PrsPosition()).withName("position");
+    }
+    get state() {
+        return wrap(new parsers_1.PrsState()).withName("state");
+    }
+    int(options) {
         options = _.defaults({}, options, {
             base: 10,
             allowSign: true
         });
-        return wrap(new int_1.PrsInt(options));
-    };
-    ParjsParsers.prototype.float = function (options) {
+        return wrap(new int_1.PrsInt(options)).withName("int");
+    }
+    float(options) {
         options = _.defaults({}, options, {
             allowImplicitZero: true,
             allowExponent: true,
             allowSign: true,
             allowFloatingPoint: true
         });
-        return wrap(new float_1.PrsFloat(options));
-    };
-    return ParjsParsers;
-}());
+        return wrap(new float_1.PrsFloat(options)).withName("float");
+    }
+}
 exports.ParjsParsers = ParjsParsers;
 exports.Parjs = new ParjsParsers();
 

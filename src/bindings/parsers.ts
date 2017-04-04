@@ -9,7 +9,7 @@ import {PrimitiveParsers} from "../abstract/parsers/primitives";
 import {SpecialParsers} from "../abstract/parsers/special";
 import {StaticCombinators} from "../abstract/combinators/static";
 import {AnyParser} from "../abstract/combinators/any";
-import {ResultKind, FailIndicator, toResultKind} from "../abstract/basics/result";
+import {ResultKind, FailResult} from "../abstract/basics/result";
 import {IntOptions, PrsInt} from "../implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "../implementation/parsers/numbers/float";
 import {NumericParsers} from "../abstract/parsers/numeric";
@@ -17,6 +17,7 @@ import {assert} from 'chai';
 import _ = require('lodash');
 import {Issues} from "../implementation/common";
 import {PrsLate} from "../implementation/combinators/special/late";
+import {FailResultKind} from "../../dist/abstract/basics/result";
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -25,146 +26,142 @@ function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
-function changeName(parser : ParjsParser, altName : string) {
-    (parser as {displayName : string}).displayName = altName;
-}
 
 export class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
 
+
+
     get spaces1() {
-        return this.space.many(1);
+        return this.space.many(1).withName("spaces1");
     }
 
     late(resolver : () => AnyParser) {
-        return wrap(new PrsLate(() => resolver().action));
+        return wrap(new PrsLate(() => resolver().action)).withName("late");
     }
 
     char(theChar : string) {
         if (theChar.length !== 1) {
             throw Issues.stringWrongLength({displayName : "char"}, "1");
         }
-        return this.anyCharOf(theChar)
+        return this.anyCharOf(theChar).withName("char")
     }
 
     get asciiLetter() {
-        return this.charWhere(Chars.isAsciiLetter);
+        return this.charWhere(Chars.isAsciiLetter).withName("asciiLetter")
     }
 
 
     any(...parsers : AnyParser[]) {
-        return wrap(new PrsAlts(parsers.map(x => x.action)));
+        return wrap(new PrsAlts(parsers.map(x => x.action))).withName("any");
     }
 
     seq(...parsers : AnyParser[]) {
-        return wrap(new PrsSeq(parsers.map(x => x.action)));
+        return wrap(new PrsSeq(parsers.map(x => x.action))).withName("seq");
     }
 
     get anyChar() {
-        return wrap(new PrsStringLen(1));
+        return wrap(new PrsStringLen(1)).withName("anyChar");
     }
 
-    charWhere(predicate : (char : string) => boolean) {
-        return wrap(new PrsCharWhere(predicate));
+    charWhere(predicate : (char : string) => boolean, property ?: string) {
+        return wrap(new PrsCharWhere(predicate, property)).withName(`charWhere`);
     }
 
     anyCharOf(options : string) {
-        return this.charWhere(x => options.includes(x));
+        return this.charWhere(x => options.includes(x), `any of ${options}`).withName("anyCharOf");
     }
 
     noCharOf(options : string) {
-        return this.charWhere(x => !options.includes(x));
+        return this.charWhere(x => !options.includes(x)).withName("noCharOf");
     }
 
     get digit() {
-        return this.charWhere(Chars.isDigit);
+        return this.charWhere(Chars.isDigit).withName("digit");
     }
 
     get hex() {
-        return this.charWhere(Chars.isHex);
+        return this.charWhere(Chars.isHex).withName("hex");
     }
 
     get upper() {
-        return this.charWhere(Chars.isUpper);
+        return this.charWhere(Chars.isUpper).withName("upper");
     }
 
     get lower() {
-        return this.charWhere(Chars.isLower);
+        return this.charWhere(Chars.isLower).withName("lower");
     }
 
-    get letter() {
-        return this.charWhere(x => Chars.isLower(x) || Chars.isUpper(x))
-    }
 
     get asciiLower() {
-        return this.charWhere(Chars.isAsciiLower);
+        return this.charWhere(Chars.isAsciiLower).withName("asciiLower");
     }
 
     get asciiUpper() {
-        return this.charWhere(Chars.isAsciiUpper);
+        return this.charWhere(Chars.isAsciiUpper).withName("asciiUpper");
     }
 
     get newline() {
-        return wrap(new PrsNewline(false));
+        return wrap(new PrsNewline(false)).withName("newline");
     }
 
     get unicodeNewline() {
-        return wrap(new PrsNewline(true));
+        return wrap(new PrsNewline(true)).withName("unicodeNewline");
     }
 
     get space() {
-        return this.charWhere(Chars.isInlineSpace);
+        return this.charWhere(Chars.isInlineSpace).withName("space");
     }
 
     get unicodeSpace() {
-        return this.charWhere(Chars.isUnicodeInlineSpace);
+        return this.charWhere(Chars.isUnicodeInlineSpace).withName("unicodeSpace");
     }
 
     get spaces() {
-        return this.space.many().str;
+        return this.space.many().str.withName("spaces");
     }
 
     get unicodeSpaces() {
-        return this.unicodeSpaces.many().str;
+        return this.unicodeSpaces.many().str.withName("unicodeSpaces");
     }
 
     get rest() {
-        return wrap(new PrsRest());
+        return wrap(new PrsRest()).withName("rest");
     }
 
     string(str : string) {
-        return wrap(new PrsString(str));
+        return wrap(new PrsString(str)).withName("string");
     }
 
     anyStringOf(...strs : string[]){
-        return wrap(new AnyStringOf(strs));
+        return wrap(new AnyStringOf(strs)).withName("anyStringOf");
     }
 
     stringLen(length : number) {
-        return wrap(new PrsStringLen(length));
+        return wrap(new PrsStringLen(length)).withName("stringLen");
     }
 
     regexp(regex : RegExp) {
-        return wrap(new PrsRegexp(regex));
+        return wrap(new PrsRegexp(regex)).withName("regexp");
     }
 
     result(x : any) {
-        return wrap(new PrsResult(x));
+        return wrap(new PrsResult(x)).withName("result");
     }
 
     get eof() {
-        return wrap(new PrsEof());
+        return wrap(new PrsEof()).withName("eof");
     }
 
-    fail(expecting = "", kind : FailIndicator = ResultKind.SoftFail) {
-        return wrap(new PrsFail(toResultKind(kind), expecting));
+    fail(expecting = "", kind : FailResultKind = ResultKind.SoftFail) {
+        return wrap(new PrsFail(kind, expecting)).withName("fail");
     }
 
     get position() {
-        return wrap (new PrsPosition())
+        return wrap (new PrsPosition()).withName("position");
     }
 
     get state() {
-        return wrap(new PrsState());
+        return wrap(new PrsState()).withName("state");
     }
 
     int(options ?: IntOptions) {
@@ -172,7 +169,7 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
             base: 10,
             allowSign : true
         });
-        return wrap(new PrsInt(options));
+        return wrap(new PrsInt(options)).withName("int");
     }
 
     float(options ?: FloatOptions) {
@@ -183,7 +180,7 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
             allowFloatingPoint : true
         } as FloatOptions);
 
-        return wrap(new PrsFloat(options));
+        return wrap(new PrsFloat(options)).withName("float");
     }
 }
 

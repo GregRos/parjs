@@ -18,16 +18,17 @@ export class PrsManySepBy extends ParjsAction {
 
     _apply(ps : ParsingState) {
         let {many, sep, maxIterations, isLoud} = this;
-        let {position} = ps;
+
         let arr = [];
         many.apply(ps);
-        if (ps.kind >= ResultKind.HardFail) {
+        if (ps.atLeast(ResultKind.HardFail)) {
             return;
         } else if (ps.isSoft) {
             ps.value = [];
             ps.kind = ResultKind.OK;
             return;
         }
+        let {position} = ps;
         arr.maybePush(ps.value);
         let i = 1;
         while (true) {
@@ -35,14 +36,14 @@ export class PrsManySepBy extends ParjsAction {
             sep.apply(ps);
             if (ps.isSoft) {
                 break;
-            } else if (ps.kind >= ResultKind.HardFail) {
+            } else if (ps.atLeast(ResultKind.HardFail)) {
                 return;
             }
 
             many.apply(ps);
             if (ps.isSoft) {
                 break;
-            } else if (ps.kind >= ResultKind.HardFail) {
+            } else if (ps.atLeast(ResultKind.HardFail)) {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
