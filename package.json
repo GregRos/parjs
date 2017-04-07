@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "dist/index",
@@ -43,6 +43,7 @@
     "@types/core-js": "^0.9.35",
     "@types/jasmine": "^2.5.37",
     "@types/lodash": "^4.14.40",
+    "codecov": "^2.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^1.11.0",

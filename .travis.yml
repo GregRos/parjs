@@ -7,10 +7,9 @@ cache:
     - node_modules
 install:
   - npm install --save-dev
-  - npm install -g codecov
-  - npm install -g istanbul
+  - npm install -g npm-run
 script:
-  - istanbul cover ./jrunner.js --report lcovonly -- -R spec
-  - codecov
+  - npm-run istanbul cover ./jrunner.js --report lcovonly -- -R spec
+  - npm-run codecov
 node_js:
   - "6.1"
