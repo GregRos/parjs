@@ -84,11 +84,4 @@ export interface QuietParser extends AnyParser {
      * @param count The number of times to apply this parser.
      */
     exactly(count : number) : QuietParser;
-
-    /**
-     * P applies this parser and applies {reducer} to the current state state.
-     * The initial internal state is normally undefined.
-     * @param reducer Transformation to apply to the state state.
-     */
-    withState(reducer : (state : any) => any) : QuietParser;
 }

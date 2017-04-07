@@ -30,13 +30,9 @@ describe("special parsers", () => {
 
     describe("Parjs.state", () => {
         let parser = Parjs.state;
-        let uState = {};
+        let uState = {tag : 1};
         let someInput = "abcd";
         let noInput = "";
-        it("succeeds on empty input", () => {
-            let result = parser.parse(noInput, uState);
-            expectSuccess(result, uState);
-        });
         it("fails on non-empty input", () => {
             let result = parser.parse(someInput, uState);
             expectFailure(result);
@@ -78,4 +74,34 @@ describe("special parsers", () => {
             expectFailure(parser.parse(input), ResultKind.FatalFail);
         });
     });
+
+    describe("Parjs.nop", () => {
+        let parser = Parjs.nop;
+        it("succeeds on no input", () => {
+            expectSuccess(parser.parse(""));
+        });
+        it("fails on input", () => {
+            expectFailure(parser.parse(" "), "SoftFail");
+        })
+    });
+
+    describe("Parjs.late", () => {
+        let s = "";
+        let parser = Parjs.late(() => {
+            s += "a";
+            return Parjs.string(s);
+        });
+
+        it("first success", () => {
+            expectSuccess(parser.parse("a"), "a");
+        });
+
+        it("second success", () => {
+            expectSuccess(parser.parse("a"), "a");
+        });
+
+        it("fail", () => {
+            expectFailure(parser.parse(""), "SoftFail");
+        })
+    })
 });

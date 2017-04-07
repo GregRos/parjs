@@ -55,15 +55,6 @@ export interface CharParsers {
      */
     readonly asciiUpper : LoudParser<string>;
 
-    /**
-     * P Parses a single Unicode lower-case character.
-     */
-    readonly lower : LoudParser<string>;
-
-    /**
-     * P Parses a single Unicode upper-case character.
-     */
-    readonly upper : LoudParser<string>;
 
     /**
      * P Parses either \n, \r\n, or \r and returns the string that was parsed.

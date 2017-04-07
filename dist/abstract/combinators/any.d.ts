@@ -20,27 +20,24 @@ export interface AnyParser {
      */
     readonly q: QuietParser;
     /**
-     * P applies this parser and succeeds without consuming input if this parser fails. P fails if this parser succeeds.
+     * P applies this parser and succeeds without consuming input if this parser fails.
      */
     readonly not: QuietParser;
     /**
      * P discards the result of this parser, if any, and instead returns its parser state.
      */
     readonly state: LoudParser<any>;
-    /**
-     * P verifies that the parsing state matches the predicate or fails hard.
-     * @param predicate The predicate to verify.
-     */
-    mustState(predicate: (state: any) => boolean): any;
     readonly isLoud: boolean;
     /**
      * P applies this parser and maps the result to a string.
      * This is done differently depending on what this parser returns.
      * For an array (usually of strings), the elements are concatenated and returned as a single string.
+     * For a string, the string is returned.
      * For a quiet parser, an empty string is returned.
      * For a number, it is turned into a string.
      * For a symbol, its description text is returned.
      * For an object, its toString method is invoked.
+     * For null or undefined, the strings "null" or "undefined" are returned.
      */
     readonly str: LoudParser<string>;
 }

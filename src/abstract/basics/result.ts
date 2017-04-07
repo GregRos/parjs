@@ -2,7 +2,7 @@
  * Created by lifeg on 24/11/2016.
  */
 import _ = require('lodash');
-import {ParsingFailureSignal, ParsingFailureError} from "../../base/parsing-failure";
+import {ParsingFailureError} from "../../base/parsing-failure";
 
 export class SuccessResult<T> {
     kind = ResultKind.OK;
@@ -10,7 +10,7 @@ export class SuccessResult<T> {
 
     }
 
-    get resolve() : T {
+    resolve() : T {
         return this.value;
     }
 }
@@ -25,7 +25,7 @@ export class FailResult {
     constructor(public kind : FailResultKind, public trace : Trace) {
 
     }
-    get  resolve() : never {
+    resolve() : never {
         throw new ParsingFailureError(this);
     }
 }

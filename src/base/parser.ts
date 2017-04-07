@@ -1,12 +1,14 @@
 import {QUIET_RESULT, FAIL_RESULT, Issues} from "../implementation/common";
 import {ParjsAction, BasicParsingState} from "./action";
 import {ResultKind, ParserResult, SuccessResult, FailResult, Trace} from "../abstract/basics/result";
-import {ParsingFailureSignal} from "./parsing-failure";
 import _ = require('lodash');
 /**
  * Created by User on 22-Nov-16.
  */
 
+class ParserState {
+
+}
 
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
@@ -29,18 +31,8 @@ export abstract class BaseParjsParser {
         }
         let {action, isLoud} = this;
         let ps = new BasicParsingState(input);
-        ps.state = _.defaults({}, initialState);
-        try {
-            action.apply(ps);
-        }
-        catch (ex) {
-            if (ex instanceof ParsingFailureSignal) {
-                ps.kind = ex.level;
-                ps.expecting = ex.message;
-            } else {
-                throw ex;
-            }
-        }
+        ps.state = _.defaults(new ParserState(), initialState);
+        action.apply(ps);
 
         if (ps.isOk) {
             if (ps.position !== input.length) {

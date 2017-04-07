@@ -13,11 +13,19 @@ describe("basics: anyChar example", () => {
     });
     it("empty input failure", () => {
         let result = parser.parse(failInput, uniqueState);
-        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail, uniqueState);
+        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail);
     });
     it("fails on too much input", () => {
-        let result = parser.parse(tooMuchInput, uniqueState);
-        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail, uniqueState);
+        let result = parser.parse(tooMuchInput);
+        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail);
+    });
+    describe("resolve", () => {
+        it("throws", () => {
+            expect(() => parser.parse("").resolve()).toThrow();
+        });
+        it("doesn't throw", () => {
+            expect(parser.parse("a").resolve()).toBe("a");
+        });
     });
     describe("non-string inputs", () => {
         it("throws on null, undefined", () => {

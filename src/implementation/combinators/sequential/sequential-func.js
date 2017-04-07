@@ -45,4 +45,4 @@ class PrsSeqFunc extends action_1.ParjsAction {
     }
 }
 exports.PrsSeqFunc = PrsSeqFunc;
-//# sourceMappingURL=sequential-func.no-cover.js.map
+//# sourceMappingURL=sequential-func.js.map

@@ -2,11 +2,12 @@
 const common_1 = require("../implementation/common");
 const action_1 = require("./action");
 const result_1 = require("../abstract/basics/result");
-const parsing_failure_1 = require("./parsing-failure");
 const _ = require("lodash");
 /**
  * Created by User on 22-Nov-16.
  */
+class ParserState {
+}
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
@@ -27,19 +28,8 @@ class BaseParjsParser {
         }
         let { action, isLoud } = this;
         let ps = new action_1.BasicParsingState(input);
-        ps.state = _.defaults({}, initialState);
-        try {
-            action.apply(ps);
-        }
-        catch (ex) {
-            if (ex instanceof parsing_failure_1.ParsingFailureSignal) {
-                ps.kind = ex.level;
-                ps.expecting = ex.message;
-            }
-            else {
-                throw ex;
-            }
-        }
+        ps.state = _.defaults(new ParserState(), initialState);
+        action.apply(ps);
         if (ps.isOk) {
             if (ps.position !== input.length) {
                 ps.kind = result_1.ResultKind.SoftFail;

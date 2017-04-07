@@ -30,6 +30,61 @@ describe("basic string parsers", () => {
         });
     });
 
+    describe("Parjs.spaces1", () => {
+        let parser = Parjs.spaces1;
+        it ("fails on empty input", () => {
+            expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            expectFailure(parser.parse("a"), "SoftFail");
+        });
+        it("succeeds on single space", () => {
+            expectSuccess(parser.parse(" "), " ");
+        });
+        it("succeeds on multiple spaces", () => {
+            expectSuccess(parser.parse(" ".repeat(5)), " ".repeat(5));
+        })
+    });
+
+    describe("Parjs.asciiUpper", () => {
+        let parser = Parjs.asciiUpper;
+        it ("fails on empty input", () => {
+            expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            expectFailure(parser.parse(","), "SoftFail");
+        });
+        it("succeeds on char", () => {
+            expectSuccess(parser.parse("A"), "A");
+        });
+    });
+
+    describe("Parjs.asciiUpper", () => {
+        let parser = Parjs.asciiLower;
+        it ("fails on empty input", () => {
+            expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            expectFailure(parser.parse(","), "SoftFail");
+        });
+        it("succeeds on char", () => {
+            expectSuccess(parser.parse("a"), "a");
+        });
+    });
+
+    describe("Parjs.asciiLetter", () => {
+        let parser = Parjs.asciiLower;
+        it ("fails on empty input", () => {
+            expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            expectFailure(parser.parse(","), "SoftFail");
+        });
+        it("succeeds on char", () => {
+            expectSuccess(parser.parse("a"), "a");
+        });
+    });
+
     describe("Parjs.anyCharOf[abcd]", () => {
         let parser = Parjs.anyCharOf("abcd");
         let success = "c";

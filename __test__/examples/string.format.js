@@ -2,7 +2,7 @@
 /**
  * Created by lifeg on 04/04/2017.
  */
-require("source-map-support/register");
+require("../setup");
 const parsers_1 = require("../../src/bindings/parsers");
 //+ DEFINING THE PARSER
 //Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
@@ -18,8 +18,10 @@ let text = parsers_1.Parjs.noCharOf("`{").many(1).str.map(x => ({ text: x }));
 //The parser itself. Parses either a formatToken, e.g. {abc} or an escaped combo `x, or text that doesn't contain `{.
 //Parses many times.
 let formatParser = formatToken.or(escape, text).many();
+//This prints a sequence of tokens {text: "hello, my name is "}, {token: name}, {text: " and I am "}, {token: " years old}, ...
+console.log(formatParser.parse("hello, my name is {name} and I am {age} years old. This is `{escaped}. This is double escaped: ``{name}."));
 function toTemplate(formatString) {
-    let stream = formatParser.parse(formatString).resolve;
+    let stream = formatParser.parse(formatString).resolve();
     return {
         inject(args) {
             let str = "";

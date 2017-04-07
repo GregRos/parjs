@@ -6,10 +6,10 @@ import { ParsingState } from "../../../abstract/basics/state";
  */
 export declare class PrsLate extends ParjsAction {
     private _resolver;
-    displayName: string;
     isLoud: boolean;
+    displayName: string;
     expecting: string;
     private _resolved;
-    constructor(_resolver: () => AnyParserAction);
+    constructor(_resolver: () => AnyParserAction, isLoud: boolean);
     _apply(ps: ParsingState): void;
 }

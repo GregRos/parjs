@@ -1,13 +1,12 @@
 "use strict";
-require("source-map-support/register");
+require("../setup");
 const parsers_1 = require("../../src/bindings/parsers");
-const parsing_failure_1 = require("../../src/base/parsing-failure");
+const _ = require("lodash");
 /**
  * Created by lifeg on 24/03/2017.
  */
 let letterOrDigit = parsers_1.Parjs.asciiLetter.or(parsers_1.Parjs.digit);
 let ident = parsers_1.Parjs.asciiLetter.then(letterOrDigit.many()).str;
-let xml;
 let quotedString = (q) => {
     return parsers_1.Parjs.noCharOf(q).many().str.between(parsers_1.Parjs.string(q));
 };
@@ -22,11 +21,10 @@ let openTag = parsers_1.Parjs.seq(parsers_1.Parjs.string("<").q, ident, multiple
         state.tags[state.tags.length - 1].content.push(result);
     }
 }).q;
-let closeTag = ident.between(parsers_1.Parjs.string("</"), parsers_1.Parjs.string(">")).act((ident, state) => {
+let closeTag = ident.between(parsers_1.Parjs.string("</"), parsers_1.Parjs.string(">"))
+    .must((ident, state) => ident === _.last(state.tags).ident)
+    .act((ident, state) => {
     let last = state.tags[state.tags.length - 1];
-    if (last.ident !== ident) {
-        throw new parsing_failure_1.ParsingFailureSignal("Unexpected close tags", "HardFail");
-    }
     let tags = state.tags.pop();
     state.tags[state.tags.length - 1].content.push(tags);
 }).q;

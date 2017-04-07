@@ -5,8 +5,13 @@ import { AnyParser } from "./any";
  * Created by lifeg on 19/11/2016.
  */
 export interface StaticCombinators {
+    /**
+     * The first time P is invoked, it calls {resolver} with no arguments and caches the result. From that point, it acts like the parser returned by {resolver}.
+     * This can be used to create certain kinds of recursive parsers.
+     *
+     * @param resolver
+     */
     late<T>(resolver: () => LoudParser<T>): LoudParser<T>;
-    late(resolver: () => QuietParser): QuietParser;
     /**
      * P tries the given parsers, one after the other, and returns the value of the first one that succeeds.
      * @param pars The parsers.

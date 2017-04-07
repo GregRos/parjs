@@ -1,5 +1,6 @@
 "use strict";
 const result_1 = require("../dist/abstract/basics/result");
+const _ = require("lodash");
 class CustomMatcherDefs {
     toBeAnyOf(expecteds, failMessage) {
         let result;
@@ -12,6 +13,13 @@ class CustomMatcherDefs {
         return {
             pass: result,
             message: result ? undefined : failMessage
+        };
+    }
+    toBeLike(o, failMessage) {
+        let pass = _.matches(o)(this.actual);
+        return {
+            pass: pass,
+            message: pass ? undefined : failMessage
         };
     }
     toHaveType(type, failMessage) {
@@ -30,9 +38,9 @@ class CustomMatcherDefs {
     }
 }
 exports.CustomMatchers = {};
-let defs = new CustomMatcherDefs();
-for (let prop in defs) {
-    if (defs.hasOwnProperty(prop))
+let defs = CustomMatcherDefs.prototype;
+for (let prop of Reflect.ownKeys(defs)) {
+    if (prop === "constructor")
         continue;
     exports.CustomMatchers[prop] = function (a, b) {
         return {
@@ -43,7 +51,7 @@ for (let prop in defs) {
         };
     };
 }
-function expectFailure(result, failType, state) {
+function expectFailure(result, failType) {
     expect(result.kind).toBeAnyOf([result_1.ResultKind.FatalFail, result_1.ResultKind.HardFail, result_1.ResultKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === result_1.ResultKind.OK)
         return;
@@ -51,19 +59,21 @@ function expectFailure(result, failType, state) {
         expect(result.kind).toBe(failType);
     }
     expect(result.trace.expecting).toHaveType("string", "invaid 'expecting' value");
-    if (state !== undefined) {
-        expect(result.trace.state).toBe(state);
-    }
 }
 exports.expectFailure = expectFailure;
-function expectSuccess(result, value) {
+function expectSuccess(result, value, state) {
     expect(result.kind).toBe(result_1.ResultKind.OK, "kind wasn't OK");
     if (result.kind !== result_1.ResultKind.OK)
         return;
     expect(result).toHaveMember("value", "expecting value");
     expect(result).not.toHaveMember("expecting", "unexpected 'expecting' attribute");
     if (value !== undefined) {
-        expect(result.value).toEqual(value);
+        if (!_.isPlainObject(value)) {
+            expect(result.value).toEqual(value);
+        }
+        else {
+            expect(result.value).toBeLike(value);
+        }
     }
 }
 exports.expectSuccess = expectSuccess;
@@ -71,7 +81,7 @@ function expectResult(result) {
     return {
         toFail(args) {
             args = args || {};
-            expectFailure(result, args.type, args.state);
+            expectFailure(result, args.type);
         },
         toSucceed(args) {
             args = args || {};

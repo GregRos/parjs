@@ -14,13 +14,11 @@ import {PrsExactly} from './sequential/exactly';
 import {PrsMany} from './sequential/many';
 import {PrsManySepBy} from './sequential/manySepBy';
 import {PrsManyTill} from './sequential/manyTill';
-import {PrsSeqFunc} from './sequential/sequential-func.no-cover';
-import {PrsWithState} from './state/with-state';
+import {PrsSeqFunc} from './sequential/sequential-func';
 import {PrsNot} from './special/not';
 import {PrsAltVal} from './alternatives/alt-val';
 export {PrsSeqFunc
     , PrsNot
-    , PrsWithState
     , PrsManyTill
     , PrsManySepBy
     , MapParser

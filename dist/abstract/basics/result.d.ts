@@ -2,7 +2,7 @@ export declare class SuccessResult<T> {
     value: T;
     kind: "OK";
     constructor(value: T);
-    readonly resolve: T;
+    resolve(): T;
 }
 export interface Trace {
     state: object;
@@ -13,7 +13,7 @@ export declare class FailResult {
     kind: FailResultKind;
     trace: Trace;
     constructor(kind: FailResultKind, trace: Trace);
-    readonly resolve: never;
+    resolve(): never;
 }
 export declare type ParserResult<T> = (SuccessResult<T> | FailResult);
 export declare type QuietParserResult = ParserResult<void>;

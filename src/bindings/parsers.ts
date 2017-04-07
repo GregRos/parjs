@@ -17,7 +17,8 @@ import {assert} from 'chai';
 import _ = require('lodash');
 import {Issues} from "../implementation/common";
 import {PrsLate} from "../implementation/combinators/special/late";
-import {FailResultKind} from "../../dist/abstract/basics/result";
+import {FailResultKind} from "../abstract/basics/result";
+import {LoudParser} from "../abstract/combinators/loud";
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -32,18 +33,11 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
 
 
     get spaces1() {
-        return this.space.many(1).withName("spaces1");
+        return this.space.many(1).str.withName("spaces1");
     }
 
-    late(resolver : () => AnyParser) {
-        return wrap(new PrsLate(() => resolver().action)).withName("late");
-    }
-
-    char(theChar : string) {
-        if (theChar.length !== 1) {
-            throw Issues.stringWrongLength({displayName : "char"}, "1");
-        }
-        return this.anyCharOf(theChar).withName("char")
+    late<T>(resolver : () => LoudParser<T>) : LoudParser<T> {
+        return wrap(new PrsLate(() => resolver().action, true)).withName("late");
     }
 
     get asciiLetter() {
@@ -83,15 +77,6 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
         return this.charWhere(Chars.isHex).withName("hex");
     }
 
-    get upper() {
-        return this.charWhere(Chars.isUpper).withName("upper");
-    }
-
-    get lower() {
-        return this.charWhere(Chars.isLower).withName("lower");
-    }
-
-
     get asciiLower() {
         return this.charWhere(Chars.isAsciiLower).withName("asciiLower");
     }
@@ -121,7 +106,11 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
     }
 
     get unicodeSpaces() {
-        return this.unicodeSpaces.many().str.withName("unicodeSpaces");
+        return this.unicodeSpace.many().str.withName("unicodeSpaces");
+    }
+
+    get nop() {
+        return this.result(undefined).q.withName("nop");
     }
 
     get rest() {

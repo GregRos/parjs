@@ -11,7 +11,6 @@ export interface SpecialParsers {
 
     /**
      * P succeeds without consuming input and returns the current user state.
-     * The initial user state is undefined.
      */
     readonly state : LoudParser<any>;
 }

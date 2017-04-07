@@ -1,4 +1,5 @@
 import {ResultKind, ParserResult, FailResultKind} from "../dist/abstract/basics/result";
+import _ =require('lodash');
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -9,6 +10,7 @@ declare global {
             toBeAnyOf(options : any[], failMessage ?: string);
             toHaveType(type : string, failMessage ?: string);
             toHaveMember(name : string, failMessage ?: string);
+            toBeLike(obj : object);
         }
     }
 }
@@ -28,6 +30,15 @@ class CustomMatcherDefs {
             message: result ? undefined : failMessage
         };
     }
+
+    toBeLike(o, failMessage) {
+        let pass = _.matches(o)(this.actual);
+        return {
+            pass : pass,
+            message : pass ? undefined : failMessage
+        }
+    }
+
     toHaveType(type, failMessage) {
         let pass = typeof this.actual === type;
         return {
@@ -49,9 +60,9 @@ export const CustomMatchers = {
 
 } as any;
 
-let defs = new CustomMatcherDefs();
-for (let prop in defs) {
-    if (defs.hasOwnProperty(prop)) continue;
+let defs = CustomMatcherDefs.prototype;
+for (let prop of Reflect.ownKeys(defs)) {
+    if (prop === "constructor") continue;
 
     CustomMatchers[prop] = function(a, b) {
         return {
@@ -65,7 +76,7 @@ for (let prop in defs) {
 
 
 
-export function expectFailure(result : ParserResult<any>, failType ?: FailResultKind, state ?: any) {
+export function expectFailure(result : ParserResult<any>, failType ?: FailResultKind) {
     expect(result.kind).toBeAnyOf([ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ResultKind.OK) return;
     if (failType !== undefined){
@@ -73,18 +84,20 @@ export function expectFailure(result : ParserResult<any>, failType ?: FailResult
     }
 
     expect(result.trace.expecting).toHaveType("string", "invaid 'expecting' value");
-    if (state !== undefined) {
-        expect(result.trace.state).toBe(state);
-    }
 }
 
-export function expectSuccess<T>(result : ParserResult<T>, value ?: T) {
+export function expectSuccess<T>(result : ParserResult<T>, value ?: T, state ?: object) {
     expect(result.kind).toBe(ResultKind.OK, "kind wasn't OK");
     if (result.kind !== ResultKind.OK) return;
     expect(result).toHaveMember("value", "expecting value");
     expect(result).not.toHaveMember("expecting", "unexpected 'expecting' attribute");
     if (value !== undefined) {
-        expect(result.value).toEqual(value);
+        if (!_.isPlainObject(value)) {
+            expect(result.value).toEqual(value);
+        } else {
+            expect(result.value).toBeLike(value as any);
+        }
+
     }
 }
 
@@ -106,7 +119,7 @@ export function expectResult(result : ParserResult<any>) : ExpectResult {
     return {
         toFail(args) {
             args = args || {};
-            expectFailure(result, args.type, args.state);
+            expectFailure(result, args.type);
         },
         toSucceed(args) {
             args = args || {};

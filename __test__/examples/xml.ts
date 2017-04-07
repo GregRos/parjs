@@ -1,8 +1,8 @@
-import 'source-map-support/register'
+import "../setup";
 
 import {Parjs} from "../../src/bindings/parsers";
 import {LoudParser} from "../../src/abstract/combinators/loud";
-import {ParsingFailureSignal} from "../../src/base/parsing-failure";
+import _ = require('lodash');
 /**
  * Created by lifeg on 24/03/2017.
  */
@@ -11,7 +11,6 @@ let letterOrDigit = Parjs.asciiLetter.or(Parjs.digit);
 
 let ident = Parjs.asciiLetter.then(letterOrDigit.many()).str;
 
-let xml : LoudParser<any>;
 let quotedString = (q : string) : LoudParser<string> => {
     return Parjs.noCharOf(q).many().str.between(Parjs.string(q));
 };
@@ -40,11 +39,10 @@ let openTag = Parjs.seq(
     }
 }).q;
 
-let closeTag = ident.between(Parjs.string("</"), Parjs.string(">")).act((ident, state) => {
+let closeTag = ident.between(Parjs.string("</"), Parjs.string(">"))
+    .must((ident, state) => ident === _.last(state.tags as any[]).ident)
+    .act((ident, state) => {
     let last = state.tags[state.tags.length - 1];
-    if (last.ident !== ident) {
-        throw new ParsingFailureSignal("Unexpected close tags", "HardFail");
-    }
     let tags = state.tags.pop();
     state.tags[state.tags.length - 1].content.push(tags);
 }).q;

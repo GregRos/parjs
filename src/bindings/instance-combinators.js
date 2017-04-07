@@ -28,9 +28,6 @@ class ParjsParser extends parser_1.BaseParjsParser {
     get backtrack() {
         return wrap(new combinators_1.PrsBacktrack(this.action)).withName("backtrack");
     }
-    mustState(predicate) {
-        return this.must((r, state) => predicate(state)).withName("mustState");
-    }
     mustCapture(failType = result_1.ResultKind.HardFail) {
         return wrap(new combinators_1.PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
@@ -98,16 +95,6 @@ class ParjsParser extends parser_1.BaseParjsParser {
     }
     exactly(count) {
         return wrap(new combinators_1.PrsExactly(this.action, count)).withName("exactly");
-    }
-    withState(reducer) {
-        let reducer2;
-        if (typeof reducer !== "function") {
-            reducer2 = () => reducer;
-        }
-        else {
-            reducer2 = reducer;
-        }
-        return wrap(new combinators_1.PrsWithState(this.action, reducer2)).withName("withState");
     }
     result(r) {
         return wrap(new combinators_1.PrsMapResult(this.action, r)).withName("result");

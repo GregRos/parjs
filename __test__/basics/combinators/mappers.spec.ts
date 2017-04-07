@@ -19,17 +19,17 @@ describe("map combinators", () => {
             expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
-            expectFailure(parser.parse(badInput, uState), ResultKind.SoftFail, uState);
+            expectFailure(parser.parse(badInput, uState), ResultKind.SoftFail);
         });
     });
 
     describe("Parjs.result(1)", () => {
         let parser = loudParser.result(1);
         it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput, uState), 1);
+            expectSuccess(parser.parse(goodInput), 1);
         });
         it("fails on failure", () => {
-            expectFailure(parser.parse(badInput, uState));
+            expectFailure(parser.parse(badInput));
         })
     });
 
@@ -55,10 +55,6 @@ describe("map combinators", () => {
 
         it("fails on failure", () => {
             expectFailure(parser.parse(badInput));
-        });
-
-        it("does not support loud combinators, like .map", () => {
-            expect(() => (parser as any).map(x => 1)).toThrow();
         });
     });
 
@@ -101,6 +97,28 @@ describe("map combinators", () => {
         it("object", () => {
             let p = Parjs.result({}).str;
             expectSuccess(p.parse(""), {}.toString());
+        })
+    });
+
+    describe("act", () => {
+        let tally = "";
+        let p = Parjs.anyCharOf("abc").act((result, state) => {
+            tally += result;
+            state.char = result;
+        });
+        it("works", () => {
+            expectSuccess(p.parse("a"), "a");
+            expect(tally).toBe("a");
+        });
+
+        it("works 2", () => {
+            expectSuccess(p.parse("b"), "b");
+            expect(tally).toBe("ab");
+        });
+
+        it("fails", () => {
+            expectFailure(p.parse("d"), "SoftFail");
+            expect(tally).toBe("ab");
         })
     })
 });

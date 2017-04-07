@@ -5,7 +5,7 @@ class SuccessResult {
         this.value = value;
         this.kind = ResultKind.OK;
     }
-    get resolve() {
+    resolve() {
         return this.value;
     }
 }
@@ -15,7 +15,7 @@ class FailResult {
         this.kind = kind;
         this.trace = trace;
     }
-    get resolve() {
+    resolve() {
         throw new parsing_failure_1.ParsingFailureError(this);
     }
 }

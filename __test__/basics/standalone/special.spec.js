@@ -28,13 +28,9 @@ describe("special parsers", () => {
     });
     describe("Parjs.state", () => {
         let parser = parsers_1.Parjs.state;
-        let uState = {};
+        let uState = { tag: 1 };
         let someInput = "abcd";
         let noInput = "";
-        it("succeeds on empty input", () => {
-            let result = parser.parse(noInput, uState);
-            custom_matchers_1.expectSuccess(result, uState);
-        });
         it("fails on non-empty input", () => {
             let result = parser.parse(someInput, uState);
             custom_matchers_1.expectFailure(result);
@@ -71,6 +67,31 @@ describe("special parsers", () => {
         });
         it("fails on non-empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(input), result_1.ResultKind.FatalFail);
+        });
+    });
+    describe("Parjs.nop", () => {
+        let parser = parsers_1.Parjs.nop;
+        it("succeeds on no input", () => {
+            custom_matchers_1.expectSuccess(parser.parse(""));
+        });
+        it("fails on input", () => {
+            custom_matchers_1.expectFailure(parser.parse(" "), "SoftFail");
+        });
+    });
+    describe("Parjs.late", () => {
+        let s = "";
+        let parser = parsers_1.Parjs.late(() => {
+            s += "a";
+            return parsers_1.Parjs.string(s);
+        });
+        it("first success", () => {
+            custom_matchers_1.expectSuccess(parser.parse("a"), "a");
+        });
+        it("second success", () => {
+            custom_matchers_1.expectSuccess(parser.parse("a"), "a");
+        });
+        it("fail", () => {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
     });
 });

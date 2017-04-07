@@ -8,11 +8,11 @@ import { AnyParser } from "../abstract/combinators/any";
 import { IntOptions } from "../implementation/parsers/numbers/int";
 import { FloatOptions } from "../implementation/parsers/numbers/float";
 import { NumericParsers } from "../abstract/parsers/numeric";
-import { FailResultKind } from "../../dist/abstract/basics/result";
+import { FailResultKind } from "../abstract/basics/result";
+import { LoudParser } from "../abstract/combinators/loud";
 export declare class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
     readonly spaces1: ParjsParser;
-    late(resolver: () => AnyParser): ParjsParser;
-    char(theChar: string): ParjsParser;
+    late<T>(resolver: () => LoudParser<T>): LoudParser<T>;
     readonly asciiLetter: ParjsParser;
     any(...parsers: AnyParser[]): ParjsParser;
     seq(...parsers: AnyParser[]): ParjsParser;
@@ -22,8 +22,6 @@ export declare class ParjsParsers implements CharParsers, NumericParsers, String
     noCharOf(options: string): ParjsParser;
     readonly digit: ParjsParser;
     readonly hex: ParjsParser;
-    readonly upper: ParjsParser;
-    readonly lower: ParjsParser;
     readonly asciiLower: ParjsParser;
     readonly asciiUpper: ParjsParser;
     readonly newline: ParjsParser;
@@ -31,7 +29,8 @@ export declare class ParjsParsers implements CharParsers, NumericParsers, String
     readonly space: ParjsParser;
     readonly unicodeSpace: ParjsParser;
     readonly spaces: ParjsParser;
-    readonly unicodeSpaces: any;
+    readonly unicodeSpaces: ParjsParser;
+    readonly nop: ParjsParser;
     readonly rest: ParjsParser;
     string(str: string): ParjsParser;
     anyStringOf(...strs: string[]): ParjsParser;

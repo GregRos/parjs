@@ -7,7 +7,6 @@ export declare class ParjsParser extends BaseParjsParser implements LoudParser<a
     thenChoose<TParser extends AnyParser>(selector: (x: any) => TParser, map?: Map<any, TParser>): TParser;
     between(preceding: AnyParser, proceeding?: AnyParser): any;
     readonly backtrack: ParjsParser;
-    mustState(predicate: (state: any) => boolean): ParjsParser;
     mustCapture(failType?: FailResultKind): ParjsParser;
     or(...others: AnyParser[]): any;
     readonly state: LoudParser<any>;
@@ -20,7 +19,6 @@ export declare class ParjsParser extends BaseParjsParser implements LoudParser<a
     manyTill(till: AnyParser, tillOptional?: boolean): ParjsParser;
     manySepBy(sep: AnyParser, maxIterations?: number): ParjsParser;
     exactly(count: number): ParjsParser;
-    withState(reducer: ((state: any, result: any) => any) | Object): ParjsParser;
     result(r: any): ParjsParser;
     readonly not: ParjsParser;
     orVal(x: any): ParjsParser;

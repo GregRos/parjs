@@ -273,5 +273,88 @@ describe("sequential combinators", () => {
             expectFailure(parser.parse("ab1"), ResultKind.HardFail);
         });
     });
+
+    describe("between combinators", () => {
+
+        describe("two argument version", () => {
+            let parser = Parjs.string("a").between(Parjs.string("("), Parjs.string(")"));
+            it("succeeds", () => {
+                expectSuccess(parser.parse("(a)"), "a");
+            });
+            it("fails soft if first between fails", () => {
+                expectFailure(parser.parse("[a)"), ResultKind.SoftFail);
+            });
+            it("fails hard if middle/last fails", () => {
+                expectFailure(parser.parse("(b)"), ResultKind.HardFail);
+                expectFailure(parser.parse("(b]"), ResultKind.HardFail);
+            })
+        });
+        describe("one argument version", () => {
+            let parser = Parjs.string("a").between(Parjs.string("!"));
+            it("succeeds", () => {
+                expectSuccess(parser.parse("!a!"), "a");
+            })
+        })
+    });
+
+    describe("sequential func combinator", () => {
+        let parse1 = Parjs.string("a");
+        let parse2 = Parjs.string("b");
+        let parse3 = Parjs.string("c");
+
+        let p = Parjs.anyCharOf("`abc").thenChoose(x => {
+            if (x === "`") return null;
+            return Parjs.string(x).result(x + x);
+        });
+
+        it("matches 1", () => {
+            expectSuccess(p.parse("aa"), "aa");
+        });
+
+        it("matches 2", () => {
+            expectSuccess(p.parse("bb"), "bb");
+        });
+
+        it("soft fail on bad 1st", () => {
+            expectFailure(p.parse("dd"), "SoftFail");
+        });
+
+        it("hard fail on bad 2nd", () => {
+            expectFailure(p.parse("ba"), "HardFail");
+        });
+
+        it("properly chains to 3rd", () => {
+            let q = p.then(Parjs.string("x")).str;
+            expectSuccess(q.parse("aax"), "aax");
+        });
+
+        it("fails hard if failed to find parser", () => {
+           expectFailure(p.parse("`"), "HardFail");
+        });
+
+        describe("uses cache", () => {
+            let cache = new Map<string, any>();
+            let calls = 0;
+            let p = Parjs.anyCharOf("abc").thenChoose(x => {
+                calls++;
+                return Parjs.string(x + "1");
+            }, cache);
+            it("works first time", () => {
+                expectSuccess(p.parse("aa1"), "a1");
+                expect(calls).toBe(1);
+            });
+            it("goes through cache", () => {
+                expectSuccess(p.parse("aa1"), "a1");
+                expect(calls).toBe(1);
+            });
+            it("works second time not through cache", () => {
+                expectSuccess(p.parse("bb1"), "b1");
+                expect(calls).toBe(2);
+            })
+
+        })
+
+
+    })
 });
 

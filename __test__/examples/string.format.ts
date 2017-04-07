@@ -1,10 +1,9 @@
 /**
  * Created by lifeg on 04/04/2017.
  */
-import 'source-map-support/register'
+import "../setup";
 import {Parjs} from "../../src/bindings/parsers";
 import {LoudParser} from "../../src/abstract/combinators/loud";
-import {ParsingFailureSignal} from "../../src/base/parsing-failure";
 
 //+ DEFINING THE PARSER
 
@@ -27,8 +26,11 @@ let text = Parjs.noCharOf("`{").many(1).str.map(x => ({text: x}));
 let formatParser = formatToken.or(escape, text).many();
 
 
+//This prints a sequence of tokens {text: "hello, my name is "}, {token: name}, {text: " and I am "}, {token: " years old}, ...
+console.log(formatParser.parse("hello, my name is {name} and I am {age} years old. This is `{escaped}. This is double escaped: ``{name}."));
+
 function toTemplate(formatString : string) {
-    let stream = formatParser.parse(formatString).resolve;
+    let stream = formatParser.parse(formatString).resolve();
     return {
         inject(args : object) {
             let str = "";

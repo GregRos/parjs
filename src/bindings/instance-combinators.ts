@@ -3,7 +3,7 @@
  */
 import {
     PrsSeq
-    , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsWithState, PrsAltVal} from '../implementation/combinators';
+    , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsAltVal} from '../implementation/combinators';
 import {BaseParjsParser} from "../base/parser";
 import _ = require('lodash');
 import {ParjsAction} from "../base/action";
@@ -36,10 +36,6 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
     get backtrack() {
         return wrap(new PrsBacktrack(this.action)).withName("backtrack");
-    }
-
-    mustState(predicate : (state : any) => boolean) {
-        return this.must((r, state) => predicate(state)).withName("mustState");
     }
 
     mustCapture(failType : FailResultKind = ResultKind.HardFail) {
@@ -117,15 +113,6 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsExactly(this.action, count)).withName("exactly");
     }
 
-    withState(reducer : ((state : any, result : any) => any) | Object) {
-        let reducer2 : ((state : any, result : any) => any);
-        if (typeof reducer !== "function") {
-            reducer2 = () => reducer;
-        } else {
-            reducer2 = reducer;
-        }
-        return wrap(new PrsWithState(this.action, reducer2)).withName("withState");
-    }
 
     result(r : any) {
         return wrap(new PrsMapResult(this.action, r)).withName("result");

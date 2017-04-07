@@ -1,3 +1,4 @@
+
 # Parjs - Parser Combinator Library
 [![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
 [![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
@@ -12,25 +13,25 @@ Parjs is written in TypeScript, using features of ES6+ such as classes, getter/s
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
 
-For example, if you have a parser `digit` for parsing decimal digits, you can parse a number by applying `digit` multiple times until it fails, and then producing the consumed text as a result. 
+For example, if you have a parser `digit` for parsing decimal digits, you can parse a number by applying `digit` multiple times until it fails, and then producing the consumed text as a result. Then you can use another *combinator*  to convert the result to a number.
 
-By combining different parsers in different ways, you can construct parsers for arbitrary expressions. 
+By combining different parsers in different ways, you can construct parsers for arbitrary expressions and language.s
 
-Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are integers. One feature of the expression is that arbitrary amounts of whitespace are allowed between tokens.
+Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.
 
-	let int = Parjs.int(); //parse an integer, sign allowed
-	let spaces = Parjs.spaces.q;
-	let sep = Parjs.string(",").then(spaces).q; //equivalent to the regex /,\s*/
-	let openingParen = Parjs.string("(").q;
-	let closingParen = Parjs.string(")").q;
-	let separated = int.manySepBy(sep);
-	let final = Parjs.seq(openingParen, spaces, separated, spaces, closingParen).map(x => x[0]);
+	//Built-in building block parser for floating point numbers.
+	let tupleElement = Parjs.float();
+	//Allow whitespace around elements:
+	let paddedElement = tupleElement.between(Parjs.spaces);
+	//Multiple instances of {paddedElement}, separated by a comma:
+	let separated = paddedElement.manySepBy(Parjs.string(","));
+	//Surround everything with parentheses:
+	let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
 	
-In the above example, we use built-in basic parsers for specific strings and integers, and we also use several *combinators* that work on those parsers and combine them to give new ones.
+	//prints [1, 2, 3]:
+	console.log(surrounded.parse("(1,  2 , 3 )"));
 
-First we use `manySepBy`, that parses occurences of parser `p` (in this case, the `int` parser) separated by occurrences of `sep` (in this case, the string `, `). Then we also use then `seq` combinator, that applies multiple parsers in sequence and returns their results in an array.
-
-Parser-combinators allow you to construct complicated parsers in a concise and readable way, a lot closer to the problem domain (recognizing a distinctive grammar) than the bare metal of iterating over characters and comparing them or the opaque syntax of regular expressions.
+In the above example, things like `Parjs.float()`, `Parjs.spaces`, and `Parjs.string(str)` are building-block parsers and things like `.between(p)` and `.manySepBy(p)` and *combinators* that work on existing parsers to give you new ones.
 
 Parser-combinators can also emit informative error messages when parsing fails.
 
@@ -45,34 +46,29 @@ The possibilities are limitless.
 
 Since it's written in JavaScript, it can be used in web environments.
 
-## How it's used
-Parjs comes with a few different components:
+## What's in a Parjs parser?
+A somewhat basic question that deserves an answer. In `Parjs`, a parser is an object that consumes characters from text and returns a value. The number of characters the parser consumes depends on its implementation.
 
-1. Basic parsers for parsing things like specific characters, specific strings, and numbers.
-2. Combinators that work on one or more parsers to create a complex parser.
-3. Helper functions for doing things like recognizing characters.
+When a parser is invoked on a top level, it is expected to consume the entire input. If it does not, this signals an overall parsing failure. During the parsing process, a `position` value is maintained.
 
-In general, the `Parjs` object in the `parjs` module contains builidng block parsers and combinators are defined as instance methods of parsers. However, there are also some combinators, called *static combinators*, that are defined on the `Parjs` object.
+When a parser is invoked as part of a containing parser (e.g. `Parjs.seq(p1, p2)`), then the containing parser chooses how to handle the failure, using information such as the kind of failure and where it occurred. It also chooses how to handle the return value.
 
-### Examples of parsers:
+When several parsers are strung together in sequence inside a containing parser, the containing parser generally chooses how to apply those parsers. Typically, combinators such as `p1.then(p2)` apply the first parser until it consumes all the input it wants, and then apply the 2nd parser at the exact position the previous parser stopped consuming.
 
-1. `Parjs.string(str)` creates a parser that parses the string `str` and returns it.
-2. `Parjs.int(options)` creates a parser that parses an integer with `options` being an object containing options.
+### Immutability
+It's important to note that parsers are meant to be immutable objects, and the library is designed around that important premise. 
 
-### Static combinators:
-1. `Parjs.any(p1, p2, ...)` Returns a parser that attempts to parse using `p1, p2, ...` until it succeeds, and then returns the result that was parsed.
-2. `Parjs.seq(p1, p2, ...)` Returns a parser that applies `p1, p2, ...` in sequence.
+More specifically, instances of parsers should not depend on instance-level information to process data. You can still edit the parser prototypes, adding combinators and building block parsers.
 
-Static combinators are generally used when there isn't a single parser that can be considered *this* parser on which the combinator is principally applied.
+This allows you to write such idiomatic code as:
 
-### Instance combinators:
-1. `p1.then(p2)` First applies `p1` and then `p2`.
-2. `p1.map(x => x + 1)` Returns a parser that applies `p1` and then transforms the result using the function `x => x + 1`.
+	let myString = Parjs.string("my personal string");
+	let variant1 = myString.then(Parjs.string(" is the best."));
+	let variant2 = myString.then(Parjs.string(" is okay.));
 
-Instance combinators are used when it makes sense for one parser to be a *this* parser, on which the combinator is principally applied.
+If `myString` were a mutable object, mutating it in one part of the program would then change how `variant1` and `variant2` behave, which would be very suspicous behavior.
 
-
-## Deeper mysteries
+In practice, you can design parsers that don't behave this way, but doing so is highly discouraged.
 
 ### Failures
 Parsers can fail, and this is completely normal in many situations. The `p.or` and `Parjs.any` combinators assume that some of the parsers will fail and will attempt to apply other parsers if that happens. They are failure recovery combinators.
@@ -81,42 +77,165 @@ Some failures though indicate *unexpected input* and shouldn't be swallowed by t
 
 That's why some kinds of failures are more severe than others and require more advanced recovery constructs.
 
-When a component parser of a complex parser fails and the parser cannot recover, the internal failure will be translated into a failure result that contains an error message and failure severity.
+In general, there are 3 failure severities/failure types:
 
-#### Soft failures
-Soft failures are low-severity failures that can be expected to occur. Combinators like `or` can recover from soft failures. They usually occur when a parser fails before it has developed an expectation about the input. For example, a parser that's supposed to parse an integer will fail softly if the first character it finds isn't a digit.
+1. Soft/low severity. This type of severity can be more easily recovered from. It indicates a failure in an internal level that may not translate to a failure on a larger scale. For example, if you use the `p1.or(p2)` combinator, the resulting parser will try `p2` if `p1` fails softly.
 
-A soft failurem means that a parser that was used doesn't apply to the input it's parsing.
+2. Hard failure/medium severity. This type of severity indicates some form of unexpected input and is harder to recover from, generally requiring special failure handling combinators like `.soft`.
 
-#### Hard failures
-A hard failure occurs when a parser develops an expectation about the input, but the input breaks that expectation. For example, a floating point parser that encounters an `1.0e` will expect a well-formed exponent string. If the string is `1.0e+` it will not try to find other interpertations for the input; it will just emit a hard failure with an error message.
+3. Fatal failure/high severity. This type of failure indicates malformed input. It can be intentionally signalled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the `.not` combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.
 
-This is preferable because backtracking in order to understand the input 
+4. Exceptions aren't parent of this hierarchy. Parsers do not and should not throw exceptions to indicate invalid input, and Parjs does not handle thrown exceptions. Rather, an exception indicates a problem with the parser itself.
 
-Hard failures can be recovered from using the `p.soft` instance combinator. It turns hard failures into soft ones. Otherwise a hard failure will propagate up and the parser will return a failure as a result.
+When an internal parser fails, the containing parser will generally propagate the same or similar parser. When there is no containing parser, a failure result will be emitted, indicating that the overall parsing has failed. In some cases, a soft failure in a child parser indicates a hard failure in a parent parser.
 
-#### Fatal failures
-Fatal failures occur when a parser or a function argument of a parser throws an exception, or else when they are emitted on purpose (e.g. using the `Parjs.fail(FailureKind.Fatal)` parser). They indicate an error that cannot be recovered from and will always propagate into a failure result.
+#### Overall Parsing Failure
+An overall parsing happens when a parser is invoked by you (the user), and either fails in any manner or fails to consume the entire input (which translates to a failure).
 
-Such a failure usually indicates parsing cannot continue because the input violated some important expectation.
+The result from a parsing operation that has failed is of the `FailureResult` type and exposes several important proprerties:
 
-### Loud Parsers and Quiet Parsers
-Although all parsers nominally return a value, in some cases you may not care about the value they return and it is best that Parjs ignore it completely.
+1. The `kind` of the failure.
+2. The `trace` object which contains tracing information indicating where the parser failed, and what input was expected. It also contains the parser `state` at the time of the failure.
 
-For example, say you want to parse an integer between two quotes as follows
+In addition to emitting a failure result, parsers can also throw exceptions, as mentioned previously. This indicates an error in the parser.
 
-	let pQuote = Parjs.string("'");
-	let pIntQuotes = Parjs.seq(pQuote, Parjs.int(), pQuote);
+### Quiet Parsers
+Earlier I made the claim that all parsers return values. That's not exactly true. There are actually two kinds of parsers: loud and quiet parsers. Whether a parser is loud or quiet is an intrinsic property that is reflected in the TypeScript type system. It's not something that changes based on the input.
 
-While `pQuote` returns a value, you don't care about the value and having it in the final result (the array `["'", n, "'"]`) will just make working with the parser uncomfortable.
+In principle, quiet parsers don't return values, only whether parsing succeeded or failed (they may also modify the parser state, see more on that below). In actuality, they do return a special signalling value, but that value is ignored.
 
-Parjs provides a special feature to handle this kind of thing: quiet parsers and loud ones.
+Quiet parsers are treated differently by combinators. For example, the `Parjs.seq(p1, p2)` combinator can accept both loud and quiet parsers. It applies parsers in sequence and returns an array of their results. Since quiet parsers aren't considered to return values, they aren't included. Thus `Parjs.seq(loud1, quiet, loud2)` will always return an array with 2 elements. 
 
-A loud parser returns a value, and a quiet parser doesn't. It only tells you if parsing succeeded or not, and when used together with other parsers, consumes part of the input. Quiet parsers are treated specially by Parjs. If you use a combinator such as `seq` that returns an array of results, quiet parsers won't contribute elements to that array. They also support slightly different members, since it doesn't make sense to invoke the `map` combinator, which transforms the parser's return value, as quiet parsers do not have a return value.
+Combinators that use the return value of a parser also behave differently, since there is no value to be projected.
 
-Also, if you use the `then` instance combinator with a quiet parser and a loud parser, it returns a loud parser that returns a single value (the one from the loud parser) instead of an array with a single element. `then` used on two quiet parsers also returns a quiet parser.
+Quiet parsers are an important feature of `Parjs`. There are many situations in which you don't care about the return value of a parser and what it to be ignored in aggregation combinators such as sequential ones. 
 
-You can make any parser quiet using the `.quiet` combinator.
+For this reason, the combinator that turns any parser into a quiet parser is called simply `.q`. 
+
+	let comma = Parjs.string(",").q;
+	let hello = Parjs.string("hello").q;
+
+It's not an error to quieten an already quiet parser, but doing so does nothing and may return the exact same parser instance.
+
+	let comma = Parjs.string(".").q.q.q.q.q;
+
+### State
+State is a powerful feature that should be used when parsing complex languages, including recursive ones like XML and JSON.
+
+Basically, when you invoke the `.parse(str)` method, a unique, mutable state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser state. In general, built-in parsers don't use the parser state.
+
+The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the parser state:
+
+	//p is called with a parser state initialized with properties and methods.
+	let example = p.parse("hello", {token: "hi", method() {return 1;});
+
+Here is an example of how you can use this feature to parse a recursive, XML-like language:
+
+	//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
+	let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
+	//A parser that parses an opening of a tag.
+	let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, state) => {
+	    state.tags.push({tag: result, content : []});
+	}).q;
+
+	let closeTag =
+	    ident.between(Parjs.string("</"), Parjs.string(">"))
+	        .must((result, state) => result === _.last(state.tags as any[]).tag)
+	        .act((result, state) => {
+	    let topTag = state.tags.pop();
+	    _.last(state.tags as any[]).content.push(topTag);
+	}).q;
+
+	let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
+	console.log(JSON.stringify(anyTag.parse("<a><b><c></c></b></a>", {tags : [{content : []}]}), null ,2));
+
+State is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns. 
+
+## Kinds of Parsers
+This is a partial overview of the kinds of parsers and combinators provided by `Parjs`. This is not an exhaustive list.
+
+### Parsers
+These are building block parsers provided by `parjs`.
+
+#### Character parsers
+One of the most common kinds of parser, parses individual characters.
+
+1. `Parjs.anyChar` - Parses any single character.
+2. `Parjs.anyCharOf(str)` - Parses any single character that appears in `str`.
+3. `Parjs.digit` - Parses a single digit.
+4. `Parjs.asciiLetter` - Parses a single ASCII letter character.
+
+#### String parsers
+Parses entire strings.
+
+1. `Parjs.string(str)` - Parses the exact string `str` or fails softly.
+2. `Parjs.rest` - Parses the remaining text (if any) and returns it as a string.
+3. `Parjs.regexp(rxp)` - Applies the regular expression `rxp` at the current position and returns an array of the match groups.
+
+#### Numeric parsers
+These parse multiple characters as numbers, either integers or floating point.
+
+1. `Parjs.int(?options)` - Parses an integer using `options`. If no options object was specified, default options are used.
+2. `Parjs.float(?options)` - Parses a floating point number using `options`. These differ from integer parsing options. If no options object was specifie, default options are used.
+
+#### Primitive parsers
+These parsers are very simple and don't consume any input.
+
+1. `Parjs.nop` - A quiet parser that consumes no input and returns no value.
+2. `Parjs.result(v)` - A loud parser that consumes no input and returns `v`.
+3. `Parjs.fail(args)` - A loud parser that always fails with failure information specified in `args`.
+
+#### Special parsers
+These special parsers don't belong to any group.
+
+1. `Parjs.position` - A parser that succeeds without consuming input and returns the current position in the stream.
+2. `Parjs.state` - A parser that succeeds without consuming input and returns the current parser state.
+
+### Combinators
+Here `P` refers to the parser created by the combinator.
+
+### Projections
+These combinators create parsers that project the result of the input to a different form. In
+
+1. `p.map(f)` P applies the function `f` to the result returned by `p`.
+2. `p.str` P stringifies the result returned by `p`. This means something different for different types. For example, arrays of strings are flattened and concatenated. 
+3. `p.act(f)` P applies the function `f` to the result returned by `p` and returns the same thing.
+4. `p.q` - P applies `p` and returns nothing. A quiet parser.
+5. `p.state` - P applies `p`, ignores its return value and instead returns the parser state object.
+
+### Assertions
+These combinators check if a condition applies, and fail if it does not. They accept additional arguments that specify the kind of failure. They don't change the result.
+
+1. `p.must(f)` - P applies `f` on the result of `p` and fails if it retursn false.
+2. `p.mustBeNonEmpty()` - P fails if the result of `p` is "empty". This includes various values and is not the same as falsy.
+3. `p.mustCapture()` - P fails if `p` succeeds without consuming input.
+
+### Sequential
+These combinators apply a number of parsers sequentially.
+
+1. `p1.then(p2)` - P applies `p1` and then `p2`. The result depends on the loudness of `p1, p2`. A highly overloaded combinator.
+2. `p2.between(p1, p3)` - P is identical to `p1.then(p2).then(p3)`, except that it returns only the value of `p2`.
+3. `p.many(args)` - P applies `p` until it fails softly. Accepts arguments that indicate minimum number of successes required and other information.
+4. `p.manySepBy(sep)` - P applies `p` multiple times, every two occurrences separated by `sep`.
+5. `Parjs.seq(p1, p2, p3)` - Applies the parsers `p1, p2, p3` in sequence. Returns an array of the results. Quiet parsers don't contribute to the array.
+6. `p.thenChoose(selector)` - P applies `p` and then calls `selector` on the result, which returns the parser to apply next.
+
+### Alternatives
+These combinators try several parsers in sequence until one of them succeeds. They are a subtype of failure recovery combinators.
+
+1. `p1.or(p2)` - P applies `p1`. If `p1` fails softly, applies `p2` at the same position. Highly overloaded combinator. You cannot mix loudess with this combinator -- e.g. `loud.or(quiet)` is a runtime error (and a compilation error in TypeScript).
+2. `p1.orVal(v)` - P applies `p1`. If `p1` fails softly, succeeds and returns `v` without consuming input.
+
+### Primitive
+These combinators are very simple.
+2. `p.fail(args)` - P applies `p` and fails with `args` if it succeeds. Also propagates failures.
+3. 
+
+### Special
+
+1. `p.not` - P succeeds without consuming input or returning a value if `p` fails hard or soft at the current position. If `p` succeeds, P fails softly. Propagates a fatal failure. A quiet parser.
+3. `p.backtrack` - P applies `p`, backtracks to the original position in the input (before applying `p`), and returns the result. 
+
 
 ## Performance
 Parjs is designed to perform very well, but doesn't sacrifice performance for usability. At present, it's designed to perform best for medium inputs.

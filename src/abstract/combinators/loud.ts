@@ -83,7 +83,7 @@ export interface LoudParser<T> extends AnyParser {
      * P applies this parser and verifies its result is non-empty.
      * An empty result is any of the following: null, undefined, "", [], {}. It is NOT the same as falsy.
      */
-    readonly mustBeNonEmpty : LoudParser<T>;
+        readonly mustBeNonEmpty : LoudParser<T>;
 
     /**
      * P applies this parser and requires its result to be identical to {options}.

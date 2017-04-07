@@ -12,6 +12,11 @@ export interface PrimitiveParsers {
     result<T>(result : T) : LoudParser<T>;
 
     /**
+     * P succeeds without consuming input. Quiet parser.
+     */
+    readonly nop : QuietParser;
+
+    /**
      * P succeeds there are no more characters to parse.
      */
     readonly eof : QuietParser;

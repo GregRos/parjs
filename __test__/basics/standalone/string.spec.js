@@ -22,6 +22,57 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectFailure(parser.parse(tooLongInput, uState), result_1.ResultKind.SoftFail);
         });
     });
+    describe("Parjs.spaces1", () => {
+        let parser = parsers_1.Parjs.spaces1;
+        it("fails on empty input", () => {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            custom_matchers_1.expectFailure(parser.parse("a"), "SoftFail");
+        });
+        it("succeeds on single space", () => {
+            custom_matchers_1.expectSuccess(parser.parse(" "), " ");
+        });
+        it("succeeds on multiple spaces", () => {
+            custom_matchers_1.expectSuccess(parser.parse(" ".repeat(5)), " ".repeat(5));
+        });
+    });
+    describe("Parjs.asciiUpper", () => {
+        let parser = parsers_1.Parjs.asciiUpper;
+        it("fails on empty input", () => {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            custom_matchers_1.expectFailure(parser.parse(","), "SoftFail");
+        });
+        it("succeeds on char", () => {
+            custom_matchers_1.expectSuccess(parser.parse("A"), "A");
+        });
+    });
+    describe("Parjs.asciiUpper", () => {
+        let parser = parsers_1.Parjs.asciiLower;
+        it("fails on empty input", () => {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            custom_matchers_1.expectFailure(parser.parse(","), "SoftFail");
+        });
+        it("succeeds on char", () => {
+            custom_matchers_1.expectSuccess(parser.parse("a"), "a");
+        });
+    });
+    describe("Parjs.asciiLetter", () => {
+        let parser = parsers_1.Parjs.asciiLower;
+        it("fails on empty input", () => {
+            custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
+        });
+        it("fails on other char", () => {
+            custom_matchers_1.expectFailure(parser.parse(","), "SoftFail");
+        });
+        it("succeeds on char", () => {
+            custom_matchers_1.expectSuccess(parser.parse("a"), "a");
+        });
+    });
     describe("Parjs.anyCharOf[abcd]", () => {
         let parser = parsers_1.Parjs.anyCharOf("abcd");
         let success = "c";

@@ -7,7 +7,6 @@ const result_1 = require("../abstract/basics/result");
 const int_1 = require("../implementation/parsers/numbers/int");
 const float_1 = require("../implementation/parsers/numbers/float");
 const _ = require("lodash");
-const common_1 = require("../implementation/common");
 const late_1 = require("../implementation/combinators/special/late");
 /**
  * Created by lifeg on 24/11/2016.
@@ -17,16 +16,10 @@ function wrap(action) {
 }
 class ParjsParsers {
     get spaces1() {
-        return this.space.many(1).withName("spaces1");
+        return this.space.many(1).str.withName("spaces1");
     }
     late(resolver) {
-        return wrap(new late_1.PrsLate(() => resolver().action)).withName("late");
-    }
-    char(theChar) {
-        if (theChar.length !== 1) {
-            throw common_1.Issues.stringWrongLength({ displayName: "char" }, "1");
-        }
-        return this.anyCharOf(theChar).withName("char");
+        return wrap(new late_1.PrsLate(() => resolver().action, true)).withName("late");
     }
     get asciiLetter() {
         return this.charWhere(char_indicators_1.Chars.isAsciiLetter).withName("asciiLetter");
@@ -55,12 +48,6 @@ class ParjsParsers {
     get hex() {
         return this.charWhere(char_indicators_1.Chars.isHex).withName("hex");
     }
-    get upper() {
-        return this.charWhere(char_indicators_1.Chars.isUpper).withName("upper");
-    }
-    get lower() {
-        return this.charWhere(char_indicators_1.Chars.isLower).withName("lower");
-    }
     get asciiLower() {
         return this.charWhere(char_indicators_1.Chars.isAsciiLower).withName("asciiLower");
     }
@@ -83,7 +70,10 @@ class ParjsParsers {
         return this.space.many().str.withName("spaces");
     }
     get unicodeSpaces() {
-        return this.unicodeSpaces.many().str.withName("unicodeSpaces");
+        return this.unicodeSpace.many().str.withName("unicodeSpaces");
+    }
+    get nop() {
+        return this.result(undefined).q.withName("nop");
     }
     get rest() {
         return wrap(new parsers_1.PrsRest()).withName("rest");

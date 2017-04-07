@@ -16,16 +16,16 @@ describe("map combinators", () => {
             custom_matchers_1.expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
-            custom_matchers_1.expectFailure(parser.parse(badInput, uState), result_1.ResultKind.SoftFail, uState);
+            custom_matchers_1.expectFailure(parser.parse(badInput, uState), result_1.ResultKind.SoftFail);
         });
     });
     describe("Parjs.result(1)", () => {
         let parser = loudParser.result(1);
         it("maps on success", () => {
-            custom_matchers_1.expectSuccess(parser.parse(goodInput, uState), 1);
+            custom_matchers_1.expectSuccess(parser.parse(goodInput), 1);
         });
         it("fails on failure", () => {
-            custom_matchers_1.expectFailure(parser.parse(badInput, uState));
+            custom_matchers_1.expectFailure(parser.parse(badInput));
         });
     });
     describe("cast", () => {
@@ -47,9 +47,6 @@ describe("map combinators", () => {
         });
         it("fails on failure", () => {
             custom_matchers_1.expectFailure(parser.parse(badInput));
-        });
-        it("does not support loud combinators, like .map", () => {
-            expect(() => parser.map(x => 1)).toThrow();
         });
     });
     describe("str", () => {
@@ -84,6 +81,25 @@ describe("map combinators", () => {
         it("object", () => {
             let p = parsers_1.Parjs.result({}).str;
             custom_matchers_1.expectSuccess(p.parse(""), {}.toString());
+        });
+    });
+    describe("act", () => {
+        let tally = "";
+        let p = parsers_1.Parjs.anyCharOf("abc").act((result, state) => {
+            tally += result;
+            state.char = result;
+        });
+        it("works", () => {
+            custom_matchers_1.expectSuccess(p.parse("a"), "a");
+            expect(tally).toBe("a");
+        });
+        it("works 2", () => {
+            custom_matchers_1.expectSuccess(p.parse("b"), "b");
+            expect(tally).toBe("ab");
+        });
+        it("fails", () => {
+            custom_matchers_1.expectFailure(p.parse("d"), "SoftFail");
+            expect(tally).toBe("ab");
         });
     });
 });

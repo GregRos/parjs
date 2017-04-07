@@ -239,5 +239,75 @@ describe("sequential combinators", () => {
             custom_matchers_1.expectFailure(parser.parse("ab1"), result_1.ResultKind.HardFail);
         });
     });
+    describe("between combinators", () => {
+        describe("two argument version", () => {
+            let parser = parsers_1.Parjs.string("a").between(parsers_1.Parjs.string("("), parsers_1.Parjs.string(")"));
+            it("succeeds", () => {
+                custom_matchers_1.expectSuccess(parser.parse("(a)"), "a");
+            });
+            it("fails soft if first between fails", () => {
+                custom_matchers_1.expectFailure(parser.parse("[a)"), result_1.ResultKind.SoftFail);
+            });
+            it("fails hard if middle/last fails", () => {
+                custom_matchers_1.expectFailure(parser.parse("(b)"), result_1.ResultKind.HardFail);
+                custom_matchers_1.expectFailure(parser.parse("(b]"), result_1.ResultKind.HardFail);
+            });
+        });
+        describe("one argument version", () => {
+            let parser = parsers_1.Parjs.string("a").between(parsers_1.Parjs.string("!"));
+            it("succeeds", () => {
+                custom_matchers_1.expectSuccess(parser.parse("!a!"), "a");
+            });
+        });
+    });
+    describe("sequential func combinator", () => {
+        let parse1 = parsers_1.Parjs.string("a");
+        let parse2 = parsers_1.Parjs.string("b");
+        let parse3 = parsers_1.Parjs.string("c");
+        let p = parsers_1.Parjs.anyCharOf("`abc").thenChoose(x => {
+            if (x === "`")
+                return null;
+            return parsers_1.Parjs.string(x).result(x + x);
+        });
+        it("matches 1", () => {
+            custom_matchers_1.expectSuccess(p.parse("aa"), "aa");
+        });
+        it("matches 2", () => {
+            custom_matchers_1.expectSuccess(p.parse("bb"), "bb");
+        });
+        it("soft fail on bad 1st", () => {
+            custom_matchers_1.expectFailure(p.parse("dd"), "SoftFail");
+        });
+        it("hard fail on bad 2nd", () => {
+            custom_matchers_1.expectFailure(p.parse("ba"), "HardFail");
+        });
+        it("properly chains to 3rd", () => {
+            let q = p.then(parsers_1.Parjs.string("x")).str;
+            custom_matchers_1.expectSuccess(q.parse("aax"), "aax");
+        });
+        it("fails hard if failed to find parser", () => {
+            custom_matchers_1.expectFailure(p.parse("`"), "HardFail");
+        });
+        describe("uses cache", () => {
+            let cache = new Map();
+            let calls = 0;
+            let p = parsers_1.Parjs.anyCharOf("abc").thenChoose(x => {
+                calls++;
+                return parsers_1.Parjs.string(x + "1");
+            }, cache);
+            it("works first time", () => {
+                custom_matchers_1.expectSuccess(p.parse("aa1"), "a1");
+                expect(calls).toBe(1);
+            });
+            it("goes through cache", () => {
+                custom_matchers_1.expectSuccess(p.parse("aa1"), "a1");
+                expect(calls).toBe(1);
+            });
+            it("works second time not through cache", () => {
+                custom_matchers_1.expectSuccess(p.parse("bb1"), "b1");
+                expect(calls).toBe(2);
+            });
+        });
+    });
 });
 //# sourceMappingURL=sequential.spec.js.map

@@ -6,10 +6,9 @@ import {ParsingState} from "../../../abstract/basics/state";
  */
 export class PrsLate extends ParjsAction {
     displayName = "late (unbound)";
-    isLoud = false;
     expecting: string;
     private _resolved : AnyParserAction;
-    constructor(private _resolver: () => AnyParserAction) {
+    constructor(private _resolver: () => AnyParserAction, public isLoud : boolean) {
         super();
     };
 
@@ -19,6 +18,6 @@ export class PrsLate extends ParjsAction {
             this.expecting = this._resolved.expecting;
             this.displayName = `late ${this._resolved.displayName}`;
         }
-        return this._resolved.apply(ps);
+        this._resolved.apply(ps);
     }
 }
