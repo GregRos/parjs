@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const common_1 = require("../../common");
 const result_1 = require("../../../abstract/basics/result");
@@ -25,7 +26,7 @@ class PrsManyTill extends action_1.ParjsAction {
             if (ps.isOk) {
                 break;
             }
-            else if (ps.atLeast(result_1.ResultKind.HardFail)) {
+            else if (ps.atLeast(result_1.ReplyKind.HardFail)) {
                 //if till failed hard/fatally, we return the fail result.
                 return;
             }
@@ -39,7 +40,7 @@ class PrsManyTill extends action_1.ParjsAction {
                 //many failed softly before till...
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.
-                    ps.kind = successes === 0 ? result_1.ResultKind.SoftFail : result_1.ResultKind.HardFail;
+                    ps.kind = successes === 0 ? result_1.ReplyKind.SoftFail : result_1.ReplyKind.HardFail;
                     return;
                 }
                 else {
@@ -58,7 +59,7 @@ class PrsManyTill extends action_1.ParjsAction {
             successes++;
         }
         ps.value = arr;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsManyTill = PrsManyTill;

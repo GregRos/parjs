@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const parsers_1 = require("../../dist/bindings/parsers");
 const result_1 = require("../../dist/abstract/basics/result");
 const custom_matchers_1 = require("../custom-matchers");
@@ -13,11 +14,11 @@ describe("basics: anyChar example", () => {
     });
     it("empty input failure", () => {
         let result = parser.parse(failInput, uniqueState);
-        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail);
+        custom_matchers_1.expectFailure(result, result_1.ReplyKind.SoftFail);
     });
     it("fails on too much input", () => {
         let result = parser.parse(tooMuchInput);
-        custom_matchers_1.expectFailure(result, result_1.ResultKind.SoftFail);
+        custom_matchers_1.expectFailure(result, result_1.ReplyKind.SoftFail);
     });
     describe("resolve", () => {
         it("throws", () => {

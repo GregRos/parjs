@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by User on 22-Nov-16.
  */
@@ -28,7 +29,7 @@ class ParjsParser extends parser_1.BaseParjsParser {
     get backtrack() {
         return wrap(new combinators_1.PrsBacktrack(this.action)).withName("backtrack");
     }
-    mustCapture(failType = result_1.ResultKind.HardFail) {
+    mustCapture(failType = result_1.ReplyKind.HardFail) {
         return wrap(new combinators_1.PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
     or(...others) {
@@ -111,7 +112,7 @@ class ParjsParser extends parser_1.BaseParjsParser {
     get str() {
         return wrap(new combinators_1.PrsStr(this.action)).withName("str");
     }
-    must(condition, name = "(unnamed condition)", fail = result_1.ResultKind.HardFail) {
+    must(condition, name = "(unnamed condition)", fail = result_1.ReplyKind.HardFail) {
         return wrap(new combinators_1.PrsMust(this.action, condition, fail, name)).withName("must");
     }
     mustNotBeOf(...options) {
@@ -123,7 +124,7 @@ class ParjsParser extends parser_1.BaseParjsParser {
     get mustBeNonEmpty() {
         return this.must(x => {
             return predicates_1.Predicates.nonEmpty(x);
-        }, `be non-empty`, result_1.ResultKind.HardFail).withName("mustBeNonEmpty");
+        }, `be non-empty`, result_1.ReplyKind.HardFail).withName("mustBeNonEmpty");
     }
     withName(newName) {
         this.displayName = newName;

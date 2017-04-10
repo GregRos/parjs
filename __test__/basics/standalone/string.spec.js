@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -16,10 +17,10 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(successInput, uState), successInput);
         });
         it("fails on empty input", () => {
-            custom_matchers_1.expectFailure(parser.parse(failInput, uState), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(failInput, uState), result_1.ReplyKind.SoftFail);
         });
         it("fails on too long input", () => {
-            custom_matchers_1.expectFailure(parser.parse(tooLongInput, uState), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(tooLongInput, uState), result_1.ReplyKind.SoftFail);
         });
     });
     describe("Parjs.spaces1", () => {
@@ -81,10 +82,10 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(success), success);
         });
         it("fails on invalid single char", () => {
-            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ReplyKind.SoftFail);
         });
         it("fails on too long input", () => {
-            custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ReplyKind.SoftFail);
         });
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
@@ -98,10 +99,10 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(success), success);
         });
         it("fails on single char from list", () => {
-            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ReplyKind.SoftFail);
         });
         it("fails on too long input", () => {
-            custom_matchers_1.expectFailure(parser.parse("12"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse("12"), result_1.ReplyKind.SoftFail);
         });
     });
     describe("Parjs.string(hi)", () => {
@@ -112,10 +113,10 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(success), success);
         });
         it("fail", () => {
-            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ReplyKind.SoftFail);
         });
         it("fail too long", () => {
-            custom_matchers_1.expectFailure(parser.parse(success + "1"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(success + "1"), result_1.ReplyKind.SoftFail);
         });
     });
     describe("Parjs.anyStringOf(hi, hello)", () => {
@@ -130,10 +131,10 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(success2), success2);
         });
         it("fail", () => {
-            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ReplyKind.SoftFail);
         });
         it("fail too long", () => {
-            custom_matchers_1.expectFailure(parser.parse(success2 + "1"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(success2 + "1"), result_1.ReplyKind.SoftFail);
         });
     });
     describe("Parjs.newline", () => {
@@ -158,8 +159,8 @@ describe("basic string parsers", () => {
         it("success on all newline string, incl unicode newline", () => {
             let unicodeNewline = parsers_1.Parjs.unicodeNewline.many();
             let result = unicodeNewline.parse(allNewlines);
-            expect(result.kind).toBe(result_1.ResultKind.OK);
-            if (result.kind !== result_1.ResultKind.OK)
+            expect(result.kind).toBe(result_1.ReplyKind.OK);
+            if (result.kind !== result_1.ReplyKind.OK)
                 return;
             expect(result.value.length).toBe(allNewlines.length - 1);
         });

@@ -8,10 +8,10 @@ import {BaseParjsParser} from "../base/parser";
 import _ = require('lodash');
 import {ParjsAction} from "../base/action";
 import {Predicates} from "../functions/predicates";
-import {LoudParser} from "../abstract/combinators/loud";
-import {ResultKind, FailResult, FailResultKind} from "../abstract/basics/result";
-import {QuietParser} from "../abstract/combinators/quiet";
-import {AnyParser} from "../abstract/combinators/any";
+import {LoudParser} from "../abstract/loud";
+import {ReplyKind, FailureReply, FailKind} from "../abstract/basics/result";
+import {QuietParser} from "../abstract/quiet";
+import {AnyParser} from "../abstract/any";
 import {PrsSoft} from "../implementation/combinators/alternatives/soft";
 import {ActParser} from "../implementation/combinators/map/act";
 
@@ -38,7 +38,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsBacktrack(this.action)).withName("backtrack");
     }
 
-    mustCapture(failType : FailResultKind = ResultKind.HardFail) {
+    mustCapture(failType : FailKind = ReplyKind.HardFail) {
         return wrap(new PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
 
@@ -134,7 +134,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsStr(this.action)).withName("str");
     }
 
-    must(condition : (result : any, state : any) => boolean, name = "(unnamed condition)", fail : FailResultKind = ResultKind.HardFail) {
+    must(condition : (result : any, state : any) => boolean, name = "(unnamed condition)", fail : FailKind = ReplyKind.HardFail) {
         return wrap(new PrsMust(this.action, condition, fail, name)).withName("must");
     }
 
@@ -149,7 +149,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     get mustBeNonEmpty() {
         return this.must(x => {
             return Predicates.nonEmpty(x);
-        }, `be non-empty`, ResultKind.HardFail).withName("mustBeNonEmpty");
+        }, `be non-empty`, ReplyKind.HardFail).withName("mustBeNonEmpty");
     }
 
     withName(newName : string) {

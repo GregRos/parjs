@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by lifeg on 10/12/2016.
  */
@@ -16,7 +17,7 @@ describe("map combinators", () => {
             custom_matchers_1.expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
-            custom_matchers_1.expectFailure(parser.parse(badInput, uState), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(badInput, uState), result_1.ReplyKind.SoftFail);
         });
     });
     describe("Parjs.result(1)", () => {

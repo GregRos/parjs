@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("../../common");
 const action_1 = require("../../../base/action");
 const helpers_1 = require("../../../functions/helpers");

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -19,8 +20,8 @@ class PrsExactly extends action_1.ParjsAction {
         for (let i = 0; i < count; i++) {
             inner.apply(ps);
             if (!ps.isOk) {
-                if (ps.kind === result_1.ResultKind.SoftFail && i > 0) {
-                    ps.kind = result_1.ResultKind.HardFail;
+                if (ps.kind === result_1.ReplyKind.SoftFail && i > 0) {
+                    ps.kind = result_1.ReplyKind.HardFail;
                 }
                 //fail because the inner parser has failed.
                 return;

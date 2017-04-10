@@ -3,7 +3,7 @@ import {Chars, Codes} from "../../../functions/char-indicators";
 import {Parselets} from './parselets';
 import {FastMath} from "../../../functions/math";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 28-Nov-16.
  */
@@ -45,10 +45,10 @@ export class PrsInt extends ParjsAction {
         let value = parseInt(input.substring(initPos, ps.position), base);
 
         if (ps.position === position) {
-            ps.kind = parsedSign ? ResultKind.HardFail : ResultKind.SoftFail;
+            ps.kind = parsedSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
         } else {
             ps.value = value;
-            ps.kind = ResultKind.OK;
+            ps.kind = ReplyKind.OK;
         }
 
     }

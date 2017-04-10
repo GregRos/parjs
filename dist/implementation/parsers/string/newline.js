@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const char_indicators_1 = require("../../../functions/char-indicators");
 const result_1 = require("../../../abstract/basics/result");
@@ -17,20 +18,20 @@ class PrsNewline extends action_1.ParjsAction {
         let { position, input } = ps;
         let { matchUnicode } = this;
         if (position >= input.length) {
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = result_1.ReplyKind.SoftFail;
             return;
         }
         let charAt = input.charCodeAt(position);
         if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
             return;
         }
         if (charAt === char_indicators_1.Codes.newline) {
             ps.position++;
             ps.value = '\n';
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
             return;
         }
         else if (charAt === char_indicators_1.Codes.carriageReturn) {
@@ -38,15 +39,15 @@ class PrsNewline extends action_1.ParjsAction {
             if (position < input.length && input.charCodeAt(position) === char_indicators_1.Codes.newline) {
                 ps.position = position + 1;
                 ps.value = '\r\n';
-                ps.kind = result_1.ResultKind.OK;
+                ps.kind = result_1.ReplyKind.OK;
                 return;
             }
             ps.position = position;
             ps.value = '\r';
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
             return;
         }
-        ps.kind = result_1.ResultKind.SoftFail;
+        ps.kind = result_1.ReplyKind.SoftFail;
     }
 }
 exports.PrsNewline = PrsNewline;

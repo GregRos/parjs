@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const common_1 = require("../../common");
 const result_1 = require("../../../abstract/basics/result");
@@ -21,7 +22,7 @@ class PrsAltVal extends action_1.ParjsAction {
         if (ps.isSoft) {
             //on soft failure, set the value and result to OK
             ps.value = val;
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
         }
         //on ok/hard/fatal, propagate the result.
     }

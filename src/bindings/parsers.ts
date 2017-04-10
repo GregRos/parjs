@@ -3,22 +3,17 @@ import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStri
 import {PrsAlts, PrsSeq} from '../implementation/combinators';
 import {ParjsAction} from "../base/action";
 import {Chars} from "../functions/char-indicators";
-import {CharParsers} from "../abstract/parsers/char";
-import {StringParsers} from "../abstract/parsers/string";
-import {PrimitiveParsers} from "../abstract/parsers/primitives";
-import {SpecialParsers} from "../abstract/parsers/special";
-import {StaticCombinators} from "../abstract/combinators/static";
-import {AnyParser} from "../abstract/combinators/any";
-import {ResultKind, FailResult} from "../abstract/basics/result";
+import {AnyParser} from "../abstract/any";
+import {ReplyKind, FailureReply} from "../abstract/basics/result";
 import {IntOptions, PrsInt} from "../implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "../implementation/parsers/numbers/float";
-import {NumericParsers} from "../abstract/parsers/numeric";
 import {assert} from 'chai';
 import _ = require('lodash');
 import {Issues} from "../implementation/common";
 import {PrsLate} from "../implementation/combinators/special/late";
-import {FailResultKind} from "../abstract/basics/result";
-import {LoudParser} from "../abstract/combinators/loud";
+import {FailKind} from "../abstract/basics/result";
+import {LoudParser} from "../abstract/loud";
+import {ParjsStatic} from "../abstract/parjs";
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -28,10 +23,7 @@ function wrap(action : ParjsAction) {
 }
 
 
-export class ParjsParsers implements CharParsers, NumericParsers, StringParsers, PrimitiveParsers, SpecialParsers, StaticCombinators {
-
-
-
+class ParjsParsers implements ParjsStatic {
     get spaces1() {
         return this.space.many(1).str.withName("spaces1");
     }
@@ -141,7 +133,7 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
         return wrap(new PrsEof()).withName("eof");
     }
 
-    fail(expecting = "", kind : FailResultKind = ResultKind.SoftFail) {
+    fail(expecting = "", kind : FailKind = ReplyKind.SoftFail) {
         return wrap(new PrsFail(kind, expecting)).withName("fail");
     }
 
@@ -173,4 +165,4 @@ export class ParjsParsers implements CharParsers, NumericParsers, StringParsers,
     }
 }
 
-export const Parjs = new ParjsParsers() as CharParsers & NumericParsers & StringParsers & PrimitiveParsers & SpecialParsers & StaticCombinators;
+export const Parjs = new ParjsParsers() as ParjsStatic;

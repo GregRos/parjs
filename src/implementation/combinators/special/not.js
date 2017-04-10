@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -19,11 +20,11 @@ class PrsNot extends action_1.ParjsAction {
         inner.apply(ps);
         if (ps.isOk) {
             ps.position = position;
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = result_1.ReplyKind.SoftFail;
         }
-        else if (ps.kind === result_1.ResultKind.HardFail || ps.kind === result_1.ResultKind.SoftFail) {
+        else if (ps.kind === result_1.ReplyKind.HardFail || ps.kind === result_1.ReplyKind.SoftFail) {
             //hard fails are okay here
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
             ps.position = position;
             return;
         }

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const result_1 = require("../../../dist/abstract/basics/result");
 const custom_matchers_1 = require("../../custom-matchers");
 const parsers_1 = require("../../../dist/bindings/parsers");
@@ -19,7 +20,7 @@ describe("special parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(success), undefined);
         });
         it("fail on non-empty input", () => {
-            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(fail), result_1.ReplyKind.SoftFail);
         });
         it("chain multiple EOF succeeds", () => {
             let parser2 = parser.then(parsers_1.Parjs.eof);
@@ -63,10 +64,10 @@ describe("special parsers", () => {
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {
-            custom_matchers_1.expectFailure(parser.parse(noInput), result_1.ResultKind.FatalFail);
+            custom_matchers_1.expectFailure(parser.parse(noInput), result_1.ReplyKind.FatalFail);
         });
         it("fails on non-empty input", () => {
-            custom_matchers_1.expectFailure(parser.parse(input), result_1.ResultKind.FatalFail);
+            custom_matchers_1.expectFailure(parser.parse(input), result_1.ReplyKind.FatalFail);
         });
     });
     describe("Parjs.nop", () => {

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -16,18 +17,18 @@ class PrsString extends action_1.ParjsBasicAction {
         let { position, input } = ps;
         let i;
         if (position + str.length > input.length) {
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = result_1.ReplyKind.SoftFail;
             return;
         }
         for (let i = 0; i < str.length; i++, position++) {
             if (str.charCodeAt(i) !== input.charCodeAt(position)) {
-                ps.kind = result_1.ResultKind.SoftFail;
+                ps.kind = result_1.ReplyKind.SoftFail;
                 return;
             }
         }
         ps.position += str.length;
         ps.value = str;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsString = PrsString;

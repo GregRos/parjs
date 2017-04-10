@@ -5,7 +5,7 @@ import _ = require('lodash');
 import {expectFailure, expectSuccess} from '../../custom-matchers';
 import {LoudParser} from "../../../dist/abstract/combinators/loud";
 import {Parjs} from "../../../dist/bindings/parsers";
-import {ResultKind} from "../../../dist/abstract/basics/result";
+import {ReplyKind} from "../../../dist/abstract/basics/result";
 import {AnyParser} from "../../../dist/abstract/combinators/any";
 let goodInput = "abcd";
 describe("special combinators", () => {

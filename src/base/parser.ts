@@ -1,6 +1,6 @@
 import {QUIET_RESULT, FAIL_RESULT, Issues} from "../implementation/common";
 import {ParjsAction, BasicParsingState} from "./action";
-import {ResultKind, ParserResult, SuccessResult, FailResult, Trace} from "../abstract/basics/result";
+import {ReplyKind, Reply, SuccessReply, FailureReply, Trace} from "../abstract/basics/result";
 import _ = require('lodash');
 /**
  * Created by User on 22-Nov-16.
@@ -24,7 +24,7 @@ export abstract class BaseParjsParser {
         this.action.displayName = name;
     }
 
-    parse(input : string, initialState ?: any) : ParserResult<any> {
+    parse(input : string, initialState ?: any) : Reply<any> {
         if (typeof input !== "string") {
             //catches input === undefined, null
             throw new Error("input must be a valid string");
@@ -36,19 +36,19 @@ export abstract class BaseParjsParser {
 
         if (ps.isOk) {
             if (ps.position !== input.length) {
-                ps.kind = ResultKind.SoftFail;
+                ps.kind = ReplyKind.SoftFail;
                 ps.expecting = "unexpected end of input";
             }
         }
-        if (ps.kind === ResultKind.Unknown) {
+        if (ps.kind === ReplyKind.Unknown) {
             throw new Error("should not happen.");
         }
-        let ret: ParserResult<any>;
-        if (ps.kind === ResultKind.OK) {
-            return Object.assign(new SuccessResult(ps.value === QUIET_RESULT ? undefined : ps.value))
+        let ret: Reply<any>;
+        if (ps.kind === ReplyKind.OK) {
+            return Object.assign(new SuccessReply(ps.value === QUIET_RESULT ? undefined : ps.value))
         }
         else {
-            return new FailResult(ps.kind, {
+            return new FailureReply(ps.kind, {
                 state: ps.state,
                 position: ps.position,
                 expecting: ps.expecting

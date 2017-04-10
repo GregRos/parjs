@@ -1,4 +1,4 @@
-import { ResultKind } from "./result";
+import { ReplyKind } from "./result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -27,9 +27,9 @@ export interface ParsingState {
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
-    kind: ResultKind;
-    atLeast(kind: ResultKind): any;
-    atMost(kind: ResultKind): any;
+    kind: ReplyKind;
+    atLeast(kind: ReplyKind): any;
+    atMost(kind: ReplyKind): any;
     /**
      * Shorthand for this.result == Okay
      */

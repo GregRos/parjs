@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by User on 13-Dec-16.
  */
@@ -18,7 +19,7 @@ class PrsSoft extends action_1.ParjsAction {
     _apply(ps) {
         this.inner.apply(ps);
         if (ps.isHard) {
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = result_1.ReplyKind.SoftFail;
         }
     }
 }

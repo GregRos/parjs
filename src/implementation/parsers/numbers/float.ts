@@ -8,7 +8,7 @@ import decimalPoint = Codes.decimalPoint;
 import {FastMath} from "../../../functions/math";
 import NegativeExponents = FastMath.NegativeExponents;
 import {Parselets} from "./parselets";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 import {ParsingState} from "../../../abstract/basics/state";
 
 export interface FloatOptions {
@@ -76,7 +76,7 @@ export class PrsFloat extends ParjsAction {
         let {options : {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent}} = this;
         let {position, input} = ps;
         if (position >= input.length) {
-            ps.kind = ResultKind.SoftFail;
+            ps.kind = ReplyKind.SoftFail;
             return;
         }
         let initPos = position;
@@ -100,7 +100,7 @@ export class PrsFloat extends ParjsAction {
         prevPos = ps.position;
         if (!allowImplicitZero && !hasWhole) {
             //fail because we don't allow ".1", and similar without allowImplicitZero.
-            ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
+            ps.kind = hasSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
             ps.expecting = msgOneOrMoreDigits;
             return;
         }
@@ -126,7 +126,7 @@ export class PrsFloat extends ParjsAction {
 
             if (!hasWhole && !hasFraction) {
                 //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
-                ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
+                ps.kind = hasSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
                 ps.expecting = msgOneOrMoreDigits;
                 return;
             }
@@ -136,7 +136,7 @@ export class PrsFloat extends ParjsAction {
                 ps.position++;
                 let expSign = Parselets.parseSign(ps);
                 if (expSign === 0) {
-                    ps.kind = ResultKind.HardFail;
+                    ps.kind = ReplyKind.HardFail;
                     ps.expecting = msgExponentSign;
                     return;
                 }
@@ -144,13 +144,13 @@ export class PrsFloat extends ParjsAction {
                 Parselets.parseDigitsInBase(ps, 10);
                 if (ps.position === prevFractionalPos) {
                     //we parsed e+ but we did not parse any digits.
-                    ps.kind = ResultKind.HardFail;
+                    ps.kind = ReplyKind.HardFail;
                     ps.expecting = msgOneOrMoreDigits;
                     return;
                 }
             }
         }
-        ps.kind = ResultKind.OK;
+        ps.kind = ReplyKind.OK;
         ps.value = parseFloat(input.substring(initPos, ps.position));
     }
 }

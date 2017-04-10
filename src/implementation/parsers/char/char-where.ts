@@ -1,6 +1,6 @@
 import {ParjsAction, ParjsBasicAction} from "../../../base/action";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -17,16 +17,16 @@ export class PrsCharWhere extends ParjsBasicAction {
         let {predicate} = this;
         let {position, input} = ps;
         if (position >= input.length) {
-            ps.kind = ResultKind.SoftFail;
+            ps.kind = ReplyKind.SoftFail;
             return;
         }
         let curChar = input[position];
         if (!predicate(curChar)) {
-            ps.kind =  ResultKind.SoftFail;
+            ps.kind =  ReplyKind.SoftFail;
             return;
         }
         ps.value = curChar;
         ps.position++;
-        ps.kind = ResultKind.OK;
+        ps.kind = ReplyKind.OK;
     }
 }

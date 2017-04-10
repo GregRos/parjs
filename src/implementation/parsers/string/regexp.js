@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -20,13 +21,13 @@ class PrsRegexp extends action_1.ParjsBasicAction {
         input = input.substr(position);
         let match = regexp.exec(input);
         if (!match) {
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = result_1.ReplyKind.SoftFail;
             return;
         }
         ps.position += match[0].length;
         let arr = match.slice(0);
         ps.value = arr;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsRegexp = PrsRegexp;

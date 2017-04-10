@@ -1,15 +1,15 @@
 import { ParsingState } from "../abstract/basics/state";
-import { ResultKind } from "../abstract/basics/result";
+import { ReplyKind } from "../abstract/basics/result";
 export declare class BasicParsingState implements ParsingState {
     input: string;
     position: number;
     state: any;
     value: any;
-    kind: ResultKind;
+    kind: ReplyKind;
     expecting: string;
     constructor(input: string);
-    atLeast(kind: ResultKind): boolean;
-    atMost(kind: ResultKind): boolean;
+    atLeast(kind: ReplyKind): boolean;
+    atMost(kind: ReplyKind): boolean;
     readonly isOk: boolean;
     readonly isSoft: boolean;
     readonly isHard: boolean;

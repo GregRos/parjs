@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 /**
  * Created by User on 28-Nov-16.
@@ -64,7 +65,7 @@ class PrsFloat extends action_1.ParjsAction {
         let { options: { allowSign, allowFloatingPoint, allowImplicitZero, allowExponent } } = this;
         let { position, input } = ps;
         if (position >= input.length) {
-            ps.kind = result_1.ResultKind.SoftFail;
+            ps.kind = result_1.ReplyKind.SoftFail;
             return;
         }
         let initPos = position;
@@ -89,7 +90,7 @@ class PrsFloat extends action_1.ParjsAction {
         prevPos = ps.position;
         if (!allowImplicitZero && !hasWhole) {
             //fail because we don't allow ".1", and similar without allowImplicitZero.
-            ps.kind = hasSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
+            ps.kind = hasSign ? result_1.ReplyKind.HardFail : result_1.ReplyKind.SoftFail;
             ps.expecting = msgOneOrMoreDigits;
             return;
         }
@@ -113,7 +114,7 @@ class PrsFloat extends action_1.ParjsAction {
             }
             if (!hasWhole && !hasFraction) {
                 //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
-                ps.kind = hasSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
+                ps.kind = hasSign ? result_1.ReplyKind.HardFail : result_1.ReplyKind.SoftFail;
                 ps.expecting = msgOneOrMoreDigits;
                 return;
             }
@@ -123,7 +124,7 @@ class PrsFloat extends action_1.ParjsAction {
                 ps.position++;
                 let expSign = parselets_1.Parselets.parseSign(ps);
                 if (expSign === 0) {
-                    ps.kind = result_1.ResultKind.HardFail;
+                    ps.kind = result_1.ReplyKind.HardFail;
                     ps.expecting = msgExponentSign;
                     return;
                 }
@@ -131,13 +132,13 @@ class PrsFloat extends action_1.ParjsAction {
                 parselets_1.Parselets.parseDigitsInBase(ps, 10);
                 if (ps.position === prevFractionalPos) {
                     //we parsed e+ but we did not parse any digits.
-                    ps.kind = result_1.ResultKind.HardFail;
+                    ps.kind = result_1.ReplyKind.HardFail;
                     ps.expecting = msgOneOrMoreDigits;
                     return;
                 }
             }
         }
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
         ps.value = parseFloat(input.substring(initPos, ps.position));
     }
 }

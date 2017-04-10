@@ -1,4 +1,4 @@
-import {ResultKind} from "../../../dist/abstract/basics/result";
+import {ReplyKind} from "../../../dist/abstract/basics/result";
 import {expectFailure, expectSuccess} from "../../custom-matchers";
 import {Parjs} from "../../../dist/bindings/parsers";
 import {AnyParser} from "../../../dist/abstract/combinators/any";
@@ -20,7 +20,7 @@ describe("special parsers", () => {
             expectSuccess(parser.parse(success), undefined);
         });
         it("fail on non-empty input", () => {
-            expectFailure(parser.parse(fail), ResultKind.SoftFail);
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("chain multiple EOF succeeds", () => {
             let parser2 = parser.then(Parjs.eof);
@@ -68,10 +68,10 @@ describe("special parsers", () => {
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {
-            expectFailure(parser.parse(noInput), ResultKind.FatalFail);
+            expectFailure(parser.parse(noInput), ReplyKind.FatalFail);
         });
         it("fails on non-empty input", () => {
-            expectFailure(parser.parse(input), ResultKind.FatalFail);
+            expectFailure(parser.parse(input), ReplyKind.FatalFail);
         });
     });
 

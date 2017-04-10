@@ -1,6 +1,6 @@
 import {ParjsAction} from "../../../base/action";
 import {AnyParserAction} from "../../../abstract/basics/action";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 import {ParsingState} from "../../../abstract/basics/state";
 /**
  * Created by User on 21-Nov-16.
@@ -9,7 +9,7 @@ export class PrsMustCapture extends ParjsAction {
     displayName = "mustCapture";
     isLoud : boolean;
     expecting : string;
-    constructor(private inner : AnyParserAction, private failType : ResultKind) {
+    constructor(private inner : AnyParserAction, private failType : ReplyKind) {
         super();
         this.isLoud = inner.isLoud;
         this.expecting = `internal parser ${inner.displayName} to consume input`;
@@ -22,6 +22,6 @@ export class PrsMustCapture extends ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.kind = position !== ps.position ? ResultKind.OK : failType;
+        ps.kind = position !== ps.position ? ReplyKind.OK : failType;
     }
 }

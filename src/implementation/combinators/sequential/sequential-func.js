@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -31,7 +32,7 @@ class PrsSeqFunc extends action_1.ParjsAction {
             next = selector(initialResult);
         }
         if (!next) {
-            ps.kind = result_1.ResultKind.HardFail;
+            ps.kind = result_1.ReplyKind.HardFail;
             ps.expecting = "failed to determine the right parser for the input";
             return;
         }
@@ -40,7 +41,7 @@ class PrsSeqFunc extends action_1.ParjsAction {
         }
         next.action.apply(ps);
         if (ps.isSoft) {
-            ps.kind = result_1.ResultKind.HardFail;
+            ps.kind = result_1.ReplyKind.HardFail;
         }
     }
 }

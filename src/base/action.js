@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("../implementation/common");
 const chai_1 = require("chai");
 const result_1 = require("../abstract/basics/result");
@@ -9,16 +10,16 @@ const result_1 = require("../abstract/basics/result");
  * @returns {any}
  */
 function worseThan(a, b) {
-    if (a === result_1.ResultKind.OK) {
-        return b === result_1.ResultKind.OK;
+    if (a === result_1.ReplyKind.OK) {
+        return b === result_1.ReplyKind.OK;
     }
-    if (a === result_1.ResultKind.SoftFail) {
-        return b === result_1.ResultKind.SoftFail || b === result_1.ResultKind.OK;
+    if (a === result_1.ReplyKind.SoftFail) {
+        return b === result_1.ReplyKind.SoftFail || b === result_1.ReplyKind.OK;
     }
-    if (a === result_1.ResultKind.HardFail) {
-        return b !== result_1.ResultKind.FatalFail;
+    if (a === result_1.ReplyKind.HardFail) {
+        return b !== result_1.ReplyKind.FatalFail;
     }
-    if (a === result_1.ResultKind.FatalFail) {
+    if (a === result_1.ReplyKind.FatalFail) {
         return true;
     }
 }
@@ -36,16 +37,16 @@ class BasicParsingState {
         return worseThan(kind, this.kind);
     }
     get isOk() {
-        return this.kind === result_1.ResultKind.OK;
+        return this.kind === result_1.ReplyKind.OK;
     }
     get isSoft() {
-        return this.kind === result_1.ResultKind.SoftFail;
+        return this.kind === result_1.ReplyKind.SoftFail;
     }
     get isHard() {
-        return this.kind === result_1.ResultKind.HardFail;
+        return this.kind === result_1.ReplyKind.HardFail;
     }
     get isFatal() {
-        return this.kind === result_1.ResultKind.FatalFail;
+        return this.kind === result_1.ReplyKind.FatalFail;
     }
 }
 exports.BasicParsingState = BasicParsingState;
@@ -60,11 +61,11 @@ class ParjsAction {
     apply(ps) {
         let { position, state } = ps;
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
-        ps.kind = result_1.ResultKind.Unknown;
+        ps.kind = result_1.ReplyKind.Unknown;
         ps.expecting = undefined;
         ps.value = common_1.UNINITIALIZED_RESULT;
         this._apply(ps);
-        chai_1.assert.notStrictEqual(ps.kind, result_1.ResultKind.Unknown, "the State's kind field must be set");
+        chai_1.assert.notStrictEqual(ps.kind, result_1.ReplyKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
             ps.value = common_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;

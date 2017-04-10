@@ -2,7 +2,7 @@ import {ParjsAction} from "../../../base/action";
 import {QUIET_RESULT, Issues} from "../../common";
 import {AnyParserAction} from "../../../abstract/basics/action";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -25,7 +25,7 @@ export class PrsManyTill extends ParjsAction {
             till.apply(ps);
             if (ps.isOk) {
                 break;
-            } else if (ps.atLeast(ResultKind.HardFail)) {
+            } else if (ps.atLeast(ReplyKind.HardFail)) {
                 //if till failed hard/fatally, we return the fail result.
                 return;
             }
@@ -38,7 +38,7 @@ export class PrsManyTill extends ParjsAction {
                 //many failed softly before till...
                 if (!tillOptional) {
                     //if we parsed at least one element, we fail hard.
-                    ps.kind = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+                    ps.kind = successes === 0 ? ReplyKind.SoftFail : ReplyKind.HardFail;
                     return;
                 } else {
                     //till was optional, so many failing softly is OK.
@@ -55,6 +55,6 @@ export class PrsManyTill extends ParjsAction {
             successes++;
         }
         ps.value = arr;
-        ps.kind = ResultKind.OK;
+        ps.kind = ReplyKind.OK;
     }
 }

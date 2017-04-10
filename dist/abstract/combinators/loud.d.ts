@@ -1,5 +1,5 @@
 import { AnyParser } from "./any";
-import { ParserResult, FailResultKind } from "../basics/result";
+import { Reply, FailKind } from "../basics/result";
 import { QuietParser } from "./quiet";
 export interface LoudParser<T> extends AnyParser {
     /**
@@ -7,7 +7,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param input The input string.
      * @param initialState An object containing properties that are merged with this parse invocation's parsing state.
      */
-    parse(input: string, initialState?: object): ParserResult<T>;
+    parse(input: string, initialState?: object): Reply<T>;
     /**
      * P tries to apply this parser. If it fails, then it tries to apply `alt` instead.
      * The return depends on which parser succeeded.
@@ -55,7 +55,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param name The name of the condition the result must satisfy.
      * @param fail The failure type emitted.
      */
-    must(condition: (result: T, state: any) => boolean, name?: string, fail?: FailResultKind): LoudParser<T>;
+    must(condition: (result: T, state: any) => boolean, name?: string, fail?: FailKind): LoudParser<T>;
     /**
      * P applies this parser and verifies its result is non-empty.
      * An empty result is any of the following: null, undefined, "", [], {}. It is NOT the same as falsy.
@@ -74,7 +74,7 @@ export interface LoudParser<T> extends AnyParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    mustCapture(kind?: FailResultKind): LoudParser<T>;
+    mustCapture(kind?: FailKind): LoudParser<T>;
     /**
      * P sandwiches this parser between two other parsers. Returns the result of this parser.
      * @param preceding The preceding parser.

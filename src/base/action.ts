@@ -1,7 +1,7 @@
 import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "../implementation/common";
 import {assert} from 'chai';
 import {ParsingState} from "../abstract/basics/state";
-import {ResultKind} from "../abstract/basics/result";
+import {ReplyKind} from "../abstract/basics/result";
 
 /**
  * a >= b
@@ -9,17 +9,17 @@ import {ResultKind} from "../abstract/basics/result";
  * @param b
  * @returns {any}
  */
-function worseThan(a : ResultKind, b : ResultKind) {
-    if (a === ResultKind.OK) {
-        return b === ResultKind.OK;
+function worseThan(a : ReplyKind, b : ReplyKind) {
+    if (a === ReplyKind.OK) {
+        return b === ReplyKind.OK;
     }
-    if (a === ResultKind.SoftFail) {
-        return b === ResultKind.SoftFail || b === ResultKind.OK;
+    if (a === ReplyKind.SoftFail) {
+        return b === ReplyKind.SoftFail || b === ReplyKind.OK;
     }
-    if (a === ResultKind.HardFail) {
-        return b !== ResultKind.FatalFail;
+    if (a === ReplyKind.HardFail) {
+        return b !== ReplyKind.FatalFail;
     }
-    if (a === ResultKind.FatalFail) {
+    if (a === ReplyKind.FatalFail) {
         return true;
     }
 }
@@ -28,34 +28,34 @@ export class BasicParsingState implements ParsingState {
     position = 0;
     state = undefined;
     value = undefined;
-    kind : ResultKind;
+    kind : ReplyKind;
     expecting : string;
     constructor(public input : string) {
 
     }
 
-    atLeast(kind : ResultKind) {
+    atLeast(kind : ReplyKind) {
         return worseThan(this.kind, kind);
     }
 
-    atMost(kind : ResultKind) {
+    atMost(kind : ReplyKind) {
         return worseThan(kind, this.kind);
     }
 
     get isOk() {
-        return this.kind === ResultKind.OK;
+        return this.kind === ReplyKind.OK;
     }
 
     get isSoft() {
-        return this.kind === ResultKind.SoftFail;
+        return this.kind === ReplyKind.SoftFail;
     }
 
     get isHard() {
-        return this.kind === ResultKind.HardFail;
+        return this.kind === ReplyKind.HardFail;
     }
 
     get isFatal() {
-        return this.kind === ResultKind.FatalFail;
+        return this.kind === ReplyKind.FatalFail;
     }
 }
 
@@ -80,12 +80,12 @@ export abstract class ParjsAction {
         let {position, state} = ps;
 
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
-        ps.kind = ResultKind.Unknown;
+        ps.kind = ReplyKind.Unknown;
         ps.expecting = undefined;
         ps.value = UNINITIALIZED_RESULT;
 
         this._apply(ps);
-        assert.notStrictEqual(ps.kind, ResultKind.Unknown, "the State's kind field must be set");
+        assert.notStrictEqual(ps.kind, ReplyKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const parselets_1 = require("./parselets");
 const result_1 = require("../../../abstract/basics/result");
@@ -29,11 +30,11 @@ class PrsInt extends action_1.ParjsAction {
         parselets_1.Parselets.parseDigitsInBase(ps, base);
         let value = parseInt(input.substring(initPos, ps.position), base);
         if (ps.position === position) {
-            ps.kind = parsedSign ? result_1.ResultKind.HardFail : result_1.ResultKind.SoftFail;
+            ps.kind = parsedSign ? result_1.ReplyKind.HardFail : result_1.ReplyKind.SoftFail;
         }
         else {
             ps.value = value;
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
         }
     }
 }

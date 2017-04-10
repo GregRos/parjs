@@ -1,6 +1,6 @@
 import {ParjsAction} from "../../../base/action";
 import {QUIET_RESULT, Issues} from "../../common";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 import {AnyParserAction} from "../../../abstract/basics/action";
 import {ParsingState} from "../../../abstract/basics/state";
 /**
@@ -21,11 +21,11 @@ export class PrsManySepBy extends ParjsAction {
 
         let arr = [];
         many.apply(ps);
-        if (ps.atLeast(ResultKind.HardFail)) {
+        if (ps.atLeast(ReplyKind.HardFail)) {
             return;
         } else if (ps.isSoft) {
             ps.value = [];
-            ps.kind = ResultKind.OK;
+            ps.kind = ReplyKind.OK;
             return;
         }
         let {position} = ps;
@@ -36,14 +36,14 @@ export class PrsManySepBy extends ParjsAction {
             sep.apply(ps);
             if (ps.isSoft) {
                 break;
-            } else if (ps.atLeast(ResultKind.HardFail)) {
+            } else if (ps.atLeast(ReplyKind.HardFail)) {
                 return;
             }
 
             many.apply(ps);
             if (ps.isSoft) {
                 break;
-            } else if (ps.atLeast(ResultKind.HardFail)) {
+            } else if (ps.atLeast(ReplyKind.HardFail)) {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
@@ -53,7 +53,7 @@ export class PrsManySepBy extends ParjsAction {
             position = ps.position;
             i++;
         }
-        ps.kind = ResultKind.OK;
+        ps.kind = ReplyKind.OK;
         ps.position = position;
         ps.value = arr;
         return;

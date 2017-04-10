@@ -1,8 +1,8 @@
 import { AnyParser } from "./any";
-import { QuietParserResult, FailResultKind } from "../basics/result";
+import { QuietReply, FailKind } from "../basics/result";
 import { LoudParser } from "./loud";
 export interface QuietParser extends AnyParser {
-    parse(input: string, initialState?: any): QuietParserResult;
+    parse(input: string, initialState?: any): QuietReply;
     /**
      * P tries to apply this parser. If it fails, then it tries to apply `alt` instead.
      * The return depends on which parser succeeded.
@@ -23,7 +23,7 @@ export interface QuietParser extends AnyParser {
     /**
      * P applies this parser, and requires that it consume at least one character of the input.
      */
-    mustCapture(kind?: FailResultKind): QuietParser;
+    mustCapture(kind?: FailKind): QuietParser;
     /**
      * P applies this parser and then the given parser. P returns the value of the given parser (if any).
      * @param parser The parser to apply next.

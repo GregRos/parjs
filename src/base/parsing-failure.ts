@@ -1,7 +1,7 @@
-import {FailResult, FailResultKind, ResultKind} from "../abstract/basics/result";
+import {FailureReply, FailKind, ReplyKind} from "../abstract/basics/result";
 
 export class ParsingFailureError extends Error {
-    constructor(public failure : FailResult) {
+    constructor(public failure : FailureReply) {
         super(`Parsing failed: ${JSON.stringify(failure, null, 2)}`);
     }
 }

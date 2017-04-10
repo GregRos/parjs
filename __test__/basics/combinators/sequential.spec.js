@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by lifeg on 10/12/2016.
  */
@@ -24,13 +25,13 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
             });
             it("fails softly on first fail", () => {
-                custom_matchers_1.expectFailure(parser.parse(softBadInput), result_1.ResultKind.SoftFail);
+                custom_matchers_1.expectFailure(parser.parse(softBadInput), result_1.ReplyKind.SoftFail);
             });
             it("fails hard on 2nd fail", () => {
-                custom_matchers_1.expectFailure(parser.parse(hardBadInput), result_1.ResultKind.HardFail);
+                custom_matchers_1.expectFailure(parser.parse(hardBadInput), result_1.ReplyKind.HardFail);
             });
             it("fails on excess input", () => {
-                custom_matchers_1.expectFailure(parser.parse(excessInput), result_1.ResultKind.SoftFail);
+                custom_matchers_1.expectFailure(parser.parse(excessInput), result_1.ReplyKind.SoftFail);
             });
             it("fails hard on first hard fail", () => {
                 let parser2 = parsers_1.Parjs.seq(parsers_1.Parjs.fail("", "HardFail"), parsers_1.Parjs.string("hi"));
@@ -69,7 +70,7 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
             });
             it("fails hard when 3rd fails", () => {
-                custom_matchers_1.expectFailure(parser.parse(excessInput), result_1.ResultKind.HardFail);
+                custom_matchers_1.expectFailure(parser.parse(excessInput), result_1.ReplyKind.HardFail);
             });
         });
         describe("1 quiet using seq combinator", () => {
@@ -84,7 +85,7 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse(""), []);
             });
             it("fails on excess input", () => {
-                custom_matchers_1.expectFailure(parser.parse("a"), result_1.ResultKind.SoftFail);
+                custom_matchers_1.expectFailure(parser.parse("a"), result_1.ReplyKind.SoftFail);
             });
         });
     });
@@ -95,7 +96,7 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse(""), []);
             });
             it("failure on non-empty input without any matches", () => {
-                custom_matchers_1.expectFailure(parser.parse("12"), result_1.ResultKind.SoftFail);
+                custom_matchers_1.expectFailure(parser.parse("12"), result_1.ReplyKind.SoftFail);
             });
             it("success on single match", () => {
                 custom_matchers_1.expectSuccess(parser.parse("ab"), ["ab"]);
@@ -128,7 +129,7 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse("abab"), ["ab", "ab"]);
             });
             it("fails when number of successses < minimum", () => {
-                custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ResultKind.HardFail);
+                custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ReplyKind.HardFail);
             });
         });
         describe("many with bounded iterations, min successes", () => {
@@ -140,7 +141,7 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse("abab"), ["ab", "ab"]);
             });
             it("fails when there is excess input", () => {
-                custom_matchers_1.expectFailure(parser.parse("ababab"), result_1.ResultKind.SoftFail);
+                custom_matchers_1.expectFailure(parser.parse("ababab"), result_1.ReplyKind.SoftFail);
             });
         });
         describe("many on quiet parser", () => {
@@ -160,10 +161,10 @@ describe("sequential combinators", () => {
             custom_matchers_1.expectSuccess(parser.parse("abab"), undefined);
         });
         it("hard fails with 0 < matches <= N", () => {
-            custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ResultKind.HardFail);
+            custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ReplyKind.HardFail);
         });
         it("soft fails with matches == 0", () => {
-            custom_matchers_1.expectFailure(parser.parse("a"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse("a"), result_1.ReplyKind.SoftFail);
         });
     });
     describe("manySepBy combinator", () => {
@@ -204,7 +205,7 @@ describe("sequential combinators", () => {
             custom_matchers_1.expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"]);
         });
         it("fails soft if first many fails", () => {
-            custom_matchers_1.expectFailure(parser.parse("xa"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse("xa"), result_1.ReplyKind.SoftFail);
         });
     });
     describe("manyTill combinator", () => {
@@ -233,10 +234,10 @@ describe("sequential combinators", () => {
             custom_matchers_1.expectSuccess(parser2.parse("a"), ["a"]);
         });
         it("fails soft when many fails 1st time without till", () => {
-            custom_matchers_1.expectFailure(parser.parse("1"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse("1"), result_1.ReplyKind.SoftFail);
         });
         it("fails hard when many fails 2nd time without till", () => {
-            custom_matchers_1.expectFailure(parser.parse("ab1"), result_1.ResultKind.HardFail);
+            custom_matchers_1.expectFailure(parser.parse("ab1"), result_1.ReplyKind.HardFail);
         });
     });
     describe("between combinators", () => {
@@ -246,11 +247,11 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse("(a)"), "a");
             });
             it("fails soft if first between fails", () => {
-                custom_matchers_1.expectFailure(parser.parse("[a)"), result_1.ResultKind.SoftFail);
+                custom_matchers_1.expectFailure(parser.parse("[a)"), result_1.ReplyKind.SoftFail);
             });
             it("fails hard if middle/last fails", () => {
-                custom_matchers_1.expectFailure(parser.parse("(b)"), result_1.ResultKind.HardFail);
-                custom_matchers_1.expectFailure(parser.parse("(b]"), result_1.ResultKind.HardFail);
+                custom_matchers_1.expectFailure(parser.parse("(b)"), result_1.ReplyKind.HardFail);
+                custom_matchers_1.expectFailure(parser.parse("(b]"), result_1.ReplyKind.HardFail);
             });
         });
         describe("one argument version", () => {

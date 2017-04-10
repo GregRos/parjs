@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 class AnyStringOf extends action_1.ParjsBasicAction {
@@ -24,10 +25,10 @@ class AnyStringOf extends action_1.ParjsBasicAction {
             //this means we did not contiue strLoop so curStr passed our tests
             ps.position = position + curStr.length;
             ps.value = curStr;
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
             return;
         }
-        ps.kind = result_1.ResultKind.SoftFail;
+        ps.kind = result_1.ReplyKind.SoftFail;
     }
 }
 exports.AnyStringOf = AnyStringOf;

@@ -4,21 +4,21 @@
 import {expectFailure, expectSuccess} from '../../custom-matchers';
 import {LoudParser} from "../../../dist/abstract/combinators/loud";
 import {Parjs} from "../../../dist/bindings/parsers";
-import {ResultKind} from "../../../dist/abstract/basics/result";
+import {ReplyKind} from "../../../dist/abstract/basics/result";
 import {AnyParser} from "../../../dist/abstract/combinators/any";
 import _ = require('lodash');
 
 describe("must combinators", () => {
     describe("must combinator", () => {
-        let parser = Parjs.stringLen(3).must(s => s === "abc", "must be 'abc'", ResultKind.FatalFail);
+        let parser = Parjs.stringLen(3).must(s => s === "abc", "must be 'abc'", ReplyKind.FatalFail);
         it("fails softly if original fails softly", () => {
-            expectFailure(parser.parse("a"), ResultKind.SoftFail);
+            expectFailure(parser.parse("a"), ReplyKind.SoftFail);
         });
         it("succeeds if original succeeds and matches condition", () => {
             expectSuccess(parser.parse("abc"), "abc");
         });
         it("fails accordingly if it doesn't match the condition", () => {
-            expectFailure(parser.parse("abd"), ResultKind.FatalFail);
+            expectFailure(parser.parse("abd"), ReplyKind.FatalFail);
         })
     });
 
@@ -43,18 +43,18 @@ describe("must combinators", () => {
     });
 
     describe("mustCapture combinator", () => {
-        let parser = Parjs.string("a").then(Parjs.string("b")).str.or(Parjs.eof.result("")).mustCapture(ResultKind.FatalFail);
+        let parser = Parjs.string("a").then(Parjs.string("b")).str.or(Parjs.eof.result("")).mustCapture(ReplyKind.FatalFail);
         it("succeeds if it captures", () => {
             expectSuccess(parser.parse("ab"), "ab");
         });
         it("fails softly if original fails softly", () => {
-            expectFailure(parser.parse("ba"), ResultKind.SoftFail);
+            expectFailure(parser.parse("ba"), ReplyKind.SoftFail);
         });
         it("fails hard if original fails hard", () => {
-            expectFailure(parser.parse("ax"), ResultKind.HardFail);
+            expectFailure(parser.parse("ax"), ReplyKind.HardFail);
         });
         it("fails accordingly if it succeeds but doesn't capture", () => {
-            expectFailure(parser.parse(""), ResultKind.FatalFail);
+            expectFailure(parser.parse(""), ReplyKind.FatalFail);
         });
     });
 
@@ -64,28 +64,28 @@ describe("must combinators", () => {
         let zeroResult = Parjs.result(0);
         let emptyUndefined = Parjs.result(undefined);
         let emptyNull = Parjs.result(null);
-        let fail = Parjs.fail("", ResultKind.FatalFail);
+        let fail = Parjs.fail("", ReplyKind.FatalFail);
         let emptyObj = Parjs.result({});
         it("fails for empty string", () => {
-            expectFailure(emptyString.mustBeNonEmpty.parse(""), ResultKind.HardFail);
+            expectFailure(emptyString.mustBeNonEmpty.parse(""), ReplyKind.HardFail);
         });
         it("fails for empty array", () => {
-            expectFailure(emptyArray.mustBeNonEmpty.parse(""), ResultKind.HardFail);
+            expectFailure(emptyArray.mustBeNonEmpty.parse(""), ReplyKind.HardFail);
         });
         it("succeeds for 0 result", () => {
             expectSuccess(zeroResult.mustBeNonEmpty.parse(""), 0);
         });
         it("fails for undefined", () => {
-            expectFailure(emptyUndefined.mustBeNonEmpty.parse(""), ResultKind.HardFail);
+            expectFailure(emptyUndefined.mustBeNonEmpty.parse(""), ReplyKind.HardFail);
         });
         it("fails for null", () => {
-            expectFailure(emptyNull.mustBeNonEmpty.parse(""), ResultKind.HardFail);
+            expectFailure(emptyNull.mustBeNonEmpty.parse(""), ReplyKind.HardFail);
         });
         it("fails for fail", () => {
-            expectFailure(fail.mustBeNonEmpty.parse(""), ResultKind.FatalFail);
+            expectFailure(fail.mustBeNonEmpty.parse(""), ReplyKind.FatalFail);
         })
         it("fails for empty object", () => {
-            expectFailure(emptyObj.mustBeNonEmpty.parse(""), ResultKind.HardFail);
+            expectFailure(emptyObj.mustBeNonEmpty.parse(""), ReplyKind.HardFail);
         });
 
     });

@@ -4,7 +4,7 @@
 import {expectFailure, expectSuccess} from '../../custom-matchers';
 import {LoudParser} from "../../../dist/abstract/combinators/loud";
 import {Parjs} from "../../../dist/bindings/parsers";
-import {ResultKind} from "../../../dist/abstract/basics/result";
+import {ReplyKind} from "../../../dist/abstract/basics/result";
 import {AnyParser} from "../../../dist/abstract/combinators/any";
 
 
@@ -23,10 +23,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(successInput, uState), successInput);
         });
         it("fails on empty input", () => {
-            expectFailure(parser.parse(failInput, uState), ResultKind.SoftFail);
+            expectFailure(parser.parse(failInput, uState), ReplyKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse(tooLongInput, uState), ResultKind.SoftFail);
+            expectFailure(parser.parse(tooLongInput, uState), ReplyKind.SoftFail);
         });
     });
 
@@ -93,10 +93,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fails on invalid single char", () => {
-            expectFailure(parser.parse(fail), ResultKind.SoftFail);
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse("ab"), ResultKind.SoftFail);
+            expectFailure(parser.parse("ab"), ReplyKind.SoftFail);
         });
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "SoftFail");
@@ -111,10 +111,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fails on single char from list", () => {
-            expectFailure(parser.parse(fail), ResultKind.SoftFail);
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse("12"), ResultKind.SoftFail);
+            expectFailure(parser.parse("12"), ReplyKind.SoftFail);
         });
     });
 
@@ -128,10 +128,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fail", () => {
-            expectFailure(parser.parse(fail), ResultKind.SoftFail)
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail)
         });
         it("fail too long", () => {
-            expectFailure(parser.parse(success + "1"), ResultKind.SoftFail);
+            expectFailure(parser.parse(success + "1"), ReplyKind.SoftFail);
         });
     });
 
@@ -147,10 +147,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success2), success2);
         });
         it("fail", () => {
-            expectFailure(parser.parse(fail), ResultKind.SoftFail)
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail)
         });
         it("fail too long", () => {
-            expectFailure(parser.parse(success2 + "1"), ResultKind.SoftFail);
+            expectFailure(parser.parse(success2 + "1"), ReplyKind.SoftFail);
         });
     });
 
@@ -178,8 +178,8 @@ describe("basic string parsers", () => {
         it("success on all newline string, incl unicode newline", () => {
             let unicodeNewline = Parjs.unicodeNewline.many();
             let result = unicodeNewline.parse(allNewlines);
-            expect(result.kind).toBe(ResultKind.OK);
-            if (result.kind !== ResultKind.OK) return;
+            expect(result.kind).toBe(ReplyKind.OK);
+            if (result.kind !== ReplyKind.OK) return;
             expect(result.value.length).toBe(allNewlines.length - 1);
         });
 

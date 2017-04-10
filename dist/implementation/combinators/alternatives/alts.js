@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const common_1 = require("../../common");
 const result_1 = require("../../../abstract/basics/result");
@@ -38,7 +39,7 @@ class PrsAlts extends action_1.ParjsAction {
                 return;
             }
         }
-        ps.kind = result_1.ResultKind.SoftFail;
+        ps.kind = result_1.ReplyKind.SoftFail;
     }
 }
 exports.PrsAlts = PrsAlts;

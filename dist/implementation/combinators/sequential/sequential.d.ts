@@ -1,5 +1,5 @@
 import { ParjsAction } from "../../../base/action";
-import { ResultKind } from "../../../abstract/basics/result";
+import { ReplyKind } from "../../../abstract/basics/result";
 import { ParsingState } from "../../../abstract/basics/state";
 import { AnyParserAction } from "../../../abstract/basics/action";
 /**
@@ -11,5 +11,5 @@ export declare class PrsSeq extends ParjsAction {
     displayName: string;
     expecting: string;
     constructor(parsers: AnyParserAction[]);
-    _apply(ps: ParsingState): ResultKind;
+    _apply(ps: ParsingState): ReplyKind;
 }

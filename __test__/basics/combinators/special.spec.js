@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const custom_matchers_1 = require("../../custom-matchers");
 const parsers_1 = require("../../../dist/bindings/parsers");
 let goodInput = "abcd";

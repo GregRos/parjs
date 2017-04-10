@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -15,7 +16,7 @@ class PrsResult extends action_1.ParjsBasicAction {
     _apply(ps) {
         let { result } = this;
         ps.value = result;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsResult = PrsResult;

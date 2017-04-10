@@ -1,8 +1,4 @@
 "use strict";
-/**
- * Created by User on 27-Nov-16.
- */
-const parsers_1 = require("./bindings/parsers");
-exports.Parjs = parsers_1.Parjs;
+Object.defineProperty(exports, "__esModule", { value: true });
 
 //# sourceMappingURL=index.js.map

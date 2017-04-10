@@ -1,7 +1,7 @@
 import {ParjsAction} from "../../../base/action";
 import {Issues} from "../../common";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 import {AnyParserAction} from "../../../abstract/basics/action";
 /**
  * Created by User on 21-Nov-16.
@@ -27,6 +27,6 @@ export class PrsMust extends ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.kind = requirement(ps.value, ps.state) ? ResultKind.OK : failType;
+        ps.kind = requirement(ps.value, ps.state) ? ReplyKind.OK : failType;
     }
 }

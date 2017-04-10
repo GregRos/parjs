@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -31,7 +32,7 @@ class PrsSeq extends action_1.ParjsAction {
                 return;
             }
             else if (ps.isSoft) {
-                ps.kind = result_1.ResultKind.HardFail;
+                ps.kind = result_1.ReplyKind.HardFail;
                 //if a i > 0 parser failed softly, this is a hard fail for us.
                 //also, propagate the internal expectation.
                 return;
@@ -42,7 +43,7 @@ class PrsSeq extends action_1.ParjsAction {
             }
         }
         ps.value = results;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsSeq = PrsSeq;

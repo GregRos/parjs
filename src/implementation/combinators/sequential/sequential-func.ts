@@ -1,10 +1,10 @@
 import {ParjsAction} from "../../../base/action";
 import {Issues} from "../../common";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 import {AnyParserAction} from "../../../abstract/basics/action";
-import {LoudParser} from "../../../abstract/combinators/loud";
-import {AnyParser} from "../../../abstract/combinators/any";
+import {LoudParser} from "../../../abstract/loud";
+import {AnyParser} from "../../../abstract/any";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -36,7 +36,7 @@ export class PrsSeqFunc extends ParjsAction {
             next = selector(initialResult);
         }
         if (!next) {
-            ps.kind = ResultKind.HardFail;
+            ps.kind = ReplyKind.HardFail;
             ps.expecting = "failed to determine the right parser for the input";
             return;
         }
@@ -45,7 +45,7 @@ export class PrsSeqFunc extends ParjsAction {
         }
         next.action.apply(ps);
         if (ps.isSoft) {
-            ps.kind = ResultKind.HardFail;
+            ps.kind = ReplyKind.HardFail;
         }
     }
 }

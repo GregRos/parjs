@@ -1,5 +1,5 @@
-import { FailResult } from "../abstract/basics/result";
+import { FailureReply } from "../abstract/basics/result";
 export declare class ParsingFailureError extends Error {
-    failure: FailResult;
-    constructor(failure: FailResult);
+    failure: FailureReply;
+    constructor(failure: FailureReply);
 }

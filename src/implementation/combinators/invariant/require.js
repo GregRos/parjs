@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const common_1 = require("../../common");
 const result_1 = require("../../../abstract/basics/result");
@@ -23,7 +24,7 @@ class PrsMust extends action_1.ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.kind = requirement(ps.value, ps.state) ? result_1.ResultKind.OK : failType;
+        ps.kind = requirement(ps.value, ps.state) ? result_1.ReplyKind.OK : failType;
     }
 }
 exports.PrsMust = PrsMust;

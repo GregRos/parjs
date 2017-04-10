@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const common_1 = require("../../common");
 const result_1 = require("../../../abstract/basics/result");
@@ -19,12 +20,12 @@ class PrsManySepBy extends action_1.ParjsAction {
         let { many, sep, maxIterations, isLoud } = this;
         let arr = [];
         many.apply(ps);
-        if (ps.atLeast(result_1.ResultKind.HardFail)) {
+        if (ps.atLeast(result_1.ReplyKind.HardFail)) {
             return;
         }
         else if (ps.isSoft) {
             ps.value = [];
-            ps.kind = result_1.ResultKind.OK;
+            ps.kind = result_1.ReplyKind.OK;
             return;
         }
         let { position } = ps;
@@ -37,14 +38,14 @@ class PrsManySepBy extends action_1.ParjsAction {
             if (ps.isSoft) {
                 break;
             }
-            else if (ps.atLeast(result_1.ResultKind.HardFail)) {
+            else if (ps.atLeast(result_1.ReplyKind.HardFail)) {
                 return;
             }
             many.apply(ps);
             if (ps.isSoft) {
                 break;
             }
-            else if (ps.atLeast(result_1.ResultKind.HardFail)) {
+            else if (ps.atLeast(result_1.ReplyKind.HardFail)) {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
@@ -54,7 +55,7 @@ class PrsManySepBy extends action_1.ParjsAction {
             position = ps.position;
             i++;
         }
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
         ps.position = position;
         ps.value = arr;
         return;

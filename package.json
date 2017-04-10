@@ -8,17 +8,19 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "node ./jrunner.js",
-    "cover": "istanbul cover jrunner.js"
+    "cover": "npm-run istanbul cover jrunner.js"
   },
   "directories": {
     "bin": "dist",
     "test": "__tests__",
-    "lib": "dist"
+    "lib": "dist",
+    "example": "examples"
   },
   "files": [
     "dist/",
     "src/",
-    "__test__/"
+    "__test__/",
+    "examples"
   ],
   "keywords": [
     "parser",
@@ -36,25 +38,27 @@
     "chai": "^3.5.0",
     "core-js": "^2.4.1",
     "lodash": "^4.17.2",
-    "typescript": "^2.2.0"
+    "tslib": "^1.6.0"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/core-js": "^0.9.35",
+    "@types/highlight.js": "^9.1.9",
     "@types/jasmine": "^2.5.37",
     "@types/lodash": "^4.14.40",
     "codecov": "^2.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^1.11.0",
+    "gulp-typedoc": "^2.0.2",
     "gulp-typescript": "^3.1.4",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^2.7.0",
     "merge2": "^1.0.3",
     "source-map-support": "^0.4.14",
-    "tslib": "^1.5.0",
-    "typescript": "^2.1.5"
+    "typedoc": "^0.5.10",
+    "typescript": "^2.2.2"
   },
   "optionalDependencies": {}
 }

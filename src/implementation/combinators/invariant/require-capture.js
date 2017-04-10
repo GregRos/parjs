@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -20,7 +21,7 @@ class PrsMustCapture extends action_1.ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.kind = position !== ps.position ? result_1.ResultKind.OK : failType;
+        ps.kind = position !== ps.position ? result_1.ReplyKind.OK : failType;
     }
 }
 exports.PrsMustCapture = PrsMustCapture;

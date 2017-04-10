@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const result_1 = require("../../../abstract/basics/result");
 /**
@@ -13,7 +14,7 @@ class PrsPosition extends action_1.ParjsAction {
     }
     _apply(ps) {
         ps.value = ps.position;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsPosition = PrsPosition;

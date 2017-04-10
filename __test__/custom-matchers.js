@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const result_1 = require("../dist/abstract/basics/result");
 const _ = require("lodash");
 class CustomMatcherDefs {
@@ -52,8 +53,8 @@ for (let prop of Reflect.ownKeys(defs)) {
     };
 }
 function expectFailure(result, failType) {
-    expect(result.kind).toBeAnyOf([result_1.ResultKind.FatalFail, result_1.ResultKind.HardFail, result_1.ResultKind.SoftFail], "expected kind to be a Fail");
-    if (result.kind === result_1.ResultKind.OK)
+    expect(result.kind).toBeAnyOf([result_1.ReplyKind.FatalFail, result_1.ReplyKind.HardFail, result_1.ReplyKind.SoftFail], "expected kind to be a Fail");
+    if (result.kind === result_1.ReplyKind.OK)
         return;
     if (failType !== undefined) {
         expect(result.kind).toBe(failType);
@@ -62,8 +63,8 @@ function expectFailure(result, failType) {
 }
 exports.expectFailure = expectFailure;
 function expectSuccess(result, value, state) {
-    expect(result.kind).toBe(result_1.ResultKind.OK, "kind wasn't OK");
-    if (result.kind !== result_1.ResultKind.OK)
+    expect(result.kind).toBe(result_1.ReplyKind.OK, "kind wasn't OK");
+    if (result.kind !== result_1.ReplyKind.OK)
         return;
     expect(result).toHaveMember("value", "expecting value");
     expect(result).not.toHaveMember("expecting", "unexpected 'expecting' attribute");

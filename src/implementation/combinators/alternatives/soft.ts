@@ -5,7 +5,7 @@ import {ParjsAction} from "../../../base/action";
 import {Issues} from "../../common";
 import {AnyParserAction} from "../../../abstract/basics/action";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -22,7 +22,7 @@ export class PrsSoft extends ParjsAction {
     _apply(ps : ParsingState) {
         this.inner.apply(ps);
         if (ps.isHard) {
-            ps.kind = ResultKind.SoftFail;
+            ps.kind = ReplyKind.SoftFail;
         }
     }
 }

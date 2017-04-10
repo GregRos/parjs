@@ -2,6 +2,7 @@
  * Created by User on 24-Nov-16.
  */
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Codes;
 (function (Codes) {
     Codes.a = 'a'.charCodeAt(0);

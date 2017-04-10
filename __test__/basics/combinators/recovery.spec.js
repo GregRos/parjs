@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by lifeg on 12/12/2016.
  */
@@ -38,18 +39,18 @@ describe("or combinator", () => {
             custom_matchers_1.expectSuccess(parser.parse("cd"), "cd");
         });
         it("fails parsing both", () => {
-            custom_matchers_1.expectFailure(parser.parse("ef"), result_1.ResultKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse("ef"), result_1.ReplyKind.SoftFail);
         });
         it("fails hard when 1st fails hard", () => {
-            let parser2 = parsers_1.Parjs.fail("fail", result_1.ResultKind.HardFail).result("x").or(parsers_1.Parjs.string("ab"));
-            custom_matchers_1.expectFailure(parser2.parse("ab"), result_1.ResultKind.HardFail);
+            let parser2 = parsers_1.Parjs.fail("fail", result_1.ReplyKind.HardFail).result("x").or(parsers_1.Parjs.string("ab"));
+            custom_matchers_1.expectFailure(parser2.parse("ab"), result_1.ReplyKind.HardFail);
         });
-        let parser2 = parsers_1.Parjs.string("ab").or(parsers_1.Parjs.fail("x", result_1.ResultKind.HardFail));
+        let parser2 = parsers_1.Parjs.string("ab").or(parsers_1.Parjs.fail("x", result_1.ReplyKind.HardFail));
         it("succeeds with 2nd would've failed hard", () => {
             custom_matchers_1.expectSuccess(parser2.parse("ab"), "ab");
         });
         it("fails when 2nd fails hard", () => {
-            custom_matchers_1.expectFailure(parser2.parse("cd"), result_1.ResultKind.HardFail);
+            custom_matchers_1.expectFailure(parser2.parse("cd"), result_1.ReplyKind.HardFail);
         });
     });
     describe("quiet or quiet", () => {
@@ -65,7 +66,7 @@ describe("or val combinator", () => {
         custom_matchers_1.expectSuccess(parser.parse("ab"), "ab");
     });
     it("if first fails hard, then fail hard", () => {
-        custom_matchers_1.expectFailure(parser.parse("ax"), result_1.ResultKind.HardFail);
+        custom_matchers_1.expectFailure(parser.parse("ax"), result_1.ReplyKind.HardFail);
     });
     it("if first fail soft, then return value", () => {
         custom_matchers_1.expectSuccess(parser.parse(""), "c");
@@ -81,14 +82,14 @@ describe("not combinator", () => {
         custom_matchers_1.expectSuccess(parser2.parse("a"));
     });
     it("soft fails on passing input", () => {
-        custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ResultKind.SoftFail);
+        custom_matchers_1.expectFailure(parser.parse("ab"), result_1.ReplyKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = parsers_1.Parjs.fail("fatal", result_1.ResultKind.FatalFail).not;
-        custom_matchers_1.expectFailure(parser2.parse(""), result_1.ResultKind.FatalFail);
+        let parser2 = parsers_1.Parjs.fail("fatal", result_1.ReplyKind.FatalFail).not;
+        custom_matchers_1.expectFailure(parser2.parse(""), result_1.ReplyKind.FatalFail);
     });
     it("fails on too much input", () => {
-        custom_matchers_1.expectFailure(parser.parse("a"), result_1.ResultKind.SoftFail);
+        custom_matchers_1.expectFailure(parser.parse("a"), result_1.ReplyKind.SoftFail);
     });
 });
 describe("soft combinator", () => {
@@ -97,14 +98,14 @@ describe("soft combinator", () => {
         custom_matchers_1.expectSuccess(parser.parse("ab"), "ab");
     });
     it("fails softly on soft fail", () => {
-        custom_matchers_1.expectFailure(parser.parse("ba"), result_1.ResultKind.SoftFail);
+        custom_matchers_1.expectFailure(parser.parse("ba"), result_1.ReplyKind.SoftFail);
     });
     it("fails softly on hard fail", () => {
-        custom_matchers_1.expectFailure(parser.parse("a"), result_1.ResultKind.SoftFail);
+        custom_matchers_1.expectFailure(parser.parse("a"), result_1.ReplyKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = parsers_1.Parjs.fail("fatal", result_1.ResultKind.FatalFail).soft;
-        custom_matchers_1.expectFailure(parser2.parse(""), result_1.ResultKind.FatalFail);
+        let parser2 = parsers_1.Parjs.fail("fatal", result_1.ReplyKind.FatalFail).soft;
+        custom_matchers_1.expectFailure(parser2.parse(""), result_1.ReplyKind.FatalFail);
     });
 });
 //# sourceMappingURL=recovery.spec.js.map

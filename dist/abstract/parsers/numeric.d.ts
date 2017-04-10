@@ -4,6 +4,7 @@ import { LoudParser } from "../combinators/loud";
 /**
  * Created by User on 14-Dec-16.
  */
+export { IntOptions, FloatOptions };
 export interface NumericParsers {
     int(options?: IntOptions): LoudParser<number>;
     float(options?: FloatOptions): LoudParser<number>;

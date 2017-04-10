@@ -2,7 +2,7 @@ import {ParjsAction} from "../../../base/action";
 import {QUIET_RESULT, Issues} from "../../common";
 import {AnyParserAction} from "../../../abstract/basics/action";
 import {ParsingState} from "../../../abstract/basics/state";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -33,16 +33,16 @@ export class PrsMany extends ParjsAction {
             arr.maybePush(ps.value);
             i++;
         }
-        if (ps.atLeast(ResultKind.HardFail)) {
+        if (ps.atLeast(ReplyKind.HardFail)) {
             return;
         }
         if (i < minSuccesses) {
-            ps.kind = i === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
+            ps.kind = i === 0 ? ReplyKind.SoftFail : ReplyKind.HardFail;
             return;
         }
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        ps.kind = ResultKind.OK;
+        ps.kind = ReplyKind.OK;
     }
 }

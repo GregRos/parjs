@@ -1,5 +1,5 @@
 import {ParjsAction} from "../../../base/action";
-import {ResultKind} from "../../../abstract/basics/result";
+import {ReplyKind} from "../../../abstract/basics/result";
 import {ParsingState} from "../../../abstract/basics/state";
 import {AnyParserAction} from "../../../abstract/basics/action";
 /**
@@ -17,7 +17,7 @@ export class PrsSeq extends ParjsAction {
             this.expecting = parsers[0].expecting;
         }
     }
-    _apply(ps : ParsingState) : ResultKind {
+    _apply(ps : ParsingState) : ReplyKind {
         let {parsers} = this;
         let results = [];
         for (let i = 0; i < parsers.length; i++) {
@@ -29,7 +29,7 @@ export class PrsSeq extends ParjsAction {
                 //if the first parser failed softly then we propagate a soft failure.
                 return;
             } else if (ps.isSoft) {
-                ps.kind = ResultKind.HardFail;
+                ps.kind = ReplyKind.HardFail;
                 //if a i > 0 parser failed softly, this is a hard fail for us.
                 //also, propagate the internal expectation.
                 return;
@@ -39,7 +39,7 @@ export class PrsSeq extends ParjsAction {
             }
         }
         ps.value = results;
-        ps.kind = ResultKind.OK;
+        ps.kind = ReplyKind.OK;
 
     }
 }

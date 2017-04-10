@@ -2,6 +2,7 @@
  * Created by lifeg on 25/03/2017.
  */
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class _StringHelpers {
     recJoin(arr) {
         if (arr instanceof Array) {

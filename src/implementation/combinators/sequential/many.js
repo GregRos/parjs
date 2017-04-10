@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../../base/action");
 const common_1 = require("../../common");
 const result_1 = require("../../../abstract/basics/result");
@@ -34,17 +35,17 @@ class PrsMany extends action_1.ParjsAction {
             arr.maybePush(ps.value);
             i++;
         }
-        if (ps.atLeast(result_1.ResultKind.HardFail)) {
+        if (ps.atLeast(result_1.ReplyKind.HardFail)) {
             return;
         }
         if (i < minSuccesses) {
-            ps.kind = i === 0 ? result_1.ResultKind.SoftFail : result_1.ResultKind.HardFail;
+            ps.kind = i === 0 ? result_1.ReplyKind.SoftFail : result_1.ReplyKind.HardFail;
             return;
         }
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        ps.kind = result_1.ResultKind.OK;
+        ps.kind = result_1.ReplyKind.OK;
     }
 }
 exports.PrsMany = PrsMany;

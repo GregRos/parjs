@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const char_indicators_1 = require("../../../functions/char-indicators");
 /**
  * Created by User on 29-Nov-16.

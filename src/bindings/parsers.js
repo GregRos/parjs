@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const instance_combinators_1 = require("./instance-combinators");
 const parsers_1 = require("../implementation/parsers");
 const combinators_1 = require("../implementation/combinators");
@@ -96,7 +97,7 @@ class ParjsParsers {
     get eof() {
         return wrap(new parsers_1.PrsEof()).withName("eof");
     }
-    fail(expecting = "", kind = result_1.ResultKind.SoftFail) {
+    fail(expecting = "", kind = result_1.ReplyKind.SoftFail) {
         return wrap(new parsers_1.PrsFail(kind, expecting)).withName("fail");
     }
     get position() {
@@ -122,6 +123,5 @@ class ParjsParsers {
         return wrap(new float_1.PrsFloat(options)).withName("float");
     }
 }
-exports.ParjsParsers = ParjsParsers;
 exports.Parjs = new ParjsParsers();
 //# sourceMappingURL=parsers.js.map

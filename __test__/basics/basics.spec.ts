@@ -1,5 +1,5 @@
 import {Parjs} from "../../dist/bindings/parsers";
-import {ResultKind, ParserResult, SuccessResult, FailResult} from "../../dist/abstract/basics/result";
+import {ReplyKind, Reply, SuccessReply, FailureReply} from "../../dist/abstract/basics/result";
 import {expectSuccess, expectFailure} from '../custom-matchers';
 
 
@@ -11,16 +11,16 @@ describe("basics: anyChar example", () => {
     let failInput = "";
     let uniqueState = {};
     it("single char input success", () => {
-        let result = parser.parse(successInput, uniqueState) as SuccessResult<string>;
+        let result = parser.parse(successInput, uniqueState) as SuccessReply<string>;
     });
     it("empty input failure", () => {
-        let result = parser.parse(failInput, uniqueState) as FailResult;
-        expectFailure(result, ResultKind.SoftFail);
+        let result = parser.parse(failInput, uniqueState) as FailureReply;
+        expectFailure(result, ReplyKind.SoftFail);
     });
 
     it("fails on too much input", () => {
         let result = parser.parse(tooMuchInput);
-        expectFailure(result, ResultKind.SoftFail);
+        expectFailure(result, ReplyKind.SoftFail);
     });
 
     describe("resolve", () => {
