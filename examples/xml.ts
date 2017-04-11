@@ -1,7 +1,7 @@
 import "../setup";
 
-import {Parjs} from "../dist/bindings/parsers";
-import {LoudParser} from "../dist/abstract/combinators/loud";
+import {Parjs} from "../dist";
+import {LoudParser} from "../dist/loud";
 import _ = require('lodash');
 /**
  * Created by lifeg on 24/03/2017.

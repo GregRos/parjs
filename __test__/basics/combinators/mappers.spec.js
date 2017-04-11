@@ -4,12 +4,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Created by lifeg on 10/12/2016.
  */
 const custom_matchers_1 = require("../../custom-matchers");
-const parsers_1 = require("../../../dist/bindings/parsers");
-const result_1 = require("../../../dist/abstract/basics/result");
+const dist_1 = require("../../../dist");
+const reply_1 = require("../../../dist/reply");
 let goodInput = "abcd";
 let badInput = "";
 let uState = {};
-let loudParser = parsers_1.Parjs.stringLen(4);
+let loudParser = dist_1.Parjs.stringLen(4);
 describe("map combinators", () => {
     describe("map", () => {
         let parser = loudParser.map(x => 1);
@@ -17,7 +17,7 @@ describe("map combinators", () => {
             custom_matchers_1.expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
-            custom_matchers_1.expectFailure(parser.parse(badInput, uState), result_1.ReplyKind.SoftFail);
+            custom_matchers_1.expectFailure(parser.parse(badInput, uState), reply_1.ReplyKind.SoftFail);
         });
     });
     describe("Parjs.result(1)", () => {
@@ -52,41 +52,41 @@ describe("map combinators", () => {
     });
     describe("str", () => {
         it("quiet", () => {
-            let p = parsers_1.Parjs.eof.str;
+            let p = dist_1.Parjs.eof.str;
             custom_matchers_1.expectSuccess(p.parse(""), "");
         });
         it("array", () => {
-            let p = parsers_1.Parjs.result(["a", "b", "c"]).str;
+            let p = dist_1.Parjs.result(["a", "b", "c"]).str;
             custom_matchers_1.expectSuccess(p.parse(""), "abc");
         });
         it("nested array", () => {
-            let p = parsers_1.Parjs.result(["a", ["b", ["c"], "d"], "e"]).str;
+            let p = dist_1.Parjs.result(["a", ["b", ["c"], "d"], "e"]).str;
             custom_matchers_1.expectSuccess(p.parse(""), "abcde");
         });
         it("null", () => {
-            let p = parsers_1.Parjs.result(null).str;
+            let p = dist_1.Parjs.result(null).str;
             custom_matchers_1.expectSuccess(p.parse(""), "null");
         });
         it("undefined", () => {
-            let p = parsers_1.Parjs.result(undefined).str;
+            let p = dist_1.Parjs.result(undefined).str;
             custom_matchers_1.expectSuccess(p.parse(""), "undefined");
         });
         it("string", () => {
-            let p = parsers_1.Parjs.string("a").str;
+            let p = dist_1.Parjs.string("a").str;
             custom_matchers_1.expectSuccess(p.parse("a"), "a");
         });
         it("symbol", () => {
-            let p = parsers_1.Parjs.result(Symbol("hi")).str;
+            let p = dist_1.Parjs.result(Symbol("hi")).str;
             custom_matchers_1.expectSuccess(p.parse(""), "hi");
         });
         it("object", () => {
-            let p = parsers_1.Parjs.result({}).str;
+            let p = dist_1.Parjs.result({}).str;
             custom_matchers_1.expectSuccess(p.parse(""), {}.toString());
         });
     });
     describe("act", () => {
         let tally = "";
-        let p = parsers_1.Parjs.anyCharOf("abc").act((result, state) => {
+        let p = dist_1.Parjs.anyCharOf("abc").act((result, state) => {
             tally += result;
             state.char = result;
         });

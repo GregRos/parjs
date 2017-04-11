@@ -1,6 +1,5 @@
-import {ReplyKind, Reply, FailureReply} from "../dist/abstract/basics/result";
+import {ReplyKind, Reply} from "../dist/reply";
 import _ =require('lodash');
-import {FailKind} from "../src/abstract/basics/result";
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -77,7 +76,7 @@ for (let prop of Reflect.ownKeys(defs)) {
 
 
 
-export function expectFailure(result : Reply<any>, failType ?: FailKind) {
+export function expectFailure(result : Reply<any>, failType ?: ReplyKind.Fail) {
     expect(result.kind).toBeAnyOf([ReplyKind.FatalFail, ReplyKind.HardFail, ReplyKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ReplyKind.OK) return;
     if (failType !== undefined){
@@ -103,7 +102,7 @@ export function expectSuccess<T>(result : Reply<T>, value ?: T, state ?: object)
 }
 
 export interface FailArgs {
-    type ?: FailKind;
+    type ?: ReplyKind.Fail;
     state ?: any;
 }
 

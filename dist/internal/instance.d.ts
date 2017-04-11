@@ -1,0 +1,32 @@
+import { BaseParjsParser } from "./implementation/parser";
+import { LoudParser } from "../loud";
+import { ReplyKind } from "../reply";
+import { QuietParser } from "../quiet";
+import { AnyParser } from "../any";
+export declare class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
+    thenChoose<TParser extends AnyParser>(selector: (x: any) => TParser, map?: Map<any, TParser>): TParser;
+    between(preceding: AnyParser, proceeding?: AnyParser): any;
+    readonly backtrack: ParjsParser;
+    mustCapture(failType?: ReplyKind.Fail): ParjsParser;
+    or(...others: AnyParser[]): any;
+    readonly state: LoudParser<any>;
+    map(f: any): ParjsParser;
+    act(f: any): ParjsParser;
+    readonly q: ParjsParser;
+    readonly soft: ParjsParser;
+    then(...next: any[]): any;
+    many(minSuccesses?: number, maxIters?: number): ParjsParser;
+    manyTill(till: AnyParser, tillOptional?: boolean): ParjsParser;
+    manySepBy(sep: AnyParser, maxIterations?: number): ParjsParser;
+    exactly(count: number): ParjsParser;
+    result(r: any): ParjsParser;
+    readonly not: ParjsParser;
+    orVal(x: any): ParjsParser;
+    cast(): this;
+    readonly str: ParjsParser;
+    must(condition: (result: any, state: any) => boolean, name?: string, fail?: ReplyKind.Fail): ParjsParser;
+    mustNotBeOf(...options: any[]): ParjsParser;
+    mustBeOf(...options: any[]): ParjsParser;
+    readonly mustBeNonEmpty: ParjsParser;
+    withName(newName: string): this;
+}

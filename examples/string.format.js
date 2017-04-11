@@ -4,18 +4,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Created by lifeg on 04/04/2017.
  */
 require("../setup");
-const parsers_1 = require("../dist/bindings/parsers");
+const dist_1 = require("../dist");
 //+ DEFINING THE PARSER
 //Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
-let ident = parsers_1.Parjs.asciiLetter.then(parsers_1.Parjs.asciiLetter.or(parsers_1.Parjs.digit).many()).str;
+let ident = dist_1.Parjs.asciiLetter.then(dist_1.Parjs.asciiLetter.or(dist_1.Parjs.digit).many()).str;
 //Parse a format token, an `ident` between `{` and `}`. Return the result as a Token object.
-let formatToken = ident.between(parsers_1.Parjs.string("{"), parsers_1.Parjs.string("}")).map(x => ({ token: x }));
+let formatToken = ident.between(dist_1.Parjs.string("{"), dist_1.Parjs.string("}")).map(x => ({ token: x }));
 //Parse an escaped character. This parses "`{a}" as the text "{a}" instead of a token.
 //Also escapes the escaped char, parsing "``" as "`".
 //Works for arbitrary characters like `a being parsed as a.
-let escape = parsers_1.Parjs.string("`").then(parsers_1.Parjs.anyChar).str.map(x => ({ text: x.substr(1) }));
+let escape = dist_1.Parjs.string("`").then(dist_1.Parjs.anyChar).str.map(x => ({ text: x.substr(1) }));
 //Parse text which is not an escape character or {.
-let text = parsers_1.Parjs.noCharOf("`{").many(1).str.map(x => ({ text: x }));
+let text = dist_1.Parjs.noCharOf("`{").many(1).str.map(x => ({ text: x }));
 //The parser itself. Parses either a formatToken, e.g. {abc} or an escaped combo `x, or text that doesn't contain `{.
 //Parses many times.
 let formatParser = formatToken.or(escape, text).many();

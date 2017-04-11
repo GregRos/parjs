@@ -2,8 +2,8 @@
  * Created by lifeg on 04/04/2017.
  */
 import "../setup";
-import {Parjs} from "../dist/bindings/parsers";
-import {LoudParser} from "../dist/abstract/combinators/loud";
+import {Parjs} from "../dist";
+import {LoudParser} from "../dist/loud";
 
 //+ DEFINING THE PARSER
 

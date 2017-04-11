@@ -2,10 +2,10 @@
  * Created by lifeg on 09/12/2016.
  */
 import {expectFailure, expectSuccess} from '../../custom-matchers';
-import {LoudParser} from "../../../dist/abstract/combinators/loud";
-import {Parjs} from "../../../dist/bindings/parsers";
-import {ReplyKind} from "../../../dist/abstract/basics/result";
-import {AnyParser} from "../../../dist/abstract/combinators/any";
+import {LoudParser} from "../../../dist/loud";
+import {Parjs} from "../../../dist";
+import {ReplyKind} from "../../../dist/reply";
+import {AnyParser} from "../../../dist/any";
 
 
 

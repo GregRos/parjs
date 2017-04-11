@@ -2,7 +2,7 @@
  * Created by lifeg on 07/04/2017.
  */
 import "../setup";
-import {Parjs} from "../dist/bindings/parsers";
+import {Parjs} from "../dist";
 import _ = require('lodash');
 
 //define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.

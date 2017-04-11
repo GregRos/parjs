@@ -2,7 +2,7 @@
  * Created by lifeg on 07/04/2017.
  */
 import "../setup";
-import {Parjs} from "../dist/bindings/parsers";
+import {Parjs} from "../dist";
 
 //Built-in parser for floating point numbers.
 let tupleElement = Parjs.float();

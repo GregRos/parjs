@@ -1,6 +1,7 @@
-import {Parjs} from "../../dist/bindings/parsers";
-import {ReplyKind, Reply, SuccessReply, FailureReply} from "../../dist/abstract/basics/result";
+import {Parjs} from "../../dist";
+import {ReplyKind, Reply} from "../../dist/reply";
 import {expectSuccess, expectFailure} from '../custom-matchers';
+import {FailureReply, SuccessReply} from "../../src/internal/reply";
 
 
 
