@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "dist/index",
@@ -38,18 +38,14 @@
     "chai": "^3.5.0",
     "core-js": "^2.4.1",
     "lodash": "^4.17.2",
-    "tslib": "^1.6.0",
-    "word-wrap": "^1.2.1",
-    "wordwrap": "^1.0.0"
+    "tslib": "^1.6.0"
   },
   "devDependencies": {
     "@types/chai": "^3.4.34",
     "@types/core-js": "^0.9.35",
     "@types/highlight.js": "^9.1.9",
     "@types/jasmine": "^2.5.37",
-    "@types/js-yaml": "^3.5.30",
     "@types/lodash": "^4.14.40",
-    "@types/yamljs": "^0.2.30",
     "codecov": "^2.1.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
@@ -59,14 +55,12 @@
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^2.7.0",
-    "js-yaml": "^3.8.3",
     "merge2": "^1.0.3",
     "source-map-support": "^0.4.14",
     "typedoc": "^0.5.10",
     "typedoc-plugin-external-module-name": "^1.0.9",
     "typedoc-plugin-internal-external": "^1.0.9",
-    "typescript": "^2.2.2",
-    "yamljs": "^0.2.10"
+    "typescript": "^2.2.2"
   },
   "optionalDependencies": {}
 }

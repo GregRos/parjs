@@ -3,7 +3,6 @@
  */
 import "../setup";
 import {Parjs} from "../src";
-import YAML = require('js-yaml');
 import {BasicTraceVisualizer} from "../src/internal/implementation/basic-trace-visualizer";
 //Built-in parser for floating point numbers.
 let tupleElement = Parjs.float();
