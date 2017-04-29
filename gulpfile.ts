@@ -43,7 +43,7 @@ gulp.task('typedoc', () => {
            out: "./docs",
            module : "commonjs",
            // TypeDoc options (see typedoc docs)
-           name: "my-project",
+           name: "parjs",
            ignoreCompilerErrors: true,
            version: true,
            mode : "modules",

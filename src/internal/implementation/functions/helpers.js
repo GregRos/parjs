@@ -1,9 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @module parjs/internal/implementation/functions
- */ const special_results_1 = require("../special-results");
-/** */
+ */ /** */
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const special_results_1 = require("../special-results");
 var StringHelpers;
 (function (StringHelpers) {
     function recJoin(arr) {

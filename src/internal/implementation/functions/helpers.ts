@@ -1,7 +1,9 @@
 /**
  * @module parjs/internal/implementation/functions
- */ import {QUIET_RESULT} from "../special-results";
-/** */
+ */ /** */
+
+ import {QUIET_RESULT} from "../special-results";
+
 
 export namespace StringHelpers {
     export function recJoin(arr: any): string {

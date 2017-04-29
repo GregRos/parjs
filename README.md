@@ -11,13 +11,6 @@ It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library
 
 Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It's designed to be used from TypeScript too, but that's not necessary.
 
-## Current Issues
-1. Very little Unicode support, mainly due to lack of JavaScript Unicode character recognizers.
-2. Library is not heavily optimized as it should be. There are no benchmarks.
-2. Debugging should be improved.
-3. API should be streamlined and improved.
-4. Needs to be a section on how to build your own parsers.
-
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
 
@@ -295,3 +288,9 @@ It should be possible to reduce these by:
 4. Reducing the parser overhead in certain situations.
 5. Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.
 
+## Current Issues
+1. Very little Unicode support, mainly due to lack of JavaScript Unicode character recognizers.
+2. Library is not heavily optimized as it should be. There are no benchmarks.
+2. Debugging should be improved.
+3. API should be streamlined and improved.
+4. Needs to be a section on how to build your own parsers.

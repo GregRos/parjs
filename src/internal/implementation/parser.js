@@ -68,7 +68,7 @@ class BaseParjsParser {
             let trace = {
                 state: ps.state,
                 position: ps.position,
-                expecting: ps.expecting,
+                reason: ps.expecting,
                 input: input,
                 location: location,
                 stackTrace: ps.stack,

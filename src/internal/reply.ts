@@ -18,7 +18,7 @@ export interface ErrorLocation {
 export interface Trace {
     state : object;
     position : number;
-    expecting : string;
+    reason : string;
     kind : ReplyKind.Fail;
     location : ErrorLocation;
     stackTrace : AnyParserAction[];

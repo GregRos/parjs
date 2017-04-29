@@ -22,7 +22,7 @@ class BasicTraceVisualizer {
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }
-        let errorMarked = " ".repeat(prefixLength + trace.location.column) + `^${trace.expecting}`;
+        let errorMarked = " ".repeat(prefixLength + trace.location.column) + `^${trace.reason}`;
         linesAround.push(errorMarked);
         let linesVisualization = linesAround.join("\n");
         let fullVisualization = `${trace.kind}

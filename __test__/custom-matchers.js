@@ -59,15 +59,15 @@ function expectFailure(result, failType) {
     if (failType !== undefined) {
         expect(result.kind).toBe(failType);
     }
-    expect(result.trace.expecting).toHaveType("string", "invaid 'expecting' value");
+    expect(result.trace.reason).toHaveType("string", "invaid 'reason' value");
 }
 exports.expectFailure = expectFailure;
 function expectSuccess(result, value, state) {
     expect(result.kind).toBe(reply_1.ReplyKind.OK, "kind wasn't OK");
     if (result.kind !== reply_1.ReplyKind.OK)
         return;
-    expect(result).toHaveMember("value", "expecting value");
-    expect(result).not.toHaveMember("expecting", "unexpected 'expecting' attribute");
+    expect(result).toHaveMember("value", "reason value");
+    expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
     if (value !== undefined) {
         if (!_.isPlainObject(value)) {
             expect(result.value).toEqual(value);
