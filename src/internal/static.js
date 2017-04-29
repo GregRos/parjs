@@ -6,19 +6,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const instance_1 = require("./instance");
 const parsers_1 = require("./implementation/parsers");
 const combinators_1 = require("./implementation/combinators");
+const action_1 = require("./implementation/action");
 const char_indicators_1 = require("./implementation/functions/char-indicators");
 const reply_1 = require("../reply");
 const int_1 = require("./implementation/parsers/numbers/int");
 const float_1 = require("./implementation/parsers/numbers/float");
 const _ = require("lodash");
 const late_1 = require("./implementation/combinators/special/late");
-/**
- * Created by lifeg on 24/11/2016.
- */
+const basic_trace_visualizer_1 = require("./implementation/basic-trace-visualizer");
 function wrap(action) {
     return new instance_1.ParjsParser(action);
 }
+class ParjsHelper {
+    isParser(obj) {
+        return obj instanceof instance_1.ParjsParser;
+    }
+    isParserAction(obj) {
+        return obj instanceof action_1.ParjsBasicAction;
+    }
+}
+exports.ParjsHelper = ParjsHelper;
 class ParjsParsers {
+    constructor() {
+        this.helper = new ParjsHelper();
+        this.visualizer = new basic_trace_visualizer_1.BasicTraceVisualizer();
+    }
     get spaces1() {
         return this.space.many(1).str.withName("spaces1");
     }

@@ -12,7 +12,6 @@ class PrsRegexp extends action_1.ParjsBasicAction {
     constructor(regexp) {
         super();
         this.regexp = regexp;
-        this.displayName = "regexp";
         let flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(x => x).join("");
         let normalizedRegexp = new RegExp("^" + regexp.source, flags);
         regexp = normalizedRegexp;

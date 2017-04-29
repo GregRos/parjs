@@ -2,16 +2,17 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsExactly extends ParjsAction {
     isLoud : boolean;
-    displayName = "exactly";
+
     expecting : string;
     constructor(private inner : AnyParserAction, private count : number) {
         super();
@@ -31,7 +32,7 @@ export class PrsExactly extends ParjsAction {
                 //fail because the inner parser has failed.
                 return;
             }
-            arr.maybePush(ps.value);
+            ArrayHelpers.maybePush(arr, ps.value);
         }
         ps.value = arr;
     }

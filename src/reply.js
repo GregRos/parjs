@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Namespace that contains the different reply kinds/error levels.
+ */
 var ReplyKind;
 (function (ReplyKind) {
     /**

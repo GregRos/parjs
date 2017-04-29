@@ -11,7 +11,6 @@ const reply_1 = require("../../../../reply");
 class PrsRest extends action_1.ParjsBasicAction {
     constructor() {
         super(...arguments);
-        this.displayName = "rest";
         this.isLoud = true;
         this.expecting = "zero or more characters";
     }

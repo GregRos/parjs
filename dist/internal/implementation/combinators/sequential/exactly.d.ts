@@ -11,7 +11,6 @@ export declare class PrsExactly extends ParjsAction {
     private inner;
     private count;
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     constructor(inner: AnyParserAction, count: number);
     _apply(ps: ParsingState): void;

@@ -12,7 +12,6 @@ class PrsMapResult extends action_1.ParjsAction {
         super();
         this.inner = inner;
         this.result = result;
-        this.displayName = "result";
         this.isLoud = true;
         this.expecting = inner.expecting;
     }

@@ -1,7 +1,6 @@
 import "../setup";
 
-import {Parjs} from "../dist";
-import {LoudParser} from "../dist/loud";
+import {Parjs, LoudParser} from "../src";
 import _ = require('lodash');
 /**
  * Created by lifeg on 24/03/2017.
@@ -29,7 +28,7 @@ let openTag = Parjs.seq(
     Parjs.string("<").q,
     ident,
     multipleAttributes,
-    Parjs.spaces,
+    Parjs.spaces.q,
     Parjs.string(">").result("open").or(Parjs.string("/>").result("closed")),
 ).map(([ident, attrs, kind]) => ({ident, attrs, kind, content : []})).map((result, state) => {
     if (result.kind === "open") {
@@ -57,5 +56,5 @@ let root = {
 
 let tagContent = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
 
-let example = tagContent.parse("<a test='1'> <b><c></c></b></a>", {tags : [root]}).resolve;
+let example = tagContent.parse("<a><b><c></c></b></a>", {tags : [root]}).value;
 console.log(JSON.stringify(example, null, 2));

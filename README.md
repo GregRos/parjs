@@ -1,4 +1,5 @@
 
+
 # Parjs - Parser Combinator Library
 [![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
 [![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
@@ -9,6 +10,13 @@ Parjs is a JavaScript library of parser combinators, similar in principle and in
 It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it.
 
 Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It's designed to be used from TypeScript too, but that's not necessary.
+
+## Current Issues
+1. Very little Unicode support, mainly due to lack of JavaScript Unicode character recognizers.
+2. Library is not heavily optimized as it should be. There are no benchmarks.
+2. Debugging should be improved.
+3. API should be streamlined and improved.
+4. Needs to be a section on how to build your own parsers.
 
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
@@ -46,7 +54,31 @@ The possibilities are limitless.
 
 Since it's written in JavaScript, it can be used in web environments.
 
-## What's in a Parjs parser?
+## Module Structure
+Parjs has a well-organized module structure that is reflected in the documentation:
+
+	- parjs
+		Contains all objects and TypeScript type 
+		declarations needed to use the library for parsing.
+		   
+		- parjs/internal
+			Contains additional objects and type declerations that may be needed 
+			to extend the library.
+		  
+			- parjs/internal/implementation
+				Contains objects and declerations for implementing additional parsers.
+				
+				- parjs/internal/implementation/combinators
+					Implementations of combinators.
+					
+				- parjs/internal/implementation/parsers
+					Implementations of building-block parsers.
+					
+				- parjs/internal/implementation/functions
+					Character recognizers and other functions used with parsing.
+
+
+## What's a Parjs parser?
 A somewhat basic question that deserves an answer. In `Parjs`, a parser is an object that consumes characters from text and returns a value. The number of characters the parser consumes depends on its implementation.
 
 When a parser is invoked on a top level, it is expected to consume the entire input. If it does not, this signals an overall parsing failure. During the parsing process, a `position` value is maintained.
@@ -55,7 +87,9 @@ When a parser is invoked as part of a containing parser (e.g. `Parjs.seq(p1, p2)
 
 When several parsers are strung together in sequence inside a containing parser, the containing parser generally chooses how to apply those parsers. Typically, combinators such as `p1.then(p2)` apply the first parser until it consumes all the input it wants, and then apply the 2nd parser at the exact position the previous parser stopped consuming.
 
-### Immutability
+The result of executing a parser is called a *reply*. 
+
+## Immutability
 It's important to note that parsers are meant to be immutable objects, and the library is designed around that important premise. 
 
 More specifically, instances of parsers should not depend on instance-level information to process data. You can still edit the parser prototypes, adding combinators and building block parsers.
@@ -70,13 +104,14 @@ If `myString` were a mutable object, mutating it in one part of the program woul
 
 In practice, you can design parsers that don't behave this way, but doing so is highly discouraged.
 
-### Failures
+## Parsing Failure
 Parsers can fail, and this is completely normal in many situations. The `p.or` and `Parjs.any` combinators assume that some of the parsers will fail and will attempt to apply other parsers if that happens. They are failure recovery combinators.
 
 Some failures though indicate *unexpected input* and shouldn't be swallowed by those constructs. For example, consider a parser that parses a floating point number with an optional exponent, such as `1.0e+10`, followed by an arbitrary string. If we're given the input `1.0e+` we *don't* want to parse it as `1.0` followed by the string `e+`. That would obscure what's likely an error in the input.
 
 That's why some kinds of failures are more severe than others and require more advanced recovery constructs.
 
+### Failure Types
 In general, there are 3 failure severities/failure types:
 
 1. Soft/low severity. This type of severity can be more easily recovered from. It indicates a failure in an internal level that may not translate to a failure on a larger scale. For example, if you use the `p1.or(p2)` combinator, the resulting parser will try `p2` if `p1` fails softly.
@@ -89,7 +124,7 @@ In general, there are 3 failure severities/failure types:
 
 When an internal parser fails, the containing parser will generally propagate the same or similar parser. When there is no containing parser, a failure result will be emitted, indicating that the overall parsing has failed. In some cases, a soft failure in a child parser indicates a hard failure in a parent parser.
 
-#### Overall Parsing Failure
+### Overall Parsing Failure
 An overall parsing happens when a parser is invoked by you (the user), and either fails in any manner or fails to consume the entire input (which translates to a failure).
 
 The result from a parsing operation that has failed is of the `FailureResult` type and exposes several important proprerties:
@@ -99,7 +134,7 @@ The result from a parsing operation that has failed is of the `FailureResult` ty
 
 In addition to emitting a failure result, parsers can also throw exceptions, as mentioned previously. This indicates an error in the parser.
 
-### Quiet Parsers
+## Quiet Parsers
 Earlier I made the claim that all parsers return values. That's not exactly true. There are actually two kinds of parsers: loud and quiet parsers. Whether a parser is loud or quiet is an intrinsic property that is reflected in the TypeScript type system. It's not something that changes based on the input.
 
 In principle, quiet parsers don't return values, only whether parsing succeeded or failed (they may also modify the parser state, see more on that below). In actuality, they do return a special signalling value, but that value is ignored.
@@ -119,7 +154,7 @@ It's not an error to quieten an already quiet parser, but doing so does nothing 
 
 	let comma = Parjs.string(".").q.q.q.q.q;
 
-### State
+## State
 State is a powerful feature that should be used when parsing complex languages, including recursive ones like XML and JSON.
 
 Basically, when you invoke the `.parse(str)` method, a unique, mutable state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser state. In general, built-in parsers don't use the parser state.
@@ -149,12 +184,14 @@ Here is an example of how you can use this feature to parse a recursive, XML-lik
 	let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
 	console.log(JSON.stringify(anyTag.parse("<a><b><c></c></b></a>", {tags : [{content : []}]}), null ,2));
 
+Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.
+
 State is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns. 
 
 ## Kinds of Parsers
 This is a partial overview of the kinds of parsers and combinators provided by `Parjs`. This is not an exhaustive list.
 
-### Parsers
+### Basic Parsers
 These are building block parsers provided by `parjs`.
 
 #### Character parsers
@@ -194,7 +231,7 @@ These special parsers don't belong to any group.
 ### Combinators
 Here `P` refers to the parser created by the combinator.
 
-### Projections
+#### Projections
 These combinators create parsers that project the result of the input to a different form. In
 
 1. `p.map(f)` P applies the function `f` to the result returned by `p`.
@@ -203,14 +240,14 @@ These combinators create parsers that project the result of the input to a diffe
 4. `p.q` - P applies `p` and returns nothing. A quiet parser.
 5. `p.state` - P applies `p`, ignores its return value and instead returns the parser state object.
 
-### Assertions
+#### Assertions
 These combinators check if a condition applies, and fail if it does not. They accept additional arguments that specify the kind of failure. They don't change the result.
 
 1. `p.must(f)` - P applies `f` on the result of `p` and fails if it retursn false.
 2. `p.mustBeNonEmpty()` - P fails if the result of `p` is "empty". This includes various values and is not the same as falsy.
 3. `p.mustCapture()` - P fails if `p` succeeds without consuming input.
 
-### Sequential
+#### Sequential
 These combinators apply a number of parsers sequentially.
 
 1. `p1.then(p2)` - P applies `p1` and then `p2`. The result depends on the loudness of `p1, p2`. A highly overloaded combinator.
@@ -220,28 +257,41 @@ These combinators apply a number of parsers sequentially.
 5. `Parjs.seq(p1, p2, p3)` - Applies the parsers `p1, p2, p3` in sequence. Returns an array of the results. Quiet parsers don't contribute to the array.
 6. `p.thenChoose(selector)` - P applies `p` and then calls `selector` on the result, which returns the parser to apply next.
 
-### Alternatives
+#### Alternatives
 These combinators try several parsers in sequence until one of them succeeds. They are a subtype of failure recovery combinators.
 
 1. `p1.or(p2)` - P applies `p1`. If `p1` fails softly, applies `p2` at the same position. Highly overloaded combinator. You cannot mix loudess with this combinator -- e.g. `loud.or(quiet)` is a runtime error (and a compilation error in TypeScript).
 2. `p1.orVal(v)` - P applies `p1`. If `p1` fails softly, succeeds and returns `v` without consuming input.
 
-### Primitive
+#### Primitive
 These combinators are very simple.
 2. `p.fail(args)` - P applies `p` and fails with `args` if it succeeds. Also propagates failures.
 3. 
 
-### Special
+#### Special
 
 1. `p.not` - P succeeds without consuming input or returning a value if `p` fails hard or soft at the current position. If `p` succeeds, P fails softly. Propagates a fatal failure. A quiet parser.
-3. `p.backtrack` - P applies `p`, backtracks to the original position in the input (before applying `p`), and returns the result. 
+2. `p.backtrack` - P applies `p`, backtracks to the original position in the input (before applying `p`), and returns the result. 
 
+## Debugging
+Parjs is meant to be easy to debug, but right now it doesn't live up to that aspiration.
 
 ## Performance
-Parjs is designed to perform very well, but doesn't sacrifice performance for usability. At present, it's designed to perform best for medium inputs.
+At present, although Parjs is designed with performance in mind, it's not benchmarked and hasn't been optimized.
 
-It takes a number of steps to ensure high performance. If you want to contribute, you can use these as guidelines for additional parsers/combinators.
+In general, a few measures are taken to improve performance:
 
 1. Minimize all memory allocations on the heap. In most parser bodies, no new objects are created.
 2. Do as much work as possible during parser *construction* to make the execution extremely efficient.
 3. Use `charCodeAt` internally, instead of `charAt`. Using `charAt` requires creating a new string object.
+
+The factor that probably slows down Parjs the most is the amount of method calls that is dynamically dispatched and the actions every parser has to do to figure out if the parser code terminated correctly.
+
+It should be possible to reduce these by:
+
+1. Merging identical parsers, such as two `.map` parsers.
+2. Optimizing away some parsers if they have no affect on the output.
+3. Making "fatter" versions of existing parsers in order to compress the parse tree.
+4. Reducing the parser overhead in certain situations.
+5. Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.
+

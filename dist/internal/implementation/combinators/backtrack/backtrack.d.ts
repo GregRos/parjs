@@ -6,7 +6,6 @@ import { ParsingState } from "../../state";
 import { AnyParserAction } from "../../../action";
 export declare class PrsBacktrack extends ParjsAction {
     private inner;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: AnyParserAction);

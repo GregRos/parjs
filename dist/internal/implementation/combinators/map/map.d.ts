@@ -9,7 +9,6 @@ import { ParsingState } from "../../state";
 export declare class MapParser extends ParjsAction {
     private inner;
     private map;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: ParjsAction, map: (x: any, y: any) => any);

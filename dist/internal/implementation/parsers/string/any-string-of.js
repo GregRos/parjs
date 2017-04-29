@@ -6,7 +6,6 @@ class AnyStringOf extends action_1.ParjsBasicAction {
     constructor(strs) {
         super();
         this.strs = strs;
-        this.displayName = "anyStringOf";
         this.isLoud = true;
         this.expecting = `any of ${strs.map(x => `'${x}'`).join(", ")}`;
     }

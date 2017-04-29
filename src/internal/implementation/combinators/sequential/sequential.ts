@@ -5,12 +5,13 @@ import {ParjsAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
 import {AnyParserAction} from "../../../action";
+import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsSeq extends ParjsAction {
     isLoud = true;
-    displayName = "seq";
+
     expecting : string;
     constructor(private parsers : AnyParserAction[]) {
         super();
@@ -27,7 +28,7 @@ export class PrsSeq extends ParjsAction {
             let cur = parsers[i];
             cur.apply(ps);
             if (ps.isOk) {
-                results.maybePush(ps.value);
+                ArrayHelpers.maybePush(results, ps.value);
             } else if (ps.isSoft && i === 0) {
                 //if the first parser failed softly then we propagate a soft failure.
                 return;

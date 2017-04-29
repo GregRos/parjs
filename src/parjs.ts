@@ -1,15 +1,34 @@
 /**
  * @module parjs
  */ /** */
-import {LoudParser} from "./loud";
+import {LoudParser, ParjsPredicate} from "./loud";
 import {FloatOptions} from "./internal/implementation/parsers/numbers/float";
 import {IntOptions} from "./internal/implementation/parsers/numbers/int";
 import {QuietParser} from "./quiet";
 import {AnyParser} from "./any";
 import {ReplyKind} from "./reply";
+import {AnyParserAction} from "./internal/action";
+import {TraceVisualizer} from "./internal/visualizer";
 
+export interface ParjsStaticHelper {
+    isParser(obj : any) : obj is AnyParser;
 
+    isParserAction(obj : any) : obj is AnyParserAction;
+}
+
+/**
+ * Namespace for static combinators and building-block parsers.
+ */
 export interface ParjsStatic {
+
+    readonly helper : ParjsStaticHelper;
+
+
+    //++ INFRASTRUCTURE
+    /**
+     * Used to visualize parsing errors in plain-text.
+     */
+    visualizer : TraceVisualizer;
 
     //++ PARSERS
 
@@ -35,7 +54,7 @@ export interface ParjsStatic {
      * @param predicate The predicate the character must match.
      */
 
-    charWhere(predicate : (input : string) => boolean) : LoudParser<string>;
+    charWhere(predicate : ParjsPredicate<string>) : LoudParser<string>;
 
     /**
      * P Parses a single digit character [0-9]. Returns the parsed character.

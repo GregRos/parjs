@@ -12,7 +12,6 @@ class PrsString extends action_1.ParjsBasicAction {
     constructor(str) {
         super();
         this.str = str;
-        this.displayName = "string";
         this.expecting = `'${str}'`;
     }
     _apply(ps) {

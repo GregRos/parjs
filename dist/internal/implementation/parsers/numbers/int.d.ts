@@ -12,7 +12,6 @@ export interface IntOptions {
 }
 export declare class PrsInt extends ParjsAction {
     private options;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(options: IntOptions);

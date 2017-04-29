@@ -19,7 +19,6 @@ export class PrsLate extends ParjsAction {
         if (!this._resolved) {
             this._resolved = this._resolver();
             this.expecting = this._resolved.expecting;
-            this.displayName = `late ${this._resolved.displayName}`;
         }
         this._resolved.apply(ps);
     }

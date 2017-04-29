@@ -8,7 +8,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsRegexp extends ParjsBasicAction {
     private regexp;
-    displayName: string;
     expecting: string;
     constructor(regexp: RegExp);
     _apply(ps: ParsingState): void;

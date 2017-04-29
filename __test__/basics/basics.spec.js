@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const dist_1 = require("../../dist");
-const reply_1 = require("../../dist/reply");
+const src_1 = require("../../src");
+const reply_1 = require("../../src/reply");
 const custom_matchers_1 = require("../custom-matchers");
 describe("basics: anyChar example", () => {
-    let parser = dist_1.Parjs.anyChar;
+    let parser = src_1.Parjs.anyChar;
     let successInput = "a";
     let tooMuchInput = "ab";
     let failInput = "";
@@ -22,10 +22,10 @@ describe("basics: anyChar example", () => {
     });
     describe("resolve", () => {
         it("throws", () => {
-            expect(() => parser.parse("").resolve()).toThrow();
+            expect(() => parser.parse("").value).toThrow();
         });
         it("doesn't throw", () => {
-            expect(parser.parse("a").resolve()).toBe("a");
+            expect(parser.parse("a").value).toBe("a");
         });
     });
     describe("non-string inputs", () => {

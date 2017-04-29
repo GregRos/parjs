@@ -12,7 +12,6 @@ export declare class PrsManyTill extends ParjsAction {
     private till;
     private tillOptional;
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     constructor(many: AnyParserAction, till: AnyParserAction, tillOptional: boolean);
     _apply(ps: ParsingState): void;

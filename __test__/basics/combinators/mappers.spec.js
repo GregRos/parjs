@@ -4,12 +4,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Created by lifeg on 10/12/2016.
  */
 const custom_matchers_1 = require("../../custom-matchers");
-const dist_1 = require("../../../dist");
-const reply_1 = require("../../../dist/reply");
+const src_1 = require("../../../src");
+const reply_1 = require("../../../src/reply");
 let goodInput = "abcd";
 let badInput = "";
 let uState = {};
-let loudParser = dist_1.Parjs.stringLen(4);
+let loudParser = src_1.Parjs.stringLen(4);
 describe("map combinators", () => {
     describe("map", () => {
         let parser = loudParser.map(x => 1);
@@ -52,41 +52,41 @@ describe("map combinators", () => {
     });
     describe("str", () => {
         it("quiet", () => {
-            let p = dist_1.Parjs.eof.str;
+            let p = src_1.Parjs.eof.str;
             custom_matchers_1.expectSuccess(p.parse(""), "");
         });
         it("array", () => {
-            let p = dist_1.Parjs.result(["a", "b", "c"]).str;
+            let p = src_1.Parjs.result(["a", "b", "c"]).str;
             custom_matchers_1.expectSuccess(p.parse(""), "abc");
         });
         it("nested array", () => {
-            let p = dist_1.Parjs.result(["a", ["b", ["c"], "d"], "e"]).str;
+            let p = src_1.Parjs.result(["a", ["b", ["c"], "d"], "e"]).str;
             custom_matchers_1.expectSuccess(p.parse(""), "abcde");
         });
         it("null", () => {
-            let p = dist_1.Parjs.result(null).str;
+            let p = src_1.Parjs.result(null).str;
             custom_matchers_1.expectSuccess(p.parse(""), "null");
         });
         it("undefined", () => {
-            let p = dist_1.Parjs.result(undefined).str;
+            let p = src_1.Parjs.result(undefined).str;
             custom_matchers_1.expectSuccess(p.parse(""), "undefined");
         });
         it("string", () => {
-            let p = dist_1.Parjs.string("a").str;
+            let p = src_1.Parjs.string("a").str;
             custom_matchers_1.expectSuccess(p.parse("a"), "a");
         });
         it("symbol", () => {
-            let p = dist_1.Parjs.result(Symbol("hi")).str;
+            let p = src_1.Parjs.result(Symbol("hi")).str;
             custom_matchers_1.expectSuccess(p.parse(""), "hi");
         });
         it("object", () => {
-            let p = dist_1.Parjs.result({}).str;
+            let p = src_1.Parjs.result({}).str;
             custom_matchers_1.expectSuccess(p.parse(""), {}.toString());
         });
     });
     describe("act", () => {
         let tally = "";
-        let p = dist_1.Parjs.anyCharOf("abc").act((result, state) => {
+        let p = src_1.Parjs.anyCharOf("abc").act((result, state) => {
             tally += result;
             state.char = result;
         });

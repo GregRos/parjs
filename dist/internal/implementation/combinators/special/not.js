@@ -12,7 +12,6 @@ class PrsNot extends action_1.ParjsAction {
     constructor(inner) {
         super();
         this.inner = inner;
-        this.displayName = "not";
         this.isLoud = false;
         this.expecting = `not: ${inner.expecting}`;
     }

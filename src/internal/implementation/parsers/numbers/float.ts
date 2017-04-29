@@ -32,7 +32,7 @@ const msgOneOrMoreDigits = "one or more digits";
 const msgExponentSign = "exponent sign (+ or -)";
 export class PrsFloat extends ParjsAction {
     expecting = "a floating-point number";
-    displayName = "float";
+
     isLoud = true;
     constructor(private options : FloatOptions) {
         super();

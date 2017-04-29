@@ -2,16 +2,18 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT, Issues} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
+import {Issues} from '../../issues';
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsManyTill extends ParjsAction {
     isLoud : boolean;
-    displayName = "manyTill";
+
     expecting : string;
     constructor(private many : AnyParserAction, private till : AnyParserAction, private tillOptional : boolean) {
         super();
@@ -36,7 +38,7 @@ export class PrsManyTill extends ParjsAction {
             ps.position = position;
             many.apply(ps);
             if (ps.isOk) {
-                arr.maybePush(ps.value);
+                ArrayHelpers.maybePush(arr, ps.value);
             } else if (ps.isSoft) {
                 //many failed softly before till...
                 if (!tillOptional) {
@@ -52,7 +54,7 @@ export class PrsManyTill extends ParjsAction {
                 return;
             }
             if (ps.position === position) {
-                Issues.guardAgainstInfiniteLoop(this);
+                Issues.guardAgainstInfiniteLoop("manyTill");
             }
             position = ps.position;
             successes++;

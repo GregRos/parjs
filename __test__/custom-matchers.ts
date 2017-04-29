@@ -1,4 +1,4 @@
-import {ReplyKind, Reply} from "../dist/reply";
+import {ReplyKind, Reply} from "../src/reply";
 import _ =require('lodash');
 /**
  * Created by lifeg on 09/12/2016.

@@ -4,6 +4,10 @@
 import { AnyParser } from "./any";
 import { ReplyKind, Reply } from "./reply";
 import { QuietParser } from "./quiet";
+export interface ParjsProjection<T, TOut> {
+    (value: T, state: any): TOut;
+}
+export declare type ParjsPredicate<T> = ParjsProjection<T, boolean>;
 export interface LoudParser<T> extends AnyParser {
     /**
      * Applies this parser on the specified input string.
@@ -39,18 +43,19 @@ export interface LoudParser<T> extends AnyParser {
      *P Applies this parser, and then applies the given function on the result.
      * @param mapping The function to apply to the result.
      */
-    map<S>(mapping: (result: T, state: any) => S): LoudParser<S>;
+    map<S>(mapping: ParjsProjection<T, S>): LoudParser<S>;
     /**
      * P applies this parser, and then calls the specified function on the result.
      * Returns the result of P.
      * @param action The action to call.
      */
-    act(action: (result: T, state: any) => void): LoudParser<T>;
+    act(action: ParjsProjection<T, void>): LoudParser<T>;
     /**
      * P returns this parser, statically typed as LoudParser{T}.
      * Only makes sense in TypeScript.
      */
     cast<S>(): LoudParser<S>;
+    mixState(state: any): LoudParser<T>;
     /**
      * P applies this parser, and further requires that the result fulfill a condition.
      * If the condition is not fulfilled, the parser fails.
@@ -58,7 +63,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param name The name of the condition the result must satisfy.
      * @param fail The failure type emitted.
      */
-    must(condition: (result: T, state: any) => boolean, name?: string, fail?: ReplyKind.Fail): LoudParser<T>;
+    must(condition: ParjsPredicate<T>, name?: string, fail?: ReplyKind.Fail): LoudParser<T>;
     /**
      * P applies this parser and verifies its result is non-empty.
      * An empty result is any of the following: null, undefined, "", [], {}. It is NOT the same as falsy.
@@ -138,6 +143,7 @@ export interface LoudParser<T> extends AnyParser {
      * parser too, terminating once this parser fails.
      */
     manyTill(till: AnyParser, tillOptional?: boolean): LoudParser<T[]>;
+    manyTill(till: ParjsPredicate<T>, tillOptional?: boolean): LoudParser<T[]>;
     /**
      * P applies this parser repeatedly, every two occurrences separated by the delimeter parser.
      * P succeeds even when delimeter succeeds but this parser fails. In that case, however, input is not consumed by {delimeter}.

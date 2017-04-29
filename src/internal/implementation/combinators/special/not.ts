@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
 import {AnyParserAction} from "../../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
@@ -10,7 +10,7 @@ import {ParsingState} from "../../state";
  * Created by User on 22-Nov-16.
  */
 export class PrsNot extends ParjsAction {
-    displayName = "not";
+
     isLoud = false;
     expecting : string;
     constructor(private inner : AnyParserAction) {

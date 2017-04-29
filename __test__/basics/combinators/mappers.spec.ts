@@ -2,10 +2,10 @@
  * Created by lifeg on 10/12/2016.
  */
 import {expectFailure, expectSuccess, expectResult} from '../../custom-matchers';
-import {LoudParser} from "../../../dist/loud";
-import {Parjs} from "../../../dist";
-import {ReplyKind} from "../../../dist/reply";
-import {AnyParser} from "../../../dist/any";
+import {LoudParser} from "../../../src/loud";
+import {Parjs} from "../../../src";
+import {ReplyKind} from "../../../src/reply";
+import {AnyParser} from "../../../src/any";
 
 let goodInput = "abcd";
 let badInput = "";

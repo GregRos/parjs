@@ -1,17 +1,12 @@
 /**
  * @module parjs/internal/implementation
  */ /** */
-import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./common";
+import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";
 import {assert} from 'chai';
 import {ParsingState} from "./state";
 import {ReplyKind} from "../../reply";
 
-/**
- * a >= b
- * @param a
- * @param b
- * @returns {any}
- */
+
 function worseThan(a : ReplyKind, b : ReplyKind) {
     if (a === ReplyKind.OK) {
         return b === ReplyKind.OK;
@@ -27,12 +22,17 @@ function worseThan(a : ReplyKind, b : ReplyKind) {
     }
 }
 
+/**
+ * Basic implementation of the ParsingState interface.
+ */
 export class BasicParsingState implements ParsingState {
     position = 0;
+    stack = [];
     state = undefined;
     value = undefined;
     kind : ReplyKind;
     expecting : string;
+
     constructor(public input : string) {
 
     }
@@ -73,7 +73,7 @@ export abstract class ParjsAction {
      */
     protected abstract _apply(ps : ParsingState) : void | void;
     abstract expecting : string;
-    abstract displayName : string;
+    displayName : string;
 
     /**
      * Perform the action on the given ParsingState. This is a wrapper around a derived action's _apply method.
@@ -86,12 +86,12 @@ export abstract class ParjsAction {
         ps.kind = ReplyKind.Unknown;
         ps.expecting = undefined;
         ps.value = UNINITIALIZED_RESULT;
-
         this._apply(ps);
         assert.notStrictEqual(ps.kind, ReplyKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
+
         } else if (!this.isLoud) {
             ps.value = QUIET_RESULT;
         } else {
@@ -100,6 +100,9 @@ export abstract class ParjsAction {
 
         if (!ps.isOk) {
             assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
+            ps.stack.push(this);
+        } else {
+            ps.stack = [];
         }
     }
 

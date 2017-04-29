@@ -4,6 +4,10 @@
 import { AnyParser } from "./any";
 import { ReplyKind, QuietReply } from "./reply";
 import { LoudParser } from "./loud";
+export interface ParjsProjectionQuiet<T> {
+    (state: any): T;
+}
+export declare type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>;
 export interface QuietParser extends AnyParser {
     parse(input: string, initialState?: any): QuietReply;
     /**
@@ -13,12 +17,12 @@ export interface QuietParser extends AnyParser {
      */
     or(...alt: QuietParser[]): QuietParser;
     soft: QuietParser;
-    map<T>(selector: (state: any) => T): LoudParser<T>;
+    map<T>(selector: ParjsProjectionQuiet<T>): LoudParser<T>;
     /**
      * P applies this parser, and then calls the specified function on the state.
      * @param action The action to call.
      */
-    act(action: (state: any) => void): QuietParser;
+    act(action: ParjsProjectionQuiet<void>): QuietParser;
     /**
      * P applies this parser. If it succeeds, it backtracks to the original position in the input, effectively succeeding without consuming input.
      */
@@ -27,6 +31,7 @@ export interface QuietParser extends AnyParser {
      * P applies this parser, and requires that it consume at least one character of the input.
      */
     mustCapture(kind?: ReplyKind.Fail): QuietParser;
+    must(condition: (state: any) => boolean, failureKind: ReplyKind.Fail): QuietParser;
     /**
      * P applies this parser and then the given parser. P returns the value of the given parser (if any).
      * @param parser The parser to apply next.
@@ -40,6 +45,7 @@ export interface QuietParser extends AnyParser {
      * @param maxIterations The maximum number of times this parser is applied.
      */
     many(minSuccess?: number, maxIterations?: number): QuietParser;
+    mixState(state: any): QuietParser;
     /**
      * P applies this parser repeatedly until the `till` parser succeeds.
      * P fails if this parser fails before the `till` parser does.
@@ -48,6 +54,7 @@ export interface QuietParser extends AnyParser {
      * parser too, terminating once this parser fails.
      */
     manyTill(till: AnyParser, tillOptional?: boolean): QuietParser;
+    manyTill(till: ParjsPredicateQuiet, tillOptional?: boolean): QuietParser;
     /**
      * P applies this parser repeatedly, every two occurrences separated by the delimeter parser.
      * If `allowTrailing` is true, the delimeter parser follows every occurrence of this parser.

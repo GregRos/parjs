@@ -16,6 +16,9 @@ class SuccessReply {
     resolve() {
         return this.value;
     }
+    resolveFail() {
+        throw new parsing_failure_1.ParsingSuccessError(this);
+    }
     toString() {
         return this.value;
     }
@@ -31,6 +34,9 @@ class FailureReply {
     }
     resolve() {
         throw new parsing_failure_1.ParsingFailureError(this);
+    }
+    resolveFail() {
+        return this;
     }
 }
 exports.FailureReply = FailureReply;

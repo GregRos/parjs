@@ -12,7 +12,6 @@ class PrsResult extends action_1.ParjsBasicAction {
     constructor(result) {
         super();
         this.result = result;
-        this.displayName = "result";
         this.isLoud = true;
         this.expecting = "anything";
     }

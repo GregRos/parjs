@@ -12,7 +12,6 @@ export interface FloatOptions {
 export declare class PrsFloat extends ParjsAction {
     private options;
     expecting: string;
-    displayName: string;
     isLoud: boolean;
     constructor(options: FloatOptions);
     _apply(ps: ParsingState): void;

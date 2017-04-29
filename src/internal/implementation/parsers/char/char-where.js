@@ -12,7 +12,6 @@ class PrsCharWhere extends action_1.ParjsBasicAction {
     constructor(predicate, expecting = "(some property)") {
         super();
         this.predicate = predicate;
-        this.displayName = "charWhere";
         this.isLoud = true;
         this.expecting = `a char matching: ${expecting}`;
     }

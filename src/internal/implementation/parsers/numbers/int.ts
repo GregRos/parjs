@@ -22,7 +22,7 @@ export interface IntOptions {
 }
 
 export class PrsInt extends ParjsAction {
-    displayName = "int";
+
     isLoud = true;
     expecting : string;
     constructor(private options : IntOptions) {

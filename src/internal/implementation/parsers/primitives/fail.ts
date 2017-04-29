@@ -4,16 +4,16 @@
 import {ParjsBasicAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
-import {Issues} from "../../common";
+import {Issues} from "../../issues";
 /**
  * Created by lifeg on 24/11/2016.
  */
 
 export class PrsFail extends ParjsBasicAction {
-    displayName = "fail";
+
     constructor(private kind : ReplyKind, public expecting : string) {
         super();
-        [ReplyKind.OK as ReplyKind, ReplyKind.Unknown].includes(kind) && Issues.expectedFailureKind(this);
+        [ReplyKind.OK as ReplyKind, ReplyKind.Unknown].includes(kind) && Issues.expectedFailureKind("fail");
     }
 
     _apply(ps : ParsingState) {

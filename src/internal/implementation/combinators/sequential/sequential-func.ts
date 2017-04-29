@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {Issues} from "../../common";
+import {Issues} from "../../issues";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 import {AnyParserAction} from "../../../action";
@@ -13,7 +13,7 @@ import {AnyParser} from "../../../../any";
  */
 export class PrsSeqFunc extends ParjsAction {
     isLoud = true;
-    displayName = "seqFunc";
+
     expecting : string;
     constructor(private initial : AnyParserAction,
                 private selector : (result : any) => AnyParser,

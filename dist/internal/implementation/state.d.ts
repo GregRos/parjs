@@ -20,6 +20,10 @@ export interface ParsingState {
      */
     state: any;
     /**
+     * A stack that indicates entered parsers.
+     */
+    stack: string[];
+    /**
      * If the result is a failure, this field will indicate the reason for the failure.
      * If the result is OK, this must be undefined.
      */

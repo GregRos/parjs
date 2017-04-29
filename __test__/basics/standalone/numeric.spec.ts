@@ -1,6 +1,6 @@
-import {Parjs} from "../../../dist";
+import {Parjs} from "../../../src";
 import {expectFailure, expectSuccess} from "../../custom-matchers";
-import {ReplyKind} from "../../../dist/reply";
+import {ReplyKind} from "../../../src/reply";
 /**
  * Created by User on 14-Dec-16.
  */

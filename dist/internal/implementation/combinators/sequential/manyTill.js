@@ -4,8 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const common_1 = require("../../common");
+const issues_1 = require("../../issues");
 const reply_1 = require("../../../../reply");
+const helpers_1 = require("../../functions/helpers");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -15,7 +16,6 @@ class PrsManyTill extends action_1.ParjsAction {
         this.many = many;
         this.till = till;
         this.tillOptional = tillOptional;
-        this.displayName = "manyTill";
         this.isLoud = many.isLoud;
         this.expecting = `${many.expecting} or ${till.expecting}`;
     }
@@ -37,7 +37,7 @@ class PrsManyTill extends action_1.ParjsAction {
             ps.position = position;
             many.apply(ps);
             if (ps.isOk) {
-                arr.maybePush(ps.value);
+                helpers_1.ArrayHelpers.maybePush(arr, ps.value);
             }
             else if (ps.isSoft) {
                 //many failed softly before till...
@@ -56,7 +56,7 @@ class PrsManyTill extends action_1.ParjsAction {
                 return;
             }
             if (ps.position === position) {
-                common_1.Issues.guardAgainstInfiniteLoop(this);
+                issues_1.Issues.guardAgainstInfiniteLoop("manyTill");
             }
             position = ps.position;
             successes++;

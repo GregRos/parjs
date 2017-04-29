@@ -2,18 +2,19 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {Issues, FAIL_RESULT} from "../../common";
+import {FAIL_RESULT} from "../../special-results";
+import {Issues} from '../../issues';
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 
 export class PrsAltVal extends ParjsAction {
-    displayName = "altVal";
+
     isLoud = true;
     expecting : string;
     constructor (private inner : AnyParserAction, private val : any) {
         super();
-        inner.isLoud || Issues.quietParserNotPermitted(this);
+        inner.isLoud || Issues.quietParserNotPermitted("altVal");
         this.expecting = `${inner.expecting} or anything`;
     }
 

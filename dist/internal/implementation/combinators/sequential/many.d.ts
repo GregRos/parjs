@@ -12,7 +12,6 @@ export declare class PrsMany extends ParjsAction {
     private maxIterations;
     private minSuccesses;
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     constructor(inner: AnyParserAction, maxIterations: number, minSuccesses: number);
     _apply(ps: ParsingState): void;

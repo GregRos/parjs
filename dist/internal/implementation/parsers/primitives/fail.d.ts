@@ -10,7 +10,6 @@ import { ParsingState } from "../../state";
 export declare class PrsFail extends ParjsBasicAction {
     private kind;
     expecting: string;
-    displayName: string;
     constructor(kind: ReplyKind, expecting: string);
     _apply(ps: ParsingState): void;
 }

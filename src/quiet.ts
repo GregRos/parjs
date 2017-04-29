@@ -5,6 +5,23 @@ import {AnyParser} from "./any";
 import {ReplyKind, QuietReply} from "./reply";
 import {LoudParser} from "./loud";
 
+/**
+ * A predicate over the parser state, for parsers that don't produce results.
+ * @see ParjsProjection
+ */
+export interface ParjsProjectionQuiet<T> {
+    (state : any) : T;
+}
+/**
+ * A predicate over the parser state, for parsers that don't produce results.
+ * @see ParjsPredicate
+ */
+export type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>
+
+/**
+ * Interface for parsers that don't produce return values.
+ * @see LoudParser
+ */
 export interface QuietParser extends AnyParser {
     parse(input : string,initialState ?: any) : QuietReply;
 
@@ -19,14 +36,14 @@ export interface QuietParser extends AnyParser {
 
     soft : QuietParser;
 
-    map<T>(selector : (state : any) => T) : LoudParser<T>;
+    map<T>(selector : ParjsProjectionQuiet<T>) : LoudParser<T>;
 
 
     /**
      * P applies this parser, and then calls the specified function on the state.
      * @param action The action to call.
      */
-    act(action : (state : any) => void) : QuietParser;
+    act(action : ParjsProjectionQuiet<void>) : QuietParser;
 
     //+ Look Ahead
 
@@ -40,6 +57,8 @@ export interface QuietParser extends AnyParser {
      */
     mustCapture(kind ?: ReplyKind.Fail) : QuietParser;
 
+
+    must(condition : (state  : any) => boolean, failureKind : ReplyKind.Fail) : QuietParser;
     /**
      * P applies this parser and then the given parser. P returns the value of the given parser (if any).
      * @param parser The parser to apply next.
@@ -57,6 +76,8 @@ export interface QuietParser extends AnyParser {
      */
     many(minSuccess ?: number, maxIterations ?: number) : QuietParser;
 
+    mixState(state : any) : QuietParser;
+
     /**
      * P applies this parser repeatedly until the `till` parser succeeds.
      * P fails if this parser fails before the `till` parser does.
@@ -65,6 +86,9 @@ export interface QuietParser extends AnyParser {
      * parser too, terminating once this parser fails.
      */
     manyTill(till : AnyParser, tillOptional ?: boolean) : QuietParser;
+
+    manyTill(till : ParjsPredicateQuiet, tillOptional ?: boolean) : QuietParser;
+
 
     /**
      * P applies this parser repeatedly, every two occurrences separated by the delimeter parser.

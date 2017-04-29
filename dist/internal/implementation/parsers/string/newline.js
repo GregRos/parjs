@@ -13,7 +13,6 @@ class PrsNewline extends action_1.ParjsAction {
     constructor(matchUnicode) {
         super();
         this.matchUnicode = matchUnicode;
-        this.displayName = "newline";
         this.isLoud = true;
         this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
     }

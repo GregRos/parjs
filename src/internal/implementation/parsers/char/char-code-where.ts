@@ -9,7 +9,7 @@ import {ParsingState} from "../../state";
  * Created by User on 24-Nov-16.
  */
 export class PrsCharCodeWhere extends ParjsBasicAction {
-    displayName ="charCodeWhere";
+
     isLoud = true;
     expecting : string;
     constructor(private predicate : (char : number) => boolean, property = "(a specific property)") {

@@ -9,7 +9,7 @@ import {ReplyKind} from "../../../../reply";
  */
 
 export class PrsState extends ParjsAction {
-    displayName = "state";
+
     isLoud = true;
     expecting = "anything";
     _apply(ps : ParsingState) {

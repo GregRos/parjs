@@ -4,8 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const common_1 = require("../../common");
+const issues_1 = require("../../issues");
 const reply_1 = require("../../../../reply");
+const helpers_1 = require("../../functions/helpers");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -15,7 +16,6 @@ class PrsManySepBy extends action_1.ParjsAction {
         this.many = many;
         this.sep = sep;
         this.maxIterations = maxIterations;
-        this.displayName = "manySepBy";
         this.isLoud = many.isLoud;
         this.expecting = many.expecting;
     }
@@ -32,7 +32,7 @@ class PrsManySepBy extends action_1.ParjsAction {
             return;
         }
         let { position } = ps;
-        arr.maybePush(ps.value);
+        helpers_1.ArrayHelpers.maybePush(arr, ps.value);
         let i = 1;
         while (true) {
             if (i >= maxIterations)
@@ -52,9 +52,9 @@ class PrsManySepBy extends action_1.ParjsAction {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
-                common_1.Issues.guardAgainstInfiniteLoop(this);
+                issues_1.Issues.guardAgainstInfiniteLoop("many");
             }
-            arr.maybePush(ps.value);
+            helpers_1.ArrayHelpers.maybePush(arr, ps.value);
             position = ps.position;
             i++;
         }

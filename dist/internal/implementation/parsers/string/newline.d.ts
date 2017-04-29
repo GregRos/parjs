@@ -8,7 +8,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsNewline extends ParjsAction {
     private matchUnicode;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(matchUnicode: boolean);

@@ -13,7 +13,6 @@ export declare class PrsSeqFunc extends ParjsAction {
     private selector;
     private cache;
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     constructor(initial: AnyParserAction, selector: (result: any) => AnyParser, cache?: Map<any, AnyParser>);
     _apply(ps: ParsingState): void;

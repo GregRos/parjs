@@ -4,18 +4,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const common_1 = require("../../common");
+const issues_1 = require("../../issues");
 const reply_1 = require("../../../../reply");
 class PrsAlts extends action_1.ParjsAction {
     constructor(alts) {
         super();
         this.alts = alts;
-        this.displayName = "alts";
         //if the list is empty, every won't execute and alts[0] won't be called.
         if (!alts.every(x => x.isLoud === alts[0].isLoud)) {
-            common_1.Issues.mixedLoudnessNotPermitted(this);
+            issues_1.Issues.mixedLoudnessNotPermitted("alts");
         }
-        this.isLoud = alts.every(x => x.isLoud === alts[0].isLoud);
+        alts.length === 0 && issues_1.Issues.willAlwaysFail("alts");
+        this.isLoud = alts[0].isLoud;
         this.expecting = `any of: ${alts.join(", ")}`;
     }
     _apply(ps) {

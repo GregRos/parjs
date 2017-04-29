@@ -8,7 +8,6 @@ class PrsQuiet extends action_1.ParjsAction {
     constructor(inner) {
         super();
         this.inner = inner;
-        this.displayName = "quiet";
         this.isLoud = false;
         this.expecting = inner.expecting;
     }

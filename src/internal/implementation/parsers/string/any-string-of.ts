@@ -6,7 +6,7 @@ import {ParjsAction, ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 export class AnyStringOf extends ParjsBasicAction {
-    displayName ="anyStringOf";
+
     isLoud = true;
     expecting : string;
     constructor(private strs : string[]) {

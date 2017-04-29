@@ -19,6 +19,7 @@
 .idea/uiDesigner.xml
 
 docs/
+
 # Gradle:
 .idea/gradle.xml
 .idea/libraries

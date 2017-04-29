@@ -7,8 +7,14 @@ import { ReplyKind } from "../reply";
 import { IntOptions } from "./implementation/parsers/numbers/int";
 import { FloatOptions } from "./implementation/parsers/numbers/float";
 import { LoudParser } from "../loud";
-import { ParjsStatic } from "../parjs";
+import { ParjsStatic, ParjsStaticHelper } from "../parjs";
+import { AnyParserAction } from "./action";
+export declare class ParjsHelper implements ParjsStaticHelper {
+    isParser(obj: any): obj is AnyParser;
+    isParserAction(obj: any): obj is AnyParserAction;
+}
 export declare class ParjsParsers implements ParjsStatic {
+    helper: ParjsHelper;
     readonly spaces1: ParjsParser;
     late<T>(resolver: () => LoudParser<T>): LoudParser<T>;
     readonly asciiLetter: ParjsParser;

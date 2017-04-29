@@ -12,7 +12,6 @@ export declare class PrsMust extends ParjsAction {
     private requirement;
     private failType;
     private qualityName;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: AnyParserAction, requirement: (result: any, state: any) => boolean, failType: any, qualityName: any);

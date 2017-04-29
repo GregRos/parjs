@@ -12,7 +12,6 @@ class PrsStringLen extends action_1.ParjsBasicAction {
     constructor(length) {
         super();
         this.length = length;
-        this.displayName = "stringLen";
         this.expecting = `${length} characters`;
     }
     _apply(ps) {

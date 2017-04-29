@@ -16,6 +16,9 @@ export type Reply<T> = (SuccessReply<T> | FailureReply)
  */
 export type QuietReply = Reply<void>;
 
+/**
+ * Namespace that contains the different reply kinds/error levels.
+ */
 export namespace ReplyKind {
     /**
      * An Unknown reply. Used internally.

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @module parjs/internal/implementation
  */ /** */
-const common_1 = require("./common");
+const special_results_1 = require("./special-results");
 const chai_1 = require("chai");
 const reply_1 = require("../../reply");
 /**
@@ -30,6 +30,7 @@ class BasicParsingState {
     constructor(input) {
         this.input = input;
         this.position = 0;
+        this.stack = [];
         this.state = undefined;
         this.value = undefined;
     }
@@ -66,21 +67,25 @@ class ParjsAction {
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
         ps.kind = reply_1.ReplyKind.Unknown;
         ps.expecting = undefined;
-        ps.value = common_1.UNINITIALIZED_RESULT;
+        ps.value = special_results_1.UNINITIALIZED_RESULT;
         this._apply(ps);
         chai_1.assert.notStrictEqual(ps.kind, reply_1.ReplyKind.Unknown, "the State's kind field must be set");
         if (!ps.isOk) {
-            ps.value = common_1.FAIL_RESULT;
+            ps.value = special_results_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
         }
         else if (!this.isLoud) {
-            ps.value = common_1.QUIET_RESULT;
+            ps.value = special_results_1.QUIET_RESULT;
         }
         else {
-            chai_1.assert.notStrictEqual(ps.value, common_1.UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
+            chai_1.assert.notStrictEqual(ps.value, special_results_1.UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
         }
         if (!ps.isOk) {
             chai_1.assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
+            this.displayName && ps.stack.push(this.displayName);
+        }
+        else {
+            ps.stack = [];
         }
     }
 }

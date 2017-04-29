@@ -11,7 +11,6 @@ import { AnyParserAction } from "../../../action";
 export declare class PrsSeq extends ParjsAction {
     private parsers;
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     constructor(parsers: AnyParserAction[]);
     _apply(ps: ParsingState): ReplyKind;

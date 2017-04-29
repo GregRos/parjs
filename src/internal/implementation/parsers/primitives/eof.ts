@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/parsers
  */ /** */
 import {ParjsAction, ParjsBasicAction} from "../../action";
-import {QUIET_RESULT} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 /**
@@ -11,7 +11,7 @@ import {ReplyKind} from "../../../../reply";
 
 export class PrsEof extends ParjsBasicAction {
     isLoud = false;
-    displayName = "eof";
+
     expecting = "end of input";
     _apply(ps : ParsingState) {
         if (ps.position === ps.input.length) {

@@ -8,7 +8,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsEof extends ParjsBasicAction {
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     _apply(ps: ParsingState): void;
 }

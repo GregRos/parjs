@@ -2,11 +2,12 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT, Issues} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
+import {Issues} from '../../issues';
 import {ParsingState} from "../../state";
 
 export class ActParser extends ParjsAction {
-    displayName = "act";
+
     expecting : string;
     get isLoud() {
         return this.inner.isLoud;

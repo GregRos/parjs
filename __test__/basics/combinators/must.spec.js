@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Created by lifeg on 12/12/2016.
  */
 const custom_matchers_1 = require("../../custom-matchers");
-const dist_1 = require("../../../dist");
-const reply_1 = require("../../../dist/reply");
+const src_1 = require("../../../src");
+const reply_1 = require("../../../src/reply");
 describe("must combinators", () => {
     describe("must combinator", () => {
-        let parser = dist_1.Parjs.stringLen(3).must(s => s === "abc", "must be 'abc'", reply_1.ReplyKind.FatalFail);
+        let parser = src_1.Parjs.stringLen(3).must(s => s === "abc", "must be 'abc'", reply_1.ReplyKind.FatalFail);
         it("fails softly if original fails softly", () => {
             custom_matchers_1.expectFailure(parser.parse("a"), reply_1.ReplyKind.SoftFail);
         });
@@ -20,7 +20,7 @@ describe("must combinators", () => {
         });
     });
     it("mustBeOf", () => {
-        let parser = dist_1.Parjs.stringLen(3).mustBeOf("a", "b", "c");
+        let parser = src_1.Parjs.stringLen(3).mustBeOf("a", "b", "c");
         it("succeeds when is of", () => {
             custom_matchers_1.expectSuccess(parser.parse("b"), "b");
         });
@@ -29,7 +29,7 @@ describe("must combinators", () => {
         });
     });
     it("mustBeOf", () => {
-        let parser = dist_1.Parjs.stringLen(3).mustNotBeOf("a", "b", "c");
+        let parser = src_1.Parjs.stringLen(3).mustNotBeOf("a", "b", "c");
         it("fails when is of", () => {
             custom_matchers_1.expectFailure(parser.parse("b"), "SoftFail");
         });
@@ -38,7 +38,7 @@ describe("must combinators", () => {
         });
     });
     describe("mustCapture combinator", () => {
-        let parser = dist_1.Parjs.string("a").then(dist_1.Parjs.string("b")).str.or(dist_1.Parjs.eof.result("")).mustCapture(reply_1.ReplyKind.FatalFail);
+        let parser = src_1.Parjs.string("a").then(src_1.Parjs.string("b")).str.or(src_1.Parjs.eof.result("")).mustCapture(reply_1.ReplyKind.FatalFail);
         it("succeeds if it captures", () => {
             custom_matchers_1.expectSuccess(parser.parse("ab"), "ab");
         });
@@ -53,13 +53,13 @@ describe("must combinators", () => {
         });
     });
     describe("mustBeNonEmpty combinator", () => {
-        let emptyString = dist_1.Parjs.result("");
-        let emptyArray = dist_1.Parjs.result([]);
-        let zeroResult = dist_1.Parjs.result(0);
-        let emptyUndefined = dist_1.Parjs.result(undefined);
-        let emptyNull = dist_1.Parjs.result(null);
-        let fail = dist_1.Parjs.fail("", reply_1.ReplyKind.FatalFail);
-        let emptyObj = dist_1.Parjs.result({});
+        let emptyString = src_1.Parjs.result("");
+        let emptyArray = src_1.Parjs.result([]);
+        let zeroResult = src_1.Parjs.result(0);
+        let emptyUndefined = src_1.Parjs.result(undefined);
+        let emptyNull = src_1.Parjs.result(null);
+        let fail = src_1.Parjs.fail("", reply_1.ReplyKind.FatalFail);
+        let emptyObj = src_1.Parjs.result({});
         it("fails for empty string", () => {
             custom_matchers_1.expectFailure(emptyString.mustBeNonEmpty.parse(""), reply_1.ReplyKind.HardFail);
         });

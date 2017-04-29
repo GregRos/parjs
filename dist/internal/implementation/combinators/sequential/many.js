@@ -4,8 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const common_1 = require("../../common");
+const issues_1 = require("../../issues");
 const reply_1 = require("../../../../reply");
+const helpers_1 = require("../../functions/helpers");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -15,10 +16,9 @@ class PrsMany extends action_1.ParjsAction {
         this.inner = inner;
         this.maxIterations = maxIterations;
         this.minSuccesses = minSuccesses;
-        this.displayName = "many";
         this.isLoud = inner.isLoud;
         this.expecting = inner.expecting;
-        maxIterations >= minSuccesses || common_1.Issues.willAlwaysFail(this);
+        maxIterations >= minSuccesses || issues_1.Issues.willAlwaysFail("many");
     }
     _apply(ps) {
         let { inner, maxIterations, minSuccesses } = this;
@@ -32,10 +32,10 @@ class PrsMany extends action_1.ParjsAction {
             if (i >= maxIterations)
                 break;
             if (maxIterations === Infinity && ps.position === position) {
-                common_1.Issues.guardAgainstInfiniteLoop(this);
+                issues_1.Issues.guardAgainstInfiniteLoop("many");
             }
             position = ps.position;
-            arr.maybePush(ps.value);
+            helpers_1.ArrayHelpers.maybePush(arr, ps.value);
             i++;
         }
         if (ps.atLeast(reply_1.ReplyKind.HardFail)) {

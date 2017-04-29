@@ -1,7 +1,7 @@
 /**
  * @module parjs/internal/implementation/combinators
  */ /** */
-import {QUIET_RESULT} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
 import {ParjsAction} from "../../action";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
@@ -10,7 +10,7 @@ import {StringHelpers} from "../../functions/helpers";
  * Created by User on 21-Nov-16.
  */
 export class PrsStr extends ParjsAction {
-    displayName = "str";
+
     isLoud = true;
     expecting : string;
     constructor(private inner : AnyParserAction) {

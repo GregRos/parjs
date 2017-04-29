@@ -2,6 +2,7 @@
  * @module parjs/internal
  */ /** */
 import {ReplyKind} from "../../reply";
+import {AnyParserAction} from "../action";
 
 export interface ParsingState {
     /**
@@ -20,6 +21,12 @@ export interface ParsingState {
      * Additional state data.
      */
     state : any;
+
+    /**
+     * A stack that indicates entered parsers.
+     */
+    stack : AnyParserAction[]
+
     /**
      * If the result is a failure, this field will indicate the reason for the failure.
      * If the result is OK, this must be undefined.

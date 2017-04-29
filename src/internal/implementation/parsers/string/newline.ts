@@ -10,7 +10,7 @@ import {ParsingState} from "../../state";
  */
 
 export class PrsNewline extends ParjsAction {
-    displayName = "newline";
+
     isLoud = true;
     expecting : string;
     constructor(private matchUnicode : boolean) {

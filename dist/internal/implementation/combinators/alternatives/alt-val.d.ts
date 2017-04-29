@@ -7,7 +7,6 @@ import { ParsingState } from "../../state";
 export declare class PrsAltVal extends ParjsAction {
     private inner;
     private val;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: AnyParserAction, val: any);

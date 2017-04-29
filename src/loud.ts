@@ -5,6 +5,23 @@
 import {AnyParser} from "./any";
 import {ReplyKind, Reply} from "./reply";
 import {QuietParser} from "./quiet";
+
+/**
+ * A projection on the parser result and the parser state.
+ */
+export interface ParjsProjection<T, TOut> {
+    (value : T, state : any) : TOut;
+}
+/**
+ * A predicate on the parser result and the parser state.
+ */
+export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
+
+
+/**
+ * Interface for parsers that produce result values of type  {T}
+ * @see QuietParser
+ */
 export interface LoudParser<T> extends AnyParser {
     /**
      * Applies this parser on the specified input string.
@@ -56,14 +73,14 @@ export interface LoudParser<T> extends AnyParser {
      *P Applies this parser, and then applies the given function on the result.
      * @param mapping The function to apply to the result.
      */
-    map<S>(mapping : (result : T, state : any) => S) : LoudParser<S>;
+    map<S>(mapping : ParjsProjection<T, S>) : LoudParser<S>;
 
     /**
      * P applies this parser, and then calls the specified function on the result.
      * Returns the result of P.
      * @param action The action to call.
      */
-    act(action : (result : T, state : any) => void) : LoudParser<T>;
+    act(action : ParjsProjection<T, void>) : LoudParser<T>;
 
     /**
      * P returns this parser, statically typed as LoudParser{T}.
@@ -71,7 +88,7 @@ export interface LoudParser<T> extends AnyParser {
      */
     cast<S>() : LoudParser<S>;
 
-
+    mixState(state : any) : LoudParser<T>;
 
     //+++ RESTRICTIONS
     /**
@@ -81,7 +98,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param name The name of the condition the result must satisfy.
      * @param fail The failure type emitted.
      */
-    must(condition : (result : T, state : any) => boolean, name ?: string, fail ?: ReplyKind.Fail) : LoudParser<T>;
+    must(condition : ParjsPredicate<T>, name ?: string, fail ?: ReplyKind.Fail) : LoudParser<T>;
 
     /**
      * P applies this parser and verifies its result is non-empty.
@@ -132,6 +149,7 @@ export interface LoudParser<T> extends AnyParser {
      */
     then<S>(loud : LoudParser<S>) : LoudParser<[T, S]>;
 
+
     /**
      * P applies this parser and then immediately a sequence of parsers, each either quiet or loud returning T.
      * Returns an array containing all the returned values.
@@ -176,6 +194,8 @@ export interface LoudParser<T> extends AnyParser {
      * parser too, terminating once this parser fails.
      */
     manyTill(till : AnyParser, tillOptional ?: boolean) : LoudParser<T[]>;
+
+    manyTill(till : ParjsPredicate<T>, tillOptional ?: boolean) : LoudParser<T[]>
 
     /**
      * P applies this parser repeatedly, every two occurrences separated by the delimeter parser.

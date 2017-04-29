@@ -1,7 +1,7 @@
-import {ReplyKind} from "../../../dist/reply";
+import {ReplyKind} from "../../../src/reply";
 import {expectFailure, expectSuccess} from "../../custom-matchers";
-import {Parjs} from "../../../dist";
-import {AnyParser} from "../../../dist/any";
+import {Parjs} from "../../../src";
+import {AnyParser} from "../../../src/any";
 /**
  * Created by lifeg on 16/12/2016.
  */

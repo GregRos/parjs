@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const common_1 = require("../../common");
 const reply_1 = require("../../../../reply");
 /**
  * Created by User on 21-Nov-16.
@@ -16,9 +15,7 @@ class PrsMust extends action_1.ParjsAction {
         this.requirement = requirement;
         this.failType = failType;
         this.qualityName = qualityName;
-        this.displayName = "must";
-        this.isLoud = true;
-        inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
+        this.isLoud = inner.isLoud;
         this.expecting = `intenral parser ${inner.displayName} yielding a result satisfying ${qualityName}`;
     }
     _apply(ps) {

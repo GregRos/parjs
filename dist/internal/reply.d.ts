@@ -1,4 +1,8 @@
 import { ReplyKind } from "../reply";
+export interface ErrorLocation {
+    row: number;
+    column: number;
+}
 /**
  * An object indicating trace information about the state of parsing when it was stopped.
  */
@@ -6,6 +10,10 @@ export interface Trace {
     state: object;
     position: number;
     expecting: string;
+    location: ErrorLocation;
+    visualization: string;
+    stackTrace: string;
+    input: string;
 }
 /**
  * Used to maintain common members between SuccessReply, FailureReply, and other reply types.
@@ -22,6 +30,7 @@ export declare class SuccessReply<T> implements AnyReply<T> {
     kind: "OK";
     constructor(value: T);
     resolve(): T;
+    resolveFail(): FailureReply;
     toString(): T;
 }
 /**
@@ -32,4 +41,5 @@ export declare class FailureReply implements AnyReply<void> {
     trace: Trace;
     constructor(kind: ReplyKind.Fail, trace: Trace);
     resolve(): never;
+    resolveFail(): this;
 }

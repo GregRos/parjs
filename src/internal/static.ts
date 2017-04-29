@@ -4,7 +4,7 @@
 import {ParjsParser} from "./instance";
 import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from './implementation/parsers';
 import {PrsAlts, PrsSeq} from './implementation/combinators';
-import {ParjsAction} from "./implementation/action";
+import {ParjsAction, ParjsBasicAction} from "./implementation/action";
 import {Chars} from "./implementation/functions/char-indicators";
 import {AnyParser} from "../any";
 import {ReplyKind} from "../reply";
@@ -12,20 +12,31 @@ import {IntOptions, PrsInt} from "./implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "./implementation/parsers/numbers/float";
 import {assert} from 'chai';
 import _ = require('lodash');
-import {Issues} from "./implementation/common";
+import {Issues} from "./implementation/issues";
 import {PrsLate} from "./implementation/combinators/special/late";
 import {LoudParser} from "../loud";
-import {ParjsStatic} from "../parjs";
-/**
- * Created by lifeg on 24/11/2016.
- */
-
+import {ParjsStatic, ParjsStaticHelper} from "../parjs";
+import {AnyParserAction} from "./action";
+import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
+export class ParjsHelper implements ParjsStaticHelper{
+    isParser(obj : any) : obj is AnyParser {
+        return obj instanceof ParjsParser;
+    }
+
+    isParserAction(obj : any) : obj is AnyParserAction {
+        return obj instanceof ParjsBasicAction;
+    }
+}
+
+
 
 export class ParjsParsers implements ParjsStatic {
+    helper = new ParjsHelper();
+    visualizer = new BasicTraceVisualizer();
     get spaces1() {
         return this.space.many(1).str.withName("spaces1");
     }

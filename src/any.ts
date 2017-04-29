@@ -4,6 +4,11 @@
 import {LoudParser} from "./loud";
 import {AnyParserAction} from "./internal/action";
 import {QuietParser} from "./quiet";
+/**
+ * Common interface that unites parsers that produce values and ones that don't.
+ * @see LoudParser
+ * @see QuietParser
+ */
 export interface AnyParser {
     /**
      * Exposes the display name of the parser. Userful when debugging.
@@ -38,6 +43,7 @@ export interface AnyParser {
      * Whether the parser results in a value. Parsers cannot change their loudness.
      */
     readonly isLoud : boolean;
+
 
     /**
      * P applies this parser and maps the result to a string.

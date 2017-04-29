@@ -10,5 +10,12 @@ class ParsingFailureError extends Error {
     }
 }
 exports.ParsingFailureError = ParsingFailureError;
+class ParsingSuccessError extends Error {
+    constructor(success) {
+        super(`Expected parsing to fail, but it succeeded: ${JSON.stringify(success)}`);
+        this.success = success;
+    }
+}
+exports.ParsingSuccessError = ParsingSuccessError;
 
 //# sourceMappingURL=parsing-failure.js.map

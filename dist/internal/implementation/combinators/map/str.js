@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @module parjs/internal/implementation/combinators
  */ /** */
-const common_1 = require("../../common");
+const special_results_1 = require("../../special-results");
 const action_1 = require("../../action");
 const helpers_1 = require("../../functions/helpers");
 /**
@@ -13,7 +13,6 @@ class PrsStr extends action_1.ParjsAction {
     constructor(inner) {
         super();
         this.inner = inner;
-        this.displayName = "str";
         this.isLoud = true;
         this.expecting = inner.expecting;
     }
@@ -27,7 +26,7 @@ class PrsStr extends action_1.ParjsAction {
         let typeStr = typeof value;
         if (typeStr === "string") {
         }
-        else if (value === common_1.QUIET_RESULT) {
+        else if (value === special_results_1.QUIET_RESULT) {
             ps.value = "";
         }
         else if (value === null || value === undefined) {

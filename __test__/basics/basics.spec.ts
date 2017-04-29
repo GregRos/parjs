@@ -1,5 +1,5 @@
-import {Parjs} from "../../dist";
-import {ReplyKind, Reply} from "../../dist/reply";
+import {Parjs} from "../../src";
+import {ReplyKind, Reply} from "../../src/reply";
 import {expectSuccess, expectFailure} from '../custom-matchers';
 import {FailureReply, SuccessReply} from "../../src/internal/reply";
 
@@ -26,10 +26,10 @@ describe("basics: anyChar example", () => {
 
     describe("resolve", () => {
         it("throws", () => {
-            expect(() => parser.parse("").resolve()).toThrow()
+            expect(() => parser.parse("").value).toThrow()
         });
         it("doesn't throw", () => {
-            expect(parser.parse("a").resolve()).toBe("a");
+            expect(parser.parse("a").value).toBe("a");
         })
     });
 

@@ -4,16 +4,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const common_1 = require("../../common");
+const issues_1 = require("../../issues");
 const reply_1 = require("../../../../reply");
 class PrsAltVal extends action_1.ParjsAction {
     constructor(inner, val) {
         super();
         this.inner = inner;
         this.val = val;
-        this.displayName = "altVal";
         this.isLoud = true;
-        inner.isLoud || common_1.Issues.quietParserNotPermitted(this);
+        inner.isLoud || issues_1.Issues.quietParserNotPermitted("altVal");
         this.expecting = `${inner.expecting} or anything`;
     }
     _apply(ps) {

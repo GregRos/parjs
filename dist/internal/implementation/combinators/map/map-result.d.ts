@@ -10,7 +10,6 @@ import { ParsingState } from "../../state";
 export declare class PrsMapResult extends ParjsAction {
     private inner;
     private result;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: AnyParserAction, result: any);

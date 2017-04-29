@@ -11,7 +11,6 @@ import { ParsingState } from "../../state";
 export declare class PrsMustCapture extends ParjsAction {
     private inner;
     private failType;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: AnyParserAction, failType: ReplyKind);

@@ -5,9 +5,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 class ParsingFailureError extends Error {
     constructor(failure) {
-        super(`Parsing failed: ${JSON.stringify(failure, null, 2)}`);
+        super(`Attempted to get the value of a failure reply!\n${failure.toString()}`);
         this.failure = failure;
     }
 }
 exports.ParsingFailureError = ParsingFailureError;
+class ParsingSuccessError extends Error {
+    constructor(success) {
+        super(`Expected parsing to fail, but it succeeded.`);
+        this.success = success;
+    }
+}
+exports.ParsingSuccessError = ParsingSuccessError;
 //# sourceMappingURL=parsing-failure.js.map

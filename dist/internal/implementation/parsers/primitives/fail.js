@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 const action_1 = require("../../action");
 const reply_1 = require("../../../../reply");
-const common_1 = require("../../common");
+const issues_1 = require("../../issues");
 /**
  * Created by lifeg on 24/11/2016.
  */
@@ -14,8 +14,7 @@ class PrsFail extends action_1.ParjsBasicAction {
         super();
         this.kind = kind;
         this.expecting = expecting;
-        this.displayName = "fail";
-        [reply_1.ReplyKind.OK, reply_1.ReplyKind.Unknown].includes(kind) && common_1.Issues.expectedFailureKind(this);
+        [reply_1.ReplyKind.OK, reply_1.ReplyKind.Unknown].includes(kind) && issues_1.Issues.expectedFailureKind("fail");
     }
     _apply(ps) {
         ps.kind = this.kind;

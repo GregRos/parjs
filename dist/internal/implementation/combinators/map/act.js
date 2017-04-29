@@ -9,7 +9,6 @@ class ActParser extends action_1.ParjsAction {
         super();
         this.inner = inner;
         this.act = act;
-        this.displayName = "act";
         this.expecting = inner.expecting;
     }
     get isLoud() {

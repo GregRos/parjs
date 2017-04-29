@@ -129,8 +129,6 @@ export namespace Chars {
         return Codes.isInlineSpace(code);
     }
 
-
-
     export function isUnicodeInlineSpace(s : string) {
         let code = s.charCodeAt(0);
         return Codes.isUnicodeInlineSpace(code);

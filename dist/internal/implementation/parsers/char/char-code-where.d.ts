@@ -8,7 +8,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsCharCodeWhere extends ParjsBasicAction {
     private predicate;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(predicate: (char: number) => boolean, property?: string);

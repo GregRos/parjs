@@ -8,7 +8,7 @@ import {ReplyKind} from "../../../../reply";
  * Created by User on 22-Nov-16.
  */
 export class PrsStringLen extends ParjsBasicAction{
-    displayName = "stringLen";
+
     expecting : string;
 
     constructor(private length : number) {

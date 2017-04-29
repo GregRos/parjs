@@ -2,21 +2,23 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {Issues} from "../../common";
+import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+import {QUIET_RESULT} from "../../special-results";
 export class PrsAlts extends ParjsAction {
     isLoud : boolean;
-    displayName = "alts";
+
     expecting : string;
     constructor(private alts : AnyParserAction[]) {
         super();
         //if the list is empty, every won't execute and alts[0] won't be called.
         if (!alts.every(x => x.isLoud === alts[0].isLoud)) {
-            Issues.mixedLoudnessNotPermitted(this);
+            Issues.mixedLoudnessNotPermitted("alts");
         }
-        this.isLoud = alts.every(x => x.isLoud === alts[0].isLoud);
+        alts.length === 0 && Issues.willAlwaysFail("alts");
+        this.isLoud = alts[0].isLoud;
         this.expecting = `any of: ${alts.join(", ")}`;
     }
 

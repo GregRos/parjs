@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const reply_1 = require("../dist/reply");
+const reply_1 = require("../src/reply");
 const _ = require("lodash");
 class CustomMatcherDefs {
     toBeAnyOf(expecteds, failMessage) {

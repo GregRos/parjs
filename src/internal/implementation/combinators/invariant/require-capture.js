@@ -13,7 +13,6 @@ class PrsMustCapture extends action_1.ParjsAction {
         super();
         this.inner = inner;
         this.failType = failType;
-        this.displayName = "mustCapture";
         this.isLoud = inner.isLoud;
         this.expecting = `internal parser ${inner.displayName} to consume input`;
     }

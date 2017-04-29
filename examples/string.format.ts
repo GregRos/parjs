@@ -2,9 +2,7 @@
  * Created by lifeg on 04/04/2017.
  */
 import "../setup";
-import {Parjs} from "../dist";
-import {LoudParser} from "../dist/loud";
-
+import {Parjs, LoudParser} from "../src";
 //+ DEFINING THE PARSER
 
 //Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
@@ -30,7 +28,7 @@ let formatParser = formatToken.or(escape, text).many();
 console.log(formatParser.parse("hello, my name is {name} and I am {age} years old. This is `{escaped}. This is double escaped: ``{name}."));
 
 function toTemplate(formatString : string) {
-    let stream = formatParser.parse(formatString).resolve();
+    let stream = formatParser.parse(formatString).value;
     return {
         inject(args : object) {
             let str = "";

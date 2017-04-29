@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 const action_1 = require("../../action");
 const reply_1 = require("../../../../reply");
+const helpers_1 = require("../../functions/helpers");
 /**
  * Created by User on 21-Nov-16.
  */
@@ -13,7 +14,6 @@ class PrsSeq extends action_1.ParjsAction {
         super();
         this.parsers = parsers;
         this.isLoud = true;
-        this.displayName = "seq";
         if (parsers.length === 0) {
             this.expecting = "anything";
         }
@@ -28,7 +28,7 @@ class PrsSeq extends action_1.ParjsAction {
             let cur = parsers[i];
             cur.apply(ps);
             if (ps.isOk) {
-                results.maybePush(ps.value);
+                helpers_1.ArrayHelpers.maybePush(results, ps.value);
             }
             else if (ps.isSoft && i === 0) {
                 //if the first parser failed softly then we propagate a soft failure.

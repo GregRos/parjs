@@ -7,7 +7,6 @@ import { ParsingState } from "../../state";
 export declare class PrsSoft extends ParjsAction {
     private inner;
     isLoud: boolean;
-    displayName: string;
     expecting: string;
     constructor(inner: AnyParserAction);
     _apply(ps: ParsingState): void;

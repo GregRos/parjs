@@ -8,7 +8,7 @@ import {ReplyKind} from "../../../../reply";
  * Created by User on 21-Nov-16.
  */
 export class PrsCharWhere extends ParjsBasicAction {
-    displayName ="charWhere";
+
     isLoud = true;
     expecting : string;
     constructor(private predicate : (char : string) => boolean, expecting : string = "(some property)") {

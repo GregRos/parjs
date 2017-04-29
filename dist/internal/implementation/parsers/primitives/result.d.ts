@@ -8,7 +8,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsResult extends ParjsBasicAction {
     private result;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(result: any);

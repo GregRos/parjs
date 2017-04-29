@@ -11,7 +11,6 @@ const reply_1 = require("../../../../reply");
 class PrsState extends action_1.ParjsAction {
     constructor() {
         super(...arguments);
-        this.displayName = "state";
         this.isLoud = true;
         this.expecting = "anything";
     }

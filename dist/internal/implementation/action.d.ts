@@ -3,6 +3,7 @@ import { ReplyKind } from "../../reply";
 export declare class BasicParsingState implements ParsingState {
     input: string;
     position: number;
+    stack: any[];
     state: any;
     value: any;
     kind: ReplyKind;
@@ -26,7 +27,7 @@ export declare abstract class ParjsAction {
      */
     protected abstract _apply(ps: ParsingState): void | void;
     abstract expecting: string;
-    abstract displayName: string;
+    displayName: string;
     /**
      * Perform the action on the given ParsingState. This is a wrapper around a derived action's _apply method.
      * @param ps The parsing state.

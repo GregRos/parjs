@@ -4,12 +4,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Created by lifeg on 09/12/2016.
  */
 const custom_matchers_1 = require("../../custom-matchers");
-const dist_1 = require("../../../dist");
-const reply_1 = require("../../../dist/reply");
+const src_1 = require("../../../src");
+const reply_1 = require("../../../src/reply");
 let uState = {};
 describe("basic string parsers", () => {
     describe("Parjs.anyChar", () => {
-        let parser = dist_1.Parjs.anyChar;
+        let parser = src_1.Parjs.anyChar;
         let successInput = "a";
         let failInput = "";
         let tooLongInput = "ab";
@@ -24,7 +24,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.spaces1", () => {
-        let parser = dist_1.Parjs.spaces1;
+        let parser = src_1.Parjs.spaces1;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -39,7 +39,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.asciiUpper", () => {
-        let parser = dist_1.Parjs.asciiUpper;
+        let parser = src_1.Parjs.asciiUpper;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -51,7 +51,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.asciiUpper", () => {
-        let parser = dist_1.Parjs.asciiLower;
+        let parser = src_1.Parjs.asciiLower;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -63,7 +63,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.asciiLetter", () => {
-        let parser = dist_1.Parjs.asciiLower;
+        let parser = src_1.Parjs.asciiLower;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -75,7 +75,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.anyCharOf[abcd]", () => {
-        let parser = dist_1.Parjs.anyCharOf("abcd");
+        let parser = src_1.Parjs.anyCharOf("abcd");
         let success = "c";
         let fail = "1";
         it("succeeds on single char from success", () => {
@@ -92,7 +92,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.noCharOf[abcd]", () => {
-        let parser = dist_1.Parjs.noCharOf("abcd");
+        let parser = src_1.Parjs.noCharOf("abcd");
         let success = "1";
         let fail = "a";
         it("success on single char not from list", () => {
@@ -106,7 +106,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.string(hi)", () => {
-        let parser = dist_1.Parjs.string("hi");
+        let parser = src_1.Parjs.string("hi");
         let success = "hi";
         let fail = "bo";
         it("success", () => {
@@ -120,7 +120,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.anyStringOf(hi, hello)", () => {
-        let parser = dist_1.Parjs.anyStringOf("hi", "hello");
+        let parser = src_1.Parjs.anyStringOf("hi", "hello");
         let success1 = "hello";
         let success2 = "hi";
         let fail = "bo";
@@ -138,7 +138,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.newline", () => {
-        let parser = dist_1.Parjs.newline;
+        let parser = src_1.Parjs.newline;
         let unix = "\n";
         let winNewline = "\r\n";
         let macNewline = "\r";
@@ -157,7 +157,7 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(macNewline), macNewline);
         });
         it("success on all newline string, incl unicode newline", () => {
-            let unicodeNewline = dist_1.Parjs.unicodeNewline.many();
+            let unicodeNewline = src_1.Parjs.unicodeNewline.many();
             let result = unicodeNewline.parse(allNewlines);
             expect(result.kind).toBe(reply_1.ReplyKind.OK);
             if (result.kind !== reply_1.ReplyKind.OK)
@@ -178,7 +178,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.rest", () => {
-        let parser = dist_1.Parjs.rest;
+        let parser = src_1.Parjs.rest;
         let nonEmpty = "abcd";
         let empty = "";
         it("success on non-empty let input", () => {
@@ -189,7 +189,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.stringLen(3)", () => {
-        let parser = dist_1.Parjs.stringLen(3);
+        let parser = src_1.Parjs.stringLen(3);
         let shortInput = "a";
         let goodInput = "abc";
         let longInput = "abcd";
@@ -205,7 +205,7 @@ describe("basic string parsers", () => {
     });
     describe("Parjs.regexp", () => {
         describe("simple regexp", () => {
-            let parser = dist_1.Parjs.regexp(/abc/);
+            let parser = src_1.Parjs.regexp(/abc/);
             it("succeeds on input", () => {
                 custom_matchers_1.expectSuccess(parser.parse("abc"), ["abc"]);
             });
@@ -214,11 +214,11 @@ describe("basic string parsers", () => {
             });
         });
         describe("multi-match regexp", () => {
-            let parser = dist_1.Parjs.regexp(/(ab)(c)/);
+            let parser = src_1.Parjs.regexp(/(ab)(c)/);
             it("succeeds on input", () => {
                 custom_matchers_1.expectSuccess(parser.parse("abc"), ["abc", "ab", "c"]);
             });
-            let parser2 = parser.then(dist_1.Parjs.string("de"));
+            let parser2 = parser.then(src_1.Parjs.string("de"));
             it("chains correctly", () => {
                 custom_matchers_1.expectSuccess(parser2.parse("abcde"));
             });

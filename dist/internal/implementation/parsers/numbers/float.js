@@ -24,7 +24,6 @@ class PrsFloat extends action_1.ParjsAction {
         super();
         this.options = options;
         this.expecting = "a floating-point number";
-        this.displayName = "float";
         this.isLoud = true;
         this.options = _.defaults(options, defaultFloatOptions);
     }

@@ -15,7 +15,6 @@ class PrsSeqFunc extends action_1.ParjsAction {
         this.selector = selector;
         this.cache = cache;
         this.isLoud = true;
-        this.displayName = "seqFunc";
         this.expecting = initial.expecting;
     }
     _apply(ps) {

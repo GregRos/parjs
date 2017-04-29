@@ -2,22 +2,24 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT, Issues} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
+import {Issues} from '../../issues';
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsMany extends ParjsAction {
     isLoud : boolean;
-    displayName = "many";
+
     expecting : string;
     constructor(private inner : AnyParserAction, private maxIterations : number, private minSuccesses : number) {
         super();
         this.isLoud = inner.isLoud;
         this.expecting = inner.expecting;
-        maxIterations >= minSuccesses || Issues.willAlwaysFail(this);
+        maxIterations >= minSuccesses || Issues.willAlwaysFail("many");
     }
 
     _apply(ps : ParsingState) {
@@ -30,10 +32,10 @@ export class PrsMany extends ParjsAction {
             if (!ps.isOk) break;
             if (i >= maxIterations) break;
             if (maxIterations === Infinity && ps.position === position) {
-                Issues.guardAgainstInfiniteLoop(this);
+                Issues.guardAgainstInfiniteLoop("many");
             }
             position = ps.position;
-            arr.maybePush(ps.value);
+            ArrayHelpers.maybePush(arr, ps.value);
             i++;
         }
         if (ps.atLeast(ReplyKind.HardFail)) {

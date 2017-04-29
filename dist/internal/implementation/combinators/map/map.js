@@ -12,7 +12,6 @@ class MapParser extends action_1.ParjsAction {
         super();
         this.inner = inner;
         this.map = map;
-        this.displayName = "map";
         this.isLoud = true;
         this.expecting = inner.expecting;
     }

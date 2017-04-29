@@ -9,7 +9,7 @@ import {ReplyKind} from "../../../../reply";
  */
 
 export class PrsRest extends ParjsBasicAction {
-    displayName = "rest";
+
     isLoud = true;
     expecting = "zero or more characters";
     _apply(pr : ParsingState) {

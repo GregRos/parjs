@@ -10,7 +10,6 @@ class PrsInt extends action_1.ParjsAction {
     constructor(options) {
         super();
         this.options = options;
-        this.displayName = "int";
         this.isLoud = true;
         if (options.base > 36) {
             throw new Error("invalid base");

@@ -7,16 +7,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Created by lifeg on 10/12/2016.
  */
 const custom_matchers_1 = require("../../custom-matchers");
-const dist_1 = require("../../../dist");
-const reply_1 = require("../../../dist/reply");
+const src_1 = require("../../../src");
+const reply_1 = require("../../../src/reply");
 const _ = require("lodash");
 let goodInput = "abcd";
 let softBadInput = "a";
 let hardBadInput = "ab";
 let excessInput = "abcde";
 let uState = {};
-let fstLoud = dist_1.Parjs.string("ab");
-let sndLoud = dist_1.Parjs.string("cd");
+let fstLoud = src_1.Parjs.string("ab");
+let sndLoud = src_1.Parjs.string("cd");
 describe("sequential combinators", () => {
     describe("then combinators", () => {
         describe("loud then loud", () => {
@@ -34,15 +34,15 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectFailure(parser.parse(excessInput), reply_1.ReplyKind.SoftFail);
             });
             it("fails hard on first hard fail", () => {
-                let parser2 = dist_1.Parjs.seq(dist_1.Parjs.fail("", "HardFail"), dist_1.Parjs.string("hi"));
+                let parser2 = src_1.Parjs.seq(src_1.Parjs.fail("", "HardFail"), src_1.Parjs.string("hi"));
                 custom_matchers_1.expectFailure(parser2.parse("hi"), "HardFail");
             });
             it("fails fatally on 2nd fatal fail", () => {
-                let parser2 = dist_1.Parjs.string("hi").then(dist_1.Parjs.fail("", "FatalFail"));
+                let parser2 = src_1.Parjs.string("hi").then(src_1.Parjs.fail("", "FatalFail"));
                 custom_matchers_1.expectFailure(parser2.parse("hi"), "FatalFail");
             });
             it("chain zero-matching parsers", () => {
-                let parser2 = dist_1.Parjs.string("hi").then(dist_1.Parjs.rest, dist_1.Parjs.rest);
+                let parser2 = src_1.Parjs.string("hi").then(src_1.Parjs.rest, src_1.Parjs.rest);
                 custom_matchers_1.expectSuccess(parser2.parse("hi"), ["hi", "", ""]);
             });
         });
@@ -65,7 +65,7 @@ describe("sequential combinators", () => {
             });
         });
         describe("loud then loud then zero-consuming quiet", () => {
-            let parser = fstLoud.then(sndLoud).then(dist_1.Parjs.eof);
+            let parser = fstLoud.then(sndLoud).then(src_1.Parjs.eof);
             it("succeeds", () => {
                 custom_matchers_1.expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
             });
@@ -74,13 +74,13 @@ describe("sequential combinators", () => {
             });
         });
         describe("1 quiet using seq combinator", () => {
-            let parser = dist_1.Parjs.seq(fstLoud.q);
+            let parser = src_1.Parjs.seq(fstLoud.q);
             it("succeeds with empty array value", () => {
                 custom_matchers_1.expectSuccess(parser.parse("ab"), []);
             });
         });
         describe("empty seq combinator same as no match, return []", () => {
-            let parser = dist_1.Parjs.seq();
+            let parser = src_1.Parjs.seq();
             it("succeeds on empty input", () => {
                 custom_matchers_1.expectSuccess(parser.parse(""), []);
             });
@@ -105,21 +105,21 @@ describe("sequential combinators", () => {
                 custom_matchers_1.expectSuccess(parser.parse("ababab"), ["ab", "ab", "ab"]);
             });
             it("chains to EOF correctly", () => {
-                let endEof = parser.then(dist_1.Parjs.eof);
+                let endEof = parser.then(src_1.Parjs.eof);
                 custom_matchers_1.expectSuccess(endEof.parse("abab"), ["ab", "ab"]);
             });
             it("fails hard when many fails hard", () => {
-                let parser2 = dist_1.Parjs.fail("", "HardFail").many();
+                let parser2 = src_1.Parjs.fail("", "HardFail").many();
                 custom_matchers_1.expectFailure(parser2.parse(""), "HardFail");
             });
         });
         describe("many with zero-length match", () => {
-            let parser = dist_1.Parjs.result(0).many();
+            let parser = src_1.Parjs.result(0).many();
             it("guards against zero match in inner parser", () => {
                 expect(() => parser.parse("")).toThrow();
             });
             it("ignores guard when given max iterations", () => {
-                let parser = dist_1.Parjs.result(0).many(undefined, 10);
+                let parser = src_1.Parjs.result(0).many(undefined, 10);
                 custom_matchers_1.expectSuccess(parser.parse(""), _.range(0, 10).map(x => 0));
             });
         });
@@ -168,40 +168,40 @@ describe("sequential combinators", () => {
         });
     });
     describe("manySepBy combinator", () => {
-        let parser = fstLoud.manySepBy(dist_1.Parjs.string(", "));
+        let parser = fstLoud.manySepBy(src_1.Parjs.string(", "));
         it("works with max iterations", () => {
-            let parser2 = fstLoud.manySepBy(dist_1.Parjs.string(", "), 2);
-            let parser3 = parser2.then(dist_1.Parjs.string(", ab").q);
+            let parser2 = fstLoud.manySepBy(src_1.Parjs.string(", "), 2);
+            let parser3 = parser2.then(src_1.Parjs.string(", ab").q);
             custom_matchers_1.expectSuccess(parser3.parse("ab, ab, ab"));
         });
         it("succeeds with empty input", () => {
             custom_matchers_1.expectSuccess(parser.parse(""), []);
         });
         it("many fails hard on 1st application", () => {
-            let parser2 = dist_1.Parjs.fail("", "HardFail").manySepBy(dist_1.Parjs.result(""));
+            let parser2 = src_1.Parjs.fail("", "HardFail").manySepBy(src_1.Parjs.result(""));
             custom_matchers_1.expectFailure(parser2.parse(""), "HardFail");
         });
         it("sep fails hard", () => {
-            let parser2 = fstLoud.manySepBy(dist_1.Parjs.fail("", "HardFail"));
+            let parser2 = fstLoud.manySepBy(src_1.Parjs.fail("", "HardFail"));
             custom_matchers_1.expectFailure(parser2.parse("ab, ab"), "HardFail");
         });
         it("sep+many that don't consume throw without max iterations", () => {
-            let parser2 = dist_1.Parjs.string("").manySepBy(dist_1.Parjs.string(""));
+            let parser2 = src_1.Parjs.string("").manySepBy(src_1.Parjs.string(""));
             expect(() => parser2.parse("")).toThrow();
         });
         it("sep+many that don't consume succeed with max iterations", () => {
-            let parser2 = dist_1.Parjs.string("").manySepBy(dist_1.Parjs.string(""), 2);
+            let parser2 = src_1.Parjs.string("").manySepBy(src_1.Parjs.string(""), 2);
             custom_matchers_1.expectSuccess(parser2.parse(""), ["", ""]);
         });
         it("many that fails hard on 2nd iteration", () => {
-            let many = dist_1.Parjs.string("a").then(dist_1.Parjs.string("b")).str.manySepBy(dist_1.Parjs.string(", "));
+            let many = src_1.Parjs.string("a").then(src_1.Parjs.string("b")).str.manySepBy(src_1.Parjs.string(", "));
             custom_matchers_1.expectFailure(many.parse("ab, ac"), "HardFail");
         });
         it("succeeds with non-empty input", () => {
             custom_matchers_1.expectSuccess(parser.parse("ab, ab"), ["ab", "ab"]);
         });
         it("chains into terminating separator", () => {
-            let parser2 = parser.then(dist_1.Parjs.string(", ").q);
+            let parser2 = parser.then(src_1.Parjs.string(", ").q);
             custom_matchers_1.expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"]);
         });
         it("fails soft if first many fails", () => {
@@ -218,19 +218,19 @@ describe("sequential combinators", () => {
             custom_matchers_1.expectSuccess(parser2.parse("abcdab"), ["ab"]);
         });
         it("fails hard when till fails hard", () => {
-            let parser2 = dist_1.Parjs.string("a").manyTill(dist_1.Parjs.fail("", "HardFail"));
+            let parser2 = src_1.Parjs.string("a").manyTill(src_1.Parjs.fail("", "HardFail"));
             custom_matchers_1.expectFailure(parser2.parse("a"), "HardFail");
         });
         it("fails hard when many failed hard", () => {
-            let parser2 = dist_1.Parjs.fail("", "HardFail").manyTill(dist_1.Parjs.string("a"));
+            let parser2 = src_1.Parjs.fail("", "HardFail").manyTill(src_1.Parjs.string("a"));
             custom_matchers_1.expectFailure(parser2.parse(""), "HardFail");
         });
         it("guards against zero-match in many", () => {
-            let parser2 = dist_1.Parjs.result("").manyTill(dist_1.Parjs.string("a"));
+            let parser2 = src_1.Parjs.result("").manyTill(src_1.Parjs.string("a"));
             expect(() => parser2.parse(" a")).toThrow();
         });
         it("till optional mode", () => {
-            let parser2 = dist_1.Parjs.string("a").manyTill(dist_1.Parjs.string("b"), true);
+            let parser2 = src_1.Parjs.string("a").manyTill(src_1.Parjs.string("b"), true);
             custom_matchers_1.expectSuccess(parser2.parse("a"), ["a"]);
         });
         it("fails soft when many fails 1st time without till", () => {
@@ -242,7 +242,7 @@ describe("sequential combinators", () => {
     });
     describe("between combinators", () => {
         describe("two argument version", () => {
-            let parser = dist_1.Parjs.string("a").between(dist_1.Parjs.string("("), dist_1.Parjs.string(")"));
+            let parser = src_1.Parjs.string("a").between(src_1.Parjs.string("("), src_1.Parjs.string(")"));
             it("succeeds", () => {
                 custom_matchers_1.expectSuccess(parser.parse("(a)"), "a");
             });
@@ -255,20 +255,20 @@ describe("sequential combinators", () => {
             });
         });
         describe("one argument version", () => {
-            let parser = dist_1.Parjs.string("a").between(dist_1.Parjs.string("!"));
+            let parser = src_1.Parjs.string("a").between(src_1.Parjs.string("!"));
             it("succeeds", () => {
                 custom_matchers_1.expectSuccess(parser.parse("!a!"), "a");
             });
         });
     });
     describe("sequential func combinator", () => {
-        let parse1 = dist_1.Parjs.string("a");
-        let parse2 = dist_1.Parjs.string("b");
-        let parse3 = dist_1.Parjs.string("c");
-        let p = dist_1.Parjs.anyCharOf("`abc").thenChoose(x => {
+        let parse1 = src_1.Parjs.string("a");
+        let parse2 = src_1.Parjs.string("b");
+        let parse3 = src_1.Parjs.string("c");
+        let p = src_1.Parjs.anyCharOf("`abc").thenChoose(x => {
             if (x === "`")
                 return null;
-            return dist_1.Parjs.string(x).result(x + x);
+            return src_1.Parjs.string(x).result(x + x);
         });
         it("matches 1", () => {
             custom_matchers_1.expectSuccess(p.parse("aa"), "aa");
@@ -283,7 +283,7 @@ describe("sequential combinators", () => {
             custom_matchers_1.expectFailure(p.parse("ba"), "HardFail");
         });
         it("properly chains to 3rd", () => {
-            let q = p.then(dist_1.Parjs.string("x")).str;
+            let q = p.then(src_1.Parjs.string("x")).str;
             custom_matchers_1.expectSuccess(q.parse("aax"), "aax");
         });
         it("fails hard if failed to find parser", () => {
@@ -292,9 +292,9 @@ describe("sequential combinators", () => {
         describe("uses cache", () => {
             let cache = new Map();
             let calls = 0;
-            let p = dist_1.Parjs.anyCharOf("abc").thenChoose(x => {
+            let p = src_1.Parjs.anyCharOf("abc").thenChoose(x => {
                 calls++;
-                return dist_1.Parjs.string(x + "1");
+                return src_1.Parjs.string(x + "1");
             }, cache);
             it("works first time", () => {
                 custom_matchers_1.expectSuccess(p.parse("aa1"), "a1");

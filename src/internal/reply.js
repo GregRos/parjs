@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 const parsing_failure_1 = require("../parsing-failure");
 const reply_1 = require("../reply");
+const index_1 = require("../index");
 /**
  * Indicates a success reply and contains the value and other information.
  */
@@ -13,11 +14,8 @@ class SuccessReply {
         this.value = value;
         this.kind = reply_1.ReplyKind.OK;
     }
-    resolve() {
-        return this.value;
-    }
     toString() {
-        return this.value;
+        return `SuccessReply: ${this.value}`;
     }
 }
 exports.SuccessReply = SuccessReply;
@@ -25,12 +23,17 @@ exports.SuccessReply = SuccessReply;
  * Indicates a failure reply and contains information about the failure.
  */
 class FailureReply {
-    constructor(kind, trace) {
-        this.kind = kind;
+    constructor(trace) {
         this.trace = trace;
     }
-    resolve() {
+    get value() {
         throw new parsing_failure_1.ParsingFailureError(this);
+    }
+    get kind() {
+        return this.trace.kind;
+    }
+    toString() {
+        return index_1.Parjs.visualizer.visualize(this.trace);
     }
 }
 exports.FailureReply = FailureReply;

@@ -6,7 +6,7 @@ import {
     , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsAltVal} from './implementation/combinators';
 import {BaseParjsParser} from "./implementation/parser";
 import _ = require('lodash');
-import {ParjsAction} from "./implementation/action";
+import {ParjsAction, ParjsBasicAction} from "./implementation/action";
 import {Predicates} from "./implementation/functions/predicates";
 import {LoudParser} from "../loud";
 import {ReplyKind} from "../reply";
@@ -15,12 +15,19 @@ import {QuietParser} from "../quiet";
 import {AnyParser} from "../any";
 import {PrsSoft} from "./implementation/combinators/alternatives/soft";
 import {ActParser} from "./implementation/combinators/map/act";
-
+import {ParjsStaticHelper} from "../parjs";
+import {AnyParserAction} from "./action";
+import {Parjs} from '../';
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
+
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
+    mixState(newState  : any) : ParjsParser {
+        return Parjs.nop.act(state =>
+            Object.assign(state, newState)).then(this);
+    }
 
     thenChoose<TParser extends AnyParser>(selector : (x : any) => TParser, map ?: Map<any, TParser>) : TParser {
         return wrap(new PrsSeqFunc(this.action, selector, map)).withName("thenChoose") as any;
@@ -102,7 +109,10 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsMany(this.action, maxIters, minSuccesses)).withName("many");
     }
 
-    manyTill(till : AnyParser, tillOptional = false) {
+    manyTill(till : AnyParser | any, tillOptional = false) {
+        if (_.isFunction(till)) {
+            return this.must(till, undefined, ReplyKind.SoftFail).many()
+        }
         return wrap(new PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");
     }
 
@@ -127,7 +137,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsAltVal(this.action, x)).withName("orVal");
     }
 
-    cast() {
+    cast<S>() {
         return this;
     }
 
@@ -135,8 +145,12 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsStr(this.action)).withName("str");
     }
 
-    must(condition : (result : any, state : any) => boolean, name = "(unnamed condition)", fail : ReplyKind.Fail = ReplyKind.HardFail) {
-        return wrap(new PrsMust(this.action, condition, fail, name)).withName("must");
+    must(condition : Function, name = "(unnamed condition)", fail : ReplyKind.Fail = ReplyKind.HardFail) {
+        let cond = condition;
+        if (!this.isLoud) {
+            cond = (x, state) => condition(state);
+        }
+        return wrap(new PrsMust(this.action, cond as any, fail, name)).withName("must");
     }
 
     mustNotBeOf(...options : any[]) {

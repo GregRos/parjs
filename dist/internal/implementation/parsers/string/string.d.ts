@@ -8,7 +8,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsString extends ParjsBasicAction {
     private str;
-    displayName: string;
     expecting: string;
     constructor(str: string);
     _apply(ps: ParsingState): void;

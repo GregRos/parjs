@@ -9,7 +9,7 @@ import {ParsingState} from "../../state";
  * Created by User on 21-Nov-16.
  */
 export class PrsMustCapture extends ParjsAction {
-    displayName = "mustCapture";
+
     isLoud : boolean;
     expecting : string;
     constructor(private inner : AnyParserAction, private failType : ReplyKind) {

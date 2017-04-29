@@ -1,11 +1,35 @@
 /**
  * @module parjs/internal/implementation
  */ /** */
-import {QUIET_RESULT, FAIL_RESULT, Issues} from "./common";
+import {QUIET_RESULT, FAIL_RESULT} from "./special-results";
+import {Issues} from './issues';
 import {ParjsAction, BasicParsingState} from "./action";
 import {ReplyKind, Reply} from "../../reply";
-import {Trace, FailureReply, SuccessReply} from '../reply';
+import {Trace, FailureReply, SuccessReply, ErrorLocation} from '../reply';
 import _ = require('lodash');
+import {ParsingState} from "./state";
+
+function getErrorLocation(ps : ParsingState){
+    let endln = /\r\n|\n|\r/g;
+    let {input, position} = ps;
+    let lastPos = 0;
+    let oldPos = 0;
+    let result : RegExpMatchArray;
+    let line = 0;
+
+    while (!!(result = endln.exec(ps.input)) && result.index <= position) {
+        oldPos = lastPos;
+        lastPos = result.index;
+        line++;
+    }
+
+    result = !result ? null : endln.exec(ps.input);
+
+    return {
+        row : line,
+        column : line === 0 ? position : lastPos - oldPos
+    };
+}
 
 
 class ParserState {
@@ -27,6 +51,7 @@ export abstract class BaseParjsParser {
     }
 
     parse(input : string, initialState ?: any) : Reply<any> {
+
         if (typeof input !== "string") {
             //catches input === undefined, null
             throw new Error("input must be a valid string");
@@ -39,7 +64,7 @@ export abstract class BaseParjsParser {
         if (ps.isOk) {
             if (ps.position !== input.length) {
                 ps.kind = ReplyKind.SoftFail;
-                ps.expecting = "unexpected end of input";
+                ps.expecting = "parsers did not consume all input";
             }
         }
         if (ps.kind === ReplyKind.Unknown) {
@@ -47,15 +72,21 @@ export abstract class BaseParjsParser {
         }
         let ret: Reply<any>;
         if (ps.kind === ReplyKind.OK) {
-            return Object.assign(new SuccessReply(ps.value === QUIET_RESULT ? undefined : ps.value))
+            return new SuccessReply(ps.value === QUIET_RESULT ? undefined : ps.value);
         }
         else {
-            return new FailureReply(ps.kind, {
+            let location = getErrorLocation(ps);
+            let trace : Trace = {
                 state: ps.state,
                 position: ps.position,
-                expecting: ps.expecting
-            });
+                expecting: ps.expecting,
+                input : input,
+                location : location,
+                stackTrace : ps.stack,
+                kind : ps.kind
+            };
 
+            return new FailureReply(trace);
         }
     }
 

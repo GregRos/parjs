@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {Issues} from "../../common";
+import {Issues} from "../../issues";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 import {AnyParserAction} from "../../../action";
@@ -10,8 +10,7 @@ import {AnyParserAction} from "../../../action";
  * Created by User on 21-Nov-16.
  */
 export class PrsMust extends ParjsAction {
-    displayName = "must";
-    isLoud = true;
+    isLoud : boolean;
     expecting : string;
     constructor(
         private inner : AnyParserAction,
@@ -20,7 +19,7 @@ export class PrsMust extends ParjsAction {
         private qualityName
     ) {
         super();
-        inner.isLoud || Issues.quietParserNotPermitted(this);
+        this.isLoud = inner.isLoud;
         this.expecting = `intenral parser ${inner.displayName} yielding a result satisfying ${qualityName}`;
     }
 

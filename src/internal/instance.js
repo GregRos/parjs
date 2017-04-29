@@ -5,14 +5,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 const combinators_1 = require("./implementation/combinators");
 const parser_1 = require("./implementation/parser");
+const _ = require("lodash");
 const predicates_1 = require("./implementation/functions/predicates");
 const reply_1 = require("../reply");
 const soft_1 = require("./implementation/combinators/alternatives/soft");
 const act_1 = require("./implementation/combinators/map/act");
+const _1 = require("../");
 function wrap(action) {
     return new ParjsParser(action);
 }
 class ParjsParser extends parser_1.BaseParjsParser {
+    mixState(newState) {
+        return _1.Parjs.nop.act(state => Object.assign(state, newState)).then(this);
+    }
     thenChoose(selector, map) {
         return wrap(new combinators_1.PrsSeqFunc(this.action, selector, map)).withName("thenChoose");
     }
@@ -89,6 +94,9 @@ class ParjsParser extends parser_1.BaseParjsParser {
         return wrap(new combinators_1.PrsMany(this.action, maxIters, minSuccesses)).withName("many");
     }
     manyTill(till, tillOptional = false) {
+        if (_.isFunction(till)) {
+            return this.must(till, undefined, reply_1.ReplyKind.SoftFail).many();
+        }
         return wrap(new combinators_1.PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");
     }
     manySepBy(sep, maxIterations = Infinity) {
@@ -113,7 +121,11 @@ class ParjsParser extends parser_1.BaseParjsParser {
         return wrap(new combinators_1.PrsStr(this.action)).withName("str");
     }
     must(condition, name = "(unnamed condition)", fail = reply_1.ReplyKind.HardFail) {
-        return wrap(new combinators_1.PrsMust(this.action, condition, fail, name)).withName("must");
+        let cond = condition;
+        if (!this.isLoud) {
+            cond = (x, state) => condition(state);
+        }
+        return wrap(new combinators_1.PrsMust(this.action, cond, fail, name)).withName("must");
     }
     mustNotBeOf(...options) {
         return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`).withName("mustNotBeOf");

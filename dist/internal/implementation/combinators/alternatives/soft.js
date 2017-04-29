@@ -9,7 +9,6 @@ class PrsSoft extends action_1.ParjsAction {
     constructor(inner) {
         super();
         this.inner = inner;
-        this.displayName = "soft";
         this.isLoud = inner.isLoud;
         this.expecting = inner.expecting;
     }

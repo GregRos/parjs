@@ -2,10 +2,10 @@
  * Created by lifeg on 12/12/2016.
  */
 import {expectFailure, expectSuccess} from '../../custom-matchers';
-import {LoudParser} from "../../../dist/loud";
-import {Parjs} from "../../../dist";
-import {ReplyKind} from "../../../dist/reply";
-import {AnyParser} from "../../../dist/any";
+import {LoudParser} from "../../../src/loud";
+import {Parjs} from "../../../src";
+import {ReplyKind} from "../../../src/reply";
+import {AnyParser} from "../../../src/any";
 import _ = require('lodash');
 
 function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TParser) => void) {
@@ -22,18 +22,6 @@ describe("or combinator", () => {
         expect(() => (Parjs.eof as any as LoudParser<any>).orVal(1)).toThrow();
     });
 
-    describe("empty or", () => {
-        let parser = Parjs.any();
-        it("fails on non-empty input", () => {
-            expectFailure(parser.parse("hi"), "SoftFail");
-        });
-        it("fails on empty input", () => {
-            expectFailure(parser.parse(""), "SoftFail");
-        });
-        it("is loud", () => {
-            expect(parser.isLoud).toBe(true);
-        })
-    });
     describe("loud or loud", () => {
         let parser = Parjs.string("ab").or(Parjs.string("cd"));
         it("succeeds parsing 1st option", () => {

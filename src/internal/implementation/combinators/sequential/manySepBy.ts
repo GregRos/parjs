@@ -2,16 +2,19 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT, Issues} from "../../common";
+import {QUIET_RESULT} from "../../special-results";
+import {Issues} from '../../issues';
 import {ReplyKind} from "../../../../reply";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
+import _ = require('lodash');
+import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsManySepBy extends ParjsAction {
     isLoud : boolean;
-    displayName="manySepBy";
+
     expecting : string;
     constructor(private many : AnyParserAction, private sep : AnyParserAction, private maxIterations : number) {
         super();
@@ -21,7 +24,6 @@ export class PrsManySepBy extends ParjsAction {
 
     _apply(ps : ParsingState) {
         let {many, sep, maxIterations, isLoud} = this;
-
         let arr = [];
         many.apply(ps);
         if (ps.atLeast(ReplyKind.HardFail)) {
@@ -32,7 +34,7 @@ export class PrsManySepBy extends ParjsAction {
             return;
         }
         let {position} = ps;
-        arr.maybePush(ps.value);
+        ArrayHelpers.maybePush(arr, ps.value);
         let i = 1;
         while (true) {
             if (i >= maxIterations) break;
@@ -50,9 +52,9 @@ export class PrsManySepBy extends ParjsAction {
                 return;
             }
             if (maxIterations >= Infinity && ps.position === position) {
-                Issues.guardAgainstInfiniteLoop(this);
+                Issues.guardAgainstInfiniteLoop("many");
             }
-            arr.maybePush(ps.value);
+            ArrayHelpers.maybePush(arr, ps.value);
             position = ps.position;
             i++;
         }

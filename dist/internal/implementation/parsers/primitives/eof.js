@@ -12,7 +12,6 @@ class PrsEof extends action_1.ParjsBasicAction {
     constructor() {
         super(...arguments);
         this.isLoud = false;
-        this.displayName = "eof";
         this.expecting = "end of input";
     }
     _apply(ps) {

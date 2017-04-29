@@ -1,8 +1,16 @@
 /**
  * @module parjs/internal
  */ /** */
-import {ParsingFailureError} from "../parsing-failure";
+import {ParsingFailureError, ParsingSuccessError} from "../parsing-failure";
 import {ReplyKind} from "../reply";
+import {prettyPrint} from "./implementation/pretty.print/index";
+import {AnyParserAction} from "./action";
+import {Parjs} from "../index";
+
+export interface ErrorLocation {
+    row : number;
+    column : number;
+}
 
 /**
  * An object indicating trace information about the state of parsing when it was stopped.
@@ -11,14 +19,18 @@ export interface Trace {
     state : object;
     position : number;
     expecting : string;
+    kind : ReplyKind.Fail;
+    location : ErrorLocation;
+    stackTrace : AnyParserAction[];
+    input : string;
 }
 
 /**
  * Used to maintain common members between SuccessReply, FailureReply, and other reply types.
  */
 export interface AnyReply<T> {
-    kind : ReplyKind;
-    resolve() : T;
+    readonly kind : ReplyKind;
+    readonly value : T;
 }
 
 /**
@@ -30,24 +42,29 @@ export class SuccessReply<T> implements AnyReply<T>{
 
     }
 
-    resolve() : T {
-        return this.value;
+    toString() {
+        return `SuccessReply: ${this.value}`;
     }
 
-    toString() {
-        return this.value;
-    }
 }
 
 /**
  * Indicates a failure reply and contains information about the failure.
  */
 export class FailureReply implements AnyReply<void> {
-    constructor(public kind : ReplyKind.Fail, public trace : Trace) {
+    constructor(public trace : Trace) {
 
     }
-    resolve() : never {
+    get value() : never {
         throw new ParsingFailureError(this);
+    }
+
+    get kind() {
+        return this.trace.kind;
+    }
+
+    toString() {
+        return Parjs.visualizer.visualize(this.trace);
     }
 }
 

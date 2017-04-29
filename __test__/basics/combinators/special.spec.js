@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const custom_matchers_1 = require("../../custom-matchers");
-const dist_1 = require("../../../dist");
+const src_1 = require("../../../src");
 let goodInput = "abcd";
 describe("special combinators", () => {
     describe("backtrack", () => {
-        let parser = dist_1.Parjs.string("hi").then(dist_1.Parjs.eof).backtrack;
+        let parser = src_1.Parjs.string("hi").then(src_1.Parjs.eof).backtrack;
         it("fails soft if inner fails soft", () => {
             custom_matchers_1.expectFailure(parser.parse("x"), "SoftFail");
         });
@@ -13,8 +13,8 @@ describe("special combinators", () => {
             custom_matchers_1.expectFailure(parser.parse("hiAQ"), "HardFail");
         });
         it("succeeds if inner succeeds, non-zero match", () => {
-            let parseHi = dist_1.Parjs.string("hi");
-            let redundantParser = parseHi.backtrack.then(dist_1.Parjs.string("his"));
+            let parseHi = src_1.Parjs.string("hi");
+            let redundantParser = parseHi.backtrack.then(src_1.Parjs.string("his"));
             custom_matchers_1.expectSuccess(redundantParser.parse("his"), ["hi", "his"]);
         });
     });

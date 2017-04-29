@@ -9,7 +9,6 @@ import { ParsingState } from "../../state";
  */
 export declare class PrsNot extends ParjsAction {
     private inner;
-    displayName: string;
     isLoud: boolean;
     expecting: string;
     constructor(inner: AnyParserAction);
