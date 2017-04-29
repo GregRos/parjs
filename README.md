@@ -123,14 +123,14 @@ An overall parsing happens when a parser is invoked by you (the user), and eithe
 The result from a parsing operation that has failed is of the `FailureResult` type and exposes several important proprerties:
 
 1. The `kind` of the failure.
-2. The `trace` object which contains tracing information indicating where the parser failed, and what input was expected. It also contains the parser `state` at the time of the failure.
+2. The `trace` object which contains tracing information indicating where the parser failed, and what input was expected. It also contains the parser `userState` at the time of the failure.
 
 In addition to emitting a failure result, parsers can also throw exceptions, as mentioned previously. This indicates an error in the parser.
 
 ## Quiet Parsers
 Earlier I made the claim that all parsers return values. That's not exactly true. There are actually two kinds of parsers: loud and quiet parsers. Whether a parser is loud or quiet is an intrinsic property that is reflected in the TypeScript type system. It's not something that changes based on the input.
 
-In principle, quiet parsers don't return values, only whether parsing succeeded or failed (they may also modify the parser state, see more on that below). In actuality, they do return a special signalling value, but that value is ignored.
+In principle, quiet parsers don't return values, only whether parsing succeeded or failed (they may also modify the user state, see more on that below). In actuality, they do return a special signalling value, but that value is ignored.
 
 Quiet parsers are treated differently by combinators. For example, the `Parjs.seq(p1, p2)` combinator can accept both loud and quiet parsers. It applies parsers in sequence and returns an array of their results. Since quiet parsers aren't considered to return values, they aren't included. Thus `Parjs.seq(loud1, quiet, loud2)` will always return an array with 2 elements. 
 
@@ -147,12 +147,12 @@ It's not an error to quieten an already quiet parser, but doing so does nothing 
 
 	let comma = Parjs.string(".").q.q.q.q.q;
 
-## State
-State is a powerful feature that should be used when parsing complex languages, including recursive ones like XML and JSON.
+## User State
+User state is a powerful feature that should be used when parsing complex languages, including recursive ones like XML and JSON.
 
-Basically, when you invoke the `.parse(str)` method, a unique, mutable state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser state. In general, built-in parsers don't use the parser state.
+Basically, when you invoke the `.parse(str)` method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. In general, built-in parsers don't use the user state.
 
-The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the parser state:
+The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
 	//p is called with a parser state initialized with properties and methods.
 	let example = p.parse("hello", {token: "hi", method() {return 1;});
@@ -162,16 +162,16 @@ Here is an example of how you can use this feature to parse a recursive, XML-lik
 	//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
 	let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
 	//A parser that parses an opening of a tag.
-	let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, state) => {
-	    state.tags.push({tag: result, content : []});
+	let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, userState) => {
+	    userState.tags.push({tag: result, content : []});
 	}).q;
 
 	let closeTag =
 	    ident.between(Parjs.string("</"), Parjs.string(">"))
-	        .must((result, state) => result === _.last(state.tags as any[]).tag)
-	        .act((result, state) => {
-	    let topTag = state.tags.pop();
-	    _.last(state.tags as any[]).content.push(topTag);
+	        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
+	        .act((result, userState) => {
+	    let topTag = userState.tags.pop();
+	    _.last(userState.tags as any[]).content.push(topTag);
 	}).q;
 
 	let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
@@ -179,7 +179,7 @@ Here is an example of how you can use this feature to parse a recursive, XML-lik
 
 Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.
 
-State is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns. 
+User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns. 
 
 ## Kinds of Parsers
 This is a partial overview of the kinds of parsers and combinators provided by `Parjs`. This is not an exhaustive list.
@@ -267,7 +267,14 @@ These combinators are very simple.
 2. `p.backtrack` - P applies `p`, backtracks to the original position in the input (before applying `p`), and returns the result. 
 
 ## Debugging
-Parjs is meant to be easy to debug, but right now it doesn't live up to that aspiration.
+Parjs is meant to be easy to debug, but as of yet it doesn't live up to that aspiration. When a parsing failure occurs, Parjs logs the following information, among other things:
+
+1. The position in the character stream where the error occurred.
+2. The parsing stack trace, enabling the user to see the entire parsing path down to the parser that failed.
+3. The reason for the error.
+4. The location (e.g. row and column) where the error occurred
+
+The error is visualized using plain-text.
 
 ## Performance
 At present, although Parjs is designed with performance in mind, it's not benchmarked and hasn't been optimized.
@@ -288,9 +295,61 @@ It should be possible to reduce these by:
 4. Reducing the parser overhead in certain situations.
 5. Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.
 
+## Writing your own parser
+Parjs is meant to be very easy to extend, meaning writing your own parser is very simple.
+
+### Parser flow
+When the `.parse` method is called, a `ParsingState` object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:
+
+	interface ParsingState {
+		readonly input : string;
+		position : number;
+		value : any;
+		readonly userState : any;
+		expecting : string;
+		kind : ReplyKind;
+		//...
+	}
+
+Every parser is a wrapper around a thinner object called a *parser action*. The chief method if this action is the `apply(ParsingState)` method that mutates the parsing state. By doing so, it can return a value, advance the position, mutate the user state, and signal failure or success.
+
+The `apply` method of a parser action involves some boilerplate, so you don't have to implement it directly. Instead, you have your parser action extend `ParjsAction`. This is an abstract class that implements the `apply` method and delegates most of its work to an internal `_apply(ps)` method. 
+
+There are several important rules to writing a parser action:
+
+1. The action is required to set the `kind` field of the `ParsingState`. This is how the action communicates success or failure. 
+2. If the action returns a value (e.g. `isLoud` returns `true`), it must also set the `value` member as this is how it communicates the return value.
+
+Failure to do either of these will cause an exception to be thrown.
+
+Here is an example of one implementation. This implementation checks if parsing has reached the end of the input (e.g. `Parjs.eof`).
+
+    _apply(ps : ParsingState) {
+        if (ps.position === ps.input.length) {
+            ps.kind =  ReplyKind.OK;
+        } else {
+            ps.kind = ReplyKind.SoftFail;
+        }
+    }
+
+This specific action is quiet, so it doesn't need to set the `value` property. 
+	
+### Other required properties of parser actions
+In addition to implementing `_apply`, parser actions must also specify:
+
+1. The `isLoud` property, which says whether the action returns a value. It's important that this property not change after the parser is returned to the user, because loudness is reflected in the TypeScript type system via different interfaces.
+2. The `expecting` property, which is a text specifying what input the parser action is expecting to parse. For example, it could be `a digit`, `end of input`, or something else. The text is generally set when the parser is constructed. It is needed for displaying relevant debugging information.
+
+### Creating a parser
+After you have written your parser action, you'll need to wrap it in a parser. The default parser class is `ParjsParser`, which contains implementations for all the relevant combinators as prototype members.
+
+	 let parser = new ParjsParser(action);
+
+Before returning it, also call its `withName` method to set the parser's display name.
+
+Finally, if you are writing in TypeScript, you'll need to cast the parser to the appropriate interface. This is usually either `LoudParser<T>` or `QuietParser`.	
+
 ## Current Issues
 1. Very little Unicode support, mainly due to lack of JavaScript Unicode character recognizers.
 2. Library is not heavily optimized as it should be. There are no benchmarks.
 2. Debugging should be improved.
-3. API should be streamlined and improved.
-4. Needs to be a section on how to build your own parsers.

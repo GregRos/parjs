@@ -35,7 +35,7 @@ export interface AnyParser {
     readonly not : QuietParser;
 
     /**
-     * P discards the result of this parser, if any, and instead returns its parser state.
+     * P discards the result of this parser, if any, and instead returns its user state.
      */
     readonly state : LoudParser<any>;
 

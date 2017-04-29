@@ -15,7 +15,7 @@ class PrsState extends action_1.ParjsAction {
         this.expecting = "anything";
     }
     _apply(ps) {
-        ps.value = ps.state;
+        ps.value = ps.userState;
         ps.kind = reply_1.ReplyKind.OK;
     }
 }

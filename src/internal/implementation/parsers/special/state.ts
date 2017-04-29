@@ -13,7 +13,7 @@ export class PrsState extends ParjsAction {
     isLoud = true;
     expecting = "anything";
     _apply(ps : ParsingState) {
-        ps.value = ps.state;
+        ps.value = ps.userState;
         ps.kind = ReplyKind.OK;
     }
 }

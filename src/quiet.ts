@@ -6,14 +6,14 @@ import {ReplyKind, QuietReply} from "./reply";
 import {LoudParser} from "./loud";
 
 /**
- * A predicate over the parser state, for parsers that don't produce results.
+ * A predicate over the user state, for parsers that don't produce results.
  * @see ParjsProjection
  */
 export interface ParjsProjectionQuiet<T> {
-    (state : any) : T;
+    (userState : any) : T;
 }
 /**
- * A predicate over the parser state, for parsers that don't produce results.
+ * A predicate over the user state, for parsers that don't produce results.
  * @see ParjsPredicate
  */
 export type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>
@@ -58,7 +58,7 @@ export interface QuietParser extends AnyParser {
     mustCapture(kind ?: ReplyKind.Fail) : QuietParser;
 
 
-    must(condition : (state  : any) => boolean, failureKind : ReplyKind.Fail) : QuietParser;
+    must(condition : ParjsPredicateQuiet, failureKind : ReplyKind.Fail) : QuietParser;
     /**
      * P applies this parser and then the given parser. P returns the value of the given parser (if any).
      * @param parser The parser to apply next.
@@ -76,7 +76,7 @@ export interface QuietParser extends AnyParser {
      */
     many(minSuccess ?: number, maxIterations ?: number) : QuietParser;
 
-    mixState(state : any) : QuietParser;
+    mixState(userState : any) : QuietParser;
 
     /**
      * P applies this parser repeatedly until the `till` parser succeeds.

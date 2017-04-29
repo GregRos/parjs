@@ -24,7 +24,7 @@ export class ActParser extends ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        act(ps.value, ps.state);
+        act(ps.value, ps.userState);
     }
 }
 

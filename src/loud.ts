@@ -10,10 +10,10 @@ import {QuietParser} from "./quiet";
  * A projection on the parser result and the parser state.
  */
 export interface ParjsProjection<T, TOut> {
-    (value : T, state : any) : TOut;
+    (value : T, userState : any) : TOut;
 }
 /**
- * A predicate on the parser result and the parser state.
+ * A predicate on the parser result and the user state.
  */
 export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
 
@@ -26,7 +26,7 @@ export interface LoudParser<T> extends AnyParser {
     /**
      * Applies this parser on the specified input string.
      * @param input The input string.
-     * @param initialState An object containing properties that are merged with this parse invocation's parsing state.
+     * @param initialState An object containing properties that are merged with this parse invocation's user state.
      */
     parse(input : string, initialState ?: object) : Reply<T>;
 
@@ -88,7 +88,7 @@ export interface LoudParser<T> extends AnyParser {
      */
     cast<S>() : LoudParser<S>;
 
-    mixState(state : any) : LoudParser<T>;
+    mixState(userState : any) : LoudParser<T>;
 
     //+++ RESTRICTIONS
     /**

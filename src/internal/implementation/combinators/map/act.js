@@ -20,7 +20,7 @@ class ActParser extends action_1.ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        act(ps.value, ps.state);
+        act(ps.value, ps.userState);
     }
 }
 exports.ActParser = ActParser;

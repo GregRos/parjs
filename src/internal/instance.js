@@ -16,7 +16,7 @@ function wrap(action) {
 }
 class ParjsParser extends parser_1.BaseParjsParser {
     mixState(newState) {
-        return _1.Parjs.nop.act(state => Object.assign(state, newState)).then(this);
+        return _1.Parjs.nop.act(userState => Object.assign(userState, newState)).then(this);
     }
     thenChoose(selector, map) {
         return wrap(new combinators_1.PrsSeqFunc(this.action, selector, map)).withName("thenChoose");
@@ -45,8 +45,8 @@ class ParjsParser extends parser_1.BaseParjsParser {
         return ret.withName("state");
     }
     map(f) {
-        //f is (result, state) => any if this.isLoud
-        //f is (state) => any otherwise
+        //f is (result, userState) => any if this.isLoud
+        //f is (userState) => any otherwise
         let mapper;
         if (this.isLoud) {
             mapper = f;
@@ -57,14 +57,14 @@ class ParjsParser extends parser_1.BaseParjsParser {
         return wrap(new combinators_1.MapParser(this.action, mapper)).withName("map");
     }
     act(f) {
-        //f is (result, state) => void if this.isLoud
-        //f is (state) => void otherwise.
+        //f is (result, userState) => void if this.isLoud
+        //f is (userState) => void otherwise.
         let mapper;
         if (this.isLoud) {
             mapper = f;
         }
         else {
-            mapper = (result, state) => f(state);
+            mapper = (result, userState) => f(userState);
         }
         return wrap(new act_1.ActParser(this.action, mapper)).withName("act");
     }

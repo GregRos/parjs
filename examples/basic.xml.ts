@@ -9,17 +9,17 @@ import _ = require('lodash');
 //define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
 let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
 //A parser that parses an opening of a tag.
-let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, state) => {
+let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, userState) => {
 
-    state.tags.push({tag: result, content : []});
+    userState.tags.push({tag: result, content : []});
 }).q;
 
 let closeTag =
     ident.between(Parjs.string("</"), Parjs.string(">"))
-        .must((result, state) => result === _.last(state.tags as any[]).tag)
-        .act((result, state) => {
-    let topTag = state.tags.pop();
-    _.last(state.tags as any[]).content.push(topTag);
+        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
+        .act((result, userState) => {
+    let topTag = userState.tags.pop();
+    _.last(userState.tags as any[]).content.push(topTag);
 }).q;
 
 let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);

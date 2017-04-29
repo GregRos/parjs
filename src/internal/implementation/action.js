@@ -28,7 +28,7 @@ class BasicParsingState {
         this.input = input;
         this.position = 0;
         this.stack = [];
-        this.state = undefined;
+        this.userState = undefined;
         this.value = undefined;
     }
     atLeast(kind) {
@@ -60,7 +60,7 @@ class ParjsAction {
      * @param ps The parsing state.
      */
     apply(ps) {
-        let { position, state } = ps;
+        let { position, userState } = ps;
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
         ps.kind = reply_1.ReplyKind.Unknown;
         ps.expecting = undefined;

@@ -24,7 +24,7 @@ class PrsMust extends action_1.ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.kind = requirement(ps.value, ps.state) ? reply_1.ReplyKind.OK : failType;
+        ps.kind = requirement(ps.value, ps.userState) ? reply_1.ReplyKind.OK : failType;
     }
 }
 exports.PrsMust = PrsMust;

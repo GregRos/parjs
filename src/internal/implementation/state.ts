@@ -20,10 +20,10 @@ export interface ParsingState {
     /**
      * Additional state data.
      */
-    state : any;
+    readonly userState : any;
 
     /**
-     * A stack that indicates entered parsers.
+     * A stack that indicates entered parsers. Should not be modified by user code.
      */
     stack : AnyParserAction[]
 

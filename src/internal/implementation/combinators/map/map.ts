@@ -22,7 +22,7 @@ export class MapParser extends ParjsAction {
         if (!ps.isOk) {
             return;
         }
-        ps.value = map(ps.value, ps.state);
+        ps.value = map(ps.value, ps.userState);
     }
 }
 

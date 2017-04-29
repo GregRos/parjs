@@ -19,7 +19,7 @@ import {ParjsStatic, ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
 import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
 function wrap(action : ParjsAction) {
-    return new ParjsParser(action);
+        return new ParjsParser(action);
 }
 
 export class ParjsHelper implements ParjsStaticHelper{

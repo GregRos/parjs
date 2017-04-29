@@ -5,6 +5,7 @@ import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results
 import {assert} from 'chai';
 import {ParsingState} from "./state";
 import {ReplyKind} from "../../reply";
+import {AnyParserAction} from "../action";
 
 
 function worseThan(a : ReplyKind, b : ReplyKind) {
@@ -28,7 +29,7 @@ function worseThan(a : ReplyKind, b : ReplyKind) {
 export class BasicParsingState implements ParsingState {
     position = 0;
     stack = [];
-    state = undefined;
+    userState = undefined;
     value = undefined;
     kind : ReplyKind;
     expecting : string;
@@ -65,7 +66,7 @@ export class BasicParsingState implements ParsingState {
 /**
  * A parsing action to perform. A parsing action is a fundamental operation that mutates a ParsingState.
  */
-export abstract class ParjsAction {
+export abstract class ParjsAction implements AnyParserAction{
     /**
      * The internal operation performed by the action. This will be overriden by derived classes.
      * @param ps
@@ -80,7 +81,7 @@ export abstract class ParjsAction {
      * @param ps The parsing state.
      */
     apply(ps : ParsingState) : void {
-        let {position, state} = ps;
+        let {position, userState} = ps;
 
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
         ps.kind = ReplyKind.Unknown;

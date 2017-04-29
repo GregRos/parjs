@@ -48,7 +48,7 @@ class BaseParjsParser {
         }
         let { action, isLoud } = this;
         let ps = new action_1.BasicParsingState(input);
-        ps.state = _.defaults(new ParserState(), initialState);
+        ps.userState = _.defaults(new ParserState(), initialState);
         action.apply(ps);
         if (ps.isOk) {
             if (ps.position !== input.length) {
@@ -66,7 +66,7 @@ class BaseParjsParser {
         else {
             let location = getErrorLocation(ps);
             let trace = {
-                state: ps.state,
+                state: ps.userState,
                 position: ps.position,
                 reason: ps.expecting,
                 input: input,

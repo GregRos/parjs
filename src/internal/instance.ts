@@ -24,9 +24,10 @@ function wrap(action : ParjsAction) {
 
 
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
+
     mixState(newState  : any) : ParjsParser {
-        return Parjs.nop.act(state =>
-            Object.assign(state, newState)).then(this);
+        return Parjs.nop.act(userState =>
+            Object.assign(userState, newState)).then(this);
     }
 
     thenChoose<TParser extends AnyParser>(selector : (x : any) => TParser, map ?: Map<any, TParser>) : TParser {
@@ -60,8 +61,8 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     map(f) {
-        //f is (result, state) => any if this.isLoud
-        //f is (state) => any otherwise
+        //f is (result, userState) => any if this.isLoud
+        //f is (userState) => any otherwise
         let mapper : (result : any, state : any) => any;
         if (this.isLoud) {
             mapper = f;
@@ -72,13 +73,13 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     act(f) {
-        //f is (result, state) => void if this.isLoud
-        //f is (state) => void otherwise.
-        let mapper : (result : any, state : any) => void;
+        //f is (result, userState) => void if this.isLoud
+        //f is (userState) => void otherwise.
+        let mapper : (result : any, userState : any) => void;
         if (this.isLoud) {
             mapper = f;
         } else {
-            mapper = (result, state) => f(state);
+            mapper = (result, userState) => f(userState);
         }
         return wrap(new ActParser(this.action, mapper)).withName("act");
     }
