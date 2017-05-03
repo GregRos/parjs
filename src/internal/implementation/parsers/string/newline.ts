@@ -2,9 +2,10 @@
  * @module parjs/internal/implementation/parsers
  */ /** */
 import {ParjsAction} from "../../action";
-import {Codes, Chars} from "../../functions/char-indicators";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
+import {CodeInfo} from "char-info";
+import {Codes} from "../../functions/char-indicators";
 /**
  * Created by User on 24-Nov-16.
  */
@@ -26,12 +27,6 @@ export class PrsNewline extends ParjsAction {
         }
         let charAt = input.charCodeAt(position);
 
-        if (matchUnicode && Codes.isUnicodeNewline(charAt)) {
-            ps.position++;
-            ps.value = input.charAt(position);
-            ps.kind = ReplyKind.OK;
-            return;
-        }
         if (charAt === Codes.newline) {
             ps.position++;
             ps.value = '\n';
@@ -47,6 +42,11 @@ export class PrsNewline extends ParjsAction {
             }
             ps.position = position;
             ps.value = '\r';
+            ps.kind = ReplyKind.OK;
+            return;
+        } else if (matchUnicode && CodeInfo.isUniNewline(charAt)) {
+            ps.position++;
+            ps.value = input.charAt(position);
             ps.kind = ReplyKind.OK;
             return;
         }

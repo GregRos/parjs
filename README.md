@@ -1,5 +1,6 @@
 
 
+
 # Parjs - Parser Combinator Library
 [![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
 [![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
@@ -49,6 +50,12 @@ The possibilities are limitless.
 
 Since it's written in JavaScript, it can be used in web environments.
 
+## Unicode and Limitations
+Parjs supports selectively parsing diverse Unicode characters with the aid of the [`char-info` ](https://www.npmjs.com/package/char-info) package of character recognizers. 
+
+Parsers such as `Parjs.upper` can only recognize the ANSI subset of Unicode. Parsers beginning with `uni`, such as `uniUpper`, can recognize any Unicode character. However, they are also slower.
+
+Parjs isn't very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with `uni` won't recognize such characters.
 ## Module Structure
 Parjs has a well-organized module structure that is reflected in the documentation:
 
@@ -352,6 +359,5 @@ Before returning it, also call its `withName` method to set the parser's display
 Finally, if you are writing in TypeScript, you'll need to cast the parser to the appropriate interface. This is usually either `LoudParser<T>` or `QuietParser`.	
 
 ## Current Issues
-1. Very little Unicode support, mainly due to lack of JavaScript Unicode character recognizers.
-2. Library is not heavily optimized as it should be. There are no benchmarks.
+1. Library is not heavily optimized as it should be. There are no benchmarks.
 2. Debugging should be improved.

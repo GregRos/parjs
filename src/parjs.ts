@@ -69,7 +69,7 @@ export interface ParjsStatic {
     /**
      * P parses a single lower-case letter character in the range [a-z]
      */
-    readonly asciiLower : LoudParser<string>;
+    readonly lower : LoudParser<string>;
 
     /**
      * Parses a single letter [a-zA-Z]
@@ -79,7 +79,7 @@ export interface ParjsStatic {
     /**
      * P parses a single upper-case letter character in the range [A-Z].
      */
-    readonly asciiUpper : LoudParser<string>;
+    readonly upper : LoudParser<string>;
 
 
     /**
@@ -90,7 +90,7 @@ export interface ParjsStatic {
     /**
      * Parses a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.
      */
-    readonly unicodeNewline : LoudParser<string>;
+    readonly uniNewline : LoudParser<string>;
 
     /**
      * P parses one ASCII inline space character, such as space or a tab.
@@ -100,7 +100,7 @@ export interface ParjsStatic {
     /**
      * P parses one Unicode inline space character, including characters such as EM SPACE, and returns the character that was parsed.
      */
-    readonly unicodeSpace : LoudParser<string>;
+    readonly uniSpace : LoudParser<string>;
 
     //+ NUMERIC
 
@@ -159,7 +159,7 @@ export interface ParjsStatic {
     /**
      * P parses as many Unicode inline white spaces as possible. Returns the parsed text.
      */
-    readonly unicodeSpaces : LoudParser<string>;
+    readonly uniSpaces : LoudParser<string>;
 
     /**
      * P parses the remaining characters in the input until eof and returns the resulting string.

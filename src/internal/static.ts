@@ -3,21 +3,18 @@
  */ /** */
 import {ParjsParser} from "./instance";
 import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from './implementation/parsers';
-import {PrsAlts, PrsSeq} from './implementation/combinators';
+import {PrsAlts, PrsSeq, PrsLate} from './implementation/combinators';
 import {ParjsAction, ParjsBasicAction} from "./implementation/action";
-import {Chars} from "./implementation/functions/char-indicators";
 import {AnyParser} from "../any";
 import {ReplyKind} from "../reply";
 import {IntOptions, PrsInt} from "./implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "./implementation/parsers/numbers/float";
-import {assert} from 'chai';
 import _ = require('lodash');
-import {Issues} from "./implementation/issues";
-import {PrsLate} from "./implementation/combinators/special/late";
 import {LoudParser} from "../loud";
 import {ParjsStatic, ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
 import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
+import {CodeInfo, CharInfo} from "char-info";
 function wrap(action : ParjsAction) {
         return new ParjsParser(action);
 }
@@ -32,8 +29,6 @@ export class ParjsHelper implements ParjsStaticHelper{
     }
 }
 
-
-
 export class ParjsParsers implements ParjsStatic {
     helper = new ParjsHelper();
     visualizer = new BasicTraceVisualizer();
@@ -46,9 +41,8 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     get asciiLetter() {
-        return this.charWhere(Chars.isAsciiLetter).withName("asciiLetter")
+        return this.charWhere(CharInfo.isLetter).withName("asciiLetter")
     }
-
 
     any(...parsers : AnyParser[]) {
         return wrap(new PrsAlts(parsers.map(x => x.action))).withName("any");
@@ -74,44 +68,64 @@ export class ParjsParsers implements ParjsStatic {
         return this.charWhere(x => !options.includes(x)).withName("noCharOf");
     }
 
+    get letter() {
+        return this.charWhere(CharInfo.isLetter).withName("letter");
+    }
+
+    get uniLetter() {
+        return this.charWhere(CharInfo.isUniLetter).withName("uniLetter");
+    }
+
     get digit() {
-        return this.charWhere(Chars.isDigit).withName("digit");
+        return this.charWhere(CharInfo.isDecimal).withName("digit");
+    }
+
+    get uniDigit() {
+        return this.charWhere(CharInfo.isUniDecimal).withName("uniDigit");
     }
 
     get hex() {
-        return this.charWhere(Chars.isHex).withName("hex");
+        return this.charWhere(CharInfo.isHex).withName("hex");
     }
 
-    get asciiLower() {
-        return this.charWhere(Chars.isAsciiLower).withName("asciiLower");
+    get uniLower() {
+        return this.charWhere(CharInfo.isUniLower).withName("uniLower");
     }
 
-    get asciiUpper() {
-        return this.charWhere(Chars.isAsciiUpper).withName("asciiUpper");
+    get lower() {
+        return this.charWhere(CharInfo.isLower).withName("lower");
+    }
+
+    get upper() {
+        return this.charWhere(CharInfo.isUpper).withName("upper");
+    }
+
+    get uniUpper() {
+        return this.charWhere(CharInfo.isUniUpper).withName("uniUpper");
     }
 
     get newline() {
         return wrap(new PrsNewline(false)).withName("newline");
     }
 
-    get unicodeNewline() {
-        return wrap(new PrsNewline(true)).withName("unicodeNewline");
+    get uniNewline() {
+        return wrap(new PrsNewline(true)).withName("uniNewline");
     }
 
     get space() {
-        return this.charWhere(Chars.isInlineSpace).withName("space");
+        return this.charWhere(CharInfo.isSpace).withName("space");
     }
 
-    get unicodeSpace() {
-        return this.charWhere(Chars.isUnicodeInlineSpace).withName("unicodeSpace");
+    get uniSpace() {
+        return this.charWhere(CharInfo.isUniSpace).withName("uniSpace");
     }
 
     get spaces() {
         return this.space.many().str.withName("spaces");
     }
 
-    get unicodeSpaces() {
-        return this.unicodeSpace.many().str.withName("unicodeSpaces");
+    get uniSpaces() {
+        return this.uniSpace.many().str.withName("uniSpaces");
     }
 
     get nop() {

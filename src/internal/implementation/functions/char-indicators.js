@@ -27,18 +27,6 @@ var Codes;
     const mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
     let unicodeNewlines = [0x0085, 0x2028, 0x2029];
     Codes.hairSpace = 0x200a;
-    function isUnicodeInlineSpace(code) {
-        return isBetween(code, Codes.enQuad, Codes.hairSpace) || mixedUnicodeInlineSpaces.includes(code);
-    }
-    Codes.isUnicodeInlineSpace = isUnicodeInlineSpace;
-    function isInlineSpace(code) {
-        return inlineSpaces.includes(code);
-    }
-    Codes.isInlineSpace = isInlineSpace;
-    function isArithmeticSign(code) {
-        return code === Codes.minus || code == Codes.plus;
-    }
-    Codes.isArithmeticSign = isArithmeticSign;
     function isBetween(code, start, end) {
         return code >= start && code <= end;
     }
@@ -66,80 +54,5 @@ var Codes;
         return undefined;
     }
     Codes.digitValue = digitValue;
-    function isHex(code) {
-        return isBetween(code, Codes.zero, Codes.nine) || isBetween(code, Codes.a, Codes.f) || isBetween(code, Codes.A, Codes.F);
-    }
-    Codes.isHex = isHex;
-    function isAsciiLower(code) {
-        return isBetween(code, Codes.a, Codes.z);
-    }
-    Codes.isAsciiLower = isAsciiLower;
-    function isAsciiUpper(code) {
-        return isBetween(code, Codes.A, Codes.Z);
-    }
-    Codes.isAsciiUpper = isAsciiUpper;
-    function isAsciiLetter(code) {
-        return isAsciiLower(code) || isAsciiUpper(code);
-    }
-    Codes.isAsciiLetter = isAsciiLetter;
-    function isUnicodeNewline(s) {
-        return unicodeNewlines.includes(s);
-    }
-    Codes.isUnicodeNewline = isUnicodeNewline;
 })(Codes = exports.Codes || (exports.Codes = {}));
-var Chars;
-(function (Chars) {
-    function isUpper(s) {
-        return s.toUpperCase() === s;
-    }
-    Chars.isUpper = isUpper;
-    function isLower(s) {
-        return s.toLowerCase() === s;
-    }
-    Chars.isLower = isLower;
-    function isDigit(s) {
-        let code = s.charCodeAt(0);
-        return Codes.isDigit(code);
-    }
-    Chars.isDigit = isDigit;
-    function isAsciiLetter(s) {
-        return Codes.isAsciiLetter(s.charCodeAt(0));
-    }
-    Chars.isAsciiLetter = isAsciiLetter;
-    function isHex(s) {
-        let code = s.charCodeAt(0);
-        return Codes.isHex(code);
-    }
-    Chars.isHex = isHex;
-    function isAsciiLower(s) {
-        return Codes.isAsciiLower(s.charCodeAt(0));
-    }
-    Chars.isAsciiLower = isAsciiLower;
-    function isTab(s) {
-        let code = s.charCodeAt(0);
-        return code === Codes.tab;
-    }
-    Chars.isTab = isTab;
-    function isSpace(s) {
-        let code = s.charCodeAt(0);
-        return code === Codes.space;
-    }
-    Chars.isSpace = isSpace;
-    function isInlineSpace(s) {
-        let code = s.charCodeAt(0);
-        return Codes.isInlineSpace(code);
-    }
-    Chars.isInlineSpace = isInlineSpace;
-    function isUnicodeInlineSpace(s) {
-        let code = s.charCodeAt(0);
-        return Codes.isUnicodeInlineSpace(code);
-    }
-    Chars.isUnicodeInlineSpace = isUnicodeInlineSpace;
-    //range: 0x2000 - 0x200a
-    function isAsciiUpper(s) {
-        let code = s.charCodeAt(0);
-        return Codes.isAsciiUpper(code);
-    }
-    Chars.isAsciiUpper = isAsciiUpper;
-})(Chars = exports.Chars || (exports.Chars = {}));
 //# sourceMappingURL=char-indicators.js.map

@@ -90,6 +90,9 @@ export interface LoudParser<T> extends AnyParser {
 
     mixState(userState : any) : LoudParser<T>;
 
+	readonly maybe : LoudParser<T>;
+
+
     //+++ RESTRICTIONS
     /**
      * P applies this parser, and further requires that the result fulfill a condition.

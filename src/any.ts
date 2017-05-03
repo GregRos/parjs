@@ -44,7 +44,6 @@ export interface AnyParser {
      */
     readonly isLoud : boolean;
 
-
     /**
      * P applies this parser and maps the result to a string.
      * This is done differently depending on what this parser returns.

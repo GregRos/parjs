@@ -4,6 +4,7 @@
 import {FastMath} from "../../functions/math";
 import {Codes} from "../../functions/char-indicators";
 import {ParsingState} from "../../state";
+import {CodeInfo} from "char-info";
 /**
  * Created by User on 29-Nov-16.
  */

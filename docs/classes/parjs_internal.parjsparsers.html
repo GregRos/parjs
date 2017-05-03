@@ -97,11 +97,11 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#anychar" class="tsd-kind-icon">any<wbr>Char</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#asciiletter" class="tsd-kind-icon">ascii<wbr>Letter</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#asciilower" class="tsd-kind-icon">ascii<wbr>Lower</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#asciiupper" class="tsd-kind-icon">ascii<wbr>Upper</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#digit" class="tsd-kind-icon">digit</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#eof" class="tsd-kind-icon">eof</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#hex" class="tsd-kind-icon">hex</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#letter" class="tsd-kind-icon">letter</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#lower" class="tsd-kind-icon">lower</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#newline" class="tsd-kind-icon">newline</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#nop" class="tsd-kind-icon">nop</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#position" class="tsd-kind-icon">position</a></li>
@@ -110,9 +110,14 @@
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#spaces" class="tsd-kind-icon">spaces</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#spaces1" class="tsd-kind-icon">spaces1</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#state" class="tsd-kind-icon">state</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unicodenewline" class="tsd-kind-icon">unicode<wbr>Newline</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unicodespace" class="tsd-kind-icon">unicode<wbr>Space</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unicodespaces" class="tsd-kind-icon">unicode<wbr>Spaces</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unidigit" class="tsd-kind-icon">uni<wbr>Digit</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#uniletter" class="tsd-kind-icon">uni<wbr>Letter</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unilower" class="tsd-kind-icon">uni<wbr>Lower</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#uninewline" class="tsd-kind-icon">uni<wbr>Newline</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unispace" class="tsd-kind-icon">uni<wbr>Space</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#unispaces" class="tsd-kind-icon">uni<wbr>Spaces</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#uniupper" class="tsd-kind-icon">uni<wbr>Upper</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparsers.html#upper" class="tsd-kind-icon">upper</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -146,7 +151,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#helper">helper</a></p>
 						<ul>
-							<li>Defined in internal/static.ts:38</li>
+							<li>Defined in internal/static.ts:33</li>
 						</ul>
 					</aside>
 				</section>
@@ -157,7 +162,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#visualizer">visualizer</a></p>
 						<ul>
-							<li>Defined in internal/static.ts:39</li>
+							<li>Defined in internal/static.ts:34</li>
 						</ul>
 					</aside>
 				</section>
@@ -174,7 +179,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:61</li>
+									<li>Defined in internal/static.ts:55</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -191,41 +196,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:48</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="asciilower" class="tsd-anchor"></a>
-					<h3>ascii<wbr>Lower</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> asciiLower<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/static.ts:85</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="asciiupper" class="tsd-anchor"></a>
-					<h3>ascii<wbr>Upper</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> asciiUpper<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/static.ts:89</li>
+									<li>Defined in internal/static.ts:43</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -242,7 +213,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:77</li>
+									<li>Defined in internal/static.ts:79</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -259,7 +230,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:145</li>
+									<li>Defined in internal/static.ts:159</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -276,7 +247,41 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:81</li>
+									<li>Defined in internal/static.ts:87</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="letter" class="tsd-anchor"></a>
+					<h3>letter</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> letter<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:71</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="lower" class="tsd-anchor"></a>
+					<h3>lower</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> lower<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:95</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -293,7 +298,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:93</li>
+									<li>Defined in internal/static.ts:107</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -310,7 +315,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:117</li>
+									<li>Defined in internal/static.ts:131</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -327,7 +332,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:153</li>
+									<li>Defined in internal/static.ts:167</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -344,7 +349,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:121</li>
+									<li>Defined in internal/static.ts:135</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -361,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:101</li>
+									<li>Defined in internal/static.ts:115</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -378,7 +383,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:109</li>
+									<li>Defined in internal/static.ts:123</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -395,7 +400,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:40</li>
+									<li>Defined in internal/static.ts:35</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -412,7 +417,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:157</li>
+									<li>Defined in internal/static.ts:171</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -420,16 +425,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="unicodenewline" class="tsd-anchor"></a>
-					<h3>unicode<wbr>Newline</h3>
+					<a name="unidigit" class="tsd-anchor"></a>
+					<h3>uni<wbr>Digit</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> unicodeNewline<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniDigit<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:97</li>
+									<li>Defined in internal/static.ts:83</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -437,16 +442,16 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="unicodespace" class="tsd-anchor"></a>
-					<h3>unicode<wbr>Space</h3>
+					<a name="uniletter" class="tsd-anchor"></a>
+					<h3>uni<wbr>Letter</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> unicodeSpace<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniLetter<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:105</li>
+									<li>Defined in internal/static.ts:75</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -454,16 +459,101 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="unicodespaces" class="tsd-anchor"></a>
-					<h3>unicode<wbr>Spaces</h3>
+					<a name="unilower" class="tsd-anchor"></a>
+					<h3>uni<wbr>Lower</h3>
 					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> unicodeSpaces<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniLower<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:113</li>
+									<li>Defined in internal/static.ts:91</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="uninewline" class="tsd-anchor"></a>
+					<h3>uni<wbr>Newline</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniNewline<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:111</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="unispace" class="tsd-anchor"></a>
+					<h3>uni<wbr>Space</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniSpace<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:119</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="unispaces" class="tsd-anchor"></a>
+					<h3>uni<wbr>Spaces</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniSpaces<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:127</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="uniupper" class="tsd-anchor"></a>
+					<h3>uni<wbr>Upper</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> uniUpper<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:103</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="upper" class="tsd-anchor"></a>
+					<h3>upper</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> upper<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/static.ts:99</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -483,7 +573,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:53</li>
+									<li>Defined in internal/static.ts:47</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -507,7 +597,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#anycharof">anyCharOf</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:69</li>
+									<li>Defined in internal/static.ts:63</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -531,7 +621,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#anystringof">anyStringOf</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:129</li>
+									<li>Defined in internal/static.ts:143</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -554,7 +644,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:65</li>
+									<li>Defined in internal/static.ts:59</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -599,7 +689,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#fail">fail</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:149</li>
+									<li>Defined in internal/static.ts:163</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -626,7 +716,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#float">float</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:169</li>
+									<li>Defined in internal/static.ts:183</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -650,7 +740,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#int">int</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:161</li>
+									<li>Defined in internal/static.ts:175</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -673,7 +763,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:44</li>
+									<li>Defined in internal/static.ts:39</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -715,7 +805,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#nocharof">noCharOf</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:73</li>
+									<li>Defined in internal/static.ts:67</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -739,7 +829,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#regexp">regexp</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:137</li>
+									<li>Defined in internal/static.ts:151</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -762,7 +852,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:141</li>
+									<li>Defined in internal/static.ts:155</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -786,7 +876,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#seq">seq</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:57</li>
+									<li>Defined in internal/static.ts:51</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -810,7 +900,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#string">string</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:125</li>
+									<li>Defined in internal/static.ts:139</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -834,7 +924,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/parjs.parjsstatic.html">ParjsStatic</a>.<a href="../interfaces/parjs.parjsstatic.html#stringlen">stringLen</a></p>
 								<ul>
-									<li>Defined in internal/static.ts:133</li>
+									<li>Defined in internal/static.ts:147</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -904,12 +994,6 @@
 								<a href="parjs_internal.parjsparsers.html#asciiletter" class="tsd-kind-icon">ascii<wbr>Letter</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="parjs_internal.parjsparsers.html#asciilower" class="tsd-kind-icon">ascii<wbr>Lower</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="parjs_internal.parjsparsers.html#asciiupper" class="tsd-kind-icon">ascii<wbr>Upper</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparsers.html#digit" class="tsd-kind-icon">digit</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -917,6 +1001,12 @@
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparsers.html#hex" class="tsd-kind-icon">hex</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#letter" class="tsd-kind-icon">letter</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#lower" class="tsd-kind-icon">lower</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparsers.html#newline" class="tsd-kind-icon">newline</a>
@@ -943,13 +1033,28 @@
 								<a href="parjs_internal.parjsparsers.html#state" class="tsd-kind-icon">state</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="parjs_internal.parjsparsers.html#unicodenewline" class="tsd-kind-icon">unicode<wbr>Newline</a>
+								<a href="parjs_internal.parjsparsers.html#unidigit" class="tsd-kind-icon">uni<wbr>Digit</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="parjs_internal.parjsparsers.html#unicodespace" class="tsd-kind-icon">unicode<wbr>Space</a>
+								<a href="parjs_internal.parjsparsers.html#uniletter" class="tsd-kind-icon">uni<wbr>Letter</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="parjs_internal.parjsparsers.html#unicodespaces" class="tsd-kind-icon">unicode<wbr>Spaces</a>
+								<a href="parjs_internal.parjsparsers.html#unilower" class="tsd-kind-icon">uni<wbr>Lower</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#uninewline" class="tsd-kind-icon">uni<wbr>Newline</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#unispace" class="tsd-kind-icon">uni<wbr>Space</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#unispaces" class="tsd-kind-icon">uni<wbr>Spaces</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#uniupper" class="tsd-kind-icon">uni<wbr>Upper</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparsers.html#upper" class="tsd-kind-icon">upper</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparsers.html#any" class="tsd-kind-icon">any</a>

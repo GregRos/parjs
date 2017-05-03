@@ -37,6 +37,9 @@ class ParjsParser extends parser_1.BaseParjsParser {
     mustCapture(failType = reply_1.ReplyKind.HardFail) {
         return wrap(new combinators_1.PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
+    get maybe() {
+        return this.or(_1.Parjs.result(undefined));
+    }
     or(...others) {
         return wrap(new combinators_1.PrsAlts([this, ...others].map(x => x.action))).withName("or");
     }

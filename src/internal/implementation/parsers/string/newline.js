@@ -4,8 +4,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/parsers
  */ /** */
 const action_1 = require("../../action");
-const char_indicators_1 = require("../../functions/char-indicators");
 const reply_1 = require("../../../../reply");
+const char_info_1 = require("char-info");
+const char_indicators_1 = require("../../functions/char-indicators");
 /**
  * Created by User on 24-Nov-16.
  */
@@ -24,12 +25,6 @@ class PrsNewline extends action_1.ParjsAction {
             return;
         }
         let charAt = input.charCodeAt(position);
-        if (matchUnicode && char_indicators_1.Codes.isUnicodeNewline(charAt)) {
-            ps.position++;
-            ps.value = input.charAt(position);
-            ps.kind = reply_1.ReplyKind.OK;
-            return;
-        }
         if (charAt === char_indicators_1.Codes.newline) {
             ps.position++;
             ps.value = '\n';
@@ -46,6 +41,12 @@ class PrsNewline extends action_1.ParjsAction {
             }
             ps.position = position;
             ps.value = '\r';
+            ps.kind = reply_1.ReplyKind.OK;
+            return;
+        }
+        else if (matchUnicode && char_info_1.CodeInfo.isUniNewline(charAt)) {
+            ps.position++;
+            ps.value = input.charAt(position);
             ps.kind = reply_1.ReplyKind.OK;
             return;
         }

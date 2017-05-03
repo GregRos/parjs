@@ -46,8 +46,8 @@ describe("basic string parsers", () => {
         })
     });
 
-    describe("Parjs.asciiUpper", () => {
-        let parser = Parjs.asciiUpper;
+    describe("Parjs.upper", () => {
+        let parser = Parjs.upper;
         it ("fails on empty input", () => {
             expectFailure(parser.parse(""), "SoftFail");
         });
@@ -59,8 +59,8 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.asciiUpper", () => {
-        let parser = Parjs.asciiLower;
+    describe("Parjs.upper", () => {
+        let parser = Parjs.lower;
         it ("fails on empty input", () => {
             expectFailure(parser.parse(""), "SoftFail");
         });
@@ -73,7 +73,7 @@ describe("basic string parsers", () => {
     });
 
     describe("Parjs.asciiLetter", () => {
-        let parser = Parjs.asciiLower;
+        let parser = Parjs.lower;
         it ("fails on empty input", () => {
             expectFailure(parser.parse(""), "SoftFail");
         });
@@ -176,7 +176,7 @@ describe("basic string parsers", () => {
         });
 
         it("success on all newline string, incl unicode newline", () => {
-            let unicodeNewline = Parjs.unicodeNewline.many();
+            let unicodeNewline = Parjs.uniNewline.many();
             let result = unicodeNewline.parse(allNewlines);
             expect(result.kind).toBe(ReplyKind.OK);
             if (result.kind !== ReplyKind.OK) return;

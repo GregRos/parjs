@@ -38,8 +38,8 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(" ".repeat(5)), " ".repeat(5));
         });
     });
-    describe("Parjs.asciiUpper", () => {
-        let parser = src_1.Parjs.asciiUpper;
+    describe("Parjs.upper", () => {
+        let parser = src_1.Parjs.upper;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -50,8 +50,8 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse("A"), "A");
         });
     });
-    describe("Parjs.asciiUpper", () => {
-        let parser = src_1.Parjs.asciiLower;
+    describe("Parjs.upper", () => {
+        let parser = src_1.Parjs.lower;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -63,7 +63,7 @@ describe("basic string parsers", () => {
         });
     });
     describe("Parjs.asciiLetter", () => {
-        let parser = src_1.Parjs.asciiLower;
+        let parser = src_1.Parjs.lower;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");
         });
@@ -157,7 +157,7 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse(macNewline), macNewline);
         });
         it("success on all newline string, incl unicode newline", () => {
-            let unicodeNewline = src_1.Parjs.unicodeNewline.many();
+            let unicodeNewline = src_1.Parjs.uniNewline.many();
             let result = unicodeNewline.parse(allNewlines);
             expect(result.kind).toBe(reply_1.ReplyKind.OK);
             if (result.kind !== reply_1.ReplyKind.OK)

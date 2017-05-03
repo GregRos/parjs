@@ -26,18 +26,6 @@ export namespace Codes {
     let unicodeNewlines = [0x0085, 0x2028, 0x2029];
     export const hairSpace = 0x200a;
 
-    export function isUnicodeInlineSpace(code : number) {
-        return isBetween(code, enQuad, hairSpace) || mixedUnicodeInlineSpaces.includes(code);
-    }
-
-    export function isInlineSpace(code : number) {
-        return inlineSpaces.includes(code);
-    }
-
-    export function isArithmeticSign(code : number) {
-        return code === minus || code == plus;
-    }
-
     export function isBetween(code : number, start : number, end : number) {
         return code >= start && code <= end;
     }
@@ -64,82 +52,5 @@ export namespace Codes {
         }
         return undefined;
     }
-
-    export function isHex(code : number) {
-        return isBetween(code, zero, nine) || isBetween(code, a, f) || isBetween(code, A, F);
-    }
-
-    export function isAsciiLower(code : number) {
-        return isBetween(code, a, z);
-    }
-
-    export function isAsciiUpper(code : number) {
-        return isBetween(code, A, Z);
-    }
-
-    export function isAsciiLetter(code : number) {
-        return isAsciiLower(code) || isAsciiUpper(code);
-    }
-
-    export function isUnicodeNewline(s : number) {
-        return unicodeNewlines.includes(s);
-    }
-}
-
-export namespace Chars {
-    export function isUpper(s : string) {
-        return s.toUpperCase() === s;
-    }
-
-    export function isLower(s : string) {
-        return s.toLowerCase() === s;
-    }
-
-    export function isDigit(s : string) : boolean {
-        let code = s.charCodeAt(0);
-        return Codes.isDigit(code);
-    }
-
-    export function isAsciiLetter(s : string) {
-        return Codes.isAsciiLetter(s.charCodeAt(0));
-    }
-
-    export function isHex(s : string) : boolean {
-        let code = s.charCodeAt(0);
-        return Codes.isHex(code);
-    }
-
-    export function isAsciiLower(s : string) {
-        return Codes.isAsciiLower(s.charCodeAt(0))
-    }
-
-    export function isTab(s : string) {
-        let code = s.charCodeAt(0);
-        return code === Codes.tab;
-    }
-
-    export function isSpace(s : string) {
-        let code = s.charCodeAt(0);
-        return code === Codes.space;
-    }
-
-
-    export function isInlineSpace(s : string) {
-        let code = s.charCodeAt(0);
-        return Codes.isInlineSpace(code);
-    }
-
-    export function isUnicodeInlineSpace(s : string) {
-        let code = s.charCodeAt(0);
-        return Codes.isUnicodeInlineSpace(code);
-    }
-
-    //range: 0x2000 - 0x200a
-    export function isAsciiUpper(s : string) {
-        let code = s.charCodeAt(0);
-       return Codes.isAsciiUpper(code);
-    }
-
-
 
 }

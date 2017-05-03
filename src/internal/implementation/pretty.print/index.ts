@@ -2,7 +2,6 @@
  * @module parjs/internal/implementation
  */ /** */
 import {StringHelpers} from "../functions/helpers";
-import wordwrap = require('word-wrap');
 import _ = require('lodash');
 
 

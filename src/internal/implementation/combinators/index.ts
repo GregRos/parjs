@@ -19,4 +19,4 @@ export {PrsManyTill} from './sequential/manyTill';
 export {PrsSeqFunc} from './sequential/sequential-func';
 export {PrsNot} from './special/not';
 export {PrsAltVal} from './alternatives/alt-val';
-
+export {PrsLate} from './special/late';

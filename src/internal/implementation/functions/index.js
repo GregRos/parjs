@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * Functions for implementing parsers and combinators.
  */ /** */
 var char_indicators_1 = require("./char-indicators");
-exports.Chars = char_indicators_1.Chars;
 exports.Codes = char_indicators_1.Codes;
 var helpers_1 = require("./helpers");
 exports.StringHelpers = helpers_1.StringHelpers;

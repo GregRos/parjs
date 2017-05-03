@@ -55,6 +55,7 @@ export class FailureReply implements AnyReply<void> {
     constructor(public trace : Trace) {
 
     }
+
     get value() : never {
         throw new ParsingFailureError(this);
     }

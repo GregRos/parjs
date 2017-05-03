@@ -7,13 +7,12 @@ const instance_1 = require("./instance");
 const parsers_1 = require("./implementation/parsers");
 const combinators_1 = require("./implementation/combinators");
 const action_1 = require("./implementation/action");
-const char_indicators_1 = require("./implementation/functions/char-indicators");
 const reply_1 = require("../reply");
 const int_1 = require("./implementation/parsers/numbers/int");
 const float_1 = require("./implementation/parsers/numbers/float");
 const _ = require("lodash");
-const late_1 = require("./implementation/combinators/special/late");
 const basic_trace_visualizer_1 = require("./implementation/basic-trace-visualizer");
+const char_info_1 = require("char-info");
 function wrap(action) {
     return new instance_1.ParjsParser(action);
 }
@@ -35,10 +34,10 @@ class ParjsParsers {
         return this.space.many(1).str.withName("spaces1");
     }
     late(resolver) {
-        return wrap(new late_1.PrsLate(() => resolver().action, true)).withName("late");
+        return wrap(new combinators_1.PrsLate(() => resolver().action, true)).withName("late");
     }
     get asciiLetter() {
-        return this.charWhere(char_indicators_1.Chars.isAsciiLetter).withName("asciiLetter");
+        return this.charWhere(char_info_1.CharInfo.isLetter).withName("asciiLetter");
     }
     any(...parsers) {
         return wrap(new combinators_1.PrsAlts(parsers.map(x => x.action))).withName("any");
@@ -58,35 +57,50 @@ class ParjsParsers {
     noCharOf(options) {
         return this.charWhere(x => !options.includes(x)).withName("noCharOf");
     }
+    get letter() {
+        return this.charWhere(char_info_1.CharInfo.isLetter).withName("letter");
+    }
+    get uniLetter() {
+        return this.charWhere(char_info_1.CharInfo.isUniLetter).withName("uniLetter");
+    }
     get digit() {
-        return this.charWhere(char_indicators_1.Chars.isDigit).withName("digit");
+        return this.charWhere(char_info_1.CharInfo.isDecimal).withName("digit");
+    }
+    get uniDigit() {
+        return this.charWhere(char_info_1.CharInfo.isUniDecimal).withName("uniDigit");
     }
     get hex() {
-        return this.charWhere(char_indicators_1.Chars.isHex).withName("hex");
+        return this.charWhere(char_info_1.CharInfo.isHex).withName("hex");
     }
-    get asciiLower() {
-        return this.charWhere(char_indicators_1.Chars.isAsciiLower).withName("asciiLower");
+    get uniLower() {
+        return this.charWhere(char_info_1.CharInfo.isUniLower).withName("uniLower");
     }
-    get asciiUpper() {
-        return this.charWhere(char_indicators_1.Chars.isAsciiUpper).withName("asciiUpper");
+    get lower() {
+        return this.charWhere(char_info_1.CharInfo.isLower).withName("lower");
+    }
+    get upper() {
+        return this.charWhere(char_info_1.CharInfo.isUpper).withName("upper");
+    }
+    get uniUpper() {
+        return this.charWhere(char_info_1.CharInfo.isUniUpper).withName("uniUpper");
     }
     get newline() {
         return wrap(new parsers_1.PrsNewline(false)).withName("newline");
     }
-    get unicodeNewline() {
-        return wrap(new parsers_1.PrsNewline(true)).withName("unicodeNewline");
+    get uniNewline() {
+        return wrap(new parsers_1.PrsNewline(true)).withName("uniNewline");
     }
     get space() {
-        return this.charWhere(char_indicators_1.Chars.isInlineSpace).withName("space");
+        return this.charWhere(char_info_1.CharInfo.isSpace).withName("space");
     }
-    get unicodeSpace() {
-        return this.charWhere(char_indicators_1.Chars.isUnicodeInlineSpace).withName("unicodeSpace");
+    get uniSpace() {
+        return this.charWhere(char_info_1.CharInfo.isUniSpace).withName("uniSpace");
     }
     get spaces() {
         return this.space.many().str.withName("spaces");
     }
-    get unicodeSpaces() {
-        return this.unicodeSpace.many().str.withName("unicodeSpaces");
+    get uniSpaces() {
+        return this.uniSpace.many().str.withName("uniSpaces");
     }
     get nop() {
         return this.result(undefined).q.withName("nop");

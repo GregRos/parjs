@@ -9,7 +9,7 @@ import {SuccessReply, FailureReply} from "./internal/reply";
 /**
  * A type that represents a SuccessReply or a FailureReply. Returned by parsers.
  */
-export type Reply<T> = (SuccessReply<T> | FailureReply)
+export type Reply<T> = (SuccessReply<T> | FailureReply);
 
 /**
  * A type representing the reply of a quiet parser.

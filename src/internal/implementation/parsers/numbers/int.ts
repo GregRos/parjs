@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/parsers
  */ /** */
 import {ParjsAction} from "../../action";
-import {Chars, Codes} from "../../functions/char-indicators";
+import {Codes} from "../../functions/char-indicators";
 import {Parselets} from './parselets';
 import {FastMath} from "../../functions/math";
 import {ParsingState} from "../../state";

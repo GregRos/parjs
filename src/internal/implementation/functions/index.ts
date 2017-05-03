@@ -3,7 +3,7 @@
  * @preferred
  * Functions for implementing parsers and combinators.
  */ /** */
-export {Chars, Codes} from './char-indicators';
+export {Codes} from './char-indicators';
 export {StringHelpers} from './helpers';
 export {FastMath} from './math';
 export {Predicates} from './predicates'

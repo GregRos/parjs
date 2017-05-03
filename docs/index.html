@@ -66,6 +66,7 @@
 				<p><a href="https://travis-ci.org/GregRos/parjs"><img src="https://travis-ci.org/GregRos/parjs.svg?branch=master" alt="build"></a>
 					<a href="https://codecov.io/gh/GregRos/parjs"><img src="https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg" alt="codecov"></a>
 				<a href="https://www.npmjs.com/package/parjs"><img src="https://badge.fury.io/js/parjs.svg" alt="npm"></a></p>
+				<p><a href="https://gregros.github.io/parjs/">API Documentation</a></p>
 				<p>Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of <a href="https://wiki.haskell.org/Parsec">Parsec</a> and in particular its F# adaptation <a href="http://www.quanttec.com/fparsec/">FParsec</a>.</p>
 				<p>It&#39;s also similar to the <a href="https://github.com/jneen/parsimmon">parsimmon</a> library, but intends to be superior to it.</p>
 				<p>Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It&#39;s designed to be used from TypeScript too, but that&#39;s not necessary.</p>
@@ -346,7 +347,6 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				<p>Finally, if you are writing in TypeScript, you&#39;ll need to cast the parser to the appropriate interface. This is usually either <code>LoudParser&lt;T&gt;</code> or <code>QuietParser</code>.    </p>
 				<h2 id="current-issues">Current Issues</h2>
 				<ol>
-					<li>Very little Unicode support, mainly due to lack of JavaScript Unicode character recognizers.</li>
 					<li>Library is not heavily optimized as it should be. There are no benchmarks.</li>
 					<li>Debugging should be improved.</li>
 				</ol>
