@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.4.1",
+  "version": "0.5.1",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "dist/index",

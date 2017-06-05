@@ -158,18 +158,18 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsMust(this.action, cond as any, fail, name)).withName("must");
     }
 
-    mustNotBeOf(...options : any[]) {
-        return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`).withName("mustNotBeOf");
+    mustNotBeOf(options : any[], fail = ReplyKind.HardFail) {
+        return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`, fail).withName("mustNotBeOf");
     }
 
-    mustBeOf(...options : any[]) {
-        return this.must(x => options.includes(x), `one of: ${options.join(", ")}`).withName("mustBeOf");
+    mustBeOf(options : any[], fail = ReplyKind.HardFail) {
+        return this.must(x => options.includes(x), `one of: ${options.join(", ")}`, fail).withName("mustBeOf");
     }
 
-    get mustBeNonEmpty() {
+    mustBeNonEmpty(fail = ReplyKind.HardFail) {
         return this.must(x => {
             return Predicates.nonEmpty(x);
-        }, `be non-empty`, ReplyKind.HardFail).withName("mustBeNonEmpty");
+        }, `be non-empty`, fail).withName("mustBeNonEmpty");
     }
 
     withName(newName : string) {

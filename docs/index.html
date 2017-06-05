@@ -97,6 +97,10 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				</ol>
 				<p>The possibilities are limitless.</p>
 				<p>Since it&#39;s written in JavaScript, it can be used in web environments.</p>
+				<h2 id="unicode-and-limitations">Unicode and Limitations</h2>
+				<p>Parjs supports selectively parsing diverse Unicode characters with the aid of the <a href="https://www.npmjs.com/package/char-info"><code>char-info</code> </a> package of character recognizers. </p>
+				<p>Parsers such as <code>Parjs.upper</code> can only recognize the ANSI subset of Unicode. Parsers beginning with <code>uni</code>, such as <code>uniUpper</code>, can recognize any Unicode character. However, they are also slower.</p>
+				<p>Parjs isn&#39;t very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with <code>uni</code> won&#39;t recognize such characters.</p>
 				<h2 id="module-structure">Module Structure</h2>
 				<p>Parjs has a well-organized module structure that is reflected in the documentation:</p>
 				<pre><code>- parjs

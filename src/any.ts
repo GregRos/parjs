@@ -19,23 +19,23 @@ export interface AnyParser {
      */
     readonly action : AnyParserAction;
     /**
-     * P applies this parser, and if it succeeds, returns the given value.
+     * P will apply {this}. If {this} succeeds, P will discard its result (if any) and return {result} instead.
      * @param result The value to return.
      */
     result<S>(result : S) : LoudParser<S>;
 
     /**
-     * P applies this parser and forgets the result (if any).
+     * P will apply {this}. If it succeeds, it will return nothing as a quiet parser.
      */
     readonly q : QuietParser;
 
     /**
-     * P applies this parser and succeeds without consuming input if this parser fails.
+     * P will apply {this}. P will succeed if {this} fails hard or soft, and fail hard otherwise. P will still fail fatally if {this} fails fatally.
      */
     readonly not : QuietParser;
 
     /**
-     * P discards the result of this parser, if any, and instead returns its user state.
+     * P will apply {this}, and return the user state, discarding the result (if any).
      */
     readonly state : LoudParser<any>;
 
@@ -45,8 +45,8 @@ export interface AnyParser {
     readonly isLoud : boolean;
 
     /**
-     * P applies this parser and maps the result to a string.
-     * This is done differently depending on what this parser returns.
+     * P will apply {this} and map the result to a string.
+     * This is done differently depending on what {this} returns.
      * For an array (usually of strings), the elements are concatenated and returned as a single string.
      * For a string, the string is returned.
      * For a quiet parser, an empty string is returned.

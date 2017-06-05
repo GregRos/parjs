@@ -110,7 +110,6 @@
 								<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal.parjsparser.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal.parjsparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#maybe" class="tsd-kind-icon">maybe</a></li>
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#mustbenonempty" class="tsd-kind-icon">must<wbr>BeNon<wbr>Empty</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#not" class="tsd-kind-icon">not</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#q" class="tsd-kind-icon">q</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#soft" class="tsd-kind-icon">soft</a></li>
@@ -131,6 +130,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#map" class="tsd-kind-icon">map</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#mixstate" class="tsd-kind-icon">mix<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#must" class="tsd-kind-icon">must</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#mustbenonempty" class="tsd-kind-icon">must<wbr>BeNon<wbr>Empty</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#mustbeof" class="tsd-kind-icon">must<wbr>BeOf</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#mustcapture" class="tsd-kind-icon">must<wbr>Capture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="parjs_internal.parjsparser.html#mustnotbeof" class="tsd-kind-icon">must<wbr>Not<wbr>BeOf</a></li>
@@ -273,23 +273,6 @@
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="mustbenonempty" class="tsd-anchor"></a>
-					<h3>must<wbr>BeNon<wbr>Empty</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> mustBeNonEmpty<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/instance.ts:169</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -636,10 +619,33 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="mustbenonempty" class="tsd-anchor"></a>
+					<h3>must<wbr>BeNon<wbr>Empty</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">must<wbr>BeNon<wbr>Empty<span class="tsd-signature-symbol">(</span>fail<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"HardFail"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/instance.ts:169</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> fail: <span class="tsd-signature-type">"HardFail"</span><span class="tsd-signature-symbol"> =&nbsp;ReplyKind.HardFail</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="mustbeof" class="tsd-anchor"></a>
 					<h3>must<wbr>BeOf</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">must<wbr>BeOf<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+						<li class="tsd-signature tsd-kind-icon">must<wbr>BeOf<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span>, fail<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"HardFail"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -651,7 +657,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>options: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>options: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> fail: <span class="tsd-signature-type">"HardFail"</span><span class="tsd-signature-symbol"> =&nbsp;ReplyKind.HardFail</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -686,7 +695,7 @@
 					<a name="mustnotbeof" class="tsd-anchor"></a>
 					<h3>must<wbr>Not<wbr>BeOf</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">must<wbr>Not<wbr>BeOf<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
+						<li class="tsd-signature tsd-kind-icon">must<wbr>Not<wbr>BeOf<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span>, fail<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"HardFail"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -698,7 +707,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>options: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>options: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> fail: <span class="tsd-signature-type">"HardFail"</span><span class="tsd-signature-symbol"> =&nbsp;ReplyKind.HardFail</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
@@ -959,9 +971,6 @@
 								<a href="parjs_internal.parjsparser.html#maybe" class="tsd-kind-icon">maybe</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="parjs_internal.parjsparser.html#mustbenonempty" class="tsd-kind-icon">must<wbr>BeNon<wbr>Empty</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparser.html#not" class="tsd-kind-icon">not</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -1005,6 +1014,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparser.html#must" class="tsd-kind-icon">must</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="parjs_internal.parjsparser.html#mustbenonempty" class="tsd-kind-icon">must<wbr>BeNon<wbr>Empty</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="parjs_internal.parjsparser.html#mustbeof" class="tsd-kind-icon">must<wbr>BeOf</a>

@@ -20,7 +20,7 @@ describe("must combinators", () => {
         });
     });
     it("mustBeOf", () => {
-        let parser = src_1.Parjs.stringLen(3).mustBeOf("a", "b", "c");
+        let parser = src_1.Parjs.stringLen(3).mustBeOf(["a", "b", "c"]);
         it("succeeds when is of", () => {
             custom_matchers_1.expectSuccess(parser.parse("b"), "b");
         });
@@ -29,7 +29,7 @@ describe("must combinators", () => {
         });
     });
     it("mustBeOf", () => {
-        let parser = src_1.Parjs.stringLen(3).mustNotBeOf("a", "b", "c");
+        let parser = src_1.Parjs.stringLen(3).mustNotBeOf(["a", "b", "c"]);
         it("fails when is of", () => {
             custom_matchers_1.expectFailure(parser.parse("b"), "SoftFail");
         });
@@ -61,25 +61,25 @@ describe("must combinators", () => {
         let fail = src_1.Parjs.fail("", reply_1.ReplyKind.FatalFail);
         let emptyObj = src_1.Parjs.result({});
         it("fails for empty string", () => {
-            custom_matchers_1.expectFailure(emptyString.mustBeNonEmpty.parse(""), reply_1.ReplyKind.HardFail);
+            custom_matchers_1.expectFailure(emptyString.mustBeNonEmpty().parse(""), reply_1.ReplyKind.HardFail);
         });
         it("fails for empty array", () => {
-            custom_matchers_1.expectFailure(emptyArray.mustBeNonEmpty.parse(""), reply_1.ReplyKind.HardFail);
+            custom_matchers_1.expectFailure(emptyArray.mustBeNonEmpty().parse(""), reply_1.ReplyKind.HardFail);
         });
         it("succeeds for 0 result", () => {
-            custom_matchers_1.expectSuccess(zeroResult.mustBeNonEmpty.parse(""), 0);
+            custom_matchers_1.expectSuccess(zeroResult.mustBeNonEmpty().parse(""), 0);
         });
         it("fails for undefined", () => {
-            custom_matchers_1.expectFailure(emptyUndefined.mustBeNonEmpty.parse(""), reply_1.ReplyKind.HardFail);
+            custom_matchers_1.expectFailure(emptyUndefined.mustBeNonEmpty().parse(""), reply_1.ReplyKind.HardFail);
         });
         it("fails for null", () => {
-            custom_matchers_1.expectFailure(emptyNull.mustBeNonEmpty.parse(""), reply_1.ReplyKind.HardFail);
+            custom_matchers_1.expectFailure(emptyNull.mustBeNonEmpty().parse(""), reply_1.ReplyKind.HardFail);
         });
         it("fails for fail", () => {
-            custom_matchers_1.expectFailure(fail.mustBeNonEmpty.parse(""), reply_1.ReplyKind.FatalFail);
+            custom_matchers_1.expectFailure(fail.mustBeNonEmpty().parse(""), reply_1.ReplyKind.FatalFail);
         });
         it("fails for empty object", () => {
-            custom_matchers_1.expectFailure(emptyObj.mustBeNonEmpty.parse(""), reply_1.ReplyKind.HardFail);
+            custom_matchers_1.expectFailure(emptyObj.mustBeNonEmpty().parse(""), reply_1.ReplyKind.HardFail);
         });
     });
 });

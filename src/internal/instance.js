@@ -130,16 +130,16 @@ class ParjsParser extends parser_1.BaseParjsParser {
         }
         return wrap(new combinators_1.PrsMust(this.action, cond, fail, name)).withName("must");
     }
-    mustNotBeOf(...options) {
-        return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`).withName("mustNotBeOf");
+    mustNotBeOf(options, fail = reply_1.ReplyKind.HardFail) {
+        return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`, fail).withName("mustNotBeOf");
     }
-    mustBeOf(...options) {
-        return this.must(x => options.includes(x), `one of: ${options.join(", ")}`).withName("mustBeOf");
+    mustBeOf(options, fail = reply_1.ReplyKind.HardFail) {
+        return this.must(x => options.includes(x), `one of: ${options.join(", ")}`, fail).withName("mustBeOf");
     }
-    get mustBeNonEmpty() {
+    mustBeNonEmpty(fail = reply_1.ReplyKind.HardFail) {
         return this.must(x => {
             return predicates_1.Predicates.nonEmpty(x);
-        }, `be non-empty`, reply_1.ReplyKind.HardFail).withName("mustBeNonEmpty");
+        }, `be non-empty`, fail).withName("mustBeNonEmpty");
     }
     withName(newName) {
         this.displayName = newName;

@@ -110,9 +110,13 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#spaces" class="tsd-kind-icon">spaces</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#spaces1" class="tsd-kind-icon">spaces1</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#unidigit" class="tsd-kind-icon">uni<wbr>Digit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#uniletter" class="tsd-kind-icon">uni<wbr>Letter</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#unilower" class="tsd-kind-icon">uni<wbr>Lower</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#uninewline" class="tsd-kind-icon">uni<wbr>Newline</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#unispace" class="tsd-kind-icon">uni<wbr>Space</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#unispaces" class="tsd-kind-icon">uni<wbr>Spaces</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#uniupper" class="tsd-kind-icon">uni<wbr>Upper</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#upper" class="tsd-kind-icon">upper</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#visualizer" class="tsd-kind-icon">visualizer</a></li>
 							</ul>
@@ -152,7 +156,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses a single character. Equivalent to:</p>
+							<p>P will parse a single character and return it.  If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -167,7 +171,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Parses a single letter [a-zA-Z]</p>
+							<p>P will parse a single letter [a-zA-Z] and return it. If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -182,7 +186,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P Parses a single digit character [0-9]. Returns the parsed character.</p>
+							<p>P will parse a single digit character [0-9] and return it. If it can&#39;t, it will fail soflty.</p>
 						</div>
 					</div>
 				</section>
@@ -192,12 +196,12 @@
 					<div class="tsd-signature tsd-kind-icon">eof<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:128</li>
+							<li>Defined in parjs.ts:159</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P succeeds there are no more characters to parse.</p>
+							<p>P will succeed if it has reached the end of the input, and fail softly otherwise.</p>
 						</div>
 					</div>
 				</section>
@@ -222,7 +226,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P Parses a single hex digit character [0-9a-fA-F]. Returns the parsed character.</p>
+							<p>P will parse a single hex digit character [0-9a-fA-F] and return it. If it can&#39;t, it will fail soflty.</p>
 						</div>
 					</div>
 				</section>
@@ -237,7 +241,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses a single lower-case letter character in the range [a-z]</p>
+							<p>P will parse a single lower-case letter character in the range [a-z] and return it. If it can&#39;t, it will fail soflty.</p>
 						</div>
 					</div>
 				</section>
@@ -252,7 +256,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P Parses either \n, \r\n, or \r and returns the string that was parsed.</p>
+							<p>P will parse either \n, \r\n, or \r and return the string that was parsed. If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -262,12 +266,12 @@
 					<div class="tsd-signature tsd-kind-icon">nop<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:123</li>
+							<li>Defined in parjs.ts:154</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P succeeds without consuming input. Quiet parser.</p>
+							<p>P will succeed without consuming input. Quiet parser.</p>
 						</div>
 					</div>
 				</section>
@@ -277,12 +281,12 @@
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:139</li>
+							<li>Defined in parjs.ts:173</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P succeeds without consuming input and returns the current position in the input.</p>
+							<p>P will succeed without consuming input and return the current position in the input.</p>
 						</div>
 					</div>
 				</section>
@@ -292,13 +296,13 @@
 					<div class="tsd-signature tsd-kind-icon">rest<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:168</li>
+							<li>Defined in parjs.ts:205</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses the remaining characters in the input until eof and returns the resulting string.
-							Never fails.</p>
+							<p>P will parse all the characters until the end of the input, and then return the parsed text.
+							P will never fail.</p>
 						</div>
 					</div>
 				</section>
@@ -308,12 +312,13 @@
 					<div class="tsd-signature tsd-kind-icon">space<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:98</li>
+							<li>Defined in parjs.ts:118</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses one ASCII inline space character, such as space or a tab.</p>
+							<p>P will parse one ASCII inline space character, such as space or a tab, and return it.
+							If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -323,12 +328,13 @@
 					<div class="tsd-signature tsd-kind-icon">spaces<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:152</li>
+							<li>Defined in parjs.ts:187</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.</p>
+							<p>P will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
+							P will always succeed.</p>
 						</div>
 					</div>
 				</section>
@@ -338,12 +344,13 @@
 					<div class="tsd-signature tsd-kind-icon">spaces1<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:157</li>
+							<li>Defined in parjs.ts:193</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses one or more spaces and returns the result.</p>
+							<p>P will parse one or more ASCII whitespace character and returns the result.
+							P will fail softly if it can&#39;t parse at least one space character.</p>
 						</div>
 					</div>
 				</section>
@@ -353,12 +360,57 @@
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:144</li>
+							<li>Defined in parjs.ts:178</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P succeeds without consuming input and returns the current user state.</p>
+							<p>P will succeed without consuming input and return the current user state.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="unidigit" class="tsd-anchor"></a>
+					<h3>uni<wbr>Digit</h3>
+					<div class="tsd-signature tsd-kind-icon">uni<wbr>Digit<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parjs.ts:113</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will parse a single Unicode digit character in any script or language. It will return the string that was parsed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="uniletter" class="tsd-anchor"></a>
+					<h3>uni<wbr>Letter</h3>
+					<div class="tsd-signature tsd-kind-icon">uni<wbr>Letter<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parjs.ts:103</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will parse a single Unicode letter character in any script or language. It will return the string that was parsed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="unilower" class="tsd-anchor"></a>
+					<h3>uni<wbr>Lower</h3>
+					<div class="tsd-signature tsd-kind-icon">uni<wbr>Lower<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parjs.ts:99</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will parse a single Unicode lowercase character in any script or language. It will return the string that was parsed.</p>
 						</div>
 					</div>
 				</section>
@@ -368,12 +420,13 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Newline<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:93</li>
+							<li>Defined in parjs.ts:94</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Parses a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.</p>
+							<p>P will parse a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.
+							If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -383,12 +436,13 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Space<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:103</li>
+							<li>Defined in parjs.ts:124</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses one Unicode inline space character, including characters such as EM SPACE, and returns the character that was parsed.</p>
+							<p>P will parse one Unicode inline space character, including characters such as EM SPACE, and return the character that was parsed.
+							If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -398,12 +452,28 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Spaces<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in parjs.ts:162</li>
+							<li>Defined in parjs.ts:199</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses as many Unicode inline white spaces as possible. Returns the parsed text.</p>
+							<p>P parses as many Unicode inline white spaces as possible. Returns the parsed text.
+							P will always succeed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="uniupper" class="tsd-anchor"></a>
+					<h3>uni<wbr>Upper</h3>
+					<div class="tsd-signature tsd-kind-icon">uni<wbr>Upper<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parjs.ts:108</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will parse a single Unicode uppercase character in any script or language. It will return the string that was parsed.</p>
 						</div>
 					</div>
 				</section>
@@ -418,7 +488,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses a single upper-case letter character in the range [A-Z].</p>
+							<p>P will parse a single upper-case letter character in the range [A-Z] and return it. If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -451,12 +521,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:215</li>
+									<li>Defined in parjs.ts:251</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P tries the given parsers, one after the other, and returns the value of the first one that succeeds.</p>
+									<p>P will try to apply the given parsers at the current position, one after the other, until one of them succeeds. It will return its result.
+									P will fail softly if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -473,12 +544,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:221</li>
+									<li>Defined in parjs.ts:258</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P tries the given parsers, one after the other.</p>
+									<p>P will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
+									P will fail soflty if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -504,12 +576,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:43</li>
+									<li>Defined in parjs.ts:44</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P parses a single character that is part of the string {chars}.</p>
+									<p>P will parse a single character that is part of the string {chars}, and then return it. If it can&#39;t, it will fail softly.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -535,13 +607,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:181</li>
+									<li>Defined in parjs.ts:218</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P tries to parse the strings in {strings}, and returns the first one that succeeds.. Equivalent to:
-									Parjs.any(strings.map(Parjs.string));</p>
+									<p>P will try to parse the strings in {strings} in order, and it will return the first one for which parsing succeeds.
+									P will fail softly if none of the strings can be parsed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -572,8 +644,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P parses a single character that matches the predicate.
-									Equivalent to: Parjs.anyChar.require(predicate)</p>
+									<p>P will parse a single character that matches the given predicate, and then it will return the character.  If it can&#39;t, it will fail softly.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -581,7 +652,7 @@
 								<li>
 									<h5>predicate: <a href="../modules/parjs.html#parjspredicate" class="tsd-signature-type">ParjsPredicate</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The predicate the character must match.</p>
+										<p>The predicate the character must fulfill.</p>
 									</div>
 								</li>
 							</ul>
@@ -599,21 +670,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:132</li>
+									<li>Defined in parjs.ts:166</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P fails for any input.</p>
+									<p>P will fail with the severity specified by {kind}, regardless of the input.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> expecting: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Optionally, a text indicating why the parser failed.</p>
+									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> kind: <a href="../modules/parjs.replykind.html#fail" class="tsd-signature-type">Fail</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The failure kind. Defaults to hard.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -630,13 +707,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:109</li>
+									<li>Defined in parjs.ts:140</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>P will parse a single floating point number according to the format options given in {options}, and return it in numeric form.
+										P will fail softly if the input is not a floating point number, but it will fail hard if it suspects the input is a malformed floating point number.
+									For example, 1.0e+ will cause it to fail hard.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="parjs_internal_implementation_parsers.floatoptions.html" class="tsd-signature-type">FloatOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The floating point format options.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -653,13 +740,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:107</li>
+									<li>Defined in parjs.ts:132</li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>P will parse an integer according to the format options given in {options}, and return the integer that was parsed in numeric form.
+									P will normally either succeed or fail softly, but some kinds of inputs will cause a hard failure, such as a sign without any digits after it.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="parjs_internal_implementation_parsers.intoptions.html" class="tsd-signature-type">IntOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The format of the integer.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -676,13 +772,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:208</li>
+									<li>Defined in parjs.ts:244</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The first time P is invoked, it calls {resolver} with no arguments and caches the result. From that point, it acts like the parser returned by {resolver}.
-									This can be used to create certain kinds of recursive parsers.</p>
+									<p>The first time P is invoked, it will call {resolver} with no arguments and cache the result. From that point, it will act like the parser returned by {resolver}.
+									This late binding can be used to create certain kinds of recursive parsers.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -725,12 +821,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:49</li>
+									<li>Defined in parjs.ts:50</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P parses a single character that is not part of {chars}.</p>
+									<p>P will parse a single character that is not part of the string {chars}, and then return it.  If it can&#39;t, it will fail softly.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -756,14 +852,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:197</li>
+									<li>Defined in parjs.ts:234</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P applies the regexp {regexp} starting at the current position. P consumes all the text from the current position to the end of the match.
+									<p>P will apply {regexp} starting at the current position. P will consume all the text from the current position to the end of the match.
 										The regexp starts matching at the current position.
-									Returns the resulting match array, with return[0] being the entire match and return[n] being group n.</p>
+										P will return the resulting match array, with return[0] being the entire match and return[n] being group n.
+									P will fail softly if {regexp} failed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -789,12 +886,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:118</li>
+									<li>Defined in parjs.ts:149</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P succeeds without consuming input and returns the given value.</p>
+									<p>P will succeed without consuming input and return the given value.</p>
 								</div>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -826,12 +923,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:226</li>
+									<li>Defined in parjs.ts:264</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P applies the specified parsers in sequence and returns the results in an array.</p>
+									<p>P will apply the specified parsers in sequence and return the results in an array.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -857,12 +954,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:174</li>
+									<li>Defined in parjs.ts:211</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P tries to parse the string {str} and returns it.</p>
+									<p>P will try to parse the string {str}. P will return the parsed string if it succeeds, and fail softly otherwise.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -888,14 +985,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:189</li>
+									<li>Defined in parjs.ts:225</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P parses exactly {length} characters and returns the string that was parsed.
-										Fails if end of input is reached before {length} characters are parsed.
-									Equivalent to: Parjs.anyChar.exactly(length).str</p>
+									<p>P will parse exactly {length} characters and return the string that was parsed.
+									P will fail softly if the input does not contain that many characters, and succeed otherwise.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1010,6 +1106,15 @@
 								<a href="parjs.parjsstatic.html#state" class="tsd-kind-icon">state</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.parjsstatic.html#unidigit" class="tsd-kind-icon">uni<wbr>Digit</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.parjsstatic.html#uniletter" class="tsd-kind-icon">uni<wbr>Letter</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.parjsstatic.html#unilower" class="tsd-kind-icon">uni<wbr>Lower</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#uninewline" class="tsd-kind-icon">uni<wbr>Newline</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -1017,6 +1122,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#unispaces" class="tsd-kind-icon">uni<wbr>Spaces</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.parjsstatic.html#uniupper" class="tsd-kind-icon">uni<wbr>Upper</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#upper" class="tsd-kind-icon">upper</a>
