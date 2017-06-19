@@ -16,7 +16,7 @@ It's a library for building complex parsers out of smaller, simpler ones. It als
 
 For example, if you have a parser `digit` for parsing decimal digits, you can parse a number by applying `digit` multiple times until it fails, and then producing the consumed text as a result. Then you can use another *combinator*  to convert the result to a number.
 
-By combining different parsers in different ways, you can construct parsers for arbitrary expressions and language.s
+By combining different parsers in different ways, you can construct parsers for arbitrary expressions and languages.
 
 Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.
 
