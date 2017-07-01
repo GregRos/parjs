@@ -22,19 +22,17 @@ function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
-
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
-
     mixState(newState  : any) : ParjsParser {
         return Parjs.nop.act(userState =>
             Object.assign(userState, newState)).then(this);
     }
 
-    thenChoose<TParser extends AnyParser>(selector : (x : any) => TParser, map ?: Map<any, TParser>) : TParser {
+    thenChoose(selector : (x : any) => any, map ?: Map<any, any>) : any {
         return wrap(new PrsSeqFunc(this.action, selector, map)).withName("thenChoose") as any;
     }
 
-    between(preceding : AnyParser, proceeding ?: AnyParser) {
+    between(preceding : AnyParser, proceeding ?: AnyParser)  {
         let bet : any;
         if (proceeding) {
             bet = preceding.q.then(this).then(proceeding.q);
@@ -55,7 +53,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     	return this.or(Parjs.result(undefined));
     }
 
-    or(...others : AnyParser[]) {
+    or(...others : any[]) : any {
         return wrap(new PrsAlts([this, ...others].map(x => x.action))).withName("or");
     }
 

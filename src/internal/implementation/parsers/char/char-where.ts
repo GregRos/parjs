@@ -4,6 +4,8 @@
 import {ParjsAction, ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+import {ParjsProjectionQuiet} from "../../../../quiet";
+import {ParjsProjection} from "../../../../loud";
 /**
  * Created by User on 21-Nov-16.
  */
@@ -11,7 +13,7 @@ export class PrsCharWhere extends ParjsBasicAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private predicate : (char : string) => boolean, expecting : string = "(some property)") {
+    constructor(private predicate : ParjsProjection<string, boolean>, expecting : string = "(some property)") {
         super();
         this.expecting = `a char matching: ${expecting}`;
     }
@@ -24,7 +26,7 @@ export class PrsCharWhere extends ParjsBasicAction {
             return;
         }
         let curChar = input[position];
-        if (!predicate(curChar)) {
+        if (!predicate(curChar, ps.userState)) {
             ps.kind =  ReplyKind.SoftFail;
             return;
         }

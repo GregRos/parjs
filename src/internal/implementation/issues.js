@@ -1,7 +1,7 @@
+"use strict";
 /**
  * @module parjs/internal/implementation
  */ /** */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @external

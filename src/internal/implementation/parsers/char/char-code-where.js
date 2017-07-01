@@ -1,7 +1,7 @@
+"use strict";
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const action_1 = require("../../action");
 const reply_1 = require("../../../../reply");

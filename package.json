@@ -57,7 +57,7 @@
     "typedoc": "^0.5.10",
     "typedoc-plugin-external-module-name": "^1.0.9",
     "typedoc-plugin-internal-external": "^1.0.9",
-    "typescript": "^2.2.2"
+    "typescript": "^2.4.1"
   },
   "optionalDependencies": {}
 }

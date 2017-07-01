@@ -23,7 +23,7 @@ class PrsCharWhere extends action_1.ParjsBasicAction {
             return;
         }
         let curChar = input[position];
-        if (!predicate(curChar)) {
+        if (!predicate(curChar, ps.userState)) {
             ps.kind = reply_1.ReplyKind.SoftFail;
             return;
         }

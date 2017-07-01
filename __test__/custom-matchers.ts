@@ -74,8 +74,6 @@ for (let prop of Reflect.ownKeys(defs)) {
     }
 }
 
-
-
 export function expectFailure(result : Reply<any>, failType ?: ReplyKind.Fail) {
     expect(result.kind).toBeAnyOf([ReplyKind.FatalFail, ReplyKind.HardFail, ReplyKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ReplyKind.OK) return;

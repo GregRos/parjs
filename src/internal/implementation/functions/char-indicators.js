@@ -1,7 +1,7 @@
+"use strict";
 /**
  * @module parjs/internal/implementation/functions
  */ /** */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Codes;
 (function (Codes) {

@@ -1,7 +1,7 @@
+"use strict";
 /**
  * @module parjs/internal/implementation/functions
  */ /** */
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const special_results_1 = require("../special-results");
 var StringHelpers;

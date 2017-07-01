@@ -10,7 +10,7 @@ import {ReplyKind} from "../reply";
 import {IntOptions, PrsInt} from "./implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "./implementation/parsers/numbers/float";
 import _ = require('lodash');
-import {LoudParser} from "../loud";
+import {LoudParser, ParjsProjection} from "../loud";
 import {ParjsStatic, ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
 import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
@@ -56,7 +56,7 @@ export class ParjsParsers implements ParjsStatic {
         return wrap(new PrsStringLen(1)).withName("anyChar");
     }
 
-    charWhere(predicate : (char : string) => boolean, property ?: string) {
+    charWhere(predicate : ParjsProjection<string, boolean>, property ?: string) {
         return wrap(new PrsCharWhere(predicate, property)).withName(`charWhere`);
     }
 

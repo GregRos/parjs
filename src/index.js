@@ -1,10 +1,10 @@
+"use strict";
 /**
  * @module parjs
  * @preferred
  *
  * Contains publically visible code.
  */ /** iooi*/
-"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const static_1 = require("./internal/static");
 var parsing_failure_1 = require("./parsing-failure");
