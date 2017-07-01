@@ -10,7 +10,7 @@ const action_1 = require("./implementation/action");
 const reply_1 = require("../reply");
 const int_1 = require("./implementation/parsers/numbers/int");
 const float_1 = require("./implementation/parsers/numbers/float");
-const _ = require("lodash");
+const _defaults = require("lodash/defaults");
 const basic_trace_visualizer_1 = require("./implementation/basic-trace-visualizer");
 const char_info_1 = require("char-info");
 function wrap(action) {
@@ -136,14 +136,14 @@ class ParjsParsers {
         return wrap(new parsers_1.PrsState()).withName("state");
     }
     int(options) {
-        options = _.defaults({}, options, {
+        options = _defaults({}, options, {
             base: 10,
             allowSign: true
         });
         return wrap(new int_1.PrsInt(options)).withName("int");
     }
     float(options) {
-        options = _.defaults({}, options, {
+        options = _defaults({}, options, {
             allowImplicitZero: true,
             allowExponent: true,
             allowSign: true,

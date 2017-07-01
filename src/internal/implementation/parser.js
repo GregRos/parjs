@@ -7,7 +7,7 @@ const special_results_1 = require("./special-results");
 const action_1 = require("./action");
 const reply_1 = require("../../reply");
 const reply_2 = require("../reply");
-const _ = require("lodash");
+const _defaults = require("lodash/defaults");
 function getErrorLocation(ps) {
     let endln = /\r\n|\n|\r/g;
     let { input, position } = ps;
@@ -48,7 +48,7 @@ class BaseParjsParser {
         }
         let { action, isLoud } = this;
         let ps = new action_1.BasicParsingState(input);
-        ps.userState = _.defaults(new ParserState(), initialState);
+        ps.userState = _defaults(new ParserState(), initialState);
         ps.initialUserState = initialState;
         action.apply(ps);
         if (ps.isOk) {

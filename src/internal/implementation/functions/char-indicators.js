@@ -14,6 +14,7 @@ var Codes;
     Codes.zero = '0'.charCodeAt(0);
     Codes.nine = '9'.charCodeAt(0);
     Codes.newline = '\n'.charCodeAt(0);
+    Codes.maxAnsi = 0xff;
     Codes.carriageReturn = '\r'.charCodeAt(0);
     Codes.space = 0x0020;
     Codes.tab = 0x0008;
@@ -22,11 +23,7 @@ var Codes;
     Codes.decimalPoint = ".".charCodeAt(0);
     Codes.e = Codes.a + 4;
     Codes.E = Codes.A + 4;
-    Codes.enQuad = 0x2000;
-    const inlineSpaces = [0x0020, 0x0009];
-    const mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
-    let unicodeNewlines = [0x0085, 0x2028, 0x2029];
-    Codes.hairSpace = 0x200a;
+    Codes.underscore = "_".charCodeAt(0);
     function isBetween(code, start, end) {
         return code >= start && code <= end;
     }

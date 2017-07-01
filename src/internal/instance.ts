@@ -5,7 +5,7 @@ import {
     PrsSeq
     , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsAltVal} from './implementation/combinators';
 import {BaseParjsParser} from "./implementation/parser";
-import _ = require('lodash');
+import isFunction = require('lodash/isFunction');
 import {ParjsAction, ParjsBasicAction} from "./implementation/action";
 import {Predicates} from "./implementation/functions/predicates";
 import {LoudParser} from "../loud";
@@ -114,7 +114,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     manyTill(till : AnyParser | any, tillOptional = false) {
-        if (_.isFunction(till)) {
+        if (isFunction(till)) {
             return this.must(till, undefined, ReplyKind.SoftFail).many()
         }
         return wrap(new PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");

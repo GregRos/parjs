@@ -3,10 +3,10 @@
  * @module parjs/internal/implementation/functions
  */ /** */
 Object.defineProperty(exports, "__esModule", { value: true });
-const _ = require("lodash");
+const _range = require("lodash/range");
 var FastMath;
 (function (FastMath) {
-    FastMath.PositiveExponents = _.range(0, 36).map(b => b < 2 ? [] : _.range(0, 256).map(e => Math.pow(b, e)));
-    FastMath.NegativeExponents = _.range(0, 36).map(b => b < 2 ? [] : _.range(1, 256).map(n => Math.pow(b, -n)));
+    FastMath.PositiveExponents = _range(0, 36).map(b => b < 2 ? [] : _range(0, 256).map(e => Math.pow(b, e)));
+    FastMath.NegativeExponents = _range(0, 36).map(b => b < 2 ? [] : _range(1, 256).map(n => Math.pow(b, -n)));
 })(FastMath = exports.FastMath || (exports.FastMath = {}));
 //# sourceMappingURL=math.js.map

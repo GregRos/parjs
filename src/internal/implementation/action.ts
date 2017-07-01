@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation
  */ /** */
 import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";
-import {assert} from 'chai';
+
 import {ParsingState} from "./state";
 import {ReplyKind} from "../../reply";
 import {AnyParserAction} from "../action";
@@ -89,7 +89,9 @@ export abstract class ParjsAction implements AnyParserAction{
         ps.expecting = undefined;
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
-        assert.notStrictEqual(ps.kind, ReplyKind.Unknown, "the State's kind field must be set");
+        if (ps.kind === ReplyKind.Unknown) {
+            throw Error("the State's kind field must be set")
+        }
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
@@ -97,11 +99,15 @@ export abstract class ParjsAction implements AnyParserAction{
         } else if (!this.isLoud) {
             ps.value = QUIET_RESULT;
         } else {
-            assert.notStrictEqual(ps.value, UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
+            if (ps.value === UNINITIALIZED_RESULT) {
+                throw new Error("a loud parser must set the State's return value if it succeeds.")
+            }
         }
 
         if (!ps.isOk) {
-            assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
+            if (ps.expecting === undefined) {
+                throw Error("if failure then there must be a reason");
+            }
             ps.stack.push(this);
         } else {
             ps.stack = [];

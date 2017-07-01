@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 const combinators_1 = require("./implementation/combinators");
 const parser_1 = require("./implementation/parser");
-const _ = require("lodash");
+const isFunction = require("lodash/isFunction");
 const predicates_1 = require("./implementation/functions/predicates");
 const reply_1 = require("../reply");
 const soft_1 = require("./implementation/combinators/alternatives/soft");
@@ -98,7 +98,7 @@ class ParjsParser extends parser_1.BaseParjsParser {
         return wrap(new combinators_1.PrsMany(this.action, maxIters, minSuccesses)).withName("many");
     }
     manyTill(till, tillOptional = false) {
-        if (_.isFunction(till)) {
+        if (isFunction(till)) {
             return this.must(till, undefined, reply_1.ReplyKind.SoftFail).many();
         }
         return wrap(new combinators_1.PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");

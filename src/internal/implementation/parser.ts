@@ -6,7 +6,7 @@ import {Issues} from './issues';
 import {ParjsAction, BasicParsingState} from "./action";
 import {ReplyKind, Reply} from "../../reply";
 import {Trace, FailureReply, SuccessReply, ErrorLocation} from '../reply';
-import _ = require('lodash');
+import _defaults = require('lodash/defaults');
 import {ParsingState} from "./state";
 
 function getErrorLocation(ps : ParsingState){
@@ -58,7 +58,7 @@ export abstract class BaseParjsParser {
         }
         let {action, isLoud} = this;
         let ps = new BasicParsingState(input);
-        ps.userState = _.defaults(new ParserState(), initialState);
+        ps.userState = _defaults(new ParserState(), initialState);
         ps.initialUserState = initialState;
         action.apply(ps);
 

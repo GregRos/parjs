@@ -7,7 +7,7 @@ const action_1 = require("../../action");
 /**
  * Created by User on 28-Nov-16.
  */
-const _ = require("lodash");
+const _defaults = require("lodash/defaults");
 const char_indicators_1 = require("../../functions/char-indicators");
 const parselets_1 = require("./parselets");
 const reply_1 = require("../../../../reply");
@@ -25,7 +25,7 @@ class PrsFloat extends action_1.ParjsAction {
         this.options = options;
         this.expecting = "a floating-point number";
         this.isLoud = true;
-        this.options = _.defaults(options, defaultFloatOptions);
+        this.options = _defaults(options, defaultFloatOptions);
     }
     _apply(ps) {
         /*

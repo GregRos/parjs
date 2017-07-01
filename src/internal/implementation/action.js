@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation
  */ /** */
 const special_results_1 = require("./special-results");
-const chai_1 = require("chai");
 const reply_1 = require("../../reply");
 function worseThan(a, b) {
     if (a === reply_1.ReplyKind.OK) {
@@ -67,7 +66,9 @@ class ParjsAction {
         ps.expecting = undefined;
         ps.value = special_results_1.UNINITIALIZED_RESULT;
         this._apply(ps);
-        chai_1.assert.notStrictEqual(ps.kind, reply_1.ReplyKind.Unknown, "the State's kind field must be set");
+        if (ps.kind === reply_1.ReplyKind.Unknown) {
+            throw Error("the State's kind field must be set");
+        }
         if (!ps.isOk) {
             ps.value = special_results_1.FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
@@ -76,10 +77,14 @@ class ParjsAction {
             ps.value = special_results_1.QUIET_RESULT;
         }
         else {
-            chai_1.assert.notStrictEqual(ps.value, special_results_1.UNINITIALIZED_RESULT, "a loud parser must set the State's return value if it succeeds.");
+            if (ps.value === special_results_1.UNINITIALIZED_RESULT) {
+                throw new Error("a loud parser must set the State's return value if it succeeds.");
+            }
         }
         if (!ps.isOk) {
-            chai_1.assert.notStrictEqual(ps.expecting, undefined, "if failure then there must be a reason");
+            if (ps.expecting === undefined) {
+                throw Error("if failure then there must be a reason");
+            }
             ps.stack.push(this);
         }
         else {

@@ -5,7 +5,7 @@ import {ParjsAction} from "../../action";
 /**
  * Created by User on 28-Nov-16.
  */
-import _ = require('lodash');
+import _defaults = require('lodash/defaults');
 import {Codes} from "../../functions/char-indicators";
 import decimalPoint = Codes.decimalPoint;
 import {FastMath} from "../../functions/math";
@@ -36,7 +36,7 @@ export class PrsFloat extends ParjsAction {
     isLoud = true;
     constructor(private options : FloatOptions) {
         super();
-        this.options = _.defaults(options, defaultFloatOptions);
+        this.options = _defaults(options, defaultFloatOptions);
     }
 
     _apply(ps : ParsingState) {

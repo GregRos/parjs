@@ -12,6 +12,7 @@ export namespace Codes {
     export const zero = '0'.charCodeAt(0);
     export const nine = '9'.charCodeAt(0);
     export const newline = '\n'.charCodeAt(0);
+    export const maxAnsi = 0xff;
     export const carriageReturn = '\r'.charCodeAt(0);
     export const space = 0x0020;
     export const tab = 0x0008;
@@ -20,11 +21,7 @@ export namespace Codes {
     export const decimalPoint = ".".charCodeAt(0);
     export const e = a + 4;
     export const E = A + 4;
-    export const enQuad = 0x2000;
-    const inlineSpaces = [0x0020, 0x0009];
-    const mixedUnicodeInlineSpaces = [0x0009, 0x0020, 0x00a0, 0x1680, 0x180e, 0x0009, 0x202f, 0x205f, 0x3000];
-    let unicodeNewlines = [0x0085, 0x2028, 0x2029];
-    export const hairSpace = 0x200a;
+    export const underscore = "_".charCodeAt(0);
 
     export function isBetween(code : number, start : number, end : number) {
         return code >= start && code <= end;

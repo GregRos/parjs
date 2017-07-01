@@ -9,7 +9,7 @@ import {AnyParser} from "../any";
 import {ReplyKind} from "../reply";
 import {IntOptions, PrsInt} from "./implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "./implementation/parsers/numbers/float";
-import _ = require('lodash');
+import _defaults = require('lodash/defaults');
 import {LoudParser, ParjsProjection} from "../loud";
 import {ParjsStatic, ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
@@ -173,7 +173,7 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     int(options ?: IntOptions) {
-        options = _.defaults({}, options, {
+        options = _defaults({}, options, {
             base: 10,
             allowSign : true
         });
@@ -181,7 +181,7 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     float(options ?: FloatOptions) {
-        options = _.defaults({}, options, {
+        options = _defaults({}, options, {
             allowImplicitZero : true,
             allowExponent : true,
             allowSign : true,

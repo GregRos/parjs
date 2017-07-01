@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module parjs/internal/implementation/combinators
  */ /** */
 const action_1 = require("../../action");
-const _ = require("lodash");
+const _cloneDeep = require("lodash/clone");
 /**
  * Created by lifeg on 24/03/2017.
  */
@@ -17,7 +17,7 @@ class PrsIsolate extends action_1.ParjsAction {
     ;
     _apply(ps) {
         let state = ps.userState;
-        ps.userState = _.cloneDeep(ps.initialUserState);
+        ps.userState = _cloneDeep(ps.initialUserState);
         this._inner.apply(ps);
         ps.userState = state;
     }

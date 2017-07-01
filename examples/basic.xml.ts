@@ -3,7 +3,7 @@
  */
 import "../setup";
 import {Parjs, LoudParser} from "../src";
-import _ = require('lodash');
+import last = require('lodash/last');
 
 
 //define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
@@ -16,10 +16,10 @@ let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, u
 
 let closeTag =
     ident.between(Parjs.string("</"), Parjs.string(">"))
-        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
+        .must((result, userState) => result === last(userState.tags as any[]).tag)
         .act((result, userState) => {
     let topTag = userState.tags.pop();
-    _.last(userState.tags as any[]).content.push(topTag);
+    last(userState.tags as any[]).content.push(topTag);
 }).q;
 
 let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
