@@ -251,4 +251,11 @@ export interface LoudParser<T> extends AnyParser {
      * @param max The maximum number of times {this} is applied.
      */
     manySepBy(delimeter : AnyParser, max ?: number) : LoudParser<T[]>;
+
+    /**
+     * P will wrap {this} in a nested parser construct.
+     * It will apply {this} with an isolated parser state equal to the initial state. It will then return the value of {this}.
+     * However, the isolated parser state of {this} will be lost, so you must extract any information through the return value.
+     */
+    readonly isolate;
 }

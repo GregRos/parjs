@@ -117,6 +117,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#backtrack" class="tsd-kind-icon">backtrack</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#isolate" class="tsd-kind-icon">isolate</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#maybe" class="tsd-kind-icon">maybe</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#not" class="tsd-kind-icon">not</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#q" class="tsd-kind-icon">q</a></li>
@@ -215,6 +216,23 @@
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Whether the parser results in a value. Parsers cannot change their loudness.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="isolate" class="tsd-anchor"></a>
+					<h3>isolate</h3>
+					<div class="tsd-signature tsd-kind-icon">isolate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in loud.ts:260</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will wrap {this} in a nested parser construct.
+								It will apply {this} with an isolated parser state equal to the initial state. It will then return the value of {this}.
+							However, the isolated parser state of {this} will be lost, so you must extract any information through the return value.</p>
 						</div>
 					</div>
 				</section>
@@ -1409,6 +1427,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="parjs.loudparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.loudparser.html#isolate" class="tsd-kind-icon">isolate</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.loudparser.html#maybe" class="tsd-kind-icon">maybe</a>

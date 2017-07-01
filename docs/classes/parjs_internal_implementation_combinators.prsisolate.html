@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PrsSeq | parjs</title>
+	<title>PrsIsolate | parjs</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/parjs_internal_implementation_combinators.html">parjs/internal/implementation/combinators</a>
 				</li>
 				<li>
-					<a href="parjs_internal_implementation_combinators.prsseq.html">PrsSeq</a>
+					<a href="parjs_internal_implementation_combinators.prsisolate.html">PrsIsolate</a>
 				</li>
 			</ul>
-			<h1>Class PrsSeq</h1>
+			<h1>Class PrsIsolate</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Created by User on 21-Nov-16.</p>
+						<p>Created by lifeg on 24/03/2017.</p>
 					</div>
 				</div>
 			</section>
@@ -81,7 +81,7 @@
 						<a href="parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">PrsSeq</span>
+								<span class="target">PrsIsolate</span>
 							</li>
 						</ul>
 					</li>
@@ -100,22 +100,22 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="parjs_internal_implementation_combinators.prsseq.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="parjs_internal_implementation_combinators.prsisolate.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal_implementation_combinators.prsseq.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prsseq.html#expecting" class="tsd-kind-icon">expecting</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prsseq.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal_implementation_combinators.prsisolate.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prsisolate.html#expecting" class="tsd-kind-icon">expecting</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prsisolate.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prsseq.html#_apply" class="tsd-kind-icon">_apply</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal_implementation_combinators.prsseq.html#apply" class="tsd-kind-icon">apply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prsisolate.html#_apply" class="tsd-kind-icon">_apply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal_implementation_combinators.prsisolate.html#apply" class="tsd-kind-icon">apply</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,22 +127,22 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Prs<wbr>Seq<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal_implementation_combinators.prsseq.html" class="tsd-signature-type">PrsSeq</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Prs<wbr>Isolate<span class="tsd-signature-symbol">(</span>_inner<span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal_implementation_combinators.prsisolate.html" class="tsd-signature-type">PrsIsolate</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/implementation/combinators/sequential/sequential.ts:15</li>
+									<li>Defined in internal/implementation/combinators/special/isolate.ts:13</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>parsers: <a href="../interfaces/parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>_inner: <a href="../interfaces/parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="parjs_internal_implementation_combinators.prsseq.html" class="tsd-signature-type">PrsSeq</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="parjs_internal_implementation_combinators.prsisolate.html" class="tsd-signature-type">PrsIsolate</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -169,7 +169,7 @@
 						<p>Implementation of <a href="../interfaces/parjs_internal.anyparseraction.html">AnyParserAction</a>.<a href="../interfaces/parjs_internal.anyparseraction.html#expecting">expecting</a></p>
 						<p>Overrides <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#expecting">expecting</a></p>
 						<ul>
-							<li>Defined in internal/implementation/combinators/sequential/sequential.ts:15</li>
+							<li>Defined in internal/implementation/combinators/special/isolate.ts:13</li>
 						</ul>
 					</aside>
 				</section>
@@ -181,7 +181,7 @@
 						<p>Implementation of <a href="../interfaces/parjs_internal.anyparseraction.html">AnyParserAction</a>.<a href="../interfaces/parjs_internal.anyparseraction.html#isloud">isLoud</a></p>
 						<p>Overrides <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#isloud">isLoud</a></p>
 						<ul>
-							<li>Defined in internal/implementation/combinators/sequential/sequential.ts:13</li>
+							<li>Defined in internal/implementation/combinators/special/isolate.ts:12</li>
 						</ul>
 					</aside>
 				</section>
@@ -192,14 +192,14 @@
 					<a name="_apply" class="tsd-anchor"></a>
 					<h3>_apply</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">_apply<span class="tsd-signature-symbol">(</span>ps<span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.parsingstate.html" class="tsd-signature-type">ParsingState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/parjs.replykind.html" class="tsd-signature-type">ReplyKind</a></li>
+						<li class="tsd-signature tsd-kind-icon">_apply<span class="tsd-signature-symbol">(</span>ps<span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.parsingstate.html" class="tsd-signature-type">ParsingState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#_apply">_apply</a></p>
 								<ul>
-									<li>Defined in internal/implementation/combinators/sequential/sequential.ts:24</li>
+									<li>Defined in internal/implementation/combinators/special/isolate.ts:18</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -208,7 +208,7 @@
 									<h5>ps: <a href="../interfaces/parjs_internal.parsingstate.html" class="tsd-signature-type">ParsingState</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../modules/parjs.replykind.html" class="tsd-signature-type">ReplyKind</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -293,9 +293,33 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="parjs_internal_implementation_combinators.prsexactly.html" class="tsd-kind-icon">Prs<wbr>Exactly</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="parjs_internal_implementation_combinators.prsisolate.html" class="tsd-kind-icon">Prs<wbr>Isolate</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="parjs_internal_implementation_combinators.prsisolate.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="parjs_internal_implementation_combinators.prsisolate.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="parjs_internal_implementation_combinators.prsisolate.html#expecting" class="tsd-kind-icon">expecting</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+								<a href="parjs_internal_implementation_combinators.prsisolate.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="parjs_internal_implementation_combinators.prsisolate.html#_apply" class="tsd-kind-icon">_apply</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="parjs_internal_implementation_combinators.prsisolate.html#apply" class="tsd-kind-icon">apply</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="parjs_internal_implementation_combinators.prslate.html" class="tsd-kind-icon">Prs<wbr>Late</a>
 					</li>
@@ -323,33 +347,9 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="parjs_internal_implementation_combinators.prsquiet.html" class="tsd-kind-icon">Prs<wbr>Quiet</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="parjs_internal_implementation_combinators.prsseq.html" class="tsd-kind-icon">Prs<wbr>Seq</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="parjs_internal_implementation_combinators.prsseq.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-								<a href="parjs_internal_implementation_combinators.prsseq.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
-								<a href="parjs_internal_implementation_combinators.prsseq.html#expecting" class="tsd-kind-icon">expecting</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
-								<a href="parjs_internal_implementation_combinators.prsseq.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="parjs_internal_implementation_combinators.prsseq.html#_apply" class="tsd-kind-icon">_apply</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="parjs_internal_implementation_combinators.prsseq.html#apply" class="tsd-kind-icon">apply</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="parjs_internal_implementation_combinators.prsseqfunc.html" class="tsd-kind-icon">Prs<wbr>Seq<wbr>Func</a>
 					</li>

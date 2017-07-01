@@ -11,6 +11,7 @@ const reply_1 = require("../reply");
 const soft_1 = require("./implementation/combinators/alternatives/soft");
 const act_1 = require("./implementation/combinators/map/act");
 const _1 = require("../");
+const isolate_1 = require("./implementation/combinators/special/isolate");
 function wrap(action) {
     return new ParjsParser(action);
 }
@@ -144,6 +145,9 @@ class ParjsParser extends parser_1.BaseParjsParser {
     withName(newName) {
         this.displayName = newName;
         return this;
+    }
+    get isolate() {
+        return wrap(new isolate_1.PrsIsolate(this.action)).withName(`isolated: ${this.action.displayName}`);
     }
 }
 exports.ParjsParser = ParjsParser;

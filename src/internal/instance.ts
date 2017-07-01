@@ -18,6 +18,7 @@ import {ActParser} from "./implementation/combinators/map/act";
 import {ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
 import {Parjs} from '../';
+import {PrsIsolate} from "./implementation/combinators/special/isolate";
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
@@ -173,6 +174,10 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     withName(newName : string) {
         (this as {displayName : string}).displayName = newName;
         return this;
+    }
+
+    get isolate() {
+        return wrap(new PrsIsolate(this.action)).withName(`isolated: ${this.action.displayName}`);
     }
 
 }

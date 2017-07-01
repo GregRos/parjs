@@ -28,6 +28,7 @@ class BasicParsingState {
         this.input = input;
         this.position = 0;
         this.stack = [];
+        this.initialUserState = undefined;
         this.userState = undefined;
         this.value = undefined;
     }

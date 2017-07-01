@@ -49,6 +49,7 @@ class BaseParjsParser {
         let { action, isLoud } = this;
         let ps = new action_1.BasicParsingState(input);
         ps.userState = _.defaults(new ParserState(), initialState);
+        ps.initialUserState = initialState;
         action.apply(ps);
         if (ps.isOk) {
             if (ps.position !== input.length) {

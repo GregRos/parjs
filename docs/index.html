@@ -73,7 +73,7 @@
 				<h2 id="what-s-a-parser-combinator-library-">What&#39;s a parser-combinator library?</h2>
 				<p>It&#39;s a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.</p>
 				<p>For example, if you have a parser <code>digit</code> for parsing decimal digits, you can parse a number by applying <code>digit</code> multiple times until it fails, and then producing the consumed text as a result. Then you can use another <em>combinator</em>  to convert the result to a number.</p>
-				<p>By combining different parsers in different ways, you can construct parsers for arbitrary expressions and language.s</p>
+				<p>By combining different parsers in different ways, you can construct parsers for arbitrary expressions and languages.</p>
 				<p>Here is how you might construct a parser for text in the form <code>(a, b, c, ...)</code> where <code>a, b, c</code> are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.</p>
 				<pre><code><span class="hljs-comment">//Built-in building block parser for floating point numbers.</span>
 <span class="hljs-keyword">let</span> tupleElement = Parjs.float();
@@ -104,24 +104,24 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<h2 id="module-structure">Module Structure</h2>
 				<p>Parjs has a well-organized module structure that is reflected in the documentation:</p>
 				<pre><code>- parjs
-    Contains all objects <span class="hljs-keyword">and</span> TypeScript <span class="hljs-class"><span class="hljs-keyword">type</span> </span>
-    declarations needed <span class="hljs-keyword">to</span> <span class="hljs-keyword">use</span> the library <span class="hljs-keyword">for</span> parsing.
+    Contains all objects <span class="hljs-keyword">and</span> TypeScript<span class="hljs-built_in"> type </span>
+    declarations needed <span class="hljs-keyword">to</span> use the library <span class="hljs-keyword">for</span> parsing.
 
-    - parjs/<span class="hljs-keyword">internal</span>
-        Contains additional objects <span class="hljs-keyword">and</span> <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">declerations</span> <span class="hljs-title">that</span> <span class="hljs-title">may</span> <span class="hljs-title">be</span> <span class="hljs-title">needed</span> </span>
+    - parjs/internal
+        Contains additional objects <span class="hljs-keyword">and</span><span class="hljs-built_in"> type </span>declerations that may be needed 
         <span class="hljs-keyword">to</span> extend the library.
 
-        - parjs/<span class="hljs-keyword">internal</span>/implementation
+        - parjs/internal/implementation
             Contains objects <span class="hljs-keyword">and</span> declerations <span class="hljs-keyword">for</span> implementing additional parsers.
 
-            - parjs/<span class="hljs-keyword">internal</span>/implementation/combinators
-                Implementations <span class="hljs-keyword">of</span> combinators.
+            - parjs/internal/implementation/combinators
+                Implementations of combinators.
 
-            - parjs/<span class="hljs-keyword">internal</span>/implementation/parsers
-                Implementations <span class="hljs-keyword">of</span> building-block parsers.
+            - parjs/internal/implementation/parsers
+                Implementations of building-block parsers.
 
-            - parjs/<span class="hljs-keyword">internal</span>/implementation/functions
-                Character recognizers <span class="hljs-keyword">and</span> other functions used <span class="hljs-keyword">with</span> parsing.
+            - parjs/internal/implementation/functions
+                Character recognizers <span class="hljs-keyword">and</span> other functions used with parsing.
 </code></pre><h2 id="what-s-a-parjs-parser-">What&#39;s a Parjs parser?</h2>
 				<p>A somewhat basic question that deserves an answer. In <code>Parjs</code>, a parser is an object that consumes characters from text and returns a value. The number of characters the parser consumes depends on its implementation.</p>
 				<p>When a parser is invoked on a top level, it is expected to consume the entire input. If it does not, this signals an overall parsing failure. During the parsing process, a <code>position</code> value is maintained.</p>

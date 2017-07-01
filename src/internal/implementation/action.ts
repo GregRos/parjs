@@ -29,6 +29,7 @@ function worseThan(a : ReplyKind, b : ReplyKind) {
 export class BasicParsingState implements ParsingState {
     position = 0;
     stack = [];
+    initialUserState = undefined;
     userState = undefined;
     value = undefined;
     kind : ReplyKind;

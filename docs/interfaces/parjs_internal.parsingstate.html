@@ -89,6 +89,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs_internal.parsingstate.html#expecting" class="tsd-kind-icon">expecting</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs_internal.parsingstate.html#initialuserstate" class="tsd-kind-icon">initial<wbr>User<wbr>State</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs_internal.parsingstate.html#input" class="tsd-kind-icon">input</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs_internal.parsingstate.html#isfatal" class="tsd-kind-icon">is<wbr>Fatal</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs_internal.parsingstate.html#ishard" class="tsd-kind-icon">is<wbr>Hard</a></li>
@@ -119,13 +120,28 @@
 					<div class="tsd-signature tsd-kind-icon">expecting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:34</li>
+							<li>Defined in internal/implementation/state.ts:39</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>If the result is a failure, this field will indicate the reason for the failure.
 							If the result is OK, this must be undefined.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="initialuserstate" class="tsd-anchor"></a>
+					<h3>initial<wbr>User<wbr>State</h3>
+					<div class="tsd-signature tsd-kind-icon">initial<wbr>User<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in internal/implementation/state.ts:28</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Initial user state.</p>
 						</div>
 					</div>
 				</section>
@@ -150,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Fatal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:59</li>
+							<li>Defined in internal/implementation/state.ts:64</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -165,7 +181,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Hard<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:55</li>
+							<li>Defined in internal/implementation/state.ts:60</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -180,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Ok<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:47</li>
+							<li>Defined in internal/implementation/state.ts:52</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -195,7 +211,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Soft<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:51</li>
+							<li>Defined in internal/implementation/state.ts:56</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -210,7 +226,7 @@
 					<div class="tsd-signature tsd-kind-icon">kind<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.replykind.html" class="tsd-signature-type">ReplyKind</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:38</li>
+							<li>Defined in internal/implementation/state.ts:43</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -240,7 +256,7 @@
 					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <a href="parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/state.ts:28</li>
+							<li>Defined in internal/implementation/state.ts:33</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -292,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/implementation/state.ts:40</li>
+									<li>Defined in internal/implementation/state.ts:45</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -315,7 +331,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/implementation/state.ts:42</li>
+									<li>Defined in internal/implementation/state.ts:47</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -389,6 +405,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs_internal.parsingstate.html#expecting" class="tsd-kind-icon">expecting</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs_internal.parsingstate.html#initialuserstate" class="tsd-kind-icon">initial<wbr>User<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs_internal.parsingstate.html#input" class="tsd-kind-icon">input</a>
