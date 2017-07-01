@@ -5,7 +5,6 @@ import {Trace} from "../reply";
 /**
  * Created by lifeg on 4/29/2017.
  */
-import _ = require('lodash');
 import {NumHelpers} from "./functions/helpers";
 import {TraceVisualizer} from "../visualizer";
 

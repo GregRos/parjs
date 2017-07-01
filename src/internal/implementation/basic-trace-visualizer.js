@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Created by lifeg on 4/29/2017.
+ */
 const helpers_1 = require("./functions/helpers");
 const defaultArgs = {
     lineNumbers: true,

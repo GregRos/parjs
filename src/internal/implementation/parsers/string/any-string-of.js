@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @module parjs/internal/implementation/parsers
+ */ /** */
 const action_1 = require("../../action");
 const reply_1 = require("../../../../reply");
 class AnyStringOf extends action_1.ParjsBasicAction {

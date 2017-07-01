@@ -1,7 +1,6 @@
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-import _ = require('lodash');
 import {ParjsAction, ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";

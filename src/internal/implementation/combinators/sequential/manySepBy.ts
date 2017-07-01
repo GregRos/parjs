@@ -7,7 +7,6 @@ import {Issues} from '../../issues';
 import {ReplyKind} from "../../../../reply";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
-import _ = require('lodash');
 import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.

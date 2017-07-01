@@ -2,7 +2,6 @@
  * @module parjs/internal/implementation
  */ /** */
 import {StringHelpers} from "../functions/helpers";
-import _ = require('lodash');
 
 
 function stringifySimple(obj) {
