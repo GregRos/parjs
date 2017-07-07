@@ -438,7 +438,3 @@ After you have written your parser action, you'll need to wrap it in a parser. T
 Before returning it, also call its `withName` method to set the parser's display name.
 
 Finally, if you are writing in TypeScript, you'll need to cast the parser to the appropriate interface. This is usually either `LoudParser<T>` or `QuietParser`.	
-
-## Current Issues
-1. Library is not heavily optimized as it should be. There are no benchmarks.
-2. Debugging should be improved.
