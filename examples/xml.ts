@@ -6,15 +6,15 @@ import _ = require('lodash');
  * Created by lifeg on 24/03/2017.
  */
 
-let letterOrDigit = Parjs.asciiLetter.or(Parjs.digit);
+let letterOrDigit = Parjs.letter.or(Parjs.digit);
 
-let ident = Parjs.asciiLetter.then(letterOrDigit.many()).str;
+let ident = Parjs.letter.then(letterOrDigit.many()).str;
 
 let quotedString = (q : string) : LoudParser<string> => {
     return Parjs.noCharOf(q).many().str.between(Parjs.string(q));
 };
 
-let qSpaces = Parjs.spaces.q;
+let qSpaces = Parjs.whitespaces.q;
 
 let attribute =
     ident.then(
@@ -28,7 +28,7 @@ let openTag = Parjs.seq(
     Parjs.string("<").q,
     ident,
     multipleAttributes,
-    Parjs.spaces.q,
+    Parjs.whitespaces.q,
     Parjs.string(">").result("open").or(Parjs.string("/>").result("closed")),
 ).map(([ident, attrs, kind]) => ({ident, attrs, kind, content : []})).map((result, state) => {
     if (result.kind === "open") {

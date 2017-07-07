@@ -96,18 +96,17 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#anychar" class="tsd-kind-icon">any<wbr>Char</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#asciiletter" class="tsd-kind-icon">ascii<wbr>Letter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#digit" class="tsd-kind-icon">digit</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#eof" class="tsd-kind-icon">eof</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#helper" class="tsd-kind-icon">helper</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#hex" class="tsd-kind-icon">hex</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#letter" class="tsd-kind-icon">letter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#lower" class="tsd-kind-icon">lower</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#newline" class="tsd-kind-icon">newline</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#nop" class="tsd-kind-icon">nop</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#position" class="tsd-kind-icon">position</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#rest" class="tsd-kind-icon">rest</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#space" class="tsd-kind-icon">space</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#spaces" class="tsd-kind-icon">spaces</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#spaces1" class="tsd-kind-icon">spaces1</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#state" class="tsd-kind-icon">state</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#unidigit" class="tsd-kind-icon">uni<wbr>Digit</a></li>
@@ -119,6 +118,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#uniupper" class="tsd-kind-icon">uni<wbr>Upper</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#upper" class="tsd-kind-icon">upper</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#visualizer" class="tsd-kind-icon">visualizer</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.parjsstatic.html#whitespaces" class="tsd-kind-icon">whitespaces</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -157,21 +157,6 @@
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will parse a single character and return it.  If it can&#39;t, it will fail softly.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="asciiletter" class="tsd-anchor"></a>
-					<h3>ascii<wbr>Letter</h3>
-					<div class="tsd-signature tsd-kind-icon">ascii<wbr>Letter<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in parjs.ts:77</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>P will parse a single letter [a-zA-Z] and return it. If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -227,6 +212,21 @@
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will parse a single hex digit character [0-9a-fA-F] and return it. If it can&#39;t, it will fail soflty.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="letter" class="tsd-anchor"></a>
+					<h3>letter</h3>
+					<div class="tsd-signature tsd-kind-icon">letter<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parjs.ts:77</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will parse a single letter [a-zA-Z] and return it. If it can&#39;t, it will fail softly.</p>
 						</div>
 					</div>
 				</section>
@@ -319,22 +319,6 @@
 						<div class="lead">
 							<p>P will parse one ASCII inline space character, such as space or a tab, and return it.
 							If it can&#39;t, it will fail softly.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="spaces" class="tsd-anchor"></a>
-					<h3>spaces</h3>
-					<div class="tsd-signature tsd-kind-icon">spaces<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in parjs.ts:187</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>P will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
-							P will always succeed.</p>
 						</div>
 					</div>
 				</section>
@@ -504,6 +488,22 @@
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Used to visualize parsing errors in plain-text.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="whitespaces" class="tsd-anchor"></a>
+					<h3>whitespaces</h3>
+					<div class="tsd-signature tsd-kind-icon">whitespaces<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in parjs.ts:187</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>P will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
+							P will always succeed.</p>
 						</div>
 					</div>
 				</section>
@@ -1033,6 +1033,9 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/parjs_unicode.html">parjs/unicode</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -1064,9 +1067,6 @@
 								<a href="parjs.parjsstatic.html#anychar" class="tsd-kind-icon">any<wbr>Char</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="parjs.parjsstatic.html#asciiletter" class="tsd-kind-icon">ascii<wbr>Letter</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#digit" class="tsd-kind-icon">digit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -1077,6 +1077,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#hex" class="tsd-kind-icon">hex</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.parjsstatic.html#letter" class="tsd-kind-icon">letter</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#lower" class="tsd-kind-icon">lower</a>
@@ -1095,9 +1098,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#space" class="tsd-kind-icon">space</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="parjs.parjsstatic.html#spaces" class="tsd-kind-icon">spaces</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#spaces1" class="tsd-kind-icon">spaces1</a>
@@ -1131,6 +1131,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#visualizer" class="tsd-kind-icon">visualizer</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.parjsstatic.html#whitespaces" class="tsd-kind-icon">whitespaces</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="parjs.parjsstatic.html#any" class="tsd-kind-icon">any</a>

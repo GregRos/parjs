@@ -4,7 +4,7 @@
 import {ParjsAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
-import {CodeInfo} from "char-info";
+import {StaticCharInfo, StaticCodeInfo} from "char-info";
 import {Codes} from "../../functions/char-indicators";
 /**
  * Created by User on 24-Nov-16.
@@ -14,13 +14,13 @@ export class PrsNewline extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private matchUnicode : boolean) {
+    constructor(private unicodeMatcher : StaticCodeInfo) {
         super();
-        this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
+        this.expecting = unicodeMatcher ? "a unicode newline string" : "a newline string";
     }
     _apply(ps : ParsingState) {
         let {position, input} = ps;
-        let {matchUnicode} = this;
+        let {unicodeMatcher} = this;
         if (position >= input.length) {
             ps.kind = ReplyKind.SoftFail;
             return;
@@ -44,7 +44,7 @@ export class PrsNewline extends ParjsAction {
             ps.value = '\r';
             ps.kind = ReplyKind.OK;
             return;
-        } else if (matchUnicode && CodeInfo.isUniNewline(charAt)) {
+        } else if (unicodeMatcher && unicodeMatcher.isUniNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
             ps.kind = ReplyKind.OK;

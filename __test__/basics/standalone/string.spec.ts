@@ -8,7 +8,6 @@ import {ReplyKind} from "../../../src/reply";
 import {AnyParser} from "../../../src/any";
 
 
-
 let uState = {};
 
 describe("basic string parsers", () => {
@@ -72,7 +71,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.asciiLetter", () => {
+    describe("Parjs.letter", () => {
         let parser = Parjs.lower;
         it ("fails on empty input", () => {
             expectFailure(parser.parse(""), "SoftFail");

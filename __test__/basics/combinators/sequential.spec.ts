@@ -9,7 +9,7 @@ import {LoudParser} from "../../../src/loud";
 import {Parjs} from "../../../src";
 import {ReplyKind} from "../../../src/reply";
 import {AnyParser} from "../../../src/any";
-import _ = require('lodash');
+import _range = require('lodash/range');
 let goodInput = "abcd";
 let softBadInput = "a";
 let hardBadInput = "ab";
@@ -136,7 +136,7 @@ describe("sequential combinators", () => {
 
            it("ignores guard when given max iterations", () => {
                let parser = Parjs.result(0).many(undefined, 10);
-               expectSuccess(parser.parse(""), _.range(0, 10).map(x => 0));
+               expectSuccess(parser.parse(""), _range(0, 10).map(x => 0));
            });
        });
 

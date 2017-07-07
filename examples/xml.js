@@ -6,15 +6,15 @@ const _ = require("lodash");
 /**
  * Created by lifeg on 24/03/2017.
  */
-let letterOrDigit = src_1.Parjs.asciiLetter.or(src_1.Parjs.digit);
-let ident = src_1.Parjs.asciiLetter.then(letterOrDigit.many()).str;
+let letterOrDigit = src_1.Parjs.letter.or(src_1.Parjs.digit);
+let ident = src_1.Parjs.letter.then(letterOrDigit.many()).str;
 let quotedString = (q) => {
     return src_1.Parjs.noCharOf(q).many().str.between(src_1.Parjs.string(q));
 };
-let qSpaces = src_1.Parjs.spaces.q;
+let qSpaces = src_1.Parjs.whitespaces.q;
 let attribute = ident.then(src_1.Parjs.string("=").q, quotedString("'").or(quotedString('"'))).map(([ident, value]) => ({ name: ident, value: value }));
 let multipleAttributes = attribute.manySepBy(src_1.Parjs.spaces1);
-let openTag = src_1.Parjs.seq(src_1.Parjs.string("<").q, ident, multipleAttributes, src_1.Parjs.spaces.q, src_1.Parjs.string(">").result("open").or(src_1.Parjs.string("/>").result("closed"))).map(([ident, attrs, kind]) => ({ ident, attrs, kind, content: [] })).map((result, state) => {
+let openTag = src_1.Parjs.seq(src_1.Parjs.string("<").q, ident, multipleAttributes, src_1.Parjs.whitespaces.q, src_1.Parjs.string(">").result("open").or(src_1.Parjs.string("/>").result("closed"))).map(([ident, attrs, kind]) => ({ ident, attrs, kind, content: [] })).map((result, state) => {
     if (result.kind === "open") {
         state.tags.push(result);
     }

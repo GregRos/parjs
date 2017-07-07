@@ -9,7 +9,7 @@ const basic_trace_visualizer_1 = require("../src/internal/implementation/basic-t
 //Built-in parser for floating point numbers.
 let tupleElement = src_1.Parjs.float();
 //Allow whitespace around elements:
-let paddedElement = tupleElement.between(src_1.Parjs.spaces);
+let paddedElement = tupleElement.between(src_1.Parjs.whitespaces);
 //Multiple instances of {paddedElement}, separated by a comma:
 let separated = paddedElement.manySepBy(src_1.Parjs.string(","));
 //Surround everything with parentheses:

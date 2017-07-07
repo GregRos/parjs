@@ -5,21 +5,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */ /** */
 const action_1 = require("../../action");
 const reply_1 = require("../../../../reply");
-const char_info_1 = require("char-info");
 const char_indicators_1 = require("../../functions/char-indicators");
 /**
  * Created by User on 24-Nov-16.
  */
 class PrsNewline extends action_1.ParjsAction {
-    constructor(matchUnicode) {
+    constructor(unicodeMatcher) {
         super();
-        this.matchUnicode = matchUnicode;
+        this.unicodeMatcher = unicodeMatcher;
         this.isLoud = true;
-        this.expecting = matchUnicode ? "a unicode newline string" : "a newline string";
+        this.expecting = unicodeMatcher ? "a unicode newline string" : "a newline string";
     }
     _apply(ps) {
         let { position, input } = ps;
-        let { matchUnicode } = this;
+        let { unicodeMatcher } = this;
         if (position >= input.length) {
             ps.kind = reply_1.ReplyKind.SoftFail;
             return;
@@ -44,7 +43,7 @@ class PrsNewline extends action_1.ParjsAction {
             ps.kind = reply_1.ReplyKind.OK;
             return;
         }
-        else if (matchUnicode && char_info_1.CodeInfo.isUniNewline(charAt)) {
+        else if (unicodeMatcher && unicodeMatcher.isUniNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
             ps.kind = reply_1.ReplyKind.OK;

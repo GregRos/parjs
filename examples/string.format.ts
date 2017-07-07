@@ -6,7 +6,7 @@ import {Parjs, LoudParser} from "../src";
 //+ DEFINING THE PARSER
 
 //Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
-let ident = Parjs.asciiLetter.then(Parjs.asciiLetter.or(Parjs.digit).many()).str;
+let ident = Parjs.letter.then(Parjs.letter.or(Parjs.digit).many()).str;
 
 //Parse a format token, an `ident` between `{` and `}`. Return the result as a Token object.
 let formatToken = ident.between(Parjs.string("{"), Parjs.string("}")).map(x => ({token: x}));

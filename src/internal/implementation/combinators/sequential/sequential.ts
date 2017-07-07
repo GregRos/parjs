@@ -24,12 +24,13 @@ export class PrsSeq extends ParjsAction {
     _apply(ps : ParsingState) : ReplyKind {
         let {parsers} = this;
         let results = [];
+        let origPos = ps.position;
         for (let i = 0; i < parsers.length; i++) {
             let cur = parsers[i];
             cur.apply(ps);
             if (ps.isOk) {
                 ArrayHelpers.maybePush(results, ps.value);
-            } else if (ps.isSoft && i === 0) {
+            } else if (ps.isSoft && origPos === ps.position) {
                 //if the first parser failed softly then we propagate a soft failure.
                 return;
             } else if (ps.isSoft) {

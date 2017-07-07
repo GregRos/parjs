@@ -7,7 +7,7 @@ import last = require('lodash/last');
 
 
 //define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
-let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
+let ident = Parjs.letter.then(Parjs.digit.or(Parjs.letter).many()).str;
 //A parser that parses an opening of a tag.
 let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, userState) => {
 

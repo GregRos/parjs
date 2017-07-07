@@ -7,7 +7,7 @@ require("../setup");
 const src_1 = require("../src");
 //+ DEFINING THE PARSER
 //Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
-let ident = src_1.Parjs.asciiLetter.then(src_1.Parjs.asciiLetter.or(src_1.Parjs.digit).many()).str;
+let ident = src_1.Parjs.letter.then(src_1.Parjs.letter.or(src_1.Parjs.digit).many()).str;
 //Parse a format token, an `ident` between `{` and `}`. Return the result as a Token object.
 let formatToken = ident.between(src_1.Parjs.string("{"), src_1.Parjs.string("}")).map(x => ({ token: x }));
 //Parse an escaped character. This parses "`{a}" as the text "{a}" instead of a token.

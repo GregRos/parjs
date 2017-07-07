@@ -1,5 +1,6 @@
 import {ReplyKind, Reply} from "../src/reply";
-import _ =require('lodash');
+import _matches =require('lodash/matches');
+import _isPlainObject = require('lodash/isPlainObject');
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -32,7 +33,7 @@ class CustomMatcherDefs {
     }
 
     toBeLike(o, failMessage) {
-        let pass = _.matches(o)(this.actual);
+        let pass = _matches(o)(this.actual);
         return {
             pass : pass,
             message : pass ? undefined : failMessage
@@ -90,7 +91,7 @@ export function expectSuccess<T>(result : Reply<T>, value ?: T, state ?: object)
     expect(result).toHaveMember("value", "reason value");
     expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
     if (value !== undefined) {
-        if (!_.isPlainObject(value)) {
+        if (!_isPlainObject(value)) {
             expect(result.value).toEqual(value);
         } else {
             expect(result.value).toBeLike(value as any);

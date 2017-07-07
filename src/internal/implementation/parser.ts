@@ -32,7 +32,7 @@ function getErrorLocation(ps : ParsingState){
 }
 
 
-class ParserState {
+class ParserUserState {
 
 }
 
@@ -58,7 +58,7 @@ export abstract class BaseParjsParser {
         }
         let {action, isLoud} = this;
         let ps = new BasicParsingState(input);
-        ps.userState = _defaults(new ParserState(), initialState);
+        ps.userState = _defaults(new ParserUserState(), initialState);
         ps.initialUserState = initialState;
         action.apply(ps);
 
@@ -78,7 +78,7 @@ export abstract class BaseParjsParser {
         else {
             let location = getErrorLocation(ps);
             let trace : Trace = {
-                state: ps.userState,
+                userState: ps.userState,
                 position: ps.position,
                 reason: ps.expecting,
                 input : input,

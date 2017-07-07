@@ -11,6 +11,7 @@ import {SuccessReply, FailureReply} from "./internal/reply";
  */
 export type Reply<T> = (SuccessReply<T> | FailureReply);
 
+
 /**
  * A type representing the reply of a quiet parser.
  */

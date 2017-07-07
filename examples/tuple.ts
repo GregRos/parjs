@@ -7,7 +7,7 @@ import {BasicTraceVisualizer} from "../src/internal/implementation/basic-trace-v
 //Built-in parser for floating point numbers.
 let tupleElement = Parjs.float();
 //Allow whitespace around elements:
-let paddedElement = tupleElement.between(Parjs.spaces);
+let paddedElement = tupleElement.between(Parjs.whitespaces);
 //Multiple instances of {paddedElement}, separated by a comma:
 let separated = paddedElement.manySepBy(Parjs.string(","));
 

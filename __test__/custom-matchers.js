@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const reply_1 = require("../src/reply");
-const _ = require("lodash");
+const _matches = require("lodash/matches");
+const _isPlainObject = require("lodash/isPlainObject");
 class CustomMatcherDefs {
     toBeAnyOf(expecteds, failMessage) {
         let result;
@@ -17,7 +18,7 @@ class CustomMatcherDefs {
         };
     }
     toBeLike(o, failMessage) {
-        let pass = _.matches(o)(this.actual);
+        let pass = _matches(o)(this.actual);
         return {
             pass: pass,
             message: pass ? undefined : failMessage
@@ -69,7 +70,7 @@ function expectSuccess(result, value, state) {
     expect(result).toHaveMember("value", "reason value");
     expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
     if (value !== undefined) {
-        if (!_.isPlainObject(value)) {
+        if (!_isPlainObject(value)) {
             expect(result.value).toEqual(value);
         }
         else {

@@ -14,10 +14,49 @@ import {LoudParser, ParjsProjection} from "../loud";
 import {ParjsStatic, ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
 import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
-import {CodeInfo, CharInfo} from "char-info";
+import {AsciiCodeInfo, AsciiCharInfo} from "./implementation/functions/char-indicators";
+//IMPORTANT: Importing only interfaces from char-info makes sure that no require statement is actually emitted.
+//If we were to import anything else, we'd create a real dependency on char-info that add a lot of weight when Parjs is bundled.
+import {StaticCodeInfo, StaticCharInfo} from "char-info";
+
 function wrap(action : ParjsAction) {
-        return new ParjsParser(action);
+	return new ParjsParser(action);
 }
+
+class NoUnicodeError extends Error {
+	constructor() {
+		super("The optional Unicode character recognizers haven't been loaded. Please load them by importing/requiring 'parjs/unicode'");
+	}
+}
+
+export const InfoContainer = new class InfoContainer {
+	private _codeInfo : StaticCodeInfo = null;
+	private _charInfo : StaticCharInfo = null;
+	set CodeInfo(info) {
+		this._codeInfo = this._codeInfo || info;
+	}
+
+	set CharInfo(info) {
+		this._charInfo = this._charInfo || info;
+	}
+	
+	get CodeInfo() {
+		if (!this._codeInfo) {
+			throw new NoUnicodeError();
+		}
+		return this._codeInfo
+	}
+
+	get CharInfo() {
+		if (!this._charInfo) {
+			throw new NoUnicodeError();
+		}
+		return this._charInfo;
+	}
+};
+
+export let CodeInfo : StaticCodeInfo;
+export let CharInfo : StaticCharInfo;
 
 export class ParjsHelper implements ParjsStaticHelper{
     isParser(obj : any) : obj is AnyParser {
@@ -40,8 +79,8 @@ export class ParjsParsers implements ParjsStatic {
         return wrap(new PrsLate(() => resolver().action, true)).withName("late");
     }
 
-    get asciiLetter() {
-        return this.charWhere(CharInfo.isLetter).withName("asciiLetter")
+    get letter() {
+        return this.charWhere(AsciiCharInfo.isLetter).withName("letter")
     }
 
     any(...parsers : AnyParser[]) {
@@ -68,60 +107,57 @@ export class ParjsParsers implements ParjsStatic {
         return this.charWhere(x => !options.includes(x)).withName("noCharOf");
     }
 
-    get letter() {
-        return this.charWhere(CharInfo.isLetter).withName("letter");
-    }
 
     get uniLetter() {
-        return this.charWhere(CharInfo.isUniLetter).withName("uniLetter");
+        return this.charWhere(InfoContainer.CharInfo.isUniLetter).withName("uniLetter");
     }
 
     get digit() {
-        return this.charWhere(CharInfo.isDecimal).withName("digit");
+        return this.charWhere(AsciiCharInfo.isDecimal).withName("digit");
     }
 
     get uniDigit() {
-        return this.charWhere(CharInfo.isUniDecimal).withName("uniDigit");
+        return this.charWhere(InfoContainer.CharInfo.isUniDecimal).withName("uniDigit");
     }
 
     get hex() {
-        return this.charWhere(CharInfo.isHex).withName("hex");
+        return this.charWhere(AsciiCharInfo.isHex).withName("hex");
     }
 
     get uniLower() {
-        return this.charWhere(CharInfo.isUniLower).withName("uniLower");
+        return this.charWhere(InfoContainer.CharInfo.isUniLower).withName("uniLower");
     }
 
     get lower() {
-        return this.charWhere(CharInfo.isLower).withName("lower");
+        return this.charWhere(AsciiCharInfo.isLower).withName("lower");
     }
 
     get upper() {
-        return this.charWhere(CharInfo.isUpper).withName("upper");
+        return this.charWhere(AsciiCharInfo.isUpper).withName("upper");
     }
 
     get uniUpper() {
-        return this.charWhere(CharInfo.isUniUpper).withName("uniUpper");
+        return this.charWhere(InfoContainer.CharInfo.isUniUpper).withName("uniUpper");
     }
 
     get newline() {
-        return wrap(new PrsNewline(false)).withName("newline");
+        return wrap(new PrsNewline(null)).withName("newline");
     }
 
     get uniNewline() {
-        return wrap(new PrsNewline(true)).withName("uniNewline");
+        return wrap(new PrsNewline(InfoContainer.CodeInfo)).withName("uniNewline");
     }
 
     get space() {
-        return this.charWhere(CharInfo.isSpace).withName("space");
+        return this.charWhere(AsciiCharInfo.isSpace).withName("space");
     }
 
     get uniSpace() {
-        return this.charWhere(CharInfo.isUniSpace).withName("uniSpace");
+        return this.charWhere(InfoContainer.CharInfo.isUniSpace).withName("uniSpace");
     }
 
-    get spaces() {
-        return this.space.many().str.withName("spaces");
+    get whitespaces() {
+        return this.charWhere(c => AsciiCharInfo.isSpace(c) || AsciiCharInfo.isNewline(c)).many().str.withName("whitespaces");
     }
 
     get uniSpaces() {

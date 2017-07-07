@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const custom_matchers_1 = require("../../custom-matchers");
 const src_1 = require("../../../src");
 const reply_1 = require("../../../src/reply");
-const _ = require("lodash");
+const _range = require("lodash/range");
 let goodInput = "abcd";
 let softBadInput = "a";
 let hardBadInput = "ab";
@@ -120,7 +120,7 @@ describe("sequential combinators", () => {
             });
             it("ignores guard when given max iterations", () => {
                 let parser = src_1.Parjs.result(0).many(undefined, 10);
-                custom_matchers_1.expectSuccess(parser.parse(""), _.range(0, 10).map(x => 0));
+                custom_matchers_1.expectSuccess(parser.parse(""), _range(0, 10).map(x => 0));
             });
         });
         describe("many with min successes", () => {

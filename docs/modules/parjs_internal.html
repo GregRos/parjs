@@ -76,6 +76,7 @@
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal.failurereply.html" class="tsd-kind-icon">Failure<wbr>Reply</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported"><a href="../classes/parjs_internal.nounicodeerror.html" class="tsd-kind-icon">No<wbr>Unicode<wbr>Error</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal.parjshelper.html" class="tsd-kind-icon">Parjs<wbr>Helper</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal.parjsparser.html" class="tsd-kind-icon">Parjs<wbr>Parser</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal.parjsparsers.html" class="tsd-kind-icon">Parjs<wbr>Parsers</a></li>
@@ -96,7 +97,10 @@
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#charinfo" class="tsd-kind-icon">Char<wbr>Info</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#codeinfo" class="tsd-kind-icon">Code<wbr>Info</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#fail_result" class="tsd-kind-icon">FAIL_<wbr>RESULT</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#infocontainer" class="tsd-kind-icon">Info<wbr>Container</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#quiet_result" class="tsd-kind-icon">QUIET_<wbr>RESULT</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#uninitialized_result" class="tsd-kind-icon">UNINITIALIZED_<wbr>RESULT</a></li>
 							</ul>
@@ -114,6 +118,26 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="charinfo" class="tsd-anchor"></a>
+					<h3>Char<wbr>Info</h3>
+					<div class="tsd-signature tsd-kind-icon">Char<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StaticCharInfo</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in internal/static.ts:59</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="codeinfo" class="tsd-anchor"></a>
+					<h3>Code<wbr>Info</h3>
+					<div class="tsd-signature tsd-kind-icon">Code<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StaticCodeInfo</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in internal/static.ts:58</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
 					<a name="fail_result" class="tsd-anchor"></a>
 					<h3>FAIL_<wbr>RESULT</h3>
 					<div class="tsd-signature tsd-kind-icon">FAIL_<wbr>RESULT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;Object.create(null)</span></div>
@@ -127,6 +151,16 @@
 							<p>A unique object value indicating the reuslt of a failed parser.</p>
 						</div>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="infocontainer" class="tsd-anchor"></a>
+					<h3>Info<wbr>Container</h3>
+					<div class="tsd-signature tsd-kind-icon">Info<wbr>Container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">InfoContainer</span><span class="tsd-signature-symbol"> =&nbsp;new class InfoContainer {private _codeInfo : StaticCodeInfo &#x3D; null;private _charInfo : StaticCharInfo &#x3D; null;set CodeInfo(info) {this._codeInfo &#x3D; this._codeInfo || info;}set CharInfo(info) {this._charInfo &#x3D; this._charInfo || info;}get CodeInfo() {if (!this._codeInfo) {throw new NoUnicodeError();}return this._codeInfo}get CharInfo() {if (!this._charInfo) {throw new NoUnicodeError();}return this._charInfo;}}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in internal/static.ts:32</li>
+						</ul>
+					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
 					<a name="quiet_result" class="tsd-anchor"></a>
@@ -171,7 +205,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:18</li>
+									<li>Defined in internal/static.ts:22</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -233,12 +267,18 @@
 					<li class=" tsd-kind-external-module">
 						<a href="parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
 					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="parjs_unicode.html">parjs/unicode</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/parjs_internal.failurereply.html" class="tsd-kind-icon">Failure<wbr>Reply</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../classes/parjs_internal.nounicodeerror.html" class="tsd-kind-icon">No<wbr>Unicode<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/parjs_internal.parjshelper.html" class="tsd-kind-icon">Parjs<wbr>Helper</a>
@@ -271,7 +311,16 @@
 						<a href="../interfaces/parjs_internal.tracevisualizer.html" class="tsd-kind-icon">Trace<wbr>Visualizer</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="parjs_internal.html#charinfo" class="tsd-kind-icon">Char<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="parjs_internal.html#codeinfo" class="tsd-kind-icon">Code<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="parjs_internal.html#fail_result" class="tsd-kind-icon">FAIL_<wbr>RESULT</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="parjs_internal.html#infocontainer" class="tsd-kind-icon">Info<wbr>Container</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="parjs_internal.html#quiet_result" class="tsd-kind-icon">QUIET_<wbr>RESULT</a>

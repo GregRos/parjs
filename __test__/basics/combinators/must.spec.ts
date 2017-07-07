@@ -83,7 +83,7 @@ describe("must combinators", () => {
         });
         it("fails for fail", () => {
             expectFailure(fail.mustBeNonEmpty().parse(""), ReplyKind.FatalFail);
-        })
+        });
         it("fails for empty object", () => {
             expectFailure(emptyObj.mustBeNonEmpty().parse(""), ReplyKind.HardFail);
         });

@@ -7,9 +7,26 @@
 
 Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and in particular its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
 
-It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it.
+It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it. Currently it has many more features, including:
+
+1. Many more combinators and basic parsers.
+2. Opt-in support for parsing complex Unicode
+3. Written in ES6
+4. Systematically documented
+5. Advanced debugging features and ability to parse very complex languages.
 
 Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It's designed to be used from TypeScript too, but that's not necessary.
+
+Parjs is can be used on the client or the server. It's a pretty big library but when minified and gzipped it has a relatively small footprint.
+
+| Version/Format  | Bundle         | Minified | Minified+Gzipped |
+|-----------------|----------------|----------|------------------|
+| Default         | < 180kb        | < 100kb  | < 25kb           |
+| /w Unicode Data | < 350kb        | < 180 kb | < 50kb           |
+
+
+## Example Parsers
+You can see implementations of example parsers in the `examples` folder.
 
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
@@ -48,11 +65,20 @@ The possibilities are limitless.
 Since it's written in JavaScript, it can be used in web environments.
 
 ## Unicode and Limitations
-Parjs supports selectively parsing diverse Unicode characters with the aid of the [`char-info` ](https://www.npmjs.com/package/char-info) package of character recognizers. 
+Parjs supports selectively parsing diverse Unicode characters with the aid of the [`char-info` ](https://www.npmjs.com/package/char-info) package of character recognizers.
 
-Parsers such as `Parjs.upper` can only recognize the ANSI subset of Unicode. Parsers beginning with `uni`, such as `uniUpper`, can recognize any Unicode character. However, they are also slower.
+Parsers such as `Parjs.upper` can only recognize the ASCII subset of Unicode. Parsers beginning with `uni`, such as `uniUpper`, can recognize any Unicode character. However, they are also much slower as each character must be looked up in a tree-like data structure.
 
-Parjs isn't very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with `uni` won't recognize such characters.
+`Parjs` does not import `char-info` by default due to the latter's large size. In order to enable unicode parsing support, including calling functions with names beginning with `uni`, you need to import `parjs/unicode` somewhere in your code.
+
+	import 'parjs/unicode';
+
+Doing so will load all the unicode data.
+
+In order to parse Unicode characters with elaborate properties, you should install the `char-info` library and use its characters indicators directly. It lets you detect a character's Unicode category, Block, Script, and other information.
+
+Parjs isn't very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with `uni` won't recognize such characters. One reason for this is because JavaScript has a UCS-2 conception of characters.
+
 ## Module Structure
 Parjs has a well-organized module structure that is reflected in the documentation:
 
@@ -154,9 +180,9 @@ It's not an error to quieten an already quiet parser, but doing so does nothing 
 	let comma = Parjs.string(".").q.q.q.q.q;
 
 ## User State
-User state is a powerful feature that should be used when parsing complex languages, including recursive ones like XML and JSON.
+User state is a powerful feature that can be used when parsing complex languages, such as mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
 
-Basically, when you invoke the `.parse(str)` method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. In general, built-in parsers don't use the user state.
+Basically, when you invoke the `.parse(str)` method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. Built-in parsers aren't allowed to use the user state directly, so the only information in it will be what you put inside it.
 
 The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
@@ -183,9 +209,12 @@ Here is an example of how you can use this feature to parse a recursive, XML-lik
 	let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
 	console.log(JSON.stringify(anyTag.parse("<a><b><c></c></b></a>", {tags : [{content : []}]}), null ,2));
 
+Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.
+
 Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.
 
-User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns. 
+User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.
+
 
 ## Kinds of Parsers
 This is a partial overview of the kinds of parsers and combinators provided by `Parjs`. This is not an exhaustive list.
@@ -272,15 +301,45 @@ These combinators are very simple.
 1. `p.not` - P succeeds without consuming input or returning a value if `p` fails hard or soft at the current position. If `p` succeeds, P fails softly. Propagates a fatal failure. A quiet parser.
 2. `p.backtrack` - P applies `p`, backtracks to the original position in the input (before applying `p`), and returns the result. 
 
-## Debugging
-Parjs is meant to be easy to debug, but as of yet it doesn't live up to that aspiration. When a parsing failure occurs, Parjs logs the following information, among other things:
+## The reply of a parser
+When a parser `p` is applied using the `p.parse(str)` method, a `ParserReply<T>` is returned. This reply is either a success or a failure of a differing severity.
 
-1. The position in the character stream where the error occurred.
-2. The parsing stack trace, enabling the user to see the entire parsing path down to the parser that failed.
-3. The reason for the error.
-4. The location (e.g. row and column) where the error occurred
+Every `reply` has a `reply.kind` value, which is a string that can be any value that is part of the `ReplyKind` set. To check that parsing succeeded, use the following test:
 
-The error is visualized using plain-text.
+	let reply = p.parse(str);
+	if (reply.kind === ReplyKind.OK) {
+		//parsing succeeded
+	}
+	else {
+		//parsing failed
+	}
+
+When using TypeScript, the check narrows the type of `reply` in each respective branch.
+
+The `ParserReply<T>` exposes a `value` property that returns the result of the parser, if it succeeded. But failure causes an exception to be thrown.
+
+### Success Reply
+This is the reply you usually hope to get when parsing something. It indicates that parsing succeeded.
+
+The primary property is `value`, which exposes the reply value of the parser. Note that the user state at which the parser finished is swallowed and isn't returned (see more about user state in another part of the documentation).
+
+### Failure Reply
+A failure reply is when `kind !== ReplyKind.OK`. The `kind` could be any of the failure kinds: Soft, Hard, or Fatal failure.
+
+In addition to the `kind`, a failure reply exposes the `trace` property that describes the circumstances of the failure in a systematic way.
+
+1. `userState`, which exposes the last user state the parser failed with. Note that using advanced combinators like `isolate` hides the entirety of this information.
+2. `position`, which exposes the position (in terms of JavaScript characters) at which the parser failed.
+3. `reason`, which exposes the reason for why the parser failed, such as `"expected ','"`
+4. `location`, exposes the row and column at which parsing failed. This is deduced using a simple algorithm that assumes a monospaces font and no combining diacritics and may be incorrect for especially complex texts.
+5. `stackTrace`, a parser stack trace.
+6. `input`, contains the input text.
+
+A visualizer is provided that can graphically display the error location. TO access the visualizer, do:
+
+	Parjs.visualizer.visualize(reply.trace);
+
+The result is a textual representation of the error.
 
 ## Performance
 At present, although Parjs is designed with performance in mind, it's not benchmarked and hasn't been optimized.

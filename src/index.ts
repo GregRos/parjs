@@ -18,6 +18,7 @@ export {ReplyKind, Reply, QuietReply} from './reply';
  * The central API of the parjs library. Contains building block parsers and static combinators.
  */
 export const Parjs = new ParjsParsers() as ParjsStatic;
+
 /**
  *
  */

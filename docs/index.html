@@ -68,8 +68,40 @@
 				<a href="https://www.npmjs.com/package/parjs"><img src="https://badge.fury.io/js/parjs.svg" alt="npm"></a></p>
 				<p><a href="https://gregros.github.io/parjs/">API Documentation</a></p>
 				<p>Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of <a href="https://wiki.haskell.org/Parsec">Parsec</a> and in particular its F# adaptation <a href="http://www.quanttec.com/fparsec/">FParsec</a>.</p>
-				<p>It&#39;s also similar to the <a href="https://github.com/jneen/parsimmon">parsimmon</a> library, but intends to be superior to it.</p>
+				<p>It&#39;s also similar to the <a href="https://github.com/jneen/parsimmon">parsimmon</a> library, but intends to be superior to it. Currently it has many more features, including:</p>
+				<ol>
+					<li>Many more combinators and basic parsers.</li>
+					<li>Opt-in support for parsing complex Unicode</li>
+					<li>Written in ES6</li>
+					<li>Systematically documented</li>
+					<li>Advanced debugging features and ability to parse very complex languages.</li>
+				</ol>
 				<p>Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It&#39;s designed to be used from TypeScript too, but that&#39;s not necessary.</p>
+				<p>Parjs is can be used on the client or the server. It&#39;s a pretty big library but when minified and gzipped it has a relatively small footprint.</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Version/Format</th>
+							<th>Bundle</th>
+							<th>Minified</th>
+							<th>Minified+Gzipped</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Default</td>
+							<td>&lt; 180kb</td>
+							<td>&lt; 100kb</td>
+							<td>&lt; 25kb</td>
+						</tr>
+						<tr>
+							<td>/w Unicode Data</td>
+							<td>&lt; 350kb</td>
+							<td>&lt; 180 kb</td>
+							<td>&lt; 50kb</td>
+						</tr>
+					</tbody>
+				</table>
 				<h2 id="what-s-a-parser-combinator-library-">What&#39;s a parser-combinator library?</h2>
 				<p>It&#39;s a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.</p>
 				<p>For example, if you have a parser <code>digit</code> for parsing decimal digits, you can parse a number by applying <code>digit</code> multiple times until it fails, and then producing the consumed text as a result. Then you can use another <em>combinator</em>  to convert the result to a number.</p>
@@ -98,9 +130,13 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<p>The possibilities are limitless.</p>
 				<p>Since it&#39;s written in JavaScript, it can be used in web environments.</p>
 				<h2 id="unicode-and-limitations">Unicode and Limitations</h2>
-				<p>Parjs supports selectively parsing diverse Unicode characters with the aid of the <a href="https://www.npmjs.com/package/char-info"><code>char-info</code> </a> package of character recognizers. </p>
-				<p>Parsers such as <code>Parjs.upper</code> can only recognize the ANSI subset of Unicode. Parsers beginning with <code>uni</code>, such as <code>uniUpper</code>, can recognize any Unicode character. However, they are also slower.</p>
-				<p>Parjs isn&#39;t very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with <code>uni</code> won&#39;t recognize such characters.</p>
+				<p>Parjs supports selectively parsing diverse Unicode characters with the aid of the <a href="https://www.npmjs.com/package/char-info"><code>char-info</code> </a> package of character recognizers.</p>
+				<p>Parsers such as <code>Parjs.upper</code> can only recognize the ASCII subset of Unicode. Parsers beginning with <code>uni</code>, such as <code>uniUpper</code>, can recognize any Unicode character. However, they are also much slower as each character must be looked up in a tree-like data structure.</p>
+				<p><code>Parjs</code> does not import <code>char-info</code> by default due to the latter&#39;s large size. In order to enable unicode parsing support, including calling functions with names beginning with <code>uni</code>, you need to import <code>parjs/unicode</code> somewhere in your code.</p>
+				<pre><code><span class="hljs-meta"><span class="hljs-meta-keyword">import</span> 'parjs/unicode';</span>
+</code></pre><p>Doing so will load all the unicode data.</p>
+				<p>In order to parse Unicode characters with elaborate properties, you should install the <code>char-info</code> library and use its characters indicators directly. It lets you detect a character&#39;s Unicode category, Block, Script, and other information.</p>
+				<p>Parjs isn&#39;t very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with <code>uni</code> won&#39;t recognize such characters. One reason for this is because JavaScript has a UCS-2 conception of characters.</p>
 				<h2 id="module-structure">Module Structure</h2>
 				<p>Parjs has a well-organized module structure that is reflected in the documentation:</p>
 				<pre><code>- parjs
@@ -174,8 +210,8 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 </code></pre><p>It&#39;s not an error to quieten an already quiet parser, but doing so does nothing and may return the exact same parser instance.</p>
 				<pre><code><span class="hljs-keyword">let</span> comma = Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">"."</span>).q.q.q.q.q;
 </code></pre><h2 id="user-state">User State</h2>
-				<p>User state is a powerful feature that should be used when parsing complex languages, including recursive ones like XML and JSON.</p>
-				<p>Basically, when you invoke the <code>.parse(str)</code> method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. In general, built-in parsers don&#39;t use the user state.</p>
+				<p>User state is a powerful feature that can be used when parsing complex languages, such as mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.</p>
+				<p>Basically, when you invoke the <code>.parse(str)</code> method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. Built-in parsers aren&#39;t allowed to use the user state directly, so the only information in it will be what you put inside it.</p>
 				<p>The <code>.parse</code> method accepts an additional parameter <code>initialState</code> that contains properties and methods that are merged with the user state:</p>
 				<pre><code>//p <span class="hljs-built_in">is</span> called with a parser state initialized with <span class="hljs-built_in">properties</span> <span class="hljs-keyword">and</span> methods.
 <span class="hljs-built_in">let</span> <span class="hljs-built_in">example</span> = p.parse(<span class="hljs-string">"hello"</span>, {token: <span class="hljs-string">"hi"</span>, <span class="hljs-built_in">method</span>() {<span class="hljs-built_in">return</span> <span class="hljs-number">1</span>;});
@@ -197,8 +233,9 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 
 <span class="hljs-built_in">let</span> anyTag = closeTag.<span class="hljs-keyword">or</span>(openTag).many().state.<span class="hljs-built_in">map</span>(x =&gt; x.tags[<span class="hljs-number">0</span>].<span class="hljs-built_in">content</span>);
 console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span class="hljs-string">"&lt;a&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;"</span>, {tags : [{<span class="hljs-built_in">content</span> : []}]}), null ,<span class="hljs-number">2</span>));
-</code></pre><p>Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.</p>
-				<p>User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns. </p>
+</code></pre><p>Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.</p>
+				<p>Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.</p>
+				<p>User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.</p>
 				<h2 id="kinds-of-parsers">Kinds of Parsers</h2>
 				<p>This is a partial overview of the kinds of parsers and combinators provided by <code>Parjs</code>. This is not an exhaustive list.</p>
 				<h3 id="basic-parsers">Basic Parsers</h3>
@@ -282,15 +319,35 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 					<li><code>p.not</code> - P succeeds without consuming input or returning a value if <code>p</code> fails hard or soft at the current position. If <code>p</code> succeeds, P fails softly. Propagates a fatal failure. A quiet parser.</li>
 					<li><code>p.backtrack</code> - P applies <code>p</code>, backtracks to the original position in the input (before applying <code>p</code>), and returns the result. </li>
 				</ol>
-				<h2 id="debugging">Debugging</h2>
-				<p>Parjs is meant to be easy to debug, but as of yet it doesn&#39;t live up to that aspiration. When a parsing failure occurs, Parjs logs the following information, among other things:</p>
+				<h2 id="the-reply-of-a-parser">The reply of a parser</h2>
+				<p>When a parser <code>p</code> is applied using the <code>p.parse(str)</code> method, a <code>ParserReply&lt;T&gt;</code> is returned. This reply is either a success or a failure of a differing severity.</p>
+				<p>Every <code>reply</code> has a <code>reply.kind</code> value, which is a string that can be any value that is part of the <code>ReplyKind</code> set. To check that parsing succeeded, use the following test:</p>
+				<pre><code><span class="hljs-keyword">let</span> reply = p.<span class="hljs-built_in">parse</span>(str);
+<span class="hljs-keyword">if</span> (reply.kind === ReplyKind.OK) {
+    <span class="hljs-comment">//parsing succeeded</span>
+}
+<span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">//parsing failed</span>
+}
+</code></pre><p>When using TypeScript, the check narrows the type of <code>reply</code> in each respective branch.</p>
+				<p>The <code>ParserReply&lt;T&gt;</code> exposes a <code>value</code> property that returns the result of the parser, if it succeeded. But failure causes an exception to be thrown.</p>
+				<h3 id="success-reply">Success Reply</h3>
+				<p>This is the reply you usually hope to get when parsing something. It indicates that parsing succeeded.</p>
+				<p>The primary property is <code>value</code>, which exposes the reply value of the parser. Note that the user state at which the parser finished is swallowed and isn&#39;t returned (see more about user state in another part of the documentation).</p>
+				<h3 id="failure-reply">Failure Reply</h3>
+				<p>A failure reply is when <code>kind !== ReplyKind.OK</code>. The <code>kind</code> could be any of the failure kinds: Soft, Hard, or Fatal failure.</p>
+				<p>In addition to the <code>kind</code>, a failure reply exposes the <code>trace</code> property that describes the circumstances of the failure in a systematic way.</p>
 				<ol>
-					<li>The position in the character stream where the error occurred.</li>
-					<li>The parsing stack trace, enabling the user to see the entire parsing path down to the parser that failed.</li>
-					<li>The reason for the error.</li>
-					<li>The location (e.g. row and column) where the error occurred</li>
+					<li><code>userState</code>, which exposes the last user state the parser failed with. Note that using advanced combinators like <code>isolate</code> hides the entirety of this information.</li>
+					<li><code>position</code>, which exposes the position (in terms of JavaScript characters) at which the parser failed.</li>
+					<li><code>reason</code>, which exposes the reason for why the parser failed, such as <code>&quot;expected &#39;,&#39;&quot;</code></li>
+					<li><code>location</code>, exposes the row and column at which parsing failed. This is deduced using a simple algorithm that assumes a monospaces font and no combining diacritics and may be incorrect for especially complex texts.</li>
+					<li><code>stackTrace</code>, a parser stack trace.</li>
+					<li><code>input</code>, contains the input text.</li>
 				</ol>
-				<p>The error is visualized using plain-text.</p>
+				<p>A visualizer is provided that can graphically display the error location. TO access the visualizer, do:</p>
+				<pre><code><span class="hljs-selector-tag">Parjs</span><span class="hljs-selector-class">.visualizer</span><span class="hljs-selector-class">.visualize</span>(<span class="hljs-selector-tag">reply</span><span class="hljs-selector-class">.trace</span>);
+</code></pre><p>The result is a textual representation of the error.</p>
 				<h2 id="performance">Performance</h2>
 				<p>At present, although Parjs is designed with performance in mind, it&#39;s not benchmarked and hasn&#39;t been optimized.</p>
 				<p>In general, a few measures are taken to improve performance:</p>
@@ -379,6 +436,9 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/parjs_unicode.html">parjs/unicode</a>
 					</li>
 				</ul>
 			</nav>

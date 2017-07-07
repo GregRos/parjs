@@ -62,7 +62,7 @@ describe("basic string parsers", () => {
             custom_matchers_1.expectSuccess(parser.parse("a"), "a");
         });
     });
-    describe("Parjs.asciiLetter", () => {
+    describe("Parjs.letter", () => {
         let parser = src_1.Parjs.lower;
         it("fails on empty input", () => {
             custom_matchers_1.expectFailure(parser.parse(""), "SoftFail");

@@ -74,7 +74,7 @@ export interface ParjsStatic {
     /**
      * P will parse a single letter [a-zA-Z] and return it. If it can't, it will fail softly.
      */
-    readonly asciiLetter : LoudParser<string>;
+    readonly letter : LoudParser<string>;
 
     /**
      * P will parse a single upper-case letter character in the range [A-Z] and return it. If it can't, it will fail softly.
@@ -184,7 +184,7 @@ export interface ParjsStatic {
      * P will always succeed.
      *
      */
-    readonly spaces : LoudParser<string>;
+    readonly whitespaces : LoudParser<string>;
 
     /**
      * P will parse one or more ASCII whitespace character and returns the result.

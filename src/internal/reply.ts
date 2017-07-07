@@ -16,7 +16,7 @@ export interface ErrorLocation {
  * An object indicating trace information about the state of parsing when it was stopped.
  */
 export interface Trace {
-    state : object;
+    userState : object;
     position : number;
     reason : string;
     kind : ReplyKind.Fail;

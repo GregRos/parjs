@@ -26,7 +26,7 @@ function getErrorLocation(ps) {
         column: line === 0 ? position : lastPos - oldPos
     };
 }
-class ParserState {
+class ParserUserState {
 }
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
@@ -48,7 +48,7 @@ class BaseParjsParser {
         }
         let { action, isLoud } = this;
         let ps = new action_1.BasicParsingState(input);
-        ps.userState = _defaults(new ParserState(), initialState);
+        ps.userState = _defaults(new ParserUserState(), initialState);
         ps.initialUserState = initialState;
         action.apply(ps);
         if (ps.isOk) {
@@ -67,7 +67,7 @@ class BaseParjsParser {
         else {
             let location = getErrorLocation(ps);
             let trace = {
-                state: ps.userState,
+                userState: ps.userState,
                 position: ps.position,
                 reason: ps.expecting,
                 input: input,

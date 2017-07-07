@@ -67,7 +67,7 @@ let pParenExpr = pExpr.between(pLeftParen, pRightParen);
 //We add the expression to the expresion stack instead of returning it.
 let pUnit = pNumber.or(pParenExpr).act((result, state) => {
     state.exprs.push(result);
-}).between(index_1.Parjs.spaces).q;
+}).between(index_1.Parjs.whitespaces).q;
 //Parses a single operator and adds it to the expression stack.
 //Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
 let pOp = index_1.Parjs.anyCharOf(operators.map(x => x.operator).join()).act((op, state) => {

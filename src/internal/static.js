@@ -12,10 +12,39 @@ const int_1 = require("./implementation/parsers/numbers/int");
 const float_1 = require("./implementation/parsers/numbers/float");
 const _defaults = require("lodash/defaults");
 const basic_trace_visualizer_1 = require("./implementation/basic-trace-visualizer");
-const char_info_1 = require("char-info");
+const char_indicators_1 = require("./implementation/functions/char-indicators");
 function wrap(action) {
     return new instance_1.ParjsParser(action);
 }
+class NoUnicodeError extends Error {
+    constructor() {
+        super("The optional Unicode character recognizers haven't been loaded. Please load them by importing/requiring 'parjs/unicode'");
+    }
+}
+exports.InfoContainer = new class InfoContainer {
+    constructor() {
+        this._codeInfo = null;
+        this._charInfo = null;
+    }
+    set CodeInfo(info) {
+        this._codeInfo = this._codeInfo || info;
+    }
+    set CharInfo(info) {
+        this._charInfo = this._charInfo || info;
+    }
+    get CodeInfo() {
+        if (!this._codeInfo) {
+            throw new NoUnicodeError();
+        }
+        return this._codeInfo;
+    }
+    get CharInfo() {
+        if (!this._charInfo) {
+            throw new NoUnicodeError();
+        }
+        return this._charInfo;
+    }
+};
 class ParjsHelper {
     isParser(obj) {
         return obj instanceof instance_1.ParjsParser;
@@ -36,8 +65,8 @@ class ParjsParsers {
     late(resolver) {
         return wrap(new combinators_1.PrsLate(() => resolver().action, true)).withName("late");
     }
-    get asciiLetter() {
-        return this.charWhere(char_info_1.CharInfo.isLetter).withName("asciiLetter");
+    get letter() {
+        return this.charWhere(char_indicators_1.AsciiCharInfo.isLetter).withName("letter");
     }
     any(...parsers) {
         return wrap(new combinators_1.PrsAlts(parsers.map(x => x.action))).withName("any");
@@ -57,47 +86,44 @@ class ParjsParsers {
     noCharOf(options) {
         return this.charWhere(x => !options.includes(x)).withName("noCharOf");
     }
-    get letter() {
-        return this.charWhere(char_info_1.CharInfo.isLetter).withName("letter");
-    }
     get uniLetter() {
-        return this.charWhere(char_info_1.CharInfo.isUniLetter).withName("uniLetter");
+        return this.charWhere(exports.InfoContainer.CharInfo.isUniLetter).withName("uniLetter");
     }
     get digit() {
-        return this.charWhere(char_info_1.CharInfo.isDecimal).withName("digit");
+        return this.charWhere(char_indicators_1.AsciiCharInfo.isDecimal).withName("digit");
     }
     get uniDigit() {
-        return this.charWhere(char_info_1.CharInfo.isUniDecimal).withName("uniDigit");
+        return this.charWhere(exports.InfoContainer.CharInfo.isUniDecimal).withName("uniDigit");
     }
     get hex() {
-        return this.charWhere(char_info_1.CharInfo.isHex).withName("hex");
+        return this.charWhere(char_indicators_1.AsciiCharInfo.isHex).withName("hex");
     }
     get uniLower() {
-        return this.charWhere(char_info_1.CharInfo.isUniLower).withName("uniLower");
+        return this.charWhere(exports.InfoContainer.CharInfo.isUniLower).withName("uniLower");
     }
     get lower() {
-        return this.charWhere(char_info_1.CharInfo.isLower).withName("lower");
+        return this.charWhere(char_indicators_1.AsciiCharInfo.isLower).withName("lower");
     }
     get upper() {
-        return this.charWhere(char_info_1.CharInfo.isUpper).withName("upper");
+        return this.charWhere(char_indicators_1.AsciiCharInfo.isUpper).withName("upper");
     }
     get uniUpper() {
-        return this.charWhere(char_info_1.CharInfo.isUniUpper).withName("uniUpper");
+        return this.charWhere(exports.InfoContainer.CharInfo.isUniUpper).withName("uniUpper");
     }
     get newline() {
-        return wrap(new parsers_1.PrsNewline(false)).withName("newline");
+        return wrap(new parsers_1.PrsNewline(null)).withName("newline");
     }
     get uniNewline() {
-        return wrap(new parsers_1.PrsNewline(true)).withName("uniNewline");
+        return wrap(new parsers_1.PrsNewline(exports.InfoContainer.CodeInfo)).withName("uniNewline");
     }
     get space() {
-        return this.charWhere(char_info_1.CharInfo.isSpace).withName("space");
+        return this.charWhere(char_indicators_1.AsciiCharInfo.isSpace).withName("space");
     }
     get uniSpace() {
-        return this.charWhere(char_info_1.CharInfo.isUniSpace).withName("uniSpace");
+        return this.charWhere(exports.InfoContainer.CharInfo.isUniSpace).withName("uniSpace");
     }
-    get spaces() {
-        return this.space.many().str.withName("spaces");
+    get whitespaces() {
+        return this.charWhere(c => char_indicators_1.AsciiCharInfo.isSpace(c) || char_indicators_1.AsciiCharInfo.isNewline(c)).many().str.withName("whitespaces");
     }
     get uniSpaces() {
         return this.uniSpace.many().str.withName("uniSpaces");
