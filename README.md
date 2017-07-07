@@ -1,3 +1,4 @@
+	
 # Parjs - Parser Combinator Library
 [![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
 [![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
@@ -24,9 +25,22 @@ Parjs is can be used on the client or the server. It's a pretty big library but 
 | Default         | < 180kb        | < 100kb  | < 25kb           |
 | /w Unicode Data | < 350kb        | < 180 kb | < 50kb           |
 
+To start using it, install the module using NPM and then use:
 
+	import {Parjs} from 'parjs';
+
+Or in some cases:
+
+	var Parjs = require('parjs').Parjs;
+
+Which imports the main module.
 ## Example Parsers
-You can see implementations of example parsers in the `examples` folder.
+You can see implementations of example parsers in the `examples` folder, suffixed with their complexity, in ★.
+
+1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/examples/tuple.ts) ★
+2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/examples/string.format.ts) ★
+3. [JSON parser](https://github.com/GregRos/parjs/blob/master/examples/json.ts) ★★★
+4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/examples/math.ts) ★★★
 
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
@@ -215,12 +229,11 @@ Many methods that project the result of a parser take a function with two argume
 
 User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.
 
-
-## Kinds of Parsers
+## Parsers and combinators
 This is a partial overview of the kinds of parsers and combinators provided by `Parjs`. This is not an exhaustive list.
 
 ### Basic Parsers
-These are building block parsers provided by `parjs`.
+These are building block parsers provided by `parjs`. These are generally defined in [ParjsStatic](https://gregros.github.io/parjs/interfaces/parjs.parjsstatic.html), i.e. the type as the object `Parjs`.
 
 #### Character parsers
 One of the most common kinds of parser, parses individual characters.
@@ -257,6 +270,8 @@ These special parsers don't belong to any group.
 2. `Parjs.state` - A parser that succeeds without consuming input and returns the current parser state.
 
 ### Combinators
+ These are defined in [`ParjsStatic`](https://gregros.github.io/parjs/interfaces/parjs.parjsstatic.html) statically, [`LoudParser`](https://gregros.github.io/parjs/interfaces/parjs.loudparser.html) for loud parser instances, and [`QuietParser`](https://gregros.github.io/parjs/interfaces/parjs.quietparser.html) for quiet parsers.
+
 Here `P` refers to the parser created by the combinator.
 
 #### Projections
@@ -294,7 +309,6 @@ These combinators try several parsers in sequence until one of them succeeds. Th
 #### Primitive
 These combinators are very simple.
 2. `p.fail(args)` - P applies `p` and fails with `args` if it succeeds. Also propagates failures.
-3. 
 
 #### Special
 
@@ -360,17 +374,28 @@ It should be possible to reduce these by:
 4. Reducing the parser overhead in certain situations.
 5. Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.
 
+## Implementation
+Parjs has a big difference between interface and implementation. 
+
+Parsers are primarily created from scratch using the `Parjs` object, of type `ParjsStatic`. They can come in two interfaces: `LoudParser<T>` and `QuietParser`. Each of these inherits from the interface `AnyParser` that has the chraracteristics and combinators supported by both.
+
+Internally, the `Parjs` object actually is of the class [`ParjsParsers`](https://gregros.github.io/parjs/classes/parjs_internal.parjsparsers.html).
+
+All parsers, whether quiet or loud, are instances of the class [`ParjsParser`](https://gregros.github.io/parjs/classes/parjs_internal.parjsparser.html) wrapping an internal object of the class [`ParjsAction`](https://gregros.github.io/parjs/classes/parjs_internal_implementation.parjsaction.html). 
+
+Loudness or quietness is communicated via the `isLoud` property of the action and the wrapping parser -- otherwise loud parsers and quiet parsers are identical. However, functions will throw exceptions if the loudness of the input parser was not as expected.
+
 ## Writing your own parser
 Parjs is meant to be very easy to extend, meaning writing your own parser is very simple.
 
 ### Parser flow
-When the `.parse` method is called, a `ParsingState` object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:
+When the `.parse` method is called, a [`ParsingState`](https://gregros.github.io/parjs/interfaces/parjs_internal.parsingstate.html) object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:
 
 	interface ParsingState {
 		readonly input : string;
 		position : number;
 		value : any;
-		readonly userState : any;
+		userState : any;
 		expecting : string;
 		kind : ReplyKind;
 		//...
