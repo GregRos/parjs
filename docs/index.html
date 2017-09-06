@@ -110,7 +110,7 @@
 				<pre><code><span class="hljs-comment">//Built-in building block parser for floating point numbers.</span>
 <span class="hljs-keyword">let</span> tupleElement = Parjs.float();
 <span class="hljs-comment">//Allow whitespace around elements:</span>
-<span class="hljs-keyword">let</span> paddedElement = tupleElement.between(Parjs.spaces);
+<span class="hljs-keyword">let</span> paddedElement = tupleElement.between(Parjs.whitespaces);
 <span class="hljs-comment">//Multiple instances of {paddedElement}, separated by a comma:</span>
 <span class="hljs-keyword">let</span> separated = paddedElement.manySepBy(Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">","</span>));
 <span class="hljs-comment">//Surround everything with parentheses:</span>
