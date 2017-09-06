@@ -54,7 +54,7 @@ Here is how you might construct a parser for text in the form `(a, b, c, ...)` w
 	//Built-in building block parser for floating point numbers.
 	let tupleElement = Parjs.float();
 	//Allow whitespace around elements:
-	let paddedElement = tupleElement.between(Parjs.spaces);
+	let paddedElement = tupleElement.between(Parjs.whitespaces);
 	//Multiple instances of {paddedElement}, separated by a comma:
 	let separated = paddedElement.manySepBy(Parjs.string(","));
 	//Surround everything with parentheses:
