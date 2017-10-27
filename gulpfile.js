@@ -1,50 +1,35 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Created by Greg on 25/09/2016.
- */
-const gulp = require("gulp");
-const ts = require("gulp-typescript");
-const merge = require("merge2");
-const del = require("del");
-const sourcemaps = require("gulp-sourcemaps");
-const typedoc = require("gulp-typedoc");
-let tsFiles = ['src/**/*.tsx', 'src/**/*.ts'];
-let watchToo = ['tsconfig.json'];
-let tsProject = ts.createProject('tsconfig.json', { 'sourceMap': true, 'declaration': true });
-gulp.task('clean-dist', () => {
-    return del([
-        'dist/**/*.*'
-    ]);
+const gulp = require('gulp');
+const ts = require('gulp-typescript');
+const merge2 = require('merge2');
+const del = require('del');
+const clean = require('gulp-clean');
+const sourcemaps = require('gulp-sourcemaps');
+const path = require('path');
+const tsProj = ts.createProject('tsconfig.json', {
+
 });
-gulp.task('compile-ts', () => {
-    let tsResult = gulp.src(tsFiles)
+
+const tsProj2 = ts.createProject('tsconfig.json', {
+
+});
+
+
+gulp.task('clean', function() {
+    return gulp.src('dist').pipe(clean());
+});
+
+gulp.task('build', ['clean'], function() {
+    var compiledTs = gulp.src(['src/**/*.ts'], {base: "src"})
         .pipe(sourcemaps.init())
-        .pipe(tsProject());
-    return merge([
-        tsResult.dts.pipe(gulp.dest('dist')),
-        tsResult.js.pipe(sourcemaps.write('.', { sourceRoot: '/src' })).pipe(gulp.dest('dist'))
-    ]);
+        .pipe(tsProj())
+        .pipe(sourcemaps.write('./', {
+            destPath : 'dist/'
+        }))
+        .pipe(gulp.dest("dist/"))
+
+    return merge2(compiledTs);
 });
-gulp.task('watch', ['clean-dist', 'compile-ts'], () => {
-    gulp.watch(tsFiles.concat(watchToo), ['clean-dist', 'compile-ts']);
+
+gulp.task('watch', ['build'], function() {
+    gulp.watch(["src/**/*.ts", "src/**/*.js", "__tests__/**/*.ts"], ["build"]);
 });
-gulp.task('typedoc', () => {
-    return gulp.src(["src/**/*.ts"])
-        .pipe(typedoc({
-        exclude: '**/node_modules',
-        target: 'es6',
-        out: "./docs",
-        module: "commonjs",
-        // TypeDoc options (see typedoc docs)
-        name: "parjs",
-        ignoreCompilerErrors: true,
-        version: true,
-        mode: "modules",
-        "lib": ["es6", "es2016.array.include"],
-        includeDeclarations: true,
-        excludeExternals: true,
-        excludePrivate: true
-    }));
-});
-//# sourceMappingURL=gulpfile.js.map
