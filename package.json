@@ -7,19 +7,18 @@
   "description": "A parser-combinator library for JavaScript.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "node ./jrunner.js",
-    "cover": "npm-run istanbul cover jrunner.js"
+    "test": "node ./dist/__tests__/runner.js",
+    "watch": "gulp watch",
+    "build": "gulp build"
   },
   "directories": {
-    "test": "__test__",
-    "lib": "dist",
-    "example": "examples"
+    "test": "dist/__test__",
+    "lib": "dist/lib",
+    "example": "src/examples"
   },
   "files": [
     "dist/",
-    "src/",
-    "__test__/",
-    "examples"
+    "src/"
   ],
   "keywords": [
     "parser",
@@ -35,7 +34,9 @@
   "license": "MIT",
   "dependencies": {
     "char-info": "^0.1.4",
-    "lodash": "^4.17.2"
+    "gulp-prepack": "0.0.2",
+    "lodash": "^4.17.2",
+    "prepack": "^0.2.10"
   },
   "devDependencies": {
     "@types/highlight.js": "^9.1.9",
@@ -47,6 +48,7 @@
     "del": "^2.2.2",
     "file-loader": "^0.11.2",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
     "gulp-sourcemaps": "^1.11.0",
     "gulp-typedoc": "^2.0.2",
     "gulp-typescript": "^3.1.4",
@@ -64,8 +66,8 @@
     "typedoc": "^0.5.10",
     "typedoc-plugin-external-module-name": "^1.0.9",
     "typedoc-plugin-internal-external": "^1.0.9",
-    "typescript": "^2.4.1",
-    "webpack": "^3.0.0",
+    "typescript": "^2.5.2",
+    "webpack": "^3.8.1",
     "webpack-dev-server": "^2.5.0"
   },
   "optionalDependencies": {}

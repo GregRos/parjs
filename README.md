@@ -208,14 +208,14 @@ Here is an example of how you can use this feature to parse a recursive, XML-lik
 	//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
 	let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
 	//A parser that parses an opening of a tag.
-	let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).act((result, userState) => {
+	let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).each((result, userState) => {
 	    userState.tags.push({tag: result, content : []});
 	}).q;
 
 	let closeTag =
 	    ident.between(Parjs.string("</"), Parjs.string(">"))
 	        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
-	        .act((result, userState) => {
+	        .each((result, userState) => {
 	    let topTag = userState.tags.pop();
 	    _.last(userState.tags as any[]).content.push(topTag);
 	}).q;
@@ -279,7 +279,7 @@ These combinators create parsers that project the result of the input to a diffe
 
 1. `p.map(f)` P applies the function `f` to the result returned by `p`.
 2. `p.str` P stringifies the result returned by `p`. This means something different for different types. For example, arrays of strings are flattened and concatenated. 
-3. `p.act(f)` P applies the function `f` to the result returned by `p` and returns the same thing.
+3. `p.each(f)` P applies the function `f` to the result returned by `p` and returns the same thing.
 4. `p.q` - P applies `p` and returns nothing. A quiet parser.
 5. `p.state` - P applies `p`, ignores its return value and instead returns the parser state object.
 
