@@ -39,10 +39,10 @@ Which imports the main module.
 ## Example Parsers
 You can see implementations of example parsers in the `examples` folder, suffixed with their complexity, in ★.
 
-1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/examples/tuple.ts) ★
-2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/examples/string.format.ts) ★
-3. [JSON parser](https://github.com/GregRos/parjs/blob/master/examples/json.ts) ★★★
-4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/examples/math.ts) ★★★
+1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/src/examples/tuple.ts) ★
+2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/src/examples/string.format.ts) ★
+3. [JSON parser](https://github.com/GregRos/parjs/blob/master/examples/src/json.ts) ★★★
+4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts) ★★★
 
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
