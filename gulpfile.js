@@ -5,6 +5,7 @@ const del = require('del');
 const clean = require('gulp-clean');
 const sourcemaps = require('gulp-sourcemaps');
 const path = require('path');
+const typedoc = require('gulp-typedoc');
 const tsProj = ts.createProject('tsconfig.json', {
 
 });
@@ -31,5 +32,21 @@ gulp.task('build', ['clean'], function() {
 });
 
 gulp.task('watch', ['build'], function() {
-    gulp.watch(["src/**/*.ts", "src/**/*.js", "__tests__/**/*.ts"], ["build"]);
+    gulp.watch(["src/**/*.ts", "src/**/*.js"], ["build"]);
+});
+
+gulp.task('typedoc', () => {
+    return gulp.src(["src/lib/**/*.ts"])
+        .pipe(typedoc({
+            target : 'es6',
+            out: "./docs",
+            module : "commonjs",
+            // TypeDoc options (see typedoc docs)
+            name: "parjs",
+            version: true,
+            mode : "modules",
+            includeDeclarations : true,
+            excludeExternals : true,
+            excludePrivate : true
+        }))
 });

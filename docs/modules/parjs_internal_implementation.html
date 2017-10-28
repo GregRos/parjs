@@ -86,7 +86,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal_implementation.baseparjsparser.html" class="tsd-kind-icon">Base<wbr>Parjs<wbr>Parser</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal_implementation.basicparsingstate.html" class="tsd-kind-icon">Basic<wbr>Parsing<wbr>State</a></li>
-								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal_implementation.basictracevisualizer.html" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal_implementation.parjsaction.html" class="tsd-kind-icon">Parjs<wbr>Action</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/parjs_internal_implementation.parjsbasicaction.html" class="tsd-kind-icon">Parjs<wbr>Basic<wbr>Action</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported"><a href="../classes/parjs_internal_implementation.parseruserstate.html" class="tsd-kind-icon">Parser<wbr>User<wbr>State</a></li>
@@ -101,12 +100,8 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="parjs_internal_implementation.html#basictracevisualizer" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="parjs_internal_implementation.html#geterrorlocation" class="tsd-kind-icon">get<wbr>Error<wbr>Location</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-external"><a href="parjs_internal_implementation.html#prettyprint" class="tsd-kind-icon">pretty<wbr>Print</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="parjs_internal_implementation.html#stringifyarray" class="tsd-kind-icon">stringify<wbr>Array</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="parjs_internal_implementation.html#stringifyobj" class="tsd-kind-icon">stringify<wbr>Obj</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="parjs_internal_implementation.html#stringifyprops" class="tsd-kind-icon">stringify<wbr>Props</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="parjs_internal_implementation.html#stringifysimple" class="tsd-kind-icon">stringify<wbr>Simple</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="parjs_internal_implementation.html#worsethan" class="tsd-kind-icon">worse<wbr>Than</a></li>
 							</ul>
 						</section>
@@ -121,6 +116,29 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="basictracevisualizer" class="tsd-anchor"></a>
+					<h3>Basic<wbr>Trace<wbr>Visualizer</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">?: </span><a href="../interfaces/parjs_internal_implementation.basictracevisualizerargs.html" class="tsd-signature-type">BasicTraceVisualizerArgs</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.tracevisualizer.html" class="tsd-signature-type">TraceVisualizer</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in internal/implementation/basic-trace-visualizer.ts:21</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> args: <a href="../interfaces/parjs_internal_implementation.basictracevisualizerargs.html" class="tsd-signature-type">BasicTraceVisualizerArgs</a><span class="tsd-signature-symbol"> =&nbsp;defaultArgs</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/parjs_internal.tracevisualizer.html" class="tsd-signature-type">TraceVisualizer</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="geterrorlocation" class="tsd-anchor"></a>
 					<h3>get<wbr>Error<wbr>Location</h3>
@@ -149,123 +167,6 @@
 									<h5>row<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-external">
-					<a name="prettyprint" class="tsd-anchor"></a>
-					<h3>pretty<wbr>Print</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">pretty<wbr>Print<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/implementation/pretty.print/index.ts:68</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>obj: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="stringifyarray" class="tsd-anchor"></a>
-					<h3>stringify<wbr>Array</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">stringify<wbr>Array<span class="tsd-signature-symbol">(</span>arr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/implementation/pretty.print/index.ts:33</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>arr: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="stringifyobj" class="tsd-anchor"></a>
-					<h3>stringify<wbr>Obj</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">stringify<wbr>Obj<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/implementation/pretty.print/index.ts:54</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>obj: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="stringifyprops" class="tsd-anchor"></a>
-					<h3>stringify<wbr>Props</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">stringify<wbr>Props<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/implementation/pretty.print/index.ts:42</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>obj: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="stringifysimple" class="tsd-anchor"></a>
-					<h3>stringify<wbr>Simple</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">stringify<wbr>Simple<span class="tsd-signature-symbol">(</span>obj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in internal/implementation/pretty.print/index.ts:7</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>obj: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -368,9 +269,6 @@
 						<a href="../classes/parjs_internal_implementation.basicparsingstate.html" class="tsd-kind-icon">Basic<wbr>Parsing<wbr>State</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/parjs_internal_implementation.basictracevisualizer.html" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/parjs_internal_implementation.parjsaction.html" class="tsd-kind-icon">Parjs<wbr>Action</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
@@ -382,23 +280,11 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/parjs_internal_implementation.basictracevisualizerargs.html" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer<wbr>Args</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="parjs_internal_implementation.html#basictracevisualizer" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="parjs_internal_implementation.html#geterrorlocation" class="tsd-kind-icon">get<wbr>Error<wbr>Location</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external">
-						<a href="parjs_internal_implementation.html#prettyprint" class="tsd-kind-icon">pretty<wbr>Print</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="parjs_internal_implementation.html#stringifyarray" class="tsd-kind-icon">stringify<wbr>Array</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="parjs_internal_implementation.html#stringifyobj" class="tsd-kind-icon">stringify<wbr>Obj</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="parjs_internal_implementation.html#stringifyprops" class="tsd-kind-icon">stringify<wbr>Props</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="parjs_internal_implementation.html#stringifysimple" class="tsd-kind-icon">stringify<wbr>Simple</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="parjs_internal_implementation.html#worsethan" class="tsd-kind-icon">worse<wbr>Than</a>

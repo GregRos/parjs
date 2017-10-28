@@ -102,6 +102,19 @@
 						</tr>
 					</tbody>
 				</table>
+				<p>To start using it, install the module using NPM and then use:</p>
+				<pre><code><span class="hljs-keyword">import</span> {Parjs} <span class="hljs-keyword">from</span> <span class="hljs-string">'parjs'</span>;
+</code></pre><p>Or in some cases:</p>
+				<pre><code><span class="hljs-attribute">var Parjs</span> = require(<span class="hljs-string">'parjs'</span>).Parjs;
+</code></pre><p>Which imports the main module.</p>
+				<h2 id="example-parsers">Example Parsers</h2>
+				<p>You can see implementations of example parsers in the <code>examples</code> folder, suffixed with their complexity, in ★.</p>
+				<ol>
+					<li><a href="https://github.com/GregRos/parjs/blob/master/examples/tuple.ts">Tuple Parser</a> ★</li>
+					<li><a href="https://github.com/GregRos/parjs/blob/master/examples/string.format.ts">String Format Parser</a> ★</li>
+					<li><a href="https://github.com/GregRos/parjs/blob/master/examples/json.ts">JSON parser</a> ★★★</li>
+					<li><a href="https://github.com/GregRos/parjs/blob/master/examples/math.ts">Math Expression Parser</a> ★★★</li>
+				</ol>
 				<h2 id="what-s-a-parser-combinator-library-">What&#39;s a parser-combinator library?</h2>
 				<p>It&#39;s a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.</p>
 				<p>For example, if you have a parser <code>digit</code> for parsing decimal digits, you can parse a number by applying <code>digit</code> multiple times until it fails, and then producing the consumed text as a result. Then you can use another <em>combinator</em>  to convert the result to a number.</p>
@@ -109,10 +122,13 @@
 				<p>Here is how you might construct a parser for text in the form <code>(a, b, c, ...)</code> where <code>a, b, c</code> are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.</p>
 				<pre><code><span class="hljs-comment">//Built-in building block parser for floating point numbers.</span>
 <span class="hljs-keyword">let</span> tupleElement = Parjs.float();
+
 <span class="hljs-comment">//Allow whitespace around elements:</span>
 <span class="hljs-keyword">let</span> paddedElement = tupleElement.between(Parjs.whitespaces);
+
 <span class="hljs-comment">//Multiple instances of {paddedElement}, separated by a comma:</span>
 <span class="hljs-keyword">let</span> separated = paddedElement.manySepBy(Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">","</span>));
+
 <span class="hljs-comment">//Surround everything with parentheses:</span>
 <span class="hljs-keyword">let</span> surrounded = separated.between(Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">"("</span>), Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">")"</span>));
 
@@ -176,20 +192,23 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<h2 id="parsing-failure">Parsing Failure</h2>
 				<p>Parsers can fail, and this is completely normal in many situations. The <code>p.or</code> and <code>Parjs.any</code> combinators assume that some of the parsers will fail and will attempt to apply other parsers if that happens. They are failure recovery combinators.</p>
 				<p>Some failures though indicate <em>unexpected input</em> and shouldn&#39;t be swallowed by those constructs. For example, consider a parser that parses a floating point number with an optional exponent, such as <code>1.0e+10</code>, followed by an arbitrary string. If we&#39;re given the input <code>1.0e+</code> we <em>don&#39;t</em> want to parse it as <code>1.0</code> followed by the string <code>e+</code>. That would obscure what&#39;s likely an error in the input.</p>
-				<p>That&#39;s why some kinds of failures are more severe than others and require more advanced recovery constructs.</p>
-				<h3 id="failure-types">Failure Types</h3>
-				<p>In general, there are 3 failure severities/failure types:</p>
-				<ol>
-					<li><p>Soft/low severity. This type of severity can be more easily recovered from. It indicates a failure in an internal level that may not translate to a failure on a larger scale. For example, if you use the <code>p1.or(p2)</code> combinator, the resulting parser will try <code>p2</code> if <code>p1</code> fails softly.</p>
-					</li>
-					<li><p>Hard failure/medium severity. This type of severity indicates some form of unexpected input and is harder to recover from, generally requiring special failure handling combinators like <code>.soft</code>.</p>
-					</li>
-					<li><p>Fatal failure/high severity. This type of failure indicates malformed input. It can be intentionally signalled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the <code>.not</code> combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.</p>
-					</li>
-					<li><p>Exceptions aren&#39;t parent of this hierarchy. Parsers do not and should not throw exceptions to indicate invalid input, and Parjs does not handle thrown exceptions. Rather, an exception indicates a problem with the parser itself.</p>
-					</li>
-				</ol>
 				<p>When an internal parser fails, the containing parser will generally propagate the same or similar parser. When there is no containing parser, a failure result will be emitted, indicating that the overall parsing has failed. In some cases, a soft failure in a child parser indicates a hard failure in a parent parser.</p>
+				<h3 id="soft-failures">Soft failures</h3>
+				<p>Most simple failures are soft failures. They happen when a parser rejects the input immediately. For example, the parser <code>Parjs.digit</code> rejects the input <code>a</code> immediately and so fails softly. </p>
+				<p>Recovering from soft failures doesn&#39;t require backtracking.</p>
+				<p>You use the <code>or</code> failure recovery combinator to handle soft failures, generally by offering several alternative parsers to parse the text.</p>
+				<h4 id="hard-failures">Hard failures</h4>
+				<p>Hard failures happen when a parser fails after consuming some input. For example, the compound parser <code>P = a.then(b)</code> will fail hard if <code>a</code> succeeds but <code>b</code> fails. The rationale behind this is twofold. </p>
+				<p>Firstly, <code>a</code> consumes some input before <code>b</code> fails, which means that the parser has developed an <code>expectation</code> that after <code>a</code> succeeds, <code>b</code> should also succeeds. When this expectation breaks, an error arises.</p>
+				<p>Secondly, recovering from <code>P</code> requires backtracking to the starting position of the parsing. Parjs is written to backtrack as little as possible, and so a failure that requires backtracking is more severe than one that does not.</p>
+				<p>For example, <code>p.then(q)</code> will fail hard if <code>q</code> fails softly, because this parser first applies <code>p</code> that consumes some of the input, and only then applies <code>q</code>. </p>
+				<p>Another example is <code>p.exactly(3)</code>. This parser applies <code>p</code> exactly 3 times. If it fails to apply <code>p</code> even once, it will fail softly. But if <code>p</code> fails on the 2nd application, it will fail hard.</p>
+				<p>Similarly, the <code>.must</code> combinator can cause a parser to fail hard. If you apply<code>p.must(condition)</code> and <code>p</code> succeeds but <code>condition</code> fails, then the parser will fail hard because <code>p</code> already consumed some of the input. </p>
+				<p>The <code>.soft</code> combinator translates hard failures into soft ones.</p>
+				<h4 id="fatal-failures">Fatal failures</h4>
+				<p>This type of failure is raised on purpose to explicitly signal malformed input.It can be intentionally signalled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the <code>.not</code> combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.</p>
+				<h4 id="exceptions">Exceptions</h4>
+				<p>Exceptions aren&#39;t really part of this hierarchy. Parsers do not and should not throw exceptions to indicate invalid input, and Parjs does not handle thrown exceptions. Rather, an exception indicates a problem with the parser itself.</p>
 				<h3 id="overall-parsing-failure">Overall Parsing Failure</h3>
 				<p>An overall parsing happens when a parser is invoked by you (the user), and either fails in any manner or fails to consume the entire input (which translates to a failure).</p>
 				<p>The result from a parsing operation that has failed is of the <code>FailureResult</code> type and exposes several important proprerties:</p>
@@ -219,14 +238,14 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<pre><code>//<span class="hljs-built_in">define</span> our identifier. Starts with a letter, followed by a letter <span class="hljs-keyword">or</span> digit. The `str` combinator stringifies what's an <span class="hljs-built_in">array</span> of characters.
 <span class="hljs-built_in">let</span> <span class="hljs-built_in">ident</span> = Parjs.asciiLetter.<span class="hljs-keyword">then</span>(Parjs.digit.<span class="hljs-keyword">or</span>(Parjs.asciiLetter).many()).str;
 //A parser that parses an opening of a tag.
-<span class="hljs-built_in">let</span> openTag = <span class="hljs-built_in">ident</span>.between(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&lt;"</span>), Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&gt;"</span>)).act((result, userState) =&gt; {
+<span class="hljs-built_in">let</span> openTag = <span class="hljs-built_in">ident</span>.between(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&lt;"</span>), Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&gt;"</span>)).each((result, userState) =&gt; {
     userState.tags.<span class="hljs-built_in">push</span>({tag: result, <span class="hljs-built_in">content</span> : []});
 }).q;
 
 <span class="hljs-built_in">let</span> closeTag =
     <span class="hljs-built_in">ident</span>.between(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&lt;/"</span>), Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&gt;"</span>))
         .must((result, userState) =&gt; result === <span class="hljs-symbol">_</span>.<span class="hljs-built_in">last</span>(userState.tags as any[]).tag)
-        .act((result, userState) =&gt; {
+        .each((result, userState) =&gt; {
     <span class="hljs-built_in">let</span> topTag = userState.tags.<span class="hljs-built_in">pop</span>();
     <span class="hljs-symbol">_</span>.<span class="hljs-built_in">last</span>(userState.tags as any[]).<span class="hljs-built_in">content</span>.<span class="hljs-built_in">push</span>(topTag);
 }).q;
@@ -236,10 +255,10 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 </code></pre><p>Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.</p>
 				<p>Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.</p>
 				<p>User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.</p>
-				<h2 id="kinds-of-parsers">Kinds of Parsers</h2>
+				<h2 id="parsers-and-combinators">Parsers and combinators</h2>
 				<p>This is a partial overview of the kinds of parsers and combinators provided by <code>Parjs</code>. This is not an exhaustive list.</p>
 				<h3 id="basic-parsers">Basic Parsers</h3>
-				<p>These are building block parsers provided by <code>parjs</code>.</p>
+				<p>These are building block parsers provided by <code>parjs</code>. These are generally defined in <a href="https://gregros.github.io/parjs/interfaces/parjs.parjsstatic.html">ParjsStatic</a>, i.e. the type as the object <code>Parjs</code>.</p>
 				<h4 id="character-parsers">Character parsers</h4>
 				<p>One of the most common kinds of parser, parses individual characters.</p>
 				<ol>
@@ -275,13 +294,14 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 					<li><code>Parjs.state</code> - A parser that succeeds without consuming input and returns the current parser state.</li>
 				</ol>
 				<h3 id="combinators">Combinators</h3>
+				<p> These are defined in <a href="https://gregros.github.io/parjs/interfaces/parjs.parjsstatic.html"><code>ParjsStatic</code></a> statically, <a href="https://gregros.github.io/parjs/interfaces/parjs.loudparser.html"><code>LoudParser</code></a> for loud parser instances, and <a href="https://gregros.github.io/parjs/interfaces/parjs.quietparser.html"><code>QuietParser</code></a> for quiet parsers.</p>
 				<p>Here <code>P</code> refers to the parser created by the combinator.</p>
 				<h4 id="projections">Projections</h4>
 				<p>These combinators create parsers that project the result of the input to a different form. In</p>
 				<ol>
 					<li><code>p.map(f)</code> P applies the function <code>f</code> to the result returned by <code>p</code>.</li>
 					<li><code>p.str</code> P stringifies the result returned by <code>p</code>. This means something different for different types. For example, arrays of strings are flattened and concatenated. </li>
-					<li><code>p.act(f)</code> P applies the function <code>f</code> to the result returned by <code>p</code> and returns the same thing.</li>
+					<li><code>p.each(f)</code> P applies the function <code>f</code> to the result returned by <code>p</code> and returns the same thing.</li>
 					<li><code>p.q</code> - P applies <code>p</code> and returns nothing. A quiet parser.</li>
 					<li><code>p.state</code> - P applies <code>p</code>, ignores its return value and instead returns the parser state object.</li>
 				</ol>
@@ -312,7 +332,6 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				<p>These combinators are very simple.</p>
 				<ol>
 					<li><code>p.fail(args)</code> - P applies <code>p</code> and fails with <code>args</code> if it succeeds. Also propagates failures.</li>
-					<li></li>
 				</ol>
 				<h4 id="special">Special</h4>
 				<ol>
@@ -365,15 +384,21 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 					<li>Reducing the parser overhead in certain situations.</li>
 					<li>Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.</li>
 				</ol>
+				<h2 id="implementation">Implementation</h2>
+				<p>Parjs keeps interface and implementation totally separate.</p>
+				<p>Parsers are primarily created from scratch using the <code>Parjs</code> object, of type <code>ParjsStatic</code>. They can come in two interfaces: <code>LoudParser&lt;T&gt;</code> and <code>QuietParser</code>. Each of these inherits from the interface <code>AnyParser</code> that has the chraracteristics and combinators supported by both.</p>
+				<p>Internally, the <code>Parjs</code> object actually is of the class <a href="https://gregros.github.io/parjs/classes/parjs_internal.parjsparsers.html"><code>ParjsParsers</code></a>.</p>
+				<p>All parsers, whether quiet or loud, are instances of the class <a href="https://gregros.github.io/parjs/classes/parjs_internal.parjsparser.html"><code>ParjsParser</code></a> wrapping an internal object of the class <a href="https://gregros.github.io/parjs/classes/parjs_internal_implementation.parjsaction.html"><code>ParjsAction</code></a>. </p>
+				<p>Loudness or quietness is communicated via the <code>isLoud</code> property of the action and the wrapping parser -- otherwise loud parsers and quiet parsers are identical. However, functions will throw exceptions if the loudness of the input parser was not as expected.</p>
 				<h2 id="writing-your-own-parser">Writing your own parser</h2>
 				<p>Parjs is meant to be very easy to extend, meaning writing your own parser is very simple.</p>
 				<h3 id="parser-flow">Parser flow</h3>
-				<p>When the <code>.parse</code> method is called, a <code>ParsingState</code> object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:</p>
+				<p>When the <code>.parse</code> method is called, a <a href="https://gregros.github.io/parjs/interfaces/parjs_internal.parsingstate.html"><code>ParsingState</code></a> object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:</p>
 				<pre><code><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ParsingState</span> {</span>
     readonly <span class="hljs-string">input :</span> string;
     <span class="hljs-string">position :</span> number;
     <span class="hljs-string">value :</span> any;
-    readonly <span class="hljs-string">userState :</span> any;
+    <span class="hljs-string">userState :</span> any;
     <span class="hljs-string">expecting :</span> string;
     <span class="hljs-string">kind :</span> ReplyKind;
     <span class="hljs-comment">//...</span>
@@ -406,11 +431,6 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				<pre><code> <span class="hljs-keyword">let</span> <span class="hljs-keyword">parser</span> = <span class="hljs-keyword">new</span> <span class="hljs-type">ParjsParser</span>(action);
 </code></pre><p>Before returning it, also call its <code>withName</code> method to set the parser&#39;s display name.</p>
 				<p>Finally, if you are writing in TypeScript, you&#39;ll need to cast the parser to the appropriate interface. This is usually either <code>LoudParser&lt;T&gt;</code> or <code>QuietParser</code>.    </p>
-				<h2 id="current-issues">Current Issues</h2>
-				<ol>
-					<li>Library is not heavily optimized as it should be. There are no benchmarks.</li>
-					<li>Debugging should be improved.</li>
-				</ol>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">

@@ -167,11 +167,11 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     mustNotBeOf(options : any[], fail = ReplyKind.HardFail) {
-        return this.must(x => !options.includes(x), `none of: ${options.join(", ")}`, fail).withName("mustNotBeOf");
+        return this.must(x => options.indexOf(x) < 0, `none of: ${options.join(", ")}`, fail).withName("mustNotBeOf");
     }
 
     mustBeOf(options : any[], fail = ReplyKind.HardFail) {
-        return this.must(x => options.includes(x), `one of: ${options.join(", ")}`, fail).withName("mustBeOf");
+        return this.must(x => options.indexOf(x) >= 0, `one of: ${options.join(", ")}`, fail).withName("mustBeOf");
     }
 
     mustBeNonEmpty(fail = ReplyKind.HardFail) {

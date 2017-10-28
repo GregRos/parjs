@@ -14,7 +14,7 @@ export class PrsRegexp extends ParjsBasicAction {
     constructor(private regexp : RegExp) {
         super();
         let flags = [regexp.ignoreCase && "i", regexp.multiline && "m"].filter(x => x).join("");
-        let normalizedRegexp = new RegExp("^" + regexp.source, flags);
+        let normalizedRegexp = new RegExp(regexp.source, flags + "y");
         regexp = normalizedRegexp;
         this.expecting = `input matching '${regexp.source}'`;
     }
@@ -22,15 +22,14 @@ export class PrsRegexp extends ParjsBasicAction {
     _apply(ps : ParsingState) {
         let {input, position} = ps;
         let {regexp} = this;
-        input = input.substr(position);
+        regexp.lastIndex = position;
         let match = regexp.exec(input);
         if (!match) {
             ps.kind = ReplyKind.SoftFail;
             return;
         }
         ps.position += match[0].length;
-        let arr = match.slice(0);
-        ps.value = arr;
+        ps.value = match.slice();
         ps.kind = ReplyKind.OK;
     }
 }

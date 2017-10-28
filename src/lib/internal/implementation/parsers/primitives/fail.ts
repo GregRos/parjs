@@ -13,7 +13,7 @@ export class PrsFail extends ParjsBasicAction {
 
     constructor(private kind : ReplyKind, public expecting : string) {
         super();
-        [ReplyKind.OK as ReplyKind, ReplyKind.Unknown].includes(kind) && Issues.expectedFailureKind("fail");
+        [ReplyKind.OK as ReplyKind, ReplyKind.Unknown].indexOf(kind) >= 0 && Issues.expectedFailureKind("fail");
     }
 
     _apply(ps : ParsingState) {

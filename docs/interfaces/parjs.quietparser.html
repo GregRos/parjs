@@ -76,6 +76,9 @@
 						<dt>see</dt>
 						<dd><p>LoudParser</p>
 						</dd>
+						<dt>group</dt>
+						<dd><p>functional</p>
+						</dd>
 					</dl>
 				</div>
 			</section>
@@ -119,13 +122,12 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#act" class="tsd-kind-icon">act</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#each" class="tsd-kind-icon">each</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#exactly" class="tsd-kind-icon">exactly</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#many" class="tsd-kind-icon">many</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#manysepby" class="tsd-kind-icon">many<wbr>Sep<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#manytill" class="tsd-kind-icon">many<wbr>Till</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="parjs.quietparser.html#map" class="tsd-kind-icon">map</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#mixstate" class="tsd-kind-icon">mix<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#must" class="tsd-kind-icon">must</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#mustcapture" class="tsd-kind-icon">must<wbr>Capture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#or" class="tsd-kind-icon">or</a></li>
@@ -146,13 +148,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#action">action</a></p>
 						<ul>
-							<li>Defined in any.ts:20</li>
+							<li>Defined in any.ts:26</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Exposes the internal parser action. This will generally contain the implementation of the parser instance.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>informational</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -161,13 +168,18 @@
 					<div class="tsd-signature tsd-kind-icon">backtrack<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in quiet.ts:65</li>
+							<li>Defined in quiet.ts:74</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will apply {this}. If it succeeds, it will backtrack to the original position in the input, effectively succeeding without consuming input.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator special backtrack</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -177,13 +189,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#displayname">displayName</a></p>
 						<ul>
-							<li>Defined in any.ts:16</li>
+							<li>Defined in any.ts:20</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Exposes the display name of the parser. Userful when debugging.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>informational</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -193,13 +210,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#isloud">isLoud</a></p>
 						<ul>
-							<li>Defined in any.ts:45</li>
+							<li>Defined in any.ts:61</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Whether the parser results in a value. Parsers cannot change their loudness.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>informational</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -209,13 +231,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#not">not</a></p>
 						<ul>
-							<li>Defined in any.ts:35</li>
+							<li>Defined in any.ts:47</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will apply {this}. P will succeed if {this} fails hard or soft, and fail hard otherwise. P will still fail fatally if {this} fails fatally.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator special</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -225,13 +252,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#q">q</a></p>
 						<ul>
-							<li>Defined in any.ts:30</li>
+							<li>Defined in any.ts:40</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will apply {this}. If it succeeds, it will return nothing as a quiet parser.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator projection</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -240,13 +272,18 @@
 					<div class="tsd-signature tsd-kind-icon">soft<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in quiet.ts:45</li>
+							<li>Defined in quiet.ts:50</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will try to apply {this}. If it fails hard, P will fail softly.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator failure-recovery</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -256,13 +293,18 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#state">state</a></p>
 						<ul>
-							<li>Defined in any.ts:40</li>
+							<li>Defined in any.ts:54</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>P will apply {this}, and return the user state, discarding the result (if any).</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator projection</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
@@ -272,7 +314,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#str">str</a></p>
 						<ul>
-							<li>Defined in any.ts:58</li>
+							<li>Defined in any.ts:76</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -287,28 +329,38 @@
 								For an object, its toString method is invoked.
 							For null or undefined, the strings &quot;null&quot; or &quot;undefined&quot; are returned.</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator projection</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="act" class="tsd-anchor"></a>
-					<h3>act</h3>
+					<a name="each" class="tsd-anchor"></a>
+					<h3>each</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">act<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><a href="parjs.parjsprojectionquiet.html" class="tsd-signature-type">ParjsProjectionQuiet</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></li>
+						<li class="tsd-signature tsd-kind-icon">each<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><a href="parjs.parjsprojectionquiet.html" class="tsd-signature-type">ParjsProjectionQuiet</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:58</li>
+									<li>Defined in quiet.ts:65</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>P will apply {this}, and then calls the specified function on the user state.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator projection</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -333,7 +385,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:143</li>
+									<li>Defined in quiet.ts:167</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -341,6 +393,11 @@
 									<p>P will apply {this} exactly {count} times.
 									P will fail softly if {this} fails softly the 1st time, and it will fail hard if {this} fails softly afterwards.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential repetition</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -365,14 +422,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:107</li>
+									<li>Defined in quiet.ts:126</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will apply {this} repeatedly, until it fails softly.
-									P will fail hard if {this} fails hard at any time.</p>
+									<p>P will apply {this} repeatedly, until it fails softly.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential repetition</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -403,7 +464,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:136</li>
+									<li>Defined in quiet.ts:158</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -411,6 +472,11 @@
 									<p>P will apply {this} and then {delimeter} repeatedly, until either fails softly.
 									If {this} fails softly after {delimeter} has succeeded, P will backtrack to before {delimeter} succeeded.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential repetition</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -442,7 +508,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:120</li>
+									<li>Defined in quiet.ts:138</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -450,8 +516,12 @@
 									<p>P will apply {this} repeatedly, until {till} succeeds.</p>
 								</div>
 								<p>In more detail: P will apply {this}. If it succeeds, it will immediatly apply {till}. If {till} fails softly, P repeats.
-									P fails hard if {this} or {till} fail hard.
 								If {this} fails before {till}, behavior is determined by the {tillOptional} parameter. By default, P will fail hard in this case too.</p>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential repetition</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -473,7 +543,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:128</li>
+									<li>Defined in quiet.ts:148</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -481,6 +551,11 @@
 									<p>P will apply {this}. If it succeeds, it will pass the user state to the {till} predicate. If it returns false, then P repeats.</p>
 								</div>
 								<p>This combinator behaves like the other version of manyTill, except that it applies a predicate instead of a parser.</p>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential repetition</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -511,13 +586,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:51</li>
+									<li>Defined in quiet.ts:57</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>P will apply {this} and then call the given projection on the user state. P will then return the projection&#39;s result.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator projection</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -529,34 +609,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>selector: <a href="parjs.parjsprojectionquiet.html" class="tsd-signature-type">ParjsProjectionQuiet</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="mixstate" class="tsd-anchor"></a>
-					<h3>mix<wbr>State</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">mix<wbr>State<span class="tsd-signature-symbol">(</span>userState<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in quiet.ts:109</li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>userState: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -570,13 +625,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:78</li>
+									<li>Defined in quiet.ts:90</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>P will apply {this}, and then call the given predicate on the user state. If the predicate returns false, P will fail with the severity given by {fail}</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator assertion</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -607,13 +667,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:71</li>
+									<li>Defined in quiet.ts:81</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>P will apply {this}. P will fail hard, or with the severity specified by {fail}, if {this} did not consume at least one character of the input.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator assertion</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -638,7 +703,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:40</li>
+									<li>Defined in quiet.ts:44</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -646,6 +711,11 @@
 									<p>P will try to apply {this}. If it fails softly, it will try to apply each parser in {alt} until one succeeds.
 									P fails hard if any parser fails hard.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -670,7 +740,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:31</li>
+									<li>Defined in quiet.ts:33</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -708,13 +778,18 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#result">result</a></p>
 								<ul>
-									<li>Defined in any.ts:25</li>
+									<li>Defined in any.ts:33</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>P will apply {this}. If {this} succeeds, P will discard its result (if any) and return {result} instead.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator projection</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -740,14 +815,14 @@
 					<h3>then</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 						<li class="tsd-signature tsd-kind-icon">then&lt;TParser&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TParser</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TParser</span></li>
-						<li class="tsd-signature tsd-kind-icon">then&lt;S&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>parsers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then&lt;S&gt;<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 						<li class="tsd-signature tsd-kind-icon">then<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>quiet<span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:84</li>
+									<li>Defined in quiet.ts:98</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -755,6 +830,11 @@
 									<p>P will apply {this}, followed by {second}. If both succeed, P will return the result of {second}, if any.
 									P will fail soft if {this} fails softly, and it will fail hard otherwise (if {second} fails softly, or either parser fails hard).</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -776,7 +856,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:92</li>
+									<li>Defined in quiet.ts:108</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -785,6 +865,11 @@
 										P will then return the results of all non-quiet parsers in an array.
 									P will softly if {this} fails softly, and will fail hard otherwise.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -795,7 +880,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>parsers: <span class="tsd-signature-symbol">(</span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>parsers: <span class="tsd-signature-symbol">(</span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -805,7 +890,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:99</li>
+									<li>Defined in quiet.ts:117</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -813,6 +898,11 @@
 									<p>P will apply {this}, and then each quiet or loud parser in {quiet} in sequence.
 									P will fail softly if {this} fails softly, and will fail hard otherwise.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator sequential</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -917,7 +1007,7 @@
 								<a href="parjs.quietparser.html#str" class="tsd-kind-icon">str</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="parjs.quietparser.html#act" class="tsd-kind-icon">act</a>
+								<a href="parjs.quietparser.html#each" class="tsd-kind-icon">each</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="parjs.quietparser.html#exactly" class="tsd-kind-icon">exactly</a>
@@ -933,9 +1023,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 								<a href="parjs.quietparser.html#map" class="tsd-kind-icon">map</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="parjs.quietparser.html#mixstate" class="tsd-kind-icon">mix<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="parjs.quietparser.html#must" class="tsd-kind-icon">must</a>

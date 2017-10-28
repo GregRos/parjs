@@ -99,8 +99,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#charinfo" class="tsd-kind-icon">Char<wbr>Info</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#codeinfo" class="tsd-kind-icon">Code<wbr>Info</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#conditionalunicode" class="tsd-kind-icon">Conditional<wbr>Unicode</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#fail_result" class="tsd-kind-icon">FAIL_<wbr>RESULT</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#infocontainer" class="tsd-kind-icon">Info<wbr>Container</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#quiet_result" class="tsd-kind-icon">QUIET_<wbr>RESULT</a></li>
 								<li class="tsd-kind-variable tsd-parent-kind-external-module"><a href="parjs_internal.html#uninitialized_result" class="tsd-kind-icon">UNINITIALIZED_<wbr>RESULT</a></li>
 							</ul>
@@ -123,7 +123,7 @@
 					<div class="tsd-signature tsd-kind-icon">Char<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StaticCharInfo</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/static.ts:59</li>
+							<li>Defined in internal/static.ts:60</li>
 						</ul>
 					</aside>
 				</section>
@@ -133,7 +133,17 @@
 					<div class="tsd-signature tsd-kind-icon">Code<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StaticCodeInfo</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/static.ts:58</li>
+							<li>Defined in internal/static.ts:59</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
+					<a name="conditionalunicode" class="tsd-anchor"></a>
+					<h3>Conditional<wbr>Unicode</h3>
+					<div class="tsd-signature tsd-kind-icon">Conditional<wbr>Unicode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">InfoContainer</span><span class="tsd-signature-symbol"> =&nbsp;new class InfoContainer {private _codeInfo : StaticCodeInfo &#x3D; null;private _charInfo : StaticCharInfo &#x3D; null;set CodeInfo(info) {this._codeInfo &#x3D; this._codeInfo || info;}set CharInfo(info) {this._charInfo &#x3D; this._charInfo || info;}get CodeInfo() {if (!this._codeInfo) {throw new NoUnicodeError();}return this._codeInfo}get CharInfo() {if (!this._charInfo) {throw new NoUnicodeError();}return this._charInfo;}}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in internal/static.ts:33</li>
 						</ul>
 					</aside>
 				</section>
@@ -151,16 +161,6 @@
 							<p>A unique object value indicating the reuslt of a failed parser.</p>
 						</div>
 					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
-					<a name="infocontainer" class="tsd-anchor"></a>
-					<h3>Info<wbr>Container</h3>
-					<div class="tsd-signature tsd-kind-icon">Info<wbr>Container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">InfoContainer</span><span class="tsd-signature-symbol"> =&nbsp;new class InfoContainer {private _codeInfo : StaticCodeInfo &#x3D; null;private _charInfo : StaticCharInfo &#x3D; null;set CodeInfo(info) {this._codeInfo &#x3D; this._codeInfo || info;}set CharInfo(info) {this._charInfo &#x3D; this._charInfo || info;}get CodeInfo() {if (!this._codeInfo) {throw new NoUnicodeError();}return this._codeInfo}get CharInfo() {if (!this._charInfo) {throw new NoUnicodeError();}return this._charInfo;}}</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in internal/static.ts:32</li>
-						</ul>
-					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module">
 					<a name="quiet_result" class="tsd-anchor"></a>
@@ -205,7 +205,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/static.ts:22</li>
+									<li>Defined in internal/static.ts:23</li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -317,10 +317,10 @@
 						<a href="parjs_internal.html#codeinfo" class="tsd-kind-icon">Code<wbr>Info</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="parjs_internal.html#fail_result" class="tsd-kind-icon">FAIL_<wbr>RESULT</a>
+						<a href="parjs_internal.html#conditionalunicode" class="tsd-kind-icon">Conditional<wbr>Unicode</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="parjs_internal.html#infocontainer" class="tsd-kind-icon">Info<wbr>Container</a>
+						<a href="parjs_internal.html#fail_result" class="tsd-kind-icon">FAIL_<wbr>RESULT</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="parjs_internal.html#quiet_result" class="tsd-kind-icon">QUIET_<wbr>RESULT</a>

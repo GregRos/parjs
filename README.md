@@ -1,3 +1,5 @@
+
+
 	
 # Parjs - Parser Combinator Library
 [![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
@@ -53,10 +55,13 @@ Here is how you might construct a parser for text in the form `(a, b, c, ...)` w
 
 	//Built-in building block parser for floating point numbers.
 	let tupleElement = Parjs.float();
+	
 	//Allow whitespace around elements:
 	let paddedElement = tupleElement.between(Parjs.whitespaces);
+	
 	//Multiple instances of {paddedElement}, separated by a comma:
 	let separated = paddedElement.manySepBy(Parjs.string(","));
+	
 	//Surround everything with parentheses:
 	let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
 	
@@ -148,20 +153,35 @@ Parsers can fail, and this is completely normal in many situations. The `p.or` a
 
 Some failures though indicate *unexpected input* and shouldn't be swallowed by those constructs. For example, consider a parser that parses a floating point number with an optional exponent, such as `1.0e+10`, followed by an arbitrary string. If we're given the input `1.0e+` we *don't* want to parse it as `1.0` followed by the string `e+`. That would obscure what's likely an error in the input.
 
-That's why some kinds of failures are more severe than others and require more advanced recovery constructs.
-
-### Failure Types
-In general, there are 3 failure severities/failure types:
-
-1. Soft/low severity. This type of severity can be more easily recovered from. It indicates a failure in an internal level that may not translate to a failure on a larger scale. For example, if you use the `p1.or(p2)` combinator, the resulting parser will try `p2` if `p1` fails softly.
-
-2. Hard failure/medium severity. This type of severity indicates some form of unexpected input and is harder to recover from, generally requiring special failure handling combinators like `.soft`.
-
-3. Fatal failure/high severity. This type of failure indicates malformed input. It can be intentionally signalled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the `.not` combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.
-
-4. Exceptions aren't parent of this hierarchy. Parsers do not and should not throw exceptions to indicate invalid input, and Parjs does not handle thrown exceptions. Rather, an exception indicates a problem with the parser itself.
-
 When an internal parser fails, the containing parser will generally propagate the same or similar parser. When there is no containing parser, a failure result will be emitted, indicating that the overall parsing has failed. In some cases, a soft failure in a child parser indicates a hard failure in a parent parser.
+
+### Soft failures
+Most simple failures are soft failures. They happen when a parser rejects the input immediately. For example, the parser `Parjs.digit` rejects the input `a` immediately and so fails softly. 
+
+Recovering from soft failures doesn't require backtracking.
+
+You use the `or` failure recovery combinator to handle soft failures, generally by offering several alternative parsers to parse the text.
+
+#### Hard failures
+Hard failures happen when a parser fails after consuming some input. For example, the compound parser `P = a.then(b)` will fail hard if `a` succeeds but `b` fails. The rationale behind this is twofold. 
+
+Firstly, `a` consumes some input before `b` fails, which means that the parser has developed an `expectation` that after `a` succeeds, `b` should also succeeds. When this expectation breaks, an error arises.
+
+Secondly, recovering from `P` requires backtracking to the starting position of the parsing. Parjs is written to backtrack as little as possible, and so a failure that requires backtracking is more severe than one that does not.
+
+For example, `p.then(q)` will fail hard if `q` fails softly, because this parser first applies `p` that consumes some of the input, and only then applies `q`. 
+
+Another example is `p.exactly(3)`. This parser applies `p` exactly 3 times. If it fails to apply `p` even once, it will fail softly. But if `p` fails on the 2nd application, it will fail hard.
+
+Similarly, the `.must` combinator can cause a parser to fail hard. If you apply`p.must(condition)` and `p` succeeds but `condition` fails, then the parser will fail hard because `p` already consumed some of the input. 
+
+The `.soft` combinator translates hard failures into soft ones.
+
+#### Fatal failures
+This type of failure is raised on purpose to explicitly signal malformed input.It can be intentionally signalled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the `.not` combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.
+
+#### Exceptions
+Exceptions aren't really part of this hierarchy. Parsers do not and should not throw exceptions to indicate invalid input, and Parjs does not handle thrown exceptions. Rather, an exception indicates a problem with the parser itself.
 
 ### Overall Parsing Failure
 An overall parsing happens when a parser is invoked by you (the user), and either fails in any manner or fails to consume the entire input (which translates to a failure).
@@ -260,8 +280,8 @@ These parse multiple characters as numbers, either integers or floating point.
 These parsers are very simple and don't consume any input.
 
 1. `Parjs.nop` - A quiet parser that consumes no input and returns no value.
-2. `Parjs.result(v)` - A loud parser that consumes no input and returns `v`.
-3. `Parjs.fail(args)` - A loud parser that always fails with failure information specified in `args`.
+3. `Parjs.result(v)` - A loud parser that consumes no input and returns `v`.
+4. `Parjs.fail(args)` - A loud parser that always fails with failure information specified in `args`.
 
 #### Special parsers
 These special parsers don't belong to any group.
@@ -375,7 +395,7 @@ It should be possible to reduce these by:
 5. Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.
 
 ## Implementation
-Parjs has a big difference between interface and implementation. 
+Parjs keeps interface and implementation totally separate.
 
 Parsers are primarily created from scratch using the `Parjs` object, of type `ParjsStatic`. They can come in two interfaces: `LoudParser<T>` and `QuietParser`. Each of these inherits from the interface `AnyParser` that has the chraracteristics and combinators supported by both.
 

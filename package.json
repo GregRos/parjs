@@ -1,15 +1,16 @@
 {
   "name": "parjs",
-  "version": "0.6.0",
+  "version": "0.6.3",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
-  "typings": "dist/index",
+  "typings": "dist/lib/index",
   "description": "A parser-combinator library for JavaScript.",
-  "main": "dist/index.js",
+  "main": "dist/lib/index.js",
   "scripts": {
     "test": "node ./dist/__tests__/runner.js",
     "watch": "gulp watch",
-    "build": "gulp build"
+    "build": "gulp build",
+    "typedoc": "gulp typedoc"
   },
   "directories": {
     "test": "dist/__test__",
@@ -34,9 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "char-info": "^0.1.4",
-    "gulp-prepack": "0.0.2",
-    "lodash": "^4.17.2",
-    "prepack": "^0.2.10"
+    "lodash": "^4.17.2"
   },
   "devDependencies": {
     "@types/highlight.js": "^9.1.9",
@@ -50,7 +49,7 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-sourcemaps": "^1.11.0",
-    "gulp-typedoc": "^2.0.2",
+    "gulp-typedoc": "^2.1.1",
     "gulp-typescript": "^3.1.4",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
@@ -63,9 +62,9 @@
     "source-map-support": "^0.4.14",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.2.2",
-    "typedoc": "^0.5.10",
-    "typedoc-plugin-external-module-name": "^1.0.9",
-    "typedoc-plugin-internal-external": "^1.0.9",
+    "typedoc": "^0.9.0",
+    "typedoc-plugin-external-module-name": "^1.0.10",
+    "typedoc-plugin-internal-external": "^1.0.10",
     "typescript": "^2.5.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.5.0"
