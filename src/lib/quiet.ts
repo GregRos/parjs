@@ -26,7 +26,7 @@ export type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>
  */
 export interface QuietParser extends AnyParser {
     /**
-     * Applies {this} on the input, with the given initial state.
+     * Applies `this` on the input, with the given initial state.
      * @param input The input string.
      * @param initialState The initial user state. The properties of this object are merged with those of the invocation's user state.
      */
@@ -35,8 +35,8 @@ export interface QuietParser extends AnyParser {
     //+++ ALTERNATIVE
 
     /**
-     * P will try to apply {this}. If it fails softly, it will try to apply each parser in {alt} until one succeeds.
-     * P fails hard if any parser fails hard.
+     * The returned parser will try to apply `this`. If `this` fails softly, it will try to apply each parser in `alt` until one succeeds.
+     * The returned parser will propagate hard failures.
      * @param alt The alternative parsers.
      *
      * @group combinator failure-recovery alternatives
@@ -44,13 +44,13 @@ export interface QuietParser extends AnyParser {
     or(...alt : QuietParser[]) : QuietParser;
 
     /**
-     * P will try to apply {this}. If it fails hard, P will fail softly.
+     * The returned parser will try to apply `this`. If it fails hard, the returned parser will fail softly, letting you use alternatives.
      * @group combinator failure-recovery
      */
     soft : QuietParser;
 
     /**
-     * P will apply {this} and then call the given projection on the user state. P will then return the projection's result.
+     * The returned parser will apply `this` and then call the given projection on the user state. The returned parser will then return the projection's result.
      * @param selector
      * @group combinator projection
      */
@@ -58,7 +58,7 @@ export interface QuietParser extends AnyParser {
 
 
     /**
-     * P will apply {this}, and then calls the specified function on the user state.
+     * The returned parser will apply `this`, and then call the specified function on the user state.
      * @param action The function to call.
      * @group combinator projection
      */
@@ -67,21 +67,22 @@ export interface QuietParser extends AnyParser {
     //+ Look Ahead
 
     /**
-     * P will apply {this}. If it succeeds, it will backtrack to the original position in the input, effectively succeeding without consuming input.
+     * The returned parser will apply `this`. If `this` succeeds, the returned parser will backtrack to the original position in the input, effectively succeeding without consuming input.
      *
      * @group combinator special backtrack
      */
     readonly backtrack: QuietParser;
 
     /**
-     * P will apply {this}. P will fail hard, or with the severity specified by {fail}, if {this} did not consume at least one character of the input.
+     * The returned parser will apply `this`. If `this` succeeds without consuming input, the returned parser will fail hard or with the severity given in `fail`.
      * @param fail The failure kind. Defaults to hard.
      * @group combinator assertion
      */
     mustCapture(fail ?: ReplyKind.Fail) : QuietParser;
 
     /**
-     * P will apply {this}, and then call the given predicate on the user state. If the predicate returns false, P will fail with the severity given by {fail}
+     * The returned parser will apply `this`, and then call the given predicate on the user state. If the predicate returns false,
+     * the returned parser will fail hard or with the severity given by `fail`.
      * @param condition The predicate.
      * @param fail The failure severity.
      *
@@ -89,18 +90,15 @@ export interface QuietParser extends AnyParser {
      */
     must(condition : ParjsPredicateQuiet, fail : ReplyKind.Fail) : QuietParser;
     /**
-     * P will apply {this}, followed by {second}. If both succeed, P will return the result of {second}, if any.
-     * P will fail soft if {this} fails softly, and it will fail hard otherwise (if {second} fails softly, or either parser fails hard).
-     * @param second The parser to apply next.
+     * The returned parser will apply `this`, and then apply `second`. If both succeed, the returned parser will return the result of `second`.
+     * @param second The parser to apply after `this`.
      *
      * @group combinator sequential
      */
     then<TParser extends AnyParser>(second : TParser) : TParser;
 
     /**
-     * P will apply {this}, and then each quiet or loud parser in {parsers} in sequence.
-     * P will then return the results of all non-quiet parsers in an array.
-     * P will softly if {this} fails softly, and will fail hard otherwise.
+     * Returns a parser that will apply `this`, followed by every parser in `parsers`. The returned parser will return the results of all the parsers in an array.
      * @param parsers
      *
      * @group combinator sequential
@@ -108,8 +106,7 @@ export interface QuietParser extends AnyParser {
     then<S>(parsers : (LoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
 
     /**
-     * P will apply {this}, and then each quiet or loud parser in {quiet} in sequence.
-     * P will fail softly if {this} fails softly, and will fail hard otherwise.
+     * Returns a parser that will apply `this`, followed by every parser in `quiet` and return no value.
      * @param quiet A set of quiet parsers.
      *
      * @group combinator sequential
@@ -117,50 +114,47 @@ export interface QuietParser extends AnyParser {
     then(...quiet : QuietParser[]) : QuietParser;
 
     /**
-     * P will apply {this} repeatedly, until it fails softly.
-     * @param minSuccess Optionally, the minimum number of times {this} must succeed. If specified, if {this} succeeds fewer times, P will fail hard.
-     * @param maxIterations Optionally, the maximum number of times {this} will be applied.
+     * Returns a parser that will apply `this` repeatedly, until it fails softly.
+     * @param minSuccess Optionally, if `this` succeeds fewer times than this number, the returned parser will fail hard.
+     * @param maxIterations Optionally, the maximum number of times `this` is applied.
      *
      * @group combinator sequential repetition
      */
     many(minSuccess ?: number, maxIterations ?: number) : QuietParser;
 
     /**
-     * P will apply {this} repeatedly, until {till} succeeds.
-     *
-     * In more detail: P will apply {this}. If it succeeds, it will immediatly apply {till}. If {till} fails softly, P repeats.
-     * If {this} fails before {till}, behavior is determined by the {tillOptional} parameter. By default, P will fail hard in this case too.
-     * @param till The parser that tells P to stop repeating {this}.
-     * @param tillOptional If true, P will stop applying {this} if it fails softly, thus behaving like the many() combinator.
+     * Returns a parser that will apply `this` and `till` repeatedly, as long as `till` fails softly (without consuming input).
+     * If `this` fails before `till`, behavior is determined by the `tillOptional` parameter.
+     * @param till The parser that tells the returned parser to stop repeating `this`.
+     * @param tillOptional If true, the returned parser will stop applying `this` if it fails softly.
      *
      * @group combinator sequential repetition
      */
     manyTill(till : AnyParser, tillOptional ?: boolean) : QuietParser;
+
     /**
-     * P will apply {this}. If it succeeds, it will pass the user state to the {till} predicate. If it returns false, then P repeats.
-     *
-     * This combinator behaves like the other version of manyTill, except that it applies a predicate instead of a parser.
-     * @param till The predicate that determines whether iterating {this} should be stopped.
-     * @param tillOptional Whether it's okay for {this} to fail softly before {till} returns false.
+     * The returned parser will apply `this`, and then apply the `till` predicate to the result. If the `till` predicate returns false, the process repeats.
+     * If `this` fails softly, the behavior is determined by the `tillOptional` parameter.
+     * @param till The predicate that determines whether iterating `this` should be stopped.
+     * @param tillOptional Whether it's okay for `this` to fail softly before `till` returns false.
      *
      * @group combinator sequential repetition
      */
     manyTill(till : ParjsPredicateQuiet, tillOptional ?: boolean) : QuietParser;
 
     /**
-     * P will apply {this} and then {delimeter} repeatedly, until either fails softly.
-     * If {this} fails softly after {delimeter} has succeeded, P will backtrack to before {delimeter} succeeded.
+     * Returns a parser that will apply `this` and then `delimeter` repeatedly, until either fails softly.
+     * If `this` fails softly after `delimeter` has succeeded, the returned parser will backtrack to before `delimeter` succeeded.
      * @param delimeter The delimeter parser.
-     * @param max The maximum number of times {this} is applied.
+     * @param max The maximum number of times `this` is applied.
      *
      * @group combinator sequential repetition
      */
     manySepBy(delimeter : AnyParser, max ?: number) : QuietParser;
 
     /**
-     * P will apply {this} exactly {count} times.
-     * P will fail softly if {this} fails softly the 1st time, and it will fail hard if {this} fails softly afterwards.
-     * @param count The number of times to apply {this}.
+     * The returned parser will apply `this` exactly `count` times.
+     * @param count The number of times to apply `this`.
      *
      * @group combinator sequential repetition
      */

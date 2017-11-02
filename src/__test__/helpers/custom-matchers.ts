@@ -7,7 +7,7 @@ import _isPlainObject = require('lodash/isPlainObject');
 
 declare global {
     namespace jasmine {
-        interface Matchers {
+        interface Matchers<T> {
             toBeAnyOf(options : any[], failMessage ?: string);
             toHaveType(type : string, failMessage ?: string);
             toHaveMember(name : string, failMessage ?: string);

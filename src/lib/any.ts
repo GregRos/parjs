@@ -25,29 +25,29 @@ export interface AnyParser {
      */
     readonly action : AnyParserAction;
     /**
-     * P will apply {this}. If {this} succeeds, P will discard its result (if any) and return {result} instead.
-     * @param result The value to return.
+     * Returns a parser that will apply `this`. If `this` succeeds, the returned parser will discard its result (if any) and yield `result` instead.
+     * @param result The value to yield.
      *
      * @group combinator projection
      */
     result<S>(result : S) : LoudParser<S>;
 
     /**
-     * P will apply {this}. If it succeeds, it will return nothing as a quiet parser.
+     * Returns a parser that will apply `this`. The returned parser will yield nothing.
      *
      * @group combinator projection
      */
     readonly q : QuietParser;
 
     /**
-     * P will apply {this}. P will succeed if {this} fails hard or soft, and fail hard otherwise. P will still fail fatally if {this} fails fatally.
+     * Returns a parser that will apply `this`, and will succeed if `this` fails hard or soft. If `this` succeeds instead, the returned parser will fail hard.
      *
      * @group combinator special
      */
     readonly not : QuietParser;
 
     /**
-     * P will apply {this}, and return the user state, discarding the result (if any).
+     * Returns a parser that will apply `this`, and return the user state, discarding the result (if any).
      *
      * @group combinator projection
      */
@@ -61,8 +61,8 @@ export interface AnyParser {
     readonly isLoud : boolean;
 
     /**
-     * P will apply {this} and map the result to a string.
-     * This is done differently depending on what {this} returns.
+     * Returns a parser that will apply `this`, stringify its result, and yield it.
+     * This is done differently depending on what `this` returns.
      * For an array (usually of strings), the elements are concatenated and returned as a single string.
      * For a string, the string is returned.
      * For a quiet parser, an empty string is returned.
