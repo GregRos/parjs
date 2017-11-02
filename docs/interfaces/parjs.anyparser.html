@@ -199,7 +199,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will apply {this}. P will succeed if {this} fails hard or soft, and fail hard otherwise. P will still fail fatally if {this} fails fatally.</p>
+							<p>Returns a parser that will apply <code>this</code>, and will succeed if <code>this</code> fails hard or soft. If <code>this</code> succeeds instead, the returned parser will fail hard.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -219,7 +219,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will apply {this}. If it succeeds, it will return nothing as a quiet parser.</p>
+							<p>Returns a parser that will apply <code>this</code>. The returned parser will yield nothing.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -239,7 +239,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will apply {this}, and return the user state, discarding the result (if any).</p>
+							<p>Returns a parser that will apply <code>this</code>, and return the user state, discarding the result (if any).</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -259,8 +259,8 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will apply {this} and map the result to a string.
-								This is done differently depending on what {this} returns.
+							<p>Returns a parser that will apply <code>this</code>, stringify its result, and yield it.
+								This is done differently depending on what <code>this</code> returns.
 								For an array (usually of strings), the elements are concatenated and returned as a single string.
 								For a string, the string is returned.
 								For a quiet parser, an empty string is returned.
@@ -294,7 +294,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will apply {this}. If {this} succeeds, P will discard its result (if any) and return {result} instead.</p>
+									<p>Returns a parser that will apply <code>this</code>. If <code>this</code> succeeds, the returned parser will discard its result (if any) and yield <code>result</code> instead.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -313,7 +313,7 @@
 								<li>
 									<h5>result: <span class="tsd-signature-type">S</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The value to return.</p>
+										<p>The value to yield.</p>
 									</div>
 								</li>
 							</ul>

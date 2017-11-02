@@ -114,7 +114,7 @@ export interface LoudParser<T> extends AnyParser {
     each(action : ParjsProjection<T, void>) : LoudParser<T>;
 
     /**
-     * For TypeScript. This method returns `this`, statically typed as LoudParser<S>.
+     * For TypeScript. This method returns `this`, statically typed as LoudParser{S}.
      * @group combinator projection
      */
     cast<S>() : LoudParser<S>;

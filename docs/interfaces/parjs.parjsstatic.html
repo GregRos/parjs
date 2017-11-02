@@ -161,7 +161,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single character and return it.  If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single character and yield it.  If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -181,7 +181,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single digit character [0-9] and return it. If it can&#39;t, it will fail soflty.</p>
+							<p>Returns a parser that will parse a single digit character [0-9] and yield it. If it can&#39;t, it will fail soflty.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -201,7 +201,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will succeed if it has reached the end of the input, and fail softly otherwise.</p>
+							<p>Returns a parser that will succeed if it has reached the end of the input, and fail softly otherwise.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -231,7 +231,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single hex digit character [0-9a-fA-F] and return it. If it can&#39;t, it will fail soflty.</p>
+							<p>Returns a parser that will parse a single hex digit character [0-9a-fA-F] and yield it. If it can&#39;t, it will fail soflty.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -251,7 +251,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single letter [a-zA-Z] and return it. If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single letter [a-zA-Z] and yield it. If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -271,7 +271,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single lower-case letter character in the range [a-z] and return it. If it can&#39;t, it will fail soflty.</p>
+							<p>Returns a parser that will parse a single lower-case letter character in the range [a-z] and yield it. If it can&#39;t, it will fail soflty.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -291,7 +291,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse either \n, \r\n, or \r and return the string that was parsed. If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse either \n, \r\n, or \r and yield the string that was parsed. If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -311,7 +311,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will succeed without consuming input. Quiet parser.</p>
+							<p>Returns a parser that will succeed without consuming input. Quiet parser.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -331,7 +331,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will succeed without consuming input and return the current position in the input.</p>
+							<p>Returns a parser that will succeed without consuming input and yield the current position in the input.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -351,8 +351,8 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse all the characters until the end of the input, and then return the parsed text.
-							P will never fail.</p>
+							<p>Returns a parser that will parse all the characters until the end of the input, and then yield the parsed text.
+							The returned parser will never fail.</p>
 						</div>
 						<p> @group basic-parser string</p>
 					</div>
@@ -368,7 +368,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse one ASCII inline space character, such as space or a tab, and return it.
+							<p>Returns a parser that will parse one ASCII inline space character, such as space or a tab, and yield it.
 							If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
@@ -389,8 +389,8 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse one or more ASCII whitespace character and returns the result.
-							P will fail softly if it can&#39;t parse at least one space character.</p>
+							<p>Returns a parser that will parse one or more ASCII whitespace character and yield the result.
+							The returned parser will fail softly if it can&#39;t parse at least one space character.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -410,7 +410,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will succeed without consuming input and return the current user state.</p>
+							<p>Returns a parser that will succeed without consuming input and yield the current user state.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -430,7 +430,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single Unicode digit character in any script or language. It will return the string that was parsed.</p>
+							<p>Returns a parser that will parse a single Unicode digit character in any script or language. It will yield the string that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -450,7 +450,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single Unicode letter character in any script or language. It will return the string that was parsed.</p>
+							<p>Returns a parser that will parse a single Unicode letter character in any script or language. It will yield the string that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -470,7 +470,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single Unicode lowercase character in any script or language. It will return the string that was parsed.</p>
+							<p>Returns a parser that will parse a single Unicode lowercase character in any script or language. It will yield the string that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -490,7 +490,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.
+							<p>Returns a parser that will parse a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.
 							If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
@@ -511,7 +511,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse one Unicode inline space character, including characters such as EM SPACE, and return the character that was parsed.
+							<p>Returns a parser that will parse one Unicode inline space character, including characters such as EM SPACE, and yield the character that was parsed.
 							If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
@@ -532,8 +532,8 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P parses as many Unicode inline white spaces as possible. Returns the parsed text.
-							P will always succeed.</p>
+							<p>Returns a parser that parses as many Unicode inline white spaces as possible. Returns the parsed text.
+							The returned parser will always succeed.</p>
 						</div>
 						<p> @group basic-parser string unicode</p>
 					</div>
@@ -549,7 +549,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single Unicode uppercase character in any script or language. It will return the string that was parsed.</p>
+							<p>Returns a parser that will parse a single Unicode uppercase character in any script or language. It will yield the string that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -569,7 +569,7 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse a single upper-case letter character in the range [A-Z] and return it. If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single upper-case letter character in the range [A-Z] and yield it. If it can&#39;t, it will fail softly.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -604,8 +604,8 @@
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>P will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
-							P will always succeed.</p>
+							<p>Returns a parser that will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
+							The returned parser will always succeed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -633,8 +633,8 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will try to apply the given parsers at the current position, one after the other, until one of them succeeds. It will return its result.
-									P will fail softly if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
+									<p>Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds. It will yield its result.
+									The returned parser will fail softly if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -661,8 +661,8 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
-									P will fail soflty if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
+									<p>Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
+									The returned parser will fail soflty if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -698,7 +698,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will parse a single character that is part of the string {chars}, and then return it. If it can&#39;t, it will fail softly.</p>
+									<p>Returns a parser that will parse a single character that is part of the string <code>chars</code>, and then yield it. If it can&#39;t, it will fail softly.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -734,8 +734,8 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will try to parse the strings in {strings} in order, and it will return the first one for which parsing succeeds.
-									P will fail softly if none of the strings can be parsed.</p>
+									<p>Returns a parser that will try to parse the strings in <code>strings</code> in order, and it will yield the string that was parsed.
+									The returned parser will fail softly if none of the strings can be parsed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -767,7 +767,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will parse a single character that matches the given predicate, and then it will return the character.  If it can&#39;t, it will fail softly.</p>
+									<p>Returns a parser that will parse a single character that matches the given predicate, and then it will yield the character.  If it can&#39;t, it will fail softly.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -803,7 +803,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will fail with the severity specified by {kind}, regardless of the input.</p>
+									<p>Returns a parser that will fail with the severity specified by <code>kind</code>, regardless of the input.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -845,8 +845,8 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will parse a single floating point number according to the format options given in {options}, and return it in numeric form.
-										P will fail softly if the input is not a floating point number, but it will fail hard if it suspects the input is a malformed floating point number.
+									<p>Returns a parser that will parse a single floating point number according to the format options given in <code>options</code>, and yield it (as a number).
+										The returned parser will fail softly if the input is not a floating point number, but it will fail hard if it suspects the input is a malformed floating point number.
 									For example, 1.0e+ will cause it to fail hard.</p>
 								</div>
 								<dl class="tsd-comment-tags">
@@ -883,8 +883,8 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will parse an integer according to the format options given in {options}, and return the integer that was parsed in numeric form.
-									P will normally either succeed or fail softly, but some kinds of inputs will cause a hard failure, such as a sign without any digits after it.</p>
+									<p>Returns a parser that will parse an integer according to the format options given in <code>options</code>, and yield the integer that was parsed (as a number).
+									The returned parser will normally either succeed or fail softly, but some kinds of inputs will cause a hard failure, such as a sign without any digits after it.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -920,7 +920,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The first time P is invoked, it will call {resolver} with no arguments and cache the result. From that point, it will act like the parser returned by {resolver}.
+									<p>The first time the returned parser that is invoked, it will call <code>resolver</code> with no arguments and cache the result. From that point, it will act like the parser returned by <code>resolver</code>.
 									This late binding can be used to create certain kinds of recursive parsers.</p>
 								</div>
 							</div>
@@ -970,7 +970,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will parse a single character that is not part of the string {chars}, and then return it.  If it can&#39;t, it will fail softly.</p>
+									<p>Returns a parser that will parse a single character that is not part of the string <code>chars</code>, and then yield it.  If it can&#39;t, it will fail softly.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -1006,10 +1006,10 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will apply {regexp} starting at the current position. P will consume all the text from the current position to the end of the match.
+									<p>Returns a parser that will apply <code>regexp</code> starting at the current position. The returned parser will consume all the text from the current position to the end of the match.
 										The regexp starts matching at the current position.
-										P will return the resulting match array, with return[0] being the entire match and return[n] being group n.
-									P will fail softly if {regexp} failed.</p>
+										The returned parser will yield the resulting match array, with result[0] being the entire match and result[n] being group n.
+									The returned parser will fail softly if <code>regexp</code> failed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1041,7 +1041,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will succeed without consuming input and return the given value.</p>
+									<p>Returns a parser that will succeed without consuming input and yield the given value.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -1060,7 +1060,7 @@
 								<li>
 									<h5>result: <span class="tsd-signature-type">T</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The value to return.</p>
+										<p>The value to yield.</p>
 									</div>
 								</li>
 							</ul>
@@ -1083,7 +1083,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will apply the specified parsers in sequence and return the results in an array.</p>
+									<p>Returns a parser that will apply the specified parsers in sequence and yield the results in an array.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -1119,7 +1119,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will try to parse the string {str}. P will return the parsed string if it succeeds, and fail softly otherwise.</p>
+									<p>Returns a parser that will try to parse the string <code>str</code>. The returned parser will yield the parsed string if it succeeds, and fail softly otherwise.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1151,8 +1151,8 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>P will parse exactly {length} characters and return the string that was parsed.
-									P will fail softly if the input does not contain that many characters, and succeed otherwise.</p>
+									<p>Returns a parser that will parse exactly <code>length</code> characters and yield the string that was parsed.
+									The returned parser will fail softly if the input does not contain that many characters, and succeed otherwise.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
