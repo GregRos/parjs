@@ -22,20 +22,20 @@ describe("must combinators", () => {
         })
     });
 
-    it("mustBeOf", () => {
-        let parser = Parjs.stringLen(3).mustBeOf(["a", "b", "c"]);
+    describe("mustBeOf", () => {
+        let parser = Parjs.stringLen(1).mustBeOf(["a", "b", "c"]);
         it("succeeds when is of", () => {
             expectSuccess(parser.parse("b"), "b");
         });
         it("fails when is not of", () => {
-            expectFailure(parser.parse("d"), "SoftFail");
+            expectFailure(parser.parse("d"), "HardFail");
         });
     });
 
-    it("mustBeOf", () => {
-        let parser = Parjs.stringLen(3).mustNotBeOf(["a", "b", "c"]);
+    describe("mustBeOf", () => {
+        let parser = Parjs.stringLen(1).mustNotBeOf(["a", "b", "c"]);
         it("fails when is of", () => {
-            expectFailure(parser.parse("b"), "SoftFail");
+            expectFailure(parser.parse("b"), "HardFail");
         });
         it("succeeds when is not of", () => {
             expectSuccess(parser.parse("d"), "d");

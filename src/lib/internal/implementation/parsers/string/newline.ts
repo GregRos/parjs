@@ -4,7 +4,7 @@
 import {ParjsAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
-import {StaticCharInfo, StaticCodeInfo} from "char-info";
+import {StaticCodeInfo} from "char-info";
 import {Codes} from "../../functions/char-indicators";
 /**
  * Created by User on 24-Nov-16.

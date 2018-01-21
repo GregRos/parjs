@@ -17,8 +17,9 @@ import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
 import {AsciiCodeInfo, AsciiCharInfo} from "./implementation/functions/char-indicators";
 //IMPORTANT: Importing only interfaces from char-info makes sure that no require statement is actually emitted.
 //If we were to import anything else, we'd create a real dependency on char-info that add a lot of weight when Parjs is bundled.
-import {StaticCodeInfo, StaticCharInfo} from "char-info";
+import {StaticCodeInfo, } from "char-info";
 import {TraceVisualizer} from "./visualizer";
+import {StaticCharInfo} from "char-info/dist/inner/abstract";
 
 function wrap(action : ParjsAction) {
 	return new ParjsParser(action);
@@ -31,8 +32,8 @@ class NoUnicodeError extends Error {
 }
 
 export const ConditionalUnicode = new class InfoContainer {
-	private _codeInfo : StaticCodeInfo = null;
-	private _charInfo : StaticCharInfo = null;
+	_codeInfo : StaticCodeInfo = null;
+	_charInfo : StaticCharInfo = null;
 	set CodeInfo(info) {
 		this._codeInfo = this._codeInfo || info;
 	}
