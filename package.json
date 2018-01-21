@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.6.3",
+  "version": "0.7.1",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "dist/lib/index",
@@ -35,7 +35,8 @@
   "license": "MIT",
   "dependencies": {
     "char-info": "^0.2.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "marked": "^0.3.9"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.4",
