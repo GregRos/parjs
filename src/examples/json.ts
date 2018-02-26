@@ -1,4 +1,4 @@
-import "../setup";
+import "../__test__/setup";
 import {Parjs} from "../lib/index";
 import {LoudParser} from "../lib/loud";
 import {ReplyKind} from "../lib/reply";

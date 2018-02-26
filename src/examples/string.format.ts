@@ -1,7 +1,7 @@
 /**
  * Created by lifeg on 04/04/2017.
  */
-import "../setup";
+import "../__test__/setup";
 import {Parjs, LoudParser} from "../lib";
 //+ DEFINING THE PARSER
 

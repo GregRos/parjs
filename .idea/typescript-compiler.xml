@@ -2,6 +2,7 @@
 <project version="4">
   <component name="TypeScriptCompiler">
     <option name="useConfig" value="true" />
+    <option name="recompileOnChanges" value="true" />
     <option name="showAllErrors" value="true" />
   </component>
 </project>

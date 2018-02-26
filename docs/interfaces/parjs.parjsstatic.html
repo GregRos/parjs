@@ -628,7 +628,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:322</li>
+									<li>Defined in parjs.ts:321</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -656,7 +656,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:331</li>
+									<li>Defined in parjs.ts:330</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -915,7 +915,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:313</li>
+									<li>Defined in parjs.ts:312</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1001,24 +1001,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:301</li>
+									<li>Defined in parjs.ts:300</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will apply <code>regexp</code> starting at the current position. The returned parser will consume all the text from the current position to the end of the match.
-										The regexp starts matching at the current position.
+									<p>Returns a parser that will apply <code>regexp</code> on the input. It will succeed only if <code>regexp</code> matches at the current position.
+										The returned parser will consume all the (consecutive) input matched by the regex.
 										The returned parser will yield the resulting match array, with result[0] being the entire match and result[n] being group n.
 									The returned parser will fail softly if <code>regexp</code> failed.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>basic-parser string regex</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>regexp: <span class="tsd-signature-type">RegExp</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The regexp to apply.</p>
-										<p> @group basic-parser string regex</p>
+										<p>The regexp to apply. The global flag will not be respected.</p>
 									</div>
 								</li>
 							</ul>
@@ -1078,7 +1082,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in parjs.ts:339</li>
+									<li>Defined in parjs.ts:338</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

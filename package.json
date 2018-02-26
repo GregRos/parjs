@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node ./dist/__tests__/runner.js",
     "watch": "gulp watch",
-    "build": "gulp build",
+    "build": "tscnpm ",
     "typedoc": "gulp typedoc"
   },
   "directories": {
@@ -35,25 +35,25 @@
   "license": "MIT",
   "dependencies": {
     "char-info": "^0.2.0",
-    "lodash": "^4.17.4",
-    "marked": "^0.3.9"
+    "lodash": "^4.17.5",
+    "marked": "^0.3.16"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.8.4",
-    "@types/lodash": "^4.14.93",
-    "@types/node": "^8.5.9",
-    "@types/webpack": "^3.8.3",
+    "@types/jasmine": "^2.8.6",
+    "@types/lodash": "^4.14.104",
+    "@types/node": "^8.9.4",
+    "@types/webpack": "^3.8.8",
     "codecov": "^2.3.1",
     "del": "^2.2.2",
     "file-loader": "^0.11.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
-    "gulp-sourcemaps": "^1.11.0",
+    "gulp-sourcemaps": "^1.12.1",
     "gulp-typedoc": "^2.2.0",
-    "gulp-typescript": "^3.2.3",
+    "gulp-typescript": "^3.2.4",
     "istanbul": "^0.4.5",
-    "jasmine": "^2.9.0",
-    "jasmine-core": "^2.9.1",
+    "jasmine": "^2.99.0",
+    "jasmine-core": "^2.99.1",
     "jasmine-spec-reporter": "^2.7.0",
     "jasmine-webpack-plugin": "^0.1.1",
     "merge2": "^1.2.1",
@@ -63,10 +63,10 @@
     "style-loader": "^0.18.2",
     "ts-loader": "^2.3.7",
     "typedoc": "^0.9.0",
-    "typedoc-plugin-external-module-name": "^1.0.10",
+    "typedoc-plugin-external-module-name": "^1.1.1",
     "typedoc-plugin-internal-external": "^1.0.10",
-    "typescript": "^2.6.2",
-    "webpack": "^3.10.0",
+    "typescript": "^2.7.2",
+    "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.1"
   },
   "optionalDependencies": {}

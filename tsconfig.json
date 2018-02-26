@@ -1,13 +1,23 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
-        "noImplicitAny": false,
-        "sourceMap": true,
-        "allowUnreachableCode": true,
-        "lib": ["es6", "es2016.array.include"],
-        "declaration": true
-    },
-
-  "exclude": ["dist", "node_modules"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "allowUnreachableCode": true,
+    "lib": [
+      "es6",
+      "es2016.array.include",
+      "dom"
+    ],
+    "declaration": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

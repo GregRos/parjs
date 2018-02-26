@@ -5,7 +5,7 @@ import * as path from "path";
 
 let Jasmine = require('jasmine');
 import SpecReporter = require('jasmine-spec-reporter');
-import '../setup';
+import './setup';
 import glob = require('glob');
 let jrunner = new Jasmine();
 

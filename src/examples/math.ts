@@ -14,7 +14,7 @@
  *  6. Easily extendable by the addition of custom functions, variables, and more operators.
  */
 
-import "../setup";
+import "../__test__/setup";
 import {Parjs} from "../lib/index";
 import _ = require('lodash');
 import {LoudParser} from "../lib/loud";

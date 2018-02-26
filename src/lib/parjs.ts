@@ -290,13 +290,12 @@ export interface ParjsStatic {
     stringLen(length : number) : LoudParser<string>;
 
     /**
-     * Returns a parser that will apply `regexp` starting at the current position. The returned parser will consume all the text from the current position to the end of the match.
-     * The regexp starts matching at the current position.
+     * Returns a parser that will apply `regexp` on the input. It will succeed only if `regexp` matches at the current position.
+     * The returned parser will consume all the (consecutive) input matched by the regex.
      * The returned parser will yield the resulting match array, with result[0] being the entire match and result[n] being group n.
      * The returned parser will fail softly if `regexp` failed.
-     * @param regexp The regexp to apply.
-     *
-     *  @group basic-parser string regex
+     * @param regexp The regexp to apply. The global flag will not be respected.
+     * @group basic-parser string regex
      */
     regexp(regexp : RegExp) : LoudParser<string[]>;
 

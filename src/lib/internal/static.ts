@@ -190,7 +190,9 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     regexp(regex : RegExp) {
-        return wrap(new PrsRegexp(regex)).withName("regexp");
+        let flags = regex.flags.replace("g", "").replace("y", "") + "y";
+        let stickyRegex = new RegExp(regex.source, flags);
+        return wrap(new PrsRegexp(stickyRegex)).withName("regexp");
     }
 
     result(x : any) {
