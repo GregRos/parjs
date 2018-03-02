@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "dist/lib/index",
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node ./dist/__tests__/runner.js",
     "watch": "gulp watch",
-    "build": "tscnpm ",
+    "build": "tsc",
     "typedoc": "gulp typedoc"
   },
   "directories": {
