@@ -159,4 +159,10 @@ export interface QuietParser extends AnyParser {
      * @group combinator sequential repetition
      */
     exactly(count : number) : QuietParser;
+
+    /**
+     * The returned parser will apply `this` at the current position, and will succeed if `this` succeeds or fails softly.
+     * i.e. it will make `this` an optional parser.
+     */
+    maybe : QuietParser;
 }

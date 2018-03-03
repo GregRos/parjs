@@ -27,7 +27,7 @@ export namespace ReplyKind {
     /**
      * The OK reply type.
      */
-    export type OK = "OK";
+    export type Ok = "OK";
     /**
      * The soft failure type.
      */
@@ -48,7 +48,7 @@ export namespace ReplyKind {
     /**
      * An OK reply.
      */
-    export const Ok : OK = "OK";
+    export const Ok : Ok = "OK";
     /**
      * A soft failure reply.
      */
@@ -70,5 +70,5 @@ export namespace ReplyKind {
 /**
  * Specifies a reply kind, indicating success or failure, and the severity of the failure.
  */
-export type ReplyKind = ReplyKind.OK | ReplyKind.Fail | ReplyKind.Unknown;
+export type ReplyKind = ReplyKind.Ok | ReplyKind.Fail | ReplyKind.Unknown;
 

@@ -42,8 +42,8 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
 
-    get maybe() : LoudParser<any> {
-    	return this.or(Parjs.result(undefined));
+    get maybe() : QuietParser {
+    	return this.or(Parjs.result(undefined).q);
     }
 
     or(...others : any[]) : any {
