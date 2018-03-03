@@ -10,6 +10,7 @@ import {ReplyKind} from "./reply";
 import {AnyParserAction} from "./internal/action";
 import {TraceVisualizer} from "./internal/visualizer";
 import {UserState} from "./internal/implementation/state";
+import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
 export interface ParjsStaticHelper {
     isParser(obj : any) : obj is AnyParser;
@@ -319,7 +320,7 @@ export interface ParjsStatic {
      *
      * @group combinator failure-recovery alternatives
      */
-    any(...pars : LoudParser<any>[]) : LoudParser<any>;
+    any(...pars : ImplicitLoudParser<any>[]) : LoudParser<any>;
 
     /**
      * Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
@@ -336,7 +337,7 @@ export interface ParjsStatic {
      *
      * @group combinator sequential
      */
-    seq(...parsers : AnyParser[]) : LoudParser<any[]>;
+    seq(...parsers : ImplicitAnyParser[]) : LoudParser<any[]>;
 
     /**
      * Returns a parser that, when called, will call the `parserChooser` function on the current parsing state.

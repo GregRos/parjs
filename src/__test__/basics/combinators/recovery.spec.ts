@@ -42,7 +42,7 @@ describe("or combinator", () => {
     });
 
     describe("loud or loud", () => {
-        let parser = Parjs.string("ab").or(Parjs.string("cd"));
+        let parser = Parjs.string("ab").or("cd");
         it("succeeds parsing 1st option", () => {
             expectSuccess(parser.parse("ab"), "ab");
         });

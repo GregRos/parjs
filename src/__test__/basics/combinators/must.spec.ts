@@ -41,7 +41,7 @@ describe("must combinators", () => {
     });
 
     describe("mustCapture combinator", () => {
-        let parser = Parjs.string("a").then(Parjs.string("b")).str.or(Parjs.eof.result("")).mustCapture(ReplyKind.FatalFail);
+        let parser = Parjs.string("a").then("b").str.or(Parjs.eof.result("")).mustCapture(ReplyKind.FatalFail);
         it("succeeds if it captures", () => {
             expectSuccess(parser.parse("ab"), "ab");
         });

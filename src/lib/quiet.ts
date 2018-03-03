@@ -5,6 +5,7 @@ import {AnyParser} from "./any";
 import {ReplyKind, QuietReply} from "./reply";
 import {LoudParser} from "./loud";
 import {UserState} from "./internal/implementation/state";
+import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
 /**
  * A predicate over the user state, for parsers that don't produce results.
@@ -96,7 +97,8 @@ export interface QuietParser extends AnyParser {
      *
      * @group combinator sequential
      */
-    then<TParser extends AnyParser>(second : TParser) : TParser;
+    then(second : QuietParser) : QuietParser;
+    then<T>(second : ImplicitLoudParser<T>) : LoudParser<T>;
 
     /**
      * Returns a parser that will apply `this`, followed by every parser in `parsers`. The returned parser will return the results of all the parsers in an array.
@@ -104,7 +106,7 @@ export interface QuietParser extends AnyParser {
      *
      * @group combinator sequential
      */
-    then<S>(parsers : (LoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
+    then<S>(parsers : (ImplicitLoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
 
     /**
      * Returns a parser that will apply `this`, followed by every parser in `quiet` and return no value.
@@ -131,7 +133,7 @@ export interface QuietParser extends AnyParser {
      *
      * @group combinator sequential repetition
      */
-    manyTill(till : AnyParser, tillOptional ?: boolean) : QuietParser;
+    manyTill(till : ImplicitAnyParser, tillOptional ?: boolean) : QuietParser;
 
     /**
      * The returned parser will apply `this`, and then apply the `till` predicate to the result. If the `till` predicate returns false, the process repeats.
@@ -151,7 +153,7 @@ export interface QuietParser extends AnyParser {
      *
      * @group combinator sequential repetition
      */
-    manySepBy(delimeter : AnyParser, max ?: number) : QuietParser;
+    manySepBy(delimeter : ImplicitAnyParser, max ?: number) : QuietParser;
 
     /**
      * The returned parser will apply `this` exactly `count` times.

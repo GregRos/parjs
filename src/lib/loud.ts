@@ -6,6 +6,8 @@ import {AnyParser} from "./any";
 import {ReplyKind, Reply} from "./reply";
 import {QuietParser} from "./quiet";
 import {UserState} from "./internal/implementation/state";
+import {convertibleSymbol} from "./then-chain";
+import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
 /**
  * A projection on the parser result and the parser state.
@@ -42,14 +44,14 @@ export interface LoudParser<T> extends AnyParser {
      * @param second The alternative parser.
      * @group combinator failure-recovery alternatives
      */
-    or<S>(second : LoudParser<S>) : LoudParser<T | S>;
+    or<S>(second : ImplicitLoudParser<S>) : LoudParser<T | S>;
     /**
      * Similar to other overloads. The returned parser will try two parsers after this one.
      * @param second The 2nd parser to try, after `this`.
      * @param third The 3rd parser to try, after the second one.
      * @group combinator failure-recovery alternatives
      */
-    or<A, B>(second : LoudParser<A>, third : LoudParser<B>) : LoudParser<T | A | B>;
+    or<A, B>(second : ImplicitLoudParser<A>, third : ImplicitLoudParser<B>) : LoudParser<T | A | B>;
 
     /**
      * Similar to the other overloads. The returned parser will try three parsers after this one.
@@ -58,7 +60,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param fourth The 4th parser to try
      * @group combinator failure-recovery alternatives
      */
-    or<A, B, C>(second : LoudParser<A>, third : LoudParser<B>, fourth : LoudParser<C>) : LoudParser<T | A | B| C>;
+    or<A, B, C>(second : ImplicitLoudParser<A>, third : ImplicitLoudParser<B>, fourth : ImplicitLoudParser<C>) : LoudParser<T | A | B| C>;
 
     /**
      * Similar to other overloads. The returned parser will try four parsers after this one.
@@ -68,14 +70,14 @@ export interface LoudParser<T> extends AnyParser {
      * @param fifth The 5th parser.
      * @group combinator failure-recovery alternatives
      */
-    or<A, B, C, D>(second : LoudParser<A>, third : LoudParser<B>, fourth : LoudParser<C>, fifth : LoudParser<D>) : LoudParser<T | A | B| C | D>;
+    or<A, B, C, D>(second : ImplicitLoudParser<A>, third : ImplicitLoudParser<B>, fourth : ImplicitLoudParser<C>, fifth : ImplicitLoudParser<D>) : LoudParser<T | A | B| C | D>;
 
     /**
      * The returned parser behaves like the other overloads, except that it will try a variable number of parsers specified in `parsers`.
      * @param parsers Zero or more parsers to try.
      * @group combinator failure-recovery alternatives
      */
-    or(...parsers : LoudParser<any>[]) : LoudParser<any>;
+    or(...parsers : ImplicitLoudParser<any>[]) : LoudParser<any>;
 
     /**
      * Returns a parser that will apply `this` and yield its result. If `this` fails hard or soft, the returned parser will fail softly.
@@ -173,7 +175,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param proceeding The proceeding parser.
      * @group combinator sequential
      */
-    between(preceding : AnyParser, proceeding : AnyParser) : LoudParser<T>;
+    between(preceding : ImplicitAnyParser, proceeding : ImplicitAnyParser) : LoudParser<T>;
 
     /**
      * Returns a parser that will apply `this` between two appearances of the given parser, and yield only the result of `this`.
@@ -181,7 +183,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param precedingAndPreceding The parser that surrounds `this`.
      * @group combinator sequential
      */
-    between(precedingAndPreceding : AnyParser) : LoudParser<T>;
+    between(precedingAndPreceding : ImplicitAnyParser) : LoudParser<T>;
 
     //+++SEQUENTIAL
     /**
@@ -196,13 +198,13 @@ export interface LoudParser<T> extends AnyParser {
      * @param loud The loud parser to follow this one.
      * @group combinator sequential
      */
-    then<S>(loud : LoudParser<S>) : LoudParser<[T, S]>;
+    then<S>(loud : ImplicitLoudParser<S>) : LoudParser<[T, S]>;
 
     /**
      * Returns a parser that will apply `this` and then the given parsers in the order at which they appear. The returned parser will yield all their results in an array.
      * @param array An array of loud/quiet parsers to apply.
      */
-    then<S>(array : (LoudParser<S> | QuietParser)[]) : LoudParser<(S | T)[]>
+    then<S>(array : (ImplicitLoudParser<S> | QuietParser)[]) : LoudParser<(S | T)[]>
 
     /**
      * Returns a parser that will apply `this`, and then immediately a sequence of quiet parsers. It will yield the result of `this`.
@@ -233,7 +235,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param tillOptional If true, the returned parser will stop applying `this` if it fails softly, thus behaving like the many() combinator.
      * @group combinator sequential repetition
      */
-    manyTill(till : AnyParser, tillOptional ?: boolean) : LoudParser<T[]>;
+    manyTill(till : ImplicitAnyParser, tillOptional ?: boolean) : LoudParser<T[]>;
 
     /**
      * The returned parser will apply `this` and apply `till` on its result, until `till` returns true. It will yield all the results yielded by `this` in an array.
@@ -253,7 +255,7 @@ export interface LoudParser<T> extends AnyParser {
      *
      * @group combinator sequential repetition
      */
-    manySepBy(delimeter : AnyParser, max ?: number) : LoudParser<T[]>;
+    manySepBy(delimeter : ImplicitAnyParser, max ?: number) : LoudParser<T[]>;
 
     /**
      * Returns a parser that will apply `this`, and then call the selector function with the result of its result. The function returns another parser.
@@ -262,7 +264,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param selector The function that selects which parser to apply next.
      * @group combinator sequential
      */
-    thenChoose<TParser extends LoudParser<any>>(selector : (value : T, state : UserState) => TParser) : TParser
+    thenChoose<TParser extends ImplicitLoudParser<any>>(selector : (value : T, state : UserState) => TParser) : TParser
 
     /**
      * Returns a parser that will apply `this`, and then call the selector function with the result of its result. The function returns another parser.
@@ -282,4 +284,5 @@ export interface LoudParser<T> extends AnyParser {
      */
     readonly isolate;
 }
+
 

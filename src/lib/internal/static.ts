@@ -21,7 +21,8 @@ import {StaticCodeInfo, } from "char-info";
 import {TraceVisualizer} from "./visualizer";
 import {StaticCharInfo} from "char-info/dist/inner/abstract";
 import {Es6} from "../common/common";
-import {PrsChoose} from "./implementation/combinators/sequential/sequential-func";
+import {ConversionHelper, ImplicitAnyParser} from "../convertible-literal";
+
 
 function wrap(action : ParjsAction) {
 	return new ParjsParser(action);
@@ -97,11 +98,13 @@ export class ParjsParsers implements ParjsStatic {
         return this.charWhere(AsciiCharInfo.isLetter).withName("letter")
     }
 
-    any(...parsers : AnyParser[]) {
-        return wrap(new PrsAlternatives(parsers.map(x => x.action))).withName("any");
+    any(...parsers : ImplicitAnyParser[]) {
+        let parsers2 = parsers.map(x => ConversionHelper.convert(x));
+        return wrap(new PrsAlternatives(parsers2.map(x => x.action))).withName("any");
     }
 
     seq(...parsers : AnyParser[]) {
+        let parsers2 = parsers.map(x => ConversionHelper.convert(x));
         return wrap(new PrsSequence(parsers.map(x => x.action))).withName("seq");
     }
 

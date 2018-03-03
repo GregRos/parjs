@@ -17,6 +17,7 @@ import {PrsEach} from "./implementation/combinators/map/act";
 import {Parjs} from "../../lib";
 import {PrsIsolate} from "./implementation/combinators/special/isolate";
 import {QUIET_RESULT} from "./implementation/special-results";
+import {ConversionHelper,ImplicitAnyParser} from "../convertible-literal";
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
@@ -26,8 +27,10 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsChoose(this.action, selector)).withName("thenChoose") as any;
     }
 
-    between(preceding : AnyParser, proceeding ?: AnyParser)  {
+    between(preceding : ImplicitAnyParser, proceeding ?: ImplicitAnyParser)  {
         let bet : any;
+        preceding = ConversionHelper.convert(preceding);
+        proceeding = ConversionHelper.convert(proceeding);
         if (proceeding) {
             bet = preceding.q.then(this).then(proceeding.q);
         } else {
@@ -53,6 +56,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     or(...others : any[]) : any {
+        others = others.map(p => ConversionHelper.convert(p));
         return wrap(new PrsAlternatives([this, ...others].map(x => x.action))).withName("or");
     }
 
@@ -103,11 +107,11 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         else if (Array.isArray(args[0])) {
             next = args[0];
         }
-        else if (Parjs.helper.isParser(args[0])) {
+        else if (Parjs.helper.isParser(args[0]) || typeof args[0] === "string") {
             unpack = true;
             next = args;
         }
-
+        next = next.map(p => ConversionHelper.convert(p));
         let actions = [this.action, ...next.map(x => x.action)];
         let seqParse = wrap(new PrsSequence(actions));
         let loudCount = actions.filter(x => x.isLoud).length;
@@ -125,14 +129,16 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsMany(this.action, maxIters, minSuccesses)).withName("many");
     }
 
-    manyTill(till : AnyParser | any, tillOptional = false) {
+    manyTill(till : ImplicitAnyParser | any, tillOptional = false) {
+        till = ConversionHelper.convert(till);
         if (isFunction(till)) {
             return this.must(till, undefined, ReplyKind.SoftFail).many()
         }
         return wrap(new PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");
     }
 
-    manySepBy(sep : AnyParser, maxIterations = Infinity) {
+    manySepBy(sep : ImplicitAnyParser, maxIterations = Infinity) {
+        sep = ConversionHelper.convert(sep);
         return wrap(new PrsManySepBy(this.action, sep.action, maxIterations)).withName("manySepBy");
     }
 

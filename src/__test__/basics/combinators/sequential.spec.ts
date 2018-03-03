@@ -188,7 +188,7 @@ describe("sequential combinators", () => {
     });
 
     describe("manySepBy combinator", () => {
-        let parser = fstLoud.manySepBy(Parjs.string(", "));
+        let parser = fstLoud.manySepBy(", ");
 
         it("works with max iterations", () => {
             let parser2 = fstLoud.manySepBy(Parjs.string(", "), 2);
