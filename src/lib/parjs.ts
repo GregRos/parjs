@@ -9,6 +9,7 @@ import {AnyParser} from "./any";
 import {ReplyKind} from "./reply";
 import {AnyParserAction} from "./internal/action";
 import {TraceVisualizer} from "./internal/visualizer";
+import {UserState} from "./internal/implementation/state";
 
 export interface ParjsStaticHelper {
     isParser(obj : any) : obj is AnyParser;
@@ -337,4 +338,10 @@ export interface ParjsStatic {
      */
     seq(...parsers : AnyParser[]) : LoudParser<any[]>;
 
+    /**
+     * Returns a parser that, when called, will call the `parserChooser` function on the current parsing state.
+     * The returned parser will behave like the parser returned by this function.
+     * @param {(userState: UserState) => TParser1} parserChooser A function for choosing which parser to apply based on user state.
+     */
+    choose<TParser1>(parserChooser : (userState : UserState) => TParser1);
 }

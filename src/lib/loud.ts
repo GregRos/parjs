@@ -5,12 +5,13 @@
 import {AnyParser} from "./any";
 import {ReplyKind, Reply} from "./reply";
 import {QuietParser} from "./quiet";
+import {UserState} from "./internal/implementation/state";
 
 /**
  * A projection on the parser result and the parser state.
  */
 export interface ParjsProjection<T, TOut> {
-    (value : T, userState : any) : TOut;
+    (value : T, userState : UserState) : TOut;
 }
 /**
  * A predicate on the parser result and the user state.
@@ -32,7 +33,7 @@ export interface LoudParser<T> extends AnyParser {
      *
      * @group action
      */
-    parse(input : string, initialState ?: object) : Reply<T>;
+    parse(input : string, initialState ?: UserState) : Reply<T>;
 
     //+++ ALTERNATIVE
 
@@ -84,11 +85,11 @@ export interface LoudParser<T> extends AnyParser {
     soft : LoudParser<T>;
 
     /**
-     * Returns a parser that will apply `this` and yields its result. If `this` fails softly, the returned parser will succeed yield `val`.
+     * Returns a parser that will apply `this` and yield its result. If `this` fails softly, the returned parser will succeed yield `val`.
      * @param val The value alternative.
      * @group combinator failure-recovery alternatives
      */
-    orVal<S>(val : S) : LoudParser<T | S>;
+    maybe<S>(val : S) : LoudParser<T | S>;
 
     //+ Look Ahead
 
@@ -201,7 +202,7 @@ export interface LoudParser<T> extends AnyParser {
      * Returns a parser that will apply `this` and then the given parsers in the order at which they appear. The returned parser will yield all their results in an array.
      * @param array An array of loud/quiet parsers to apply.
      */
-    then<S>(array : (LoudParser<S> | QuietParser)[]) : LoudParser<S[]>
+    then<S>(array : (LoudParser<S> | QuietParser)[]) : LoudParser<(S | T)[]>
 
     /**
      * Returns a parser that will apply `this`, and then immediately a sequence of quiet parsers. It will yield the result of `this`.
@@ -259,11 +260,18 @@ export interface LoudParser<T> extends AnyParser {
      * The returned parser will then apply that parser and return its result.
      * Because parser construction can be expensive, you can optionally provide a Map object which is used as a cache.
      * @param selector The function that selects which parser to apply next.
-     * @param cache An optional cache object.
      * @group combinator sequential
      */
-    thenChoose<TParser extends LoudParser<any>>(selector : (value : T) => TParser, cache ?: Map<T, AnyParser>) : TParser
+    thenChoose<TParser extends LoudParser<any>>(selector : (value : T, state : UserState) => TParser) : TParser
 
+    /**
+     * Returns a parser that will apply `this`, and then call the selector function with the result of its result. The function returns another parser.
+     * The returned parser will then apply that parser and return its result.
+     * Because parser construction can be expensive, you can optionally provide a Map object which is used as a cache.
+     * @param selector The function that selects which parser to apply next.
+     * @group combinator sequential
+     */
+    thenChoose<TParser extends QuietParser>(selector : (value : T, state : UserState) => TParser) : TParser
 
     /**
      * P will wrap {this} in a nested parser construct.
@@ -274,3 +282,4 @@ export interface LoudParser<T> extends AnyParser {
      */
     readonly isolate;
 }
+

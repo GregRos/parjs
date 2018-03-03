@@ -6,7 +6,7 @@ import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 
-export class PrsSoft extends ParjsAction {
+export class PrsSoften extends ParjsAction {
     isLoud : boolean;
 
     expecting : string;

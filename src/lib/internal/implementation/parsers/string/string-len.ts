@@ -4,6 +4,30 @@
 import {ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+
+
+export function prsStringLength() {
+    return class PrsStringLen extends ParjsBasicAction{
+        expecting : string;
+
+        constructor(private _length : number) {
+            super();
+            this.expecting = `${_length} characters`;
+        }
+
+        _apply(ps : ParsingState) {
+            let {position, input} = ps;
+            let {_length} = this;
+            if (input.length < position + _length) {
+                ps.kind = ReplyKind.SoftFail;
+                return;
+            }
+            ps.position += _length;
+            ps.value = input.substr(position, _length);
+            ps.kind = ReplyKind.Ok;
+        }
+    }
+}
 /**
  * Created by User on 22-Nov-16.
  */

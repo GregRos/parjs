@@ -9,7 +9,7 @@ import {ArrayHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsSeq extends ParjsAction {
+export class PrsSequence extends ParjsAction {
     isLoud = true;
 
     expecting : string;

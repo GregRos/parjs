@@ -329,30 +329,6 @@ describe("sequential combinators", () => {
         it("fails hard if failed to find parser", () => {
            expectFailure(p.parse("`"), "HardFail");
         });
-
-        describe("uses cache", () => {
-            let cache = new Map<string, any>();
-            let calls = 0;
-            let p = Parjs.anyCharOf("abc").thenChoose(x => {
-                calls++;
-                return Parjs.string(`${x}1`);
-            }, cache);
-            it("works first time", () => {
-                expectSuccess(p.parse("aa1"), "a1");
-                expect(calls).toBe(1);
-            });
-            it("goes through cache", () => {
-                expectSuccess(p.parse("aa1"), "a1");
-                expect(calls).toBe(1);
-            });
-            it("works second time not through cache", () => {
-                expectSuccess(p.parse("bb1"), "b1");
-                expect(calls).toBe(2);
-            })
-
-        })
-
-
     })
 });
 

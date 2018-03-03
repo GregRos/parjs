@@ -17,18 +17,18 @@ function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TP
 describe("maybe combinator", () => {
     it("works", () => {
         let p = Parjs.string("a").q;
-        let m = p.maybe;
+        let m = p.maybe();
         expectSuccess(m.parse("a"));
         expectSuccess(m.parse(""));
     });
 
     it("causes progress on success", () => {
-        let p = Parjs.string("abc").q.maybe.then(Parjs.string("123"));
+        let p = Parjs.string("abc").q.maybe().then(Parjs.string("123"));
         expectSuccess(p.parse("abc123"), "123");
     });
 
     it("propagates hard failure", () => {
-        let p = Parjs.fail("intentional", ReplyKind.HardFail).q.maybe;
+        let p = Parjs.fail("intentional", ReplyKind.HardFail).q.maybe();
         expectFailure(p.parse(""), ReplyKind.HardFail);
     });
 });
@@ -38,7 +38,7 @@ describe("or combinator", () => {
         expect(() => Parjs.any(Parjs.digit as any, Parjs.digit.q)).toThrow();
     });
     it("guards against quiet-orVal", () => {
-        expect(() => (Parjs.eof as any as LoudParser<any>).orVal(1)).toThrow();
+        expect(() => (Parjs.eof as any as LoudParser<any>).maybe(1)).toThrow();
     });
 
     describe("loud or loud", () => {
@@ -74,7 +74,7 @@ describe("or combinator", () => {
 });
 
 describe("or val combinator", () => {
-    let parser = Parjs.string("a").then(Parjs.string("b")).str.orVal("c");
+    let parser = Parjs.string("a").then(Parjs.string("b")).str.maybe("c");
     it("succeeds to parse", () => {
         expectSuccess(parser.parse("ab"), "ab");
     });

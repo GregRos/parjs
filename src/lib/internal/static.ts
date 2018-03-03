@@ -2,8 +2,8 @@
  * @module parjs/internal
  */ /** */
 import {ParjsParser} from "./instance";
-import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from "./implementation/parsers";
-import {PrsAlts, PrsSeq, PrsLate} from "./implementation/combinators";
+import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, PrsStringOf, PrsRegexp, PrsPosition, PrsState } from "./implementation/parsers";
+import {PrsAlternatives, PrsSequence, PrsLate} from "./implementation/combinators";
 import {ParjsAction, ParjsBasicAction} from "./implementation/action";
 import {AnyParser} from "../any";
 import {ReplyKind} from "../reply";
@@ -21,6 +21,7 @@ import {StaticCodeInfo, } from "char-info";
 import {TraceVisualizer} from "./visualizer";
 import {StaticCharInfo} from "char-info/dist/inner/abstract";
 import {Es6} from "../common/common";
+import {PrsChoose} from "./implementation/combinators/sequential/sequential-func";
 
 function wrap(action : ParjsAction) {
 	return new ParjsParser(action);
@@ -71,6 +72,9 @@ export class ParjsHelper implements ParjsStaticHelper{
     }
 }
 
+
+
+
 export class ParjsParsers implements ParjsStatic {
     helper = new ParjsHelper();
     visualizer : TraceVisualizer;
@@ -85,16 +89,20 @@ export class ParjsParsers implements ParjsStatic {
         return wrap(new PrsLate(() => resolver().action, true)).withName("late");
     }
 
+    choose(selector) {
+        return (this as ParjsStatic).result(undefined).thenChoose((v, st) => selector(st));
+    }
+
     get letter() {
         return this.charWhere(AsciiCharInfo.isLetter).withName("letter")
     }
 
     any(...parsers : AnyParser[]) {
-        return wrap(new PrsAlts(parsers.map(x => x.action))).withName("any");
+        return wrap(new PrsAlternatives(parsers.map(x => x.action))).withName("any");
     }
 
     seq(...parsers : AnyParser[]) {
-        return wrap(new PrsSeq(parsers.map(x => x.action))).withName("seq");
+        return wrap(new PrsSequence(parsers.map(x => x.action))).withName("seq");
     }
 
     get anyChar() {
@@ -183,7 +191,7 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     anyStringOf(...strs : string[]){
-        return wrap(new AnyStringOf(strs)).withName("anyStringOf");
+        return wrap(new PrsStringOf(strs)).withName("anyStringOf");
     }
 
     stringLen(length : number) {

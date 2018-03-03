@@ -9,7 +9,7 @@ import {StringHelpers} from "../../functions/helpers";
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsStr extends ParjsAction {
+export class PrsStringify extends ParjsAction {
 
     isLoud = true;
     expecting : string;

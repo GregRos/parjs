@@ -7,7 +7,7 @@ import {ParsingState} from "../../state";
 /**
  * Created by lifeg on 24/11/2016.
  */
-export class PrsMapResult extends ParjsAction {
+export class PrsProjectConst extends ParjsAction {
 
     isLoud = true;
     expecting : string;

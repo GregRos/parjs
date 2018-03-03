@@ -5,6 +5,7 @@ import {ParjsAction} from "../../action";
 import {Parselets} from "./parselets";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+import {ParserDefinitionError} from "../../issues";
 /**
  * Created by User on 28-Nov-16.
  */
@@ -26,7 +27,7 @@ export class PrsInt extends ParjsAction {
     constructor(private _options : IntOptions) {
         super();
         if (_options.base > 36) {
-            throw new Error("invalid base");
+            throw new ParserDefinitionError("int", "invalid base");
         }
         this.expecting = `a ${_options.allowSign ? "signed" : "unsigned"} integer in base ${_options.base}`;
     }

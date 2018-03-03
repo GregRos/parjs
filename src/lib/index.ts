@@ -7,6 +7,7 @@
 
 import {ParjsStatic} from "./parjs";
 import {ParjsParsers} from "./internal/static";
+export {UserState} from "./internal/implementation/state";
 export {LoudParser} from "./loud";
 export {QuietParser} from "./quiet";
 export {ParsingFailureError} from "./parsing-failure"

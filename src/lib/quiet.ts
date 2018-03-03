@@ -4,13 +4,14 @@
 import {AnyParser} from "./any";
 import {ReplyKind, QuietReply} from "./reply";
 import {LoudParser} from "./loud";
+import {UserState} from "./internal/implementation/state";
 
 /**
  * A predicate over the user state, for parsers that don't produce results.
  * @see ParjsProjection
  */
 export interface ParjsProjectionQuiet<T> {
-    (userState : any) : T;
+    (userState : UserState) : T;
 }
 /**
  * A predicate over the user state, for parsers that don't produce results.
@@ -30,7 +31,7 @@ export interface QuietParser extends AnyParser {
      * @param input The input string.
      * @param initialState The initial user state. The properties of this object are merged with those of the invocation's user state.
      */
-    parse(input : string,initialState ?: any) : QuietReply;
+    parse(input : string,initialState ?: UserState) : QuietReply;
 
     //+++ ALTERNATIVE
 
@@ -164,5 +165,5 @@ export interface QuietParser extends AnyParser {
      * The returned parser will apply `this` at the current position, and will succeed if `this` succeeds or fails softly.
      * i.e. it will make `this` an optional parser.
      */
-    maybe : QuietParser;
+    maybe(): QuietParser;
 }

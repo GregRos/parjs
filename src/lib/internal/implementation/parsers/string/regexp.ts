@@ -9,7 +9,6 @@ import {ReplyKind} from "../../../../reply";
  */
 
 export class PrsRegexp extends ParjsBasicAction {
-
     expecting : string;
     constructor(private _regexp : RegExp) {
         super();

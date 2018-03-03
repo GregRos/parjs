@@ -128,6 +128,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#manysepby" class="tsd-kind-icon">many<wbr>Sep<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#manytill" class="tsd-kind-icon">many<wbr>Till</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="parjs.quietparser.html#map" class="tsd-kind-icon">map</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#maybe" class="tsd-kind-icon">maybe</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#must" class="tsd-kind-icon">must</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#mustcapture" class="tsd-kind-icon">must<wbr>Capture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="parjs.quietparser.html#or" class="tsd-kind-icon">or</a></li>
@@ -168,7 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">backtrack<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in quiet.ts:74</li>
+							<li>Defined in quiet.ts:75</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -272,7 +273,7 @@
 					<div class="tsd-signature tsd-kind-icon">soft<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in quiet.ts:50</li>
+							<li>Defined in quiet.ts:51</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -349,7 +350,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:65</li>
+									<li>Defined in quiet.ts:66</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -385,7 +386,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:161</li>
+									<li>Defined in quiet.ts:162</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -421,7 +422,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:123</li>
+									<li>Defined in quiet.ts:124</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -463,7 +464,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:153</li>
+									<li>Defined in quiet.ts:154</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -507,7 +508,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:133</li>
+									<li>Defined in quiet.ts:134</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -541,7 +542,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:143</li>
+									<li>Defined in quiet.ts:144</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -584,7 +585,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:57</li>
+									<li>Defined in quiet.ts:58</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -614,6 +615,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="maybe" class="tsd-anchor"></a>
+					<h3>maybe</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">maybe<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in quiet.ts:168</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The returned parser will apply <code>this</code> at the current position, and will succeed if <code>this</code> succeeds or fails softly.
+									i.e. it will make <code>this</code> an optional parser.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="must" class="tsd-anchor"></a>
 					<h3>must</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -623,7 +647,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:91</li>
+									<li>Defined in quiet.ts:92</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -666,7 +690,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:81</li>
+									<li>Defined in quiet.ts:82</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -702,7 +726,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:44</li>
+									<li>Defined in quiet.ts:45</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -733,13 +757,13 @@
 					<a name="parse" class="tsd-anchor"></a>
 					<h3>parse</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, initialState<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#quietreply" class="tsd-signature-type">QuietReply</a></li>
+						<li class="tsd-signature tsd-kind-icon">parse<span class="tsd-signature-symbol">(</span>input<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, initialState<span class="tsd-signature-symbol">?: </span><a href="../modules/parjs_internal.html#userstate" class="tsd-signature-type">UserState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#quietreply" class="tsd-signature-type">QuietReply</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:33</li>
+									<li>Defined in quiet.ts:34</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -756,7 +780,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> initialState: <span class="tsd-signature-type">any</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> initialState: <a href="../modules/parjs_internal.html#userstate" class="tsd-signature-type">UserState</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The initial user state. The properties of this object are merged with those of the invocation&#39;s user state.</p>
 									</div>
@@ -821,7 +845,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:98</li>
+									<li>Defined in quiet.ts:99</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -854,7 +878,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:106</li>
+									<li>Defined in quiet.ts:107</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -886,7 +910,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in quiet.ts:114</li>
+									<li>Defined in quiet.ts:115</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -919,6 +943,9 @@
 				<ul>
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-private">
+						<a href="../modules/_common_common_.html">"common/common"</a>
 					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="../modules/parjs.html">parjs</a>
@@ -1020,6 +1047,9 @@
 								<a href="parjs.quietparser.html#map" class="tsd-kind-icon">map</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="parjs.quietparser.html#maybe" class="tsd-kind-icon">maybe</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="parjs.quietparser.html#must" class="tsd-kind-icon">must</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
@@ -1041,7 +1071,7 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../modules/parjs.html#parjspredicate" class="tsd-kind-icon">Parjs<wbr>Predicate</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
@@ -1050,7 +1080,7 @@
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/parjs.html#quietreply" class="tsd-kind-icon">Quiet<wbr>Reply</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../modules/parjs.html#reply" class="tsd-kind-icon">Reply</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">

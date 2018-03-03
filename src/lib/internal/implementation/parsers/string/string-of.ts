@@ -4,7 +4,7 @@
 import {ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
-export class AnyStringOf extends ParjsBasicAction {
+export class PrsStringOf extends ParjsBasicAction {
 
     isLoud = true;
     expecting : string;

@@ -1,3 +1,5 @@
+/** @private */ /** */
+
 export module Es6 {
     export function strIncludes(haystack : string, needle : string) {
         return haystack.indexOf(needle) >= 0;

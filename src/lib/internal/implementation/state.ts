@@ -4,6 +4,10 @@
 import {ReplyKind} from "../../reply";
 import {AnyParserAction} from "../action";
 
+export type UserState = {
+    [key : string] : any;
+}
+
 export interface ParsingState {
     /**
      * The original string input on which parsing is performed. Should not be mutated while parsing.
@@ -20,7 +24,7 @@ export interface ParsingState {
     /**
      * Additional state data.
      */
-    userState : any;
+    userState : UserState;
 
     /**
      * Initial user state.

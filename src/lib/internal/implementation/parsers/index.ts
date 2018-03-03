@@ -4,7 +4,7 @@
  * Implementations of building block parsers.
  */ /** */
 export {PrsCharWhere} from "./char/char-where";
-export {AnyStringOf} from "./string/any-string-of";
+export {PrsStringOf} from "./string/string-of";
 export {PrsString} from "./string/string";
 export {PrsRest} from "./string/rest";
 export {PrsStringLen} from "./string/string-len";

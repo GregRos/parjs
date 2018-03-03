@@ -8,7 +8,7 @@ import {ParsingState} from "../../state";
 /**
  * Created by User on 22-Nov-16.
  */
-export class PrsNot extends ParjsAction {
+export class PrsInverse extends ParjsAction {
 
     isLoud = false;
     expecting : string;

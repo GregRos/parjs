@@ -6,6 +6,7 @@ import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results
 import {ParsingState} from "./state";
 import {ReplyKind} from "../../reply";
 import {AnyParserAction} from "../action";
+import {ParserDefinitionError} from "./issues";
 
 
 function worseThan(a : ReplyKind, b : ReplyKind) {
@@ -90,7 +91,7 @@ export abstract class ParjsAction implements AnyParserAction{
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
         if (ps.kind === ReplyKind.Unknown) {
-            throw Error("the State's kind field must be set")
+            throw new ParserDefinitionError(this.displayName, "the State's kind field must be set")
         }
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
@@ -100,13 +101,13 @@ export abstract class ParjsAction implements AnyParserAction{
             ps.value = QUIET_RESULT;
         } else {
             if (ps.value === UNINITIALIZED_RESULT) {
-                throw new Error("a loud parser must set the State's return value if it succeeds.")
+                throw new ParserDefinitionError(this.displayName, "a loud parser must set the State's return value if it succeeds.")
             }
         }
 
         if (!ps.isOk) {
             if (ps.expecting === undefined) {
-                throw Error("if failure then there must be a reason");
+                throw new ParserDefinitionError(this.displayName, "if failure then there must be a reason");
             }
             ps.stack.push(this);
         } else {

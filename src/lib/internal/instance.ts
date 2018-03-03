@@ -2,8 +2,8 @@
  * @module parjs/internal
  */ /** */
 import {
-    PrsSeq
-    , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsAltVal} from "./implementation/combinators";
+    PrsSequence
+    , PrsProject, PrsStringify, PrsInverse, PrsQuieten, PrsProjectConst, PrsAlternatives, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsChoose, PrsExactly, PrsManyTill, PrsManySepBy, PrsMaybe} from "./implementation/combinators";
 import {BaseParjsParser} from "./implementation/parser";
 import isFunction = require("lodash/isFunction");
 import {ParjsAction} from "./implementation/action";
@@ -12,17 +12,18 @@ import {LoudParser} from "../loud";
 import {ReplyKind} from "../reply";
 import {QuietParser} from "../quiet";
 import {AnyParser} from "../any";
-import {PrsSoft} from "./implementation/combinators/alternatives/soft";
-import {ActParser} from "./implementation/combinators/map/act";
+import {PrsSoften} from "./implementation/combinators/alternatives/soft";
+import {PrsEach} from "./implementation/combinators/map/act";
 import {Parjs} from "../../lib";
 import {PrsIsolate} from "./implementation/combinators/special/isolate";
+import {QUIET_RESULT} from "./implementation/special-results";
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
-    thenChoose(selector : (x : any) => any, map ?: Map<any, any>) : any {
-        return wrap(new PrsSeqFunc(this.action, selector, map)).withName("thenChoose") as any;
+    thenChoose(selector : (x : any, state : any) => any) : any {
+        return wrap(new PrsChoose(this.action, selector)).withName("thenChoose") as any;
     }
 
     between(preceding : AnyParser, proceeding ?: AnyParser)  {
@@ -38,20 +39,25 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsBacktrack(this.action)).withName("backtrack");
     }
 
+
     mustCapture(failType : ReplyKind.Fail = ReplyKind.HardFail) {
         return wrap(new PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
 
-    get maybe() : QuietParser {
-    	return this.or(Parjs.result(undefined).q);
+    maybe(x ?: any) : QuietParser & LoudParser<any> {
+        if (x) {
+            return wrap(new PrsMaybe(this.action, x)).withName("maybe");
+        } else {
+            return wrap(new PrsMaybe(this.action, QUIET_RESULT)).withName("maybe")
+        }
     }
 
     or(...others : any[]) : any {
-        return wrap(new PrsAlts([this, ...others].map(x => x.action))).withName("or");
+        return wrap(new PrsAlternatives([this, ...others].map(x => x.action))).withName("or");
     }
 
     get state(): LoudParser<any> {
-        let ret = wrap(new MapParser(this.action, (r, s) => s));
+        let ret = wrap(new PrsProject(this.action, (r, s) => s));
         return ret.withName("state");
     }
 
@@ -64,7 +70,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         } else {
             mapper = (result, state) => f(state);
         }
-        return wrap(new MapParser(this.action, mapper)).withName("map");
+        return wrap(new PrsProject(this.action, mapper)).withName("map");
     }
 
     each(f) {
@@ -76,15 +82,15 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         } else {
             mapper = (result, userState) => f(userState);
         }
-        return wrap(new ActParser(this.action, mapper)).withName("each");
+        return wrap(new PrsEach(this.action, mapper)).withName("each");
     }
 
     get q() {
-        return wrap(new PrsQuiet(this.action)).withName("quiet");
+        return wrap(new PrsQuieten(this.action)).withName("quiet");
     }
 
     get soft() {
-        return wrap(new PrsSoft(this.action)).withName("soften");
+        return wrap(new PrsSoften(this.action)).withName("soften");
     }
 
     then(...args : any[]) : any {
@@ -103,7 +109,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         }
 
         let actions = [this.action, ...next.map(x => x.action)];
-        let seqParse = wrap(new PrsSeq(actions));
+        let seqParse = wrap(new PrsSequence(actions));
         let loudCount = actions.filter(x => x.isLoud).length;
         let ret;
         if (unpack && loudCount === 1) {
@@ -134,17 +140,12 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsExactly(this.action, count)).withName("exactly");
     }
 
-
     result(r : any) {
-        return wrap(new PrsMapResult(this.action, r)).withName("result");
+        return wrap(new PrsProjectConst(this.action, r)).withName("result");
     }
 
     get not() {
-        return wrap(new PrsNot(this.action)).withName("not");
-    }
-
-    orVal(x : any) {
-        return wrap(new PrsAltVal(this.action, x)).withName("orVal");
+        return wrap(new PrsInverse(this.action)).withName("not");
     }
 
     cast<S>() {
@@ -152,7 +153,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     get str() {
-        return wrap(new PrsStr(this.action)).withName("str");
+        return wrap(new PrsStringify(this.action)).withName("str");
     }
 
     must(condition : Function, name = "(unnamed condition)", fail : ReplyKind.Fail = ReplyKind.HardFail) {

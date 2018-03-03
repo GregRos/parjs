@@ -7,7 +7,7 @@ import {ParsingState} from "../../state";
 /**
  * Created by lifeg on 24/11/2016.
  */
-export class PrsQuiet extends ParjsAction {
+export class PrsQuieten extends ParjsAction {
 
     isLoud = false;
     expecting : string;

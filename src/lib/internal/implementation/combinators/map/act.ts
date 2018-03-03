@@ -4,7 +4,7 @@
 import {ParjsAction} from "../../action";
 import {ParsingState} from "../../state";
 
-export class ActParser extends ParjsAction {
+export class PrsEach extends ParjsAction {
 
     expecting : string;
     get isLoud() {
