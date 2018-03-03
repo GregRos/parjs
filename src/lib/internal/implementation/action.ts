@@ -9,11 +9,11 @@ import {AnyParserAction} from "../action";
 
 
 function worseThan(a : ReplyKind, b : ReplyKind) {
-    if (a === ReplyKind.OK) {
-        return b === ReplyKind.OK;
+    if (a === ReplyKind.Ok) {
+        return b === ReplyKind.Ok;
     }
     if (a === ReplyKind.SoftFail) {
-        return b === ReplyKind.SoftFail || b === ReplyKind.OK;
+        return b === ReplyKind.SoftFail || b === ReplyKind.Ok;
     }
     if (a === ReplyKind.HardFail) {
         return b !== ReplyKind.FatalFail;
@@ -48,7 +48,7 @@ export class BasicParsingState implements ParsingState {
     }
 
     get isOk() {
-        return this.kind === ReplyKind.OK;
+        return this.kind === ReplyKind.Ok;
     }
 
     get isSoft() {

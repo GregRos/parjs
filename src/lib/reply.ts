@@ -1,7 +1,6 @@
 /**
  * @module parjs
  */ /** */
-import {ParsingFailureError} from "./parsing-failure";
 import {SuccessReply, FailureReply} from "./internal/reply";
 
 
@@ -49,7 +48,7 @@ export namespace ReplyKind {
     /**
      * An OK reply.
      */
-    export const OK : OK = "OK";
+    export const Ok : OK = "OK";
     /**
      * A soft failure reply.
      */

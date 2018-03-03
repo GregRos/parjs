@@ -11,17 +11,17 @@ export class PrsMapResult extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private inner : AnyParserAction, private result : any) {
+    constructor(private _inner : AnyParserAction, private _result : any) {
         super();
-        this.expecting = inner.expecting;
+        this.expecting = _inner.expecting;
     }
 
     _apply(ps : ParsingState) {
-        let {inner, result} = this;
-        inner.apply(ps);
+        let {_inner, _result} = this;
+        _inner.apply(ps);
         if (!ps.isOk) {
             return;
         }
-        ps.value = result;
+        ps.value = _result;
     }
 }

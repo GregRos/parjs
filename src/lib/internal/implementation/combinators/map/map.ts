@@ -2,7 +2,6 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../special-results";
 import {ParsingState} from "../../state";
 /**
  * Created by User on 21-Nov-16.
@@ -11,18 +10,18 @@ export class MapParser extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private inner : ParjsAction, private map : (x : any, y : any) => any) {
+    constructor(private _inner : ParjsAction, private _map : (x : any, y : any) => any) {
         super();
-        this.expecting = inner.expecting;
+        this.expecting = _inner.expecting;
     }
 
     _apply(ps : ParsingState) {
-        let {inner, map} = this;
-        inner.apply(ps);
+        let {_inner, _map} = this;
+        _inner.apply(ps);
         if (!ps.isOk) {
             return;
         }
-        ps.value = map(ps.value, ps.userState);
+        ps.value = _map(ps.value, ps.userState);
     }
 }
 

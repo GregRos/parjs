@@ -1,12 +1,11 @@
 /**
  * @module parjs/internal/implementation
  */ /** */
-import {QUIET_RESULT, FAIL_RESULT} from "./special-results";
-import {Issues} from './issues';
+import {QUIET_RESULT} from "./special-results";
 import {ParjsAction, BasicParsingState} from "./action";
 import {ReplyKind, Reply} from "../../reply";
-import {Trace, FailureReply, SuccessReply, ErrorLocation} from '../reply';
-import _defaults = require('lodash/defaults');
+import {Trace, FailureReply, SuccessReply} from "../reply";
+import _defaults = require("lodash/defaults");
 import {ParsingState} from "./state";
 
 function getErrorLocation(ps : ParsingState){
@@ -22,8 +21,6 @@ function getErrorLocation(ps : ParsingState){
         lastPos = result.index;
         line++;
     }
-
-    result = !result ? null : endln.exec(ps.input);
 
     return {
         row : line,
@@ -72,7 +69,7 @@ export abstract class BaseParjsParser {
             throw new Error("should not happen.");
         }
         let ret: Reply<any>;
-        if (ps.kind === ReplyKind.OK) {
+        if (ps.kind === ReplyKind.Ok) {
             return new SuccessReply(ps.value === QUIET_RESULT ? undefined : ps.value);
         }
         else {

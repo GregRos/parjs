@@ -3,21 +3,18 @@
  */ /** */
 import {
     PrsSeq
-    , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsAltVal} from './implementation/combinators';
+    , MapParser, PrsStr, PrsNot, PrsQuiet, PrsMapResult, PrsAlts, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsSeqFunc, PrsExactly, PrsManyTill, PrsManySepBy, PrsAltVal} from "./implementation/combinators";
 import {BaseParjsParser} from "./implementation/parser";
-import isFunction = require('lodash/isFunction');
-import {ParjsAction, ParjsBasicAction} from "./implementation/action";
+import isFunction = require("lodash/isFunction");
+import {ParjsAction} from "./implementation/action";
 import {Predicates} from "./implementation/functions/predicates";
 import {LoudParser} from "../loud";
 import {ReplyKind} from "../reply";
-import {FailureReply} from './reply';
 import {QuietParser} from "../quiet";
 import {AnyParser} from "../any";
 import {PrsSoft} from "./implementation/combinators/alternatives/soft";
 import {ActParser} from "./implementation/combinators/map/act";
-import {ParjsStaticHelper} from "../parjs";
-import {AnyParserAction} from "./action";
-import {Parjs} from '../../lib';
+import {Parjs} from "../../lib";
 import {PrsIsolate} from "./implementation/combinators/special/isolate";
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);

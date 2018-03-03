@@ -2,8 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {FAIL_RESULT} from "../../special-results";
-import {Issues} from '../../issues';
+import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
@@ -12,19 +11,19 @@ export class PrsAltVal extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor (private inner : AnyParserAction, private val : any) {
+    constructor (private _inner : AnyParserAction, private _val : any) {
         super();
-        inner.isLoud || Issues.quietParserNotPermitted("altVal");
-        this.expecting = `${inner.expecting} or anything`;
+        _inner.isLoud || Issues.quietParserNotPermitted("altVal");
+        this.expecting = `${_inner.expecting} or anything`;
     }
 
     _apply(ps : ParsingState) {
-        let {inner, val} = this;
-        inner.apply(ps);
+        let {_inner, _val} = this;
+        _inner.apply(ps);
         if (ps.isSoft) {
             //on soft failure, set the value and result to OK
-            ps.value = val;
-            ps.kind = ReplyKind.OK;
+            ps.value = _val;
+            ps.kind = ReplyKind.Ok;
         }
         //on ok/hard/fatal, propagate the result.
     }

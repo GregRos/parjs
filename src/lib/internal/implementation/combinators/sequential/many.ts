@@ -2,8 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../special-results";
-import {Issues} from '../../issues';
+import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
@@ -15,23 +14,23 @@ export class PrsMany extends ParjsAction {
     isLoud : boolean;
 
     expecting : string;
-    constructor(private inner : AnyParserAction, private maxIterations : number, private minSuccesses : number) {
+    constructor(private _inner : AnyParserAction, private _maxIterations : number, private _minSuccesses : number) {
         super();
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
-        maxIterations >= minSuccesses || Issues.willAlwaysFail("many");
+        this.isLoud = _inner.isLoud;
+        this.expecting = _inner.expecting;
+        _maxIterations >= _minSuccesses || Issues.willAlwaysFail("many");
     }
 
     _apply(ps : ParsingState) {
-        let {inner, maxIterations, minSuccesses} = this;
+        let {_inner, _maxIterations, _minSuccesses} = this;
         let {position} = ps;
         let arr = [];
         let i = 0;
         while (true) {
-            inner.apply(ps);
+            _inner.apply(ps);
             if (!ps.isOk) break;
-            if (i >= maxIterations) break;
-            if (maxIterations === Infinity && ps.position === position) {
+            if (i >= _maxIterations) break;
+            if (_maxIterations === Infinity && ps.position === position) {
                 Issues.guardAgainstInfiniteLoop("many");
             }
             position = ps.position;
@@ -41,13 +40,13 @@ export class PrsMany extends ParjsAction {
         if (ps.atLeast(ReplyKind.HardFail)) {
             return;
         }
-        if (i < minSuccesses) {
+        if (i < _minSuccesses) {
             ps.kind = i === 0 ? ReplyKind.SoftFail : ReplyKind.HardFail;
             return;
         }
         ps.value = arr;
         //recover from the last failure.
         ps.position = position;
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
     }
 }

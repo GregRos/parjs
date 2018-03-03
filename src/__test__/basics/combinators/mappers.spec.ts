@@ -1,11 +1,9 @@
 /**
  * Created by lifeg on 10/12/2016.
  */
-import {expectFailure, expectSuccess, expectResult} from '../../helpers/custom-matchers';
-import {LoudParser} from "../../../lib/loud";
+import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
-import {AnyParser} from "../../../lib/any";
 
 let goodInput = "abcd";
 let badInput = "";
@@ -89,10 +87,6 @@ describe("map combinators", () => {
             expectSuccess(p.parse("a"), "a");
         });
 
-        it("symbol", () => {
-            let p = Parjs.result(Symbol("hi")).str;
-            expectSuccess(p.parse(""), "hi");
-        });
 
         it("object", () => {
             let p = Parjs.result({}).str;

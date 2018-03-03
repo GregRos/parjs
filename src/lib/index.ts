@@ -7,11 +7,11 @@
 
 import {ParjsStatic} from "./parjs";
 import {ParjsParsers} from "./internal/static";
-export {LoudParser} from './loud';
-export {QuietParser} from './quiet';
-export {ParsingFailureError} from './parsing-failure'
-export {AnyParser} from './any';
-export {ReplyKind, Reply, QuietReply} from './reply';
+export {LoudParser} from "./loud";
+export {QuietParser} from "./quiet";
+export {ParsingFailureError} from "./parsing-failure"
+export {AnyParser} from "./any";
+export {ReplyKind, Reply, QuietReply} from "./reply";
 
 
 /**

@@ -1,12 +1,6 @@
-/**
- * Created by User on 09-Jan-17.
- */
-import _ = require('lodash');
-import {expectFailure, expectSuccess} from '../../helpers/custom-matchers';
-import {LoudParser} from "../../../lib/loud";
+import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
-import {ReplyKind} from "../../../lib/reply";
-import {AnyParser} from "../../../lib/any";
+
 let goodInput = "abcd";
 describe("special combinators", () => {
     describe("backtrack", () => {

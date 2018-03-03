@@ -4,12 +4,10 @@
 /**
  * Created by lifeg on 10/12/2016.
  */
-import {expectFailure, expectSuccess} from '../../helpers/custom-matchers';
-import {LoudParser} from "../../../lib/loud";
+import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
-import {AnyParser} from "../../../lib/any";
-import _range = require('lodash/range');
+import _range = require("lodash/range");
 let goodInput = "abcd";
 let softBadInput = "a";
 let hardBadInput = "ab";
@@ -337,7 +335,7 @@ describe("sequential combinators", () => {
             let calls = 0;
             let p = Parjs.anyCharOf("abc").thenChoose(x => {
                 calls++;
-                return Parjs.string(x + "1");
+                return Parjs.string(`${x}1`);
             }, cache);
             it("works first time", () => {
                 expectSuccess(p.parse("aa1"), "a1");

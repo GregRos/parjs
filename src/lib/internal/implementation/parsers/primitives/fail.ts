@@ -11,13 +11,13 @@ import {Issues} from "../../issues";
 
 export class PrsFail extends ParjsBasicAction {
 
-    constructor(private kind : ReplyKind, public expecting : string) {
+    constructor(private _kind : ReplyKind, public expecting : string) {
         super();
-        [ReplyKind.OK as ReplyKind, ReplyKind.Unknown].indexOf(kind) >= 0 && Issues.expectedFailureKind("fail");
+        [ReplyKind.Ok as ReplyKind, ReplyKind.Unknown].indexOf(_kind) >= 0 && Issues.expectedFailureKind("fail");
     }
 
     _apply(ps : ParsingState) {
-        ps.kind = this.kind;
+        ps.kind = this._kind;
         ps.expecting = this.expecting;
     }
 }

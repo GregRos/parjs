@@ -4,21 +4,21 @@
 //NOTE: Although we do use the char-info package for recognizing characters, it's very big and it's not always necessary.
 //This code is copied over from char-info for the purpose of recognizing basic characters so we don't import it unless the user wants.
 export namespace Codes {
-    export const a = 'a'.charCodeAt(0);
-    export const f = 'f'.charCodeAt(0);
-    export const F = 'F'.charCodeAt(0);
-    export const z = 'z'.charCodeAt(0);
-    export const A = 'A'.charCodeAt(0);
-    export const Z = 'Z'.charCodeAt(0);
-    export const zero = '0'.charCodeAt(0);
-    export const nine = '9'.charCodeAt(0);
-    export const newline = '\n'.charCodeAt(0);
+    export const a = "a".charCodeAt(0);
+    export const f = "f".charCodeAt(0);
+    export const F = "F".charCodeAt(0);
+    export const z = "z".charCodeAt(0);
+    export const A = "A".charCodeAt(0);
+    export const Z = "Z".charCodeAt(0);
+    export const zero = "0".charCodeAt(0);
+    export const nine = "9".charCodeAt(0);
+    export const newline = "\n".charCodeAt(0);
     export const maxAnsi = 0xff;
-    export const carriageReturn = '\r'.charCodeAt(0);
+    export const carriageReturn = "\r".charCodeAt(0);
     export const space = 0x0020;
     export const tab = 0x0008;
-    export const minus = '-'.charCodeAt(0);
-    export const plus = '+'.charCodeAt(0);
+    export const minus = "-".charCodeAt(0);
+    export const plus = "+".charCodeAt(0);
     export const decimalPoint = ".".charCodeAt(0);
     export const e = a + 4;
     export const E = A + 4;

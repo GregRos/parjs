@@ -5,11 +5,11 @@ import {ParjsAction} from "../../action";
 /**
  * Created by User on 28-Nov-16.
  */
-import _defaults = require('lodash/defaults');
+import _defaults = require("lodash/defaults");
 import {Codes} from "../../functions/char-indicators";
-import decimalPoint = Codes.decimalPoint;
+
 import {FastMath} from "../../functions/math";
-import NegativeExponents = FastMath.NegativeExponents;
+
 import {Parselets} from "./parselets";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
@@ -34,9 +34,9 @@ export class PrsFloat extends ParjsAction {
     expecting = "a floating-point number";
 
     isLoud = true;
-    constructor(private options : FloatOptions) {
+    constructor(private _options : FloatOptions) {
         super();
-        this.options = _defaults(options, defaultFloatOptions);
+        this._options = _defaults(_options, defaultFloatOptions);
     }
 
     _apply(ps : ParsingState) {
@@ -76,20 +76,20 @@ export class PrsFloat extends ParjsAction {
                    Otherwise, an error is thrown.
                 b.
          */
-        let {options : {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent}} = this;
+        let {_options : {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent}} = this;
         let {position, input} = ps;
         if (position >= input.length) {
             ps.kind = ReplyKind.SoftFail;
             return;
         }
         let initPos = position;
-        let Sign = 1;
+        let sign = 1;
         let hasSign = false, hasWhole = false, hasFraction = false;
         if (allowSign) {
             //try parse a sign
-            Sign = Parselets.parseSign(ps);
-            if (Sign === 0) {
-                Sign = 1;
+            sign = Parselets.parseSign(ps);
+            if (sign === 0) {
+                sign = 1;
             } else {
                 hasSign = true;
             }
@@ -153,7 +153,7 @@ export class PrsFloat extends ParjsAction {
                 }
             }
         }
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
         ps.value = parseFloat(input.substring(initPos, ps.position));
     }
 }

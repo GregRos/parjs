@@ -14,6 +14,6 @@ export class PrsPosition extends ParjsAction {
     expecting = "anything";
     _apply(ps : ParsingState) {
         ps.value = ps.position;
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
     }
 }

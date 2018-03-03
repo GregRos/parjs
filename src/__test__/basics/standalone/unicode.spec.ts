@@ -9,8 +9,8 @@ describe("unicode strings", () => {
        it("success on all newline string, incl unicode newline", () => {
            let unicodeNewline = Parjs.uniNewline.many();
            let result = unicodeNewline.parse(allNewlines);
-           expect(result.kind).toBe(ReplyKind.OK);
-           if (result.kind !== ReplyKind.OK) return;
+           expect(result.kind).toBe(ReplyKind.Ok);
+           if (result.kind !== ReplyKind.Ok) return;
            expect(result.value.length).toBe(allNewlines.length - 1);
        });
    });

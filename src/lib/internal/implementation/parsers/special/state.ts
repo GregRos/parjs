@@ -14,6 +14,6 @@ export class PrsState extends ParjsAction {
     expecting = "anything";
     _apply(ps : ParsingState) {
         ps.value = ps.userState;
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
     }
 }

@@ -1,6 +1,8 @@
 /**
  * @module parjs/internal
  */ /** */
+// These are special identifiers.
+// tslint:disable:naming-convention
 /**
  * A unique object value indicating the result of a quiet parser.
  */

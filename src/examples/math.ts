@@ -16,7 +16,7 @@
 
 import "../__test__/setup";
 import {Parjs} from "../lib/index";
-import _ = require('lodash');
+
 import {LoudParser} from "../lib/loud";
 
 interface Expression {
@@ -92,7 +92,7 @@ let pUnit = pNumber.or(pParenExpr).each((result, state : MathState) => {
 //Parses a single operator and adds it to the expression stack.
 //Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
 let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state : MathState) => {
-    let operator = operators.find(o => o.operator === op);
+    let operator = operators.filter(o => o.operator === op)[0];
     reduceWithPrecedence(state.exprs, operator.precedence);
     state.exprs.push({
         ...operator,

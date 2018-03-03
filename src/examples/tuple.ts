@@ -13,7 +13,7 @@ let separated = paddedElement.manySepBy(Parjs.string(","));
 
 //Surround everything with parentheses:
 let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
-let ignoreWhitespace = Parjs.newline.many().then(surrounded)
+let ignoreWhitespace = Parjs.newline.many().then(surrounded);
 console.log(surrounded.parse("(1,  2 , 3 )"));
 
 var basic = BasicTraceVisualizer();

@@ -1,11 +1,10 @@
 /**
  * Created by lifeg on 09/12/2016.
  */
-import {expectFailure, expectSuccess} from '../../helpers/custom-matchers';
-import {LoudParser} from "../../../lib/loud";
+import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
-import {AnyParser} from "../../../lib/any";
+import {Es6} from "../../../lib/common/common";
 
 
 let uState = {};
@@ -41,7 +40,7 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(" "), " ");
         });
         it("succeeds on multiple spaces", () => {
-            expectSuccess(parser.parse(" ".repeat(5)), " ".repeat(5));
+            expectSuccess(parser.parse(Es6.strRepeat(" ", 5)), Es6.strRepeat(" ", 5));
         })
     });
 
@@ -130,7 +129,7 @@ describe("basic string parsers", () => {
             expectFailure(parser.parse(fail), ReplyKind.SoftFail)
         });
         it("fail too long", () => {
-            expectFailure(parser.parse(success + "1"), ReplyKind.SoftFail);
+            expectFailure(parser.parse(`${success}1`), ReplyKind.SoftFail);
         });
     });
 
@@ -149,7 +148,7 @@ describe("basic string parsers", () => {
             expectFailure(parser.parse(fail), ReplyKind.SoftFail)
         });
         it("fail too long", () => {
-            expectFailure(parser.parse(success2 + "1"), ReplyKind.SoftFail);
+            expectFailure(parser.parse(`${success2}1`), ReplyKind.SoftFail);
         });
     });
 
@@ -177,8 +176,8 @@ describe("basic string parsers", () => {
         it("success on all newline string, incl unicode newline", () => {
             let unicodeNewline = Parjs.uniNewline.many();
             let result = unicodeNewline.parse(allNewlines);
-            expect(result.kind).toBe(ReplyKind.OK);
-            if (result.kind !== ReplyKind.OK) return;
+            expect(result.kind).toBe(ReplyKind.Ok);
+            if (result.kind !== ReplyKind.Ok) return;
             expect(result.value.length).toBe(allNewlines.length - 1);
         });
 

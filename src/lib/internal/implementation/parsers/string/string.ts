@@ -1,7 +1,7 @@
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-import {ParjsAction, ParjsBasicAction} from "../../action";
+import {ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 /**
@@ -10,26 +10,26 @@ import {ReplyKind} from "../../../../reply";
 export class PrsString extends ParjsBasicAction  {
 
     expecting : string;
-    constructor(private str : string) {
+    constructor(private _str : string) {
         super();
-        this.expecting = `'${str}'`;
+        this.expecting = `'${_str}'`;
     }
     _apply(ps : ParsingState) {
-        let {str} = this;
+        let {_str} = this;
         let {position, input} = ps;
         let i;
-        if (position + str.length > input.length) {
+        if (position + _str.length > input.length) {
             ps.kind = ReplyKind.SoftFail;
             return;
         }
-        for (let i = 0; i < str.length; i++, position++) {
-            if (str.charCodeAt(i) !== input.charCodeAt(position)) {
+        for (let i = 0; i < _str.length; i++, position++) {
+            if (_str.charCodeAt(i) !== input.charCodeAt(position)) {
                 ps.kind = ReplyKind.SoftFail;
                 return;
             }
         }
-        ps.position += str.length;
-        ps.value = str;
-        ps.kind = ReplyKind.OK;
+        ps.position += _str.length;
+        ps.value = _str;
+        ps.kind = ReplyKind.Ok;
     }
 }

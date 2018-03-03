@@ -6,28 +6,28 @@ import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
-import {QUIET_RESULT} from "../../special-results";
+
 export class PrsAlts extends ParjsAction {
     isLoud : boolean;
 
     expecting : string;
-    constructor(private alts : AnyParserAction[]) {
+    constructor(private _alts : AnyParserAction[]) {
         super();
         //if the list is empty, every won't execute and alts[0] won't be called.
-        if (!alts.every(x => x.isLoud === alts[0].isLoud)) {
+        if (!_alts.every(x => x.isLoud === _alts[0].isLoud)) {
             Issues.mixedLoudnessNotPermitted("alts");
         }
-        alts.length === 0 && Issues.willAlwaysFail("alts");
-        this.isLoud = alts[0].isLoud;
-        this.expecting = `any of: ${alts.join(", ")}`;
+        _alts.length === 0 && Issues.willAlwaysFail("alts");
+        this.isLoud = _alts[0].isLoud;
+        this.expecting = `any of: ${_alts.join(", ")}`;
     }
 
     _apply(ps : ParsingState) {
         let {position} = ps;
-        let {alts} = this;
-        for (let i = 0; i < alts.length; i++) {
+        let {_alts} = this;
+        for (let i = 0; i < _alts.length; i++) {
             //go over each alternative.
-            let cur = alts[i];
+            let cur = _alts[i];
             //apply it on the current state.
             cur.apply(ps);
             if (ps.isOk) {

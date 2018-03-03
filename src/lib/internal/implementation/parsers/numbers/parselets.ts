@@ -1,14 +1,13 @@
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-import {FastMath} from "../../functions/math";
 import {Codes} from "../../functions/char-indicators";
 import {ParsingState} from "../../state";
 /**
  * Created by User on 29-Nov-16.
  */
 
-export class _ParseletsType {
+export class ParseletsType {
 
     parseDigitsInBase(ps : ParsingState, base : number) {
         let {position, input} = ps;
@@ -43,4 +42,4 @@ export class _ParseletsType {
     }
 }
 
-export const Parselets = new _ParseletsType();
+export const Parselets = new ParseletsType();

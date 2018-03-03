@@ -13,20 +13,20 @@ export class PrsSeq extends ParjsAction {
     isLoud = true;
 
     expecting : string;
-    constructor(private parsers : AnyParserAction[]) {
+    constructor(private _parsers : AnyParserAction[]) {
         super();
-        if (parsers.length === 0) {
+        if (_parsers.length === 0) {
             this.expecting = "anything";
         } else {
-            this.expecting = parsers[0].expecting;
+            this.expecting = _parsers[0].expecting;
         }
     }
     _apply(ps : ParsingState) : ReplyKind {
-        let {parsers} = this;
+        let {_parsers} = this;
         let results = [];
         let origPos = ps.position;
-        for (let i = 0; i < parsers.length; i++) {
-            let cur = parsers[i];
+        for (let i = 0; i < _parsers.length; i++) {
+            let cur = _parsers[i];
             cur.apply(ps);
             if (ps.isOk) {
                 ArrayHelpers.maybePush(results, ps.value);
@@ -44,7 +44,7 @@ export class PrsSeq extends ParjsAction {
             }
         }
         ps.value = results;
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
 
     }
 }

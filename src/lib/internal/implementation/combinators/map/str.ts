@@ -13,14 +13,14 @@ export class PrsStr extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private inner : AnyParserAction) {
+    constructor(private _inner : AnyParserAction) {
         super();
-        this.expecting = inner.expecting;
+        this.expecting = _inner.expecting;
     }
 
     _apply(ps : ParsingState) {
-        let {inner} = this;
-        inner.apply(ps);
+        let {_inner} = this;
+        _inner.apply(ps);
         if (!ps.isOk) {
             return;
         }

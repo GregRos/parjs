@@ -2,24 +2,25 @@
  * @module parjs/internal
  */ /** */
 import {ParjsParser} from "./instance";
-import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from './implementation/parsers';
-import {PrsAlts, PrsSeq, PrsLate} from './implementation/combinators';
+import {PrsCharWhere, PrsResult, PrsEof, PrsFail, PrsNewline, PrsString, PrsStringLen, PrsRest, AnyStringOf, PrsRegexp, PrsPosition, PrsState } from "./implementation/parsers";
+import {PrsAlts, PrsSeq, PrsLate} from "./implementation/combinators";
 import {ParjsAction, ParjsBasicAction} from "./implementation/action";
 import {AnyParser} from "../any";
 import {ReplyKind} from "../reply";
 import {IntOptions, PrsInt} from "./implementation/parsers/numbers/int";
 import {FloatOptions, PrsFloat} from "./implementation/parsers/numbers/float";
-import _defaults = require('lodash/defaults');
+import _defaults = require("lodash/defaults");
 import {LoudParser, ParjsProjection} from "../loud";
 import {ParjsStatic, ParjsStaticHelper} from "../parjs";
 import {AnyParserAction} from "./action";
 import {BasicTraceVisualizer} from "./implementation/basic-trace-visualizer";
-import {AsciiCodeInfo, AsciiCharInfo} from "./implementation/functions/char-indicators";
+import {AsciiCharInfo} from "./implementation/functions/char-indicators";
 //IMPORTANT: Importing only interfaces from char-info makes sure that no require statement is actually emitted.
 //If we were to import anything else, we'd create a real dependency on char-info that add a lot of weight when Parjs is bundled.
 import {StaticCodeInfo, } from "char-info";
 import {TraceVisualizer} from "./visualizer";
 import {StaticCharInfo} from "char-info/dist/inner/abstract";
+import {Es6} from "../common/common";
 
 function wrap(action : ParjsAction) {
 	return new ParjsParser(action);
@@ -55,7 +56,7 @@ export const ConditionalUnicode = new class InfoContainer {
 		}
 		return this._charInfo;
 	}
-};
+}();
 
 export let CodeInfo : StaticCodeInfo;
 export let CharInfo : StaticCharInfo;
@@ -105,11 +106,11 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     anyCharOf(options : string) {
-        return this.charWhere(x => options.includes(x), `any of ${options}`).withName("anyCharOf");
+        return this.charWhere(x => Es6.strIncludes(options, x), `any of ${options}`).withName("anyCharOf");
     }
 
     noCharOf(options : string) {
-        return this.charWhere(x => !options.includes(x)).withName("noCharOf");
+        return this.charWhere(x => !Es6.strIncludes(options, x)).withName("noCharOf");
     }
 
 
@@ -190,7 +191,7 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     regexp(regex : RegExp) {
-        let flags = regex.flags.replace("g", "").replace("y", "") + "y";
+        let flags = `${Es6.regexFlags(regex).replace("g", "").replace("y", "")}y`;
         let stickyRegex = new RegExp(regex.source, flags);
         return wrap(new PrsRegexp(stickyRegex)).withName("regexp");
     }

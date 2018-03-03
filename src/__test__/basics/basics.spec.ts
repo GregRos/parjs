@@ -1,6 +1,6 @@
 import {Parjs} from "../../lib";
-import {ReplyKind, Reply} from "../../lib/reply";
-import {expectSuccess, expectFailure} from '../helpers/custom-matchers';
+import {ReplyKind} from "../../lib/reply";
+import {expectFailure} from "../helpers/custom-matchers";
 import {FailureReply, SuccessReply} from "../../lib/internal/reply";
 
 

@@ -1,7 +1,6 @@
 /**
  * @module parjs/internal/implementation/combinators
  */ /** */
-import {QUIET_RESULT} from "../../special-results";
 import {ParjsAction} from "../../action";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
@@ -12,13 +11,13 @@ export class PrsQuiet extends ParjsAction {
 
     isLoud = false;
     expecting : string;
-    constructor(private inner : AnyParserAction) {
+    constructor(private _inner : AnyParserAction) {
         super();
-        this.expecting = inner.expecting;
+        this.expecting = _inner.expecting;
     }
 
     _apply(ps : ParsingState) {
-        let {inner} = this;
-        inner.apply(ps);
+        let {_inner} = this;
+        _inner.apply(ps);
     }
 }

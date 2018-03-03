@@ -3,6 +3,7 @@
  */ /** */
 
  import {QUIET_RESULT} from "../special-results";
+import {Es6} from "../../../common/common";
 
 
 export namespace StringHelpers {
@@ -33,7 +34,7 @@ export namespace NumHelpers {
     export function padInt(n : number, digits : number, char : string) {
         let str = n.toString();
         if (str.length >= digits) return str;
-        return char.repeat(digits - str.length) + str;
+        return Es6.strRepeat(char, digits - str.length) + str;
     }
 }
 

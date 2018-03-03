@@ -12,19 +12,19 @@ export class PrsMustCapture extends ParjsAction {
 
     isLoud : boolean;
     expecting : string;
-    constructor(private inner : AnyParserAction, private failType : ReplyKind) {
+    constructor(private _inner : AnyParserAction, private _failType : ReplyKind) {
         super();
-        this.isLoud = inner.isLoud;
-        this.expecting = `internal parser ${inner.displayName} to consume input`;
+        this.isLoud = _inner.isLoud;
+        this.expecting = `internal parser ${_inner.displayName} to consume input`;
     }
 
     _apply(ps : ParsingState) {
-        let {inner, failType} = this;
+        let {_inner, _failType} = this;
         let {position} = ps;
-        inner.apply(ps);
+        _inner.apply(ps);
         if (!ps.isOk) {
             return;
         }
-        ps.kind = position !== ps.position ? ReplyKind.OK : failType;
+        ps.kind = position !== ps.position ? ReplyKind.Ok : _failType;
     }
 }

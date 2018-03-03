@@ -2,7 +2,6 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../special-results";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
@@ -14,17 +13,17 @@ export class PrsExactly extends ParjsAction {
     isLoud : boolean;
 
     expecting : string;
-    constructor(private inner : AnyParserAction, private count : number) {
+    constructor(private _inner : AnyParserAction, private _count : number) {
         super();
-        this.isLoud = inner.isLoud;
-        this.expecting = inner.expecting;
+        this.isLoud = _inner.isLoud;
+        this.expecting = _inner.expecting;
     }
 
     _apply(ps : ParsingState) {
-        let {inner, count, isLoud} = this;
+        let {_inner, _count, isLoud} = this;
         let arr = [];
-        for (let i = 0; i < count; i++) {
-            inner.apply(ps);
+        for (let i = 0; i < _count; i++) {
+            _inner.apply(ps);
             if (!ps.isOk) {
                 if (ps.kind === ReplyKind.SoftFail && i > 0) {
                     ps.kind = ReplyKind.HardFail;

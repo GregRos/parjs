@@ -14,13 +14,13 @@ export class PrsNewline extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private unicodeMatcher : StaticCodeInfo) {
+    constructor(private _unicodeMatcher : StaticCodeInfo) {
         super();
-        this.expecting = unicodeMatcher ? "a unicode newline string" : "a newline string";
+        this.expecting = _unicodeMatcher ? "a unicode newline string" : "a newline string";
     }
     _apply(ps : ParsingState) {
         let {position, input} = ps;
-        let {unicodeMatcher} = this;
+        let {_unicodeMatcher} = this;
         if (position >= input.length) {
             ps.kind = ReplyKind.SoftFail;
             return;
@@ -29,25 +29,25 @@ export class PrsNewline extends ParjsAction {
 
         if (charAt === Codes.newline) {
             ps.position++;
-            ps.value = '\n';
-            ps.kind = ReplyKind.OK;
+            ps.value = "\n";
+            ps.kind = ReplyKind.Ok;
             return;
         } else if (charAt === Codes.carriageReturn) {
             position++;
             if (position < input.length && input.charCodeAt(position) === Codes.newline) {
                 ps.position = position + 1;
-                ps.value = '\r\n';
-                ps.kind = ReplyKind.OK;
+                ps.value = "\r\n";
+                ps.kind = ReplyKind.Ok;
                 return;
             }
             ps.position = position;
-            ps.value = '\r';
-            ps.kind = ReplyKind.OK;
+            ps.value = "\r";
+            ps.kind = ReplyKind.Ok;
             return;
-        } else if (unicodeMatcher && unicodeMatcher.isUniNewline(charAt)) {
+        } else if (_unicodeMatcher && _unicodeMatcher.isUniNewline(charAt)) {
             ps.position++;
             ps.value = input.charAt(position);
-            ps.kind = ReplyKind.OK;
+            ps.kind = ReplyKind.Ok;
             return;
         }
         ps.kind = ReplyKind.SoftFail;

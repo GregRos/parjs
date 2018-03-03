@@ -1,7 +1,7 @@
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-import {ParjsAction, ParjsBasicAction} from "../../action";
+import {ParjsBasicAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
 /**
@@ -11,10 +11,10 @@ export class PrsResult extends ParjsBasicAction {
 
     isLoud = true;
     expecting = "anything";
-    constructor(private result : any) {super()}
+    constructor(private _result : any) {super()}
     _apply(ps : ParsingState) {
-        let {result} = this;
-        ps.value = result;
-        ps.kind = ReplyKind.OK;
+        let {_result} = this;
+        ps.value = _result;
+        ps.kind = ReplyKind.Ok;
     }
 }

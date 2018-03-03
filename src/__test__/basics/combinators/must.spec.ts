@@ -1,12 +1,10 @@
 /**
  * Created by lifeg on 12/12/2016.
  */
-import {expectFailure, expectSuccess} from '../../helpers/custom-matchers';
-import {LoudParser} from "../../../lib/loud";
+import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
-import {AnyParser} from "../../../lib/any";
-import _ = require('lodash');
+
 
 describe("must combinators", () => {
     describe("must combinator", () => {

@@ -1,8 +1,7 @@
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-import {ParjsAction, ParjsBasicAction} from "../../action";
-import {QUIET_RESULT} from "../../special-results";
+import {ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 /**
@@ -15,7 +14,7 @@ export class PrsEof extends ParjsBasicAction {
     expecting = "end of input";
     _apply(ps : ParsingState) {
         if (ps.position === ps.input.length) {
-            ps.kind =  ReplyKind.OK;
+            ps.kind =  ReplyKind.Ok;
         } else {
             ps.kind = ReplyKind.SoftFail;
         }

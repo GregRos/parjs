@@ -7,10 +7,11 @@
     "allowUnreachableCode": true,
     "lib": [
       "es6",
-      "es2016.array.include",
-      "dom"
+      "dom",
+      "es2015.collection"
     ],
     "declaration": true,
+    "sourceRoot": "src",
     "outDir": "dist"
   },
   "include": [

@@ -2,7 +2,7 @@
  * Created by lifeg on 04/04/2017.
  */
 import "../__test__/setup";
-import {Parjs, LoudParser} from "../lib";
+import {Parjs} from "../lib";
 //+ DEFINING THE PARSER
 
 //Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.

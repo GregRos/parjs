@@ -7,6 +7,7 @@ import {Trace} from "../reply";
  */
 import {NumHelpers} from "./functions/helpers";
 import {TraceVisualizer} from "../visualizer";
+import {Es6} from "../../common/common";
 
 export interface BasicTraceVisualizerArgs {
     lineNumbers : boolean;
@@ -28,12 +29,12 @@ export function BasicTraceVisualizer(args : BasicTraceVisualizerArgs = defaultAr
 
         let prefixLength = 0;
         if (this.args.lineNumbers) {
-            let numLength = Math.floor(1 + Math.log10(locRow + 1));
+            let numLength = Math.floor(1 + Math.log(locRow + 1) / Math.log(10));
             let rowNumberPrefixer = (n : number) => `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }
-        let errorMarked = " ".repeat(prefixLength + trace.location.column) + `^${trace.reason}`;
+        let errorMarked = `${Es6.strRepeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
         linesAround.push(errorMarked);
         let linesVisualization = linesAround.join("\n");
 

@@ -2,8 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../special-results";
-import {Issues} from '../../issues';
+import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
@@ -15,19 +14,19 @@ export class PrsManyTill extends ParjsAction {
     isLoud : boolean;
 
     expecting : string;
-    constructor(private many : AnyParserAction, private till : AnyParserAction, private tillOptional : boolean) {
+    constructor(private _many : AnyParserAction, private _till : AnyParserAction, private _tillOptional : boolean) {
         super();
-        this.isLoud = many.isLoud;
-        this.expecting = `${many.expecting} or ${till.expecting}`;
+        this.isLoud = _many.isLoud;
+        this.expecting = `${_many.expecting} or ${_till.expecting}`;
     }
 
     _apply(ps : ParsingState) {
-        let {many, till, tillOptional} = this;
+        let {_many, _till, _tillOptional} = this;
         let {position} = ps;
         let arr = [];
         let successes = 0;
         while (true) {
-            till.apply(ps);
+            _till.apply(ps);
             if (ps.isOk) {
                 break;
             } else if (ps.atLeast(ReplyKind.HardFail)) {
@@ -36,12 +35,12 @@ export class PrsManyTill extends ParjsAction {
             }
             //backtrack to before till failed.
             ps.position = position;
-            many.apply(ps);
+            _many.apply(ps);
             if (ps.isOk) {
                 ArrayHelpers.maybePush(arr, ps.value);
             } else if (ps.isSoft) {
                 //many failed softly before till...
-                if (!tillOptional) {
+                if (!_tillOptional) {
                     //if we parsed at least one element, we fail hard.
                     ps.kind = successes === 0 ? ReplyKind.SoftFail : ReplyKind.HardFail;
                     return;
@@ -60,6 +59,6 @@ export class PrsManyTill extends ParjsAction {
             successes++;
         }
         ps.value = arr;
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
     }
 }

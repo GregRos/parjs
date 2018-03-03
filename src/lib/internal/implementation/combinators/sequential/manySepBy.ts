@@ -2,8 +2,7 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {QUIET_RESULT} from "../../special-results";
-import {Issues} from '../../issues';
+import {Issues} from "../../issues";
 import {ReplyKind} from "../../../../reply";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
@@ -15,49 +14,49 @@ export class PrsManySepBy extends ParjsAction {
     isLoud : boolean;
 
     expecting : string;
-    constructor(private many : AnyParserAction, private sep : AnyParserAction, private maxIterations : number) {
+    constructor(private _many : AnyParserAction, private _sep : AnyParserAction, private _maxIterations : number) {
         super();
-        this.isLoud = many.isLoud;
-        this.expecting = many.expecting;
+        this.isLoud = _many.isLoud;
+        this.expecting = _many.expecting;
     }
 
     _apply(ps : ParsingState) {
-        let {many, sep, maxIterations, isLoud} = this;
+        let {_many, _sep, _maxIterations, isLoud} = this;
         let arr = [];
-        many.apply(ps);
+        _many.apply(ps);
         if (ps.atLeast(ReplyKind.HardFail)) {
             return;
         } else if (ps.isSoft) {
             ps.value = [];
-            ps.kind = ReplyKind.OK;
+            ps.kind = ReplyKind.Ok;
             return;
         }
         let {position} = ps;
         ArrayHelpers.maybePush(arr, ps.value);
         let i = 1;
         while (true) {
-            if (i >= maxIterations) break;
-            sep.apply(ps);
+            if (i >= _maxIterations) break;
+            _sep.apply(ps);
             if (ps.isSoft) {
                 break;
             } else if (ps.atLeast(ReplyKind.HardFail)) {
                 return;
             }
 
-            many.apply(ps);
+            _many.apply(ps);
             if (ps.isSoft) {
                 break;
             } else if (ps.atLeast(ReplyKind.HardFail)) {
                 return;
             }
-            if (maxIterations >= Infinity && ps.position === position) {
+            if (_maxIterations >= Infinity && ps.position === position) {
                 Issues.guardAgainstInfiniteLoop("many");
             }
             ArrayHelpers.maybePush(arr, ps.value);
             position = ps.position;
             i++;
         }
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
         ps.position = position;
         ps.value = arr;
         return;

@@ -2,9 +2,7 @@
  * @module parjs/internal/implementation/parsers
  */ /** */
 import {ParjsAction} from "../../action";
-import {Codes} from "../../functions/char-indicators";
-import {Parselets} from './parselets';
-import {FastMath} from "../../functions/math";
+import {Parselets} from "./parselets";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 /**
@@ -25,15 +23,15 @@ export class PrsInt extends ParjsAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private options : IntOptions) {
+    constructor(private _options : IntOptions) {
         super();
-        if (options.base > 36) {
+        if (_options.base > 36) {
             throw new Error("invalid base");
         }
-        this.expecting = `a ${options.allowSign ? "signed" : "unsigned"} integer in base ${options.base}`;
+        this.expecting = `a ${_options.allowSign ? "signed" : "unsigned"} integer in base ${_options.base}`;
     }
     _apply(ps : ParsingState) {
-        let {options : {allowSign, base}} = this;
+        let {_options : {allowSign, base}} = this;
         let {position, input} = ps;
         let initPos = ps.position;
         let sign = allowSign ? Parselets.parseSign(ps) : 0;
@@ -51,7 +49,7 @@ export class PrsInt extends ParjsAction {
             ps.kind = parsedSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
         } else {
             ps.value = value;
-            ps.kind = ReplyKind.OK;
+            ps.kind = ReplyKind.Ok;
         }
 
     }

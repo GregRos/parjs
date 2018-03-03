@@ -12,25 +12,25 @@ export class PrsCharCodeWhere extends ParjsBasicAction {
 
     isLoud = true;
     expecting : string;
-    constructor(private predicate : (char : number) => boolean, property = "(a specific property)") {
+    constructor(private _predicate : (char : number) => boolean, property = "(a specific property)") {
         super();
         this.expecting = `any character satisfying ${property}.`;
     }
 
     _apply(ps : ParsingState) {
-        let {predicate} = this;
+        let {_predicate} = this;
         let {position, input} = ps;
         if (position >= input.length) {
             ps.kind = ReplyKind.SoftFail;
             return;
         }
         let curChar = input.charCodeAt(position);
-        if (!predicate(curChar)) {
+        if (!_predicate(curChar)) {
             ps.kind = ReplyKind.SoftFail;
             return;
         }
         ps.value = String.fromCharCode(curChar);
         ps.position++;
-        ps.kind = ReplyKind.OK;
+        ps.kind = ReplyKind.Ok;
     }
 }

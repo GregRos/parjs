@@ -1,7 +1,7 @@
 /**
  * @module parjs/internal/implementation/parsers
  */ /** */
-import {ParjsAction, ParjsBasicAction} from "../../action";
+import {ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 /**
@@ -17,6 +17,6 @@ export class PrsRest extends ParjsBasicAction {
         let text = input.substr(Math.min(position, input.length));
         pr.position = input.length;
         pr.value = text;
-        pr.kind = ReplyKind.OK;
+        pr.kind = ReplyKind.Ok;
     }
 }

@@ -1,7 +1,7 @@
 /**
  * @module parjs/internal
  */ /** */
-import {ParsingFailureError, ParsingSuccessError} from "../parsing-failure";
+import {ParsingFailureError} from "../parsing-failure";
 import {ReplyKind} from "../reply";
 import {AnyParserAction} from "./action";
 import {Parjs} from "../index";
@@ -36,7 +36,7 @@ export interface AnyReply<T> {
  * Indicates a success reply and contains the value and other information.
  */
 export class SuccessReply<T> implements AnyReply<T>{
-    kind = ReplyKind.OK;
+    kind = ReplyKind.Ok;
     constructor(public value : T){
 
     }

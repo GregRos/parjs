@@ -1,12 +1,12 @@
 /**
  * Created by lifeg on 12/12/2016.
  */
-import {expectFailure, expectSuccess} from '../../helpers/custom-matchers';
+import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {LoudParser} from "../../../lib/loud";
 import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
 import {AnyParser} from "../../../lib/any";
-import _ = require('lodash');
+
 
 function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TParser) => void) {
     describe(`Parjs.${parser.displayName}`, () => {

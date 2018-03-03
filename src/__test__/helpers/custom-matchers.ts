@@ -1,6 +1,6 @@
 import {ReplyKind, Reply} from "../../lib/reply";
-import _matches =require('lodash/matches');
-import _isPlainObject = require('lodash/isPlainObject');
+import _matches =require("lodash/matches");
+import _isPlainObject = require("lodash/isPlainObject");
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -62,7 +62,8 @@ export const CustomMatchers = {
 } as any;
 
 let defs = CustomMatcherDefs.prototype;
-for (let prop of Reflect.ownKeys(defs)) {
+
+for (let prop of Object.getOwnPropertyNames(defs)) {
     if (prop === "constructor") continue;
 
     CustomMatchers[prop] = function(a, b) {
@@ -77,7 +78,7 @@ for (let prop of Reflect.ownKeys(defs)) {
 
 export function expectFailure(result : Reply<any>, failType ?: ReplyKind.Fail) {
     expect(result.kind).toBeAnyOf([ReplyKind.FatalFail, ReplyKind.HardFail, ReplyKind.SoftFail], "expected kind to be a Fail");
-    if (result.kind === ReplyKind.OK) return;
+    if (result.kind === ReplyKind.Ok) return;
     if (failType !== undefined){
         expect(result.kind).toBe(failType);
     }
@@ -86,8 +87,8 @@ export function expectFailure(result : Reply<any>, failType ?: ReplyKind.Fail) {
 }
 
 export function expectSuccess<T>(result : Reply<T>, value ?: T, state ?: object) {
-    expect(result.kind).toBe(ReplyKind.OK, "kind wasn't OK");
-    if (result.kind !== ReplyKind.OK) return;
+    expect(result.kind).toBe(ReplyKind.Ok, "kind wasn't OK");
+    if (result.kind !== ReplyKind.Ok) return;
     expect(result).toHaveMember("value", "reason value");
     expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
     if (value !== undefined) {

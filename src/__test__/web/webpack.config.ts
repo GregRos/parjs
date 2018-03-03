@@ -1,13 +1,13 @@
 "use strict";
-import path = require('path');
-import webpack = require('webpack');
-import JasmineWebpackPlugin = require('jasmine-webpack-plugin');
-console.log(__dirname)
+import path = require("path");
+import webpack = require("webpack");
+import JasmineWebpackPlugin = require("jasmine-webpack-plugin");
+console.log(__dirname);
 const config : webpack.Configuration = {
     entry: "./scripts/with-unicode.js",
     output: {
-        filename: 'bundle.js',
-        path : path.resolve(__dirname, './out'),
+        filename: "bundle.js",
+        path : path.resolve(__dirname, "./out"),
     },
     devtool: "source-map",
     watch: true,
@@ -17,7 +17,7 @@ const config : webpack.Configuration = {
     module : {
         rules : [{
                 test : /\.css$/,
-                use: [ 'style-loader', 'css-loader' ]
+                use: [ "style-loader", "css-loader" ]
             },
             {
                 test : /\.tsx?$/,

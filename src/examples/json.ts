@@ -45,7 +45,7 @@ let pEscapeChar = Parjs.anyCharOf(Object.getOwnPropertyNames(escapes).join()).ma
 	let result = escapes[char];
 	return result as string;
 });
-let pEscapeUnicode = Parjs.string("u").then(Parjs.digit.exactly(4).str.map(hexStr => Number.parseInt(hexStr, 16)));
+let pEscapeUnicode = Parjs.string("u").then(Parjs.digit.exactly(4).str.map(hexStr => parseInt(hexStr, 16)));
 let pEscapeAny = Parjs.string("\\").then(pEscapeChar.or(pEscapeUnicode));
 let pCharOrEscape = pEscapeAny.or(Parjs.noCharOf('"'));
 let pStr = pCharOrEscape.many().str.between(Parjs.string('"'));
@@ -82,7 +82,7 @@ let result = pJsonValue.parse(`{"a" : 2,
 "b\\"" : 
 44325, "z" : "hi!", "a" : true,
  "array" : ["hi", 1, {"a" :    "b\\"" }, [], {}]}`);
-if (result.kind !== ReplyKind.OK) {
+if (result.kind !== ReplyKind.Ok) {
 	console.log(Parjs.visualizer(result.trace));
 } else {
 	console.log(astToObject(result.value));
