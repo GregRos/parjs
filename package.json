@@ -7,7 +7,7 @@
   "description": "A parser-combinator library for JavaScript.",
   "main": "dist/lib/index.js",
   "scripts": {
-    "test": "node ./dist/__tests__/runner.js",
+    "test": "node ./dist/__test__/runner.js",
     "watch": "gulp watch",
     "build": "tsc",
     "typedoc": "gulp typedoc"

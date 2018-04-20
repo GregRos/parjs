@@ -8,7 +8,7 @@ import "./setup";
 import glob = require("glob");
 let jrunner = new Jasmine();
 
-jrunner.specDir = "dist/__tests__";
+jrunner.specDir = "dist/__test__";
 jrunner.specFiles = glob.sync( `${__dirname}/basics/**/*[sS]pec.js`);
 jrunner.helpers = glob.sync(`${__dirname}/helpers/**/*.js`);
 jrunner.stopSpecOnExpectationFailure = false;
