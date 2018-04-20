@@ -11,7 +11,6 @@ let uState = {};
 
 describe("basic string parsers", () => {
 
-
     describe("Parjs.anyChar", () =>  {
         let parser = Parjs.anyChar;
         let successInput = "a";
@@ -31,10 +30,10 @@ describe("basic string parsers", () => {
     describe("Parjs.spaces1", () => {
         let parser = Parjs.spaces1;
         it ("fails on empty input", () => {
-            expectFailure(parser.parse(""), "SoftFail");
+            expectFailure(parser.parse(""), "Soft");
         });
         it("fails on other char", () => {
-            expectFailure(parser.parse("a"), "SoftFail");
+            expectFailure(parser.parse("a"), "Soft");
         });
         it("succeeds on single space", () => {
             expectSuccess(parser.parse(" "), " ");
@@ -47,10 +46,10 @@ describe("basic string parsers", () => {
     describe("Parjs.upper", () => {
         let parser = Parjs.upper;
         it ("fails on empty input", () => {
-            expectFailure(parser.parse(""), "SoftFail");
+            expectFailure(parser.parse(""), "Soft");
         });
         it("fails on other char", () => {
-            expectFailure(parser.parse(","), "SoftFail");
+            expectFailure(parser.parse(","), "Soft");
         });
         it("succeeds on char", () => {
             expectSuccess(parser.parse("A"), "A");
@@ -60,10 +59,10 @@ describe("basic string parsers", () => {
     describe("Parjs.upper", () => {
         let parser = Parjs.lower;
         it ("fails on empty input", () => {
-            expectFailure(parser.parse(""), "SoftFail");
+            expectFailure(parser.parse(""), "Soft");
         });
         it("fails on other char", () => {
-            expectFailure(parser.parse(","), "SoftFail");
+            expectFailure(parser.parse(","), "Soft");
         });
         it("succeeds on char", () => {
             expectSuccess(parser.parse("a"), "a");
@@ -73,10 +72,10 @@ describe("basic string parsers", () => {
     describe("Parjs.letter", () => {
         let parser = Parjs.lower;
         it ("fails on empty input", () => {
-            expectFailure(parser.parse(""), "SoftFail");
+            expectFailure(parser.parse(""), "Soft");
         });
         it("fails on other char", () => {
-            expectFailure(parser.parse(","), "SoftFail");
+            expectFailure(parser.parse(","), "Soft");
         });
         it("succeeds on char", () => {
             expectSuccess(parser.parse("a"), "a");
@@ -97,7 +96,7 @@ describe("basic string parsers", () => {
             expectFailure(parser.parse("ab"), ReplyKind.SoftFail);
         });
         it("fails on empty input", () => {
-            expectFailure(parser.parse(""), "SoftFail");
+            expectFailure(parser.parse(""), "Soft");
         })
     });
 
@@ -229,8 +228,22 @@ describe("basic string parsers", () => {
             it("succeeds on input", () => {
                 expectSuccess(parser.parse("abc"), ["abc"]);
             });
+            it("succeds using implicit", () => {
+                expectSuccess(Parjs.string("abc").then(/abc/).parse("abcabc"), ["abc", ["abc"]]);
+            });
             it("fails on bad input", () => {
-                expectFailure(parser.parse("ab"), "SoftFail");
+                expectFailure(parser.parse("ab"), "Soft");
+            });
+            it("match starts in the proper location", () => {
+                let p = Parjs.string("abc");
+                expectSuccess(p.then(parser).parse("abcabc"), ["abc", ["abc"]]);
+            });
+            it("match ends in the proper location", () => {
+                let p1 = Parjs.string("abc");
+                let p2 = Parjs.regexp(/.{3}/);
+                let p3 = Parjs.string("eeee");
+                let r = p1.then([p2, p3]);
+                expectSuccess(r.parse("abcabceeee"), ["abc", ["abc"], "eeee"]);
             });
         });
 
@@ -239,10 +252,10 @@ describe("basic string parsers", () => {
            it("succeeds on input", () => {
                expectSuccess(parser.parse("abc"), ["abc", "ab", "c"]);
            });
-           let parser2 = parser.then(Parjs.string("de"));
+           let parser2 = parser.then("de");
            it("chains correctly", () => {
                expectSuccess(parser2.parse("abcde"));
            });
-        })
+        });
     })
 });

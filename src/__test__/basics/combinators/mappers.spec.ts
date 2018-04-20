@@ -111,7 +111,7 @@ describe("map combinators", () => {
         });
 
         it("fails", () => {
-            expectFailure(p.parse("d"), "SoftFail");
+            expectFailure(p.parse("d"), "Soft");
             expect(tally).toBe("ab");
         })
     })

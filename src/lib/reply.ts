@@ -31,15 +31,15 @@ export namespace ReplyKind {
     /**
      * The soft failure type.
      */
-    export type SoftFail = "SoftFail";
+    export type SoftFail = "Soft";
     /**
      * The hard failure type.
      */
-    export type HardFail = "HardFail";
+    export type HardFail = "Hard";
     /**
      * The fatal failure type.
      */
-    export type FatalFail = "FatalFail";
+    export type FatalFail = "Fatal";
 
     /**
      * An Unknown reply.
@@ -52,15 +52,15 @@ export namespace ReplyKind {
     /**
      * A soft failure reply.
      */
-    export const SoftFail : SoftFail = "SoftFail";
+    export const SoftFail : SoftFail = "Soft";
     /**
      * A hard failure reply.
      */
-    export const HardFail : HardFail = "HardFail";
+    export const HardFail : HardFail = "Hard";
     /**
      * A fatal failure reply.
      */
-    export const FatalFail : FatalFail = "FatalFail";
+    export const FatalFail : FatalFail = "Fatal";
 
     /**
      * Specifies any kind of failure.

@@ -6,7 +6,6 @@ import {AnyParser} from "./any";
 import {ReplyKind, Reply} from "./reply";
 import {QuietParser} from "./quiet";
 import {UserState} from "./internal/implementation/state";
-import {convertibleSymbol} from "./then-chain";
 import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
 /**
@@ -20,7 +19,14 @@ export interface ParjsProjection<T, TOut> {
  */
 export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
 
+export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];
 
+export declare function flatten<T>(this : LoudParser<NestedArray<T>>) : LoudParser<T[]>;
+
+export declare function splat<A>(this : LoudParser<[A]>) : LoudParser<A>;
+export declare function splat<A, B>(this : LoudParser<[A, B]>) : LoudParser<A & B>;
+export declare function splat<A, B, C>(this : LoudParser<[A, B, C]>) : LoudParser<A & B & C>;
+export declare function splat<A, B, C, D>(this : LoudParser<[A, B, C, D]>) : LoudParser<A & B & C & D>;
 /**
  * Interface for parsers that produce result values of type  {T}
  * @see QuietParser
@@ -122,6 +128,29 @@ export interface LoudParser<T> extends AnyParser {
      */
     cast<S>() : LoudParser<S>;
 
+    /**
+     * Returns a parser that applies `this` and flattens its result into an array.
+     * If `this` yields a non-array `e`, returns `[e]`.
+     * Otherwise, if `this` yields an array containing a mix of (nested?) array elements and regular elements, will merge all of these into a single array.
+     *
+     * In TypeScript, the element type `T` is not always inferrred to be the best possible type. For example, `flatten` may return a parser of the type
+     * `LoudParser{(T | T[])[]}`, where this method actually always returns `LoudParser<T[]>`.
+     *
+     * Can be used to flatten a sequence of `.then` combinators, which can create deeply nested array structures.
+     * @group combinator projection
+     * @example
+     * let pArr = a.then(b).then(c).then(d).then(e); // pArr : LoudParser{[[[T, T], T], T], T]}, deeply nested array
+     * let flat = pArr.flatten(); //flat : LoudParser{T[]}
+     */
+    readonly flatten : typeof flatten;
+
+    /**
+     * Can only be called if `this` yields an array of objects.
+     * Returns a parser that will apply `this` and yield its results as a single object, by merging the properties of each object in the returned array.
+     *
+     * @group combinator projection
+     */
+    readonly splat : typeof splat;
 
     //+++ RESTRICTIONS
     /**
@@ -187,31 +216,19 @@ export interface LoudParser<T> extends AnyParser {
 
     //+++SEQUENTIAL
     /**
-     * Returns a parser that will apply `this` and then immediately the given quiet parser. It will yield the result of `this`.
-     * @param quiet The quiet parser to follow this one.
+     * The `then` methods return a parser that will apply additional parsers immediately after this one.
+     * If a parser is given and it is quiet, the returned parser will yield the value of this parser.
+     * If the given parser is loud, the returned parser will yield the values of this parser and the given parser in an array.
+     * If an array of loud and quiet parsers is given, the returned parser will yield the results of all loud parsers in an array.
+     *
      * @group combinator sequential
      */
-    then(quiet : QuietParser) : LoudParser<T>;
-
-    /**
-     * Returns a parser that will apply `this` and then immediately the given loud parser. It will yield the results of both in an array.
-     * @param loud The loud parser to follow this one.
-     * @group combinator sequential
-     */
-    then<S>(loud : ImplicitLoudParser<S>) : LoudParser<[T, S]>;
-
-    /**
-     * Returns a parser that will apply `this` and then the given parsers in the order at which they appear. The returned parser will yield all their results in an array.
-     * @param array An array of loud/quiet parsers to apply.
-     */
-    then<S>(array : (ImplicitLoudParser<S> | QuietParser)[]) : LoudParser<(S | T)[]>
-
-    /**
-     * Returns a parser that will apply `this`, and then immediately a sequence of quiet parsers. It will yield the result of `this`.
-     * @param quiet The sequence of quiet parsers.
-     * @group combinator sequential
-     */
-    then(...quiet : QuietParser[]) : LoudParser<T>;
+    then(second ?: QuietParser) : LoudParser<T>;
+    then<S = T>(next : ImplicitLoudParser<S>) : LoudParser<[T, S]>;
+    then<S1 = T>(parsers : [ImplicitLoudParser<S1>]) : LoudParser<[T, S1]>;
+    then<S1 = T, S2 = S1>(parsers : [ImplicitLoudParser<S1>, ImplicitLoudParser<S2>]) : LoudParser<[T, S1, S2]>;
+    then<S1 = T, S2 = S2, S3 = S3>(parsers : [ImplicitLoudParser<S1>, ImplicitLoudParser<S2>, ImplicitLoudParser<S3>]) : LoudParser<[T, S1, S2, S3]>;
+    then(parsers : (QuietParser | ImplicitLoudParser<T>)[]) : LoudParser<T[]>;
 
     /**
      * Returns a parser that will apply `this` exactly `count` times and yield the results of all applications in an array.
@@ -283,6 +300,6 @@ export interface LoudParser<T> extends AnyParser {
      * @group combinator special
      */
     readonly isolate;
+
+
 }
-
-

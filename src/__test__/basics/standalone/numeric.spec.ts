@@ -105,7 +105,7 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("e+12"), ReplyKind.SoftFail);
             });
             it("fails when E appears without exponent", () => {
-                expectFailure(parser.parse("1.0e"), "HardFail");
+                expectFailure(parser.parse("1.0e"), "Hard");
             })
         });
         describe("no sign", () => {
@@ -127,7 +127,7 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse(".1"), ReplyKind.SoftFail);
             });
             it("fails hard on sign and then no implicit zero", () => {
-                expectFailure(parser.parse("+.1"), "HardFail");
+                expectFailure(parser.parse("+.1"), "Hard");
             });
 
             it("succeeds on implicit zero fraction when chained into rest", () => {

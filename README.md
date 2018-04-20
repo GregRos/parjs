@@ -95,6 +95,27 @@ In order to parse Unicode characters with elaborate properties, you should insta
 
 Parjs isn't very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with `uni` won't recognize such characters. One reason for this is because JavaScript has a UCS-2 conception of characters.
 
+
+## Implicit parser literals
+Sometimes, typing `Parjs.string` over and over again when you want to parse a string literal can be very repetitive. For this reason `parjs` supports what it calls *implicit parser literals*. Basically, when you need to supply a parser object to a `parjs` object you can supply a literal that will be implicitly converted into a parser.
+
+Two literals are supported --
+
+1. String literals are converted to parsers parsing them via `Parjs.string`. This means that string literals are *loud parsers* and will not work in situations where the API calls for a quiet parser.
+2. Regular expressions are converted to regular expression parsers via `Parjs.regexp`. They are also loud parsers.
+
+This fully type checks using TypeScript, although the method used to achieve this effect is a bit strange and will emit odd error messages if you try to pass it a literal that doesn't support conversion.
+
+## Type-specific combinators
+Some combinators only work on parsers that return certain types of values. For example, the `chainThen` combinator only applies to parsers that yield strings or arrays. It acts like `then`, but:
+
+1. For string parsers, it will parse the strings one after the other and concat them.
+2. For array parsers, it will join the results of the 1st parser with the results of the 2nd parser (i.e. concat arrays or push single elements).
+
+This makes sense in TypeScript, where parsers are represented by `LoudParser<T>` for a specific type `T`, but can be a bit confusing in JavaScript.
+
+Calling these combinators on incompatible types is a compile-time error in TypeScript and will result in a runtime error in JavaScript.
+
 ## Module Structure
 Parjs has a well-organized module structure that is reflected in the documentation:
 

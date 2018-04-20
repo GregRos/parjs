@@ -64,7 +64,7 @@ describe("special parsers", () => {
     });
 
     describe("Parjs.fail", ()=> {
-        let parser = Parjs.fail("error", "FatalFail");
+        let parser = Parjs.fail("error", "Fatal");
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {
@@ -81,7 +81,7 @@ describe("special parsers", () => {
             expectSuccess(parser.parse(""));
         });
         it("fails on input", () => {
-            expectFailure(parser.parse(" "), "SoftFail");
+            expectFailure(parser.parse(" "), "Soft");
         })
     });
 
@@ -101,7 +101,7 @@ describe("special parsers", () => {
         });
 
         it("fail", () => {
-            expectFailure(parser.parse(""), "SoftFail");
+            expectFailure(parser.parse(""), "Soft");
         })
     })
 });

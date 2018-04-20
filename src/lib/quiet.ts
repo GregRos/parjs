@@ -92,29 +92,20 @@ export interface QuietParser extends AnyParser {
      */
     must(condition : ParjsPredicateQuiet, fail : ReplyKind.Fail) : QuietParser;
     /**
-     * The returned parser will apply `this`, and then apply `second`. If both succeed, the returned parser will return the result of `second`.
-     * @param second The parser to apply after `this`.
+     * The `then` methods return a parser that will apply additional parsers immediately after this one.
+     * If a parser is given and it is quiet, the returned parser will be a quiet parser.
+     * If the given parser is loud, the returned parser will yield its value.
+     * If an array of loud and quiet parsers is given, the returned parser will yield the results of all loud parsers in an array.
      *
      * @group combinator sequential
      */
-    then(second : QuietParser) : QuietParser;
-    then<T>(second : ImplicitLoudParser<T>) : LoudParser<T>;
+    then(second ?: QuietParser) : QuietParser;
+    then<T>(next : ImplicitLoudParser<T>) : LoudParser<T>;
+    then<T>(parsers : [ImplicitLoudParser<T>]) : LoudParser<[T]>;
+    then<T1, T2>(parsers : [ImplicitLoudParser<T1>, ImplicitLoudParser<T2>]) : LoudParser<[T1, T2]>;
+    then<T1, T2, T3>(parsers : [ImplicitLoudParser<T1>, ImplicitLoudParser<T2>, ImplicitLoudParser<T3>]) : LoudParser<[T1, T2, T3]>;
+    then<S = undefined>(parsers : (QuietParser | ImplicitLoudParser<S>)[]) : LoudParser<S[]>;
 
-    /**
-     * Returns a parser that will apply `this`, followed by every parser in `parsers`. The returned parser will return the results of all the parsers in an array.
-     * @param parsers
-     *
-     * @group combinator sequential
-     */
-    then<S>(parsers : (ImplicitLoudParser<S> | QuietParser)[]) : LoudParser<S[]>;
-
-    /**
-     * Returns a parser that will apply `this`, followed by every parser in `quiet` and return no value.
-     * @param quiet A set of quiet parsers.
-     *
-     * @group combinator sequential
-     */
-    then(...quiet : QuietParser[]) : QuietParser;
 
     /**
      * Returns a parser that will apply `this` repeatedly, until it fails softly.

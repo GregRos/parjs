@@ -17,6 +17,9 @@ export interface ParjsStaticHelper {
 
     isParserAction(obj : any) : obj is AnyParserAction;
 }
+export type ParserSpecification<Obj extends Record<string, any>> = {
+    [key in keyof Obj] : LoudParser<Obj[key]>
+}
 
 /**
  * Namespace for static combinators and building-block parsers.
@@ -26,8 +29,7 @@ export interface ParjsStaticHelper {
 export interface ParjsStatic {
 
     readonly helper : ParjsStaticHelper;
-
-
+    
     //++ INFRASTRUCTURE
     /**
      * Used to visualize parsing errors in plain-text.
@@ -116,6 +118,7 @@ export interface ParjsStatic {
      * If it can't, it will fail softly.
      *
      * @group basic-parser character unicode
+     * @requires module:parjs/unicode
      */
     readonly uniNewline : LoudParser<string>;
 
@@ -123,12 +126,14 @@ export interface ParjsStatic {
      * Returns a parser that will parse a single Unicode lowercase character in any script or language. It will yield the string that was parsed.
      *
      * @group basic-parser character unicode
+     * @requires module:parjs/unicode
      */
     readonly uniLower : LoudParser<string>;
     /**
      * Returns a parser that will parse a single Unicode letter character in any script or language. It will yield the string that was parsed.
      *
      * @group basic-parser character unicode
+     * @requires module:parjs/unicode
      */
     readonly uniLetter : LoudParser<string>;
 
@@ -136,6 +141,7 @@ export interface ParjsStatic {
      * Returns a parser that will parse a single Unicode uppercase character in any script or language. It will yield the string that was parsed.
      *
      * @group basic-parser character unicode
+     * @requires module:parjs/unicode
      */
     readonly uniUpper : LoudParser<string>;
 
@@ -143,6 +149,7 @@ export interface ParjsStatic {
      * Returns a parser that will parse a single Unicode digit character in any script or language. It will yield the string that was parsed.
      *
      * @group basic-parser character unicode numeric
+     * @requires module:parjs/unicode
      */
     readonly uniDigit : LoudParser<string>;
     /**
@@ -150,6 +157,7 @@ export interface ParjsStatic {
      * If it can't, it will fail softly.
      *
      * @group basic-parser character
+     *
      */
     readonly space : LoudParser<string>;
 
@@ -158,6 +166,7 @@ export interface ParjsStatic {
      * If it can't, it will fail softly.
      *
      * @group basic-parser character unicode
+     * @requires module:parjs/unicode
      */
     readonly uniSpace : LoudParser<string>;
 
@@ -254,6 +263,7 @@ export interface ParjsStatic {
      * The returned parser will always succeed.
      *
      *  @group basic-parser string unicode
+     *  @requires module:parjs/unicode
      */
     readonly uniSpaces : LoudParser<string>;
 
@@ -321,6 +331,16 @@ export interface ParjsStatic {
      * @group combinator failure-recovery alternatives
      */
     any(...pars : ImplicitLoudParser<any>[]) : LoudParser<any>;
+
+    /**
+     * Returns a parser that will apply the parsers defined in the properties of `parsers`, in the order given by `ordering`.
+     * If `ordering` is `null`, the own properties of `parsers` will be enumerated, and the parsers will be applied in the order in which they appear in the enumeration, which may be unpredictable.
+     *
+     * The returned parser will yield an object containing each parser property in `parsers`, with the value of that parser's result.
+     * @template TObj
+     * @returns {LoudParser<TObj>}
+     */
+    seqObject<O1, O2 = {}, O3 = {}, O4 = {}>(a : ParserSpecification<O1>, b ?: ParserSpecification<O2>, c ?: ParserSpecification<O3>, d ?: ParserSpecification<O4>) : LoudParser<O1 & O2 & O3 & O4>;
 
     /**
      * Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.

@@ -23,7 +23,7 @@ describe("maybe combinator", () => {
     });
 
     it("causes progress on success", () => {
-        let p = Parjs.string("abc").q.maybe().then(Parjs.string("123"));
+        let p = Parjs.string("abc").q.maybe().then("123");
         expectSuccess(p.parse("abc123"), "123");
     });
 
@@ -53,7 +53,7 @@ describe("or combinator", () => {
             expectFailure(parser.parse("ef"), ReplyKind.SoftFail);
         });
         it("fails hard when 1st fails hard", () => {
-            let parser2 = Parjs.fail("fail", ReplyKind.HardFail).result("x").or(Parjs.string("ab"));
+            let parser2 = Parjs.fail("fail", ReplyKind.HardFail).result("x").or("ab");
             expectFailure(parser2.parse("ab"), ReplyKind.HardFail);
         });
         let parser2 = Parjs.string("ab").or(Parjs.fail("x", ReplyKind.HardFail));
@@ -74,7 +74,7 @@ describe("or combinator", () => {
 });
 
 describe("or val combinator", () => {
-    let parser = Parjs.string("a").then(Parjs.string("b")).str.maybe("c");
+    let parser = Parjs.string("a").then("b").str.maybe("c");
     it("succeeds to parse", () => {
         expectSuccess(parser.parse("ab"), "ab");
     });
@@ -89,7 +89,7 @@ describe("or val combinator", () => {
 });
 
 describe("not combinator", () => {
-    let parser = Parjs.string("a").then(Parjs.string("b")).str.not;
+    let parser = Parjs.string("a").then("b").str.not;
     it("succeeds on empty input/soft fail", () => {
         expectSuccess(parser.parse(""), undefined);
     });
@@ -110,7 +110,7 @@ describe("not combinator", () => {
 });
 
 describe("soft combinator", () => {
-    let parser = Parjs.string("a").then(Parjs.string("b")).str.soft;
+    let parser = Parjs.string("a").then("b").str.soft;
     it("succeeds", () => {
         expectSuccess(parser.parse("ab"), "ab");
     });

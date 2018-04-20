@@ -26,14 +26,14 @@ describe("must combinators", () => {
             expectSuccess(parser.parse("b"), "b");
         });
         it("fails when is not of", () => {
-            expectFailure(parser.parse("d"), "HardFail");
+            expectFailure(parser.parse("d"), "Hard");
         });
     });
 
     describe("mustBeOf", () => {
         let parser = Parjs.stringLen(1).mustNotBeOf(["a", "b", "c"]);
         it("fails when is of", () => {
-            expectFailure(parser.parse("b"), "HardFail");
+            expectFailure(parser.parse("b"), "Hard");
         });
         it("succeeds when is not of", () => {
             expectSuccess(parser.parse("d"), "d");

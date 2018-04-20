@@ -28,14 +28,14 @@ export interface AnyParser {
      * Returns a parser that will apply `this`. If `this` succeeds, the returned parser will discard its result (if any) and yield `result` instead.
      * @param result The value to yield.
      *
-     * @group combinator projection
+     * @group combinator projection optimizing
      */
     result<S>(result : S) : LoudParser<S>;
 
     /**
      * Returns a parser that will apply `this`. The returned parser will yield nothing.
      *
-     * @group combinator projection
+     * @group combinator projection optimizing
      */
     readonly q : QuietParser;
 
@@ -71,7 +71,7 @@ export interface AnyParser {
      * For an object, its toString method is invoked.
      * For null or undefined, the strings "null" or "undefined" are returned.
      *
-     * @group combinator projection
+     * @group combinator projection optimizing
      */
     readonly str : LoudParser<string>;
 }

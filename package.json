@@ -41,7 +41,7 @@
     "@types/jasmine": "^2.8.6",
     "@types/lodash": "^4.14.104",
     "@types/node": "^8.9.4",
-    "@types/webpack": "^3.8.8",
+    "@types/webpack": "^3.8.9",
     "codecov": "^2.3.1",
     "del": "^2.2.2",
     "file-loader": "^0.11.2",
@@ -67,7 +67,7 @@
     "typedoc": "^0.10.0",
     "typedoc-plugin-external-module-name": "^1.1.1",
     "typedoc-plugin-internal-external": "^1.0.10",
-    "typescript": "^2.7.2",
+    "typescript": "^2.8.1",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.11.2"
   },

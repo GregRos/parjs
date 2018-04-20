@@ -22,6 +22,21 @@ function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
 
+function flattenNestedArrays(arr : any[]) {
+    if (!Array.isArray(arr)) {
+        return [arr];
+    }
+    let items = [];
+    for (let item of arr) {
+        if (Array.isArray(item)) {
+            items.push(...flattenNestedArrays(item));
+        } else {
+            items.push(item);
+        }
+    }
+    return items;
+}
+
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
     thenChoose(selector : (x : any, state : any) => any) : any {
         return wrap(new PrsChoose(this.action, selector)).withName("thenChoose") as any;
@@ -107,7 +122,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         else if (Array.isArray(args[0])) {
             next = args[0];
         }
-        else if (Parjs.helper.isParser(args[0]) || typeof args[0] === "string") {
+        else if (Parjs.helper.isParser(args[0]) || typeof args[0] === "string" || args[0] instanceof RegExp) {
             unpack = true;
             next = args;
         }
@@ -118,7 +133,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         let ret;
         if (unpack && loudCount === 1) {
             ret = seqParse.map(x => x[0]);
-        } else if (loudCount === 0) {
+        } else if (unpack  && loudCount === 0) {
             ret = seqParse.q;
         } else {
             ret = seqParse;
@@ -191,6 +206,20 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
 
     get isolate() {
         return wrap(new PrsIsolate(this.action)).withName(`isolated: ${this.action.displayName}`);
+    }
+
+    flatten() {
+        return this.map(x => flattenNestedArrays(x));
+    }
+
+    splat() {
+        return this.map((arr : any[]) => {
+            let result = {};
+            for (let item of arr) {
+                Object.assign(result, item);
+            }
+            return result;
+        })
     }
 
 }
