@@ -22,11 +22,6 @@ export {ReplyKind, Reply, QuietReply} from "./reply";
 export const Parjs = new ParjsParsers() as ParjsStatic;
 
 
-declare function f(arr : TemplateStringsArray, lit1 : number) : [number];
-declare function f(arr : TemplateStringsArray, lit1 : number, lit2 : string) : [number,string];
-
-f`a${1}`;
-f`a${2}fdggg${5}a`;
 
 
 /**
