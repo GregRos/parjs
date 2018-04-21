@@ -19,13 +19,37 @@ export interface ParjsProjection<T, TOut> {
  */
 export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
 
+/**
+ * The type `T[]` or a nested array type, such as `T[][][]`.
+ */
 export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];
 
+
+/**
+ * @private
+ * @returns {LoudParser<T[]>}
+ */
 export declare function flatten<T>(this : LoudParser<NestedArray<T>>) : LoudParser<T[]>;
 
+/**
+ * @private
+ * @returns {LoudParser<A>}
+ */
 export declare function splat<A>(this : LoudParser<[A]>) : LoudParser<A>;
+/**
+ * @private
+ * @returns {LoudParser<A>}
+ */
 export declare function splat<A, B>(this : LoudParser<[A, B]>) : LoudParser<A & B>;
+/**
+ * @private
+ * @returns {LoudParser<A>}
+ */
 export declare function splat<A, B, C>(this : LoudParser<[A, B, C]>) : LoudParser<A & B & C>;
+/**
+ * @private
+ * @returns {LoudParser<A>}
+ */
 export declare function splat<A, B, C, D>(this : LoudParser<[A, B, C, D]>) : LoudParser<A & B & C & D>;
 /**
  * Interface for parsers that produce result values of type  {T}

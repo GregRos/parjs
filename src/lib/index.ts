@@ -14,7 +14,7 @@ export {QuietParser} from "./quiet";
 export {ParsingFailureError} from "./parsing-failure"
 export {AnyParser} from "./any";
 export {ReplyKind, Reply, QuietReply} from "./reply";
-
+export {ConvertibleLiteral, ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal"
 
 /**
  * The central API of the parjs library. Contains building block parsers and static combinators.

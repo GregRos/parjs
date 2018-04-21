@@ -153,6 +153,14 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 </code></pre><p>Doing so will load all the unicode data.</p>
 				<p>In order to parse Unicode characters with elaborate properties, you should install the <code>char-info</code> library and use its characters indicators directly. It lets you detect a character&#39;s Unicode category, Block, Script, and other information.</p>
 				<p>Parjs isn&#39;t very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with <code>uni</code> won&#39;t recognize such characters. One reason for this is because JavaScript has a UCS-2 conception of characters.</p>
+				<h2 id="implicit-parser-literals">Implicit parser literals</h2>
+				<p>Sometimes, typing <code>Parjs.string</code> over and over again when you want to parse a string literal can be very repetitive. For this reason <code>parjs</code> supports what it calls <em>implicit parser literals</em>. Basically, when you need to supply a parser object to a <code>parjs</code> object you can supply a literal that will be implicitly converted into a parser.</p>
+				<p>Two literals are supported --</p>
+				<ol>
+					<li>String literals are converted to parsers parsing them via <code>Parjs.string</code>. This means that string literals are <em>loud parsers</em> and will not work in situations where the API calls for a quiet parser.</li>
+					<li>Regular expressions are converted to regular expression parsers via <code>Parjs.regexp</code>. They are also loud parsers.</li>
+				</ol>
+				<p>This fully type checks using TypeScript, although the method used to achieve this effect is a bit strange and will emit odd error messages if you try to pass it a literal that doesn&#39;t support conversion.</p>
 				<h2 id="module-structure">Module Structure</h2>
 				<p>Parjs has a well-organized module structure that is reflected in the documentation:</p>
 				<pre><code>- parjs
@@ -330,7 +338,7 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				</ol>
 				<h4 id="primitive">Primitive</h4>
 				<p>These combinators are very simple.</p>
-				<ol>
+				<ol start="2">
 					<li><code>p.fail(args)</code> - P applies <code>p</code> and fails with <code>args</code> if it succeeds. Also propagates failures.</li>
 				</ol>
 				<h4 id="special">Special</h4>

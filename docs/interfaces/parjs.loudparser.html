@@ -119,11 +119,13 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#action" class="tsd-kind-icon">action</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#backtrack" class="tsd-kind-icon">backtrack</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#flatten" class="tsd-kind-icon">flatten</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#isolate" class="tsd-kind-icon">isolate</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#not" class="tsd-kind-icon">not</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#q" class="tsd-kind-icon">q</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#soft" class="tsd-kind-icon">soft</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.loudparser.html#splat" class="tsd-kind-icon">splat</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#state" class="tsd-kind-icon">state</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.loudparser.html#str" class="tsd-kind-icon">str</a></li>
 							</ul>
@@ -184,7 +186,7 @@
 					<div class="tsd-signature tsd-kind-icon">backtrack<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in loud.ts:100</li>
+							<li>Defined in loud.ts:132</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -219,6 +221,35 @@
 						</dl>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="flatten" class="tsd-anchor"></a>
+					<h3>flatten</h3>
+					<div class="tsd-signature tsd-kind-icon">flatten<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.html#flatten" class="tsd-signature-type">flatten</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in loud.ts:169</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Returns a parser that applies <code>this</code> and flattens its result into an array.
+								If <code>this</code> yields a non-array <code>e</code>, returns <code>[e]</code>.
+							Otherwise, if <code>this</code> yields an array containing a mix of (nested?) array elements and regular elements, will merge all of these into a single array.</p>
+						</div>
+						<p>In TypeScript, the element type <code>T</code> is not always inferrred to be the best possible type. For example, <code>flatten</code> may return a parser of the type
+						<code>LoudParser{(T | T[])[]}</code>, where this method actually always returns <code>LoudParser&lt;T[]&gt;</code>.</p>
+						<p>Can be used to flatten a sequence of <code>.then</code> combinators, which can create deeply nested array structures.</p>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator projection</p>
+							</dd>
+							<dt>example</dt>
+							<dd><p>let pArr = a.then(b).then(c).then(d).then(e); // pArr : LoudParser{[[[T, T], T], T], T]}, deeply nested array
+								let flat = pArr.flatten(); //flat : LoudParser{T[]}</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="isloud" class="tsd-anchor"></a>
 					<h3>is<wbr>Loud</h3>
@@ -246,7 +277,7 @@
 					<div class="tsd-signature tsd-kind-icon">isolate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in loud.ts:283</li>
+							<li>Defined in loud.ts:326</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -299,7 +330,7 @@
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
-							<dd><p>combinator projection</p>
+							<dd><p>combinator projection optimizing</p>
 							</dd>
 						</dl>
 					</div>
@@ -310,7 +341,7 @@
 					<div class="tsd-signature tsd-kind-icon">soft<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in loud.ts:85</li>
+							<li>Defined in loud.ts:117</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -321,6 +352,27 @@
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>combinator failure-recovery</p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="splat" class="tsd-anchor"></a>
+					<h3>splat</h3>
+					<div class="tsd-signature tsd-kind-icon">splat<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.html#splat" class="tsd-signature-type">splat</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in loud.ts:177</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Can only be called if <code>this</code> yields an array of objects.
+							Returns a parser that will apply <code>this</code> and yield its results as a single object, by merging the properties of each object in the returned array.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>combinator projection</p>
 							</dd>
 						</dl>
 					</div>
@@ -370,7 +422,7 @@
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
-							<dd><p>combinator projection</p>
+							<dd><p>combinator projection optimizing</p>
 							</dd>
 						</dl>
 					</div>
@@ -382,14 +434,14 @@
 					<a name="between" class="tsd-anchor"></a>
 					<h3>between</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">between<span class="tsd-signature-symbol">(</span>preceding<span class="tsd-signature-symbol">: </span><a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a>, proceeding<span class="tsd-signature-symbol">: </span><a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">between<span class="tsd-signature-symbol">(</span>precedingAndPreceding<span class="tsd-signature-symbol">: </span><a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">between<span class="tsd-signature-symbol">(</span>preceding<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a>, proceeding<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">between<span class="tsd-signature-symbol">(</span>precedingAndPreceding<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:176</li>
+									<li>Defined in loud.ts:231</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -406,13 +458,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>preceding: <a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a></h5>
+									<h5>preceding: <a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The preceding parser.</p>
 									</div>
 								</li>
 								<li>
-									<h5>proceeding: <a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a></h5>
+									<h5>proceeding: <a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The proceeding parser.</p>
 									</div>
@@ -423,7 +475,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:184</li>
+									<li>Defined in loud.ts:239</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -440,7 +492,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>precedingAndPreceding: <a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a></h5>
+									<h5>precedingAndPreceding: <a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The parser that surrounds <code>this</code>.</p>
 									</div>
@@ -460,7 +512,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:121</li>
+									<li>Defined in loud.ts:153</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -493,7 +545,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:115</li>
+									<li>Defined in loud.ts:147</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -529,7 +581,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:219</li>
+									<li>Defined in loud.ts:262</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -565,7 +617,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:227</li>
+									<li>Defined in loud.ts:270</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -601,13 +653,13 @@
 					<a name="manysepby" class="tsd-anchor"></a>
 					<h3>many<wbr>Sep<wbr>By</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">many<wbr>Sep<wbr>By<span class="tsd-signature-symbol">(</span>delimeter<span class="tsd-signature-symbol">: </span><a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a>, max<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">many<wbr>Sep<wbr>By<span class="tsd-signature-symbol">(</span>delimeter<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a>, max<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:256</li>
+									<li>Defined in loud.ts:299</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -624,7 +676,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>delimeter: <a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a></h5>
+									<h5>delimeter: <a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The delimeter parser.</p>
 									</div>
@@ -644,14 +696,14 @@
 					<a name="manytill" class="tsd-anchor"></a>
 					<h3>many<wbr>Till</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">many<wbr>Till<span class="tsd-signature-symbol">(</span>till<span class="tsd-signature-symbol">: </span><a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a>, tillOptional<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">many<wbr>Till<span class="tsd-signature-symbol">(</span>till<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a>, tillOptional<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 						<li class="tsd-signature tsd-kind-icon">many<wbr>Till<span class="tsd-signature-symbol">(</span>till<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#parjspredicate" class="tsd-signature-type">ParjsPredicate</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, tillOptional<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:236</li>
+									<li>Defined in loud.ts:279</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -668,7 +720,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>till: <a href="parjs.anyparser.html" class="tsd-signature-type">AnyParser</a></h5>
+									<h5>till: <a href="../modules/parjs.html#implicitanyparser" class="tsd-signature-type">ImplicitAnyParser</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The parser that</p>
 									</div>
@@ -685,7 +737,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:246</li>
+									<li>Defined in loud.ts:289</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -728,7 +780,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:108</li>
+									<li>Defined in loud.ts:140</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -770,7 +822,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:92</li>
+									<li>Defined in loud.ts:124</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -812,7 +864,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:133</li>
+									<li>Defined in loud.ts:188</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -861,7 +913,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:141</li>
+									<li>Defined in loud.ts:196</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -898,7 +950,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:150</li>
+									<li>Defined in loud.ts:205</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -941,7 +993,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:167</li>
+									<li>Defined in loud.ts:222</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -978,7 +1030,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:159</li>
+									<li>Defined in loud.ts:214</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1015,17 +1067,17 @@
 					<a name="or" class="tsd-anchor"></a>
 					<h3>or</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">or&lt;S&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">or&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, third<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">or&lt;A, B, C&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, third<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span>, fourth<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">or&lt;A, B, C, D&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, third<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span>, fourth<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span>, fifth<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">or<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>parsers<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">or&lt;S&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">or&lt;A, B&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, third<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">or&lt;A, B, C&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, third<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span>, fourth<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">or&lt;A, B, C, D&gt;<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span>, third<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span>, fourth<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span>, fifth<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">or<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>parsers<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:45</li>
+									<li>Defined in loud.ts:77</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1047,7 +1099,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>second: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>second: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The alternative parser.</p>
 									</div>
@@ -1058,7 +1110,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:52</li>
+									<li>Defined in loud.ts:84</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1083,13 +1135,13 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>second: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>second: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 2nd parser to try, after <code>this</code>.</p>
 									</div>
 								</li>
 								<li>
-									<h5>third: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>third: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 3rd parser to try, after the second one.</p>
 									</div>
@@ -1100,7 +1152,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:61</li>
+									<li>Defined in loud.ts:93</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1128,19 +1180,19 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>second: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>second: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 2nd parser to try.</p>
 									</div>
 								</li>
 								<li>
-									<h5>third: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>third: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 3rd parser to try</p>
 									</div>
 								</li>
 								<li>
-									<h5>fourth: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>fourth: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 4th parser to try</p>
 									</div>
@@ -1151,7 +1203,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:71</li>
+									<li>Defined in loud.ts:103</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1182,25 +1234,25 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>second: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>second: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">A</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 2nd parser.</p>
 									</div>
 								</li>
 								<li>
-									<h5>third: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>third: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 3rd parser.</p>
 									</div>
 								</li>
 								<li>
-									<h5>fourth: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>fourth: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">C</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 4th parser.</p>
 									</div>
 								</li>
 								<li>
-									<h5>fifth: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>fifth: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">D</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The 5th parser.</p>
 									</div>
@@ -1211,7 +1263,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:78</li>
+									<li>Defined in loud.ts:110</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1227,7 +1279,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>parsers: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>parsers: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Zero or more parsers to try.</p>
 									</div>
@@ -1247,7 +1299,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:36</li>
+									<li>Defined in loud.ts:68</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1299,7 +1351,7 @@
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
-									<dd><p>combinator projection</p>
+									<dd><p>combinator projection optimizing</p>
 									</dd>
 								</dl>
 							</div>
@@ -1326,21 +1378,26 @@
 					<a name="then" class="tsd-anchor"></a>
 					<h3>then</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">then<span class="tsd-signature-symbol">(</span>quiet<span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">then&lt;S&gt;<span class="tsd-signature-symbol">(</span>loud<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">then&lt;S&gt;<span class="tsd-signature-symbol">(</span>array<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
-						<li class="tsd-signature tsd-kind-icon">then<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>quiet<span class="tsd-signature-symbol">: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then<span class="tsd-signature-symbol">(</span>second<span class="tsd-signature-symbol">?: </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then&lt;S&gt;<span class="tsd-signature-symbol">(</span>next<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then&lt;S1&gt;<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then&lt;S1, S2&gt;<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then&lt;S1, S2, S3&gt;<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">[</span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">then<span class="tsd-signature-symbol">(</span>parsers<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:192</li>
+									<li>Defined in loud.ts:250</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code> and then immediately the given quiet parser. It will yield the result of <code>this</code>.</p>
+									<p>The <code>then</code> methods return a parser that will apply additional parsers immediately after this one.
+										If a parser is given and it is quiet, the returned parser will yield the value of this parser.
+										If the given parser is loud, the returned parser will yield the values of this parser and the given parser in an array.
+									If an array of loud and quiet parsers is given, the returned parser will yield the results of all loud parsers in an array.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
@@ -1351,10 +1408,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>quiet: <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The quiet parser to follow this one.</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> second: <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1362,19 +1416,9 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:199</li>
+									<li>Defined in loud.ts:251</li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code> and then immediately the given loud parser. It will yield the results of both in an array.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>group</dt>
-									<dd><p>combinator sequential</p>
-									</dd>
-								</dl>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
@@ -1384,10 +1428,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>loud: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The loud parser to follow this one.</p>
-									</div>
+									<h5>next: <a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -1395,57 +1436,85 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:205</li>
+									<li>Defined in loud.ts:252</li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code> and then the given parsers in the order at which they appear. The returned parser will yield all their results in an array.</p>
-								</div>
-							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>S</h4>
+									<h4>S1</h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>array: <span class="tsd-signature-symbol">(</span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>An array of loud/quiet parsers to apply.</p>
-									</div>
+									<h5>parsers: <span class="tsd-signature-symbol">[</span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:212</li>
+									<li>Defined in loud.ts:253</li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code>, and then immediately a sequence of quiet parsers. It will yield the result of <code>this</code>.</p>
-								</div>
-								<dl class="tsd-comment-tags">
-									<dt>group</dt>
-									<dd><p>combinator sequential</p>
-									</dd>
-								</dl>
-							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>S1</h4>
+								</li>
+								<li>
+									<h4>S2</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>quiet: <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol">[]</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The sequence of quiet parsers.</p>
-									</div>
+									<h5>parsers: <span class="tsd-signature-symbol">[</span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in loud.ts:254</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>S1</h4>
+								</li>
+								<li>
+									<h4>S2</h4>
+								</li>
+								<li>
+									<h4>S3</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>parsers: <span class="tsd-signature-symbol">[</span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">S3</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in loud.ts:255</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>parsers: <span class="tsd-signature-symbol">(</span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1460,7 +1529,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:265</li>
+									<li>Defined in loud.ts:308</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1478,7 +1547,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>TParser<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+									<h4>TParser<span class="tsd-signature-symbol">: </span><a href="../modules/parjs.html#implicitloudparser" class="tsd-signature-type">ImplicitLoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1516,7 +1585,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in loud.ts:274</li>
+									<li>Defined in loud.ts:317</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1630,6 +1699,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="parjs.loudparser.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.loudparser.html#flatten" class="tsd-kind-icon">flatten</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="parjs.loudparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a>
 							</li>
@@ -1644,6 +1716,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.loudparser.html#soft" class="tsd-kind-icon">soft</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="parjs.loudparser.html#splat" class="tsd-kind-icon">splat</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="parjs.loudparser.html#state" class="tsd-kind-icon">state</a>
@@ -1728,10 +1803,25 @@
 						<a href="parjs.quietparser.html" class="tsd-kind-icon">Quiet<wbr>Parser</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#convertibleliteral" class="tsd-kind-icon">Convertible<wbr>Literal</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#implicitanyparser" class="tsd-kind-icon">Implicit<wbr>Any<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#implicitloudparser" class="tsd-kind-icon">Implicit<wbr>Loud<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#nestedarray" class="tsd-kind-icon">Nested<wbr>Array</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../modules/parjs.html#parjspredicate" class="tsd-kind-icon">Parjs<wbr>Predicate</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/parjs.html#parjspredicatequiet" class="tsd-kind-icon">Parjs<wbr>Predicate<wbr>Quiet</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#parserspecification" class="tsd-kind-icon">Parser<wbr>Specification</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
 						<a href="../modules/parjs.html#quietreply" class="tsd-kind-icon">Quiet<wbr>Reply</a>
@@ -1741,6 +1831,15 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
 						<a href="../modules/parjs.html#parjs-1" class="tsd-kind-icon">Parjs</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-private">
+						<a href="../modules/parjs.html#convertiblesymbol" class="tsd-kind-icon">convertible<wbr>Symbol</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private">
+						<a href="../modules/parjs.html#flatten" class="tsd-kind-icon">flatten</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private">
+						<a href="../modules/parjs.html#splat" class="tsd-kind-icon">splat</a>
 					</li>
 				</ul>
 			</nav>

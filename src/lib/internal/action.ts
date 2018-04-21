@@ -5,7 +5,7 @@
 /**
  *
  */
-import {ParsingState} from "./implementation/state";
+import {ParsingState} from "./implementation";
 /**
  * An interface for abstracting over parser actions.
  */

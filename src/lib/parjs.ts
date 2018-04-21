@@ -12,11 +12,18 @@ import {TraceVisualizer} from "./internal/visualizer";
 import {UserState} from "./internal/implementation/state";
 import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
+/**
+ * Helper methods for working with Parjs parsers.
+ */
 export interface ParjsStaticHelper {
     isParser(obj : any) : obj is AnyParser;
 
     isParserAction(obj : any) : obj is AnyParserAction;
 }
+
+/**
+ * An object with one or more parser-valued properties. Each property specifies a parser to apply. Used by [[ParjsStatic.seqObject]].
+ */
 export type ParserSpecification<Obj extends Record<string, any>> = {
     [key in keyof Obj] : LoudParser<Obj[key]>
 }
@@ -28,6 +35,9 @@ export type ParserSpecification<Obj extends Record<string, any>> = {
  */
 export interface ParjsStatic {
 
+    /**
+     * Helpers for working with Parjs parser objects.
+     */
     readonly helper : ParjsStaticHelper;
     
     //++ INFRASTRUCTURE
@@ -264,6 +274,7 @@ export interface ParjsStatic {
      *
      *  @group basic-parser string unicode
      *  @requires module:parjs/unicode
+     *
      */
     readonly uniSpaces : LoudParser<string>;
 

@@ -1,7 +1,7 @@
 /**
  * @module parjs
  */ /** */
-import {SuccessReply, FailureReply} from "./internal/reply";
+import {SuccessReply, FailureReply} from "./internal";
 
 
 

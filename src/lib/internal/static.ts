@@ -21,7 +21,8 @@ import {StaticCodeInfo, } from "char-info";
 import {TraceVisualizer} from "./visualizer";
 import {StaticCharInfo} from "char-info/dist/inner/abstract";
 import {Es6} from "../common/common";
-import {ConversionHelper, ImplicitAnyParser} from "../convertible-literal";
+import {ImplicitAnyParser} from "../convertible-literal";
+import {ConversionHelper} from "./convertible-literal";
 
 
 function wrap(action : ParjsAction) {

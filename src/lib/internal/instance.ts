@@ -4,20 +4,21 @@
 import {
     PrsSequence
     , PrsProject, PrsStringify, PrsInverse, PrsQuieten, PrsProjectConst, PrsAlternatives, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsChoose, PrsExactly, PrsManyTill, PrsManySepBy, PrsMaybe} from "./implementation/combinators";
-import {BaseParjsParser} from "./implementation/parser";
+import {BaseParjsParser} from "./implementation";
 import isFunction = require("lodash/isFunction");
 import {ParjsAction} from "./implementation/action";
-import {Predicates} from "./implementation/functions/predicates";
+import {Predicates} from "./implementation/functions";
 import {LoudParser} from "../loud";
 import {ReplyKind} from "../reply";
 import {QuietParser} from "../quiet";
 import {AnyParser} from "../any";
 import {PrsSoften} from "./implementation/combinators/alternatives/soft";
 import {PrsEach} from "./implementation/combinators/map/act";
-import {Parjs} from "../../lib";
+import {Parjs} from "../index";
 import {PrsIsolate} from "./implementation/combinators/special/isolate";
-import {QUIET_RESULT} from "./implementation/special-results";
-import {ConversionHelper,ImplicitAnyParser} from "../convertible-literal";
+import {QUIET_RESULT} from "./implementation";
+import {ImplicitAnyParser} from "../convertible-literal";
+import {ConversionHelper} from "./convertible-literal";
 function wrap(action : ParjsAction) {
     return new ParjsParser(action);
 }
