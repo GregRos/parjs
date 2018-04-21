@@ -5,9 +5,9 @@
  * Contains publically visible code.
  */ /** iooi*/
 
-import {ParjsStatic} from "./parjs";
 import {ParjsParsers} from "./internal/static";
-import {Template} from "typedoc/dist/lib/output/utils/resources/templates";
+import {ParjsStatic} from "./parjs";
+export {ParjsStatic};
 export {UserState} from "./internal/implementation/state";
 export {LoudParser} from "./loud";
 export {QuietParser} from "./quiet";
