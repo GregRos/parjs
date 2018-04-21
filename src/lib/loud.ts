@@ -24,33 +24,22 @@ export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
  */
 export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];
 
+/** @private*/ export declare function flatten<T>(this : LoudParser<NestedArray<T>>) : LoudParser<T[]>;
 
-/**
- * @private
- * @returns {LoudParser<T[]>}
- */
-export declare function flatten<T>(this : LoudParser<NestedArray<T>>) : LoudParser<T[]>;
+/** @private*/ export declare function splat<O1>(this : LoudParser<[O1]>) : LoudParser<O1>;
 
-/**
- * @private
- * @returns {LoudParser<A>}
- */
-export declare function splat<A>(this : LoudParser<[A]>) : LoudParser<A>;
-/**
- * @private
- * @returns {LoudParser<A>}
- */
-export declare function splat<A, B>(this : LoudParser<[A, B]>) : LoudParser<A & B>;
-/**
- * @private
- * @returns {LoudParser<A>}
- */
-export declare function splat<A, B, C>(this : LoudParser<[A, B, C]>) : LoudParser<A & B & C>;
-/**
- * @private
- * @returns {LoudParser<A>}
- */
-export declare function splat<A, B, C, D>(this : LoudParser<[A, B, C, D]>) : LoudParser<A & B & C & D>;
+/** @private*/ export declare function splat<O1, O2>(this : LoudParser<[O1, O2]>) : LoudParser<O1 & O2>;
+
+/** @private*/ export declare function splat<O1, O2, O3>(this : LoudParser<[O1, O2, O3]>) : LoudParser<O1 & O2 & O3>;
+
+/** @private*/ export declare function splat<O1, O2, O3, O4>(this : LoudParser<[O1, O2, O3, O4]>) : LoudParser<O1 & O2 & O3 & O4>;
+
+/** @private*/ export declare function splat<O1, O2, O3, O4, O5>(this : LoudParser<[O1, O2, O3, O4, O5]>) : LoudParser<O1 & O2 & O3 & O4 & O5>;
+/** @private*/ export declare function splat<O1, O2, O3, O4, O5, O6>(this : LoudParser<[O1, O2, O3, O4, O5, O6]>) : LoudParser<O1 & O2 & O3 & O4 & O5 & O6>;
+/** @private*/ export declare function splat<O1, O2, O3, O4, O5, O6, O7>(this : LoudParser<[O1, O2, O3, O4, O5, O6, O7]>) : LoudParser<O1 & O2 & O3 & O4 & O5 & O6 & O7>;
+/** @private*/ export declare function splat<O1, O2, O3, O4, O5, O6, O7, O8>(this : LoudParser<[O1, O2, O3, O4, O5, O6, O7, O8]>) : LoudParser<O1 & O2 & O3 & O4 & O5 & O6 & O7 & O8>;
+/** @private*/ export declare function splat<O1, O2, O3, O4, O5, O6, O7, O8, O9>(this : LoudParser<[O1, O2, O3, O4, O5, O6, O7, O8, O9]>) : LoudParser<O1 & O2 & O3 & O4 & O5 & O6 & O7 & O8 & O9>;
+
 /**
  * Interface for parsers that produce result values of type  {T}
  * @see QuietParser
