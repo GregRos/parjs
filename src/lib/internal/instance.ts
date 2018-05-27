@@ -64,7 +64,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     maybe(x ?: any) : QuietParser & LoudParser<any> {
-        if (x) {
+        if (arguments.length > 0) {
             return wrap(new PrsMaybe(this.action, x)).withName("maybe");
         } else {
             return wrap(new PrsMaybe(this.action, QUIET_RESULT)).withName("maybe")

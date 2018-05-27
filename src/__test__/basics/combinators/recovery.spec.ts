@@ -75,6 +75,8 @@ describe("or combinator", () => {
 
 describe("or val combinator", () => {
     let parser = Parjs.string("a").then("b").str.maybe("c");
+
+    let p2 = Parjs.string("a").maybe(0).then("b");
     it("succeeds to parse", () => {
         expectSuccess(parser.parse("ab"), "ab");
     });
@@ -86,6 +88,11 @@ describe("or val combinator", () => {
     it("if first fail soft, then return value", () => {
         expectSuccess(parser.parse(""), "c");
     });
+
+    it("falsy alt value", () => {
+        let result = p2.parse("b");
+        expectSuccess(result, [0, "b"]);
+    })
 });
 
 describe("not combinator", () => {
