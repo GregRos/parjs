@@ -23,12 +23,12 @@ export function BasicTraceVisualizer(args : BasicTraceVisualizerArgs = defaultAr
     let func = function(trace : Trace) {
         let rows = trace.input.split(/\r\n|\n|\r/g);
         let locRow = trace.location.row;
-        let around = this.args.linesBefore;
+        let around = args.linesBefore;
         let firstRow = Math.max(0, locRow - around);
         let linesAround = rows.slice(firstRow, locRow + 1);
 
         let prefixLength = 0;
-        if (this.args.lineNumbers) {
+        if (args.lineNumbers) {
             let numLength = Math.floor(1 + Math.log(locRow + 1) / Math.log(10));
             let rowNumberPrefixer = (n : number) => `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
             prefixLength = numLength + 3;
