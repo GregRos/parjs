@@ -26,11 +26,15 @@ Parjs is can be used on the client or the server. It's a pretty big library but 
 
 To start using it, install the module using NPM and then use:
 
-	import {Parjs} from 'parjs';
+```ts
+import {Parjs} from 'parjs';
+```
 
 Or in some cases:
 
-	var Parjs = require('parjs').Parjs;
+```ts
+var Parjs = require('parjs').Parjs;
+```
 
 Which imports the main module.
 ## Example Parsers
@@ -50,20 +54,22 @@ By combining different parsers in different ways, you can construct parsers for 
 
 Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.
 
-	//Built-in building block parser for floating point numbers.
-	let tupleElement = Parjs.float();
-	
-	//Allow whitespace around elements:
-	let paddedElement = tupleElement.between(Parjs.whitespaces);
-	
-	//Multiple instances of {paddedElement}, separated by a comma:
-	let separated = paddedElement.manySepBy(Parjs.string(","));
-	
-	//Surround everything with parentheses:
-	let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
-	
-	//prints [1, 2, 3]:
-	console.log(surrounded.parse("(1,  2 , 3 )"));
+```ts
+//Built-in building block parser for floating point numbers.
+let tupleElement = Parjs.float();
+
+//Allow whitespace around elements:
+let paddedElement = tupleElement.between(Parjs.whitespaces);
+
+//Multiple instances of {paddedElement}, separated by a comma:
+let separated = paddedElement.manySepBy(Parjs.string(","));
+
+//Surround everything with parentheses:
+let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
+
+//prints [1, 2, 3]:
+console.log(surrounded.parse("(1,  2 , 3 )"));
+```
 
 In the above example, things like `Parjs.float()`, `Parjs.spaces`, and `Parjs.string(str)` are building-block parsers and things like `.between(p)` and `.manySepBy(p)` and *combinators* that work on existing parsers to give you new ones.
 
@@ -87,7 +93,9 @@ Parsers such as `Parjs.upper` can only recognize the ASCII subset of Unicode. Pa
 
 `Parjs` does not import `char-info` by default due to the latter's large size. In order to enable unicode parsing support, including calling functions with names beginning with `uni`, you need to import `parjs/unicode` somewhere in your code.
 
-	import 'parjs/unicode';
+```ts
+import 'parjs/unicode';
+```
 
 Doing so will load all the unicode data.
 
@@ -148,9 +156,11 @@ More specifically, instances of parsers should not depend on instance-level info
 
 This allows you to write such idiomatic code as:
 
-	let myString = Parjs.string("my personal string");
-	let variant1 = myString.then(Parjs.string(" is the best."));
-	let variant2 = myString.then(Parjs.string(" is okay.));
+```ts
+let myString = Parjs.string("my personal string");
+let variant1 = myString.then(Parjs.string(" is the best."));
+let variant2 = myString.then(Parjs.string(" is okay."));
+```
 
 If `myString` were a mutable object, mutating it in one part of the program would then change how `variant1` and `variant2` behave, which would be very suspicous behavior.
 
@@ -214,12 +224,16 @@ Quiet parsers are an important feature of `Parjs`. There are many situations in 
 
 For this reason, the combinator that turns any parser into a quiet parser is called simply `.q`. 
 
-	let comma = Parjs.string(",").q;
-	let hello = Parjs.string("hello").q;
+```ts
+let comma = Parjs.string(",").q;
+let hello = Parjs.string("hello").q;
+```
 
 It's not an error to quieten an already quiet parser, but doing so does nothing and may return the exact same parser instance.
 
-	let comma = Parjs.string(".").q.q.q.q.q;
+```ts
+let comma = Parjs.string(".").q.q.q.q.q;
+```
 
 ## User State
 User state is a powerful feature that can be used when parsing complex languages, such as mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
@@ -228,28 +242,33 @@ Basically, when you invoke the `.parse(str)` method, a unique, mutable user stat
 
 The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
-	//p is called with a parser state initialized with properties and methods.
-	let example = p.parse("hello", {token: "hi", method() {return 1;});
+```ts
+//p is called with a parser state initialized with properties and methods.
+let example = p.parse("hello", {token: "hi", method() {return 1;});
+```
 
 Here is an example of how you can use this feature to parse a recursive, XML-like language:
 
-	//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
-	let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
-	//A parser that parses an opening of a tag.
-	let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).each((result, userState) => {
-	    userState.tags.push({tag: result, content : []});
-	}).q;
+```ts
 
-	let closeTag =
-	    ident.between(Parjs.string("</"), Parjs.string(">"))
-	        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
-	        .each((result, userState) => {
-	    let topTag = userState.tags.pop();
-	    _.last(userState.tags as any[]).content.push(topTag);
-	}).q;
+//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
+let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
+//A parser that parses an opening of a tag.
+let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).each((result, userState) => {
+    userState.tags.push({ tag: result, content: [] });
+}).q;
 
-	let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
-	console.log(JSON.stringify(anyTag.parse("<a><b><c></c></b></a>", {tags : [{content : []}]}), null ,2));
+let closeTag =
+    ident.between(Parjs.string("</"), Parjs.string(">"))
+        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
+        .each((result, userState) => {
+            let topTag = userState.tags.pop();
+            _.last(userState.tags as any[]).content.push(topTag);
+        }).q;
+
+let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
+console.log(JSON.stringify(anyTag.parse("<a><b><c></c></b></a>", { tags: [{ content: [] }] }), null, 2));
+```
 
 Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.
 
@@ -348,13 +367,15 @@ When a parser `p` is applied using the `p.parse(str)` method, a `ParserReply<T>`
 
 Every `reply` has a `reply.kind` value, which is a string that can be any value that is part of the `ReplyKind` set. To check that parsing succeeded, use the following test:
 
-	let reply = p.parse(str);
-	if (reply.kind === ReplyKind.OK) {
-		//parsing succeeded
-	}
-	else {
-		//parsing failed
-	}
+```ts
+let reply = p.parse(str);
+if (reply.kind === ReplyKind.OK) {
+	//parsing succeeded
+}
+else {
+	//parsing failed
+}
+```
 
 When using TypeScript, the check narrows the type of `reply` in each respective branch.
 
@@ -379,7 +400,9 @@ In addition to the `kind`, a failure reply exposes the `trace` property that des
 
 A visualizer is provided that can graphically display the error location. TO access the visualizer, do:
 
-	Parjs.visualizer.visualize(reply.trace);
+```ts
+Parjs.visualizer.visualize(reply.trace);
+```
 
 The result is a textual representation of the error.
 
@@ -419,15 +442,17 @@ Parjs is meant to be very easy to extend, meaning writing your own parser is ver
 ### Parser flow
 When the `.parse` method is called, a [`ParsingState`](https://gregros.github.io/parjs/interfaces/parjs_internal.parsingstate.html) object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:
 
-	interface ParsingState {
-		readonly input : string;
-		position : number;
-		value : any;
-		userState : any;
-		expecting : string;
-		kind : ReplyKind;
-		//...
-	}
+```ts
+interface ParsingState {
+	readonly input : string;
+	position : number;
+	value : any;
+	userState : any;
+	expecting : string;
+	kind : ReplyKind;
+	//...
+}
+```
 
 Every parser is a wrapper around a thinner object called a *parser action*. The chief method if this action is the `apply(ParsingState)` method that mutates the parsing state. By doing so, it can return a value, advance the position, mutate the user state, and signal failure or success.
 
@@ -442,13 +467,15 @@ Failure to do either of these will cause an exception to be thrown.
 
 Here is an example of one implementation. This implementation checks if parsing has reached the end of the input (e.g. `Parjs.eof`).
 
-    _apply(ps : ParsingState) {
-        if (ps.position === ps.input.length) {
-            ps.kind =  ReplyKind.OK;
-        } else {
-            ps.kind = ReplyKind.SoftFail;
-        }
+```ts
+_apply(ps : ParsingState) {
+    if (ps.position === ps.input.length) {
+        ps.kind =  ReplyKind.OK;
+    } else {
+        ps.kind = ReplyKind.SoftFail;
     }
+}
+```
 
 This specific action is quiet, so it doesn't need to set the `value` property. 
 	
@@ -461,8 +488,9 @@ In addition to implementing `_apply`, parser actions must also specify:
 ### Creating a parser
 After you have written your parser action, you'll need to wrap it in a parser. The default parser class is `ParjsParser`, which contains implementations for all the relevant combinators as prototype members.
 
-	 let parser = new ParjsParser(action);
-
+```ts
+ let parser = new ParjsParser(action);
+```
 Before returning it, also call its `withName` method to set the parser's display name.
 
 Finally, if you are writing in TypeScript, you'll need to cast the parser to the appropriate interface. This is usually either `LoudParser<T>` or `QuietParser`.	
