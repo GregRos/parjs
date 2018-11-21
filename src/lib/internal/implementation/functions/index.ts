@@ -1,7 +1,8 @@
 /**
+ * Functions used for implementing parsers and combinators.
  * @module parjs/internal/implementation/functions
  * @preferred
- * Functions for implementing parsers and combinators.
+ *
  */ /** */
 export {Codes} from "./char-indicators";
 export {StringHelpers} from "./helpers";

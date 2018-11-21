@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -91,38 +93,38 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="parjs_internal_implementation.parserdefinitionerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="parjs_internal_implementation.parserdefinitionerror.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="parjs_internal_implementation.parserdefinitionerror.html#parsername" class="tsd-kind-icon">parser<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="parjs_internal_implementation.parserdefinitionerror.html#error" class="tsd-kind-icon">Error</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="parjs_internal_implementation.parserdefinitionerror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="parjs_internal_implementation.parserdefinitionerror.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="parjs_internal_implementation.parserdefinitionerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="parjs_internal_implementation.parserdefinitionerror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="parjs_internal_implementation.parserdefinitionerror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="parjs_internal_implementation.parserdefinitionerror.html#parsername" class="tsd-kind-icon">parser<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external"><a href="parjs_internal_implementation.parserdefinitionerror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external"><a href="parjs_internal_implementation.parserdefinitionerror.html#error" class="tsd-kind-icon">Error</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Parser<wbr>Definition<wbr>Error<span class="tsd-signature-symbol">(</span>parserName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal_implementation.parserdefinitionerror.html" class="tsd-signature-type">ParserDefinitionError</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/implementation/issues.ts:8</li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/issues.ts#L8">internal/implementation/issues.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -139,59 +141,59 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Error.message</p>
+						<ul>
+							<li>Defined in /Users/gr/code/gr/parjs/node_modules/typescript/lib/lib.es5.d.ts:904</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from Error.name</p>
+						<ul>
+							<li>Defined in /Users/gr/code/gr/parjs/node_modules/typescript/lib/lib.es5.d.ts:903</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="parsername" class="tsd-anchor"></a>
 					<h3>parser<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">parser<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in internal/implementation/issues.ts:9</li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/issues.ts#L9">internal/implementation/issues.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="error" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
-					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in C:/Code/greg/imported/GitHub/parjs/node_modules/typedoc/node_modules/typescript/lib/lib.es6.d.ts:896</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="message" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from Error.message</p>
-						<ul>
-							<li>Defined in C:/Code/greg/imported/GitHub/parjs/node_modules/typedoc/node_modules/typescript/lib/lib.es6.d.ts:886</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="name" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from Error.name</p>
-						<ul>
-							<li>Defined in C:/Code/greg/imported/GitHub/parjs/node_modules/typedoc/node_modules/typescript/lib/lib.es6.d.ts:885</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external">
 					<a name="stack" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
 					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<p>Inherited from Error.stack</p>
 						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in C:/Code/greg/imported/GitHub/parjs/node_modules/typedoc/node_modules/typescript/lib/lib.es6.d.ts:887</li>
+							<li>Defined in /Users/gr/code/gr/parjs/node_modules/typescript/lib/lib.es5.d.ts:905</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+					<a name="error" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
+					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in /Users/gr/code/gr/parjs/node_modules/typescript/lib/lib.es5.d.ts:914</li>
 						</ul>
 					</aside>
 				</section>
@@ -203,89 +205,92 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-private">
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
 						<a href="../modules/_common_common_.html">"common/common"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html">parjs</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal.html">parjs/internal</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation.html">parjs/internal/implementation</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation_combinators.html">parjs/internal/implementation/combinators</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation_functions.html">parjs/internal/implementation/functions</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_unicode.html">parjs/unicode</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation.baseparjsparser.html" class="tsd-kind-icon">Base<wbr>Parjs<wbr>Parser</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation.basicparsingstate.html" class="tsd-kind-icon">Basic<wbr>Parsing<wbr>State</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation.parjsaction.html" class="tsd-kind-icon">Parjs<wbr>Action</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation.parjsbasicaction.html" class="tsd-kind-icon">Parjs<wbr>Basic<wbr>Action</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation.parserdefinitionerror.html" class="tsd-kind-icon">Parser<wbr>Definition<wbr>Error</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 								<a href="parjs_internal_implementation.parserdefinitionerror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="parjs_internal_implementation.parserdefinitionerror.html#parsername" class="tsd-kind-icon">parser<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="parjs_internal_implementation.parserdefinitionerror.html#error" class="tsd-kind-icon">Error</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="parjs_internal_implementation.parserdefinitionerror.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="parjs_internal_implementation.parserdefinitionerror.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
+								<a href="parjs_internal_implementation.parserdefinitionerror.html#parsername" class="tsd-kind-icon">parser<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-external">
 								<a href="parjs_internal_implementation.parserdefinitionerror.html#stack" class="tsd-kind-icon">stack</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static tsd-is-external">
+								<a href="parjs_internal_implementation.parserdefinitionerror.html#error" class="tsd-kind-icon">Error</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
 						<a href="parjs_internal_implementation.parseruserstate.html" class="tsd-kind-icon">Parser<wbr>User<wbr>State</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-is-external">
 						<a href="../interfaces/parjs_internal_implementation.basictracevisualizerargs.html" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer<wbr>Args</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation.html#basictracevisualizer" class="tsd-kind-icon">Basic<wbr>Trace<wbr>Visualizer</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
 						<a href="../modules/parjs_internal_implementation.html#geterrorlocation" class="tsd-kind-icon">get<wbr>Error<wbr>Location</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
 						<a href="../modules/parjs_internal_implementation.html#worsethan" class="tsd-kind-icon">worse<wbr>Than</a>
 					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
 						<a href="../modules/parjs_internal_implementation.html#defaultargs" class="tsd-kind-icon">default<wbr>Args</a>
 					</li>
 				</ul>

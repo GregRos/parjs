@@ -1,8 +1,7 @@
 /**
- * jkjkjkjk
+ * Implementations of the parser system and individual parsers.
  * @module parjs/internal/implementation
  * @preferred
- * Implementation-level types, values, and interfaces.
  */ /** */
 export {BasicParsingState} from "./action";
 export {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";

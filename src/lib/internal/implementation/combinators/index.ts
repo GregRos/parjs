@@ -1,7 +1,8 @@
 /**
+ * Implementations of individual combinators.
  * @module parjs/internal/implementation/combinators
  * @preferred
- * Implementations of combinators.
+ *
  */ /** */
 export {PrsAlternatives} from "./alternatives/alts";
 export {PrsBacktrack} from "./backtrack/backtrack";

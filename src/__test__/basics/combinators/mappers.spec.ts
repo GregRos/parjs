@@ -103,16 +103,10 @@ describe("map combinators", () => {
         it("works", () => {
             expectSuccess(p.parse("a"), "a");
             expect(tally).toBe("a");
+	        expectSuccess(p.parse("b"), "b");
+	        expect(tally).toBe("ab");
+	        expectFailure(p.parse("d"), "Soft");
+	        expect(tally).toBe("ab");
         });
-
-        it("works 2", () => {
-            expectSuccess(p.parse("b"), "b");
-            expect(tally).toBe("ab");
-        });
-
-        it("fails", () => {
-            expectFailure(p.parse("d"), "Soft");
-            expect(tally).toBe("ab");
-        })
     })
 });

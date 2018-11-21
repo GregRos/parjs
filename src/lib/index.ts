@@ -1,8 +1,8 @@
 /**
+ * The main module.
+ * Contains the [[Parjs]] object and the most commonly used public interfaces.
  * @module parjs
  * @preferred
- *
- * Contains publically visible code.
  */ /** iooi*/
 
 import {ParjsParsers} from "./internal/static";

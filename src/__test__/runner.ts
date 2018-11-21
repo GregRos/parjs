@@ -3,7 +3,7 @@
  */
 
 let Jasmine = require("jasmine");
-import SpecReporter = require("jasmine-spec-reporter");
+var {SpecReporter} = require("jasmine-spec-reporter");
 import "./setup";
 import glob = require("glob");
 let jrunner = new Jasmine();

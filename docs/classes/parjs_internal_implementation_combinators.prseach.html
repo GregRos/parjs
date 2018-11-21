@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -90,48 +92,50 @@
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="parjs_internal_implementation_combinators.prseach.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal_implementation_combinators.prseach.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prseach.html#expecting" class="tsd-kind-icon">expecting</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#_act" class="tsd-kind-icon">_act</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#_inner" class="tsd-kind-icon">_inner</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#expecting" class="tsd-kind-icon">expecting</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prseach.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section ">
+						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="parjs_internal_implementation_combinators.prseach.html#_apply" class="tsd-kind-icon">_apply</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="parjs_internal_implementation_combinators.prseach.html#apply" class="tsd-kind-icon">apply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#_apply" class="tsd-kind-icon">_apply</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external"><a href="parjs_internal_implementation_combinators.prseach.html#apply" class="tsd-kind-icon">apply</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon">new <wbr>Prs<wbr>Each<span class="tsd-signature-symbol">(</span>_inner<span class="tsd-signature-symbol">: </span><a href="parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a>, _act<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs_internal_implementation_combinators.prseach.html" class="tsd-signature-type">PrsEach</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in internal/implementation/combinators/map/act.ts:12</li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/combinators/map/act.ts#L12">internal/implementation/combinators/map/act.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -169,9 +173,53 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+					<a name="_act" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _act</h3>
+					<div class="tsd-signature tsd-kind-icon">_act<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/combinators/map/act.ts#L13">internal/implementation/combinators/map/act.ts:13</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>result: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>state: <span class="tsd-signature-type">any</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+					<a name="_inner" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _inner</h3>
+					<div class="tsd-signature tsd-kind-icon">_inner<span class="tsd-signature-symbol">:</span> <a href="parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/combinators/map/act.ts#L13">internal/implementation/combinators/map/act.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="displayname" class="tsd-anchor"></a>
 					<h3>display<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -179,11 +227,11 @@
 						<p>Implementation of <a href="../interfaces/parjs_internal.anyparseraction.html">AnyParserAction</a>.<a href="../interfaces/parjs_internal.anyparseraction.html#displayname">displayName</a></p>
 						<p>Inherited from <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#displayname">displayName</a></p>
 						<ul>
-							<li>Defined in internal/implementation/action.ts:79</li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/action.ts#L79">internal/implementation/action.ts:79</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="expecting" class="tsd-anchor"></a>
 					<h3>expecting</h3>
 					<div class="tsd-signature tsd-kind-icon">expecting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
@@ -191,17 +239,17 @@
 						<p>Implementation of <a href="../interfaces/parjs_internal.anyparseraction.html">AnyParserAction</a>.<a href="../interfaces/parjs_internal.anyparseraction.html#expecting">expecting</a></p>
 						<p>Overrides <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#expecting">expecting</a></p>
 						<ul>
-							<li>Defined in internal/implementation/combinators/map/act.ts:9</li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/combinators/map/act.ts#L9">internal/implementation/combinators/map/act.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="isloud" class="tsd-anchor"></a>
 					<h3>is<wbr>Loud</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> isLoud<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -209,7 +257,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#isloud">isLoud</a></p>
 								<ul>
-									<li>Defined in internal/implementation/combinators/map/act.ts:10</li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/combinators/map/act.ts#L10">internal/implementation/combinators/map/act.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -217,12 +265,12 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group ">
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 					<a name="_apply" class="tsd-anchor"></a>
 					<h3>_apply</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon">_apply<span class="tsd-signature-symbol">(</span>ps<span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.parsingstate.html" class="tsd-signature-type">ParsingState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -230,7 +278,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#_apply">_apply</a></p>
 								<ul>
-									<li>Defined in internal/implementation/combinators/map/act.ts:19</li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/combinators/map/act.ts#L19">internal/implementation/combinators/map/act.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -243,10 +291,10 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 					<a name="apply" class="tsd-anchor"></a>
 					<h3>apply</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 						<li class="tsd-signature tsd-kind-icon">apply<span class="tsd-signature-symbol">(</span>ps<span class="tsd-signature-symbol">: </span><a href="../interfaces/parjs_internal.parsingstate.html" class="tsd-signature-type">ParsingState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
@@ -255,7 +303,7 @@
 								<p>Implementation of <a href="../interfaces/parjs_internal.anyparseraction.html">AnyParserAction</a>.<a href="../interfaces/parjs_internal.anyparseraction.html#apply">apply</a></p>
 								<p>Inherited from <a href="parjs_internal_implementation.parjsaction.html">ParjsAction</a>.<a href="parjs_internal_implementation.parjsaction.html#apply">apply</a></p>
 								<ul>
-									<li>Defined in internal/implementation/action.ts:85</li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/action.ts#L85">internal/implementation/action.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,116 +332,125 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-private">
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
 						<a href="../modules/_common_common_.html">"common/common"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html">parjs</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal.html">parjs/internal</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation.html">parjs/internal/implementation</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation_combinators.html">parjs/internal/implementation/combinators</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation_functions.html">parjs/internal/implementation/functions</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs_unicode.html">parjs/unicode</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsalternatives.html" class="tsd-kind-icon">Prs<wbr>Alternatives</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsbacktrack.html" class="tsd-kind-icon">Prs<wbr>Backtrack</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prschoose.html" class="tsd-kind-icon">Prs<wbr>Choose</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prseach.html" class="tsd-kind-icon">Prs<wbr>Each</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 								<a href="parjs_internal_implementation_combinators.prseach.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+								<a href="parjs_internal_implementation_combinators.prseach.html#_act" class="tsd-kind-icon">_act</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+								<a href="parjs_internal_implementation_combinators.prseach.html#_inner" class="tsd-kind-icon">_inner</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="parjs_internal_implementation_combinators.prseach.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="parjs_internal_implementation_combinators.prseach.html#expecting" class="tsd-kind-icon">expecting</a>
 							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="parjs_internal_implementation_combinators.prseach.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-external">
 								<a href="parjs_internal_implementation_combinators.prseach.html#_apply" class="tsd-kind-icon">_apply</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-external">
 								<a href="parjs_internal_implementation_combinators.prseach.html#apply" class="tsd-kind-icon">apply</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsexactly.html" class="tsd-kind-icon">Prs<wbr>Exactly</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsinverse.html" class="tsd-kind-icon">Prs<wbr>Inverse</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsisolate.html" class="tsd-kind-icon">Prs<wbr>Isolate</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prslate.html" class="tsd-kind-icon">Prs<wbr>Late</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsmany.html" class="tsd-kind-icon">Prs<wbr>Many</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsmanysepby.html" class="tsd-kind-icon">Prs<wbr>Many<wbr>Sep<wbr>By</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsmanytill.html" class="tsd-kind-icon">Prs<wbr>Many<wbr>Till</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsmaybe.html" class="tsd-kind-icon">Prs<wbr>Maybe</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsmust.html" class="tsd-kind-icon">Prs<wbr>Must</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsmustcapture.html" class="tsd-kind-icon">Prs<wbr>Must<wbr>Capture</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsproject.html" class="tsd-kind-icon">Prs<wbr>Project</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsprojectconst.html" class="tsd-kind-icon">Prs<wbr>Project<wbr>Const</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsquieten.html" class="tsd-kind-icon">Prs<wbr>Quieten</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prssequence.html" class="tsd-kind-icon">Prs<wbr>Sequence</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prssoften.html" class="tsd-kind-icon">Prs<wbr>Soften</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_combinators.prsstringify.html" class="tsd-kind-icon">Prs<wbr>Stringify</a>
 					</li>
 				</ul>

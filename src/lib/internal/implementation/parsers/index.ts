@@ -1,7 +1,7 @@
 /**
+ * Implementations of individual building-block parsers.
  * @module parjs/internal/implementation/parsers
  * @preferred
- * Implementations of building block parsers.
  */ /** */
 export {PrsCharWhere} from "./char/char-where";
 export {PrsStringOf} from "./string/string-of";

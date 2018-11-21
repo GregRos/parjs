@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -87,8 +89,7 @@
 							<th>Minified+Gzipped</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
+					<tbody><tr>
 							<td>Default</td>
 							<td>&lt; 180kb</td>
 							<td>&lt; 100kb</td>
@@ -100,13 +101,12 @@
 							<td>&lt; 180 kb</td>
 							<td>&lt; 50kb</td>
 						</tr>
-					</tbody>
-				</table>
+				</tbody></table>
 				<p>To start using it, install the module using NPM and then use:</p>
-				<pre><code><span class="hljs-keyword">import</span> {Parjs} <span class="hljs-keyword">from</span> <span class="hljs-string">'parjs'</span>;
-</code></pre><p>Or in some cases:</p>
-				<pre><code><span class="hljs-attribute">var Parjs</span> = require(<span class="hljs-string">'parjs'</span>).Parjs;
-</code></pre><p>Which imports the main module.</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> {Parjs} <span class="hljs-keyword">from</span> <span class="hljs-string">'parjs'</span>;</code></pre>
+				<p>Or in some cases:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">var</span> Parjs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'parjs'</span>).Parjs;</code></pre>
+				<p>Which imports the main module.</p>
 				<h2 id="example-parsers">Example Parsers</h2>
 				<p>You can see implementations of example parsers in the <code>examples</code> folder, suffixed with their complexity, in ★.</p>
 				<ol>
@@ -120,21 +120,21 @@
 				<p>For example, if you have a parser <code>digit</code> for parsing decimal digits, you can parse a number by applying <code>digit</code> multiple times until it fails, and then producing the consumed text as a result. Then you can use another <em>combinator</em>  to convert the result to a number.</p>
 				<p>By combining different parsers in different ways, you can construct parsers for arbitrary expressions and languages.</p>
 				<p>Here is how you might construct a parser for text in the form <code>(a, b, c, ...)</code> where <code>a, b, c</code> are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.</p>
-				<pre><code><span class="hljs-comment">//Built-in building block parser for floating point numbers.</span>
+				<pre><code class="language-ts"><span class="hljs-comment">//Built-in building block parser for floating point numbers.</span>
 <span class="hljs-keyword">let</span> tupleElement = Parjs.float();
 
 <span class="hljs-comment">//Allow whitespace around elements:</span>
 <span class="hljs-keyword">let</span> paddedElement = tupleElement.between(Parjs.whitespaces);
 
 <span class="hljs-comment">//Multiple instances of {paddedElement}, separated by a comma:</span>
-<span class="hljs-keyword">let</span> separated = paddedElement.manySepBy(Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">","</span>));
+<span class="hljs-keyword">let</span> separated = paddedElement.manySepBy(Parjs.string(<span class="hljs-string">","</span>));
 
 <span class="hljs-comment">//Surround everything with parentheses:</span>
-<span class="hljs-keyword">let</span> surrounded = separated.between(Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">"("</span>), Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">")"</span>));
+<span class="hljs-keyword">let</span> surrounded = separated.between(Parjs.string(<span class="hljs-string">"("</span>), Parjs.string(<span class="hljs-string">")"</span>));
 
 <span class="hljs-comment">//prints [1, 2, 3]:</span>
-console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-built_in">parse</span>(<span class="hljs-string">"(1,  2 , 3 )"</span>));
-</code></pre><p>In the above example, things like <code>Parjs.float()</code>, <code>Parjs.spaces</code>, and <code>Parjs.string(str)</code> are building-block parsers and things like <code>.between(p)</code> and <code>.manySepBy(p)</code> and <em>combinators</em> that work on existing parsers to give you new ones.</p>
+<span class="hljs-built_in">console</span>.log(surrounded.parse(<span class="hljs-string">"(1,  2 , 3 )"</span>));</code></pre>
+				<p>In the above example, things like <code>Parjs.float()</code>, <code>Parjs.spaces</code>, and <code>Parjs.string(str)</code> are building-block parsers and things like <code>.between(p)</code> and <code>.manySepBy(p)</code> and <em>combinators</em> that work on existing parsers to give you new ones.</p>
 				<p>Parser-combinators can also emit informative error messages when parsing fails.</p>
 				<h2 id="what-can-you-use-it-for-">What can you use it for?</h2>
 				<p>Parsing, generally. You can parse all sorts of things:</p>
@@ -149,8 +149,8 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<p>Parjs supports selectively parsing diverse Unicode characters with the aid of the <a href="https://www.npmjs.com/package/char-info"><code>char-info</code> </a> package of character recognizers.</p>
 				<p>Parsers such as <code>Parjs.upper</code> can only recognize the ASCII subset of Unicode. Parsers beginning with <code>uni</code>, such as <code>uniUpper</code>, can recognize any Unicode character. However, they are also much slower as each character must be looked up in a tree-like data structure.</p>
 				<p><code>Parjs</code> does not import <code>char-info</code> by default due to the latter&#39;s large size. In order to enable unicode parsing support, including calling functions with names beginning with <code>uni</code>, you need to import <code>parjs/unicode</code> somewhere in your code.</p>
-				<pre><code><span class="hljs-meta"><span class="hljs-meta-keyword">import</span> 'parjs/unicode';</span>
-</code></pre><p>Doing so will load all the unicode data.</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> <span class="hljs-string">'parjs/unicode'</span>;</code></pre>
+				<p>Doing so will load all the unicode data.</p>
 				<p>In order to parse Unicode characters with elaborate properties, you should install the <code>char-info</code> library and use its characters indicators directly. It lets you detect a character&#39;s Unicode category, Block, Script, and other information.</p>
 				<p>Parjs isn&#39;t very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with <code>uni</code> won&#39;t recognize such characters. One reason for this is because JavaScript has a UCS-2 conception of characters.</p>
 				<h2 id="implicit-parser-literals">Implicit parser literals</h2>
@@ -181,8 +181,7 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
                 Implementations of building-block parsers.
 
             - parjs/internal/implementation/functions
-                Character recognizers <span class="hljs-keyword">and</span> other functions used with parsing.
-</code></pre><h2 id="what-s-a-parjs-parser-">What&#39;s a Parjs parser?</h2>
+                Character recognizers <span class="hljs-keyword">and</span> other functions used with parsing.</code></pre><h2 id="what-s-a-parjs-parser-">What&#39;s a Parjs parser?</h2>
 				<p>A somewhat basic question that deserves an answer. In <code>Parjs</code>, a parser is an object that consumes characters from text and returns a value. The number of characters the parser consumes depends on its implementation.</p>
 				<p>When a parser is invoked on a top level, it is expected to consume the entire input. If it does not, this signals an overall parsing failure. During the parsing process, a <code>position</code> value is maintained.</p>
 				<p>When a parser is invoked as part of a containing parser (e.g. <code>Parjs.seq(p1, p2)</code>), then the containing parser chooses how to handle the failure, using information such as the kind of failure and where it occurred. It also chooses how to handle the return value.</p>
@@ -192,10 +191,10 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<p>It&#39;s important to note that parsers are meant to be immutable objects, and the library is designed around that important premise. </p>
 				<p>More specifically, instances of parsers should not depend on instance-level information to process data. You can still edit the parser prototypes, adding combinators and building block parsers.</p>
 				<p>This allows you to write such idiomatic code as:</p>
-				<pre><code><span class="hljs-built_in">let</span> myString = Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"my personal string"</span>);
-<span class="hljs-built_in">let</span> variant1 = myString.<span class="hljs-keyword">then</span>(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">" is the best."</span>));
-<span class="hljs-built_in">let</span> variant2 = myString.<span class="hljs-keyword">then</span>(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">" is okay.));</span>
-</code></pre><p>If <code>myString</code> were a mutable object, mutating it in one part of the program would then change how <code>variant1</code> and <code>variant2</code> behave, which would be very suspicous behavior.</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">let</span> myString = Parjs.string(<span class="hljs-string">"my personal string"</span>);
+<span class="hljs-keyword">let</span> variant1 = myString.then(Parjs.string(<span class="hljs-string">" is the best."</span>));
+<span class="hljs-keyword">let</span> variant2 = myString.then(Parjs.string(<span class="hljs-string">" is okay."</span>));</code></pre>
+				<p>If <code>myString</code> were a mutable object, mutating it in one part of the program would then change how <code>variant1</code> and <code>variant2</code> behave, which would be very suspicous behavior.</p>
 				<p>In practice, you can design parsers that don&#39;t behave this way, but doing so is highly discouraged.</p>
 				<h2 id="parsing-failure">Parsing Failure</h2>
 				<p>Parsers can fail, and this is completely normal in many situations. The <code>p.or</code> and <code>Parjs.any</code> combinators assume that some of the parsers will fail and will attempt to apply other parsers if that happens. They are failure recovery combinators.</p>
@@ -232,35 +231,36 @@ console.<span class="hljs-built_in">log</span>(surrounded.<span class="hljs-buil
 				<p>Combinators that use the return value of a parser also behave differently, since there is no value to be projected.</p>
 				<p>Quiet parsers are an important feature of <code>Parjs</code>. There are many situations in which you don&#39;t care about the return value of a parser and what it to be ignored in aggregation combinators such as sequential ones. </p>
 				<p>For this reason, the combinator that turns any parser into a quiet parser is called simply <code>.q</code>. </p>
-				<pre><code><span class="hljs-keyword">let</span> comma = Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">","</span>).q;
-<span class="hljs-keyword">let</span> hello = Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">"hello"</span>).q;
-</code></pre><p>It&#39;s not an error to quieten an already quiet parser, but doing so does nothing and may return the exact same parser instance.</p>
-				<pre><code><span class="hljs-keyword">let</span> comma = Parjs.<span class="hljs-keyword">string</span>(<span class="hljs-string">"."</span>).q.q.q.q.q;
-</code></pre><h2 id="user-state">User State</h2>
+				<pre><code class="language-ts"><span class="hljs-keyword">let</span> comma = Parjs.string(<span class="hljs-string">","</span>).q;
+<span class="hljs-keyword">let</span> hello = Parjs.string(<span class="hljs-string">"hello"</span>).q;</code></pre>
+				<p>It&#39;s not an error to quieten an already quiet parser, but doing so does nothing and may return the exact same parser instance.</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">let</span> comma = Parjs.string(<span class="hljs-string">"."</span>).q.q.q.q.q;</code></pre>
+				<h2 id="user-state">User State</h2>
 				<p>User state is a powerful feature that can be used when parsing complex languages, such as mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.</p>
 				<p>Basically, when you invoke the <code>.parse(str)</code> method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. Built-in parsers aren&#39;t allowed to use the user state directly, so the only information in it will be what you put inside it.</p>
 				<p>The <code>.parse</code> method accepts an additional parameter <code>initialState</code> that contains properties and methods that are merged with the user state:</p>
-				<pre><code>//p <span class="hljs-built_in">is</span> called with a parser state initialized with <span class="hljs-built_in">properties</span> <span class="hljs-keyword">and</span> methods.
-<span class="hljs-built_in">let</span> <span class="hljs-built_in">example</span> = p.parse(<span class="hljs-string">"hello"</span>, {token: <span class="hljs-string">"hi"</span>, <span class="hljs-built_in">method</span>() {<span class="hljs-built_in">return</span> <span class="hljs-number">1</span>;});
-</code></pre><p>Here is an example of how you can use this feature to parse a recursive, XML-like language:</p>
-				<pre><code>//<span class="hljs-built_in">define</span> our identifier. Starts with a letter, followed by a letter <span class="hljs-keyword">or</span> digit. The `str` combinator stringifies what's an <span class="hljs-built_in">array</span> of characters.
-<span class="hljs-built_in">let</span> <span class="hljs-built_in">ident</span> = Parjs.asciiLetter.<span class="hljs-keyword">then</span>(Parjs.digit.<span class="hljs-keyword">or</span>(Parjs.asciiLetter).many()).str;
-//A parser that parses an opening of a tag.
-<span class="hljs-built_in">let</span> openTag = <span class="hljs-built_in">ident</span>.between(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&lt;"</span>), Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&gt;"</span>)).each((result, userState) =&gt; {
-    userState.tags.<span class="hljs-built_in">push</span>({tag: result, <span class="hljs-built_in">content</span> : []});
+				<pre><code class="language-ts"><span class="hljs-comment">//p is called with a parser state initialized with properties and methods.</span>
+<span class="hljs-keyword">let</span> example = p.parse(<span class="hljs-string">"hello"</span>, {token: <span class="hljs-string">"hi"</span>, method() {<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;});</code></pre>
+				<p>Here is an example of how you can use this feature to parse a recursive, XML-like language:</p>
+				<pre><code class="language-ts">
+<span class="hljs-comment">//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.</span>
+<span class="hljs-keyword">let</span> ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
+<span class="hljs-comment">//A parser that parses an opening of a tag.</span>
+<span class="hljs-keyword">let</span> openTag = ident.between(Parjs.string(<span class="hljs-string">"&lt;"</span>), Parjs.string(<span class="hljs-string">"&gt;"</span>)).each(<span class="hljs-function">(<span class="hljs-params">result, userState</span>) =&gt;</span> {
+    userState.tags.push({ tag: result, content: [] });
 }).q;
 
-<span class="hljs-built_in">let</span> closeTag =
-    <span class="hljs-built_in">ident</span>.between(Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&lt;/"</span>), Parjs.<span class="hljs-built_in">string</span>(<span class="hljs-string">"&gt;"</span>))
-        .must((result, userState) =&gt; result === <span class="hljs-symbol">_</span>.<span class="hljs-built_in">last</span>(userState.tags as any[]).tag)
-        .each((result, userState) =&gt; {
-    <span class="hljs-built_in">let</span> topTag = userState.tags.<span class="hljs-built_in">pop</span>();
-    <span class="hljs-symbol">_</span>.<span class="hljs-built_in">last</span>(userState.tags as any[]).<span class="hljs-built_in">content</span>.<span class="hljs-built_in">push</span>(topTag);
-}).q;
+<span class="hljs-keyword">let</span> closeTag =
+    ident.between(Parjs.string(<span class="hljs-string">"&lt;/"</span>), Parjs.string(<span class="hljs-string">"&gt;"</span>))
+        .must(<span class="hljs-function">(<span class="hljs-params">result, userState</span>) =&gt;</span> result === _.last(userState.tags <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>[]).tag)
+        .each(<span class="hljs-function">(<span class="hljs-params">result, userState</span>) =&gt;</span> {
+            <span class="hljs-keyword">let</span> topTag = userState.tags.pop();
+            _.last(userState.tags <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>[]).content.push(topTag);
+        }).q;
 
-<span class="hljs-built_in">let</span> anyTag = closeTag.<span class="hljs-keyword">or</span>(openTag).many().state.<span class="hljs-built_in">map</span>(x =&gt; x.tags[<span class="hljs-number">0</span>].<span class="hljs-built_in">content</span>);
-console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span class="hljs-string">"&lt;a&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;"</span>, {tags : [{<span class="hljs-built_in">content</span> : []}]}), null ,<span class="hljs-number">2</span>));
-</code></pre><p>Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.</p>
+<span class="hljs-keyword">let</span> anyTag = closeTag.or(openTag).many().state.map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.tags[<span class="hljs-number">0</span>].content);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(anyTag.parse(<span class="hljs-string">"&lt;a&gt;&lt;b&gt;&lt;c&gt;&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;"</span>, { tags: [{ content: [] }] }), <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>));</code></pre>
+				<p>Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.</p>
 				<p>Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.</p>
 				<p>User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.</p>
 				<h2 id="parsers-and-combinators">Parsers and combinators</h2>
@@ -349,14 +349,14 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				<h2 id="the-reply-of-a-parser">The reply of a parser</h2>
 				<p>When a parser <code>p</code> is applied using the <code>p.parse(str)</code> method, a <code>ParserReply&lt;T&gt;</code> is returned. This reply is either a success or a failure of a differing severity.</p>
 				<p>Every <code>reply</code> has a <code>reply.kind</code> value, which is a string that can be any value that is part of the <code>ReplyKind</code> set. To check that parsing succeeded, use the following test:</p>
-				<pre><code><span class="hljs-keyword">let</span> reply = p.<span class="hljs-built_in">parse</span>(str);
+				<pre><code class="language-ts"><span class="hljs-keyword">let</span> reply = p.parse(str);
 <span class="hljs-keyword">if</span> (reply.kind === ReplyKind.OK) {
     <span class="hljs-comment">//parsing succeeded</span>
 }
 <span class="hljs-keyword">else</span> {
     <span class="hljs-comment">//parsing failed</span>
-}
-</code></pre><p>When using TypeScript, the check narrows the type of <code>reply</code> in each respective branch.</p>
+}</code></pre>
+				<p>When using TypeScript, the check narrows the type of <code>reply</code> in each respective branch.</p>
 				<p>The <code>ParserReply&lt;T&gt;</code> exposes a <code>value</code> property that returns the result of the parser, if it succeeded. But failure causes an exception to be thrown.</p>
 				<h3 id="success-reply">Success Reply</h3>
 				<p>This is the reply you usually hope to get when parsing something. It indicates that parsing succeeded.</p>
@@ -373,8 +373,8 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 					<li><code>input</code>, contains the input text.</li>
 				</ol>
 				<p>A visualizer is provided that can graphically display the error location. TO access the visualizer, do:</p>
-				<pre><code><span class="hljs-selector-tag">Parjs</span><span class="hljs-selector-class">.visualizer</span><span class="hljs-selector-class">.visualize</span>(<span class="hljs-selector-tag">reply</span><span class="hljs-selector-class">.trace</span>);
-</code></pre><p>The result is a textual representation of the error.</p>
+				<pre><code class="language-ts">Parjs.visualizer.visualize(reply.trace);</code></pre>
+				<p>The result is a textual representation of the error.</p>
 				<h2 id="performance">Performance</h2>
 				<p>At present, although Parjs is designed with performance in mind, it&#39;s not benchmarked and hasn&#39;t been optimized.</p>
 				<p>In general, a few measures are taken to improve performance:</p>
@@ -402,16 +402,16 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				<p>Parjs is meant to be very easy to extend, meaning writing your own parser is very simple.</p>
 				<h3 id="parser-flow">Parser flow</h3>
 				<p>When the <code>.parse</code> method is called, a <a href="https://gregros.github.io/parjs/interfaces/parjs_internal.parsingstate.html"><code>ParsingState</code></a> object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:</p>
-				<pre><code><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ParsingState</span> {</span>
-    readonly <span class="hljs-string">input :</span> string;
-    <span class="hljs-string">position :</span> number;
-    <span class="hljs-string">value :</span> any;
-    <span class="hljs-string">userState :</span> any;
-    <span class="hljs-string">expecting :</span> string;
-    <span class="hljs-string">kind :</span> ReplyKind;
+				<pre><code class="language-ts"><span class="hljs-keyword">interface</span> ParsingState {
+    readonly input : <span class="hljs-built_in">string</span>;
+    position : <span class="hljs-built_in">number</span>;
+    value : <span class="hljs-built_in">any</span>;
+    userState : <span class="hljs-built_in">any</span>;
+    expecting : <span class="hljs-built_in">string</span>;
+    kind : ReplyKind;
     <span class="hljs-comment">//...</span>
-}
-</code></pre><p>Every parser is a wrapper around a thinner object called a <em>parser action</em>. The chief method if this action is the <code>apply(ParsingState)</code> method that mutates the parsing state. By doing so, it can return a value, advance the position, mutate the user state, and signal failure or success.</p>
+}</code></pre>
+				<p>Every parser is a wrapper around a thinner object called a <em>parser action</em>. The chief method if this action is the <code>apply(ParsingState)</code> method that mutates the parsing state. By doing so, it can return a value, advance the position, mutate the user state, and signal failure or success.</p>
 				<p>The <code>apply</code> method of a parser action involves some boilerplate, so you don&#39;t have to implement it directly. Instead, you have your parser action extend <code>ParjsAction</code>. This is an abstract class that implements the <code>apply</code> method and delegates most of its work to an internal <code>_apply(ps)</code> method. </p>
 				<p>There are several important rules to writing a parser action:</p>
 				<ol>
@@ -420,14 +420,14 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				</ol>
 				<p>Failure to do either of these will cause an exception to be thrown.</p>
 				<p>Here is an example of one implementation. This implementation checks if parsing has reached the end of the input (e.g. <code>Parjs.eof</code>).</p>
-				<pre><code>_apply(ps : ParsingState) {
-    <span class="hljs-keyword">if</span> (ps.<span class="hljs-keyword">position</span> === ps.input.length) {
-        ps.<span class="hljs-keyword">kind</span> =  ReplyKind.OK;
+				<pre><code class="language-ts">_apply(ps : ParsingState) {
+    <span class="hljs-keyword">if</span> (ps.position === ps.input.length) {
+        ps.kind =  ReplyKind.OK;
     } <span class="hljs-keyword">else</span> {
-        ps.<span class="hljs-keyword">kind</span> = ReplyKind.SoftFail;
+        ps.kind = ReplyKind.SoftFail;
     }
-}
-</code></pre><p>This specific action is quiet, so it doesn&#39;t need to set the <code>value</code> property. </p>
+}</code></pre>
+				<p>This specific action is quiet, so it doesn&#39;t need to set the <code>value</code> property. </p>
 				<h3 id="other-required-properties-of-parser-actions">Other required properties of parser actions</h3>
 				<p>In addition to implementing <code>_apply</code>, parser actions must also specify:</p>
 				<ol>
@@ -436,8 +436,8 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 				</ol>
 				<h3 id="creating-a-parser">Creating a parser</h3>
 				<p>After you have written your parser action, you&#39;ll need to wrap it in a parser. The default parser class is <code>ParjsParser</code>, which contains implementations for all the relevant combinators as prototype members.</p>
-				<pre><code> <span class="hljs-keyword">let</span> <span class="hljs-keyword">parser</span> = <span class="hljs-keyword">new</span> <span class="hljs-type">ParjsParser</span>(action);
-</code></pre><p>Before returning it, also call its <code>withName</code> method to set the parser&#39;s display name.</p>
+				<pre><code class="language-ts"> <span class="hljs-keyword">let</span> parser = <span class="hljs-keyword">new</span> ParjsParser(action);</code></pre>
+				<p>Before returning it, also call its <code>withName</code> method to set the parser&#39;s display name.</p>
 				<p>Finally, if you are writing in TypeScript, you&#39;ll need to cast the parser to the appropriate interface. This is usually either <code>LoudParser&lt;T&gt;</code> or <code>QuietParser</code>.    </p>
 			</div>
 		</div>
@@ -447,28 +447,31 @@ console.<span class="hljs-built_in">log</span>(JSON.stringify(anyTag.parse(<span
 					<li class="globals  ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-private">
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
 						<a href="modules/_common_common_.html">"common/common"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs.html">parjs</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs_internal.html">parjs/internal</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs_internal_implementation.html">parjs/internal/implementation</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs_internal_implementation_combinators.html">parjs/internal/implementation/combinators</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs_internal_implementation_functions.html">parjs/internal/implementation/functions</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/parjs_unicode.html">parjs/unicode</a>
 					</li>
 				</ul>
