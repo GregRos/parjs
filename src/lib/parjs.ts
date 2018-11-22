@@ -23,7 +23,7 @@ export interface ParjsStaticHelper {
 }
 
 /**
- * An object with one or more parser-valued properties. Each property specifies a parser to apply. Used by [[ParjsStatic.seqObject]].
+ * An object with one or more parser-valued properties. Each property specifies a parser to apply. Used by {@link ParjsStatic.seqObject}.
  */
 export type ParserSpecification<Obj extends Record<string, any>> = {
 	[key in keyof Obj]: ImplicitLoudParser<Obj[key]>

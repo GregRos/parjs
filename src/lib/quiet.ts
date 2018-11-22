@@ -9,20 +9,20 @@ import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
 /**
  * A predicate over the user state, for parsers that don't produce results.
- * @see ParjsProjection
+ * @see {@link ParjsProjection}
  */
 export interface ParjsProjectionQuiet<T> {
     (userState : UserState) : T;
 }
 /**
  * A predicate over the user state, for parsers that don't produce results.
- * @see ParjsPredicate
+ * @see {@link ParjsPredicate}
  */
 export type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>
 
 /**
  * Interface for parsers that don't produce return values.
- * @see LoudParser
+ * @see {@link LoudParser}
  *
  * @group functional
  */
@@ -41,7 +41,7 @@ export interface QuietParser extends AnyParser {
      * @param alt The alternative parsers.
      *
      * @group combinator failure-recovery alternatives
-     * @fail-type See [[LoudParser.or]]
+     * @fail-type See {@link LoudParser.or}
      */
     or(...alt : QuietParser[]) : QuietParser;
 
@@ -103,13 +103,13 @@ export interface QuietParser extends AnyParser {
     must(condition : ParjsPredicateQuiet, fail ?: ReplyKind.Fail) : QuietParser;
 	/**
 	 * Returns a parser that will apply `this`, and then immediately apply one or more following parsers.
-	 * It is similar to [[ParjsStatic.seq]], but with a few differences.
+	 * It is similar to {@link ParjsStatic.seq}, but with a few differences.
 	 * * If only one parser is given, and it is quiet, then returned parser will also be quiet.
 	 * * If only one loud parser is given, the returned parser will yield the same value as that parser.
 	 * * If a mix of one or more quiet and loud parsers is given, will yield the results of all loud parsers in an array.
 	 * @group combinator sequential
-	 * @fail-type See [[ParjsStatic.seq]]
-	 * @see ParjsStatic.seq
+	 * @fail-type See {@link ParjsStatic.seq}
+	 * @see {@link ParjsStatic.seq}
 	 */
     then(second ?: QuietParser) : QuietParser;
     then<T>(next : ImplicitLoudParser<T>) : LoudParser<T>;
@@ -169,7 +169,7 @@ export interface QuietParser extends AnyParser {
 	 * @param count The number of times to apply `this`.
 	 *
 	 * @group combinator sequential repetition
-	 * @fail-type Similarly to [[ParjsStatic.seq]].
+	 * @fail-type Similarly to {@link ParjsStatic.seq}.
 	 */
     exactly(count : number) : QuietParser;
 

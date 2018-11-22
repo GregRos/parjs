@@ -26,7 +26,7 @@ export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][]
 
 /**
  * Interface for parsers that produce result values of type  {T}
- * @see QuietParser
+ * @see {@link xQuietParser}
  *
  * @group functional
  */
@@ -45,7 +45,7 @@ export interface LoudParser<T> extends AnyParser {
 
     /**
      * Returns a parser that will try to apply `this`. If `this` fails softly, the returned parser will apply `second`. The returned parser will yield the successful result.
-     * @see ParjsStatic.any
+     * @see {@link ParjsStatic.any}
 
      * @param second The alternative parser.
      *
@@ -55,7 +55,7 @@ export interface LoudParser<T> extends AnyParser {
     or<S>(second : ImplicitLoudParser<S>) : LoudParser<T | S>;
     /**
      * Similar to other overloads. The returned parser will try two parsers after this one.
-     * @see ParjsStatic.any
+     * @see {@link ParjsStatic.any}
 
      * @param second The 2nd parser to try, after `this`.
      * @param third The 3rd parser to try, after the second one.
@@ -67,7 +67,7 @@ export interface LoudParser<T> extends AnyParser {
 
     /**
      * Similar to the other overloads. The returned parser will try three parsers after this one.
-     * @see ParjsStatic.any
+     * @see {@link ParjsStatic.any}
 
      * @param second The 2nd parser to try.
      * @param third The 3rd parser to try
@@ -80,7 +80,7 @@ export interface LoudParser<T> extends AnyParser {
 
     /**
      * Similar to other overloads. The returned parser will try four parsers after this one.
-     * @see ParjsStatic.any
+     * @see {@link ParjsStatic.any}
      * @param second The 2nd parser.
      * @param third The 3rd parser.
      * @param fourth The 4th parser.
@@ -93,7 +93,7 @@ export interface LoudParser<T> extends AnyParser {
 
     /**
      * The returned parser behaves like the other overloads, except that it will try a variable number of parsers specified in `parsers`.
-     * @see ParjsStatic.any
+     * @see {@link ParjsStatic.any}
      * @param parsers Zero or more parsers to try.
      *
      * @group combinator failure-recovery alternatives
@@ -202,8 +202,8 @@ export interface LoudParser<T> extends AnyParser {
     must(condition : ParjsPredicate<T>, name ?: string, fail ?: ReplyKind.Fail) : LoudParser<T>;
 
     /**
-     * Similar to [[must]]. Verifies that the result is non-empty, where an 'empty' object is any of: null, undefined, "", [], {}.
-     * @see must
+     * Similar to {@link must}. Verifies that the result is non-empty, where an 'empty' object is any of: null, undefined, "", [], {}.
+     * @see {@link must}
      * @param fail Optionally, the failure kind. Defaults to hard.
      *
      * @group combinator assertion
@@ -212,35 +212,35 @@ export interface LoudParser<T> extends AnyParser {
     mustBeNonEmpty(fail ?: ReplyKind.Fail) : LoudParser<T>;
 
     /**
-     * Similar to [[must]]. Verifies that the result is in `options`.
+     * Similar to {@link must}. Verifies that the result is in `options`.
      * @param options The acceptable results.
      * @param fail Optionally, the failure kind. Defaults to hard.
      *
      * @group combinator assertion
      * @fail-type As `this`, or with `fail` (default Hard)
-     * @see must
+     * @see {@link must}
      */
     mustBeOf(options : T[], fail ?: ReplyKind.Fail) : LoudParser<T>;
 
     /**
-     * Similar to [[must]]. Verifies that the result is NOT in `options`.
+     * Similar to {@link must}. Verifies that the result is NOT in `options`.
      * @param options The prohibited results.
      * @param fail Optionally, the failure kind. Defaults to hard.
      *
      * @group combinator assertion
      * @fail-type As `this`, or with `fail`. Defaults to hard.
-     * @see must
+     * @see {@link must}
      */
     mustNotBeOf(options : T[], fail ?: ReplyKind.Fail) : LoudParser<T>;
 
     /**
-     * Similar to [[must]]. Verifies that `this` captured some of the input.
+     * Similar to {@link must}. Verifies that `this` captured some of the input.
      *
      * @param kind The failure kind. Defaults to hard.
      *
      * @group combinator assertion
      * @fail-type As `this`, or with `fail` (default hard).
-     * @see must
+     * @see {@link must}
      */
     mustCapture(kind ?: ReplyKind.Fail) : LoudParser<T>;
 
@@ -252,8 +252,8 @@ export interface LoudParser<T> extends AnyParser {
      * @param proceeding The proceeding parser.
      *
      * @group combinator sequential
-     * @fail-type See [[ParjsStatic.seq]]
-     * @see ParjsStatic.seq
+     * @fail-type See {@link ParjsStatic.seq}
+     * @see {@link ParjsStatic.seq}
 
      */
     between(preceding : ImplicitAnyParser, proceeding : ImplicitAnyParser) : LoudParser<T>;
@@ -264,22 +264,22 @@ export interface LoudParser<T> extends AnyParser {
      * @param precedingAndPreceding The parser that surrounds `this`.
      *
      * @group combinator sequential
-     * @fail-type See [[ParjsStatic.seq]]
-     * @see ParjsStatic.seq
+     * @fail-type See {@link ParjsStatic.seq}
+     * @see {@link ParjsStatic.seq}
      */
     between(precedingAndPreceding : ImplicitAnyParser) : LoudParser<T>;
 
     //+++SEQUENTIAL
     /**
      * Returns a parser that will apply `this`, and then immediately apply one or more following parsers.
-     * It is similar to [[ParjsStatic.seq]], but with a few differences.
+     * It is similar to {@link ParjsStatic.seq}, but with a few differences.
      * * If only one parser is given, and it is quiet, then returned parser will yield the result of `this`.
      * * If only one loud parser is given, the returned parser will yield the result of `this` and the other parser in an array.
      * * If a mix of one or more quiet and loud parsers is given, will yield the results of all loud parsers in an array.
      *
      * @group combinator sequential
-     * @fail-type See [[ParjsStatic.seq]]
-     * @see ParjsStatic.seq
+     * @fail-type See {@link ParjsStatic.seq}
+     * @see {@link ParjsStatic.seq}
      */
     then(second ?: QuietParser) : LoudParser<T>;
     then<S = T>(next : ImplicitLoudParser<S>) : LoudParser<[T, S]>;
@@ -293,7 +293,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param count The number of times to apply `this`.
      *
      * @group combinator sequential repetition
-     * @fail-type Similarly to [[ParjsStatic.seq]].
+     * @fail-type Similarly to {@link ParjsStatic.seq}.
      */
     exactly(count : number) : LoudParser<T[]>;
 
@@ -350,7 +350,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param selector The function that selects which parser to apply next.
      * @group combinator sequential
      *
-     * @fail-type As [[ParjsStatic.seq]].
+     * @fail-type As {@link ParjsStatic.seq}.
      */
     thenChoose<TParser extends ImplicitLoudParser<any>>(selector : (value : T, state : UserState) => TParser) : TParser
 
@@ -361,7 +361,7 @@ export interface LoudParser<T> extends AnyParser {
      * @param selector The function that selects which parser to apply next.
      * @group combinator sequential
      *
-     * @fail-type As [[ParjsStatic.seq]].
+     * @fail-type As {@link ParjsStatic.seq}.
      */
     thenChoose<TParser extends QuietParser>(selector : (value : T, state : UserState) => TParser) : TParser
 

@@ -3495,6 +3495,11 @@ pkg-dir@^3.0.0:
   dependencies:
     find-up "^3.0.0"
 
+pluralize@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
+  integrity sha512-ARhBOdzS3e41FbkW/XWrTEtukqqLoK5+Z/4UeDaLuSW+39JPeFgs4gCGqsrJHVZX0fUrx//4OF0K1CUGwlIFow==
+
 portfinder@^1.0.9:
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.19.tgz#07e87914a55242dcda5b833d42f018d6875b595f"
@@ -3538,6 +3543,13 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
   integrity sha1-mEcocL8igTL8vdhoEputEsPAKeM=
+
+prototyped.js@^0.10.1:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/prototyped.js/-/prototyped.js-0.10.1.tgz#b4b4301fa6a248e4872666c67290be4eeb542c9c"
+  integrity sha512-T1vL7I5/4g/emktxMOShwEc5sha4J9CV9TwwyUZnq9wZ03jdmzZTwV2OVA72CZ3cnVucqhlaneK2lbL8VNoC6Q==
+  dependencies:
+    pluralize "^7.0.0"
 
 proxy-addr@~2.0.4:
   version "2.0.4"
@@ -4566,6 +4578,13 @@ typedoc-default-themes@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.5.0.tgz#6dc2433e78ed8bea8e887a3acde2f31785bd6227"
   integrity sha1-bcJDPnjti+qOiHo6zeLzF4W9Yic=
+
+typedoc-plugin-example-tag@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/typedoc-plugin-example-tag/-/typedoc-plugin-example-tag-1.0.2.tgz#164e1ddff1af3b0805c0b72449a5e319c5ddbe07"
+  integrity sha512-LbI6gnba+23toF0yAUWN2i/hblR1KHU+B/ujqNRu4LSvaYy78f7oTLxmfJqlBbooUHTQZtJOGhKchMOSL5rhOg==
+  dependencies:
+    prototyped.js "^0.10.1"
 
 typedoc-plugin-external-module-name@^1.1.1:
   version "1.1.3"

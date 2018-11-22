@@ -7,8 +7,8 @@ import {QuietParser} from "./quiet";
 import {UserState} from "./internal/implementation/state";
 /**
  * Common interface that unites parsers that produce values and ones that don't.
- * @see LoudParser
- * @see QuietParser
+ * @see {@link LoudParser}
+ * @see {@link QuietParser}
  *
  * @group functional
  */

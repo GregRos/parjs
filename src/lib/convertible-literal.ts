@@ -35,12 +35,12 @@ declare global {
 }
 
 /**
- * A [[LoudParser]] or a literal value convertible to a [[LoudParser]].
+ * A {@link LoudParser} or a literal value convertible to a {@link LoudParser}.
  */
 export type ImplicitLoudParser<T> = LoudParser<T> | ConvertibleLiteral<T>;
 
 /**
- * A [[AnyParser]] or a literal value convertible to a [[AnyParser]]
+ * A {@link AnyParser} or a literal value convertible to a {@link AnyParser}
  */
 export type ImplicitAnyParser = AnyParser | ConvertibleLiteral<any>;
 

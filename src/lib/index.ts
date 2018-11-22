@@ -1,6 +1,6 @@
 /**
  * The main module.
- * Contains the [[Parjs]] object and the most commonly used public interfaces.
+ * Contains the {@link Parjs} object and the most commonly used public interfaces.
  * @module parjs
  * @preferred
  */ /** iooi*/
