@@ -1,16 +1,15 @@
 {
   "name": "parjs",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "index",
   "description": "A parser-combinator library for JavaScript.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./dist/test/runner.js",
+    "test": "nyc node ./dist/test/runner.js",
     "build": "rm -rf dist/ && tsc",
     "docs": "node dist/generate-docs/run.js",
-    "shebang": ""
   },
   "keywords": [
     "parser",
@@ -33,18 +32,20 @@
     "@types/globby": "^8.0.0",
     "@types/jasmine": "^3.3.0",
     "@types/lodash": "^4.14.104",
+    "@types/mz": "^0.0.32",
     "@types/node": "^10.12.9",
     "@types/webpack": "^4.4.19",
     "codecov": "^3.1.0",
     "execa": "^1.0.0",
     "file-loader": "^2.0.0",
-    "glob": "^7.1.2",
     "globby": "^8.0.1",
-    "istanbul": "^0.4.5",
     "jasmine": "^3.3.0",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-webpack-plugin": "^0.1.1",
+    "mkdirp-promise": "^5.0.1",
+    "mz": "^2.7.0",
+    "nyc": "^13.1.0",
     "source-map": "^0.7.3",
     "source-map-loader": "^0.2.3",
     "source-map-support": "^0.5.9",
@@ -60,5 +61,16 @@
     "webpack": "^4.26.0",
     "webpack-dev-server": "^3.1.10"
   },
-  "optionalDependencies": {}
+  "optionalDependencies": {},
+  "nyc": {
+    "produce-source-map": true,
+    "include": [
+      "dist/lib/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "sourceMap": true
+  }
 }
