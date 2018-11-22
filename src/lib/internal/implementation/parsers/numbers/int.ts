@@ -1,6 +1,7 @@
 /**
  * @module parjs/internal/implementation/parsers
- */ /** */
+ */
+/** */
 import {ParjsAction} from "../../action";
 import {Parselets} from "./parselets";
 import {ParsingState} from "../../state";
@@ -16,23 +17,25 @@ import {ParserDefinitionError} from "../../../../errors";
  */
 
 export interface IntOptions {
-    allowSign ?: boolean;
-    base ?: number;
+    allowSign?: boolean;
+    base?: number;
 }
 
 export class PrsInt extends ParjsAction {
 
     isLoud = true;
-    expecting : string;
-    constructor(private _options : IntOptions) {
+    expecting: string;
+
+    constructor(private _options: IntOptions) {
         super();
         if (_options.base > 36) {
             throw new ParserDefinitionError("int", "invalid base");
         }
         this.expecting = `a ${_options.allowSign ? "signed" : "unsigned"} integer in base ${_options.base}`;
     }
-    _apply(ps : ParsingState) {
-        let {_options : {allowSign, base}} = this;
+
+    _apply(ps: ParsingState) {
+        let {_options: {allowSign, base}} = this;
         let {position, input} = ps;
         let initPos = ps.position;
         let sign = allowSign ? Parselets.parseSign(ps) : 0;

@@ -1,6 +1,7 @@
 /**
  * @module parjs/internal/implementation
- */ /** */
+ */
+/** */
 import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";
 
 import {ParsingState} from "./state";
@@ -9,7 +10,7 @@ import {AnyParserAction} from "../action";
 import {ParserDefinitionError} from "../../errors";
 
 
-function worseThan(a : ReplyKind, b : ReplyKind) {
+function worseThan(a: ReplyKind, b: ReplyKind) {
     if (a === ReplyKind.Ok) {
         return b === ReplyKind.Ok;
     }
@@ -33,19 +34,11 @@ export class BasicParsingState implements ParsingState {
     initialUserState = undefined;
     userState = undefined;
     value = undefined;
-    kind : ReplyKind;
-    expecting : string;
+    kind: ReplyKind;
+    expecting: string;
 
-    constructor(public input : string) {
+    constructor(public input: string) {
 
-    }
-
-    atLeast(kind : ReplyKind) {
-        return worseThan(this.kind, kind);
-    }
-
-    atMost(kind : ReplyKind) {
-        return worseThan(kind, this.kind);
     }
 
     get isOk() {
@@ -63,26 +56,32 @@ export class BasicParsingState implements ParsingState {
     get isFatal() {
         return this.kind === ReplyKind.FatalFail;
     }
+
+    atLeast(kind: ReplyKind) {
+        return worseThan(this.kind, kind);
+    }
+
+    atMost(kind: ReplyKind) {
+        return worseThan(kind, this.kind);
+    }
 }
 
 /**
  * A parsing action to perform. A parsing action is a fundamental operation that mutates a ParsingState.
  */
-export abstract class ParjsAction implements AnyParserAction{
+export abstract class ParjsAction implements AnyParserAction {
+    abstract expecting: string;
+    displayName: string;
     /**
-     * The internal operation performed by the action. This will be overriden by derived classes.
-     * @param ps
-     * @private
+     * Whether this action returns a value or not. Determines if the parser is loud or not.
      */
-    protected abstract _apply(ps : ParsingState) : void | void;
-    abstract expecting : string;
-    displayName : string;
+    abstract isLoud: boolean;
 
     /**
      * Perform the action on the given ParsingState. This is a wrapper around a derived action's _apply method.
      * @param ps The parsing state.
      */
-    apply(ps : ParsingState) : void {
+    apply(ps: ParsingState): void {
         let {position, userState} = ps;
 
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
@@ -116,9 +115,11 @@ export abstract class ParjsAction implements AnyParserAction{
     }
 
     /**
-     * Whether this action returns a value or not. Determines if the parser is loud or not.
+     * The internal operation performed by the action. This will be overriden by derived classes.
+     * @param ps
+     * @private
      */
-    abstract isLoud : boolean;
+    protected abstract _apply(ps: ParsingState): void | void;
 }
 
 /**

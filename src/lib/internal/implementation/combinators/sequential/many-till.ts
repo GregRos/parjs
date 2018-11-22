@@ -1,26 +1,29 @@
 /**
  * @module parjs/internal/implementation/combinators
- */ /** */
+ */
+/** */
 import {ParjsAction} from "../../action";
 import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 import {ArrayHelpers} from "../../functions/helpers";
+
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsManyTill extends ParjsAction {
-    isLoud : boolean;
+    isLoud: boolean;
 
-    expecting : string;
-    constructor(private _many : AnyParserAction, private _till : AnyParserAction, private _tillOptional : boolean) {
+    expecting: string;
+
+    constructor(private _many: AnyParserAction, private _till: AnyParserAction, private _tillOptional: boolean) {
         super();
         this.isLoud = _many.isLoud;
         this.expecting = `${_many.expecting} or ${_till.expecting}`;
     }
 
-    _apply(ps : ParsingState) {
+    _apply(ps: ParsingState) {
         let {_many, _till, _tillOptional} = this;
         let {position} = ps;
         let arr = [];

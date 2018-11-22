@@ -1,26 +1,29 @@
 /**
  * @module parjs/internal/implementation/combinators
- */ /** */
+ */
+/** */
 import {ParjsAction} from "../../action";
 import {Issues} from "../../issues";
 import {ReplyKind} from "../../../../reply";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ArrayHelpers} from "../../functions/helpers";
+
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsManySepBy extends ParjsAction {
-    isLoud : boolean;
+    isLoud: boolean;
 
-    expecting : string;
-    constructor(private _many : AnyParserAction, private _sep : AnyParserAction, private _maxIterations : number) {
+    expecting: string;
+
+    constructor(private _many: AnyParserAction, private _sep: AnyParserAction, private _maxIterations: number) {
         super();
         this.isLoud = _many.isLoud;
         this.expecting = _many.expecting;
     }
 
-    _apply(ps : ParsingState) {
+    _apply(ps: ParsingState) {
         let {_many, _sep, _maxIterations, isLoud} = this;
         let arr = [];
         _many.apply(ps);

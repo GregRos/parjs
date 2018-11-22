@@ -29,6 +29,9 @@
     "use-isnan": true,
     "no-duplicate-imports": true,
     "class-name": true,
+	"indent": {
+	  "options": "spaces"
+	},
     "new-parens": true,
     "no-boolean-literal-compare": true,
     "no-reference-import": true,

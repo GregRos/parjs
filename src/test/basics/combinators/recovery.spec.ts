@@ -8,7 +8,7 @@ import {ReplyKind} from "../../../lib/reply";
 import {AnyParser} from "../../../lib/any";
 
 
-function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TParser) => void) {
+function forParser<TParser extends AnyParser>(parser: TParser, f: (action: TParser) => void) {
     describe(`Parjs.${parser.displayName}`, () => {
         f(parser);
     });

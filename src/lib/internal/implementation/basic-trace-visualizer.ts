@@ -1,6 +1,7 @@
 /**
  * @module parjs/internal/implementation
- */ /** */
+ */
+/** */
 import {Trace} from "../../reply";
 /**
  * Created by lifeg on 4/29/2017.
@@ -10,17 +11,17 @@ import {TraceVisualizer} from "../visualizer";
 import {Es6} from "../../common/common";
 
 export interface BasicTraceVisualizerArgs {
-    lineNumbers : boolean;
-    linesBefore : number;
+    lineNumbers: boolean;
+    linesBefore: number;
 }
 
-const defaultArgs : BasicTraceVisualizerArgs = {
-    lineNumbers : true,
-    linesBefore : 1
+const defaultArgs: BasicTraceVisualizerArgs = {
+    lineNumbers: true,
+    linesBefore: 1
 };
 
-export function BasicTraceVisualizer(args : BasicTraceVisualizerArgs = defaultArgs) {
-    let func = function(trace : Trace) {
+export function BasicTraceVisualizer(args: BasicTraceVisualizerArgs = defaultArgs) {
+    let func = function (trace: Trace) {
         let rows = trace.input.split(/\r\n|\n|\r/g);
         let locRow = trace.location.row;
         let around = args.linesBefore;
@@ -30,7 +31,7 @@ export function BasicTraceVisualizer(args : BasicTraceVisualizerArgs = defaultAr
         let prefixLength = 0;
         if (args.lineNumbers) {
             let numLength = Math.floor(1 + Math.log(locRow + 1) / Math.log(10));
-            let rowNumberPrefixer = (n : number) => `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
+            let rowNumberPrefixer = (n: number) => `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }

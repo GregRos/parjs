@@ -7,6 +7,7 @@
 
 import {ParjsParsers} from "./internal/static";
 import {ParjsStatic} from "./parjs";
+
 export {ParjsStatic};
 export {UserState} from "./internal/implementation/state";
 export {LoudParser} from "./loud";
@@ -20,8 +21,6 @@ export {ConvertibleLiteral, ImplicitAnyParser, ImplicitLoudParser} from "./conve
  * The central API of the parjs library. Contains building block parsers and static combinators.
  */
 export const Parjs = new ParjsParsers() as ParjsStatic;
-
-
 
 
 /**

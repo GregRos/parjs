@@ -4,8 +4,9 @@
  */ /** */
 //
 
-import {CodeInfo, CharInfo} from "char-info";
+import {CharInfo, CodeInfo} from "char-info";
 import {ConditionalUnicode} from "./internal/static";
+
 ConditionalUnicode.CharInfo = CharInfo;
 ConditionalUnicode.CodeInfo = CodeInfo;
 

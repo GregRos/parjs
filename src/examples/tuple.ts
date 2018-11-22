@@ -16,7 +16,7 @@ let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
 let ignoreWhitespace = Parjs.newline.many().then(surrounded);
 console.log(surrounded.parse("(1,  2 , 3 )"));
 
-var basic = BasicTraceVisualizer();
+const basic = BasicTraceVisualizer();
 let result = ignoreWhitespace.parse(`
 
 

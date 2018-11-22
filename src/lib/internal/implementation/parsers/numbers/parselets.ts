@@ -1,19 +1,21 @@
 /**
  * @module parjs/internal/implementation/parsers
- */ /** */
+ */
+/** */
 import {Codes} from "../../functions/char-indicators";
 import {ParsingState} from "../../state";
+
 /**
  * Created by User on 29-Nov-16.
  */
 
 export class ParseletsType {
 
-    parseDigitsInBase(ps : ParsingState, base : number) {
+    parseDigitsInBase(ps: ParsingState, base: number) {
         let {position, input} = ps;
         let length = input.length;
         let result = 0;
-        for (; position < length ; position++) {
+        for (; position < length; position++) {
             let curCode = input.charCodeAt(position);
             if (!Codes.isDigit(curCode, base)) {
                 break;
@@ -28,7 +30,7 @@ export class ParseletsType {
      * @param ps
      * @returns {number}
      */
-    parseSign(ps : ParsingState) {
+    parseSign(ps: ParsingState) {
         let sign = 0;
         let curChar = ps.input.charCodeAt(ps.position);
         if (curChar === Codes.minus) {

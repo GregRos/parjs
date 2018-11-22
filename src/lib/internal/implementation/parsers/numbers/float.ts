@@ -1,45 +1,46 @@
 /**
  * @module parjs/internal/implementation/parsers
- */ /** */
-import {ParjsAction} from "../../action";
-/**
- * Created by User on 28-Nov-16.
  */
-import _defaults = require("lodash/defaults");
+/** */
+import {ParjsAction} from "../../action";
 import {Codes} from "../../functions/char-indicators";
-
-import {FastMath} from "../../functions/math";
 
 import {Parselets} from "./parselets";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
+/**
+ * Created by User on 28-Nov-16.
+ */
+import _defaults = require("lodash/defaults");
 
 export interface FloatOptions {
-    allowSign ?: boolean;
-    allowImplicitZero ?: boolean;
-    allowFloatingPoint ?: boolean;
-    allowExponent ?: boolean;
+    allowSign?: boolean;
+    allowImplicitZero?: boolean;
+    allowFloatingPoint?: boolean;
+    allowExponent?: boolean;
 }
 
-const defaultFloatOptions : FloatOptions = {
-    allowExponent : true,
-    allowSign : true,
-    allowImplicitZero : true,
-    allowFloatingPoint : true
+const defaultFloatOptions: FloatOptions = {
+    allowExponent: true,
+    allowSign: true,
+    allowImplicitZero: true,
+    allowFloatingPoint: true
 };
 
 const msgOneOrMoreDigits = "one or more digits";
 const msgExponentSign = "exponent sign (+ or -)";
+
 export class PrsFloat extends ParjsAction {
     expecting = "a floating-point number";
 
     isLoud = true;
-    constructor(private _options : FloatOptions) {
+
+    constructor(private _options: FloatOptions) {
         super();
         this._options = _defaults(_options, defaultFloatOptions);
     }
 
-    _apply(ps : ParsingState) {
+    _apply(ps: ParsingState) {
         /*
             This work is really better done using Parjs itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
 
@@ -76,7 +77,7 @@ export class PrsFloat extends ParjsAction {
                    Otherwise, an error is thrown.
                 b.
          */
-        let {_options : {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent}} = this;
+        let {_options: {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent}} = this;
         let {position, input} = ps;
         if (position >= input.length) {
             ps.kind = ReplyKind.SoftFail;

@@ -1,6 +1,5 @@
-import {ReplyKind} from "../../../lib";
+import {AnyParser, Parjs, ReplyKind} from "../../../lib";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {Parjs, AnyParser} from "../../../lib";
 
 /**
  * Created by lifeg on 16/12/2016.
@@ -48,14 +47,14 @@ describe("seq object", () => {
             x.c.toUpperCase();
         });
         it("yes", () => {
-            expectSuccess(p.parse("abc"), {a : "a", b : "b", c : "c"});
+            expectSuccess(p.parse("abc"), {a: "a", b: "b", c: "c"});
         });
     });
 
     describe("three", () => {
         let p = Parjs.seqObject(spec1, spec2, spec3);
         it("yes", () => {
-            expectSuccess(p.parse("abcdd"), {a : "d", b : "b", c : "c", d : "d"});
+            expectSuccess(p.parse("abcdd"), {a: "d", b: "b", c: "c", d: "d"});
         })
     })
 

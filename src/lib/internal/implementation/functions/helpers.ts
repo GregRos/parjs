@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/functions
  */ /** */
 
- import {QUIET_RESULT} from "../special-results";
+import {QUIET_RESULT} from "../special-results";
 import {Es6} from "../../../common/common";
 
 
@@ -15,13 +15,13 @@ export namespace StringHelpers {
         }
     }
 
-    export function splice(target : string, where : number, what : string) {
+    export function splice(target: string, where: number, what: string) {
         let start = target.slice(0, where);
         let end = target.slice(where);
         return start + what + end;
     }
 
-    export function takeLines(str : string, start : number, end : number) {
+    export function takeLines(str: string, start: number, end: number) {
         let matchNewline = /\r\n|\n|\r/g;
         end = Math.min(str.length, end);
         start = Math.max(0, start);
@@ -31,7 +31,7 @@ export namespace StringHelpers {
 }
 
 export namespace NumHelpers {
-    export function padInt(n : number, digits : number, char : string) {
+    export function padInt(n: number, digits: number, char: string) {
         let str = n.toString();
         if (str.length >= digits) return str;
         return Es6.strRepeat(char, digits - str.length) + str;
@@ -39,7 +39,7 @@ export namespace NumHelpers {
 }
 
 export namespace ArrayHelpers {
-    export function maybePush<T>(arr : T[], what : T) {
+    export function maybePush<T>(arr: T[], what: T) {
         if (what !== QUIET_RESULT) {
             arr.push(what);
         }

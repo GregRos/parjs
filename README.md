@@ -106,25 +106,25 @@ Parjs isn't very good at parsing characters outside of the BMP (Basic Multilingu
 ## Module Structure
 Parjs has a well-organized module structure that is reflected in the documentation:
 
-	- parjs
-		Contains all objects and TypeScript type 
-		declarations needed to use the library for parsing.
-		   
-		- parjs/internal
-			Contains additional objects and type declerations that may be needed 
-			to extend the library.
-		  
-			- parjs/internal/implementation
-				Contains objects and declerations for implementing additional parsers.
-				
-				- parjs/internal/implementation/combinators
-					Implementations of combinators.
-					
-				- parjs/internal/implementation/parsers
-					Implementations of building-block parsers.
-					
-				- parjs/internal/implementation/functions
-					Character recognizers and other functions used with parsing.
+    - parjs
+        Contains all objects and TypeScript type 
+        declarations needed to use the library for parsing.
+           
+        - parjs/internal
+            Contains additional objects and type declerations that may be needed 
+            to extend the library.
+          
+            - parjs/internal/implementation
+                Contains objects and declerations for implementing additional parsers.
+                
+                - parjs/internal/implementation/combinators
+                    Implementations of combinators.
+                    
+                - parjs/internal/implementation/parsers
+                    Implementations of building-block parsers.
+                    
+                - parjs/internal/implementation/functions
+                    Character recognizers and other functions used with parsing.
 
 
 ## What's a Parjs parser?
@@ -245,22 +245,22 @@ Here is an example of how you can use this feature to parse a recursive, XML-lik
 let ident = Parjs.letter.then(Parjs.digit.or(Parjs.letter).many()).str;
 //A parser that parses an opening of a tag.
 let openTag = ident.between("<", ">").each((result, {tags}) => {
-	tags.push({
-		tag: result,
-		content: []
-	});
+    tags.push({
+        tag: result,
+        content: []
+    });
 }).q;
 
 // The close tag is </ TAG >.
 let closeTag =
-	ident.between("</", ">").each((result, {tags}) => {
-		let topTag = tags.pop();
-		tags[tags.length - 1].content.push(topTag);
-	}).q;
+    ident.between("</", ">").each((result, {tags}) => {
+        let topTag = tags.pop();
+        tags[tags.length - 1].content.push(topTag);
+    }).q;
 
 let anyTag =
-	closeTag.or(openTag).many().state.map(x => x.tags[0].content)
-		.isolateState({tags: [{content: []}]});
+    closeTag.or(openTag).many().state.map(x => x.tags[0].content)
+        .isolateState({tags: [{content: []}]});
 let parsedXmlData = anyTag.parse("<a><b><c></c></b></a>");
 ```
 
@@ -270,7 +270,7 @@ Many methods that project the result of a parser take a function with two argume
 
 User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.
 
-You can also make use of the advanced 	`isolateState` combinator. This combinator lets you isolate a parser's user state from other parsers. This lets you write a black-box parser that still uses user state. In the above example, it's used to make sure the user state has the correct structure when the `anyTag` parser is entered.
+You can also make use of the advanced     `isolateState` combinator. This combinator lets you isolate a parser's user state from other parsers. This lets you write a black-box parser that still uses user state. In the above example, it's used to make sure the user state has the correct structure when the `anyTag` parser is entered.
 
 ## Implicit parser literals
 
@@ -374,10 +374,10 @@ Every `reply` has a `reply.kind` value, which is a string that can be any value 
 ```ts
 let reply = p.parse(str);
 if (reply.kind === "OK") {
-	//parsing succeeded
+    //parsing succeeded
 }
 else {
-	//parsing failed
+    //parsing failed
 }
 ```
 
@@ -431,13 +431,13 @@ When the `.parse` method is called, a [`ParsingState`](https://gregros.github.io
 
 ```ts
 interface ParsingState {
-	readonly input : string;
-	position : number;
-	value : any;
-	userState : any;
-	expecting : string;
-	kind : ReplyKind;
-	//...
+    readonly input : string;
+    position : number;
+    value : any;
+    userState : any;
+    expecting : string;
+    kind : ReplyKind;
+    //...
 }
 ```
 
@@ -465,7 +465,7 @@ _apply(ps : ParsingState) {
 ```
 
 This specific action is quiet, so it doesn't need to set the `value` property. 
-​	
+​    
 ### Other required properties of parser actions
 In addition to implementing `_apply`, parser actions must also specify:
 
@@ -480,4 +480,4 @@ After you have written your parser action, you'll need to wrap it in a parser. T
 ```
 Before returning it, also call its `withName` method to set the parser's display name.
 
-Finally, if you are writing in TypeScript, you'll need to cast the parser to the appropriate interface. This is usually either `LoudParser<T>` or `QuietParser`.	
+Finally, if you are writing in TypeScript, you'll need to cast the parser to the appropriate interface. This is usually either `LoudParser<T>` or `QuietParser`.    

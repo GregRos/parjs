@@ -1,7 +1,6 @@
 import {Parjs} from "../../lib";
-import {FailureReply, ReplyKind} from "../../lib/reply";
+import {FailureReply, ReplyKind, SuccessReply} from "../../lib/reply";
 import {expectFailure} from "../helpers/custom-matchers";
-import {SuccessReply} from "../../lib/reply";
 
 describe("basics: anyChar example", () => {
     let parser = Parjs.anyChar;

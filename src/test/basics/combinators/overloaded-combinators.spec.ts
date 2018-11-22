@@ -1,9 +1,8 @@
 /**
  * Created by lifeg on 12/12/2016.
  */
-import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
+import {expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
-import {ReplyKind} from "../../../lib/reply";
 
 
 describe("overloaded combinators", () => {
@@ -61,19 +60,19 @@ describe("overloaded combinators", () => {
     });
 
     describe("splat", () => {
-        let a = Parjs.string("a").map(x => ({a : "a"}));
+        let a = Parjs.string("a").map(x => ({a: "a"}));
 
         it("array of two objects", () => {
-            let b = a.then([a, Parjs.string("a").result({b : "b"}), Parjs.string("a").result({c : "c"})]).splat();
+            let b = a.then([a, Parjs.string("a").result({b: "b"}), Parjs.string("a").result({c: "c"})]).splat();
             b.each(x => {
                 x.c.toUpperCase();
                 x.b.toUpperCase();
                 x.a.toUpperCase();
             });
             expectSuccess(b.parse("aaaa"), {
-                a : "a",
-                b : "b",
-                c : "c"
+                a: "a",
+                b: "b",
+                c: "c"
             });
         })
     })

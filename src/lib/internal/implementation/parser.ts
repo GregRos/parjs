@@ -1,19 +1,19 @@
 /**
  * @module parjs/internal/implementation
- */ /** */
+ */
+/** */
 import {QUIET_RESULT} from "./special-results";
-import {ParjsAction, BasicParsingState} from "./action";
-import {ReplyKind, Reply, FailureReply, SuccessReply} from "../../reply";
-import {Trace} from "../../reply";
-import _defaults = require("lodash/defaults");
+import {BasicParsingState, ParjsAction} from "./action";
+import {FailureReply, Reply, ReplyKind, SuccessReply, Trace} from "../../reply";
 import {ParsingState} from "./state";
+import _defaults = require("lodash/defaults");
 
-function getErrorLocation(ps : ParsingState){
+function getErrorLocation(ps: ParsingState) {
     let endln = /\r\n|\n|\r/g;
     let {input, position} = ps;
     let lastPos = 0;
     let oldPos = 0;
-    let result : RegExpMatchArray;
+    let result: RegExpMatchArray;
     let line = 0;
 
     while (!!(result = endln.exec(ps.input)) && result.index <= position) {
@@ -23,8 +23,8 @@ function getErrorLocation(ps : ParsingState){
     }
 
     return {
-        row : line,
-        column : line === 0 ? position : lastPos - oldPos
+        row: line,
+        column: line === 0 ? position : lastPos - oldPos
     };
 }
 
@@ -37,9 +37,10 @@ class ParserUserState {
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
 export abstract class BaseParjsParser {
-    constructor(public action : ParjsAction) {}
+    constructor(public action: ParjsAction) {
+    }
 
-    get displayName() : string   {
+    get displayName(): string {
         return this.action.displayName;
     }
 
@@ -47,7 +48,11 @@ export abstract class BaseParjsParser {
         this.action.displayName = name;
     }
 
-    parse(input : string, initialState ?: any) : Reply<any> {
+    get isLoud() {
+        return this.action.isLoud;
+    }
+
+    parse(input: string, initialState ?: any): Reply<any> {
 
         if (typeof input !== "string") {
             //catches input === undefined, null
@@ -71,25 +76,20 @@ export abstract class BaseParjsParser {
         let ret: Reply<any>;
         if (ps.kind === ReplyKind.Ok) {
             return new SuccessReply(ps.value === QUIET_RESULT ? undefined : ps.value);
-        }
-        else {
+        } else {
             let location = getErrorLocation(ps);
-            let trace : Trace = {
+            let trace: Trace = {
                 userState: ps.userState,
                 position: ps.position,
                 reason: ps.expecting,
-                input : input,
-                location : location,
-                stackTrace : ps.stack,
-                kind : ps.kind
+                input: input,
+                location: location,
+                stackTrace: ps.stack,
+                kind: ps.kind
             };
 
             return new FailureReply(trace);
         }
-    }
-
-    get isLoud() {
-        return this.action.isLoud;
     }
 
 }

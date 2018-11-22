@@ -5,19 +5,21 @@
 import {ParjsBasicAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
+
 /**
  * Created by User on 24-Nov-16.
  */
 export class PrsCharCodeWhere extends ParjsBasicAction {
 
     isLoud = true;
-    expecting : string;
-    constructor(private _predicate : (char : number) => boolean, property = "(a specific property)") {
+    expecting: string;
+
+    constructor(private _predicate: (char: number) => boolean, property = "(a specific property)") {
         super();
         this.expecting = `any character satisfying ${property}.`;
     }
 
-    _apply(ps : ParsingState) {
+    _apply(ps: ParsingState) {
         let {_predicate} = this;
         let {position, input} = ps;
         if (position >= input.length) {

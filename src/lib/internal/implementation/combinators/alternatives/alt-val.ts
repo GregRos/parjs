@@ -1,8 +1,8 @@
 /**
  * @module parjs/internal/implementation/combinators
- */ /** */
+ */
+/** */
 import {ParjsAction} from "../../action";
-import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
@@ -10,9 +10,10 @@ import {QUIET_RESULT} from "../../special-results";
 import {ParserDefinitionError} from "../../../../errors";
 
 export class PrsMaybe extends ParjsAction {
-    isLoud : boolean;
-    expecting : string;
-    constructor (private _inner : AnyParserAction, private _val : any) {
+    isLoud: boolean;
+    expecting: string;
+
+    constructor(private _inner: AnyParserAction, private _val: any) {
         super();
         if (_val !== QUIET_RESULT && !_inner.isLoud) {
             throw new ParserDefinitionError("altVal", "the inner parser must be loud if an alternative value is supplied.")
@@ -24,7 +25,7 @@ export class PrsMaybe extends ParjsAction {
         this.expecting = `${_inner.expecting} or anything`;
     }
 
-    _apply(ps : ParsingState) {
+    _apply(ps: ParsingState) {
         let {_inner, _val} = this;
         _inner.apply(ps);
         if (ps.isSoft) {

@@ -8,6 +8,7 @@ import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
 import _range = require("lodash/range");
+
 let goodInput = "abcd";
 let softBadInput = "a";
 let hardBadInput = "ab";
@@ -195,7 +196,8 @@ describe("sequential combinators", () => {
                 let p = qp.then(["a", qp.result(1), qp.result([])]).each(r => {
                     r[0].toUpperCase();
                     r[1].toExponential();
-                    r[2].forEach(() => {});
+                    r[2].forEach(() => {
+                    });
                 });
                 expectSuccess(p.parse("aaaa"), ["a", 1, []]);
             });
@@ -215,72 +217,72 @@ describe("sequential combinators", () => {
     });
 
     describe("many combinators", () => {
-       describe("regular many", () => {
-           let parser = fstLoud.many();
-           it("success on empty input", () => {
-               expectSuccess(parser.parse(""), []);
-           });
-           it("failure on non-empty input without any matches", () => {
-               expectFailure(parser.parse("12"), ReplyKind.SoftFail);
-           });
-           it("success on single match", () => {
-               expectSuccess(parser.parse("ab"), ["ab"]);
-           });
-           it("success on N matches", () => {
-               expectSuccess(parser.parse("ababab"), ["ab", "ab", "ab"])
-           });
-           it("chains to EOF correctly", () => {
-               let endEof = parser.then(Parjs.eof);
-               expectSuccess(endEof.parse("abab"), ["ab", "ab"])
-           });
-           it("fails hard when many fails hard", () => {
-               let parser2 = Parjs.fail("", "Hard").many();
-               expectFailure(parser2.parse(""), "Hard");
-           });
-       });
+        describe("regular many", () => {
+            let parser = fstLoud.many();
+            it("success on empty input", () => {
+                expectSuccess(parser.parse(""), []);
+            });
+            it("failure on non-empty input without any matches", () => {
+                expectFailure(parser.parse("12"), ReplyKind.SoftFail);
+            });
+            it("success on single match", () => {
+                expectSuccess(parser.parse("ab"), ["ab"]);
+            });
+            it("success on N matches", () => {
+                expectSuccess(parser.parse("ababab"), ["ab", "ab", "ab"])
+            });
+            it("chains to EOF correctly", () => {
+                let endEof = parser.then(Parjs.eof);
+                expectSuccess(endEof.parse("abab"), ["ab", "ab"])
+            });
+            it("fails hard when many fails hard", () => {
+                let parser2 = Parjs.fail("", "Hard").many();
+                expectFailure(parser2.parse(""), "Hard");
+            });
+        });
 
-       describe("many with zero-length match", () => {
-           let parser = Parjs.result(0).many();
-           it("guards against zero match in inner parser", () => {
-               expect(() => parser.parse("")).toThrow();
-           });
+        describe("many with zero-length match", () => {
+            let parser = Parjs.result(0).many();
+            it("guards against zero match in inner parser", () => {
+                expect(() => parser.parse("")).toThrow();
+            });
 
-           it("ignores guard when given max iterations", () => {
-               let parser = Parjs.result(0).many(undefined, 10);
-               expectSuccess(parser.parse(""), _range(0, 10).map(x => 0));
-           });
-       });
+            it("ignores guard when given max iterations", () => {
+                let parser = Parjs.result(0).many(undefined, 10);
+                expectSuccess(parser.parse(""), _range(0, 10).map(x => 0));
+            });
+        });
 
-       describe("many with min successes", () => {
-           let parser = fstLoud.many(2);
-           it("succeeds when number of successes >= minimum", () => {
-               expectSuccess(parser.parse("abab"), ["ab", "ab"]);
-           });
+        describe("many with min successes", () => {
+            let parser = fstLoud.many(2);
+            it("succeeds when number of successes >= minimum", () => {
+                expectSuccess(parser.parse("abab"), ["ab", "ab"]);
+            });
 
-           it("fails when number of successses < minimum", () => {
-               expectFailure(parser.parse("ab"), ReplyKind.HardFail);
-           });
-       });
+            it("fails when number of successses < minimum", () => {
+                expectFailure(parser.parse("ab"), ReplyKind.HardFail);
+            });
+        });
 
-       describe("many with bounded iterations, min successes", () => {
-           it("guards against impossible requirements", () => {
-               expect(() => fstLoud.many(2, 1)).toThrow();
-           });
-           let parser = fstLoud.many(1, 2);
-           it("succeeds when appropriate", () => {
-               expectSuccess(parser.parse("abab"), ["ab", "ab"]);
-           });
-           it("fails when there is excess input", () => {
-               expectFailure(parser.parse("ababab"), ReplyKind.SoftFail);
-           });
-       });
+        describe("many with bounded iterations, min successes", () => {
+            it("guards against impossible requirements", () => {
+                expect(() => fstLoud.many(2, 1)).toThrow();
+            });
+            let parser = fstLoud.many(1, 2);
+            it("succeeds when appropriate", () => {
+                expectSuccess(parser.parse("abab"), ["ab", "ab"]);
+            });
+            it("fails when there is excess input", () => {
+                expectFailure(parser.parse("ababab"), ReplyKind.SoftFail);
+            });
+        });
 
-       describe("many on quiet parser", () => {
-           let parser = fstLoud.q.many();
-           it("succeeds without a value", () => {
-               expectSuccess(parser.parse("abab"), undefined);
-           })
-       })
+        describe("many on quiet parser", () => {
+            let parser = fstLoud.q.many();
+            it("succeeds without a value", () => {
+                expectSuccess(parser.parse("abab"), undefined);
+            })
+        })
     });
 
     describe("exactly combinator", () => {
@@ -440,7 +442,7 @@ describe("sequential combinators", () => {
         });
 
         it("fails hard if failed to find parser", () => {
-           expectFailure(p.parse("`"), "Hard");
+            expectFailure(p.parse("`"), "Hard");
         });
     })
 });

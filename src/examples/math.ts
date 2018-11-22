@@ -20,36 +20,39 @@ import {Parjs} from "../lib/index";
 import {LoudParser} from "../lib/loud";
 
 interface Expression {
-    kind : "expression";
+    kind: "expression";
 }
 
 class BinaryOperator implements Expression {
-    kind : "expression" = "expression";
-    constructor(public operator : string, public left : Expression, public right : Expression) {}
+    kind: "expression" = "expression";
+
+    constructor(public operator: string, public left: Expression, public right: Expression) {
+    }
 }
 
 class NumericLiteral implements Expression {
-    kind : "expression" = "expression";
-    constructor(public value : number) {
+    kind: "expression" = "expression";
+
+    constructor(public value: number) {
 
     }
 }
 
 interface OperatorToken {
-    kind : "operator";
-    operator : string;
-    precedence : number;
+    kind: "operator";
+    operator: string;
+    precedence: number;
 }
 
-interface MathState  {
-    exprs : (Expression | OperatorToken)[];
+interface MathState {
+    exprs: (Expression | OperatorToken)[];
 }
 
 let operators = [
-    {operator: "+", precedence : 1},
-    {operator: "-", precedence : 1},
-    {operator: "*", precedence : 2},
-    {operator : "/", precedence : 2}
+    {operator: "+", precedence: 1},
+    {operator: "-", precedence: 1},
+    {operator: "*", precedence: 2},
+    {operator: "/", precedence: 2}
 ];
 
 /**
@@ -58,20 +61,20 @@ let operators = [
  * @param exprs
  * @param precedence
  */
-let reduceWithPrecedence = (exprs : (OperatorToken | Expression)[], precedence ?: number) => {
+let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?: number) => {
     precedence = precedence == null ? -1 : precedence;
-	let lastOperator : Expression | OperatorToken;
-	while((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
-		let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
-		exprs.length -= 3;
-		exprs.push(new BinaryOperator(op.operator, lhs, rhs));
-	}
+    let lastOperator: Expression | OperatorToken;
+    while ((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
+        let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
+        exprs.length -= 3;
+        exprs.push(new BinaryOperator(op.operator, lhs, rhs));
+    }
 };
 
 //required because we want to create a self-referencing, recursive parser
 //pExpr is the final parser.
 let _pExpr = null;
-let pExpr : LoudParser<Expression> = Parjs.late(() => _pExpr);
+let pExpr: LoudParser<Expression> = Parjs.late(() => _pExpr);
 
 //we have a built-in floating point parser in Parjs.
 let pNumber = Parjs.float().map(x => new NumericLiteral(x));
@@ -85,18 +88,18 @@ let pParenExpr = pExpr.between(pLeftParen, pRightParen);
 
 //either a numeric literal or an expression between parentheses, (a + b + c).
 //We add the expression to the expresion stack instead of returning it.
-let pUnit = pNumber.or(pParenExpr).each((result, state : MathState) => {
+let pUnit = pNumber.or(pParenExpr).each((result, state: MathState) => {
     state.exprs.push(result);
 }).between(Parjs.whitespaces).q;
 
 //Parses a single operator and adds it to the expression stack.
 //Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
-let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state : MathState) => {
+let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state: MathState) => {
     let operator = operators.filter(o => o.operator === op)[0];
     reduceWithPrecedence(state.exprs, operator.precedence);
     state.exprs.push({
         ...operator,
-        kind : "operator"
+        kind: "operator"
     })
 }).q;
 
@@ -104,17 +107,17 @@ let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state
 //Note the call to `isolateState` at the end. We need it because this parser can be called to parse an expression inside parentheses
 //In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
 //An isolated parser blanks out the user state and then restores it.
-_pExpr = pUnit.manySepBy(pOp).map((state : MathState) => {
+_pExpr = pUnit.manySepBy(pOp).map((state: MathState) => {
     reduceWithPrecedence(state.exprs);
     let expr = state.exprs[0] as Expression;
     return expr;
 }).isolateState();
 
 let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
-    exprs : []
+    exprs: []
 });
 
-let printAst = (ast : Expression) => {
+let printAst = (ast: Expression) => {
     if (ast instanceof BinaryOperator) {
         return `${ast.operator}(${printAst(ast.left)}, ${printAst(ast.right)})`;
     } else if (ast instanceof NumericLiteral) {
@@ -122,15 +125,19 @@ let printAst = (ast : Expression) => {
     }
 };
 
-let evalAst = (ast : Expression) => {
+let evalAst = (ast: Expression) => {
     if (ast instanceof BinaryOperator) {
         let vLeft = evalAst(ast.left);
         let vRight = evalAst(ast.right);
         switch (ast.operator) {
-            case "+": return vLeft + vRight;
-            case "*": return vLeft * vRight;
-            case "-": return vLeft - vRight;
-            case "/": return vLeft / vRight;
+            case "+":
+                return vLeft + vRight;
+            case "*":
+                return vLeft * vRight;
+            case "-":
+                return vLeft - vRight;
+            case "/":
+                return vLeft / vRight;
         }
     } else if (ast instanceof NumericLiteral) {
         return ast.value;

@@ -1,6 +1,7 @@
-import {ReplyKind, Reply} from "../../lib/reply";
-import _matches =require("lodash/matches");
+import {Reply, ReplyKind} from "../../lib/reply";
+import _matches = require("lodash/matches");
 import _isPlainObject = require("lodash/isPlainObject");
+
 /**
  * Created by lifeg on 09/12/2016.
  */
@@ -8,16 +9,20 @@ import _isPlainObject = require("lodash/isPlainObject");
 declare global {
     namespace jasmine {
         interface Matchers<T> {
-            toBeAnyOf(options : any[], failMessage ?: string);
-            toHaveType(type : string, failMessage ?: string);
-            toHaveMember(name : string, failMessage ?: string);
-            toBeLike(obj : object);
+            toBeAnyOf(options: any[], failMessage ?: string);
+
+            toHaveType(type: string, failMessage ?: string);
+
+            toHaveMember(name: string, failMessage ?: string);
+
+            toBeLike(obj: object);
         }
     }
 }
 
 class CustomMatcherDefs {
-    actual : any;
+    actual: any;
+
     toBeAnyOf(expecteds, failMessage) {
         let result;
         for (let i = 0, l = expecteds.length; i < l; i++) {
@@ -35,8 +40,8 @@ class CustomMatcherDefs {
     toBeLike(o, failMessage) {
         let pass = _matches(o)(this.actual);
         return {
-            pass : pass,
-            message : pass ? undefined : failMessage
+            pass: pass,
+            message: pass ? undefined : failMessage
         }
     }
 
@@ -57,16 +62,14 @@ class CustomMatcherDefs {
     }
 }
 
-export const CustomMatchers = {
-
-} as any;
+export const CustomMatchers = {} as any;
 
 let defs = CustomMatcherDefs.prototype;
 
 for (let prop of Object.getOwnPropertyNames(defs)) {
     if (prop === "constructor") continue;
 
-    CustomMatchers[prop] = function(a, b) {
+    CustomMatchers[prop] = function (a, b) {
         return {
             compare: function (actual, ...rest) {
                 defs.actual = actual;
@@ -76,17 +79,17 @@ for (let prop of Object.getOwnPropertyNames(defs)) {
     }
 }
 
-export function expectFailure(result : Reply<any>, failType ?: ReplyKind.Fail) {
+export function expectFailure(result: Reply<any>, failType ?: ReplyKind.Fail) {
     expect(result.kind).toBeAnyOf([ReplyKind.FatalFail, ReplyKind.HardFail, ReplyKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ReplyKind.Ok) return;
-    if (failType !== undefined){
+    if (failType !== undefined) {
         expect(result.kind).toBe(failType);
     }
 
     expect(result.trace.reason).toHaveType("string", "invaid 'reason' value");
 }
 
-export function expectSuccess<T>(result : Reply<T>, value ?: T, state ?: object) {
+export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) {
     expect(result.kind).toBe(ReplyKind.Ok, "kind wasn't OK");
     if (result.kind !== ReplyKind.Ok) return;
     expect(result).toHaveMember("value", "reason value");
@@ -102,20 +105,22 @@ export function expectSuccess<T>(result : Reply<T>, value ?: T, state ?: object)
 }
 
 export interface FailArgs {
-    type ?: ReplyKind.Fail;
-    state ?: any;
+    type?: ReplyKind.Fail;
+    state?: any;
 }
 
 export interface SuccessArgs {
-    value ?: any;
-    state ?: any;
+    value?: any;
+    state?: any;
 }
 
 export interface ExpectResult {
-    toFail(args ?:FailArgs);
+    toFail(args ?: FailArgs);
+
     toSucceed(args ?: SuccessArgs)
 }
-export function expectResult(result : Reply<any>) : ExpectResult {
+
+export function expectResult(result: Reply<any>): ExpectResult {
     return {
         toFail(args) {
             args = args || {};

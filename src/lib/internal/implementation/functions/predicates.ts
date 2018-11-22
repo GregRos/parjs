@@ -1,6 +1,7 @@
 /**
  * @module parjs/internal/implementation/functions
- */ /** */
+ */
+/** */
 
 export namespace Predicates {
     export function nonEmpty(x: any) {

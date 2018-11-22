@@ -12,7 +12,7 @@ let loudParser = Parjs.stringLen(4);
 
 describe("map combinators", () => {
     describe("map", () => {
-        let parser =loudParser.map(x => 1);
+        let parser = loudParser.map(x => 1);
         it("maps on success", () => {
             expectSuccess(parser.parse(goodInput, uState), 1);
         });
@@ -48,7 +48,7 @@ describe("map combinators", () => {
         });
 
         it("maps to undefined on success", () => {
-           expectSuccess(parser.parse(goodInput), undefined);
+            expectSuccess(parser.parse(goodInput), undefined);
         });
 
         it("fails on failure", () => {
@@ -103,10 +103,10 @@ describe("map combinators", () => {
         it("works", () => {
             expectSuccess(p.parse("a"), "a");
             expect(tally).toBe("a");
-	        expectSuccess(p.parse("b"), "b");
-	        expect(tally).toBe("ab");
-	        expectFailure(p.parse("d"), "Soft");
-	        expect(tally).toBe("ab");
+            expectSuccess(p.parse("b"), "b");
+            expect(tally).toBe("ab");
+            expectFailure(p.parse("d"), "Soft");
+            expect(tally).toBe("ab");
         });
     })
 });

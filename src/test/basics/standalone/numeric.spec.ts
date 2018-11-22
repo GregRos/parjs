@@ -1,6 +1,7 @@
 import {Parjs} from "../../../lib";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ReplyKind} from "../../../lib/reply";
+
 /**
  * Created by User on 14-Dec-16.
  */
@@ -9,8 +10,8 @@ describe("numeric parsers", () => {
     describe("int parser", () => {
         describe("default settings", () => {
             let parser = Parjs.int({
-                base : 10,
-                allowSign : true
+                base: 10,
+                allowSign: true
             });
             it("fails for empty input", () => {
                 expectFailure(parser.parse(""), ReplyKind.SoftFail);
@@ -37,8 +38,8 @@ describe("numeric parsers", () => {
         });
         describe("no sign", () => {
             let parser = Parjs.int({
-                base : 16,
-                allowSign : false
+                base: 16,
+                allowSign: false
             });
             it("fails for sign start", () => {
                 expectFailure(parser.parse("-f"), ReplyKind.SoftFail);
@@ -101,7 +102,7 @@ describe("numeric parsers", () => {
             it("fails hard on exponent without sign", () => {
                 expectFailure(parser.parse("1.0e+"), ReplyKind.HardFail);
             });
-            it("fails softly for just exponent", () =>{
+            it("fails softly for just exponent", () => {
                 expectFailure(parser.parse("e+12"), ReplyKind.SoftFail);
             });
             it("fails when E appears without exponent", () => {
@@ -110,7 +111,7 @@ describe("numeric parsers", () => {
         });
         describe("no sign", () => {
             let parser = Parjs.float({
-               allowSign : false
+                allowSign: false
             } as any);
             it("fails on sign", () => {
                 expectFailure(parser.parse("+1"), ReplyKind.SoftFail);
@@ -121,7 +122,7 @@ describe("numeric parsers", () => {
         });
         describe("no implicit zero", () => {
             let parser = Parjs.float({
-                allowImplicitZero : false
+                allowImplicitZero: false
             } as any);
             it("fails on implicit zero whole", () => {
                 expectFailure(parser.parse(".1"), ReplyKind.SoftFail);
@@ -142,7 +143,7 @@ describe("numeric parsers", () => {
         });
         describe("no decimal point", () => {
             let parser = Parjs.float({
-                allowFloatingPoint : false
+                allowFloatingPoint: false
             });
             it("succeeds on integer", () => {
                 expectSuccess(parser.parse("123"), 123);
@@ -159,13 +160,13 @@ describe("numeric parsers", () => {
         });
         describe("no exponent", () => {
             let parser = Parjs.float({
-                allowExponent : false
+                allowExponent: false
             });
             it("succeeds on floating point", () => {
                 expectSuccess(parser.parse("23.12"), 23.12);
             });
             it("succeeds on exponent with trailing rest", () => {
-                expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", {x : 12}));
+                expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", {x: 12}));
             });
         });
     })

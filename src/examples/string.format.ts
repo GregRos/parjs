@@ -27,12 +27,12 @@ let formatParser = formatToken.or(escape, text).many();
 //This prints a sequence of tokens {text: "hello, my name is "}, {token: name}, {text: " and I am "}, {token: " years old}, ...
 console.log(formatParser.parse("hello, my name is {name} and I am {age} years old. This is `{escaped}. This is double escaped: ``{name}."));
 
-function toTemplate(formatString : string) {
+function toTemplate(formatString: string) {
     let stream = formatParser.parse(formatString).value;
     return {
-        inject(args : object) {
+        inject(args: object) {
             let str = "";
-            stream.forEach((x : any) => {
+            stream.forEach((x: any) => {
                 if (x.text) {
                     str += x.text;
                 } else if (x.token) {
@@ -47,6 +47,6 @@ function toTemplate(formatString : string) {
 let template = toTemplate("hello, my name is {name} and I am {age} years old. This is `{escaped}. This is double escaped: ``{name}.");
 
 console.log(template.inject({
-    name : "Greg",
-    age : 28
+    name: "Greg",
+    age: 28
 }));

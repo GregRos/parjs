@@ -2,10 +2,11 @@ import {ReplyKind} from "../../../lib/reply";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjs} from "../../../lib";
 import {AnyParser} from "../../../lib/any";
+
 /**
  * Created by lifeg on 16/12/2016.
  */
-function forParser<TParser extends AnyParser>(parser : TParser, f : (action : TParser) => void) {
+function forParser<TParser extends AnyParser>(parser: TParser, f: (action: TParser) => void) {
     describe(`Parjs.${parser.displayName}`, () => {
         f(parser);
     });
@@ -30,7 +31,7 @@ describe("special parsers", () => {
 
     describe("Parjs.state", () => {
         let parser = Parjs.state;
-        let uState = {tag : 1};
+        let uState = {tag: 1};
         let someInput = "abcd";
         let noInput = "";
         it("fails on non-empty input", () => {
@@ -39,7 +40,7 @@ describe("special parsers", () => {
         });
     });
 
-    describe("Parjs.position", ()=> {
+    describe("Parjs.position", () => {
         let parser = Parjs.position;
         let noInput = "";
         it("succeeds on empty input", () => {
@@ -63,7 +64,7 @@ describe("special parsers", () => {
         })
     });
 
-    describe("Parjs.fail", ()=> {
+    describe("Parjs.fail", () => {
         let parser = Parjs.fail("error", "Fatal");
         let noInput = "";
         let input = "abc";

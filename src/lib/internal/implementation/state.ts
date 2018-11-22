@@ -1,69 +1,69 @@
 /**
  * @module parjs/internal
- */ /** */
+ */
+/** */
 import {ReplyKind} from "../../reply";
 import {AnyParserAction} from "../action";
 
 export type UserState = {
-    [key : string] : any;
+    [key: string]: any;
 }
 
 export interface ParsingState {
     /**
      * The original string input on which parsing is performed. Should not be mutated while parsing.
      */
-    readonly input : string;
+    readonly input: string;
     /**
      * The next character waiting to be parsed.
      */
-    position : number;
+    position: number;
     /**
      * The value from the last parser action performed on this state.
      */
-    value : any;
+    value: any;
     /**
      * Additional state data.
      */
-    userState : UserState;
+    userState: UserState;
 
     /**
      * Initial user state.
      */
-    readonly initialUserState : any;
+    readonly initialUserState: any;
 
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack : AnyParserAction[]
+    stack: AnyParserAction[]
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.
      * If the result is OK, this must be undefined.
      */
-    expecting : string;
+    expecting: string;
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
-    kind : ReplyKind;
-
-    atLeast(kind : ReplyKind);
-
-    atMost(kind : ReplyKind);
-
+    kind: ReplyKind;
     /**
      * Shorthand for this.result == Okay
      */
-    readonly isOk : boolean;
+    readonly isOk: boolean;
     /**
      * Shorthand for this.result == SoftFailure
      */
-    readonly isSoft : boolean;
+    readonly isSoft: boolean;
     /**
      * Shorthand for this.result == HardFailure
      */
-    readonly isHard : boolean;
+    readonly isHard: boolean;
     /**
      * Shorthand for this.result == FatalFailure
      */
-    readonly isFatal : boolean;
+    readonly isFatal: boolean;
+
+    atLeast(kind: ReplyKind);
+
+    atMost(kind: ReplyKind);
 }

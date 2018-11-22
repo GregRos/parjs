@@ -1,19 +1,22 @@
 /**
  * @module parjs/internal/implementation/combinators
- */ /** */
+ */
+/** */
 import {ParjsAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
 import {AnyParserAction} from "../../../action";
 import {ArrayHelpers} from "../../functions/helpers";
+
 /**
  * Created by User on 21-Nov-16.
  */
 export class PrsSequence extends ParjsAction {
     isLoud = true;
 
-    expecting : string;
-    constructor(private _parsers : AnyParserAction[]) {
+    expecting: string;
+
+    constructor(private _parsers: AnyParserAction[]) {
         super();
         if (_parsers.length === 0) {
             this.expecting = "anything";
@@ -21,7 +24,8 @@ export class PrsSequence extends ParjsAction {
             this.expecting = _parsers[0].expecting;
         }
     }
-    _apply(ps : ParsingState) : ReplyKind {
+
+    _apply(ps: ParsingState): ReplyKind {
         let {_parsers} = this;
         let results = [];
         let origPos = ps.position;

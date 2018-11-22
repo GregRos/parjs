@@ -1,11 +1,26 @@
 /**
  * @module parjs/internal
- */ /** */
+ */
+/** */
 import {
-    PrsSequence
-    , PrsProject, PrsStringify, PrsInverse, PrsQuieten, PrsProjectConst, PrsAlternatives, PrsBacktrack, PrsMust, PrsMustCapture, PrsMany, PrsChoose, PrsExactly, PrsManyTill, PrsManySepBy, PrsMaybe} from "./implementation/combinators";
-import {BaseParjsParser} from "./implementation";
-import isFunction = require("lodash/isFunction");
+    PrsAlternatives,
+    PrsBacktrack,
+    PrsChoose,
+    PrsExactly,
+    PrsInverse,
+    PrsMany,
+    PrsManySepBy,
+    PrsManyTill,
+    PrsMaybe,
+    PrsMust,
+    PrsMustCapture,
+    PrsProject,
+    PrsProjectConst,
+    PrsQuieten,
+    PrsSequence,
+    PrsStringify
+} from "./implementation/combinators";
+import {BaseParjsParser, QUIET_RESULT} from "./implementation";
 import {ParjsAction} from "./implementation/action";
 import {Predicates} from "./implementation/functions";
 import {LoudParser} from "../loud";
@@ -16,14 +31,15 @@ import {PrsSoften} from "./implementation/combinators/alternatives/soft";
 import {PrsEach} from "./implementation/combinators/map/act";
 import {Parjs} from "../index";
 import {PrsIsolate} from "./implementation/combinators/special/isolate";
-import {QUIET_RESULT} from "./implementation";
 import {ImplicitAnyParser} from "../convertible-literal";
 import {ConversionHelper} from "./convertible-literal";
-function wrap(action : ParjsAction) {
+import isFunction = require("lodash/isFunction");
+
+function wrap(action: ParjsAction) {
     return new ParjsParser(action);
 }
 
-function flattenNestedArrays(arr : any[]) {
+function flattenNestedArrays(arr: any[]) {
     if (!Array.isArray(arr)) {
         return [arr];
     }
@@ -38,13 +54,38 @@ function flattenNestedArrays(arr : any[]) {
     return items;
 }
 
-export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser{
-    thenChoose(selector : (x : any, state : any) => any) : any {
+export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
+    get backtrack() {
+        return wrap(new PrsBacktrack(this.action)).withName("backtrack");
+    }
+
+    get state(): LoudParser<any> {
+        let ret = wrap(new PrsProject(this.action, (r, s) => s));
+        return ret.withName("state");
+    }
+
+    get q() {
+        return wrap(new PrsQuieten(this.action)).withName("quiet");
+    }
+
+    get soft() {
+        return wrap(new PrsSoften(this.action)).withName("soften");
+    }
+
+    get not() {
+        return wrap(new PrsInverse(this.action)).withName("not");
+    }
+
+    get str() {
+        return wrap(new PrsStringify(this.action)).withName("str");
+    }
+
+    thenChoose(selector: (x: any, state: any) => any): any {
         return wrap(new PrsChoose(this.action, selector)).withName("thenChoose") as any;
     }
 
-    between(preceding : ImplicitAnyParser, proceeding ?: ImplicitAnyParser)  {
-        let bet : any;
+    between(preceding: ImplicitAnyParser, proceeding ?: ImplicitAnyParser) {
+        let bet: any;
         preceding = ConversionHelper.convert(preceding);
         proceeding = ConversionHelper.convert(proceeding);
         if (proceeding) {
@@ -54,16 +95,12 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         }
         return bet.withName("between");
     }
-    get backtrack() {
-        return wrap(new PrsBacktrack(this.action)).withName("backtrack");
-    }
 
-
-    mustCapture(failType : ReplyKind.Fail = ReplyKind.HardFail) {
+    mustCapture(failType: ReplyKind.Fail = ReplyKind.HardFail) {
         return wrap(new PrsMustCapture(this.action, failType)).withName("mustCapture");
     }
 
-    maybe(x ?: any) : QuietParser & LoudParser<any> {
+    maybe(x ?: any): QuietParser & LoudParser<any> {
         if (arguments.length > 0) {
             return wrap(new PrsMaybe(this.action, x)).withName("maybe");
         } else {
@@ -71,20 +108,15 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         }
     }
 
-    or(...others : any[]) : any {
+    or(...others: any[]): any {
         others = others.map(p => ConversionHelper.convert(p));
         return wrap(new PrsAlternatives([this, ...others].map(x => x.action))).withName("or");
-    }
-
-    get state(): LoudParser<any> {
-        let ret = wrap(new PrsProject(this.action, (r, s) => s));
-        return ret.withName("state");
     }
 
     map(f) {
         //f is (result, userState) => any if this.isLoud
         //f is (userState) => any otherwise
-        let mapper : (result : any, state : any) => any;
+        let mapper: (result: any, state: any) => any;
         if (this.isLoud) {
             mapper = f;
         } else {
@@ -96,7 +128,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     each(f) {
         //f is (result, userState) => void if this.isLoud
         //f is (userState) => void otherwise.
-        let mapper : (result : any, userState : any) => void;
+        let mapper: (result: any, userState: any) => void;
         if (this.isLoud) {
             mapper = f;
         } else {
@@ -105,25 +137,15 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsEach(this.action, mapper)).withName("each");
     }
 
-    get q() {
-        return wrap(new PrsQuieten(this.action)).withName("quiet");
-    }
-
-    get soft() {
-        return wrap(new PrsSoften(this.action)).withName("soften");
-    }
-
-    then(...args : any[]) : any {
-        let next : AnyParser[];
+    then(...args: any[]): any {
+        let next: AnyParser[];
         let unpack = false;
 
         if (args.length === 0) {
             return this;
-        }
-        else if (Array.isArray(args[0])) {
+        } else if (Array.isArray(args[0])) {
             next = args[0];
-        }
-        else if (Parjs.helper.isParser(args[0]) || typeof args[0] === "string" || args[0] instanceof RegExp) {
+        } else if (Parjs.helper.isParser(args[0]) || typeof args[0] === "string" || args[0] instanceof RegExp) {
             unpack = true;
             next = args;
         }
@@ -134,18 +156,19 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         let ret;
         if (unpack && loudCount === 1) {
             ret = seqParse.map(x => x[0]);
-        } else if (unpack  && loudCount === 0) {
+        } else if (unpack && loudCount === 0) {
             ret = seqParse.q;
         } else {
             ret = seqParse;
         }
         return ret.withName("then");
     }
-    many(minSuccesses : number = 0, maxIters : number = Infinity) {
+
+    many(minSuccesses: number = 0, maxIters: number = Infinity) {
         return wrap(new PrsMany(this.action, maxIters, minSuccesses)).withName("many");
     }
 
-    manyTill(till : ImplicitAnyParser | any, tillOptional = false) {
+    manyTill(till: ImplicitAnyParser | any, tillOptional = false) {
         till = ConversionHelper.convert(till);
         if (isFunction(till)) {
             return this.must(till, undefined, ReplyKind.SoftFail).many()
@@ -153,32 +176,24 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");
     }
 
-    manySepBy(sep : ImplicitAnyParser, maxIterations = Infinity) {
+    manySepBy(sep: ImplicitAnyParser, maxIterations = Infinity) {
         sep = ConversionHelper.convert(sep);
         return wrap(new PrsManySepBy(this.action, sep.action, maxIterations)).withName("manySepBy");
     }
 
-    exactly(count : number) {
+    exactly(count: number) {
         return wrap(new PrsExactly(this.action, count)).withName("exactly");
     }
 
-    result(r : any) {
+    result(r: any) {
         return wrap(new PrsProjectConst(this.action, r)).withName("result");
-    }
-
-    get not() {
-        return wrap(new PrsInverse(this.action)).withName("not");
     }
 
     cast<S>() {
         return this;
     }
 
-    get str() {
-        return wrap(new PrsStringify(this.action)).withName("str");
-    }
-
-    must(condition : Function, name = "(unnamed condition)", fail : ReplyKind.Fail = ReplyKind.HardFail) {
+    must(condition: Function, name = "(unnamed condition)", fail: ReplyKind.Fail = ReplyKind.HardFail) {
         let cond = condition;
         if (!this.isLoud) {
             cond = (x, state) => condition(state);
@@ -186,11 +201,11 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return wrap(new PrsMust(this.action, cond as any, fail, name)).withName("must");
     }
 
-    mustNotBeOf(options : any[], fail = ReplyKind.HardFail) {
+    mustNotBeOf(options: any[], fail = ReplyKind.HardFail) {
         return this.must(x => options.indexOf(x) < 0, `none of: ${options.join(", ")}`, fail).withName("mustNotBeOf");
     }
 
-    mustBeOf(options : any[], fail = ReplyKind.HardFail) {
+    mustBeOf(options: any[], fail = ReplyKind.HardFail) {
         return this.must(x => options.indexOf(x) >= 0, `one of: ${options.join(", ")}`, fail).withName("mustBeOf");
     }
 
@@ -198,13 +213,13 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return this.must(Predicates.nonEmpty, `be non-empty`, fail).withName("mustBeNonEmpty");
     }
 
-    withName(newName : string) {
-        (this as {displayName : string}).displayName = newName;
+    withName(newName: string) {
+        (this as { displayName: string }).displayName = newName;
         return this;
     }
 
     isolateState(x) {
-	    return wrap(new PrsIsolate(this.action, x)).withName(`isolated: ${this.action.displayName}`) as this;
+        return wrap(new PrsIsolate(this.action, x)).withName(`isolated: ${this.action.displayName}`) as this;
     }
 
     flatten() {
@@ -212,7 +227,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     splat() {
-        return this.map((arr : any[]) => {
+        return this.map((arr: any[]) => {
             let result = {};
             for (let item of arr) {
                 Object.assign(result, item);

@@ -1,20 +1,24 @@
 /**
  * @module parjs/internal/implementation/parsers
- */ /** */
+ */
+/** */
 import {ParjsBasicAction} from "../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
+
 /**
  * Created by User on 21-Nov-16.
  */
-export class PrsString extends ParjsBasicAction  {
+export class PrsString extends ParjsBasicAction {
 
-    expecting : string;
-    constructor(private _str : string) {
+    expecting: string;
+
+    constructor(private _str: string) {
         super();
         this.expecting = `'${_str}'`;
     }
-    _apply(ps : ParsingState) {
+
+    _apply(ps: ParsingState) {
         let {_str} = this;
         let {position, input} = ps;
         let i;

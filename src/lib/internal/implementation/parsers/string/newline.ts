@@ -1,11 +1,13 @@
 /**
  * @module parjs/internal/implementation/parsers
- */ /** */
+ */
+/** */
 import {ParjsAction} from "../../action";
 import {ReplyKind} from "../../../../reply";
 import {ParsingState} from "../../state";
 import {StaticCodeInfo} from "char-info";
 import {Codes} from "../../functions/char-indicators";
+
 /**
  * Created by User on 24-Nov-16.
  */
@@ -13,12 +15,14 @@ import {Codes} from "../../functions/char-indicators";
 export class PrsNewline extends ParjsAction {
 
     isLoud = true;
-    expecting : string;
-    constructor(private _unicodeMatcher : StaticCodeInfo) {
+    expecting: string;
+
+    constructor(private _unicodeMatcher: StaticCodeInfo) {
         super();
         this.expecting = _unicodeMatcher ? "a unicode newline string" : "a newline string";
     }
-    _apply(ps : ParsingState) {
+
+    _apply(ps: ParsingState) {
         let {position, input} = ps;
         let {_unicodeMatcher} = this;
         if (position >= input.length) {
