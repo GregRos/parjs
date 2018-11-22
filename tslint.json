@@ -29,9 +29,9 @@
     "use-isnan": true,
     "no-duplicate-imports": true,
     "class-name": true,
-	"indent": {
-	  "options": "spaces"
-	},
+    "indent": {
+      "options": "spaces"
+    },
     "new-parens": true,
     "no-boolean-literal-compare": true,
     "no-reference-import": true,
@@ -45,14 +45,19 @@
     "naming-convention": [
       true,
       {
-        "type" : "variable",
-        "format" : ["StrictPascalCase", "strictCamelCase"],
-        "leadingUnderscore" : "allow"
-
+        "type": "variable",
+        "format": [
+          "StrictPascalCase",
+          "strictCamelCase"
+        ],
+        "leadingUnderscore": "allow"
       },
       {
-        "type" : "function",
-        "format" : ["StrictPascalCase", "strictCamelCase"]
+        "type": "function",
+        "format": [
+          "StrictPascalCase",
+          "strictCamelCase"
+        ]
       },
       {
         "type": "member",
@@ -60,9 +65,9 @@
         "leadingUnderscore": "require"
       },
       {
-        "type" : "parameterProperty",
-        "modifiers" : "private",
-        "leadingUnderscore" : "require"
+        "type": "parameterProperty",
+        "modifiers": "private",
+        "leadingUnderscore": "require"
       },
       {
         "type": "member",
@@ -75,7 +80,7 @@
       },
       {
         "type": "type",
-        "format" : "PascalCase"
+        "format": "PascalCase"
       }
     ]
   }

@@ -1,11 +1,6 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <option name="AUTODETECT_INDENTS" value="false" />
-    <option name="OTHER_INDENT_OPTIONS">
-      <value>
-        <option name="USE_TAB_CHARACTER" value="true" />
-      </value>
-    </option>
     <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
     <HTMLCodeStyleSettings>
       <option name="HTML_ALIGN_ATTRIBUTES" value="false" />
@@ -45,11 +40,6 @@
         <option name="SMART_TABS" value="true" />
       </indentOptions>
     </codeStyleSettings>
-    <codeStyleSettings language="JSON">
-      <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
-      </indentOptions>
-    </codeStyleSettings>
     <codeStyleSettings language="Jade">
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />
@@ -57,7 +47,6 @@
     </codeStyleSettings>
     <codeStyleSettings language="JavaScript">
       <indentOptions>
-        <option name="USE_TAB_CHARACTER" value="true" />
         <option name="SMART_TABS" value="true" />
       </indentOptions>
     </codeStyleSettings>

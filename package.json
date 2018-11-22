@@ -10,7 +10,7 @@
     "test": "node ./dist/test/runner.js",
     "build": "rm -rf dist/ && tsc",
     "docs": "node dist/generate-docs/run.js",
-	"shebang" : ""
+    "shebang": ""
   },
   "keywords": [
     "parser",

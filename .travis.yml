@@ -2,23 +2,15 @@ language: node_js
 branches:
   only:
     - master
-env:
-  - CXX=g++-4.8
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
 cache:
+  yarn: true
   directories:
     - node_modules
 install:
-  - npm install --save-dev
-  - npm install -g npm-run
+  - yarn install
 script:
-  - npm run build
-  - npm-run istanbul cover ./dist/test/runner.js --report lcovonly -- -R spec
-  - npm-run codecov
+  - yarn run build
+  - yarn run test
+  - yarn run codecov
 node_js:
-  - "6.1"
+  - "8.9"
