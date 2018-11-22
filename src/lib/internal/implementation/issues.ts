@@ -2,14 +2,7 @@
  * @module parjs/internal/implementation
  */ /** */
 
-/**
- * An error thrown to indicate that a parser has been constructed inappropriately.
- */
-export class ParserDefinitionError extends Error {
-    constructor(public parserName : string, message : string) {
-        super(message);
-    }
-}
+import {ParserDefinitionError} from "../../errors";
 
 /**
  * @external

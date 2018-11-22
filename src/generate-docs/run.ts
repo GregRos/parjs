@@ -1,5 +1,5 @@
 import {Application} from "typedoc";
-import {TestPlugin} from "./test";
+import {ParjsCustomizationPlugin} from "./typedoc-plugin";
 import globby = require("globby");
 import * as execa from "execa";
 
@@ -16,7 +16,7 @@ async function run() {
 
 	let files = await globby(["./src/lib/**/*.ts", "./src/lib/*.ts"]);
 	await execa.shell("rm -rf docs/");
-	app.converter.addComponent("test", TestPlugin);
+	app.converter.addComponent("test", ParjsCustomizationPlugin);
 
 	app.generateDocs(files, "docs")
 }

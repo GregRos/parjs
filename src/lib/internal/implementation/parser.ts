@@ -3,8 +3,8 @@
  */ /** */
 import {QUIET_RESULT} from "./special-results";
 import {ParjsAction, BasicParsingState} from "./action";
-import {ReplyKind, Reply} from "../../reply";
-import {Trace, FailureReply, SuccessReply} from "../reply";
+import {ReplyKind, Reply, FailureReply, SuccessReply} from "../../reply";
+import {Trace} from "../../reply";
 import _defaults = require("lodash/defaults");
 import {ParsingState} from "./state";
 

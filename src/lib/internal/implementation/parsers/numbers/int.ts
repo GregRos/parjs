@@ -5,7 +5,7 @@ import {ParjsAction} from "../../action";
 import {Parselets} from "./parselets";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
-import {ParserDefinitionError} from "../../issues";
+import {ParserDefinitionError} from "../../../../errors";
 /**
  * Created by User on 28-Nov-16.
  */

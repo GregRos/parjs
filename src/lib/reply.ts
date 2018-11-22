@@ -1,9 +1,63 @@
 /**
  * @module parjs
- */ /** */
-import {SuccessReply, FailureReply} from "./internal";
+ */
+/** */
+import {AnyParserAction, Trace} from "./internal";
+import {ParjsParsingFailure} from "./errors";
+import {Parjs} from "./index";
 
 
+/**
+ * Indicates a success reply and contains the value and other information.
+ */
+export class SuccessReply<T> {
+	kind = ReplyKind.Ok;
+
+	constructor(public value: T) {
+
+	}
+
+	toString() {
+		return `SuccessReply: ${this.value}`;
+	}
+
+}
+
+export interface ErrorLocation {
+	row: number;
+	column: number;
+}
+
+/**
+ * An object indicating trace information about the state of parsing when it was stopped.
+ */
+export interface Trace {
+	userState: object;
+	position: number;
+	reason: string;
+	kind: ReplyKind.Fail;
+	location: ErrorLocation;
+	stackTrace: AnyParserAction[];
+	input: string;
+}
+
+export class FailureReply{
+	constructor(public trace: Trace) {
+
+	}
+
+	get value(): never {
+		throw new ParjsParsingFailure(this);
+	}
+
+	get kind() {
+		return this.trace.kind;
+	}
+
+	toString() {
+		return Parjs.visualizer(this.trace);
+	}
+}
 
 /**
  * A type that represents a SuccessReply or a FailureReply. Returned by parsers.

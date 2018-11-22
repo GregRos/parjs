@@ -1,15 +1,15 @@
 /**
  * Created by lifeg on 04/04/2017.
  */
-import "../__test__/setup";
+import "../test/setup";
 import {Parjs} from "../lib";
 //+ DEFINING THE PARSER
 
-//Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
+// Parse an identifier, an asciiLetter followed by an asciiLetter or digit, e.g. a12b but not 1ab.
 let ident = Parjs.letter.then(Parjs.letter.or(Parjs.digit).many()).str;
 
-//Parse a format token, an `ident` between `{` and `}`. Return the result as a Token object.
-let formatToken = ident.between(Parjs.string("{"), Parjs.string("}")).map(x => ({token: x}));
+// Parse a format token, an `ident` between `{` and `}`. Return the result as a Token object.
+let formatToken = ident.between("{", "}").map(x => ({token: x}));
 
 //Parse an escaped character. This parses "`{a}" as the text "{a}" instead of a token.
 //Also escapes the escaped char, parsing "``" as "`".

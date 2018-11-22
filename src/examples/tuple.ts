@@ -1,7 +1,7 @@
 /**
  * Created by lifeg on 07/04/2017.
  */
-import "../__test__/setup";
+import "../test/setup";
 import {Parjs} from "../lib";
 import {BasicTraceVisualizer} from "../lib/internal/implementation/basic-trace-visualizer";
 //Built-in parser for floating point numbers.

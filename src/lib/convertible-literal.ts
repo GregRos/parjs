@@ -2,7 +2,7 @@
  * @module parjs
  *
  *
- */ /** iooi*/
+ */ /** */
 
 
 import {LoudParser} from "./loud";

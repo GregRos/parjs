@@ -7,9 +7,10 @@
   "description": "A parser-combinator library for JavaScript.",
   "main": "index.js",
   "scripts": {
-    "test": "node ./dist/__test__/runner.js",
+    "test": "node ./dist/test/runner.js",
     "build": "rm -rf dist/ && tsc",
-    "docs": "node dist/generate-docs/run.js"
+    "docs": "node dist/generate-docs/run.js",
+	"shebang" : ""
   },
   "keywords": [
     "parser",

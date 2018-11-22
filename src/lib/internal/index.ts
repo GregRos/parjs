@@ -7,5 +7,7 @@
  */ /** */
 export {AnyParserAction} from "./action";
 export {ParjsParser} from "./instance";
-export {FailureReply, SuccessReply, Trace, AnyReply} from "./reply";
 export {ConversionHelper} from "./convertible-literal";
+export {FailureReply} from "../reply";
+export {SuccessReply} from "../reply";
+export {Trace} from "../reply";

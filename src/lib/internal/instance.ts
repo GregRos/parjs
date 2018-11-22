@@ -204,7 +204,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     isolateState(x) {
-	    return wrap(new PrsIsolate(this.action)).withName(`isolated: ${this.action.displayName}`) as this;
+	    return wrap(new PrsIsolate(this.action, x)).withName(`isolated: ${this.action.displayName}`) as this;
     }
 
     flatten() {

@@ -3,7 +3,7 @@
  */ /** */
 import {ParjsAction} from "../../action";
 import {AnyParserAction} from "../../../action";
-import {ParsingState} from "../../state";
+import {ParsingState, UserState} from "../../state";
 import _cloneDeep = require("lodash/clone");
 /**
  * Created by lifeg on 24/03/2017.
@@ -11,13 +11,13 @@ import _cloneDeep = require("lodash/clone");
 export class PrsIsolate extends ParjsAction {
     isLoud = true;
     expecting: string;
-    constructor(private _inner : AnyParserAction) {
+    constructor(private _inner : AnyParserAction, private _isoState : UserState) {
         super();
     };
 
     _apply(ps : ParsingState) {
         let state = ps.userState;
-        ps.userState = _cloneDeep(ps.initialUserState);
+        ps.userState = _cloneDeep(this._isoState);
         this._inner.apply(ps);
         ps.userState = state;
     }

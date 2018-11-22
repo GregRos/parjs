@@ -1,7 +1,7 @@
 /**
  * @module parjs/internal/implementation
  */ /** */
-import {Trace} from "../reply";
+import {Trace} from "../../reply";
 /**
  * Created by lifeg on 4/29/2017.
  */

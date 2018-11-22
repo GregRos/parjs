@@ -2,11 +2,12 @@
  * @module parjs/internal/implementation/combinators
  */ /** */
 import {ParjsAction} from "../../action";
-import {Issues, ParserDefinitionError} from "../../issues";
+import {Issues} from "../../issues";
 import {AnyParserAction} from "../../../action";
 import {ParsingState} from "../../state";
 import {ReplyKind} from "../../../../reply";
 import {QUIET_RESULT} from "../../special-results";
+import {ParserDefinitionError} from "../../../../errors";
 
 export class PrsMaybe extends ParjsAction {
     isLoud : boolean;

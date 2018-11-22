@@ -14,7 +14,7 @@
  *  6. Easily extendable by the addition of custom functions, variables, and more operators.
  */
 
-import "../__test__/setup";
+import "../test/setup";
 import {Parjs} from "../lib/index";
 
 import {LoudParser} from "../lib/loud";
@@ -60,12 +60,12 @@ let operators = [
  */
 let reduceWithPrecedence = (exprs : (OperatorToken | Expression)[], precedence ?: number) => {
     precedence = precedence == null ? -1 : precedence;
-    let lastOperator : Expression | OperatorToken;
-    while((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
-        let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
-        exprs.length -= 3;
-        exprs.push(new BinaryOperator(op.operator, lhs, rhs));
-    }
+	let lastOperator : Expression | OperatorToken;
+	while((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
+		let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
+		exprs.length -= 3;
+		exprs.push(new BinaryOperator(op.operator, lhs, rhs));
+	}
 };
 
 //required because we want to create a self-referencing, recursive parser
@@ -108,7 +108,7 @@ _pExpr = pUnit.manySepBy(pOp).map((state : MathState) => {
     reduceWithPrecedence(state.exprs);
     let expr = state.exprs[0] as Expression;
     return expr;
-}).isolateState;
+}).isolateState();
 
 let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
     exprs : []

@@ -6,7 +6,7 @@ import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results
 import {ParsingState} from "./state";
 import {ReplyKind} from "../../reply";
 import {AnyParserAction} from "../action";
-import {ParserDefinitionError} from "./issues";
+import {ParserDefinitionError} from "../../errors";
 
 
 function worseThan(a : ReplyKind, b : ReplyKind) {

@@ -38,12 +38,12 @@ var Parjs = require('parjs').Parjs;
 
 Which imports the main module.
 ## Example Parsers
-You can see implementations of example parsers in the `examples` folder, suffixed with their complexity, in ★.
+You can see implementations of example parsers in the `examples` folder:
 
-1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/src/examples/tuple.ts) ★
-2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/src/examples/string.format.ts) ★
-3. [JSON parser](https://github.com/GregRos/parjs/blob/master/examples/src/json.ts) ★★★
-4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts) ★★★
+1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/src/examples/tuple.ts) 
+2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/src/examples/string.format.ts) 
+3. [JSON parser](https://github.com/GregRos/parjs/blob/master/examples/src/json.ts)
+4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
 
 ## What's a parser-combinator library?
 It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
@@ -103,17 +103,6 @@ In order to parse Unicode characters with elaborate properties, you should insta
 
 Parjs isn't very good at parsing characters outside of the BMP (Basic Multilingual Plane). In particular, even parsers beginning with `uni` won't recognize such characters. One reason for this is because JavaScript has a UCS-2 conception of characters.
 
-
-## Implicit parser literals
-Sometimes, typing `Parjs.string` over and over again when you want to parse a string literal can be very repetitive. For this reason `parjs` supports what it calls *implicit parser literals*. Basically, when you need to supply a parser object to a `parjs` object you can supply a literal that will be implicitly converted into a parser.
-
-Two literals are supported --
-
-1. String literals are converted to parsers parsing them via `Parjs.string`. This means that string literals are *loud parsers* and will not work in situations where the API calls for a quiet parser.
-2. Regular expressions are converted to regular expression parsers via `Parjs.regexp`. They are also loud parsers.
-
-This fully type checks using TypeScript, although the method used to achieve this effect is a bit strange and will emit odd error messages if you try to pass it a literal that doesn't support conversion.
-
 ## Module Structure
 Parjs has a well-organized module structure that is reflected in the documentation:
 
@@ -139,7 +128,7 @@ Parjs has a well-organized module structure that is reflected in the documentati
 
 
 ## What's a Parjs parser?
-A somewhat basic question that deserves an answer. In `Parjs`, a parser is an object that consumes characters from text and returns a value. The number of characters the parser consumes depends on its implementation.
+In `Parjs`, a parser is an object that consumes characters from text and returns a value. The number of characters the parser consumes depends on its implementation.
 
 When a parser is invoked on a top level, it is expected to consume the entire input. If it does not, this signals an overall parsing failure. During the parsing process, a `position` value is maintained.
 
@@ -147,7 +136,7 @@ When a parser is invoked as part of a containing parser (e.g. `Parjs.seq(p1, p2)
 
 When several parsers are strung together in sequence inside a containing parser, the containing parser generally chooses how to apply those parsers. Typically, combinators such as `p1.then(p2)` apply the first parser until it consumes all the input it wants, and then apply the 2nd parser at the exact position the previous parser stopped consuming.
 
-The result of executing a parser is called a *reply*. 
+The result of executing a parser is called a *Reply*. 
 
 ## Immutability
 It's important to note that parsers are meant to be immutable objects, and the library is designed around that important premise. 
@@ -183,7 +172,7 @@ You use the `or` failure recovery combinator to handle soft failures, generally 
 #### Hard failures
 Hard failures happen when a parser fails after consuming some input. For example, the compound parser `P = a.then(b)` will fail hard if `a` succeeds but `b` fails. The rationale behind this is twofold. 
 
-Firstly, `a` consumes some input before `b` fails, which means that the parser has developed an `expectation` that after `a` succeeds, `b` should also succeeds. When this expectation breaks, an error arises.
+Firstly, `a` consumes some input before `b` fails, which means that the parser has developed an *expectation* that after `a` succeeds, `b` should also succeeds. When this expectation breaks, an error arises.
 
 Secondly, recovering from `P` requires backtracking to the starting position of the parsing. Parjs is written to backtrack as little as possible, and so a failure that requires backtracking is more severe than one that does not.
 
@@ -196,7 +185,7 @@ Similarly, the `.must` combinator can cause a parser to fail hard. If you apply`
 The `.soft` combinator translates hard failures into soft ones.
 
 #### Fatal failures
-This type of failure is raised on purpose to explicitly signal malformed input.It can be intentionally signalled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the `.not` combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.
+This type of failure is raised on purpose to explicitly signal malformed input. It can be intentionally signaled to catch certain kinds of syntax errors and treat them accordingly. It cannot be recovered from using standard combinators. Even the `.not` combinator, which normally succeeds if the input parser fails, still propagates a fatal failure.
 
 #### Exceptions
 Exceptions aren't really part of this hierarchy. Parsers do not and should not throw exceptions to indicate invalid input, and Parjs does not handle thrown exceptions. Rather, an exception indicates a problem with the parser itself.
@@ -238,7 +227,7 @@ let comma = Parjs.string(".").q.q.q.q.q;
 ## User State
 User state is a powerful feature that can be used when parsing complex languages, such as mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
 
-Basically, when you invoke the `.parse(str)` method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. Built-in parsers aren't allowed to use the user state directly, so the only information in it will be what you put inside it.
+Basically, when you invoke the `.parse(str)` method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. Built-in parsers aren't allowed to use the user state directly (they can do other things), so the only information in it will be what you put inside it.
 
 The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
@@ -250,24 +239,29 @@ let example = p.parse("hello", {token: "hi", method() {return 1;});
 Here is an example of how you can use this feature to parse a recursive, XML-like language:
 
 ```ts
-
-//define our identifier. Starts with a letter, followed by a letter or digit. The `str` combinator stringifies what's an array of characters.
-let ident = Parjs.asciiLetter.then(Parjs.digit.or(Parjs.asciiLetter).many()).str;
+// Define our identifier.
+// Starts with a letter, followed by a letter or digit.
+// The .str operator stringifies the array of characters.
+let ident = Parjs.letter.then(Parjs.digit.or(Parjs.letter).many()).str;
 //A parser that parses an opening of a tag.
-let openTag = ident.between(Parjs.string("<"), Parjs.string(">")).each((result, userState) => {
-    userState.tags.push({ tag: result, content: [] });
+let openTag = ident.between("<", ">").each((result, {tags}) => {
+	tags.push({
+		tag: result,
+		content: []
+	});
 }).q;
 
+// The close tag is </ TAG >.
 let closeTag =
-    ident.between(Parjs.string("</"), Parjs.string(">"))
-        .must((result, userState) => result === _.last(userState.tags as any[]).tag)
-        .each((result, userState) => {
-            let topTag = userState.tags.pop();
-            _.last(userState.tags as any[]).content.push(topTag);
-        }).q;
+	ident.between("</", ">").each((result, {tags}) => {
+		let topTag = tags.pop();
+		tags[tags.length - 1].content.push(topTag);
+	}).q;
 
-let anyTag = closeTag.or(openTag).many().state.map(x => x.tags[0].content);
-console.log(JSON.stringify(anyTag.parse("<a><b><c></c></b></a>", { tags: [{ content: [] }] }), null, 2));
+let anyTag =
+	closeTag.or(openTag).many().state.map(x => x.tags[0].content)
+		.isolateState({tags: [{content: []}]});
+let parsedXmlData = anyTag.parse("<a><b><c></c></b></a>");
 ```
 
 Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.
@@ -275,6 +269,16 @@ Among other uses, user state allows you to parse operator precedence using LR pa
 Many methods that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object. Quiet parsers support projection methods that operate exclusively on the state.
 
 User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.
+
+You can also make use of the advanced 	`isolateState` combinator. This combinator lets you isolate a parser's user state from other parsers. This lets you write a black-box parser that still uses user state. In the above example, it's used to make sure the user state has the correct structure when the `anyTag` parser is entered.
+
+## Implicit parser literals
+
+When a combinator expects a `LoudParser<string>` as input, you can actually substitute a string. The string `str` will be implicitly understood to be `Parjs.string(str)`, i.e. a parser that parses that string and returns it.
+
+Strings are an example of implicit parser literals. Another example is a regular expression, which is implicitly converted using `Parjs.regexp`. 
+
+This fully type checks using TypeScript.
 
 ## Parsers and combinators
 This is a partial overview of the kinds of parsers and combinators provided by `Parjs`. This is not an exhaustive list.
@@ -365,11 +369,11 @@ These combinators are very simple.
 ## The reply of a parser
 When a parser `p` is applied using the `p.parse(str)` method, a `ParserReply<T>` is returned. This reply is either a success or a failure of a differing severity.
 
-Every `reply` has a `reply.kind` value, which is a string that can be any value that is part of the `ReplyKind` set. To check that parsing succeeded, use the following test:
+Every `reply` has a `reply.kind` value, which is a string that can be any value that is part of the `ReplyKind` set: `OK, Soft, Hard, Fatal`. To check that parsing succeeded, just compare `kind` to one of these values:
 
 ```ts
 let reply = p.parse(str);
-if (reply.kind === ReplyKind.OK) {
+if (reply.kind === "OK") {
 	//parsing succeeded
 }
 else {
@@ -387,7 +391,7 @@ This is the reply you usually hope to get when parsing something. It indicates t
 The primary property is `value`, which exposes the reply value of the parser. Note that the user state at which the parser finished is swallowed and isn't returned (see more about user state in another part of the documentation).
 
 ### Failure Reply
-A failure reply is when `kind !== ReplyKind.OK`. The `kind` could be any of the failure kinds: Soft, Hard, or Fatal failure.
+A failure reply is when `kind !== "OK"`. The `kind` could be any of the failure kinds: Soft, Hard, or Fatal failure.
 
 In addition to the `kind`, a failure reply exposes the `trace` property that describes the circumstances of the failure in a systematic way.
 
@@ -406,25 +410,6 @@ Parjs.visualizer.visualize(reply.trace);
 
 The result is a textual representation of the error.
 
-## Performance
-At present, although Parjs is designed with performance in mind, it's not benchmarked and hasn't been optimized.
-
-In general, a few measures are taken to improve performance:
-
-1. Minimize all memory allocations on the heap. In most parser bodies, no new objects are created.
-2. Do as much work as possible during parser *construction* to make the execution extremely efficient.
-3. Use `charCodeAt` internally, instead of `charAt`. Using `charAt` requires creating a new string object.
-
-The factor that probably slows down Parjs the most is the amount of method calls that is dynamically dispatched and the actions every parser has to do to figure out if the parser code terminated correctly.
-
-It should be possible to reduce these by:
-
-1. Merging identical parsers, such as two `.map` parsers.
-2. Optimizing away some parsers if they have no affect on the output.
-3. Making "fatter" versions of existing parsers in order to compress the parse tree.
-4. Reducing the parser overhead in certain situations.
-5. Make sure JavaScript code is optimized correctly by modern JavaScript engines, such as the V8 engine.
-
 ## Implementation
 Parjs keeps interface and implementation totally separate.
 
@@ -436,8 +421,10 @@ All parsers, whether quiet or loud, are instances of the class [`ParjsParser`](h
 
 Loudness or quietness is communicated via the `isLoud` property of the action and the wrapping parser -- otherwise loud parsers and quiet parsers are identical. However, functions will throw exceptions if the loudness of the input parser was not as expected.
 
-## Writing your own parser
-Parjs is meant to be very easy to extend, meaning writing your own parser is very simple.
+## Writing a parser with custom logic
+**In most cases, it should be easy to use existing combinators and building block parsers to create custom parsers. **
+
+However, `Parjs` is meant to be very easy to extend, so if you can't use existing code to do your work for you, writing your own is very simple
 
 ### Parser flow
 When the `.parse` method is called, a [`ParsingState`](https://gregros.github.io/parjs/interfaces/parjs_internal.parsingstate.html) object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:
@@ -478,7 +465,7 @@ _apply(ps : ParsingState) {
 ```
 
 This specific action is quiet, so it doesn't need to set the `value` property. 
-	
+​	
 ### Other required properties of parser actions
 In addition to implementing `_apply`, parser actions must also specify:
 
