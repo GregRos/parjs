@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "index",
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "nyc node ./dist/test/runner.js",
     "build": "rm -rf dist/ && tsc",
-    "docs": "node dist/generate-docs/run.js",
+    "docs": "node dist/generate-docs/run.js"
   },
   "keywords": [
     "parser",
