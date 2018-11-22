@@ -1,5 +1,4 @@
-/** @private
- * @external */ /** */
+/** @private */ /** @private*/
 
 export module Es6 {
     export function strIncludes(haystack : string, needle : string) {

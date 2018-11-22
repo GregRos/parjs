@@ -122,6 +122,7 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.anyparser.html#isolatestate" class="tsd-kind-icon">isolate<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.anyparser.html#result" class="tsd-kind-icon">result</a></li>
 							</ul>
 						</section>
@@ -136,7 +137,7 @@
 					<div class="tsd-signature tsd-kind-icon">action<span class="tsd-signature-symbol">:</span> <a href="parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:26</li>
+							<li>Defined in any.ts:27</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -156,7 +157,7 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:20</li>
+							<li>Defined in any.ts:21</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -176,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Loud<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:61</li>
+							<li>Defined in any.ts:66</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -196,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">not<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:47</li>
+							<li>Defined in any.ts:51</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -207,6 +208,9 @@
 							<dt>group</dt>
 							<dd><p>combinator special</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -216,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">q<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:40</li>
+							<li>Defined in any.ts:43</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,6 +231,9 @@
 							<dt>group</dt>
 							<dd><p>combinator projection optimizing</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -236,7 +243,7 @@
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:54</li>
+							<li>Defined in any.ts:59</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -247,6 +254,9 @@
 							<dt>group</dt>
 							<dd><p>combinator projection</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -256,7 +266,7 @@
 					<div class="tsd-signature tsd-kind-icon">str<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in any.ts:76</li>
+							<li>Defined in any.ts:82</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -275,12 +285,54 @@
 							<dt>group</dt>
 							<dd><p>combinator projection optimizing</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+					<a name="isolatestate" class="tsd-anchor"></a>
+					<h3>isolate<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">isolate<wbr>State<span class="tsd-signature-symbol">(</span>innerState<span class="tsd-signature-symbol">?: </span><a href="../modules/parjs_internal.html#userstate" class="tsd-signature-type">UserState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in any.ts:94</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This method will wrap <code>this</code> in a state isolation construct.
+										The returned parser will apply <code>this</code>, except that the current user state Fwill be replaced by a copy of <code>innerState</code>.
+									When the returned parser finishes, the previous user state will be restored.</p>
+								</div>
+								<p>Use this combinator to develop black-box parsers that utilize user state, without affecting or being affected by the user state of external parsers.</p>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator special</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> innerState: <a href="../modules/parjs_internal.html#userstate" class="tsd-signature-type">UserState</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
 					<a name="result" class="tsd-anchor"></a>
 					<h3>result</h3>
@@ -291,7 +343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in any.ts:33</li>
+									<li>Defined in any.ts:35</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -301,6 +353,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator projection optimizing</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -333,9 +388,6 @@
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
-						<a href="../modules/_common_common_.html">"common/common"</a>
 					</li>
 					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html">parjs</a>
@@ -394,6 +446,9 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 								<a href="parjs.anyparser.html#str" class="tsd-kind-icon">str</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+								<a href="parjs.anyparser.html#isolatestate" class="tsd-kind-icon">isolate<wbr>State</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
 								<a href="parjs.anyparser.html#result" class="tsd-kind-icon">result</a>
 							</li>
@@ -448,15 +503,6 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html#parjs-1" class="tsd-kind-icon">Parjs</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#convertiblesymbol" class="tsd-kind-icon">convertible<wbr>Symbol</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#flatten" class="tsd-kind-icon">flatten</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#splat" class="tsd-kind-icon">splat</a>
 					</li>
 				</ul>
 			</nav>

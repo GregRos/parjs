@@ -195,9 +195,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
     }
 
     mustBeNonEmpty(fail = ReplyKind.HardFail) {
-        return this.must(x => {
-            return Predicates.nonEmpty(x);
-        }, `be non-empty`, fail).withName("mustBeNonEmpty");
+        return this.must(Predicates.nonEmpty, `be non-empty`, fail).withName("mustBeNonEmpty");
     }
 
     withName(newName : string) {
@@ -205,8 +203,8 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return this;
     }
 
-    get isolate() {
-        return wrap(new PrsIsolate(this.action)).withName(`isolated: ${this.action.displayName}`);
+    isolateState(x) {
+	    return wrap(new PrsIsolate(this.action)).withName(`isolated: ${this.action.displayName}`) as this;
     }
 
     flatten() {

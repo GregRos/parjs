@@ -101,14 +101,14 @@ let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state
 }).q;
 
 //Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
-//Note the call to `isolate` at the end. We need it because this parser can be called to parse an expression inside parentheses
+//Note the call to `isolateState` at the end. We need it because this parser can be called to parse an expression inside parentheses
 //In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
 //An isolated parser blanks out the user state and then restores it.
 _pExpr = pUnit.manySepBy(pOp).map((state : MathState) => {
     reduceWithPrecedence(state.exprs);
     let expr = state.exprs[0] as Expression;
     return expr;
-}).isolate;
+}).isolateState;
 
 let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
     exprs : []

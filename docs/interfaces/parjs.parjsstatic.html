@@ -160,14 +160,17 @@
 					<div class="tsd-signature tsd-kind-icon">any<wbr>Char<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L57">parjs.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L57">parjs.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single character and yield it.  If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single character and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
+							</dd>
 							<dt>group</dt>
 							<dd><p>basic-parser character</p>
 							</dd>
@@ -180,16 +183,19 @@
 					<div class="tsd-signature tsd-kind-icon">digit<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L89">parjs.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L93">parjs.ts:93</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single digit character [0-9] and yield it. If it can&#39;t, it will fail soflty.</p>
+							<p>Returns a parser that will parse a single digit character [0-9] and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character numeric</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -200,16 +206,19 @@
 					<div class="tsd-signature tsd-kind-icon">eof<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L227">parjs.ts:227</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L244">parjs.ts:244</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will succeed if it has reached the end of the input, and fail softly otherwise.</p>
+							<p>Returns a parser that will succeed if it has reached the end of the input.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser primitive</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Soft</p>
 							</dd>
 						</dl>
 					</div>
@@ -220,7 +229,7 @@
 					<div class="tsd-signature tsd-kind-icon">helper<span class="tsd-signature-symbol">:</span> <a href="parjs.parjsstatichelper.html" class="tsd-signature-type">ParjsStaticHelper</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L42">parjs.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L42">parjs.ts:42</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -235,16 +244,19 @@
 					<div class="tsd-signature tsd-kind-icon">hex<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L96">parjs.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L101">parjs.ts:101</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single hex digit character [0-9a-fA-F] and yield it. If it can&#39;t, it will fail soflty.</p>
+							<p>Returns a parser that will parse a single hex digit character [0-9a-fA-F] and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character numeric</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -255,16 +267,19 @@
 					<div class="tsd-signature tsd-kind-icon">letter<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L110">parjs.ts:110</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L117">parjs.ts:117</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single letter [a-zA-Z] and yield it. If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single letter [a-zA-Z] and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -275,16 +290,19 @@
 					<div class="tsd-signature tsd-kind-icon">lower<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L103">parjs.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L109">parjs.ts:109</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single lower-case letter character in the range [a-z] and yield it. If it can&#39;t, it will fail soflty.</p>
+							<p>Returns a parser that will parse a single lower-case letter character in the range [a-z] and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -295,16 +313,19 @@
 					<div class="tsd-signature tsd-kind-icon">newline<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L125">parjs.ts:125</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L134">parjs.ts:134</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse either \n, \r\n, or \r and yield the string that was parsed. If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse either \n, \r\n, or \r and yield the string that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -315,7 +336,7 @@
 					<div class="tsd-signature tsd-kind-icon">nop<span class="tsd-signature-symbol">:</span> <a href="parjs.quietparser.html" class="tsd-signature-type">QuietParser</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L220">parjs.ts:220</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L236">parjs.ts:236</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -326,6 +347,9 @@
 							<dt>group</dt>
 							<dd><p>basic-parser primitive</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Never</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -335,7 +359,7 @@
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L245">parjs.ts:245</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L264">parjs.ts:264</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -346,6 +370,9 @@
 							<dt>group</dt>
 							<dd><p>basic-parser primitive</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Never</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -355,15 +382,21 @@
 					<div class="tsd-signature tsd-kind-icon">rest<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L288">parjs.ts:288</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L307">parjs.ts:307</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse all the characters until the end of the input, and then yield the parsed text.
-							The returned parser will never fail.</p>
+							<p>Returns a parser that will parse all the characters until the end of the input, and then yield the parsed text.</p>
 						</div>
-						<p> @group basic-parser string</p>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>basic-parser string</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Never</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
@@ -372,17 +405,19 @@
 					<div class="tsd-signature tsd-kind-icon">space<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L173">parjs.ts:173</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L187">parjs.ts:187</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse one ASCII inline space character, such as space or a tab, and yield it.
-							If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse one ASCII inline space character, such as space or a tab, and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -393,17 +428,19 @@
 					<div class="tsd-signature tsd-kind-icon">spaces1<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L270">parjs.ts:270</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L290">parjs.ts:290</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse one or more ASCII whitespace character and yield the result.
-							The returned parser will fail softly if it can&#39;t parse at least one space character.</p>
+							<p>Returns a parser that will parse one or more ASCII whitespace character and yield the result.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser string</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Soft</p>
 							</dd>
 						</dl>
 					</div>
@@ -414,7 +451,7 @@
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L252">parjs.ts:252</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L272">parjs.ts:272</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -425,6 +462,9 @@
 							<dt>group</dt>
 							<dd><p>basic-parser primitive</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Never</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -434,7 +474,7 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Digit<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L165">parjs.ts:165</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L178">parjs.ts:178</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -457,7 +497,7 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Letter<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L149">parjs.ts:149</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L161">parjs.ts:161</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -471,6 +511,9 @@
 							<dt>requires</dt>
 							<dd><p>module:parjs/unicode</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -480,7 +523,7 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Lower<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L142">parjs.ts:142</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L153">parjs.ts:153</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -494,6 +537,9 @@
 							<dt>requires</dt>
 							<dd><p>module:parjs/unicode</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -503,13 +549,12 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Newline<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L134">parjs.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L144">parjs.ts:144</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.
-							If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single Unicode newline string, including characters as \u2029 (PARAGRAPH SEPARATOR) that may indicate newlines. Returns the string that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -517,6 +562,9 @@
 							</dd>
 							<dt>requires</dt>
 							<dd><p>module:parjs/unicode</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -527,13 +575,12 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Space<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L182">parjs.ts:182</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L197">parjs.ts:197</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse one Unicode inline space character, including characters such as EM SPACE, and yield the character that was parsed.
-							If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse one Unicode inline space character, including characters such as EM SPACE, and yield the character that was parsed.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
@@ -541,6 +588,9 @@
 							</dd>
 							<dt>requires</dt>
 							<dd><p>module:parjs/unicode</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -551,16 +601,24 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Spaces<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L280">parjs.ts:280</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L299">parjs.ts:299</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that parses as many Unicode inline white spaces as possible. Returns the parsed text.
-							The returned parser will always succeed.</p>
+							<p>Returns a parser that parses as many Unicode inline white spaces as possible. Returns the parsed text.</p>
 						</div>
-						<p> @group basic-parser string unicode
-						@requires module:parjs/unicode</p>
+						<dl class="tsd-comment-tags">
+							<dt>group</dt>
+							<dd><p>basic-parser string unicode</p>
+							</dd>
+							<dt>requires</dt>
+							<dd><p>module:parjs/unicode</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Never</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
@@ -569,7 +627,7 @@
 					<div class="tsd-signature tsd-kind-icon">uni<wbr>Upper<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L157">parjs.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L170">parjs.ts:170</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -583,6 +641,9 @@
 							<dt>requires</dt>
 							<dd><p>module:parjs/unicode</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -592,16 +653,19 @@
 					<div class="tsd-signature tsd-kind-icon">upper<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L117">parjs.ts:117</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L125">parjs.ts:125</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse a single upper-case letter character in the range [A-Z] and yield it. If it can&#39;t, it will fail softly.</p>
+							<p>Returns a parser that will parse a single upper-case letter character in the range [A-Z] and yield it.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser character</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Softly</p>
 							</dd>
 						</dl>
 					</div>
@@ -612,7 +676,7 @@
 					<div class="tsd-signature tsd-kind-icon">visualizer<span class="tsd-signature-symbol">:</span> <a href="parjs_internal.tracevisualizer.html" class="tsd-signature-type">TraceVisualizer</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L48">parjs.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L48">parjs.ts:48</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -627,17 +691,19 @@
 					<div class="tsd-signature tsd-kind-icon">whitespaces<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L262">parjs.ts:262</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L282">parjs.ts:282</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.
-							The returned parser will always succeed.</p>
+							<p>Returns a parser that will parse as many ASCII whitespace characters as possible, including any number of spaces, tabs, and newlines. Returns the parsed text.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>basic-parser string</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>Never</p>
 							</dd>
 						</dl>
 					</div>
@@ -656,17 +722,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L345">parjs.ts:345</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L367">parjs.ts:367</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds. It will yield its result.
-									The returned parser will fail softly if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
+									<p>Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds. It will yield its result.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As subparsers</p>
 									</dd>
 								</dl>
 							</div>
@@ -684,17 +752,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L377">parjs.ts:377</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L399">parjs.ts:399</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
-									The returned parser will fail soflty if none of the parsers succeeds, and fail hard if any of them fails hard.</p>
+									<p>Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly usually, but hard if any subparser fails hard</p>
 									</dd>
 								</dl>
 							</div>
@@ -721,14 +791,17 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L65">parjs.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L66">parjs.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will parse a single character that is part of the string <code>chars</code>, and then yield it. If it can&#39;t, it will fail softly.</p>
+									<p>Returns a parser that will parse a single character that is part of the string <code>chars</code>, and then yield it.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>fail-type</dt>
+									<dd><p>Softly</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>basic-parser character</p>
 									</dd>
@@ -757,14 +830,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L305">parjs.ts:305</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L325">parjs.ts:325</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will try to parse the strings in <code>strings</code> in order, and it will yield the string that was parsed.
-									The returned parser will fail softly if none of the strings can be parsed.</p>
+									<p>Returns a parser that will try to parse the strings in <code>strings</code> in order, and it will yield the string that was parsed.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>basic-parser string</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Soft</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -772,7 +852,6 @@
 									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>strings: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The strings.</p>
-										<p> @group basic-parser string</p>
 									</div>
 								</li>
 							</ul>
@@ -790,16 +869,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L82">parjs.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L85">parjs.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will parse a single character that matches the given predicate, and then it will yield the character.  If it can&#39;t, it will fail softly.</p>
+									<p>Returns a parser that will parse a single character that matches the given predicate, and then it will yield the character.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser character</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly</p>
 									</dd>
 								</dl>
 							</div>
@@ -826,7 +908,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L392">parjs.ts:392</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L415">parjs.ts:415</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -882,7 +964,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L236">parjs.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L254">parjs.ts:254</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -892,6 +974,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser primitive</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>kind</code>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -924,18 +1009,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L202">parjs.ts:202</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L216">parjs.ts:216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will parse a single floating point number according to the format options given in <code>options</code>, and yield it (as a number).
-										The returned parser will fail softly if the input is not a floating point number, but it will fail hard if it suspects the input is a malformed floating point number.
-									For example, 1.0e+ will cause it to fail hard.</p>
+									<p>Returns a parser that will parse a single floating point number according to the format options given in <code>options</code>, and yield it (as a number).</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser numeric</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly usually, but hard for some malformed inputs, like 1.0e+.</p>
 									</dd>
 								</dl>
 							</div>
@@ -962,17 +1048,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L192">parjs.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L207">parjs.ts:207</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will parse an integer according to the format options given in <code>options</code>, and yield the integer that was parsed (as a number).
-									The returned parser will normally either succeed or fail softly, but some kinds of inputs will cause a hard failure, such as a sign without any digits after it.</p>
+									<p>Returns a parser that will parse an integer according to the format options given in <code>options</code>, and yield the integer that was parsed (as a number).</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser numeric</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly usually, but hard for some inputs, like a sign with no digits after it</p>
 									</dd>
 								</dl>
 							</div>
@@ -999,7 +1087,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L336">parjs.ts:336</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L358">parjs.ts:358</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1007,6 +1095,14 @@
 									<p>The first time the returned parser that is invoked, it will call <code>resolver</code> with no arguments and cache the result. From that point, it will act like the parser returned by <code>resolver</code>.
 									This late binding can be used to create certain kinds of recursive parsers.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator special</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As subparser</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
@@ -1019,7 +1115,6 @@
 								<li>
 									<h5>resolver: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p> @group combinator special</p>
 									</div>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-siganture">
@@ -1049,16 +1144,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L73">parjs.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L75">parjs.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will parse a single character that is not part of the string <code>chars</code>, and then yield it.  If it can&#39;t, it will fail softly.</p>
+									<p>Returns a parser that will parse a single character that is not part of the string <code>chars</code>, and then yield it.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser character</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Soft</p>
 									</dd>
 								</dl>
 							</div>
@@ -1085,19 +1183,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L324">parjs.ts:324</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L345">parjs.ts:345</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Returns a parser that will apply <code>regexp</code> on the input. It will succeed only if <code>regexp</code> matches at the current position.
 										The returned parser will consume all the (consecutive) input matched by the regex.
-										The returned parser will yield the resulting match array, with result[0] being the entire match and result[n] being group n.
-									The returned parser will fail softly if <code>regexp</code> failed.</p>
+									The returned parser will yield the resulting match array, with result[0] being the entire match and result[n] being group n.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser string regex</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly</p>
 									</dd>
 								</dl>
 							</div>
@@ -1124,7 +1224,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L213">parjs.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L228">parjs.ts:228</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1134,6 +1234,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>basic-parser primitive</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Never</p>
 									</dd>
 								</dl>
 							</div>
@@ -1166,7 +1269,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L385">parjs.ts:385</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L408">parjs.ts:408</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1176,6 +1279,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly if the first parser fails softly, hard if any of the next parsers fail.</p>
 									</dd>
 								</dl>
 							</div>
@@ -1202,7 +1308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L355">parjs.ts:355</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L377">parjs.ts:377</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1303,13 +1409,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L296">parjs.ts:296</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L316">parjs.ts:316</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will try to parse the string <code>str</code>. The returned parser will yield the parsed string if it succeeds, and fail softly otherwise.</p>
+									<p>Returns a parser that will try to parse the string <code>str</code>. The returned parser will yield the parsed string if it succeeds.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>basic-parser string</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Soft</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -1317,7 +1431,6 @@
 									<h5>str: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The string to parse.</p>
-										<p> @group basic-parser string</p>
 									</div>
 								</li>
 							</ul>
@@ -1335,14 +1448,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/parjs.ts#L314">parjs.ts:314</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/parjs.ts#L334">parjs.ts:334</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will parse exactly <code>length</code> characters and yield the string that was parsed.
-									The returned parser will fail softly if the input does not contain that many characters, and succeed otherwise.</p>
+									<p>Returns a parser that will parse exactly <code>length</code> characters and yield the string that was parsed.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>basic-parser string</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Softly</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -1350,7 +1470,6 @@
 									<h5>length: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The number of characters to parse.</p>
-										<p> @group basic-parser string</p>
 									</div>
 								</li>
 							</ul>
@@ -1368,9 +1487,6 @@
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
-						<a href="../modules/_common_common_.html">"common/common"</a>
 					</li>
 					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html">parjs</a>
@@ -1579,15 +1695,6 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html#parjs-1" class="tsd-kind-icon">Parjs</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#convertiblesymbol" class="tsd-kind-icon">convertible<wbr>Symbol</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#flatten" class="tsd-kind-icon">flatten</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#splat" class="tsd-kind-icon">splat</a>
 					</li>
 				</ul>
 			</nav>

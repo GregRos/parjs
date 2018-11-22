@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node ./dist/__test__/runner.js",
     "build": "rm -rf dist/ && tsc",
-    "td": "typedoc --tsconfig ./tsconfig.docs.json --out ./docs --mode modules --excludePrivate --excludeExternals --includeDeclarations"
+    "docs": "node dist/generate-docs/run.js"
   },
   "keywords": [
     "parser",

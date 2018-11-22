@@ -68,6 +68,9 @@
 		<div class="col-8 col-content">
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Internal types and interfaces. Useful for working with traces, adding new combinators, and so on.</p>
+					</div>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -84,7 +87,6 @@
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal.failurereply.html" class="tsd-kind-icon">Failure<wbr>Reply</a></li>
-								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="../classes/parjs_internal.nounicodeerror.html" class="tsd-kind-icon">No<wbr>Unicode<wbr>Error</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal.parjshelper.html" class="tsd-kind-icon">Parjs<wbr>Helper</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal.parjsparser.html" class="tsd-kind-icon">Parjs<wbr>Parser</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal.parjsparsers.html" class="tsd-kind-icon">Parjs<wbr>Parsers</a></li>
@@ -119,14 +121,6 @@
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-external"><a href="parjs_internal.html#uninitialized_result" class="tsd-kind-icon">UNINITIALIZED_<wbr>RESULT</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-external tsd-is-not-exported">
-							<h3>Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="parjs_internal.html#flattennestedarrays" class="tsd-kind-icon">flatten<wbr>Nested<wbr>Arrays</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="parjs_internal.html#wrap" class="tsd-kind-icon">wrap</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="parjs_internal.html#wrap-1" class="tsd-kind-icon">wrap</a></li>
-							</ul>
-						</section>
 					</div>
 				</section>
 			</section>
@@ -138,7 +132,7 @@
 					<div class="tsd-signature tsd-kind-icon">User<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/state.ts#L7">internal/implementation/state.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/implementation/state.ts#L7">internal/implementation/state.ts:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -159,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">Char<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StaticCharInfo</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/static.ts#L65">internal/static.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/static.ts#L65">internal/static.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -169,7 +163,7 @@
 					<div class="tsd-signature tsd-kind-icon">Code<wbr>Info<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">StaticCodeInfo</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/static.ts#L64">internal/static.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/static.ts#L64">internal/static.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +173,7 @@
 					<div class="tsd-signature tsd-kind-icon">Conditional<wbr>Unicode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">InfoContainer</span><span class="tsd-signature-symbol"> =&nbsp;new class InfoContainer {_codeInfo : StaticCodeInfo &#x3D; null;_charInfo : StaticCharInfo &#x3D; null;set CodeInfo(info) {this._codeInfo &#x3D; this._codeInfo || info;}set CharInfo(info) {this._charInfo &#x3D; this._charInfo || info;}get CodeInfo() {if (!this._codeInfo) {throw new NoUnicodeError();}return this._codeInfo}get CharInfo() {if (!this._charInfo) {throw new NoUnicodeError();}return this._charInfo;}}()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/static.ts#L38">internal/static.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/static.ts#L38">internal/static.ts:38</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -189,7 +183,7 @@
 					<div class="tsd-signature tsd-kind-icon">FAIL_<wbr>RESULT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;Object.create(null)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/special-results.ts#L14">internal/implementation/special-results.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/implementation/special-results.ts#L14">internal/implementation/special-results.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -204,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">QUIET_<wbr>RESULT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;Object.create(null)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/special-results.ts#L9">internal/implementation/special-results.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/implementation/special-results.ts#L9">internal/implementation/special-results.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -219,7 +213,7 @@
 					<div class="tsd-signature tsd-kind-icon">UNINITIALIZED_<wbr>RESULT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;Object.create(null)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/special-results.ts#L19">internal/implementation/special-results.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/implementation/special-results.ts#L19">internal/implementation/special-results.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,78 +221,6 @@
 							<p>A unique object value indicating that a parser did not initialize the ParsingState&#39;s value property before terminating, which is an error.</p>
 						</div>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-external tsd-is-not-exported">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-					<a name="flattennestedarrays" class="tsd-anchor"></a>
-					<h3>flatten<wbr>Nested<wbr>Arrays</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">flatten<wbr>Nested<wbr>Arrays<span class="tsd-signature-symbol">(</span>arr<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/instance.ts#L26">internal/instance.ts:26</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>arr: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-					<a name="wrap" class="tsd-anchor"></a>
-					<h3>wrap</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">wrap<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><a href="../classes/parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/static.ts#L28">internal/static.ts:28</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>action: <a href="../classes/parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../classes/parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-					<a name="wrap-1" class="tsd-anchor"></a>
-					<h3>wrap</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">wrap<span class="tsd-signature-symbol">(</span>action<span class="tsd-signature-symbol">: </span><a href="../classes/parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/instance.ts#L22">internal/instance.ts:22</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>action: <a href="../classes/parjs_internal_implementation.parjsaction.html" class="tsd-signature-type">ParjsAction</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../classes/parjs_internal.parjsparser.html" class="tsd-signature-type">ParjsParser</a></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -310,9 +232,6 @@
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
-						<a href="_common_common_.html">"common/common"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="parjs.html">parjs</a>
@@ -341,9 +260,6 @@
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="../classes/parjs_internal.failurereply.html" class="tsd-kind-icon">Failure<wbr>Reply</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="../classes/parjs_internal.nounicodeerror.html" class="tsd-kind-icon">No<wbr>Unicode<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="../classes/parjs_internal.parjshelper.html" class="tsd-kind-icon">Parjs<wbr>Helper</a>
@@ -395,15 +311,6 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal.html#uninitialized_result" class="tsd-kind-icon">UNINITIALIZED_<wbr>RESULT</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="parjs_internal.html#flattennestedarrays" class="tsd-kind-icon">flatten<wbr>Nested<wbr>Arrays</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="parjs_internal.html#wrap" class="tsd-kind-icon">wrap</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="parjs_internal.html#wrap-1" class="tsd-kind-icon">wrap</a>
 					</li>
 				</ul>
 			</nav>

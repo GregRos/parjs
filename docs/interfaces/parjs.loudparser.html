@@ -121,13 +121,10 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#action" class="tsd-kind-icon">action</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#backtrack" class="tsd-kind-icon">backtrack</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#displayname" class="tsd-kind-icon">display<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#flatten" class="tsd-kind-icon">flatten</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#isolate" class="tsd-kind-icon">isolate</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#not" class="tsd-kind-icon">not</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#q" class="tsd-kind-icon">q</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#soft" class="tsd-kind-icon">soft</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#splat" class="tsd-kind-icon">splat</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#state" class="tsd-kind-icon">state</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#str" class="tsd-kind-icon">str</a></li>
 							</ul>
@@ -139,6 +136,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.loudparser.html#cast" class="tsd-kind-icon">cast</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#each" class="tsd-kind-icon">each</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#exactly" class="tsd-kind-icon">exactly</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.loudparser.html#flatten" class="tsd-kind-icon">flatten</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#isolatestate" class="tsd-kind-icon">isolate<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#many" class="tsd-kind-icon">many</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#manysepby" class="tsd-kind-icon">many<wbr>Sep<wbr>By</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#manytill" class="tsd-kind-icon">many<wbr>Till</a></li>
@@ -152,6 +151,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.loudparser.html#or" class="tsd-kind-icon">or</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="parjs.loudparser.html#parse" class="tsd-kind-icon">parse</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited tsd-is-external"><a href="parjs.loudparser.html#result" class="tsd-kind-icon">result</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.loudparser.html#splat" class="tsd-kind-icon">splat</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.loudparser.html#then" class="tsd-kind-icon">then</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external"><a href="parjs.loudparser.html#thenchoose" class="tsd-kind-icon">then<wbr>Choose</a></li>
 							</ul>
@@ -168,7 +168,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#action">action</a></p>
 						<ul>
-							<li>Defined in any.ts:26</li>
+							<li>Defined in any.ts:27</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">backtrack<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L121">loud.ts:121</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L128">loud.ts:128</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -198,6 +198,9 @@
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>combinator special backtracking</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code></p>
 							</dd>
 						</dl>
 					</div>
@@ -209,7 +212,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#displayname">displayName</a></p>
 						<ul>
-							<li>Defined in any.ts:20</li>
+							<li>Defined in any.ts:21</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -223,35 +226,6 @@
 						</dl>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="flatten" class="tsd-anchor"></a>
-					<h3>flatten</h3>
-					<div class="tsd-signature tsd-kind-icon">flatten<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.html#flatten" class="tsd-signature-type">flatten</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L158">loud.ts:158</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Returns a parser that applies <code>this</code> and flattens its result into an array.
-								If <code>this</code> yields a non-array <code>e</code>, returns <code>[e]</code>.
-							Otherwise, if <code>this</code> yields an array containing a mix of (nested?) array elements and regular elements, will merge all of these into a single array.</p>
-						</div>
-						<p>In TypeScript, the element type <code>T</code> is not always inferrred to be the best possible type. For example, <code>flatten</code> may return a parser of the type
-						<code>LoudParser{(T | T[])[]}</code>, where this method actually always returns <code>LoudParser&lt;T[]&gt;</code>.</p>
-						<p>Can be used to flatten a sequence of <code>.then</code> combinators, which can create deeply nested array structures.</p>
-						<dl class="tsd-comment-tags">
-							<dt>group</dt>
-							<dd><p>combinator projection</p>
-							</dd>
-							<dt>example</dt>
-							<dd><p>let pArr = a.then(b).then(c).then(d).then(e); // pArr : LoudParser{[[[T, T], T], T], T]}, deeply nested array
-								let flat = pArr.flatten(); //flat : LoudParser{T[]}</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
 					<a name="isloud" class="tsd-anchor"></a>
 					<h3>is<wbr>Loud</h3>
@@ -259,7 +233,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#isloud">isLoud</a></p>
 						<ul>
-							<li>Defined in any.ts:61</li>
+							<li>Defined in any.ts:66</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -273,28 +247,6 @@
 						</dl>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="isolate" class="tsd-anchor"></a>
-					<h3>isolate</h3>
-					<div class="tsd-signature tsd-kind-icon">isolate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L315">loud.ts:315</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>P will wrap {this} in a nested parser construct.
-								It will apply {this} with an isolated parser state equal to the initial state. It will then return the value of {this}.
-							However, the isolated parser state of {this} will be lost, so you must extract any information through the return value.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>group</dt>
-							<dd><p>combinator special</p>
-							</dd>
-						</dl>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
 					<a name="not" class="tsd-anchor"></a>
 					<h3>not</h3>
@@ -302,7 +254,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#not">not</a></p>
 						<ul>
-							<li>Defined in any.ts:47</li>
+							<li>Defined in any.ts:51</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -312,6 +264,9 @@
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>combinator special</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
 							</dd>
 						</dl>
 					</div>
@@ -323,7 +278,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#q">q</a></p>
 						<ul>
-							<li>Defined in any.ts:40</li>
+							<li>Defined in any.ts:43</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -334,6 +289,9 @@
 							<dt>group</dt>
 							<dd><p>combinator projection optimizing</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -343,38 +301,19 @@
 					<div class="tsd-signature tsd-kind-icon">soft<span class="tsd-signature-symbol">:</span> <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L106">loud.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L109">loud.ts:109</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Returns a parser that will apply <code>this</code> and yield its result. If <code>this</code> fails hard or soft, the returned parser will fail softly.
-							In other words, the returned parser will convert hard failures into soft ones.</p>
+							<p>Returns a parser that will apply <code>this</code> and yield its result. It will convert hard failures by <code>this</code> to soft failures.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>combinator failure-recovery</p>
 							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-					<a name="splat" class="tsd-anchor"></a>
-					<h3>splat</h3>
-					<div class="tsd-signature tsd-kind-icon">splat<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.html#splat" class="tsd-signature-type">splat</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L166">loud.ts:166</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Can only be called if <code>this</code> yields an array of objects.
-							Returns a parser that will apply <code>this</code> and yield its results as a single object, by merging the properties of each object in the returned array.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>group</dt>
-							<dd><p>combinator projection</p>
+							<dt>fail-type</dt>
+							<dd><p>Always soft, unless <code>this</code> fails fatally</p>
 							</dd>
 						</dl>
 					</div>
@@ -386,7 +325,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#state">state</a></p>
 						<ul>
-							<li>Defined in any.ts:54</li>
+							<li>Defined in any.ts:59</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -396,6 +335,9 @@
 						<dl class="tsd-comment-tags">
 							<dt>group</dt>
 							<dd><p>combinator projection</p>
+							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
 							</dd>
 						</dl>
 					</div>
@@ -407,7 +349,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#str">str</a></p>
 						<ul>
-							<li>Defined in any.ts:76</li>
+							<li>Defined in any.ts:82</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -426,6 +368,9 @@
 							<dt>group</dt>
 							<dd><p>combinator projection optimizing</p>
 							</dd>
+							<dt>fail-type</dt>
+							<dd><p>As <code>this</code>.</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -443,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L220">loud.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L259">loud.ts:259</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -454,6 +399,12 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>See <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>ParjsStatic.seq</p>
 									</dd>
 								</dl>
 							</div>
@@ -477,7 +428,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L228">loud.ts:228</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L270">loud.ts:270</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -488,6 +439,12 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>See <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>ParjsStatic.seq</p>
 									</dd>
 								</dl>
 							</div>
@@ -514,7 +471,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L142">loud.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L154">loud.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -524,6 +481,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator projection</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code></p>
 									</dd>
 								</dl>
 							</div>
@@ -547,7 +507,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L136">loud.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L147">loud.ts:147</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -557,6 +517,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator projection</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code></p>
 									</dd>
 								</dl>
 							</div>
@@ -583,7 +546,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L251">loud.ts:251</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L298">loud.ts:298</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -593,6 +556,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential repetition</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Similarly to <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -609,6 +575,99 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
+					<a name="flatten" class="tsd-anchor"></a>
+					<h3>flatten</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">flatten&lt;T&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/parjs.html#nestedarray" class="tsd-signature-type">NestedArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L172">loud.ts:172</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Returns a parser that applies <code>this</code> and converts its result into a flattened array.</p>
+									<ul>
+										<li>If <code>this</code> yields a non-array <code>e</code>, returns <code>[e]</code>.</li>
+										<li>Otherwise, will recursively merge all nested array elements into a single array.</li>
+									</ul>
+								</div>
+								<p>Can be used to flatten a sequence of <code>.then</code> combinators, which can create deeply nested array structures.</p>
+								<p>In TypeScript, the element type <code>T</code> is not always inferrred to be the best possible type. For example, <code>flatten</code> may return a parser of the type
+								<code>LoudParser{(T | T[])[]}</code>, where this method actually always returns <code>LoudParser&lt;T[]&gt;</code>.</p>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator projection</p>
+									</dd>
+									<dt>example</dt>
+									<dd><p>let pArr = a.then(b).then(c).then(d).then(e); // pArr : LoudParser{[[[T, T], T], T], T]}, deeply nested array
+										let flat = pArr.flatten(); //flat : LoudParser{T[]}</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/parjs.html#nestedarray" class="tsd-signature-type">NestedArray</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
+					<a name="isolatestate" class="tsd-anchor"></a>
+					<h3>isolate<wbr>State</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">isolate<wbr>State<span class="tsd-signature-symbol">(</span>innerState<span class="tsd-signature-symbol">?: </span><a href="../modules/parjs_internal.html#userstate" class="tsd-signature-type">UserState</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#isolatestate">isolateState</a></p>
+								<ul>
+									<li>Defined in any.ts:94</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>This method will wrap <code>this</code> in a state isolation construct.
+										The returned parser will apply <code>this</code>, except that the current user state Fwill be replaced by a copy of <code>innerState</code>.
+									When the returned parser finishes, the previous user state will be restored.</p>
+								</div>
+								<p>Use this combinator to develop black-box parsers that utilize user state, without affecting or being affected by the user state of external parsers.</p>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator special</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> innerState: <a href="../modules/parjs_internal.html#userstate" class="tsd-signature-type">UserState</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 					<a name="many" class="tsd-anchor"></a>
 					<h3>many</h3>
@@ -619,16 +678,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L259">loud.ts:259</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L309">loud.ts:309</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Retursns a parser that will apply <code>this</code> repeatedly until it fails softly. The returned parser will yield all the results in an array.</p>
+									<p>Returns a parser that will apply <code>this</code> repeatedly until it fails softly. The returned parser will yield all the results in an array.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential repetition</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Hard if <code>this</code> succeeds less than <code>minSuccess</code> times.</p>
 									</dd>
 								</dl>
 							</div>
@@ -661,7 +723,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L288">loud.ts:288</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L344">loud.ts:344</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -672,6 +734,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential repetition</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Standard</p>
 									</dd>
 								</dl>
 							</div>
@@ -705,7 +770,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L268">loud.ts:268</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L321">loud.ts:321</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -716,6 +781,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential repetition</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Hard if <code>tillOptional</code> is false and <code>this</code> fails softly.</p>
 									</dd>
 								</dl>
 							</div>
@@ -739,7 +807,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L278">loud.ts:278</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L333">loud.ts:333</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -750,6 +818,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential repetition</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Hard if <code>tillOptional</code> is false and <code>this</code> fails softly.</p>
 									</dd>
 								</dl>
 							</div>
@@ -782,7 +853,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L129">loud.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L138">loud.ts:138</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -792,6 +863,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator projection</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code></p>
 									</dd>
 								</dl>
 							</div>
@@ -824,7 +898,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L113">loud.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L118">loud.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -834,6 +908,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>Hard if <code>this</code> fails hard.</p>
 									</dd>
 								</dl>
 							</div>
@@ -866,7 +943,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L177">loud.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L202">loud.ts:202</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -877,6 +954,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator assertion</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>, or with <code>fail</code> (default Hard)</p>
 									</dd>
 								</dl>
 							</div>
@@ -915,17 +995,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L185">loud.ts:185</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L212">loud.ts:212</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code> and yield its result. If it succeeds, the returned parser will check the result is not &quot;empty&quot;, where an empty result means one of the following: null, undefined, &quot;&quot;, [], {}.
-									If the result is empty, the returned parser will fail hard or according to the severity specified by <code>fail</code>.</p>
+									<p>Similar to <a href="parjs.loudparser.html#must">must</a>. Verifies that the result is non-empty, where an &#39;empty&#39; object is any of: null, undefined, &quot;&quot;, [], {}.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>must</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>combinator assertion</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>, or with <code>fail</code> (default Hard)</p>
 									</dd>
 								</dl>
 							</div>
@@ -952,17 +1037,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L194">loud.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L223">loud.ts:223</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code> and yield its result. If it succeeds, the returned parser will check the result is in <code>options</code>.
-									If it&#39;s not, the returned parser will fail hard or with the severity specified by <code>fail</code>.</p>
+									<p>Similar to <a href="parjs.loudparser.html#must">must</a>. Verifies that the result is in <code>options</code>.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator assertion</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>, or with <code>fail</code> (default Hard)</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>must</p>
 									</dd>
 								</dl>
 							</div>
@@ -995,17 +1085,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L211">loud.ts:211</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L245">loud.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser parser that will apply <code>this</code> and yield its result. If it succeeds, the returned parser will check <code>this</code> consumed at least one character of the input.
-									Otherwise, the returned parser will fail hard or according to the severity specified by <code>fail</code>.</p>
+									<p>Similar to <a href="parjs.loudparser.html#must">must</a>. Verifies that <code>this</code> captured some of the input.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator assertion</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>, or with <code>fail</code> (default hard).</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>must</p>
 									</dd>
 								</dl>
 							</div>
@@ -1032,17 +1127,22 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L203">loud.ts:203</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L234">loud.ts:234</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns a parser that will apply <code>this</code> and yield its result. If it succeeds, the returned parser will check the result is not in <code>options</code>.
-									Otherwise, the returned parser will fail hard or with the severity specified by <code>fail</code>.</p>
+									<p>Similar to <a href="parjs.loudparser.html#must">must</a>. Verifies that the result is NOT in <code>options</code>.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator assertion</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>, or with <code>fail</code>. Defaults to hard.</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>must</p>
 									</dd>
 								</dl>
 							</div>
@@ -1079,7 +1179,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L66">loud.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L55">loud.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1087,8 +1187,14 @@
 									<p>Returns a parser that will try to apply <code>this</code>. If <code>this</code> fails softly, the returned parser will apply <code>second</code>. The returned parser will yield the successful result.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>ParjsStatic.any</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As subparsers</p>
 									</dd>
 								</dl>
 							</div>
@@ -1112,7 +1218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L73">loud.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L66">loud.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1120,8 +1226,14 @@
 									<p>Similar to other overloads. The returned parser will try two parsers after this one.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>ParjsStatic.any</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As subparsers</p>
 									</dd>
 								</dl>
 							</div>
@@ -1154,7 +1266,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L82">loud.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L79">loud.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1162,8 +1274,14 @@
 									<p>Similar to the other overloads. The returned parser will try three parsers after this one.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>ParjsStatic.any</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As subparsers</p>
 									</dd>
 								</dl>
 							</div>
@@ -1205,7 +1323,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L92">loud.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L92">loud.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1213,8 +1331,14 @@
 									<p>Similar to other overloads. The returned parser will try four parsers after this one.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>ParjsStatic.any</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As subparsers</p>
 									</dd>
 								</dl>
 							</div>
@@ -1265,7 +1389,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L99">loud.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L101">loud.ts:101</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1273,6 +1397,9 @@
 									<p>The returned parser behaves like the other overloads, except that it will try a variable number of parsers specified in <code>parsers</code>.</p>
 								</div>
 								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>ParjsStatic.any</p>
+									</dd>
 									<dt>group</dt>
 									<dd><p>combinator failure-recovery alternatives</p>
 									</dd>
@@ -1301,7 +1428,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L57">loud.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L42">loud.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1344,7 +1471,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="parjs.anyparser.html">AnyParser</a>.<a href="parjs.anyparser.html#result">result</a></p>
 								<ul>
-									<li>Defined in any.ts:33</li>
+									<li>Defined in any.ts:35</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1354,6 +1481,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator projection optimizing</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -1377,6 +1507,325 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
+					<a name="splat" class="tsd-anchor"></a>
+					<h3>splat</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3, O4&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3, O4, O5&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3, O4, O5, O6&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3, O4, O5, O6, O7&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3, O4, O5, O6, O7, O8&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">splat&lt;O1, O2, O3, O4, O5, O6, O7, O8, O9&gt;<span class="tsd-signature-symbol">(</span>this<span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O9</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O9</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L181">loud.ts:181</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Can only be called on a parser that yields an array of objects.
+									Returns a parser that will merge all the objects returned by <code>this</code> and return the result.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>group</dt>
+									<dd><p>combinator projection</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <code>this</code></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L182">loud.ts:182</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L183">loud.ts:183</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L184">loud.ts:184</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+								<li>
+									<h4>O4</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L185">loud.ts:185</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+								<li>
+									<h4>O4</h4>
+								</li>
+								<li>
+									<h4>O5</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L186">loud.ts:186</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+								<li>
+									<h4>O4</h4>
+								</li>
+								<li>
+									<h4>O5</h4>
+								</li>
+								<li>
+									<h4>O6</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L187">loud.ts:187</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+								<li>
+									<h4>O4</h4>
+								</li>
+								<li>
+									<h4>O5</h4>
+								</li>
+								<li>
+									<h4>O6</h4>
+								</li>
+								<li>
+									<h4>O7</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L188">loud.ts:188</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+								<li>
+									<h4>O4</h4>
+								</li>
+								<li>
+									<h4>O5</h4>
+								</li>
+								<li>
+									<h4>O6</h4>
+								</li>
+								<li>
+									<h4>O7</h4>
+								</li>
+								<li>
+									<h4>O8</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L189">loud.ts:189</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>O1</h4>
+								</li>
+								<li>
+									<h4>O2</h4>
+								</li>
+								<li>
+									<h4>O3</h4>
+								</li>
+								<li>
+									<h4>O4</h4>
+								</li>
+								<li>
+									<h4>O5</h4>
+								</li>
+								<li>
+									<h4>O6</h4>
+								</li>
+								<li>
+									<h4>O7</h4>
+								</li>
+								<li>
+									<h4>O8</h4>
+								</li>
+								<li>
+									<h4>O9</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>this: <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">O9</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="parjs.loudparser.html" class="tsd-signature-type">LoudParser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">O1</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O2</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O3</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O4</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O5</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O6</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O7</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O8</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">O9</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
 					<a name="then" class="tsd-anchor"></a>
 					<h3>then</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
@@ -1391,19 +1840,28 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L239">loud.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L284">loud.ts:284</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>The <code>then</code> methods return a parser that will apply additional parsers immediately after this one.
-										If a parser is given and it is quiet, the returned parser will yield the value of this parser.
-										If the given parser is loud, the returned parser will yield the values of this parser and the given parser in an array.
-									If an array of loud and quiet parsers is given, the returned parser will yield the results of all loud parsers in an array.</p>
+									<p>Returns a parser that will apply <code>this</code>, and then immediately apply one or more following parsers.
+									It is similar to <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a>, but with a few differences.</p>
+									<ul>
+										<li>If only one parser is given, and it is quiet, then returned parser will yield the result of <code>this</code>.</li>
+										<li>If only one loud parser is given, the returned parser will yield the result of <code>this</code> and the other parser in an array.</li>
+										<li>If a mix of one or more quiet and loud parsers is given, will yield the results of all loud parsers in an array.</li>
+									</ul>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>See <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a></p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>ParjsStatic.seq</p>
 									</dd>
 								</dl>
 							</div>
@@ -1418,7 +1876,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L240">loud.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L285">loud.ts:285</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1438,7 +1896,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L241">loud.ts:241</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L286">loud.ts:286</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1458,7 +1916,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L242">loud.ts:242</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L287">loud.ts:287</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1481,7 +1939,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L243">loud.ts:243</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L288">loud.ts:288</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1507,7 +1965,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L244">loud.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L289">loud.ts:289</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1531,7 +1989,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L297">loud.ts:297</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L355">loud.ts:355</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1543,6 +2001,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -1587,7 +2048,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/loud.ts#L306">loud.ts:306</a></li>
+									<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/loud.ts#L366">loud.ts:366</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1599,6 +2060,9 @@
 								<dl class="tsd-comment-tags">
 									<dt>group</dt>
 									<dd><p>combinator sequential</p>
+									</dd>
+									<dt>fail-type</dt>
+									<dd><p>As <a href="parjs.parjsstatic.html#seq">ParjsStatic.seq</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -1653,9 +2117,6 @@
 					<li class="label tsd-is-external">
 						<span>Externals</span>
 					</li>
-					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
-						<a href="../modules/_common_common_.html">"common/common"</a>
-					</li>
 					<li class="current tsd-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html">parjs</a>
 					</li>
@@ -1704,14 +2165,8 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
 								<a href="parjs.loudparser.html#displayname" class="tsd-kind-icon">display<wbr>Name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="parjs.loudparser.html#flatten" class="tsd-kind-icon">flatten</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
 								<a href="parjs.loudparser.html#isloud" class="tsd-kind-icon">is<wbr>Loud</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="parjs.loudparser.html#isolate" class="tsd-kind-icon">isolate</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
 								<a href="parjs.loudparser.html#not" class="tsd-kind-icon">not</a>
@@ -1721,9 +2176,6 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 								<a href="parjs.loudparser.html#soft" class="tsd-kind-icon">soft</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
-								<a href="parjs.loudparser.html#splat" class="tsd-kind-icon">splat</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
 								<a href="parjs.loudparser.html#state" class="tsd-kind-icon">state</a>
@@ -1742,6 +2194,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 								<a href="parjs.loudparser.html#exactly" class="tsd-kind-icon">exactly</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
+								<a href="parjs.loudparser.html#flatten" class="tsd-kind-icon">flatten</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited tsd-is-external">
+								<a href="parjs.loudparser.html#isolatestate" class="tsd-kind-icon">isolate<wbr>State</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 								<a href="parjs.loudparser.html#many" class="tsd-kind-icon">many</a>
@@ -1781,6 +2239,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-inherited tsd-is-external">
 								<a href="parjs.loudparser.html#result" class="tsd-kind-icon">result</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
+								<a href="parjs.loudparser.html#splat" class="tsd-kind-icon">splat</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter tsd-is-external">
 								<a href="parjs.loudparser.html#then" class="tsd-kind-icon">then</a>
@@ -1836,15 +2297,6 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external">
 						<a href="../modules/parjs.html#parjs-1" class="tsd-kind-icon">Parjs</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#convertiblesymbol" class="tsd-kind-icon">convertible<wbr>Symbol</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#flatten" class="tsd-kind-icon">flatten</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter tsd-is-private tsd-is-external">
-						<a href="../modules/parjs.html#splat" class="tsd-kind-icon">splat</a>
 					</li>
 				</ul>
 			</nav>

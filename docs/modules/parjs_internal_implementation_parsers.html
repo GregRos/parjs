@@ -68,6 +68,9 @@
 		<div class="col-8 col-content">
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Implementations of individual building-block parsers.</p>
+					</div>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -86,6 +89,7 @@
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsint.html" class="tsd-kind-icon">Prs<wbr>Int</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsnewline.html" class="tsd-kind-icon">Prs<wbr>Newline</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsposition.html" class="tsd-kind-icon">Prs<wbr>Position</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsputstate.html" class="tsd-kind-icon">Prs<wbr>Put<wbr>State</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsregexp.html" class="tsd-kind-icon">Prs<wbr>Regexp</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsrest.html" class="tsd-kind-icon">Prs<wbr>Rest</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-external"><a href="../classes/parjs_internal_implementation_parsers.prsresult.html" class="tsd-kind-icon">Prs<wbr>Result</a></li>
@@ -106,14 +110,6 @@
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-external"><a href="parjs_internal_implementation_parsers.html#parselets" class="tsd-kind-icon">Parselets</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="parjs_internal_implementation_parsers.html#msgexponentsign" class="tsd-kind-icon">msg<wbr>Exponent<wbr>Sign</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="parjs_internal_implementation_parsers.html#msgoneormoredigits" class="tsd-kind-icon">msg<wbr>One<wbr>OrMore<wbr>Digits</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-external tsd-is-not-exported">
-							<h3>Object literals</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported"><a href="parjs_internal_implementation_parsers.html#defaultfloatoptions" class="tsd-kind-icon">default<wbr>Float<wbr>Options</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,82 +123,9 @@
 					<div class="tsd-signature tsd-kind-icon">Parselets<span class="tsd-signature-symbol">:</span> <a href="../classes/parjs_internal_implementation_parsers.parseletstype.html" class="tsd-signature-type">ParseletsType</a><span class="tsd-signature-symbol"> =&nbsp;new ParseletsType()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/parselets.ts#L45">internal/implementation/parsers/numbers/parselets.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/da791b5/src/lib/internal/implementation/parsers/numbers/parselets.ts#L45">internal/implementation/parsers/numbers/parselets.ts:45</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-					<a name="msgexponentsign" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> msg<wbr>Exponent<wbr>Sign</h3>
-					<div class="tsd-signature tsd-kind-icon">msg<wbr>Exponent<wbr>Sign<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"exponent sign (+ or -)"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;exponent sign (+ or -)&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L32">internal/implementation/parsers/numbers/float.ts:32</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-					<a name="msgoneormoredigits" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> msg<wbr>One<wbr>OrMore<wbr>Digits</h3>
-					<div class="tsd-signature tsd-kind-icon">msg<wbr>One<wbr>OrMore<wbr>Digits<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"one or more digits"</span><span class="tsd-signature-symbol"> =&nbsp;&quot;one or more digits&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L31">internal/implementation/parsers/numbers/float.ts:31</a></li>
-						</ul>
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-external tsd-is-not-exported">
-				<h2>Object literals</h2>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-					<a name="defaultfloatoptions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> default<wbr>Float<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">default<wbr>Float<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L24">internal/implementation/parsers/numbers/float.ts:24</a></li>
-						</ul>
-					</aside>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external tsd-is-not-exported">
-						<a name="defaultfloatoptions.allowexponent" class="tsd-anchor"></a>
-						<h3>allow<wbr>Exponent</h3>
-						<div class="tsd-signature tsd-kind-icon">allow<wbr>Exponent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L25">internal/implementation/parsers/numbers/float.ts:25</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external tsd-is-not-exported">
-						<a name="defaultfloatoptions.allowfloatingpoint" class="tsd-anchor"></a>
-						<h3>allow<wbr>Floating<wbr>Point</h3>
-						<div class="tsd-signature tsd-kind-icon">allow<wbr>Floating<wbr>Point<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L28">internal/implementation/parsers/numbers/float.ts:28</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external tsd-is-not-exported">
-						<a name="defaultfloatoptions.allowimplicitzero" class="tsd-anchor"></a>
-						<h3>allow<wbr>Implicit<wbr>Zero</h3>
-						<div class="tsd-signature tsd-kind-icon">allow<wbr>Implicit<wbr>Zero<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L27">internal/implementation/parsers/numbers/float.ts:27</a></li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external tsd-is-not-exported">
-						<a name="defaultfloatoptions.allowsign" class="tsd-anchor"></a>
-						<h3>allow<wbr>Sign</h3>
-						<div class="tsd-signature tsd-kind-icon">allow<wbr>Sign<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> =&nbsp;true</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/GregRos/parjs/blob/34c8194/src/lib/internal/implementation/parsers/numbers/float.ts#L26">internal/implementation/parsers/numbers/float.ts:26</a></li>
-							</ul>
-						</aside>
-					</section>
 				</section>
 			</section>
 		</div>
@@ -214,9 +137,6 @@
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-private tsd-is-external">
-						<a href="_common_common_.html">"common/common"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="parjs.html">parjs</a>
@@ -271,6 +191,9 @@
 						<a href="../classes/parjs_internal_implementation_parsers.prsposition.html" class="tsd-kind-icon">Prs<wbr>Position</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
+						<a href="../classes/parjs_internal_implementation_parsers.prsputstate.html" class="tsd-kind-icon">Prs<wbr>Put<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
 						<a href="../classes/parjs_internal_implementation_parsers.prsregexp.html" class="tsd-kind-icon">Prs<wbr>Regexp</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
@@ -299,15 +222,6 @@
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external">
 						<a href="parjs_internal_implementation_parsers.html#parselets" class="tsd-kind-icon">Parselets</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="parjs_internal_implementation_parsers.html#msgexponentsign" class="tsd-kind-icon">msg<wbr>Exponent<wbr>Sign</a>
-					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="parjs_internal_implementation_parsers.html#msgoneormoredigits" class="tsd-kind-icon">msg<wbr>One<wbr>OrMore<wbr>Digits</a>
-					</li>
-					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-external tsd-is-not-exported">
-						<a href="parjs_internal_implementation_parsers.html#defaultfloatoptions" class="tsd-kind-icon">default<wbr>Float<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>
