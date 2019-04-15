@@ -42,7 +42,9 @@ export interface Trace {
 }
 
 export class FailureReply {
+    reason : string;
     constructor(public trace: Trace) {
+        this.reason = trace.reason;
 
     }
 
@@ -58,6 +60,8 @@ export class FailureReply {
         return Parjs.visualizer(this.trace);
     }
 }
+
+
 
 /**
  * A type that represents a SuccessReply or a FailureReply. Returned by parsers.

@@ -1,14 +1,14 @@
 import execa = require("execa");
 import globby = require("globby");
-import {createProgram, ModuleKind, ScriptTarget} from "typescript";
 import path = require("path");
 import fs = require("mz/fs");
-import sm = require("source-map");
+import mkdirp = require("mkdirp-promise");
+import {createProgram, ModuleKind, ScriptTarget, getPreEmitDiagnostics, flattenDiagnosticMessageText} from "typescript";
 import {RawSourceMap} from "source-map";
 import * as assert from "assert";
-import mkdirp = require("mkdirp-promise");
+
 async function copyFileAsync(src, dest) {
-    return new Promise((rs,rj) => {
+    return new Promise((rs, rj) => {
         fs.copyFile(src, dest, err => {
             if (err) rj(err);
             rs();
@@ -18,22 +18,42 @@ async function copyFileAsync(src, dest) {
 
 async function run() {
     await execa.shell("rm -rf .tmp/publish/");
-    let program = createProgram({
-        options: {
-            module: ModuleKind.CommonJS,
-            target: ScriptTarget.ES2015,
-            noImplicitAny: true,
-            sourceMap: true,
-            allowUnreachableCode: true,
-            lib: ["es6"],
-            declaration: true,
-            rootDir: "src/lib",
-            outDir: ".tmp/publish",
-        },
-        rootNames: globby.sync("src/lib/**/*.ts")
-    });
-    program.emit()
     await execa.shell("mkdir -p .tmp/publish/src");
+
+    let program = createProgram(globby.sync("src/lib/**/*.ts"), {
+        module: ModuleKind.CommonJS,
+        target: ScriptTarget.ES2015,
+        noImplicitAny: false,
+        sourceMap: true,
+        allowUnreachableCode: true,
+        lib: ["lib.es2015.d.ts"],
+        declaration: true,
+        rootDir: "src/lib",
+        outDir: ".tmp/publish",
+    });
+    let res = program.emit()
+    let allDiagnostics =
+        getPreEmitDiagnostics(program)
+        .concat(res.diagnostics);
+
+    allDiagnostics.forEach(diagnostic => {
+        if (diagnostic.file) {
+            let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(
+                diagnostic.start!
+            );
+            let message = flattenDiagnosticMessageText(
+                diagnostic.messageText,
+                "\n"
+            );
+            console.log(
+                `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`
+            );
+        } else {
+            console.log(
+                `${flattenDiagnosticMessageText(diagnostic.messageText, "\n")}`
+            );
+        }
+    });
     let copyExtras = await globby(["package.json", "LICENSE.md", "README.md"]).then(misc => {
         return Promise.all(misc.map(cur => {
             return copyFileAsync(cur, path.join(`.tmp/publish/${path.basename(cur)}`));
@@ -41,7 +61,8 @@ async function run() {
     });
 
 
-    let copySources = await globby("src/lib/**/*.ts").then(async sources => {;
+    let copySources = await globby("src/lib/**/*.ts").then(async sources => {
+        ;
         return Promise.all(sources.map(async cur => {
             let rel = path.relative("src/lib", cur);
             let targetFile = path.join(".tmp/publish/src", rel);
@@ -54,7 +75,7 @@ async function run() {
 
     let sourceMaps = await globby(".tmp/publish/**/*.map").then(maps => {
         return Promise.all(maps.map(async map => {
-            let text = await fs.readFile(map, {encoding : "utf8"});
+            let text = await fs.readFile(map, {encoding: "utf8"});
             let json = JSON.parse(text) as RawSourceMap;
             let relToRoot = path.relative(".tmp/publish", map);
             let sourcePath = path.join(".tmp/publish/src", relToRoot);
@@ -67,7 +88,7 @@ async function run() {
                 relTsFile
             ];
             let text2 = JSON.stringify(json);
-            await fs.writeFile(map, text2, {encoding:"utf8"});
+            await fs.writeFile(map, text2, {encoding: "utf8"});
 
         }))
     });

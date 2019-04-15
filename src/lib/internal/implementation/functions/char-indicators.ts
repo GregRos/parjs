@@ -17,7 +17,7 @@ export namespace Codes {
     export const maxAnsi = 0xff;
     export const carriageReturn = "\r".charCodeAt(0);
     export const space = 0x0020;
-    export const tab = 0x0008;
+    export const tab = 0x0009;
     export const minus = "-".charCodeAt(0);
     export const plus = "+".charCodeAt(0);
     export const decimalPoint = ".".charCodeAt(0);
