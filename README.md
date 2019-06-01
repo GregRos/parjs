@@ -42,7 +42,7 @@ You can see implementations of example parsers in the `examples` folder:
 
 1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/src/examples/tuple.ts) 
 2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/src/examples/string.format.ts) 
-3. [JSON parser](https://github.com/GregRos/parjs/blob/master/examples/src/json.ts)
+3. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
 4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
 
 ## What's a parser-combinator library?
