@@ -18,7 +18,7 @@ export class PrsInverse extends ParjsAction {
     constructor(private _inner: AnyParserAction) {
         super();
         this.expecting = `not: ${_inner.expecting}`;
-    };
+    }
 
     _apply(ps: ParsingState) {
         let {_inner} = this;

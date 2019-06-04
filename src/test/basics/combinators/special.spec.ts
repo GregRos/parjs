@@ -18,6 +18,6 @@ describe("special combinators", () => {
             let parseHi = Parjs.string("hi");
             let redundantParser = parseHi.backtrack.then("his");
             expectSuccess(redundantParser.parse("his"), ["hi", "his"]);
-        })
+        });
     });
 });

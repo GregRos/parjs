@@ -90,7 +90,7 @@ export abstract class ParjsAction implements AnyParserAction {
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
         if (ps.kind === ReplyKind.Unknown) {
-            throw new ParserDefinitionError(this.displayName, "the State's kind field must be set")
+            throw new ParserDefinitionError(this.displayName, "the State's kind field must be set");
         }
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
@@ -100,7 +100,7 @@ export abstract class ParjsAction implements AnyParserAction {
             ps.value = QUIET_RESULT;
         } else {
             if (ps.value === UNINITIALIZED_RESULT) {
-                throw new ParserDefinitionError(this.displayName, "a loud parser must set the State's return value if it succeeds.")
+                throw new ParserDefinitionError(this.displayName, "a loud parser must set the State's return value if it succeeds.");
             }
         }
 

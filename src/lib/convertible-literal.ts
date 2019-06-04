@@ -19,14 +19,14 @@ export const convertibleSymbol = Symbol("ParjsConvertibleLiteral");
  * A literal type which is implicitly convertible to a parser.
  * This normally includes the `string` and `RegExp` types.
  */
-export type ConvertibleLiteral<T> = {
-    [convertibleSymbol](): LoudParser<T>
+export interface ConvertibleLiteral<T> {
+    [convertibleSymbol](): LoudParser<T>;
 
 }
 
 declare global {
     interface String {
-        [convertibleSymbol](): LoudParser<string>
+        [convertibleSymbol](): LoudParser<string>;
     }
 
     interface RegExp {

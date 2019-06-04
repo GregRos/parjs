@@ -20,7 +20,7 @@ export interface ParjsProjectionQuiet<T> {
  * A predicate over the user state, for parsers that don't produce results.
  * @see {@link ParjsPredicate}
  */
-export type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>
+export type ParjsPredicateQuiet = ParjsProjectionQuiet<boolean>;
 
 /**
  * Interface for parsers that don't produce return values.

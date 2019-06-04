@@ -16,9 +16,9 @@ export class PrsMaybe extends ParjsAction {
     constructor(private _inner: AnyParserAction, private _val: any) {
         super();
         if (_val !== QUIET_RESULT && !_inner.isLoud) {
-            throw new ParserDefinitionError("altVal", "the inner parser must be loud if an alternative value is supplied.")
+            throw new ParserDefinitionError("altVal", "the inner parser must be loud if an alternative value is supplied.");
         } else if (_inner.isLoud && _val === QUIET_RESULT) {
-            throw new ParserDefinitionError("altVal", "the inner parser must be quiet if an alternative value is not supplied.")
+            throw new ParserDefinitionError("altVal", "the inner parser must be quiet if an alternative value is not supplied.");
         }
         this.isLoud = _inner.isLoud;
 

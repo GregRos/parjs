@@ -27,7 +27,7 @@ export interface ParjsStaticHelper {
  */
 export type ParserSpecification<Obj extends Record<string, any>> = {
     [key in keyof Obj]: ImplicitLoudParser<Obj[key]>
-}
+};
 
 /**
  * Namespace for static combinators and building-block parsers.
@@ -265,7 +265,7 @@ export interface ParjsStatic {
      * @group basic-parser numeric
      * @fail-type Softly usually, but hard for some malformed inputs, like 1.0e+.
      */
-    float(options ?: FloatOptions): LoudParser<number>
+    float(options ?: FloatOptions): LoudParser<number>;
 
     /**
      * Returns a parser that will succeed without consuming input and yield the given value.

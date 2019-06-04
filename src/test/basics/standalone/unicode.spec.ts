@@ -59,7 +59,7 @@ describe("unicode strings", () => {
         });
         it("fails on digit", () => {
             expectFailure(pu.parse("4"), ReplyKind.SoftFail);
-        })
+        });
     });
 
     describe("uniLower", () => {
@@ -87,7 +87,7 @@ describe("unicode strings", () => {
             expectSuccess(ps.parse("\t"), "\t");
         });
         it("succeeds on em space", () => {
-            expectSuccess(ps.parse(" "), " ");
+            expectSuccess(ps.parse(" "), " ");
         });
         it("fails on newline", () => {
             expectFailure(ps.parse("\n"), ReplyKind.SoftFail);
@@ -95,5 +95,5 @@ describe("unicode strings", () => {
         it("fails on letter", () => {
             expectFailure(ps.parse("f"), ReplyKind.SoftFail);
         });
-    })
+    });
 });

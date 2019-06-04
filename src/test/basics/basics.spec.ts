@@ -23,11 +23,11 @@ describe("basics: anyChar example", () => {
 
     describe("resolve", () => {
         it("throws", () => {
-            expect(() => parser.parse("").value).toThrow()
+            expect(() => parser.parse("").value).toThrow();
         });
         it("doesn't throw", () => {
             expect(parser.parse("a").value).toBe("a");
-        })
+        });
     });
 
     describe("non-string inputs", () => {

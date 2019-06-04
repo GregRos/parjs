@@ -18,7 +18,7 @@ async function run() {
     await execa.shell("rm -rf docs/");
     app.converter.addComponent("test", ParjsCustomizationPlugin);
 
-    app.generateDocs(files, "docs")
+    app.generateDocs(files, "docs");
 }
 
 run();

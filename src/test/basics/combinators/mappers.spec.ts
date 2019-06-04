@@ -28,7 +28,7 @@ describe("map combinators", () => {
         });
         it("fails on failure", () => {
             expectFailure(parser.parse(badInput));
-        })
+        });
     });
 
     describe("cast", () => {
@@ -38,7 +38,7 @@ describe("map combinators", () => {
         });
         it("fails on failure", () => {
             expectFailure(parser.parse(badInput));
-        })
+        });
     });
 
     describe("quiet", () => {
@@ -91,7 +91,7 @@ describe("map combinators", () => {
         it("object", () => {
             let p = Parjs.result({}).str;
             expectSuccess(p.parse(""), {}.toString());
-        })
+        });
     });
 
     describe("each", () => {
@@ -108,5 +108,5 @@ describe("map combinators", () => {
             expectFailure(p.parse("d"), "Soft");
             expect(tally).toBe("ab");
         });
-    })
+    });
 });

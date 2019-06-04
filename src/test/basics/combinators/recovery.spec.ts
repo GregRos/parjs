@@ -92,7 +92,7 @@ describe("or val combinator", () => {
     it("falsy alt value", () => {
         let result = p2.parse("b");
         expectSuccess(result, [0, "b"]);
-    })
+    });
 });
 
 describe("not combinator", () => {

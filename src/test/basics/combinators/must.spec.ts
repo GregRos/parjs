@@ -17,7 +17,7 @@ describe("must combinators", () => {
         });
         it("fails accordingly if it doesn't match the condition", () => {
             expectFailure(parser.parse("abd"), ReplyKind.FatalFail);
-        })
+        });
     });
 
     describe("mustBeOf", () => {

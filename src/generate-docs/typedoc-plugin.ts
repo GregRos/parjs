@@ -27,7 +27,7 @@ export class ParjsCustomizationPlugin extends ConverterComponent {
             if (remove) {
                 CommentPlugin.removeReflection(context.project, x);
             }
-        })
+        });
 
 
     }

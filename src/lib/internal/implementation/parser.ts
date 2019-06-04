@@ -82,8 +82,8 @@ export abstract class BaseParjsParser {
                 userState: ps.userState,
                 position: ps.position,
                 reason: ps.expecting,
-                input: input,
-                location: location,
+                input,
+                location,
                 stackTrace: ps.stack,
                 kind: ps.kind
             };

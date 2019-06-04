@@ -31,7 +31,7 @@ export namespace Codes {
 
     export function isDigit(code: number, base = 10) {
         if (base <= 10) {
-            return isBetween(code, zero, zero + base - 1)
+            return isBetween(code, zero, zero + base - 1);
         }
         if (base <= 37) {
             return isBetween(code, zero, nine) || isBetween(code, a, a + base - 11) || isBetween(code, A, A + base - 11);
@@ -53,7 +53,7 @@ export namespace Codes {
     }
 }
 
-export module AsciiCodeInfo {
+export namespace AsciiCodeInfo {
     export function isAscii(code: number) {
         return code >= 0 && code <= Codes.maxAnsi;
     }
@@ -99,7 +99,7 @@ export module AsciiCodeInfo {
     }
 }
 
-export module AsciiCharInfo {
+export namespace AsciiCharInfo {
     export function isAscii(code: string) {
         return AsciiCodeInfo.isAscii(code.charCodeAt(0));
     }

@@ -15,7 +15,7 @@ export class PrsCharWhere extends ParjsBasicAction {
     isLoud = true;
     expecting: string;
 
-    constructor(private _predicate: ParjsProjection<string, boolean>, expecting: string = "(some property)") {
+    constructor(private _predicate: ParjsProjection<string, boolean>, expecting = "(some property)") {
         super();
         this.expecting = `a char matching: ${expecting}`;
     }

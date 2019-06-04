@@ -12,10 +12,10 @@ export {ParjsStatic};
 export {UserState} from "./internal/implementation/state";
 export {LoudParser} from "./loud";
 export {QuietParser} from "./quiet";
-export {ParjsParsingFailure} from "./errors"
+export {ParjsParsingFailure} from "./errors";
 export {AnyParser} from "./any";
 export {ReplyKind, Reply, QuietReply} from "./reply";
-export {ConvertibleLiteral, ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal"
+export {ConvertibleLiteral, ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
 /**
  * The central API of the parjs library. Contains building block parsers and static combinators.

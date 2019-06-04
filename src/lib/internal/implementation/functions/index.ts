@@ -7,4 +7,4 @@
 export {Codes} from "./char-indicators";
 export {StringHelpers} from "./helpers";
 export {FastMath} from "./math";
-export {Predicates} from "./predicates"
+export {Predicates} from "./predicates";

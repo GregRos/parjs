@@ -16,7 +16,7 @@ export class PrsLate extends ParjsAction {
 
     constructor(private _resolver: () => AnyParserAction, public isLoud: boolean) {
         super();
-    };
+    }
 
     _apply(ps: ParsingState) {
         if (!this._resolved) {

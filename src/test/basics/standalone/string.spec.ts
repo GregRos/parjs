@@ -40,7 +40,7 @@ describe("basic string parsers", () => {
         });
         it("succeeds on multiple spaces", () => {
             expectSuccess(parser.parse(Es6.strRepeat(" ", 5)), Es6.strRepeat(" ", 5));
-        })
+        });
     });
 
     describe("Parjs.upper", () => {
@@ -97,7 +97,7 @@ describe("basic string parsers", () => {
         });
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
-        })
+        });
     });
 
     describe("Parjs.noCharOf[abcd]", () => {
@@ -124,7 +124,7 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fail", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail)
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("fail too long", () => {
             expectFailure(parser.parse(`${success}1`), ReplyKind.SoftFail);
@@ -143,7 +143,7 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success2), success2);
         });
         it("fail", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail)
+            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("fail too long", () => {
             expectFailure(parser.parse(`${success2}1`), ReplyKind.SoftFail);
@@ -162,7 +162,7 @@ describe("basic string parsers", () => {
         let allNewlines = "\r\r\n\n\u0085\u2028\u2029";
 
         it("success unix newline", () => {
-            expectSuccess(parser.parse(unix), unix)
+            expectSuccess(parser.parse(unix), unix);
         });
         it("success windows newline", () => {
             expectSuccess(parser.parse(winNewline), winNewline);
@@ -202,7 +202,7 @@ describe("basic string parsers", () => {
         });
         it("success on empty input", () => {
             expectSuccess(parser.parse(empty));
-        })
+        });
     });
 
     describe("Parjs.stringLen(3)", () => {
@@ -256,5 +256,5 @@ describe("basic string parsers", () => {
                 expectSuccess(parser2.parse("abcde"));
             });
         });
-    })
+    });
 });

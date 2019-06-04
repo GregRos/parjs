@@ -16,7 +16,7 @@ export class PrsIsolate extends ParjsAction {
 
     constructor(private _inner: AnyParserAction, private _isoState: UserState) {
         super();
-    };
+    }
 
     _apply(ps: ParsingState) {
         let state = ps.userState;

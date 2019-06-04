@@ -57,7 +57,7 @@ export const ConditionalUnicode = new class InfoContainer {
         if (!this._codeInfo) {
             throw new NoUnicodeError();
         }
-        return this._codeInfo
+        return this._codeInfo;
     }
 
     set CodeInfo(info) {
@@ -103,7 +103,7 @@ export class ParjsParsers implements ParjsStatic {
     }
 
     get letter() {
-        return this.charWhere(AsciiCharInfo.isLetter).withName("letter")
+        return this.charWhere(AsciiCharInfo.isLetter).withName("letter");
     }
 
     get anyChar() {
@@ -203,7 +203,7 @@ export class ParjsParsers implements ParjsStatic {
                 obj[keys[i]] = arr[i];
             }
             return obj;
-        })
+        });
     }
 
     late<T>(resolver: () => LoudParser<T>): LoudParser<T> {

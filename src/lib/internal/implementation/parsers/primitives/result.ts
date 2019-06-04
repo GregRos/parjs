@@ -15,7 +15,7 @@ export class PrsResult extends ParjsBasicAction {
     expecting = "anything";
 
     constructor(private _result: any) {
-        super()
+        super();
     }
 
     _apply(ps: ParsingState) {

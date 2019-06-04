@@ -344,7 +344,7 @@ export interface LoudParser<T> extends AnyParser {
      * @group combinator sequential repetition
      * @fail-type Hard if `tillOptional` is false and `this` fails softly.
      */
-    manyTill(till: ParjsPredicate<T>, tillOptional ?: boolean): LoudParser<T[]>
+    manyTill(till: ParjsPredicate<T>, tillOptional ?: boolean): LoudParser<T[]>;
 
     /**
      * Returns a parser that will apply `this` and then `delimeter` repeatedly, until either fails softly. It returns all the results of `this`.
@@ -366,7 +366,7 @@ export interface LoudParser<T> extends AnyParser {
      *
      * @fail-type As {@link ParjsStatic.seq}.
      */
-    thenChoose<TParser extends ImplicitLoudParser<any>>(selector: (value: T, state: UserState) => TParser): TParser
+    thenChoose<TParser extends ImplicitLoudParser<any>>(selector: (value: T, state: UserState) => TParser): TParser;
 
     /**
      * Returns a parser that will apply `this`, and then call the selector function with the result of its result. The function returns another parser.
@@ -377,7 +377,7 @@ export interface LoudParser<T> extends AnyParser {
      *
      * @fail-type As {@link ParjsStatic.seq}.
      */
-    thenChoose<TParser extends QuietParser>(selector: (value: T, state: UserState) => TParser): TParser
+    thenChoose<TParser extends QuietParser>(selector: (value: T, state: UserState) => TParser): TParser;
 
 
 }

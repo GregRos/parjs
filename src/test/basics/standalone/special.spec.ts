@@ -26,7 +26,7 @@ describe("special parsers", () => {
         it("chain multiple EOF succeeds", () => {
             let parser2 = parser.then(Parjs.eof);
             expectSuccess(parser2.parse(""), undefined);
-        })
+        });
     });
 
     describe("Parjs.state", () => {
@@ -50,7 +50,7 @@ describe("special parsers", () => {
         it("fails on non-empty input", () => {
             let result = parser.parse("abc");
             expectFailure(result);
-        })
+        });
     });
 
     describe("Parjs.result(x)", () => {
@@ -61,7 +61,7 @@ describe("special parsers", () => {
         });
         it("fails on non-empty input", () => {
             expectFailure(parser.parse("a"));
-        })
+        });
     });
 
     describe("Parjs.fail", () => {
@@ -83,7 +83,7 @@ describe("special parsers", () => {
         });
         it("fails on input", () => {
             expectFailure(parser.parse(" "), "Soft");
-        })
+        });
     });
 
     describe("Parjs.late", () => {
@@ -103,6 +103,6 @@ describe("special parsers", () => {
 
         it("fail", () => {
             expectFailure(parser.parse(""), "Soft");
-        })
-    })
+        });
+    });
 });

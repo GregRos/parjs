@@ -28,5 +28,3 @@ export class PrsProject extends ParjsAction {
     }
 }
 
-
-

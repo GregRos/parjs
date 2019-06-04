@@ -42,7 +42,7 @@ export interface Trace {
 }
 
 export class FailureReply {
-    reason : string;
+    reason: string;
     constructor(public trace: Trace) {
         this.reason = trace.reason;
 
@@ -60,7 +60,6 @@ export class FailureReply {
         return Parjs.visualizer(this.trace);
     }
 }
-
 
 
 /**

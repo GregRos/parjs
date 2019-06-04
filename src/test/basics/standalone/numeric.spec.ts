@@ -78,7 +78,7 @@ describe("numeric parsers", () => {
                 expectSuccess(parser.parse("5.e+2"), 5.e+2);
             });
             it("integer with negative exponent", () => {
-                expectSuccess(parser.parse("52e-12"), 52e-12)
+                expectSuccess(parser.parse("52e-12"), 52e-12);
             });
             it("fails soft on dot", () => {
                 expectFailure(parser.parse("."), ReplyKind.SoftFail);
@@ -107,7 +107,7 @@ describe("numeric parsers", () => {
             });
             it("fails when E appears without exponent", () => {
                 expectFailure(parser.parse("1.0e"), "Hard");
-            })
+            });
         });
         describe("no sign", () => {
             let parser = Parjs.float({
@@ -169,5 +169,5 @@ describe("numeric parsers", () => {
                 expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", {x: 12}));
             });
         });
-    })
+    });
 });

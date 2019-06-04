@@ -8,7 +8,7 @@ export {PrsStringOf} from "./string/string-of";
 export {PrsString} from "./string/string";
 export {PrsRest} from "./string/rest";
 export {PrsStringLen} from "./string/string-len";
-export {PrsResult} from "./primitives/result"
+export {PrsResult} from "./primitives/result";
 export {PrsEof} from "./primitives/eof";
 export {PrsFail} from "./primitives/fail";
 export {PrsNewline} from "./string/newline";

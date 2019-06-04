@@ -21,7 +21,7 @@ const defaultArgs: BasicTraceVisualizerArgs = {
 };
 
 export function BasicTraceVisualizer(args: BasicTraceVisualizerArgs = defaultArgs) {
-    let func = function (trace: Trace) {
+    let func = function(trace: Trace) {
         let rows = trace.input.split(/\r\n|\n|\r/g);
         let locRow = trace.location.row;
         let around = args.linesBefore;

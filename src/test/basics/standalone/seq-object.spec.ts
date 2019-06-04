@@ -40,7 +40,7 @@ describe("seq object", () => {
     });
 
     describe("two", () => {
-        let p = Parjs.seqObject(spec1, spec2)
+        let p = Parjs.seqObject(spec1, spec2);
         p = p.each(x => {
             x.a.toUpperCase();
             x.b.toUpperCase();
@@ -55,7 +55,7 @@ describe("seq object", () => {
         let p = Parjs.seqObject(spec1, spec2, spec3);
         it("yes", () => {
             expectSuccess(p.parse("abcdd"), {a: "d", b: "b", c: "c", d: "d"});
-        })
-    })
+        });
+    });
 
 });

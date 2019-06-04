@@ -98,7 +98,7 @@ describe("sequential combinators", () => {
 
             it("fails on excess input", () => {
                 expectFailure(parser.parse("a"), ReplyKind.SoftFail);
-            })
+            });
         });
     });
 
@@ -151,7 +151,7 @@ describe("sequential combinators", () => {
                     Math.log(x[1]);
                     x[0].toUpperCase();
                     x[2].map(x => x.toUpperCasfe());
-                    x[3] === true;
+                    x[3];
                 });
                 expectSuccess(p.parse("abcd"), ["a", 1, [], true]);
             });
@@ -164,7 +164,7 @@ describe("sequential combinators", () => {
                 });
                 let res = "a".repeat(8);
                 expectSuccess(p.parse("a".repeat(8)), "a".repeat(5).split(""));
-            })
+            });
         });
 
         describe("this: quiet", () => {
@@ -189,7 +189,7 @@ describe("sequential combinators", () => {
                     r[0].toUpperCase();
                     r[1].toExponential();
                 });
-                expectSuccess(p.parse("aaa"), ["a", 1])
+                expectSuccess(p.parse("aaa"), ["a", 1]);
             });
 
             it("loud ×3", () => {
@@ -209,10 +209,10 @@ describe("sequential combinators", () => {
                 });
                 let res = "a".repeat(8);
                 expectSuccess(p.parse("a".repeat(8)), "a".repeat(4).split(""));
-            })
+            });
 
 
-        })
+        });
 
     });
 
@@ -229,11 +229,11 @@ describe("sequential combinators", () => {
                 expectSuccess(parser.parse("ab"), ["ab"]);
             });
             it("success on N matches", () => {
-                expectSuccess(parser.parse("ababab"), ["ab", "ab", "ab"])
+                expectSuccess(parser.parse("ababab"), ["ab", "ab", "ab"]);
             });
             it("chains to EOF correctly", () => {
                 let endEof = parser.then(Parjs.eof);
-                expectSuccess(endEof.parse("abab"), ["ab", "ab"])
+                expectSuccess(endEof.parse("abab"), ["ab", "ab"]);
             });
             it("fails hard when many fails hard", () => {
                 let parser2 = Parjs.fail("", "Hard").many();
@@ -281,8 +281,8 @@ describe("sequential combinators", () => {
             let parser = fstLoud.q.many();
             it("succeeds without a value", () => {
                 expectSuccess(parser.parse("abab"), undefined);
-            })
-        })
+            });
+        });
     });
 
     describe("exactly combinator", () => {
@@ -308,7 +308,7 @@ describe("sequential combinators", () => {
         it("works with max iterations", () => {
             let parser2 = fstLoud.manySepBy(", ", 2);
             let parser3 = parser2.then(Parjs.string(", ab").q);
-            expectSuccess(parser3.parse("ab, ab, ab"))
+            expectSuccess(parser3.parse("ab, ab, ab"));
         });
 
         it("succeeds with empty input", () => {
@@ -346,7 +346,7 @@ describe("sequential combinators", () => {
 
         it("chains into terminating separator", () => {
             let parser2 = parser.then(Parjs.string(", ").q);
-            expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"])
+            expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"]);
         });
         it("fails soft if first many fails", () => {
             expectFailure(parser.parse("xa"), ReplyKind.SoftFail);
@@ -400,14 +400,14 @@ describe("sequential combinators", () => {
             it("fails hard if middle/last fails", () => {
                 expectFailure(parser.parse("(b)"), ReplyKind.HardFail);
                 expectFailure(parser.parse("(b]"), ReplyKind.HardFail);
-            })
+            });
         });
         describe("one argument version", () => {
             let parser = Parjs.string("a").between("!");
             it("succeeds", () => {
                 expectSuccess(parser.parse("!a!"), "a");
-            })
-        })
+            });
+        });
     });
 
     describe("sequential func combinator", () => {
@@ -444,6 +444,6 @@ describe("sequential combinators", () => {
         it("fails hard if failed to find parser", () => {
             expectFailure(p.parse("`"), "Hard");
         });
-    })
+    });
 });
 

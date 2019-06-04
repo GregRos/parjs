@@ -74,6 +74,6 @@ describe("overloaded combinators", () => {
                 b: "b",
                 c: "c"
             });
-        })
-    })
+        });
+    });
 });

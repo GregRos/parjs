@@ -100,7 +100,7 @@ let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state
     state.exprs.push({
         ...operator,
         kind: "operator"
-    })
+    });
 }).q;
 
 //Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
@@ -145,5 +145,4 @@ let evalAst = (ast: Expression) => {
 };
 console.log(printAst(result.value));
 console.log(`Equals: ${evalAst(result.value)}`);
-
 

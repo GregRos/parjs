@@ -40,15 +40,15 @@ class CustomMatcherDefs {
     toBeLike(o, failMessage) {
         let pass = _matches(o)(this.actual);
         return {
-            pass: pass,
+            pass,
             message: pass ? undefined : failMessage
-        }
+        };
     }
 
     toHaveType(type, failMessage) {
         let pass = typeof this.actual === type;
         return {
-            pass: pass,
+            pass,
             message: pass ? undefined : failMessage
         };
     }
@@ -56,9 +56,9 @@ class CustomMatcherDefs {
     toHaveMember(name, failMessage) {
         let pass = name in this.actual;
         return {
-            pass: pass,
+            pass,
             message: pass ? undefined : failMessage
-        }
+        };
     }
 }
 
@@ -69,14 +69,14 @@ let defs = CustomMatcherDefs.prototype;
 for (let prop of Object.getOwnPropertyNames(defs)) {
     if (prop === "constructor") continue;
 
-    CustomMatchers[prop] = function (a, b) {
+    CustomMatchers[prop] = function(a, b) {
         return {
-            compare: function (actual, ...rest) {
+            compare(actual, ...rest) {
                 defs.actual = actual;
                 return defs[prop](...rest);
             }
-        }
-    }
+        };
+    };
 }
 
 export function expectFailure(result: Reply<any>, failType ?: ReplyKind.Fail) {
@@ -117,7 +117,7 @@ export interface SuccessArgs {
 export interface ExpectResult {
     toFail(args ?: FailArgs);
 
-    toSucceed(args ?: SuccessArgs)
+    toSucceed(args ?: SuccessArgs);
 }
 
 export function expectResult(result: Reply<any>): ExpectResult {
@@ -130,7 +130,7 @@ export function expectResult(result: Reply<any>): ExpectResult {
             args = args || {};
             expectSuccess(result, args.value);
         }
-    }
+    };
 }
 
 beforeEach(() => {

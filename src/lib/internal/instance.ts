@@ -104,7 +104,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         if (arguments.length > 0) {
             return wrap(new PrsMaybe(this.action, x)).withName("maybe");
         } else {
-            return wrap(new PrsMaybe(this.action, QUIET_RESULT)).withName("maybe")
+            return wrap(new PrsMaybe(this.action, QUIET_RESULT)).withName("maybe");
         }
     }
 
@@ -164,14 +164,14 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return ret.withName("then");
     }
 
-    many(minSuccesses: number = 0, maxIters: number = Infinity) {
+    many(minSuccesses = 0, maxIters = Infinity) {
         return wrap(new PrsMany(this.action, maxIters, minSuccesses)).withName("many");
     }
 
     manyTill(till: ImplicitAnyParser | any, tillOptional = false) {
         till = ConversionHelper.convert(till);
         if (isFunction(till)) {
-            return this.must(till, undefined, ReplyKind.SoftFail).many()
+            return this.must(till, undefined, ReplyKind.SoftFail).many();
         }
         return wrap(new PrsManyTill(this.action, till.action, tillOptional)).withName("manyTill");
     }
@@ -233,7 +233,7 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
                 Object.assign(result, item);
             }
             return result;
-        })
+        });
     }
 
 }

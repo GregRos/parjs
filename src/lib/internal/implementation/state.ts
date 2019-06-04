@@ -5,7 +5,7 @@
 import {ReplyKind} from "../../reply";
 import {AnyParserAction} from "../action";
 
-export type UserState = {
+export interface UserState {
     [key: string]: any;
 }
 
@@ -35,7 +35,7 @@ export interface ParsingState {
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: AnyParserAction[]
+    stack: AnyParserAction[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.

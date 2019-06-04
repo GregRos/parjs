@@ -8,7 +8,7 @@ import {LoudParser} from "../loud";
 import {Parjs} from "../index";
 import {ImplicitAnyParser, ImplicitLoudParser} from "../convertible-literal";
 
-export module ConversionHelper {
+export namespace ConversionHelper {
     export function convert(x: ImplicitAnyParser): AnyParser;
     export function convert<V>(x: ImplicitLoudParser<V>): LoudParser<V> {
         if (typeof x === "string") {

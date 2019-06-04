@@ -39,10 +39,10 @@ let escapes = {
     "\"": `"`,
     "\\": "\\",
     "/": "/",
-    "f": "\f",
-    "n": "\n",
-    "r": "\r",
-    "t": "\t"
+    f: "\f",
+    n: "\n",
+    r: "\r",
+    t: "\t"
 };
 
 let _pJsonValue: LoudParser<JsonValue> = null;
