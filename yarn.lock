@@ -5002,10 +5002,10 @@ tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
-tslint-config-gregros@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/tslint-config-gregros/-/tslint-config-gregros-1.0.2.tgz#53d94960ee250156105c996bb57904355a8693cb"
-  integrity sha512-qjS+bPPyAyCv7qt+zJcmmbJUlnsaLe0irDaVZZ06vvBdGDPNL1eM3Peq4kqJqztpaIR/iM43lDlATCc/yHQPrg==
+tslint-config-gregros@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/tslint-config-gregros/-/tslint-config-gregros-1.1.0.tgz#ce4daf165148efc2a0403d10311c2212b906e65f"
+  integrity sha512-MvaRkjHA8vf4SG6Wt1CWOqidrwcTaQFm3wfaxdWVcowkasrAJrQcxzrvzcPWfoep8uEMwf0prlTPXd01lVj9UA==
   dependencies:
     tslint-consistent-codestyle "^1.15.1"
     tslint-eslint-rules "^5.4.0"

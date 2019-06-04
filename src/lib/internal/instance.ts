@@ -35,7 +35,7 @@ import {ImplicitAnyParser} from "../convertible-literal";
 import {ConversionHelper} from "./convertible-literal";
 import isFunction = require("lodash/isFunction");
 
-function wrap(action: ParjsAction) {
+function wap(action: ParjsAction) {
     return new ParjsParser(action);
 }
 
@@ -55,30 +55,6 @@ function flattenNestedArrays(arr: any[]) {
 }
 
 export class ParjsParser extends BaseParjsParser implements LoudParser<any>, QuietParser {
-    get backtrack() {
-        return wrap(new PrsBacktrack(this.action)).withName("backtrack");
-    }
-
-    get state(): LoudParser<any> {
-        let ret = wrap(new PrsProject(this.action, (r, s) => s));
-        return ret.withName("state");
-    }
-
-    get q() {
-        return wrap(new PrsQuieten(this.action)).withName("quiet");
-    }
-
-    get soft() {
-        return wrap(new PrsSoften(this.action)).withName("soften");
-    }
-
-    get not() {
-        return wrap(new PrsInverse(this.action)).withName("not");
-    }
-
-    get str() {
-        return wrap(new PrsStringify(this.action)).withName("str");
-    }
 
     thenChoose(selector: (x: any, state: any) => any): any {
         return wrap(new PrsChoose(this.action, selector)).withName("thenChoose") as any;
@@ -96,9 +72,6 @@ export class ParjsParser extends BaseParjsParser implements LoudParser<any>, Qui
         return bet.withName("between");
     }
 
-    mustCapture(failType: ReplyKind.Fail = ReplyKind.HardFail) {
-        return wrap(new PrsMustCapture(this.action, failType)).withName("mustCapture");
-    }
 
     maybe(x ?: any): QuietParser & LoudParser<any> {
         if (arguments.length > 0) {

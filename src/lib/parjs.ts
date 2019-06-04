@@ -13,6 +13,7 @@ import {TraceVisualizer} from "./internal/visualizer";
 import {UserState} from "./internal/implementation/state";
 import {ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
 
+
 /**
  * Helper methods for working with Parjs parsers.
  */
@@ -347,6 +348,15 @@ export interface ParjsStatic {
     any(...pars: ImplicitLoudParser<any>[]): LoudParser<any>;
 
     /**
+     * Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
+     * @param pars The quiet parsers to try.
+     *
+     * @group combinator failure-recovery alternatives
+     * @fail-type Softly usually, but hard if any subparser fails hard
+     */
+    any(...pars: QuietParser[]): QuietParser;
+
+    /**
      * Returns a parser that will apply the parsers defined in the properties of `parsers`, in the order given by `ordering`.
      * If `ordering` is `null`, the own properties of `parsers` will be enumerated, and the parsers will be applied in the order in which they appear in the enumeration, which may be unpredictable.
      *
@@ -368,15 +378,6 @@ export interface ParjsStatic {
         p11 ?: ParserSpecification<O11>
     )
         : LoudParser<O1 & O2 & O3 & O4>;
-
-    /**
-     * Returns a parser that will try to apply the given parsers at the current position, one after the other, until one of them succeeds.
-     * @param pars The quiet parsers to try.
-     *
-     * @group combinator failure-recovery alternatives
-     * @fail-type Softly usually, but hard if any subparser fails hard
-     */
-    any(...pars: QuietParser[]): QuietParser;
 
     /**
      * Returns a parser that will apply the specified parsers in sequence and yield the results in an array.

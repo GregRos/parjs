@@ -71,6 +71,7 @@ export class BasicParsingState implements ParsingState {
  */
 export abstract class ParjsAction implements AnyParserAction {
     abstract expecting: string;
+
     displayName: string;
     /**
      * Whether this action returns a value or not. Determines if the parser is loud or not.
@@ -78,7 +79,7 @@ export abstract class ParjsAction implements AnyParserAction {
     abstract isLoud: boolean;
 
     /**
-     * Perform the action on the given ParsingState. This is a wrapper around a derived action's _apply method.
+     * Perform the action on the given ParsingState. This is a wrapper around a derived action's apply method.
      * @param ps The parsing state.
      */
     apply(ps: ParsingState): void {

@@ -2,11 +2,12 @@
  * @module parjs/internal/implementation
  */
 /** */
-import {QUIET_RESULT} from "./special-results";
+import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";
 import {BasicParsingState, ParjsAction} from "./action";
 import {FailureReply, Reply, ReplyKind, SuccessReply, Trace} from "../../reply";
 import {ParsingState} from "./state";
 import _defaults = require("lodash/defaults");
+import {ParserDefinitionError} from "../../errors";
 
 function getErrorLocation(ps: ParsingState) {
     let endln = /\r\n|\n|\r/g;
@@ -28,7 +29,6 @@ function getErrorLocation(ps: ParsingState) {
     };
 }
 
-
 class ParserUserState {
 
 }
@@ -37,20 +37,53 @@ class ParserUserState {
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
 export abstract class BaseParjsParser {
-    constructor(public action: ParjsAction) {
+    abstract isLoud: true | false;
+    displayName: string;
+    abstract expecting: string;
+
+    /**
+     * Perform the action on the given ParsingState. This is a wrapper around a derived action's apply method.
+     * @param ps The parsing state.
+     */
+    apply(ps: ParsingState): void {
+        let {position, userState} = ps;
+
+        //we do this to verify that the ParsingState's fields have been correctly set by the action.
+        ps.kind = ReplyKind.Unknown;
+        ps.expecting = undefined;
+        ps.value = UNINITIALIZED_RESULT;
+        this._apply(ps);
+        if (ps.kind === ReplyKind.Unknown) {
+            throw new ParserDefinitionError(this.displayName, "the State's kind field must be set");
+        }
+        if (!ps.isOk) {
+            ps.value = FAIL_RESULT;
+            ps.expecting = ps.expecting || this.expecting;
+
+        } else if (!this.isLoud) {
+            ps.value = QUIET_RESULT;
+        } else {
+            if (ps.value === UNINITIALIZED_RESULT) {
+                throw new ParserDefinitionError(this.displayName, "a loud parser must set the State's return value if it succeeds.");
+            }
+        }
+
+        if (!ps.isOk) {
+            if (ps.expecting === undefined) {
+                throw new ParserDefinitionError(this.displayName, "if failure then there must be a reason");
+            }
+            ps.stack.push(this);
+        } else {
+            ps.stack = [];
+        }
     }
 
-    get displayName(): string {
-        return this.action.displayName;
-    }
-
-    set displayName(name) {
-        this.action.displayName = name;
-    }
-
-    get isLoud() {
-        return this.action.isLoud;
-    }
+    /**
+     * The internal operation performed by the action. This will be overriden by derived classes.
+     * @param ps
+     * @private
+     */
+    protected abstract _apply(ps: ParsingState): void | void;
 
     parse(input: string, initialState ?: any): Reply<any> {
 
@@ -58,11 +91,10 @@ export abstract class BaseParjsParser {
             //catches input === undefined, null
             throw new Error("input must be a valid string");
         }
-        let {action, isLoud} = this;
         let ps = new BasicParsingState(input);
         ps.userState = _defaults(new ParserUserState(), initialState);
         ps.initialUserState = initialState;
-        action.apply(ps);
+        this.apply(ps);
 
         if (ps.isOk) {
             if (ps.position !== input.length) {
@@ -90,6 +122,14 @@ export abstract class BaseParjsParser {
 
             return new FailureReply(trace);
         }
+    }
+
+    pipe(...funcs: ((x: any) => any)[]) {
+        let last = this;
+        for (let func of funcs) {
+            last = func(last);
+        }
+        return last;
     }
 
 }

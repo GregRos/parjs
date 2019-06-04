@@ -64,6 +64,7 @@ let operators = [
 let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?: number) => {
     precedence = precedence == null ? -1 : precedence;
     let lastOperator: Expression | OperatorToken;
+
     while ((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
         let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
         exprs.length -= 3;
