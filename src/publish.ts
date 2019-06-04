@@ -1,11 +1,3 @@
-import execa = require("execa");
-import globby = require("globby");
-import path = require("path");
-import fs = require("mz/fs");
-import mkdirp = require("mkdirp-promise");
-import {createProgram, ModuleKind, ScriptTarget, getPreEmitDiagnostics, flattenDiagnosticMessageText} from "typescript";
-import {RawSourceMap} from "source-map";
-import * as assert from "assert";
 import {retargetSourcemaps} from "retarget-sourcemaps-after-move";
 import sh = require("shelljs");
 
