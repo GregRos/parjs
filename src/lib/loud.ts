@@ -20,11 +20,6 @@ export interface ParjsProjection<T, TOut> {
 export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
 
 /**
- * The type `T[]` or a nested array type, such as `T[][][]`.
- */
-export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];
-
-/**
  * Interface for parsers that produce result values of type  {T}
  * @see {@link xQuietParser}
  *

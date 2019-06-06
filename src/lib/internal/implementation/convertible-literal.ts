@@ -4,11 +4,11 @@
  */ /** */
 
 
-import {LoudParser} from "../loud";
+import {LoudParser} from "../../loud";
 
-import {ImplicitLoudParser} from "../convertible-literal";
-import {string} from "./implementation";
-import {regexp} from "./implementation/parsers/regexp";
+import {ImplicitLoudParser} from "../../convertible-literal";
+import {string} from "./index";
+import {regexp} from "./parsers/regexp";
 
 export namespace ConversionHelper {
     export function convert<V>(x: ImplicitLoudParser<V>): LoudParser<V> {

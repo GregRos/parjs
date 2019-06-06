@@ -13,7 +13,7 @@ import {Es6} from "../../common/common";
 export interface BasicTraceVisualizerArgs {
     lineNumbers: boolean;
     linesBefore: number;
-}
+}a
 
 const defaultArgs: BasicTraceVisualizerArgs = {
     lineNumbers: true,

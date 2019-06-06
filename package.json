@@ -61,7 +61,7 @@
     "typedoc-plugin-example-tag": "^1.0.2",
     "typedoc-plugin-external-module-name": "^1.1.1",
     "typedoc-plugin-internal-external": "^1.0.10",
-    "typescript": "^3.1.6",
+    "typescript": "^3.5.1",
     "webpack": "^4.26.0",
     "webpack-dev-server": "^3.1.10"
   },

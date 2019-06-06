@@ -9,7 +9,7 @@ import {ReplyKind} from "../../../reply";
 import {ImplicitLoudParser} from "../../../convertible-literal";
 import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {ConversionHelper} from "../../convertible-literal";
+import {ConversionHelper} from "../convertible-literal";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 

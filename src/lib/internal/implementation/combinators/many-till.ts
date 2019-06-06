@@ -10,7 +10,7 @@ import {ImplicitLoudParser, ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
-import {ConversionHelper} from "../../convertible-literal";
+import {ConversionHelper} from "../convertible-literal";
 
 export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;

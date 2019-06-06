@@ -11,7 +11,7 @@ import {ImplicitLoudParser} from "../../../convertible-literal";
 
 import {compose, rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
-import {ConversionHelper} from "../../convertible-literal";
+import {ConversionHelper} from "../convertible-literal";
 import {map} from "./map";
 
 

@@ -8,7 +8,7 @@ import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
 import {ImplicitLoudParser, ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {ConversionHelper} from "../../convertible-literal";
+import {ConversionHelper} from "../convertible-literal";
 import {BaseParjsParser} from "../parser";
 import {rawCombinator} from "./combinator";
 

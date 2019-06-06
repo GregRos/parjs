@@ -106,13 +106,14 @@ export abstract class BaseParjsParser{
         if (ps.kind === ReplyKind.Ok) {
             return new SuccessReply(ps.value);
         } else {
-            let location = getErrorLocation(ps);
             let trace: Trace = {
                 userState: ps.userState,
                 position: ps.position,
                 reason: ps.expecting,
                 input,
-                location,
+                get location() {
+                    return getErrorLocation(ps);
+                },
                 stackTrace: ps.stack,
                 kind: ps.kind
             };

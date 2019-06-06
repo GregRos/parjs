@@ -5,7 +5,7 @@ import {qthen, then, thenq} from "./sequential";
 import {BaseParjsParser} from "../parser";
 import {map} from "./map";
 import {must} from "./must";
-import {ConversionHelper} from "../../convertible-literal";
+import {ConversionHelper} from "../convertible-literal";
 
 export function between<T>(pre: ImplicitLoudParser<any>, post: ImplicitLoudParser<any>)
     : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
