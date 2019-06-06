@@ -1,19 +1,28 @@
 
 import {compose} from "../combinators/combinator";
-import {CharInfo} from "char-info";
 import {many} from "../combinators/many";
 import {str} from "../combinators/str";
 import {stringLen} from "./string-len";
 import {charWhere} from "./char-where";
 
-
+import {
+    isLetter,
+    isDigit,
+    uniDecimal as uniDecimalChar,
+    uniLetter as uniLetterChar,
+    uniLower as uniLowerChar,
+    isHex,
+    isUpper,
+    isLower,
+    isSpace, isNewline
+} from "char-info";
 
 export function anyChar() {
     return stringLen(1);
 }
 
 export function space() {
-    return charWhere(CharInfo.isSpace);
+    return charWhere(isSpace);
 }
 
 export function spaces1() {
@@ -32,39 +41,39 @@ export function noCharOf(options: string) {
 }
 
 export function letter() {
-    return charWhere(CharInfo.isLetter);
+    return charWhere(isLetter);
 }
 
 export function uniLetter() {
-    return charWhere(CharInfo.isUniLetter);
+    return charWhere(uniLetterChar.char);
 }
 
 export function digit() {
-    return charWhere(CharInfo.isDecimal);
+    return charWhere(x => isDigit(x));
 }
 
 export function uniDigit() {
-    return charWhere(CharInfo.isUniDecimal);
+    return charWhere(uniDecimalChar.char);
 }
 
 export function hex() {
-    return charWhere(CharInfo.isHex);
+    return charWhere(isHex);
 }
 
 export function lower() {
-    return charWhere(CharInfo.isLower);
+    return charWhere(isLower);
 }
 
 export function upper() {
-    return charWhere(CharInfo.isUpper);
+    return charWhere(isUpper);
 }
 
 export function uniLower() {
-    return charWhere(CharInfo.isUniLower);
+    return charWhere(uniLowerChar.char);
 }
 
 export function whitespace() {
-    return charWhere(char => CharInfo.isSpace(char) || CharInfo.isNewline(char)).pipe(
+    return charWhere(char => isSpace(char) || isNewline(char)).pipe(
         many(),
         str()
     );

@@ -3,8 +3,7 @@
  */
 /** */
 
-import {Codes} from "../functions/char-indicators";
-
+import {Codes} from "char-info/ascii-codes";
 import {Parselets} from "./parselets";
 import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";

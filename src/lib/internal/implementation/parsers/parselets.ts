@@ -2,7 +2,10 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {Codes} from "../functions/char-indicators";
+import {
+    Codes,
+    isDigitCode
+} from "char-info/ascii-codes";
 import {ParsingState} from "../state";
 
 /**
@@ -17,7 +20,7 @@ export class ParseletsType {
         let result = 0;
         for (; position < length; position++) {
             let curCode = input.charCodeAt(position);
-            if (!Codes.isDigit(curCode, base)) {
+            if (!isDigitCode(curCode, base)) {
                 break;
             }
         }

@@ -5,11 +5,12 @@
 
 import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
-import {CharInfo, CodeInfo, StaticCodeInfo} from "char-info";
-import {Codes} from "../functions/char-indicators";
+import {Codes} from "char-info/ascii-codes";
 import {LoudParser} from "../../../loud";
 import {BaseParjsParser} from "../parser";
-
+import {
+    uniNewline as uniNewlineChar
+} from "char-info";
 export function innerNewline(unicodeRecognizer: (x: number) => boolean): LoudParser<string> {
     return new class Newline extends BaseParjsParser {
         expecting = "newline";
@@ -54,7 +55,8 @@ export function newline() {
     return innerNewline(null);
 }
 
+
 export function uniNewline() {
-    return innerNewline(CodeInfo.isUniNewline);
+    return innerNewline(uniNewlineChar.code);
 }
 
