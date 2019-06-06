@@ -84,7 +84,7 @@ describe("special parsers", () => {
             expectSuccess(parser.parse("a"), "a");
         });
 
-        it("internal.implementation.parsers.fail", () => {
+        it("fail", () => {
             expectFailure(parser.parse(""), "Soft");
         });
     });

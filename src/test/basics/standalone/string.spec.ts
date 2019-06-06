@@ -133,7 +133,7 @@ describe("basic string parsers", () => {
         it("success", () => {
             expectSuccess(parser.parse(success), success);
         });
-        it("internal.implementation.parsers.fail", () => {
+        it("fail", () => {
             expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("fail too long", () => {
@@ -152,7 +152,7 @@ describe("basic string parsers", () => {
         it("success2", () => {
             expectSuccess(parser.parse(success2), success2);
         });
-        it("internal.implementation.parsers.fail", () => {
+        it("fail", () => {
             expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("fail too long", () => {

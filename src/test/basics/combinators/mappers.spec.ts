@@ -7,7 +7,6 @@ import {BaseParjsParser, string} from "../../../lib/internal/implementation";
 import {anyCharOf, eof, result, stringLen} from "../../../lib";
 import {cast, each, map, str} from "../../../lib/combinators";
 
-console.log("any of: ", anyCharOf)
 let goodInput = "abcd";
 let badInput = "";
 let uState = {};
@@ -74,7 +73,7 @@ describe("map combinators", () => {
             expectSuccess(p.parse(""), "undefined");
         });
 
-        it("internal.implementation.parsers.string", () => {
+        it("string", () => {
             let p = string("a").pipe(
                 str()
             );
