@@ -2,18 +2,18 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {ParjsAction} from "../../action";
-import {Codes} from "../../functions/char-indicators";
+
+import {Codes} from "../functions/char-indicators";
 
 import {Parselets} from "./parselets";
-import {ReplyKind} from "../../../../reply";
-import {ParsingState} from "../../state";
+import {ReplyKind} from "../../../reply";
+import {ParsingState} from "../state";
 /**
  * Created by User on 28-Nov-16.
  */
 import _defaults = require("lodash/defaults");
-import {BaseParjsParser} from "../../parser";
-import {LoudParser} from "../../../../loud";
+import {BaseParjsParser} from "../parser";
+import {LoudParser} from "../../../loud";
 
 export interface FloatOptions {
     allowSign?: boolean;
@@ -69,10 +69,10 @@ ISSUES:
  b.
 */
 export function float(options = defaultFloatOptions): LoudParser<number> {
+    options = _defaults(options, defaultFloatOptions);
     return new class Float extends BaseParjsParser {
         displayName = "float";
         expecting = "a floating-point number";
-        isLoud: true = true;
 
         _apply(ps: ParsingState): void {
 

@@ -1,9 +1,9 @@
-import {Parjs} from "../../lib";
 import {FailureReply, ReplyKind, SuccessReply} from "../../lib/reply";
 import {expectFailure} from "../helpers/custom-matchers";
+import {anyChar} from "../../lib/internal/implementation/parsers";
 
 describe("basics: anyChar example", () => {
-    let parser = Parjs.anyChar;
+    let parser = anyChar();
     let successInput = "a";
     let tooMuchInput = "ab";
     let failInput = "";

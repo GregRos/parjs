@@ -6,7 +6,7 @@
 
 
 import {LoudParser} from "./loud";
-import {AnyParser} from "./any";
+
 
 /**
  * @private
@@ -38,9 +38,4 @@ declare global {
  * A {@link LoudParser} or a literal value convertible to a {@link LoudParser}.
  */
 export type ImplicitLoudParser<T> = LoudParser<T> | ConvertibleLiteral<T>;
-
-/**
- * A {@link AnyParser} or a literal value convertible to a {@link AnyParser}
- */
-export type ImplicitAnyParser = AnyParser | ConvertibleLiteral<any>;
 

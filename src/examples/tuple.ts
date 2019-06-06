@@ -2,22 +2,31 @@
  * Created by lifeg on 07/04/2017.
  */
 import "../test/setup";
-import {Parjs} from "../lib";
 import {BasicTraceVisualizer} from "../lib/internal/implementation/basic-trace-visualizer";
+import {between, many, manySepBy} from "../lib/combinators";
+import {float, newline, whitespace} from "../lib";
+
 //Built-in parser for floating point numbers.
-let tupleElement = Parjs.float();
+let tupleElement = float();
 //Allow whitespace around elements:
-let paddedElement = tupleElement.between(Parjs.whitespaces);
+let paddedElement = tupleElement.pipe(
+    between(whitespace())
+);
 //Multiple instances of {paddedElement}, separated by a comma:
-let separated = paddedElement.manySepBy(Parjs.string(","));
+let separated = paddedElement.pipe(
+    manySepBy(",")
+);
 
 //Surround everything with parentheses:
-let surrounded = separated.between(Parjs.string("("), Parjs.string(")"));
-let ignoreWhitespace = Parjs.newline.many().then(surrounded);
+let surrounded = separated.pipe(
+    between("(", ")"),
+    between(whitespace())
+);
+
 console.log(surrounded.parse("(1,  2 , 3 )"));
 
 const basic = BasicTraceVisualizer();
-let result = ignoreWhitespace.parse(`
+let result = surrounded.parse(`
 
 
 

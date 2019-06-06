@@ -3,18 +3,19 @@
  *
  */ /** */
 
-import {AnyParser} from "../any";
+
 import {LoudParser} from "../loud";
-import {Parjs} from "../index";
-import {ImplicitAnyParser, ImplicitLoudParser} from "../convertible-literal";
+
+import {ImplicitLoudParser} from "../convertible-literal";
+import {string} from "./implementation";
+import {regexp} from "./implementation/parsers/regexp";
 
 export namespace ConversionHelper {
-    export function convert(x: ImplicitAnyParser): AnyParser;
     export function convert<V>(x: ImplicitLoudParser<V>): LoudParser<V> {
         if (typeof x === "string") {
-            return Parjs.string(x) as any;
+            return string(x) as any;
         } else if (x instanceof RegExp) {
-            return Parjs.regexp(x) as any;
+            return regexp(x) as any;
         } else {
             return x as LoudParser<V>;
         }

@@ -2,16 +2,15 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {ParjsBasicAction} from "../../action";
-import {ParsingState} from "../../state";
-import {ReplyKind} from "../../../../reply";
-import {BaseParjsParser} from "../../parser";
-import {LoudParser} from "../../../../loud";
+
+import {ParsingState} from "../state";
+import {ReplyKind} from "../../../reply";
+import {BaseParjsParser} from "../parser";
+import {LoudParser} from "../../../loud";
 
 export function anyStringOf(...strs: string[]): LoudParser<string> {
     return new class StringOf extends BaseParjsParser {
         expecting = `any of ${strs.map(x => `'${x}'`).join(", ",)}`;
-        isLoud: true = true;
 
         _apply(ps: ParsingState) {
             let {position, input} = ps;

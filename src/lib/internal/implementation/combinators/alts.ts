@@ -2,35 +2,45 @@
  * @module parjs/internal/implementation/combinators
  */
 /** */
-import {ParjsAction} from "../../action";
-import {Issues} from "../../issues";
-import {AnyParserAction} from "../../../action";
-import {ParsingState} from "../../state";
-import {ReplyKind} from "../../../../reply";
-import {ImplicitAnyParser, ImplicitLoudParser} from "../../../../convertible-literal";
-import {ParjsCombinator} from "../../../../loud-combinators";
-import {LoudParser} from "../../../../loud";
-import {QuietParser} from "../../../../quiet";
-import {ConversionHelper} from "../../../convertible-literal";
-import {rawCombinator} from "../combinator";
-import {BaseParjsParser} from "../../parser";
-import {AnyParser} from "../../../../any";
 
-export function or<T1, T2>(alt2: ImplicitLoudParser<T2>): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2>>;
-export function or(alt2: ImplicitAnyParser): ParjsCombinator<QuietParser, QuietParser>;
-export function or(...alts: ImplicitAnyParser[]) {
+import {Issues} from "../issues";
+import {ParsingState} from "../state";
+import {ReplyKind} from "../../../reply";
+import {ImplicitLoudParser} from "../../../convertible-literal";
+import {ParjsCombinator} from "../../../";
+import {LoudParser} from "../../../loud";
+import {ConversionHelper} from "../../convertible-literal";
+import {rawCombinator} from "./combinator";
+import {BaseParjsParser} from "../parser";
+
+
+export function or<T1, T2>(
+    alt2: ImplicitLoudParser<T2>
+): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2>>;
+export function or<T1, T2, T3>(
+    alt2: ImplicitLoudParser<T2>,
+    alt3: ImplicitLoudParser<T3>
+): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3>>;
+export function or<T1, T2, T3, T4>(
+    alt2: ImplicitLoudParser<T2>,
+    alt3: ImplicitLoudParser<T3>,
+    alt4: ImplicitLoudParser<T4>
+): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3 | T4>>;
+export function or<T1, T2, T3, T4, T5>(
+    alt2: ImplicitLoudParser<T2>,
+    alt3: ImplicitLoudParser<T3>,
+    alt4: ImplicitLoudParser<T4>,
+    alt5: ImplicitLoudParser<T5>
+): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3 | T4 | T5>>;
+export function or(...alts: ImplicitLoudParser<any>[]) {
     let resolvedAlts = alts.map(x => ConversionHelper.convert(x) as any as BaseParjsParser);
     return rawCombinator(source => {
-        if (resolvedAlts.some(x => x.isLoud !== source.isLoud)) {
-            Issues.mixedLoudnessNotPermitted("or");
-        }
         resolvedAlts.splice(0, 0, source);
 
         let altNames = resolvedAlts.map(x => x.displayName);
         return new class Or extends BaseParjsParser {
             displayName = "or";
             expecting = `one of: ${altNames.join(", ")}`;
-            isLoud = source.isLoud;
             protected _apply(ps: ParsingState): void {
                 let {position} = ps;
                 for (let i = 0; i < resolvedAlts.length; i++) {

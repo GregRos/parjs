@@ -1,6 +1,7 @@
-import {Parjs} from "../../../lib";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ReplyKind} from "../../../lib/reply";
+import {float, int, rest} from "../../../lib/";
+import {then, thenq} from "../../../lib/combinators";
 
 /**
  * Created by User on 14-Dec-16.
@@ -9,7 +10,7 @@ import {ReplyKind} from "../../../lib/reply";
 describe("numeric parsers", () => {
     describe("int parser", () => {
         describe("default settings", () => {
-            let parser = Parjs.int({
+            let parser = int({
                 base: 10,
                 allowSign: true
             });
@@ -29,7 +30,9 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("22a"), ReplyKind.SoftFail);
             });
             it("chains into rest", () => {
-                expectSuccess(parser.then(Parjs.rest.q).parse("22a"), 22);
+                expectSuccess(parser.pipe(
+                    thenq(rest())
+                ).parse("22a"), 22);
             });
             it("fails hard if there are no digits after sign", () => {
                 expectFailure(parser.parse("+a"), ReplyKind.HardFail);
@@ -37,7 +40,7 @@ describe("numeric parsers", () => {
 
         });
         describe("no sign", () => {
-            let parser = Parjs.int({
+            let parser = int({
                 base: 16,
                 allowSign: false
             });
@@ -52,7 +55,7 @@ describe("numeric parsers", () => {
 
     describe("float parser", () => {
         describe("default settings", () => {
-            let parser = Parjs.float();
+            let parser = float();
             it("regular float", () => {
                 expectSuccess(parser.parse("0.11"), 0.11);
             });
@@ -110,7 +113,7 @@ describe("numeric parsers", () => {
             });
         });
         describe("no sign", () => {
-            let parser = Parjs.float({
+            let parser = float({
                 allowSign: false
             } as any);
             it("fails on sign", () => {
@@ -121,7 +124,7 @@ describe("numeric parsers", () => {
             });
         });
         describe("no implicit zero", () => {
-            let parser = Parjs.float({
+            let parser = float({
                 allowImplicitZero: false
             } as any);
             it("fails on implicit zero whole", () => {
@@ -132,7 +135,9 @@ describe("numeric parsers", () => {
             });
 
             it("succeeds on implicit zero fraction when chained into rest", () => {
-                expectSuccess(parser.then(Parjs.rest.q).parse("1."), 1);
+                expectSuccess(parser.pipe(
+                    thenq(rest())
+                ).parse("1."), 1);
             });
             it("succeeds on regular", () => {
                 expectSuccess(parser.parse("1.0"), 1.0);
@@ -142,7 +147,7 @@ describe("numeric parsers", () => {
             });
         });
         describe("no decimal point", () => {
-            let parser = Parjs.float({
+            let parser = float({
                 allowFloatingPoint: false
             });
             it("succeeds on integer", () => {
@@ -152,21 +157,25 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("1.0"), ReplyKind.SoftFail);
             });
             it("succeeds on floating point with chained rest", () => {
-                expectSuccess(parser.then(Parjs.rest.q).parse("1.5"), 1);
+                expectSuccess(parser.pipe(
+                    thenq(rest())
+                ).parse("1.5"), 1);
             });
             it("succeeds on exponent integer", () => {
                 expectSuccess(parser.parse("23e+2"), 23e+2);
             });
         });
         describe("no exponent", () => {
-            let parser = Parjs.float({
+            let parser = float({
                 allowExponent: false
             });
             it("succeeds on floating point", () => {
                 expectSuccess(parser.parse("23.12"), 23.12);
             });
             it("succeeds on exponent with trailing rest", () => {
-                expectSuccess(parser.then(Parjs.rest.q).parse("12e+2", {x: 12}));
+                expectSuccess(parser.pipe(
+                    thenq(rest())
+                ).parse("12e+2", {x: 12}));
             });
         });
     });

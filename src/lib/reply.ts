@@ -2,9 +2,10 @@
  * @module parjs
  */
 /** */
-import {AnyParserAction, Trace} from "./internal";
+import {Trace} from "./internal";
 import {ParjsParsingFailure} from "./errors";
-import {Parjs} from "./index";
+import {BasicTraceVisualizer} from "./internal/implementation/basic-trace-visualizer";
+import {LoudParser} from "./loud";
 
 
 /**
@@ -37,7 +38,7 @@ export interface Trace {
     reason: string;
     kind: ReplyKind.Fail;
     location: ErrorLocation;
-    stackTrace: AnyParserAction[];
+    stackTrace: LoudParser<any>[];
     input: string;
 }
 
@@ -57,7 +58,7 @@ export class FailureReply {
     }
 
     toString() {
-        return Parjs.visualizer(this.trace);
+        return BasicTraceVisualizer()(this.trace);
     }
 }
 

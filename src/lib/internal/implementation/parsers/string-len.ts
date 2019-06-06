@@ -2,16 +2,15 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {ParjsBasicAction} from "../../action";
-import {ParsingState} from "../../state";
-import {ReplyKind} from "../../../../reply";
-import {BaseParjsParser} from "../../parser";
-import {LoudParser} from "../../../../loud";
+
+import {ParsingState} from "../state";
+import {ReplyKind} from "../../../reply";
+import {BaseParjsParser} from "../parser";
+import {LoudParser} from "../../../loud";
 
 
 export function stringLen(length: number): LoudParser<string> {
     return new class StringLen extends BaseParjsParser {
-        isLoud: true = true;
         expecting = `${length} characters`;
         _apply(ps: ParsingState) {
             let {position, input} = ps;

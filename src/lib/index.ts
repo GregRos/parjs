@@ -5,25 +5,38 @@
  * @preferred
  */ /** iooi*/
 
-import {ParjsParsers} from "./internal/static";
-import {ParjsStatic} from "./parjs";
-
-export {ParjsStatic};
 export {UserState} from "./internal/implementation/state";
 export {LoudParser} from "./loud";
-export {QuietParser} from "./quiet";
 export {ParjsParsingFailure} from "./errors";
-export {AnyParser} from "./any";
+
 export {ReplyKind, Reply, QuietReply} from "./reply";
-export {ConvertibleLiteral, ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal";
+export {ConvertibleLiteral, ImplicitLoudParser} from "./convertible-literal";
 
-/**
- * The central API of the parjs library. Contains building block parsers and static combinators.
- */
-export const Parjs = new ParjsParsers() as ParjsStatic;
+export {
+    anyStringOf,
+    stringLen,
+    string,
+    state,
+    rest,
+    result,
+    regexp,
+    position,
+    newline,
+    int,
+    IntOptions,
+    FloatOptions,
+    float,
+    fail,
+    eof,
+    charWhere,
+    charCodeWhere,
+    noCharOf,
+    anyCharOf,
+    anyChar,
+    whitespace,
+    uniNewline
+} from "./internal/implementation/parsers";
 
-
-/**
- *
- */
-
+export interface ParjsCombinator<TFrom, TTo> {
+    (from: TFrom): TTo;
+}

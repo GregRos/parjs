@@ -3,8 +3,9 @@
  * @module parjs/internal/implementation
  * @preferred
  */ /** */
-export {BasicParsingState} from "./action";
-export {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";
-export {Issues} from "./issues";
+export {FAIL_RESULT, UNINITIALIZED_RESULT} from "./special-results";
 export {BaseParjsParser} from "./parser";
 export {ParsingState} from "./state";
+
+export {string} from "./parsers/string";
+export {BasicParsingState} from "./state";

@@ -25,6 +25,6 @@ export class ParjsParsingFailure extends ParjsError {
  */
 export class ParserDefinitionError extends ParjsError {
     constructor(public parserName: string, message: string) {
-        super(message);
+        super(`${parserName}: message`);
     }
 }

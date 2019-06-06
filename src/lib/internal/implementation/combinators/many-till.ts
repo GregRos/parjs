@@ -2,31 +2,24 @@
  * @module parjs/internal/implementation/combinators
  */
 /** */
-import {ParjsAction} from "../../action";
-import {Issues} from "../../issues";
-import {AnyParserAction} from "../../../action";
-import {ParsingState} from "../../state";
-import {ReplyKind} from "../../../../reply";
-import {ArrayHelpers} from "../../functions/helpers";
-import {ImplicitAnyParser} from "../../../../convertible-literal";
-import {ParjsCombinator} from "../../../../loud-combinators";
-import {LoudParser} from "../../../../loud";
-import {QuietParser} from "../../../../quiet";
-import {rawCombinator} from "../combinator";
-import {BaseParjsParser} from "../../parser";
-import {ConversionHelper} from "../../../convertible-literal";
 
-export function manyTill<T>(till: ImplicitAnyParser, tillOptional?: boolean)
+import {Issues} from "../issues";
+import {ParsingState} from "../state";
+import {ReplyKind} from "../../../reply";
+import {ImplicitLoudParser, ParjsCombinator} from "../../../";
+import {LoudParser} from "../../../loud";
+import {rawCombinator} from "./combinator";
+import {BaseParjsParser} from "../parser";
+import {ConversionHelper} from "../../convertible-literal";
+
+export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
-export function manyTill<T>(till: ImplicitAnyParser, tillOptional?: boolean)
-    : ParjsCombinator<QuietParser, QuietParser>;
-export function manyTill(till: ImplicitAnyParser, tillOptional?: boolean) {
+export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) {
     let tillResolved = ConversionHelper.convert(till) as any as BaseParjsParser;
     return rawCombinator(source => {
         return new class ManyTill extends BaseParjsParser {
             displayName = "manyTill";
             expecting = `${source.expecting} or ${tillResolved.expecting}`;
-            isLoud: boolean;
 
             protected _apply(ps: ParsingState): void {
                 let {position} = ps;
@@ -44,7 +37,7 @@ export function manyTill(till: ImplicitAnyParser, tillOptional?: boolean) {
                     ps.position = position;
                     source.apply(ps);
                     if (ps.isOk) {
-                        ArrayHelpers.maybePush(arr, ps.value);
+                        arr.push(ps.value);
                     } else if (ps.isSoft) {
                         //many failed softly before till...
                         if (!tillOptional) {

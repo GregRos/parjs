@@ -2,17 +2,16 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {ParjsAction} from "../../action";
-import {ReplyKind} from "../../../../reply";
-import {ParsingState} from "../../state";
-import {StaticCodeInfo} from "char-info";
-import {Codes} from "../../functions/char-indicators";
-import {LoudParser} from "../../../../loud";
-import {BaseParjsParser} from "../../parser";
 
-export function newline(unicode = false): LoudParser<string> {
+import {ReplyKind} from "../../../reply";
+import {ParsingState} from "../state";
+import {CharInfo, CodeInfo, StaticCodeInfo} from "char-info";
+import {Codes} from "../functions/char-indicators";
+import {LoudParser} from "../../../loud";
+import {BaseParjsParser} from "../parser";
+
+export function innerNewline(unicodeRecognizer: (x: number) => boolean): LoudParser<string> {
     return new class Newline extends BaseParjsParser {
-        isLoud: true = true;
         expecting = "newline";
 
         _apply(ps: ParsingState) {
@@ -40,7 +39,7 @@ export function newline(unicode = false): LoudParser<string> {
                 ps.value = "\r";
                 ps.kind = ReplyKind.Ok;
                 return;
-            } else if (unicode && require("char-info").CodeInfo.isUniNewline(charAt)) {
+            } else if (unicodeRecognizer && unicodeRecognizer(charAt)) {
                 ps.position++;
                 ps.value = input.charAt(position);
                 ps.kind = ReplyKind.Ok;
@@ -50,3 +49,12 @@ export function newline(unicode = false): LoudParser<string> {
         }
     }();
 }
+
+export function newline() {
+    return innerNewline(null);
+}
+
+export function uniNewline() {
+    return innerNewline(CodeInfo.isUniNewline);
+}
+

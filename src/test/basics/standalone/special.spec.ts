@@ -1,20 +1,11 @@
 import {ReplyKind} from "../../../lib/reply";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {Parjs} from "../../../lib";
-import {AnyParser} from "../../../lib/any";
-
-/**
- * Created by lifeg on 16/12/2016.
- */
-function forParser<TParser extends AnyParser>(parser: TParser, f: (action: TParser) => void) {
-    describe(`Parjs.${parser.displayName}`, () => {
-        f(parser);
-    });
-}
+import {eof, fail, position, result, state, string} from "../../../lib/internal/implementation/parsers";
+import {late, then} from "../../../lib/combinators";
 
 describe("special parsers", () => {
     describe("Parjs.eof", () => {
-        let parser = Parjs.eof;
+        let parser = eof();
         let fail = "a";
         let success = "";
         it("success on empty input", () => {
@@ -24,13 +15,15 @@ describe("special parsers", () => {
             expectFailure(parser.parse(fail), ReplyKind.SoftFail);
         });
         it("chain multiple EOF succeeds", () => {
-            let parser2 = parser.then(Parjs.eof);
+            let parser2 = parser.pipe(
+                then(eof())
+            );
             expectSuccess(parser2.parse(""), undefined);
         });
     });
 
-    describe("Parjs.state", () => {
-        let parser = Parjs.state;
+    describe("state", () => {
+        let parser = state()
         let uState = {tag: 1};
         let someInput = "abcd";
         let noInput = "";
@@ -40,8 +33,8 @@ describe("special parsers", () => {
         });
     });
 
-    describe("Parjs.position", () => {
-        let parser = Parjs.position;
+    describe("position", () => {
+        let parser = position();
         let noInput = "";
         it("succeeds on empty input", () => {
             let result = parser.parse(noInput);
@@ -54,7 +47,7 @@ describe("special parsers", () => {
     });
 
     describe("Parjs.result(x)", () => {
-        let parser = Parjs.result("x");
+        let parser = result("x");
         let noInput = "";
         it("succeeds on empty input", () => {
             expectSuccess(parser.parse(noInput), "x");
@@ -64,8 +57,8 @@ describe("special parsers", () => {
         });
     });
 
-    describe("Parjs.fail", () => {
-        let parser = Parjs.fail("error", "Fatal");
+    describe("fail", () => {
+        let parser = fail("error", "Fatal");
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {
@@ -76,21 +69,11 @@ describe("special parsers", () => {
         });
     });
 
-    describe("Parjs.nop", () => {
-        let parser = Parjs.nop;
-        it("succeeds on no input", () => {
-            expectSuccess(parser.parse(""));
-        });
-        it("fails on input", () => {
-            expectFailure(parser.parse(" "), "Soft");
-        });
-    });
-
     describe("Parjs.late", () => {
         let s = "";
-        let parser = Parjs.late(() => {
+        let parser = late(() => {
             s += "a";
-            return Parjs.string(s);
+            return string(s);
         });
 
         it("first success", () => {
@@ -101,7 +84,7 @@ describe("special parsers", () => {
             expectSuccess(parser.parse("a"), "a");
         });
 
-        it("fail", () => {
+        it("internal.implementation.parsers.fail", () => {
             expectFailure(parser.parse(""), "Soft");
         });
     });

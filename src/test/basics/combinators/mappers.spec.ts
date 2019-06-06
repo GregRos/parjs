@@ -2,17 +2,22 @@
  * Created by lifeg on 10/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {Parjs} from "../../../lib";
 import {ReplyKind} from "../../../lib/reply";
+import {BaseParjsParser, string} from "../../../lib/internal/implementation";
+import {anyCharOf, eof, result, stringLen} from "../../../lib";
+import {cast, each, map, str} from "../../../lib/combinators";
 
+console.log("any of: ", anyCharOf)
 let goodInput = "abcd";
 let badInput = "";
 let uState = {};
-let loudParser = Parjs.stringLen(4);
+let loudParser = stringLen(4);
 
 describe("map combinators", () => {
     describe("map", () => {
-        let parser = loudParser.map(x => 1);
+        let parser = loudParser.pipe(
+            map(x => 1)
+        );
         it("maps on success", () => {
             expectSuccess(parser.parse(goodInput, uState), 1);
         });
@@ -21,18 +26,10 @@ describe("map combinators", () => {
         });
     });
 
-    describe("Parjs.result(1)", () => {
-        let parser = loudParser.result(1);
-        it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput), 1);
-        });
-        it("fails on failure", () => {
-            expectFailure(parser.parse(badInput));
-        });
-    });
-
     describe("cast", () => {
-        let parser = loudParser.cast<number>();
+        let parser = loudParser.pipe(
+            cast(x => x as unknown as number)
+        );
         it("maps on success", () => {
             expectSuccess(parser.parse(goodInput), "abcd" as any);
         });
@@ -41,65 +38,66 @@ describe("map combinators", () => {
         });
     });
 
-    describe("quiet", () => {
-        let parser = loudParser.q;
-        it("is quiet", () => {
-            expect(parser.isLoud).toBe(false);
-        });
-
-        it("maps to undefined on success", () => {
-            expectSuccess(parser.parse(goodInput), undefined);
-        });
-
-        it("fails on failure", () => {
-            expectFailure(parser.parse(badInput));
-        });
-    });
-
     describe("str", () => {
         it("quiet", () => {
-            let p = Parjs.eof.str;
+            let p = eof().pipe(
+                map(x => "")
+            );
             expectSuccess(p.parse(""), "");
         });
 
         it("array", () => {
-            let p = Parjs.result(["a", "b", "c"]).str;
+            let p = result(["a", "b", "c"]).pipe(
+                str()
+            );
             expectSuccess(p.parse(""), "abc");
         });
 
         it("nested array", () => {
-            let p = Parjs.result(["a", ["b", ["c"], "d"], "e"]).str;
+            let p = result(["a", ["b", ["c"], "d"], "e"]).pipe(
+                str()
+            );
             expectSuccess(p.parse(""), "abcde");
         });
 
         it("null", () => {
-            let p = Parjs.result(null).str;
+            let p = result(null).pipe(
+                str()
+            );
             expectSuccess(p.parse(""), "null");
         });
 
         it("undefined", () => {
-            let p = Parjs.result(undefined).str;
+            let p = result(undefined).pipe(
+                str()
+            );
             expectSuccess(p.parse(""), "undefined");
         });
 
-        it("string", () => {
-            let p = Parjs.string("a").str;
+        it("internal.implementation.parsers.string", () => {
+            let p = string("a").pipe(
+                str()
+            );
             expectSuccess(p.parse("a"), "a");
         });
 
 
         it("object", () => {
-            let p = Parjs.result({}).str;
+            let p = result({}).pipe(
+                str()
+            );
             expectSuccess(p.parse(""), {}.toString());
         });
     });
 
     describe("each", () => {
         let tally = "";
-        let p = Parjs.anyCharOf("abc").each((result, state) => {
-            tally += result;
-            state.char = result;
-        });
+        let p = anyCharOf("abc").pipe(
+            each((result, state) => {
+                tally += result;
+                state.char = result;
+            })
+        );
         it("works", () => {
             expectSuccess(p.parse("a"), "a");
             expect(tally).toBe("a");

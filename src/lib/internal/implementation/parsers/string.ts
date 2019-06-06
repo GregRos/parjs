@@ -2,15 +2,15 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {ParjsBasicAction} from "../../action";
-import {ParsingState} from "../../state";
-import {ReplyKind} from "../../../../reply";
-import {BaseParjsParser} from "../../parser";
 
-export function string(str: string) {
+import {ParsingState} from "../state";
+import {ReplyKind} from "../../../reply";
+import {BaseParjsParser} from "../parser";
+import {LoudParser} from "../../../loud";
+
+export function string(str: string): LoudParser<string> {
     return new class ParseString extends BaseParjsParser {
         expecting = `'${str}'`;
-        isLoud: true = true;
 
         _apply(ps: ParsingState): void {
             let {position, input} = ps;

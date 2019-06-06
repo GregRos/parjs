@@ -3,7 +3,8 @@
  */
 /** */
 import {ReplyKind} from "../../reply";
-import {AnyParserAction} from "../action";
+import {LoudParser} from "../../loud";
+
 
 export interface UserState {
     [key: string]: any;
@@ -35,7 +36,7 @@ export interface ParsingState {
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: AnyParserAction[];
+    stack: LoudParser<any>[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.
@@ -66,4 +67,60 @@ export interface ParsingState {
     atLeast(kind: ReplyKind);
 
     atMost(kind: ReplyKind);
+}
+
+function worseThan(a: ReplyKind, b: ReplyKind) {
+    if (a === ReplyKind.Ok) {
+        return b === ReplyKind.Ok;
+    }
+    if (a === ReplyKind.SoftFail) {
+        return b === ReplyKind.SoftFail || b === ReplyKind.Ok;
+    }
+    if (a === ReplyKind.HardFail) {
+        return b !== ReplyKind.FatalFail;
+    }
+    if (a === ReplyKind.FatalFail) {
+        return true;
+    }
+}
+
+/**
+ * Basic implementation of the ParsingState interface.
+ */
+export class BasicParsingState implements ParsingState {
+    position = 0;
+    stack = [];
+    initialUserState = undefined;
+    userState = undefined;
+    value = undefined;
+    kind: ReplyKind;
+    expecting: string;
+
+    constructor(public input: string) {
+
+    }
+
+    get isOk() {
+        return this.kind === ReplyKind.Ok;
+    }
+
+    get isSoft() {
+        return this.kind === ReplyKind.SoftFail;
+    }
+
+    get isHard() {
+        return this.kind === ReplyKind.HardFail;
+    }
+
+    get isFatal() {
+        return this.kind === ReplyKind.FatalFail;
+    }
+
+    atLeast(kind: ReplyKind) {
+        return worseThan(this.kind, kind);
+    }
+
+    atMost(kind: ReplyKind) {
+        return worseThan(kind, this.kind);
+    }
 }

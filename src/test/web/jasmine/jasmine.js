@@ -1329,7 +1329,7 @@ getJasmineRequireObj().Any = function(j$) {
 
   Any.prototype.asymmetricMatch = function(other) {
     if (this.expectedObject == String) {
-      return typeof other == 'string' || other instanceof String;
+      return typeof other == 'internal.implementation.parsers.string' || other instanceof String;
     }
 
     if (this.expectedObject == Number) {
@@ -1857,7 +1857,7 @@ getJasmineRequireObj().DelayedFunctionScheduler = function() {
 
     self.scheduleFunction = function(funcToCall, millis, params, recurring, timeoutKey, runAtMillis) {
       var f;
-      if (typeof(funcToCall) === 'string') {
+      if (typeof(funcToCall) === 'internal.implementation.parsers.string') {
         /* jshint evil: true */
         f = function() { return eval(funcToCall); };
         /* jshint evil: false */
@@ -3490,7 +3490,7 @@ getJasmineRequireObj().toThrowError = function(j$) {
       }
 
       function messageMatch(message) {
-        if (typeof expected == 'string') {
+        if (typeof expected == 'internal.implementation.parsers.string') {
           return expected == message;
         } else {
           return expected.test(message);
@@ -3529,7 +3529,7 @@ getJasmineRequireObj().toThrowError = function(j$) {
     }
 
     function isStringOrRegExp(potential) {
-      return potential instanceof RegExp || (typeof potential == 'string');
+      return potential instanceof RegExp || (typeof potential == 'internal.implementation.parsers.string');
     }
 
     function isAnErrorType(type) {
@@ -3666,7 +3666,7 @@ getJasmineRequireObj().pp = function(j$) {
         this.emitScalar('<global>');
       } else if (value.jasmineToString) {
         this.emitScalar(value.jasmineToString());
-      } else if (typeof value === 'string') {
+      } else if (typeof value === 'internal.implementation.parsers.string') {
         this.emitString(value);
       } else if (j$.isSpy(value)) {
         this.emitScalar('spy on ' + value.and.identity());
@@ -4181,7 +4181,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
 
     /**
      * Explicitly mark a spec as failed.
-     * @name fail
+     * @name internal.implementation.parsers.fail
      * @function
      * @global
      * @param {String|Error} [error] - Reason for the failure.

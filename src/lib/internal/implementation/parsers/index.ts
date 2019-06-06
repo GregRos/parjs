@@ -3,15 +3,19 @@
  * @module parjs/internal/implementation/parsers
  * @preferred
  */ /** */
-export {PrsCharWhere} from "./char/char-where";
-export {PrsStringOf} from "./string/string-of";
-export {PrsString} from "./string/string";
-export {PrsRest} from "./string/rest";
-export {PrsStringLen} from "./string/string-len";
-export {PrsResult} from "./primitives/result";
-export {PrsEof} from "./primitives/eof";
-export {PrsFail} from "./primitives/fail";
-export {PrsNewline} from "./string/newline";
-export {PrsRegexp} from "./string/regexp";
-export {PrsPosition} from "./special/position";
-export {PrsState} from "./special/state";
+export {charCodeWhere} from "./char-code-where";
+export {charWhere} from "./char-where";
+export {eof} from "./eof";
+export {fail} from "./fail";
+export {float, FloatOptions} from "./float";
+export {IntOptions, int} from "./int";
+export {newline, uniNewline} from "./newline";
+export {position} from "./position";
+export {regexp} from "./regexp";
+export {rest} from "./rest";
+export {result} from "./result";
+export {state} from "./state";
+export {string} from "./string";
+export {stringLen} from "./string-len";
+export {anyStringOf} from "./string-of";
+export {anyChar, anyCharOf, noCharOf, whitespace} from "./char-types";

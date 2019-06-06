@@ -2,7 +2,6 @@
  * @module parjs/internal/implementation/functions
  */ /** */
 
-import {QUIET_RESULT} from "../special-results";
 import {Es6} from "../../../common/common";
 
 
@@ -35,13 +34,5 @@ export namespace NumHelpers {
         let str = n.toString();
         if (str.length >= digits) return str;
         return Es6.strRepeat(char, digits - str.length) + str;
-    }
-}
-
-export namespace ArrayHelpers {
-    export function maybePush<T>(arr: T[], what: T) {
-        if (what !== QUIET_RESULT) {
-            arr.push(what);
-        }
     }
 }

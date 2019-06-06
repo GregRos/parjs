@@ -2,31 +2,25 @@
  * @module parjs/internal/implementation/combinators
  */
 /** */
-import {ParjsAction} from "../../action";
-import {Issues} from "../../issues";
-import {ReplyKind} from "../../../../reply";
-import {AnyParserAction} from "../../../action";
-import {ParsingState} from "../../state";
-import {ArrayHelpers} from "../../functions/helpers";
-import {ImplicitAnyParser} from "../../../../convertible-literal";
-import {ParjsCombinator} from "../../../../loud-combinators";
-import {LoudParser} from "../../../../loud";
-import {QuietParser} from "../../../../quiet";
-import {ConversionHelper} from "../../../convertible-literal";
-import {BaseParjsParser} from "../../parser";
-import {rawCombinator} from "../combinator";
 
-export function manySepBy<T>(delimeter: ImplicitAnyParser, max?: number)
+import {Issues} from "../issues";
+import {ReplyKind} from "../../../reply";
+import {ParsingState} from "../state";
+import {ImplicitLoudParser, ParjsCombinator} from "../../../";
+import {LoudParser} from "../../../loud";
+import {ConversionHelper} from "../../convertible-literal";
+import {BaseParjsParser} from "../parser";
+import {rawCombinator} from "./combinator";
+
+export function manySepBy<T>(delimeter: ImplicitLoudParser<any>, max?: number)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
-export function manySepBy<T>(delimeter: ImplicitAnyParser, max?: number)
-    : ParjsCombinator<QuietParser, QuietParser>;
-export function manySepBy(implDelimeter: ImplicitAnyParser, max = Infinity) {
+
+export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity) {
     let delimeter = ConversionHelper.convert(implDelimeter) as any as BaseParjsParser;
     return rawCombinator(source => {
         return new class extends BaseParjsParser {
             displayName = "manySepBy";
             expecting = source.expecting;
-            isLoud = source.isLoud;
 
             _apply(ps: ParsingState): void {
                 let arr = [];
@@ -39,7 +33,7 @@ export function manySepBy(implDelimeter: ImplicitAnyParser, max = Infinity) {
                     return;
                 }
                 let {position} = ps;
-                ArrayHelpers.maybePush(arr, ps.value);
+                arr.push(ps.value);
                 let i = 1;
                 while (true) {
                     if (i >= max) break;
@@ -59,7 +53,7 @@ export function manySepBy(implDelimeter: ImplicitAnyParser, max = Infinity) {
                     if (max >= Infinity && ps.position === position) {
                         Issues.guardAgainstInfiniteLoop("many");
                     }
-                    ArrayHelpers.maybePush(arr, ps.value);
+                    arr.push(ps.value);
                     position = ps.position;
                     i++;
                 }

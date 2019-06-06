@@ -3,10 +3,6 @@
  */ /** */
 // These are special identifiers.
 // tslint:disable:naming-convention
-/**
- * A unique object value indicating the result of a quiet parser.
- */
-export const QUIET_RESULT = Object.create(null);
 
 /**
  * A unique object value indicating the reuslt of a failed parser.

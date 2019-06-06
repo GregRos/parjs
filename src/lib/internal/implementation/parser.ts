@@ -2,12 +2,13 @@
  * @module parjs/internal/implementation
  */
 /** */
-import {FAIL_RESULT, QUIET_RESULT, UNINITIALIZED_RESULT} from "./special-results";
-import {BasicParsingState, ParjsAction} from "./action";
+import {FAIL_RESULT, UNINITIALIZED_RESULT} from "./special-results";
+
 import {FailureReply, Reply, ReplyKind, SuccessReply, Trace} from "../../reply";
-import {ParsingState} from "./state";
+import {BasicParsingState, ParsingState} from "./state";
 import _defaults = require("lodash/defaults");
 import {ParserDefinitionError} from "../../errors";
+
 
 function getErrorLocation(ps: ParsingState) {
     let endln = /\r\n|\n|\r/g;
@@ -36,11 +37,9 @@ class ParserUserState {
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
-export abstract class BaseParjsParser {
-    abstract isLoud: true | false;
+export abstract class BaseParjsParser{
     displayName: string;
     abstract expecting: string;
-
     /**
      * Perform the action on the given ParsingState. This is a wrapper around a derived action's apply method.
      * @param ps The parsing state.
@@ -60,8 +59,6 @@ export abstract class BaseParjsParser {
             ps.value = FAIL_RESULT;
             ps.expecting = ps.expecting || this.expecting;
 
-        } else if (!this.isLoud) {
-            ps.value = QUIET_RESULT;
         } else {
             if (ps.value === UNINITIALIZED_RESULT) {
                 throw new ParserDefinitionError(this.displayName, "a loud parser must set the State's return value if it succeeds.");
@@ -107,7 +104,7 @@ export abstract class BaseParjsParser {
         }
         let ret: Reply<any>;
         if (ps.kind === ReplyKind.Ok) {
-            return new SuccessReply(ps.value === QUIET_RESULT ? undefined : ps.value);
+            return new SuccessReply(ps.value);
         } else {
             let location = getErrorLocation(ps);
             let trace: Trace = {

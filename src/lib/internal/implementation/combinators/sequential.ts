@@ -2,29 +2,53 @@
  * @module parjs/internal/implementation/combinators
  */
 /** */
-import {ParjsAction} from "../../action";
-import {ReplyKind} from "../../../../reply";
-import {ParsingState} from "../../state";
-import {AnyParserAction} from "../../../action";
-import {ArrayHelpers} from "../../functions/helpers";
-import {QuietParser} from "../../../../quiet";
-import {ParjsCombinator} from "../../../../loud-combinators";
-import {LoudParser} from "../../../../loud";
-import {ImplicitAnyParser, ImplicitLoudParser} from "../../../../convertible-literal";
-import {AnyParser} from "../../../../any";
-import {rawCombinator} from "../combinator";
-import {BaseParjsParser} from "../../parser";
-import {ConversionHelper} from "../../../convertible-literal";
 
-export function then<T>(second?: QuietParser)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
-export function then(second?: QuietParser)
-    : ParjsCombinator<QuietParser, QuietParser>;
-export function then<T1, T2>(second?: ImplicitLoudParser<T2>)
-    : ParjsCombinator<LoudParser<T1>, LoudParser<[T1, T2]>>;
-export function then<T1, T2, T3>(second?: ImplicitLoudParser<T2>, third: ImplicitLoudParser<T3>)
-    : ParjsCombinator<LoudParser<T1>, LoudParser<[T1, T2, T3]>>;
-export function then(...parsers: ImplicitAnyParser[]) {
+import {ReplyKind} from "../../../reply";
+import {ParsingState} from "../state";
+import {ParjsCombinator} from "../../../";
+import {LoudParser} from "../../../loud";
+import {ImplicitLoudParser} from "../../../convertible-literal";
+
+import {compose, rawCombinator} from "./combinator";
+import {BaseParjsParser} from "../parser";
+import {ConversionHelper} from "../../convertible-literal";
+import {map} from "./map";
+
+
+export function qthen<T>(next: ImplicitLoudParser<T>)
+    : ParjsCombinator<LoudParser<any>, LoudParser<T>> {
+    return compose(
+        then(next),
+        map(arr => arr[1])
+    );
+}
+
+
+export function thenq<T>(next: ImplicitLoudParser<any>)
+    : ParjsCombinator<LoudParser<T>, LoudParser<T>> {
+    return compose(
+        then(next),
+        map(arr => arr[0])
+    );
+}
+
+export function then<A, B>(next: ImplicitLoudParser<B>)
+    : ParjsCombinator<LoudParser<A>, LoudParser<[A, B]>>;
+
+export function then<A, B, C>(
+    next1: ImplicitLoudParser<B>,
+    next2: ImplicitLoudParser<C>
+)
+    : ParjsCombinator<LoudParser<A>, LoudParser<[A, B, C]>>;
+
+export function then<A, B, C, D>(
+    next1: ImplicitLoudParser<B>,
+    next2: ImplicitLoudParser<C>,
+    next3: ImplicitLoudParser<D>
+)
+    : ParjsCombinator<LoudParser<A>, LoudParser<[A, B, C, D]>>;
+
+export function then(...parsers: ImplicitLoudParser<any>[]) {
     let resolvedParsers = parsers.map(x => ConversionHelper.convert(x) as any as BaseParjsParser);
     return rawCombinator(source => {
         resolvedParsers.splice(0, 0, source);
@@ -32,7 +56,6 @@ export function then(...parsers: ImplicitAnyParser[]) {
         return new class Then extends BaseParjsParser {
             displayName = "then";
             expecting = source.expecting;
-            isLoud = resolvedParsers.some(x => x.isLoud);
 
             protected _apply(ps: ParsingState): void {
                 let results = [];
@@ -41,7 +64,7 @@ export function then(...parsers: ImplicitAnyParser[]) {
                     let cur = resolvedParsers[i];
                     cur.apply(ps);
                     if (ps.isOk) {
-                        ArrayHelpers.maybePush(results, ps.value);
+                        results.push(ps.value);
                     } else if (ps.isSoft && origPos === ps.position) {
                         //if the first parser failed softly then we propagate a soft failure.
                         return;

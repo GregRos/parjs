@@ -2,8 +2,8 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {Codes} from "../../functions/char-indicators";
-import {ParsingState} from "../../state";
+import {Codes} from "../functions/char-indicators";
+import {ParsingState} from "../state";
 
 /**
  * Created by User on 29-Nov-16.

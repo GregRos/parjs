@@ -2,13 +2,13 @@
  * @module parjs/internal/implementation/parsers
  */
 /** */
-import {ParjsAction} from "../../action";
+
 import {Parselets} from "./parselets";
-import {ParsingState} from "../../state";
-import {ReplyKind} from "../../../../reply";
-import {ParserDefinitionError} from "../../../../errors";
-import {BaseParjsParser} from "../../parser";
-import {LoudParser} from "../../../../loud";
+import {ParsingState} from "../state";
+import {ReplyKind} from "../../../reply";
+import {ParserDefinitionError} from "../../../errors";
+import {BaseParjsParser} from "../parser";
+import {LoudParser} from "../../../loud";
 /**
  * Created by User on 28-Nov-16.
  */
@@ -31,7 +31,6 @@ export function int(options: IntOptions): LoudParser<number> {
     return new class Int extends BaseParjsParser {
         displayName = "int";
         expecting = expecting;
-        isLoud: true = true;
 
         _apply(ps: ParsingState): void {
             let {allowSign, base} = options;

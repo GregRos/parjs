@@ -2,22 +2,19 @@
  * @module parjs/internal/implementation/combinators
  */
 /** */
-import {ParjsAction} from "../../action";
-import {AnyParserAction} from "../../../action";
-import {ReplyKind} from "../../../../reply";
-import {ParsingState} from "../../state";
-import {ParjsCombinator} from "../../../../loud-combinators";
-import {AnyParser} from "../../../../any";
-import {QuietParser} from "../../../../quiet";
-import {rawCombinator} from "../combinator";
-import {BaseParjsParser} from "../../parser";
 
-export function not(): ParjsCombinator<AnyParser, QuietParser> {
+import {ReplyKind} from "../../../reply";
+import {ParsingState} from "../state";
+import {LoudParser, ParjsCombinator} from "../../../";
+
+import {rawCombinator} from "./combinator";
+import {BaseParjsParser} from "../parser";
+
+export function not(): ParjsCombinator<LoudParser<any>, LoudParser<void>> {
     return rawCombinator(source => {
         return new class Not extends BaseParjsParser {
             displayName = "not";
             expecting = `not: ${source.expecting}`; // TODO: better expecting
-            isLoud = false;
             _apply(ps: ParsingState): void {
                 let {position} = ps;
                 source.apply(ps);
