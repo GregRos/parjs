@@ -7,15 +7,15 @@ import {ParsingState} from "../state";
 import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
 import {BaseParjsParser} from "../parser";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 
 
 /**
- * Backtracking combinator. Applies `P` and if it succeeds, backtracks to the current position.
- * Does not consume input.
+ * Applies the source parser. If it succeeds, backtracks to the current position in the input
+ * and yields the result.
  */
-export function backtrack<T>(): ParjsCombinator<LoudParser<T>, LoudParser<T>> {
-    return rawCombinator(source => {
+export function backtrack<T>(): ParjsCombinator<T, T> {
+    return defineCombinator(source => {
         return new class Backtrack extends BaseParjsParser {
             displayName = "backtrack";
             expecting = source.expecting;

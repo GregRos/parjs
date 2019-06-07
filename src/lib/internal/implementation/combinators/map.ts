@@ -6,18 +6,18 @@
 import {ParsingState} from "../state";
 import {ParjsCombinator} from "../../../";
 import {LoudParser, ParjsProjection} from "../../../loud";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 /**
- * Projection combinator. Applies `P`, and projects its result with `projection`.
+ * Applies the source parser and projects its result with `projection`.
  * @param projection The projection to apply.
  */
 export function map<TIn, TOut>(projection: ParjsProjection<TIn, TOut>)
-    : ParjsCombinator<LoudParser<TIn>, LoudParser<TOut>>;
+    : ParjsCombinator<TIn, TOut>;
 
 export function map(projection: any) {
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class Map extends BaseParjsParser {
             displayName = "map";
             expecting = source.expecting;
@@ -35,6 +35,6 @@ export function map(projection: any) {
 }
 
 export function mapConst<T>(result: T)
-    : ParjsCombinator<LoudParser<any>, LoudParser<T>> {
+    : ParjsCombinator<any, T> {
     return map(() => result);
 }

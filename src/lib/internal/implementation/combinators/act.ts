@@ -7,17 +7,17 @@ import {ParsingState} from "../state";
 
 import {LoudParser, ParjsProjection} from "../../../loud";
 import {ParjsCombinator} from "../../../";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 /**
- * Returns a parser that applies `P`, and calls `action` every time `P` it succeeds.
+ * Applies `action` to each result emitted by the source parser and emits its results unchanged.
  * @param action
  */
 export function each<T>(action: ParjsProjection<T, void>)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
+    : ParjsCombinator<T, T>;
 export function each(action: any) {
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class extends BaseParjsParser {
             displayName = "each";
             expecting = source.expecting;

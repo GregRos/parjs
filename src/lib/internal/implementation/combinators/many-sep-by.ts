@@ -10,20 +10,22 @@ import {ImplicitLoudParser, ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
 import {ConversionHelper} from "../convertible-literal";
 import {BaseParjsParser} from "../parser";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 
 /**
- * Delimeted iteration combinator. Applies `P` repeatedly, separated by `delimeter` each time.
- * Yields all the results of `P` in an array.
- * @param delimeter Parser that separates applications of `P`.
- * @param max Optionally, then maximum number of times to apply `P`. Defaults to `Infinity`.
+ * Applies the source parser repeatedly until it fails softly, with each pair of
+ * applications separated by applying `delimeter`. Also terminates if `delimeter`
+ * fails softly. Yields all the results of the source parser in an array.
+ * @param delimeter Parser that separates two applications of the source.
+ * @param max Optionally, then maximum number of times to apply the source
+ * parser. Defaults to `Infinity`.
  */
 export function manySepBy<T>(delimeter: ImplicitLoudParser<any>, max?: number)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
+    : ParjsCombinator<T, T[]>;
 
 export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity) {
     let delimeter = ConversionHelper.convert(implDelimeter) as any as BaseParjsParser;
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class extends BaseParjsParser {
             displayName = "manySepBy";
             expecting = source.expecting;

@@ -8,18 +8,20 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../../reply";
 import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 /**
- * Iteration combinator. Applies `P` until it fails softly.
- * @param maxIterations Optionally, the maximum number of times to apply `P`. Defaults to `Infinity`.
+ * Applies the source parser until it fails softly, and yields all of its results
+ * in an array.
+ * @param maxIterations Optionally, the maximum number of times to apply
+ * the source parser. Defaults to `Infinity`.
  */
 export function many<T>(maxIterations?: number)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
+    : ParjsCombinator<T, T[]>;
 
 export function many(maxIterations = Infinity) {
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class Many extends BaseParjsParser {
             displayName = "many";
             expecting = source.expecting;

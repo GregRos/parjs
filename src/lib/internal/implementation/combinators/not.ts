@@ -7,11 +7,14 @@ import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
 import {LoudParser, ParjsCombinator} from "../../../";
 
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
-export function not(): ParjsCombinator<LoudParser<any>, LoudParser<void>> {
-    return rawCombinator(source => {
+/**
+ * Applies the source parser. Succeeds if if it fails softly, and fails otherwise.
+ */
+export function not(): ParjsCombinator<any, void> {
+    return defineCombinator(source => {
         return new class Not extends BaseParjsParser {
             displayName = "not";
             expecting = `not: ${source.expecting}`; // TODO: better expecting

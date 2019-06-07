@@ -8,22 +8,22 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../../reply";
 import {ImplicitLoudParser, ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ConversionHelper} from "../convertible-literal";
 
 /**
- * Terminated iteration combinator. Applies `P` multiple times, until `till` succeeds.
- * Yields the results of `P` in an array.
- * @param till The parser for the terminal sequence.
- * @param tillOptional If true, it is okay for `P` to fail softly before `till` succeeds.
- * Defaults to false.
+ * Tries to apply the source parser repeatedly until `till` succeeds. Yields
+ * the results of the source parser in an array.
+ * @param till The parser that indicates iteration should stop.
+ * @param tillOptional If true, parsing will succeed if the source parser
+ * fails softly. Defaults to false.
  */
 export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
+    : ParjsCombinator<T, T[]>;
 export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) {
     let tillResolved = ConversionHelper.convert(till) as any as BaseParjsParser;
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class ManyTill extends BaseParjsParser {
             displayName = "manyTill";
             expecting = `${source.expecting} or ${tillResolved.expecting}`;

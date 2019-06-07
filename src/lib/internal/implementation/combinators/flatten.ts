@@ -1,5 +1,5 @@
 import {LoudParser, ParjsCombinator} from "../../../index";
-import {compose} from "./combinator";
+import {composeCombinator} from "./combinator";
 import {map} from "./map";
 
 export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];
@@ -20,9 +20,10 @@ function flattenNestedArrays(arr: unknown[] | unknown) {
 }
 
 /**
- * Deep flattening projection combinator. Applies `P` and flattens its result into an array of non-array elements.
+ * Applies the source parser and projects its result into a flat array - an array
+ * with non-array elements.
  */
 export function flatten<T>()
-    : ParjsCombinator<LoudParser<NestedArray<T>>, LoudParser<T[]>> {
+    : ParjsCombinator<NestedArray<T>, T[]> {
     return map<NestedArray<T>, T[]>(x => flattenNestedArrays(x));
 }

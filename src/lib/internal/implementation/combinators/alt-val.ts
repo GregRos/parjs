@@ -7,18 +7,17 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../../reply";
 import {ParserDefinitionError} from "../../../errors";
 import {LoudParser} from "../../../loud";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ParjsCombinator} from "../../../index";
 
 /**
- * The optional combinator.
- * Applies `P`. If `P` fails softly, yields `val` and succeeds without consuming input.
+ * Applies the source parser. If it fails softly, succeeds and yields `val`.
  * @param val
  */
-export function maybe<T, S = undefined>(val?: S): ParjsCombinator<LoudParser<T>, LoudParser<T|S>>;
+export function maybe<T, S = undefined>(val?: S): ParjsCombinator<T, T|S>;
 export function maybe(val = undefined) {
-   return rawCombinator(inner => {
+   return defineCombinator(inner => {
        return new class MaybeCombinator extends BaseParjsParser {
            _inner = inner;
            expecting = "blah blah blah";

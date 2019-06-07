@@ -8,11 +8,14 @@ import {StringHelpers} from "../functions/helpers";
 import {ParjsCombinator} from "../../../";
 
 import {LoudParser} from "../../../loud";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
-export function str(): ParjsCombinator<LoudParser<any>, LoudParser<string>> {
-    return rawCombinator(source => {
+/**
+ * Applies the source parser and yields a stringified result.
+ */
+export function str(): ParjsCombinator<any, string> {
+    return defineCombinator(source => {
         return new class Str extends BaseParjsParser {
             displayName = "str";
             expecting = source.expecting;

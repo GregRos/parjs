@@ -5,6 +5,8 @@
  * @preferred
  */ /** iooi*/
 
+import {LoudParser} from "./loud";
+
 export {UserState} from "./internal/implementation/state";
 export {LoudParser} from "./loud";
 export {ParjsParsingFailure} from "./errors";
@@ -38,5 +40,5 @@ export {
 } from "./internal/implementation/parsers";
 
 export interface ParjsCombinator<TFrom, TTo> {
-    (from: TFrom): TTo;
+    (from: LoudParser<TFrom>): LoudParser<TTo>;
 }

@@ -7,11 +7,15 @@ import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
 
 import {LoudParser, ParjsCombinator} from "../../../";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
-export function mustCapture<T>(failType: ReplyKind = ReplyKind.HardFail): ParjsCombinator<LoudParser<T>, LoudParser<T>> {
-    return rawCombinator(source => {
+/**
+ * Applies the source parser and makes sure it captured some input.
+ * @param failType
+ */
+export function mustCapture<T>(failType: ReplyKind = ReplyKind.HardFail): ParjsCombinator<T, T> {
+    return defineCombinator(source => {
         return new class MustCapture extends BaseParjsParser {
             expecting = `internal parser ${source.displayName} to consume input`;
             displayName = "mustCapture";

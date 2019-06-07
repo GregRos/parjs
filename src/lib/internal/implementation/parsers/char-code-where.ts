@@ -8,6 +8,11 @@ import {ParsingState} from "../state";
 import {BaseParjsParser} from "../parser";
 import {LoudParser} from "../../../loud";
 
+/**
+ * Returns a parser that parses one character, and checks its code fulfills `predicate`.
+ * @param predicate
+ * @param property
+ */
 export function charCodeWhere(predicate: (char: number) => boolean, property = "(a specific property)"): LoudParser<string> {
     return new class CharCodeWhere extends BaseParjsParser {
         displayName = "charCodeWhere";

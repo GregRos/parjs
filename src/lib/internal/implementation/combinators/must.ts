@@ -7,22 +7,22 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../../reply";
 import {LoudParser, ParjsPredicate} from "../../../loud";
 import {ParjsCombinator} from "../../../";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 
 //TODO: do sth with reason
 /**
- * Assertion combinator. Applies `P` and asserts that its result fulfills `predicate`.
+ * Applies the source parser and makes sure its result fulfills `predicate`.
  * @param predicate The condition to check for.
  * @param reason
  * @param fail
  */
 export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: ReplyKind.Fail)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
+    : ParjsCombinator<T, T>;
 
 export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class Must extends BaseParjsParser {
             displayName = "must";
             expecting = `internal parser ${source.displayName} yielding a result satisfying condition`; // TODO better
@@ -40,11 +40,11 @@ export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {
 }
 
 export function mustBeOf<T>(...args: T[])
-    : ParjsCombinator<LoudParser<T>, LoudParser<T>> {
+    : ParjsCombinator<T, T> {
     return must(x => args.indexOf(x) >= 0);
 }
 
 export function mustNotBeOf<T>(...args: T[])
-    : ParjsCombinator<LoudParser<T>, LoudParser<T>> {
+    : ParjsCombinator<T, T> {
     return must(x => args.indexOf(x) < 0);
 }

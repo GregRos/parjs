@@ -10,39 +10,39 @@ import {ImplicitLoudParser} from "../../../convertible-literal";
 import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
 import {ConversionHelper} from "../convertible-literal";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 
 /**
- * Basic disjunction/alternatives combinator. Tries to apply one or more parsers in sequence,
- * until one succeeds or fails hard.
+ * Applies the source parser. If it fails softly, applies `alt2` at the current
+ * position. Yields the result of the successful parser.
  * @param alt2 An alternative parser to apply.
  */
 export function or<T1, T2>(
     alt2: ImplicitLoudParser<T2>
-): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2>>;
+): ParjsCombinator<T1, T1 | T2>;
 
 export function or<T1, T2, T3>(
     alt2: ImplicitLoudParser<T2>,
     alt3: ImplicitLoudParser<T3>
-): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3>>;
+): ParjsCombinator<T1, T1 | T2 | T3>;
 
 
 export function or<T1, T2, T3, T4>(
     alt2: ImplicitLoudParser<T2>,
     alt3: ImplicitLoudParser<T3>,
     alt4: ImplicitLoudParser<T4>
-): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3 | T4>>;
+): ParjsCombinator<T1, T1 | T2 | T3 | T4>;
 export function or<T1, T2, T3, T4, T5>(
     alt2: ImplicitLoudParser<T2>,
     alt3: ImplicitLoudParser<T3>,
     alt4: ImplicitLoudParser<T4>,
     alt5: ImplicitLoudParser<T5>
-): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3 | T4 | T5>>;
+): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
 export function or(...alts: ImplicitLoudParser<any>[]) {
     let resolvedAlts = alts.map(x => ConversionHelper.convert(x) as any as BaseParjsParser);
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
 
         let altNames = resolvedAlts.map(x => x.displayName);

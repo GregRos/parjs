@@ -9,7 +9,7 @@ import {ParjsCombinator} from "../../../";
 
 import {LoudParser} from "../../../loud";
 import {BaseParjsParser} from "../parser";
-import {rawCombinator} from "../combinators/combinator";
+import {defineCombinator} from "../combinators/combinator";
 
 export function state(): LoudParser<any> {
     return new class State extends BaseParjsParser {

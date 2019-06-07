@@ -7,11 +7,15 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../../reply";
 import {LoudParser, ParjsCombinator} from "../../../";
 
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
-export function soft<T>(): ParjsCombinator<LoudParser<T>, LoudParser<T>> {
-    return rawCombinator(source => {
+/**
+ * Applies the source parser and yields its result. Reduces failure severity
+ * from Hard to Soft.
+ */
+export function soft<T>(): ParjsCombinator<T, T> {
+    return defineCombinator(source => {
         return new class Soft extends BaseParjsParser {
             displayName = "soft";
             expecting = source.expecting;

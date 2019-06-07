@@ -7,18 +7,18 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../../reply";
 import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {rawCombinator} from "./combinator";
+import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 /**
- * Exact iteration combinator. Applies `P` exactly `count` times and yields the results in an array.
- * @param count The number of times to apply `P`.
+ * Applies the source parser exactly `count` times, and yields all the results in an array.
+ * @param count The number of times to apply the source parser.
  */
 export function exactly<T>(count: number)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
+    : ParjsCombinator<T, T[]>;
 
 export function exactly(count: number) {
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         return new class Exactly extends BaseParjsParser {
             displayName = "exactly";
             expecting = source.expecting;

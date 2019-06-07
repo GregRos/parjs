@@ -9,48 +9,62 @@ import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
 import {ImplicitLoudParser} from "../../../convertible-literal";
 
-import {compose, rawCombinator} from "./combinator";
+import {composeCombinator, defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ConversionHelper} from "../convertible-literal";
 import {map} from "./map";
 
 
+/**
+ * Applies the source parser followed by `next`. Yields the result of
+ * `next`.
+ * @param next
+ */
 export function qthen<T>(next: ImplicitLoudParser<T>)
-    : ParjsCombinator<LoudParser<any>, LoudParser<T>> {
-    return compose(
+    : ParjsCombinator<any, T> {
+    return composeCombinator(
         then(next),
         map(arr => arr[1])
     );
 }
 
-
+/**
+ * Applies the source parser followed by `next`. Yields the result of
+ * the source parser.
+ * @param next
+ */
 export function thenq<T>(next: ImplicitLoudParser<any>)
-    : ParjsCombinator<LoudParser<T>, LoudParser<T>> {
-    return compose(
+    : ParjsCombinator<T, T> {
+    return composeCombinator(
         then(next),
         map(arr => arr[0])
     );
 }
 
+/**
+ * Applies the source parser followed by `next`. Yields the results of
+ * both in an array.
+ * @param next
+ */
 export function then<A, B>(next: ImplicitLoudParser<B>)
-    : ParjsCombinator<LoudParser<A>, LoudParser<[A, B]>>;
+    : ParjsCombinator<A, [A, B]>;
 
 export function then<A, B, C>(
     next1: ImplicitLoudParser<B>,
     next2: ImplicitLoudParser<C>
 )
-    : ParjsCombinator<LoudParser<A>, LoudParser<[A, B, C]>>;
+    : ParjsCombinator<A, [A, B, C]>;
 
 export function then<A, B, C, D>(
     next1: ImplicitLoudParser<B>,
     next2: ImplicitLoudParser<C>,
     next3: ImplicitLoudParser<D>
 )
-    : ParjsCombinator<LoudParser<A>, LoudParser<[A, B, C, D]>>;
+    : ParjsCombinator<A, [A, B, C, D]>;
 
 export function then(...parsers: ImplicitLoudParser<any>[]) {
     let resolvedParsers = parsers.map(x => ConversionHelper.convert(x) as any as BaseParjsParser);
-    return rawCombinator(source => {
+    return defineCombinator(source => {
         resolvedParsers.splice(0, 0, source);
 
         return new class Then extends BaseParjsParser {
