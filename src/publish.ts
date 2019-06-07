@@ -1,18 +1,17 @@
 import {retargetSourcemaps} from "retarget-sourcemaps-after-move";
-import sh = require("shelljs");
-
+import {rm, mkdir, cp} from "shelljs";
 function run() {
     let pub = ".tmp/publish";
     let srcRoot = "src/lib";
-    sh.rm("-rf", pub);
-    sh.mkdir("-p", pub);
-    sh.cp("-r", [
+    rm("-rf", pub);
+    mkdir("-p", pub);
+    cp("-r", [
         "package.json",
         "LICENSE.md",
         "README.md"
     ], pub);
-    sh.cp("-r", "dist/lib/.", pub);
-    sh.cp("-r", "src/lib/.", `${pub}/src`);
+    cp("-r", "dist/lib/.", pub);
+    cp("-r", "src/lib/.", `${pub}/src`);
     retargetSourcemaps({
         srcRoot: {
             old: srcRoot,

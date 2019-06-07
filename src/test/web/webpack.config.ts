@@ -1,7 +1,7 @@
 "use strict";
-import path = require("path");
-import webpack = require("webpack");
-import JasmineWebpackPlugin = require("jasmine-webpack-plugin");
+import * as path from "path";
+import * as webpack from "webpack";
+import JasmineWebpackPlugin from "jasmine-webpack-plugin";
 console.log(__dirname);
 const config: webpack.Configuration = {
     entry: "./scripts/with-unicode.js",
@@ -37,4 +37,4 @@ const config: webpack.Configuration = {
     plugins : [new JasmineWebpackPlugin()]
 
 };
-export = config;
+module.exports = config;

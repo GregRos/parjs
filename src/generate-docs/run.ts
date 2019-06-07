@@ -1,7 +1,7 @@
 import {Application} from "typedoc";
 import {ParjsCustomizationPlugin} from "./typedoc-plugin";
 import * as execa from "execa";
-import globby = require("globby");
+import globby from "globby";
 
 async function run() {
     let app = new Application({

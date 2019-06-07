@@ -6,7 +6,7 @@
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ReplyKind} from "../../../lib/reply";
-import _range = require("lodash/range");
+import _range from "lodash/range";
 import {string, fail, rest, eof, result, anyCharOf} from "../../../lib/internal/implementation/parsers";
 import {
     between,

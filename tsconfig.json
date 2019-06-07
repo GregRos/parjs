@@ -12,7 +12,9 @@
       "es2015.collection"
     ],
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "moduleResolution": "node"
   },
   "include": [
     "src/**/*.ts"

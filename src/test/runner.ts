@@ -5,7 +5,7 @@
 let Jasmine = require("jasmine");
 const {SpecReporter} = require("jasmine-spec-reporter");
 import "./setup";
-import glob = require("globby");
+import * as glob from "globby";
 
 let jrunner = new Jasmine();
 jrunner.specDir = "dist/test";

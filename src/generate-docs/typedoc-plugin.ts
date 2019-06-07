@@ -2,7 +2,7 @@ import {Component, ConverterComponent} from "typedoc/dist/lib/converter/componen
 import {Converter} from "typedoc/dist/lib/converter/converter";
 import {Context} from "typedoc/dist/lib/converter/context";
 import {CommentPlugin} from "typedoc/dist/lib/converter/plugins/CommentPlugin";
-import _ = require("lodash");
+import * as _ from "lodash";
 
 @Component({name: "parjs-customization"})
 export class ParjsCustomizationPlugin extends ConverterComponent {

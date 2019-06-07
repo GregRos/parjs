@@ -1,6 +1,6 @@
 import {Reply, ReplyKind} from "../../lib/reply";
-import _matches = require("lodash/matches");
-import _isPlainObject = require("lodash/isPlainObject");
+import _matches from "lodash/matches";
+import _isPlainObject from "lodash/isPlainObject";
 
 /**
  * Created by lifeg on 09/12/2016.

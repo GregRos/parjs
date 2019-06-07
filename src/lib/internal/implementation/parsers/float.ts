@@ -10,7 +10,7 @@ import {ParsingState} from "../state";
 /**
  * Created by User on 28-Nov-16.
  */
-import _defaults = require("lodash/defaults");
+import _defaults from "lodash/defaults";
 import {BaseParjsParser} from "../parser";
 import {LoudParser} from "../../../loud";
 
