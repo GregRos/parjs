@@ -17,9 +17,7 @@ export class ParjsCustomizationPlugin extends ConverterComponent {
         let arr = _.map(context.project.reflections, x => x);
         arr.forEach(x => {
             let remove = false;
-            if (x.name.includes("stringLen")) {
-                let a = 1;
-            }
+
             if (x.flags.isExternal) {
                 x.flags.isExternal = false;
             }

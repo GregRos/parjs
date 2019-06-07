@@ -2,7 +2,7 @@ import {LoudParser, ParjsCombinator, UserState} from "../../../index";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ParsingState} from "../state";
-import {cloneDeep} from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 
 /**
  * State isolation/replacement combinator. Switches the user state with `innerState`,
