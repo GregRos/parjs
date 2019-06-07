@@ -14,13 +14,21 @@ import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
 
+/**
+ * Basic disjunction/alternatives combinator. Tries to apply one or more parsers in sequence,
+ * until one succeeds or fails hard.
+ * @param alt2 An alternative parser to apply.
+ */
 export function or<T1, T2>(
     alt2: ImplicitLoudParser<T2>
 ): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2>>;
+
 export function or<T1, T2, T3>(
     alt2: ImplicitLoudParser<T2>,
     alt3: ImplicitLoudParser<T3>
 ): ParjsCombinator<LoudParser<T1>, LoudParser<T1 | T2 | T3>>;
+
+
 export function or<T1, T2, T3, T4>(
     alt2: ImplicitLoudParser<T2>,
     alt3: ImplicitLoudParser<T3>,

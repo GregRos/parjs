@@ -203,7 +203,7 @@ describe("sequential combinators", () => {
 
             it("ignores guard when given max iterations", () => {
                 let parser = result(0).pipe(
-                    many(undefined, 10)
+                    many(10)
                 );
                 expectSuccess(parser.parse(""), _range(0, 10).map(x => 0));
             });
@@ -225,11 +225,11 @@ describe("sequential combinators", () => {
         describe("many with bounded iterations, min successes", () => {
             it("guards against impossible requirements", () => {
                 expect(() => fstLoud.pipe(
-                    many(2, 1)
+                    many(1)
                 )).toThrow();
             });
             let parser = fstLoud.pipe(
-                many(1, 2)
+                many(2)
             );
             it("succeeds when appropriate", () => {
                 expectSuccess(parser.parse("abab"), ["ab", "ab"]);

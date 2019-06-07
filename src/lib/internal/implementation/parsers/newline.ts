@@ -5,11 +5,12 @@
 
 import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
-import {Codes} from "char-info/ascii-codes";
 import {LoudParser} from "../../../loud";
 import {BaseParjsParser} from "../parser";
 import {
-    uniNewline as uniNewlineChar
+    uniIsNewline,
+    AsciiCodes
+
 } from "char-info";
 export function innerNewline(unicodeRecognizer: (x: number) => boolean): LoudParser<string> {
     return new class Newline extends BaseParjsParser {
@@ -23,14 +24,14 @@ export function innerNewline(unicodeRecognizer: (x: number) => boolean): LoudPar
             }
             let charAt = input.charCodeAt(position);
 
-            if (charAt === Codes.newline) {
+            if (charAt === AsciiCodes.newline) {
                 ps.position++;
                 ps.value = "\n";
                 ps.kind = ReplyKind.Ok;
                 return;
-            } else if (charAt === Codes.carriageReturn) {
+            } else if (charAt === AsciiCodes.carriageReturn) {
                 position++;
-                if (position < input.length && input.charCodeAt(position) === Codes.newline) {
+                if (position < input.length && input.charCodeAt(position) === AsciiCodes.newline) {
                     ps.position = position + 1;
                     ps.value = "\r\n";
                     ps.kind = ReplyKind.Ok;
@@ -57,6 +58,6 @@ export function newline() {
 
 
 export function uniNewline() {
-    return innerNewline(uniNewlineChar.code);
+    return innerNewline(uniIsNewline.code);
 }
 

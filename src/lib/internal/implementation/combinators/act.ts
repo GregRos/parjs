@@ -10,6 +10,10 @@ import {ParjsCombinator} from "../../../";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
+/**
+ * Returns a parser that applies `P`, and calls `action` every time `P` it succeeds.
+ * @param action
+ */
 export function each<T>(action: ParjsProjection<T, void>)
     : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
 export function each(action: any) {

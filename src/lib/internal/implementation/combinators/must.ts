@@ -12,7 +12,13 @@ import {BaseParjsParser} from "../parser";
 
 
 //TODO: do sth with reason
-export function must<T>(req: ParjsPredicate<T>, reason?: string, fail ?: ReplyKind.Fail)
+/**
+ * Assertion combinator. Applies `P` and asserts that its result fulfills `predicate`.
+ * @param predicate The condition to check for.
+ * @param reason
+ * @param fail
+ */
+export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: ReplyKind.Fail)
     : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
 
 export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {

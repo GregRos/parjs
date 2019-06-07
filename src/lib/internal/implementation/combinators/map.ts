@@ -9,6 +9,10 @@ import {LoudParser, ParjsProjection} from "../../../loud";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
+/**
+ * Projection combinator. Applies `P`, and projects its result with `projection`.
+ * @param projection The projection to apply.
+ */
 export function map<TIn, TOut>(projection: ParjsProjection<TIn, TOut>)
     : ParjsCombinator<LoudParser<TIn>, LoudParser<TOut>>;
 

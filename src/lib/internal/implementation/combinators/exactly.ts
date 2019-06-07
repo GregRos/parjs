@@ -10,6 +10,10 @@ import {LoudParser} from "../../../loud";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
+/**
+ * Exact iteration combinator. Applies `P` exactly `count` times and yields the results in an array.
+ * @param count The number of times to apply `P`.
+ */
 export function exactly<T>(count: number)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
 

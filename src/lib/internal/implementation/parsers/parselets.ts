@@ -3,9 +3,9 @@
  */
 /** */
 import {
-    Codes,
-    isDigitCode
-} from "char-info/ascii-codes";
+    isDigitCode,
+    AsciiCodes
+} from "char-info/ascii";
 import {ParsingState} from "../state";
 
 /**
@@ -36,10 +36,10 @@ export class ParseletsType {
     parseSign(ps: ParsingState) {
         let sign = 0;
         let curChar = ps.input.charCodeAt(ps.position);
-        if (curChar === Codes.minus) {
+        if (curChar === AsciiCodes.minus) {
             sign = -1;
             ps.position++;
-        } else if (curChar === Codes.plus) {
+        } else if (curChar === AsciiCodes.plus) {
             ps.position++;
             sign = 1;
         }

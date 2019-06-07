@@ -8,6 +8,10 @@ import {ParsingState} from "../state";
 import {BaseParjsParser} from "../parser";
 import {LoudParser} from "../../../loud";
 
+/**
+ * Late-bound parser. When it is applied, it will call `resolver` and behave like the returned parser.
+ * @param resolver
+ */
 export function late<T>(resolver: () => LoudParser<T>): LoudParser<T> {
     return new class Late extends BaseParjsParser {
         displayName = "late";

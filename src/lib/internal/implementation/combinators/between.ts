@@ -7,6 +7,11 @@ import {map} from "./map";
 import {must} from "./must";
 import {ConversionHelper} from "../convertible-literal";
 
+/**
+ * Applies `pre`, `P`, and `post` in that order and yields the result of `P`.
+ * @param pre The parser to precede `P`.
+ * @param post The parser to proceed `P`.
+ */
 export function between<T>(pre: ImplicitLoudParser<any>, post: ImplicitLoudParser<any>)
     : ParjsCombinator<LoudParser<T>, LoudParser<T>>;
 export function between<T>(surrounding: ImplicitLoudParser<any>)

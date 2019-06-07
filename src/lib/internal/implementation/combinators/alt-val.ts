@@ -11,6 +11,11 @@ import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ParjsCombinator} from "../../../index";
 
+/**
+ * The optional combinator.
+ * Applies `P`. If `P` fails softly, yields `val` and succeeds without consuming input.
+ * @param val
+ */
 export function maybe<T, S = undefined>(val?: S): ParjsCombinator<LoudParser<T>, LoudParser<T|S>>;
 export function maybe(val = undefined) {
    return rawCombinator(inner => {

@@ -8,9 +8,9 @@ import {charWhere} from "./char-where";
 import {
     isLetter,
     isDigit,
-    uniDecimal as uniDecimalChar,
-    uniLetter as uniLetterChar,
-    uniLower as uniLowerChar,
+    uniIsDecimal,
+    uniIsLetter,
+    uniIsLower,
     isHex,
     isUpper,
     isLower,
@@ -45,7 +45,7 @@ export function letter() {
 }
 
 export function uniLetter() {
-    return charWhere(uniLetterChar.char);
+    return charWhere(uniIsLetter.char);
 }
 
 export function digit() {
@@ -53,7 +53,7 @@ export function digit() {
 }
 
 export function uniDigit() {
-    return charWhere(uniDecimalChar.char);
+    return charWhere(uniIsDecimal.char);
 }
 
 export function hex() {
@@ -69,7 +69,7 @@ export function upper() {
 }
 
 export function uniLower() {
-    return charWhere(uniLowerChar.char);
+    return charWhere(uniIsLower.char);
 }
 
 export function whitespace() {

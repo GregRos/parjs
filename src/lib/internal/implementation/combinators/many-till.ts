@@ -12,6 +12,13 @@ import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ConversionHelper} from "../convertible-literal";
 
+/**
+ * Terminated iteration combinator. Applies `P` multiple times, until `till` succeeds.
+ * Yields the results of `P` in an array.
+ * @param till The parser for the terminal sequence.
+ * @param tillOptional If true, it is okay for `P` to fail softly before `till` succeeds.
+ * Defaults to false.
+ */
 export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
 export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) {

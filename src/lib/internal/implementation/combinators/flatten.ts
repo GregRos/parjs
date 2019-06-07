@@ -19,6 +19,9 @@ function flattenNestedArrays(arr: unknown[] | unknown) {
     return items;
 }
 
+/**
+ * Deep flattening projection combinator. Applies `P` and flattens its result into an array of non-array elements.
+ */
 export function flatten<T>()
     : ParjsCombinator<LoudParser<NestedArray<T>>, LoudParser<T[]>> {
     return map<NestedArray<T>, T[]>(x => flattenNestedArrays(x));

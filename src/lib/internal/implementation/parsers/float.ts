@@ -3,7 +3,7 @@
  */
 /** */
 
-import {Codes} from "char-info/ascii-codes";
+import {AsciiCodes} from "char-info/ascii";
 import {Parselets} from "./parselets";
 import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
@@ -108,7 +108,7 @@ export function float(options = defaultFloatOptions): LoudParser<number> {
             }
             // tslint:disable-next-line:label-position
             floatingParse: {
-                if (allowFloatingPoint && nextChar === Codes.decimalPoint) {
+                if (allowFloatingPoint && nextChar === AsciiCodes.decimalPoint) {
                     //skip to the char after the decimal point
                     ps.position++;
                     let prevFractionalPos = ps.position;
@@ -135,7 +135,7 @@ export function float(options = defaultFloatOptions): LoudParser<number> {
                 }
                 //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
                 //if we do allow floating point, then the previous block would've consumed some characters.
-                if (allowExponent && (nextChar === Codes.e || nextChar === Codes.E)) {
+                if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
                     ps.position++;
                     let expSign = Parselets.parseSign(ps);
                     if (expSign === 0) {

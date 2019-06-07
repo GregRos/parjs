@@ -11,11 +11,14 @@ import {LoudParser} from "../../../loud";
 import {rawCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
-export function many<T>(minSuccess?: number, maxIterations?: number)
+/**
+ * Iteration combinator. Applies `P` until it fails softly.
+ * @param maxIterations Optionally, the maximum number of times to apply `P`. Defaults to `Infinity`.
+ */
+export function many<T>(maxIterations?: number)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
 
-export function many(minSuccess = -1, maxIterations = Infinity) {
-    maxIterations >= minSuccess || Issues.willAlwaysFail("many");
+export function many(maxIterations = Infinity) {
     return rawCombinator(source => {
         return new class Many extends BaseParjsParser {
             displayName = "many";
@@ -37,10 +40,6 @@ export function many(minSuccess = -1, maxIterations = Infinity) {
                     i++;
                 }
                 if (ps.atLeast(ReplyKind.HardFail)) {
-                    return;
-                }
-                if (i < minSuccess) {
-                    ps.kind = i === 0 ? ReplyKind.SoftFail : ReplyKind.HardFail;
                     return;
                 }
                 ps.value = arr;

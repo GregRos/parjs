@@ -10,6 +10,10 @@ import {BaseParjsParser} from "../parser";
 import {rawCombinator} from "./combinator";
 
 
+/**
+ * Backtracking combinator. Applies `P` and if it succeeds, backtracks to the current position.
+ * Does not consume input.
+ */
 export function backtrack<T>(): ParjsCombinator<LoudParser<T>, LoudParser<T>> {
     return rawCombinator(source => {
         return new class Backtrack extends BaseParjsParser {

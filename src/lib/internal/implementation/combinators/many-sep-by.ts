@@ -12,6 +12,12 @@ import {ConversionHelper} from "../convertible-literal";
 import {BaseParjsParser} from "../parser";
 import {rawCombinator} from "./combinator";
 
+/**
+ * Delimeted iteration combinator. Applies `P` repeatedly, separated by `delimeter` each time.
+ * Yields all the results of `P` in an array.
+ * @param delimeter Parser that separates applications of `P`.
+ * @param max Optionally, then maximum number of times to apply `P`. Defaults to `Infinity`.
+ */
 export function manySepBy<T>(delimeter: ImplicitLoudParser<any>, max?: number)
     : ParjsCombinator<LoudParser<T>, LoudParser<T[]>>;
 
