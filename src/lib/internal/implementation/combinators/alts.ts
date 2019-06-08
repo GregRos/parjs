@@ -45,11 +45,11 @@ export function or(...alts: ImplicitLoudParser<any>[]) {
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
 
-        let altNames = resolvedAlts.map(x => x.displayName);
+        let altNames = resolvedAlts.map(x => x.type);
         return new class Or extends BaseParjsParser {
-            displayName = "or";
+            type = "or";
             expecting = `one of: ${altNames.join(", ")}`;
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 let {position} = ps;
                 for (let i = 0; i < resolvedAlts.length; i++) {
                     //go over each alternative.

@@ -17,9 +17,9 @@ import {BaseParjsParser} from "../parser";
 export function str(): ParjsCombinator<any, string> {
     return defineCombinator(source => {
         return new class Str extends BaseParjsParser {
-            displayName = "str";
+            type = "str";
             expecting = source.expecting;
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (!ps.isOk) {
                     return;

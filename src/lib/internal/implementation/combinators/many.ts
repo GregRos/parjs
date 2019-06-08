@@ -23,7 +23,7 @@ export function many<T>(maxIterations?: number)
 export function many(maxIterations = Infinity) {
     return defineCombinator(source => {
         return new class Many extends BaseParjsParser {
-            displayName = "many";
+            type = "many";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {

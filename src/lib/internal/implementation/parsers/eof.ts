@@ -10,6 +10,7 @@ import {LoudParser} from "../../../loud";
 
 export function eof<T>(result?: T): LoudParser<T> {
     return new class Eof extends BaseParjsParser {
+        type = "eof";
         expecting = "end of input";
 
         _apply(ps: ParsingState): void {

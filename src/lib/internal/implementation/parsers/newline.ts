@@ -15,7 +15,7 @@ import {
 export function innerNewline(unicodeRecognizer: (x: number) => boolean): LoudParser<string> {
     return new class Newline extends BaseParjsParser {
         expecting = "newline";
-
+        type = "newline";
         _apply(ps: ParsingState) {
             let {position, input} = ps;
             if (position >= input.length) {

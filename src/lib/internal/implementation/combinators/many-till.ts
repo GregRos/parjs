@@ -25,10 +25,10 @@ export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) 
     let tillResolved = ConversionHelper.convert(till) as any as BaseParjsParser;
     return defineCombinator(source => {
         return new class ManyTill extends BaseParjsParser {
-            displayName = "manyTill";
+            type = "manyTill";
             expecting = `${source.expecting} or ${tillResolved.expecting}`;
 
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 let {position} = ps;
                 let arr = [];
                 let successes = 0;

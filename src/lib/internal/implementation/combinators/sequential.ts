@@ -68,10 +68,10 @@ export function then(...parsers: ImplicitLoudParser<any>[]) {
         resolvedParsers.splice(0, 0, source);
 
         return new class Then extends BaseParjsParser {
-            displayName = "then";
+            type = "then";
             expecting = source.expecting;
 
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 let results = [];
                 let origPos = ps.position;
                 for (let i = 0; i < resolvedParsers.length; i++) {

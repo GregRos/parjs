@@ -19,10 +19,10 @@ export function each<T>(action: ParjsProjection<T, void>)
 export function each(action: any) {
     return defineCombinator(source => {
         return new class extends BaseParjsParser {
-            displayName = "each";
+            type = "each";
             expecting = source.expecting;
 
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (!ps.isOk) {
                     return;

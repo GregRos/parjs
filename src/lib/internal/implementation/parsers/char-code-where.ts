@@ -15,7 +15,7 @@ import {LoudParser} from "../../../loud";
  */
 export function charCodeWhere(predicate: (char: number) => boolean, property = "(a specific property)"): LoudParser<string> {
     return new class CharCodeWhere extends BaseParjsParser {
-        displayName = "charCodeWhere";
+        type = "charCodeWhere";
         expecting = `any character satisfying ${property}`;
 
         _apply(ps: ParsingState): void {

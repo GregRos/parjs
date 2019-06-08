@@ -11,7 +11,7 @@ import {BaseParjsParser} from "../parser";
 export function rest(): LoudParser<string> {
     return new class Rest extends BaseParjsParser {
         expecting = "zero or more characters";
-
+        type = "rest";
         _apply(pr: ParsingState) {
             let {position, input} = pr;
             let text = input.substr(Math.min(position, input.length));

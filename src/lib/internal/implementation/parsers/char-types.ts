@@ -16,6 +16,7 @@ import {
     isLower,
     isSpace, isNewline
 } from "char-info";
+import {must} from "../combinators/must";
 
 export function anyChar() {
     return stringLen(1);
@@ -27,7 +28,8 @@ export function space() {
 
 export function spaces1() {
     return space().pipe(
-        many(1),
+        many(),
+        must(x => x.length > 0, undefined, "Soft"),
         str()
     );
 }

@@ -20,9 +20,9 @@ export function exactly<T>(count: number)
 export function exactly(count: number) {
     return defineCombinator(source => {
         return new class Exactly extends BaseParjsParser {
-            displayName = "exactly";
+            type = "exactly";
             expecting = source.expecting;
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 let arr = [];
                 for (let i = 0; i < count; i++) {
                     source.apply(ps);

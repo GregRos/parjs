@@ -70,7 +70,7 @@ ISSUES:
 export function float(options = defaultFloatOptions): LoudParser<number> {
     options = _defaults(options, defaultFloatOptions);
     return new class Float extends BaseParjsParser {
-        displayName = "float";
+        type = "float";
         expecting = "a floating-point number";
 
         _apply(ps: ParsingState): void {

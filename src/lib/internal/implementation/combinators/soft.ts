@@ -17,9 +17,9 @@ import {BaseParjsParser} from "../parser";
 export function soft<T>(): ParjsCombinator<T, T> {
     return defineCombinator(source => {
         return new class Soft extends BaseParjsParser {
-            displayName = "soft";
+            type = "soft";
             expecting = source.expecting;
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (ps.isHard) {
                     ps.kind = ReplyKind.SoftFail;

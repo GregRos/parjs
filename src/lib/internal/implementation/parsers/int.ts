@@ -29,6 +29,7 @@ export function int(options: IntOptions): LoudParser<number> {
     }
     let expecting = `a ${options.allowSign ? "signed" : "unsigned"} integer in base ${options.base}`;
     return new class Int extends BaseParjsParser {
+        type = "int";
         displayName = "int";
         expecting = expecting;
 

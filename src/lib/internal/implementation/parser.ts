@@ -38,8 +38,29 @@ class ParserUserState {
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
 export abstract class BaseParjsParser{
-    displayName: string;
+    abstract type: string;
     abstract expecting: string;
+    private _label: string;
+
+    clone() {
+        return new (this.constructor as any)();
+    }
+
+    /**
+     * Returns this parser object's informational label.
+     */
+    label();
+    /**
+     * Mutates this parser's informational label to `lbl`, and then returns `this`.
+     * @param lbl
+     */
+    label(lbl: string): this;
+
+    label(newLbl?: string): this | string {
+        if (newLbl == null) return this._label;
+        this._label = newLbl;
+        return this;
+    }
     /**
      * Perform the action on the given ParsingState. This is a wrapper around a derived action's apply method.
      * @param ps The parsing state.
@@ -53,7 +74,7 @@ export abstract class BaseParjsParser{
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
         if (ps.kind === ReplyKind.Unknown) {
-            throw new ParserDefinitionError(this.displayName, "the State's kind field must be set");
+            throw new ParserDefinitionError(this.type, "the State's kind field must be set");
         }
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
@@ -61,13 +82,13 @@ export abstract class BaseParjsParser{
 
         } else {
             if (ps.value === UNINITIALIZED_RESULT) {
-                throw new ParserDefinitionError(this.displayName, "a loud parser must set the State's return value if it succeeds.");
+                throw new ParserDefinitionError(this.type, "a loud parser must set the State's return value if it succeeds.");
             }
         }
 
         if (!ps.isOk) {
             if (ps.expecting === undefined) {
-                throw new ParserDefinitionError(this.displayName, "if failure then there must be a reason");
+                throw new ParserDefinitionError(this.type, "if failure then there must be a reason");
             }
             ps.stack.push(this);
         } else {
@@ -80,7 +101,7 @@ export abstract class BaseParjsParser{
      * @param ps
      * @private
      */
-    protected abstract _apply(ps: ParsingState): void | void;
+    abstract _apply(ps: ParsingState): void | void;
 
     parse(input: string, initialState ?: any): Reply<any> {
 

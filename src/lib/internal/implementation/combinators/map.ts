@@ -19,10 +19,10 @@ export function map<TIn, TOut>(projection: ParjsProjection<TIn, TOut>)
 export function map(projection: any) {
     return defineCombinator(source => {
         return new class Map extends BaseParjsParser {
-            displayName = "map";
+            type = "map";
             expecting = source.expecting;
 
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (!ps.isOk) {
                     return;

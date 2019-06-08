@@ -14,8 +14,9 @@ import cloneDeep from "lodash/cloneDeep";
 export function isolateState<T>(innerState?: UserState): ParjsCombinator<T, T> {
     return defineCombinator(source => {
         return new class IsolateState extends BaseParjsParser {
+            type = "isolateState";
             expecting = source.expecting;
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 let state = ps.userState;
                 ps.userState = cloneDeep(innerState);
                 source.apply(ps);

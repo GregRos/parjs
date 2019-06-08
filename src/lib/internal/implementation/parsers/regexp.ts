@@ -13,6 +13,7 @@ export function regexp(origRegexp: RegExp): LoudParser<string[]> {
     let regexp = new RegExp(origRegexp.source, `${flags}y`);
     this.expecting = `input matching '${origRegexp.source}'`;
     return new class Regexp extends BaseParjsParser {
+        type = "regexp";
         expecting = `input matching '${regexp.source}'`;
         _apply(ps: ParsingState) {
             let {input, position} = ps;

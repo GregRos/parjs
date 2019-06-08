@@ -11,9 +11,10 @@ import {LoudParser} from "../../../loud";
 
 export function fail<T = never>(expecting: string, kind: ReplyKind): LoudParser<T> {
     return new class Fail extends BaseParjsParser {
+        type = "fail";
         expecting = expecting;
 
-        protected _apply(ps: ParsingState): void {
+        _apply(ps: ParsingState): void {
             ps.kind = kind;
             ps.expecting = this.expecting;
         }

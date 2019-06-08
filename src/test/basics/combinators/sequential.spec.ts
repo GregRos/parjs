@@ -209,25 +209,8 @@ describe("sequential combinators", () => {
             });
         });
 
-        describe("many with min successes", () => {
-            let parser = fstLoud.pipe(
-                many(2)
-            );
-            it("succeeds when number of successes >= minimum", () => {
-                expectSuccess(parser.parse("abab"), ["ab", "ab"]);
-            });
-
-            it("fails when number of successses < minimum", () => {
-                expectFailure(parser.parse("ab"), ReplyKind.HardFail);
-            });
-        });
 
         describe("many with bounded iterations, min successes", () => {
-            it("guards against impossible requirements", () => {
-                expect(() => fstLoud.pipe(
-                    many(1)
-                )).toThrow();
-            });
             let parser = fstLoud.pipe(
                 many(2)
             );

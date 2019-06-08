@@ -24,10 +24,10 @@ export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: R
 export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {
     return defineCombinator(source => {
         return new class Must extends BaseParjsParser {
-            displayName = "must";
-            expecting = `internal parser ${source.displayName} yielding a result satisfying condition`; // TODO better
+            type = "must";
+            expecting = `internal parser ${source.type} yielding a result satisfying condition`; // TODO better
 
-            protected _apply(ps: ParsingState): void {
+            _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (!ps.isOk) {
                     return;

@@ -27,7 +27,7 @@ export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity
     let delimeter = ConversionHelper.convert(implDelimeter) as any as BaseParjsParser;
     return defineCombinator(source => {
         return new class extends BaseParjsParser {
-            displayName = "manySepBy";
+            type = "manySepBy";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {

@@ -16,7 +16,7 @@ import {BaseParjsParser} from "../parser";
 export function not(): ParjsCombinator<any, void> {
     return defineCombinator(source => {
         return new class Not extends BaseParjsParser {
-            displayName = "not";
+            type = "not";
             expecting = `not: ${source.expecting}`; // TODO: better expecting
             _apply(ps: ParsingState): void {
                 let {position} = ps;

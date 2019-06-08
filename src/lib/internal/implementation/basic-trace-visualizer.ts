@@ -42,7 +42,7 @@ export function BasicTraceVisualizer(args: BasicTraceVisualizerArgs = defaultArg
         let fullVisualization =
             `${trace.kind}
 Row ${trace.location.row + 1}, Col ${trace.location.column + 1}
-Stack: ${trace.stackTrace.map(x => x.displayName).filter(x => x).join(" < ")}
+Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
 ----
 ${linesVisualization}
 `;

@@ -21,7 +21,7 @@ export function maybe(val = undefined) {
        return new class MaybeCombinator extends BaseParjsParser {
            _inner = inner;
            expecting = "blah blah blah";
-           displayName = "maybe";
+           type = "maybe";
            _apply(ps: ParsingState): void {
                inner.apply(ps);
                if (ps.isSoft) {

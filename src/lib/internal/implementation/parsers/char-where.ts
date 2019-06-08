@@ -10,7 +10,7 @@ import {BaseParjsParser} from "../parser";
 
 export function charWhere(predicate: ParjsProjection<string, boolean>, expecting = "(some property)"): LoudParser<string> {
     return new class CharWhere extends BaseParjsParser {
-        displayName = "charWhere";
+        type = "charWhere";
         expecting = `a char matching: ${expecting}`;
 
         _apply(ps: ParsingState): void {
@@ -27,6 +27,10 @@ export function charWhere(predicate: ParjsProjection<string, boolean>, expecting
             ps.value = curChar;
             ps.position++;
             ps.kind = ReplyKind.Ok;
+        }
+
+        clone() {
+            return new CharWhere();
         }
 
     }();

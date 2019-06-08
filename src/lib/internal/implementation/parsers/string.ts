@@ -11,7 +11,7 @@ import {LoudParser} from "../../../loud";
 export function string(str: string): LoudParser<string> {
     return new class ParseString extends BaseParjsParser {
         expecting = `'${str}'`;
-
+        type = "string";
         _apply(ps: ParsingState): void {
             let {position, input} = ps;
             let i;

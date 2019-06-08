@@ -17,8 +17,8 @@ import {BaseParjsParser} from "../parser";
 export function mustCapture<T>(failType: ReplyKind = ReplyKind.HardFail): ParjsCombinator<T, T> {
     return defineCombinator(source => {
         return new class MustCapture extends BaseParjsParser {
-            expecting = `internal parser ${source.displayName} to consume input`;
-            displayName = "mustCapture";
+            expecting = `internal parser ${source.type} to consume input`;
+            type = "mustCapture";
             _apply(ps: ParsingState) {
                 let {position} = ps;
                 source.apply(ps);

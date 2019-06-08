@@ -17,7 +17,7 @@ import {defineCombinator} from "./combinator";
 export function backtrack<T>(): ParjsCombinator<T, T> {
     return defineCombinator(source => {
         return new class Backtrack extends BaseParjsParser {
-            displayName = "backtrack";
+            type = "backtrack";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {

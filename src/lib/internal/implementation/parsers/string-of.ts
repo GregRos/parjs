@@ -10,6 +10,7 @@ import {LoudParser} from "../../../loud";
 
 export function anyStringOf(...strs: string[]): LoudParser<string> {
     return new class StringOf extends BaseParjsParser {
+        type = "anyStringOf"
         expecting = `any of ${strs.map(x => `'${x}'`).join(", ",)}`;
 
         _apply(ps: ParsingState) {

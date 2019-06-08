@@ -31,7 +31,7 @@ export interface LoudParser<T> {
      *
      * @group informational
      */
-    readonly displayName: string;
+    readonly type: string;
 
     /**
      * Applies `this` on the given input string.
@@ -42,6 +42,8 @@ export interface LoudParser<T> {
      * @group action
      */
     parse(input: string, initialState ?: UserState): Reply<T>;
+
+
 
     pipe<T1>(
         t1: (a: this) => T1

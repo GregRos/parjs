@@ -11,6 +11,7 @@ import {LoudParser} from "../../../loud";
 
 export function stringLen(length: number): LoudParser<string> {
     return new class StringLen extends BaseParjsParser {
+        type = "stringLen";
         expecting = `${length} characters`;
         _apply(ps: ParsingState) {
             let {position, input} = ps;

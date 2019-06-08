@@ -15,7 +15,7 @@ import {LoudParser} from "../../../loud";
  */
 export function late<T>(resolver: () => LoudParser<T>): LoudParser<T> {
     return new class Late extends BaseParjsParser {
-        displayName = "late";
+        type = "late";
         expecting = "late (unbound)";
         _resolved: BaseParjsParser;
 

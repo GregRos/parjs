@@ -13,10 +13,10 @@ import {defineCombinator} from "../combinators/combinator";
 
 export function state(): LoudParser<any> {
     return new class State extends BaseParjsParser {
-        displayName = "state";
+        type = "state";
         expecting = "anything";
 
-        protected _apply(ps: ParsingState): void {
+        _apply(ps: ParsingState): void {
             ps.value = ps.userState;
             ps.kind = ReplyKind.Ok;
         }
