@@ -40,6 +40,6 @@ export {
 export interface ParjsCombinator<TFrom, TTo> {
     (from: Parjser<TFrom>): Parjser<TTo>;
 }
-export {ImplicitLoudParser} from "./internal/literal-conversion";
+export {ImplicitParjser} from "./internal/literal-conversion";
 export {ConvertibleLiteral} from "./internal/literal-conversion";
 export {visualizeTrace, TraceVisualizer} from "./internal/trace-visualizer";

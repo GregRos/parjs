@@ -1,5 +1,5 @@
 
-import {ImplicitLoudParser, ParjsCombinator} from "../../index";
+import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {qthen, thenq} from "./sequential";
 import {LiteralConverter} from "../literal-conversion";
@@ -9,11 +9,11 @@ import {LiteralConverter} from "../literal-conversion";
  * @param pre The parser to precede the source.
  * @param post The parser to proceed the source.
  */
-export function between<T>(pre: ImplicitLoudParser<any>, post: ImplicitLoudParser<any>)
+export function between<T>(pre: ImplicitParjser<any>, post: ImplicitParjser<any>)
     : ParjsCombinator<T, T>;
-export function between<T>(surrounding: ImplicitLoudParser<any>)
+export function between<T>(surrounding: ImplicitParjser<any>)
     : ParjsCombinator<T, T>;
-export function between<T>(implPre: ImplicitLoudParser<any>, implPost?: ImplicitLoudParser<any>)
+export function between<T>(implPre: ImplicitParjser<any>, implPost?: ImplicitParjser<any>)
     : ParjsCombinator<T, T> {
     implPost = implPost || implPre;
     let pre = LiteralConverter.convert(implPre);

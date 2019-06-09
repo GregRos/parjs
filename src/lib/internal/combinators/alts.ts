@@ -6,7 +6,7 @@
 import {ParsingState} from "../state";
 import {ResultKind} from "../reply";
 import {ParjsCombinator} from "../..";
-import {ImplicitLoudParser, LiteralConverter} from "../literal-conversion";
+import {ImplicitParjser, LiteralConverter} from "../literal-conversion";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 
@@ -17,27 +17,27 @@ import {ParjserBase} from "../parser";
  * @param alt2 An alternative parser to apply.
  */
 export function or<T1, T2>(
-    alt2: ImplicitLoudParser<T2>
+    alt2: ImplicitParjser<T2>
 ): ParjsCombinator<T1, T1 | T2>;
 
 export function or<T1, T2, T3>(
-    alt2: ImplicitLoudParser<T2>,
-    alt3: ImplicitLoudParser<T3>
+    alt2: ImplicitParjser<T2>,
+    alt3: ImplicitParjser<T3>
 ): ParjsCombinator<T1, T1 | T2 | T3>;
 
 
 export function or<T1, T2, T3, T4>(
-    alt2: ImplicitLoudParser<T2>,
-    alt3: ImplicitLoudParser<T3>,
-    alt4: ImplicitLoudParser<T4>
+    alt2: ImplicitParjser<T2>,
+    alt3: ImplicitParjser<T3>,
+    alt4: ImplicitParjser<T4>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4>;
 export function or<T1, T2, T3, T4, T5>(
-    alt2: ImplicitLoudParser<T2>,
-    alt3: ImplicitLoudParser<T3>,
-    alt4: ImplicitLoudParser<T4>,
-    alt5: ImplicitLoudParser<T5>
+    alt2: ImplicitParjser<T2>,
+    alt3: ImplicitParjser<T3>,
+    alt4: ImplicitParjser<T4>,
+    alt5: ImplicitParjser<T5>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
-export function or(...alts: ImplicitLoudParser<any>[]) {
+export function or(...alts: ImplicitParjser<any>[]) {
     let resolvedAlts = alts.map(x => LiteralConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);

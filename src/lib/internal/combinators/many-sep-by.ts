@@ -6,7 +6,7 @@
 import {Issues} from "../issues";
 import {ResultKind} from "../reply";
 import {ParsingState} from "../state";
-import {ImplicitLoudParser, ParjsCombinator} from "../../index";
+import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {LiteralConverter} from "../literal-conversion";
 import {ParjserBase} from "../parser";
 import {defineCombinator} from "./combinator";
@@ -19,10 +19,10 @@ import {defineCombinator} from "./combinator";
  * @param max Optionally, then maximum number of times to apply the source
  * parser. Defaults to `Infinity`.
  */
-export function manySepBy<T>(delimeter: ImplicitLoudParser<any>, max?: number)
+export function manySepBy<T>(delimeter: ImplicitParjser<any>, max?: number)
     : ParjsCombinator<T, T[]>;
 
-export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity) {
+export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
     let delimeter = LiteralConverter.convert(implDelimeter) as any as ParjserBase;
     return defineCombinator(source => {
         return new class extends ParjserBase {

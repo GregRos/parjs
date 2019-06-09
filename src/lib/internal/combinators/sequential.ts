@@ -5,7 +5,7 @@
 
 import {ResultKind} from "../reply";
 import {ParsingState} from "../state";
-import {ImplicitLoudParser, ParjsCombinator} from "../../index";
+import {ImplicitParjser, ParjsCombinator} from "../../index";
 
 import {composeCombinator, defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
@@ -18,7 +18,7 @@ import {map} from "./map";
  * `next`.
  * @param next
  */
-export function qthen<T>(next: ImplicitLoudParser<T>)
+export function qthen<T>(next: ImplicitParjser<T>)
     : ParjsCombinator<any, T> {
     return composeCombinator(
         then(next),
@@ -31,7 +31,7 @@ export function qthen<T>(next: ImplicitLoudParser<T>)
  * the source parser.
  * @param next
  */
-export function thenq<T>(next: ImplicitLoudParser<any>)
+export function thenq<T>(next: ImplicitParjser<any>)
     : ParjsCombinator<T, T> {
     return composeCombinator(
         then(next),
@@ -44,23 +44,23 @@ export function thenq<T>(next: ImplicitLoudParser<any>)
  * both in an array.
  * @param next
  */
-export function then<A, B>(next: ImplicitLoudParser<B>)
+export function then<A, B>(next: ImplicitParjser<B>)
     : ParjsCombinator<A, [A, B]>;
 
 export function then<A, B, C>(
-    next1: ImplicitLoudParser<B>,
-    next2: ImplicitLoudParser<C>
+    next1: ImplicitParjser<B>,
+    next2: ImplicitParjser<C>
 )
     : ParjsCombinator<A, [A, B, C]>;
 
 export function then<A, B, C, D>(
-    next1: ImplicitLoudParser<B>,
-    next2: ImplicitLoudParser<C>,
-    next3: ImplicitLoudParser<D>
+    next1: ImplicitParjser<B>,
+    next2: ImplicitParjser<C>,
+    next3: ImplicitParjser<D>
 )
     : ParjsCombinator<A, [A, B, C, D]>;
 
-export function then(...parsers: ImplicitLoudParser<any>[]) {
+export function then(...parsers: ImplicitParjser<any>[]) {
     let resolvedParsers = parsers.map(x => LiteralConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedParsers.splice(0, 0, source);

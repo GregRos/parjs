@@ -37,10 +37,10 @@ declare global {
         [convertibleSymbol](): Parjser<string>;
     }
 }
-export type ImplicitLoudParser<T> = Parjser<T> | ConvertibleLiteral<T>;
+export type ImplicitParjser<T> = Parjser<T> | ConvertibleLiteral<T>;
 
 export namespace LiteralConverter {
-    export function convert<V>(x: ImplicitLoudParser<V>): Parjser<V> {
+    export function convert<V>(x: ImplicitParjser<V>): Parjser<V> {
         if (typeof x === "string") {
             return string(x) as any;
         } else if (x instanceof RegExp) {

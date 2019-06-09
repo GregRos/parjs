@@ -6,7 +6,7 @@
 import {Issues} from "../issues";
 import {ParsingState} from "../state";
 import {ResultKind} from "../reply";
-import {ImplicitLoudParser, ParjsCombinator} from "../../index";
+import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 import {LiteralConverter} from "../literal-conversion";
@@ -18,9 +18,9 @@ import {LiteralConverter} from "../literal-conversion";
  * @param tillOptional If true, parsing will succeed if the source parser
  * fails softly. Defaults to false.
  */
-export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
+export function manyTill<T>(till: ImplicitParjser<any>, tillOptional?: boolean)
     : ParjsCombinator<T, T[]>;
-export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) {
+export function manyTill(till: ImplicitParjser<any>, tillOptional?: boolean) {
     let tillResolved = LiteralConverter.convert(till) as any as ParjserBase;
     return defineCombinator(source => {
         return new class ManyTill extends ParjserBase {
