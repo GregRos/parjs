@@ -6,7 +6,7 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 
 export function anyStringOf(...strs: string[]): Parjser<string> {
     return new class StringOf extends ParjserBase {

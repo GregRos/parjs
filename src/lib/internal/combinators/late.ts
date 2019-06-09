@@ -6,7 +6,7 @@
 import {ParsingState} from "../state";
 
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 
 /**
  * Returns a parser that, when it is first applied, will call `resolver`

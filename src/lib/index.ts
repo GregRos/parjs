@@ -5,10 +5,10 @@
  * @preferred
  */ /** iooi*/
 
-import {Parjser} from "./loud";
+import {Parjser} from "./parjser";
 
 export {UserState} from "./internal/state";
-export {Parjser} from "./loud";
+export {Parjser} from "./parjser";
 
 export {ReplyKind, Reply} from "./reply";
 

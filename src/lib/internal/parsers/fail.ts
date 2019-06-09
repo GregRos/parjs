@@ -6,7 +6,7 @@
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 
 export function fail<T = never>(expecting: string, kind: ReplyKind): Parjser<T> {
     return new class Fail extends ParjserBase {

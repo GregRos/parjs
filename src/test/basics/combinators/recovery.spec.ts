@@ -2,7 +2,7 @@
  * Created by lifeg on 12/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {Parjser} from "../../../lib/loud";
+import {Parjser} from "../../../lib/parjser";
 import {ReplyKind} from "../../../lib/reply";
 import {string, fail, rest} from "../../../lib/internal/parsers";
 import {mapConst, maybe, not, or, qthen, soft, str, then} from "../../../lib/combinators";

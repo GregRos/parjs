@@ -4,7 +4,7 @@
  */ /** */
 
 
-import {Parjser} from "../loud";
+import {Parjser} from "../parjser";
 
 import {string} from "./index";
 import {regexp} from "./parsers/regexp";

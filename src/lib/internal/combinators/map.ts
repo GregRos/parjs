@@ -5,7 +5,7 @@
 
 import {ParsingState} from "../state";
 import {ParjsCombinator} from "../../index";
-import {ParjsProjection} from "../../loud";
+import {ParjsProjection} from "../../parjser";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 

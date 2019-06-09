@@ -6,7 +6,7 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 
 export function string(str: string): Parjser<string> {
     return new class ParseString extends ParjserBase {

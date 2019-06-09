@@ -8,7 +8,7 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {ParserDefinitionError} from "../../errors";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 /**
  * Created by User on 28-Nov-16.
  */

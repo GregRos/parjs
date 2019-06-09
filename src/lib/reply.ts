@@ -3,7 +3,7 @@
  */
 /** */
 import {ParjsParsingFailure} from "./errors";
-import {Parjser} from "./loud";
+import {Parjser} from "./parjser";
 import {visualizeTrace} from "./internal/trace-visualizer";
 
 

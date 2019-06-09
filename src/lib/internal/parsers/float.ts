@@ -12,7 +12,7 @@ import {ParsingState} from "../state";
  */
 import _defaults from "lodash/defaults";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 
 export interface FloatOptions {
     allowSign?: boolean;

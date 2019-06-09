@@ -6,7 +6,7 @@
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../loud";
+import {Parjser} from "../../parjser";
 
 /**
  * Returns a parser that parses one character, and checks its code fulfills `predicate`.

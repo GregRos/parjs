@@ -1,5 +1,5 @@
 import "../test/setup";
-import {Parjser} from "../lib/loud";
+import {Parjser} from "../lib/parjser";
 import {ReplyKind} from "../lib/reply";
 import {exactly, late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
