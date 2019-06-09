@@ -5,7 +5,7 @@
 
 import {AsciiCodes} from "char-info/ascii";
 import {Parselets} from "./parselets";
-import {ResultKind} from "../../reply";
+import {ResultKind} from "../reply";
 import {ParsingState} from "../state";
 /**
  * Created by User on 28-Nov-16.

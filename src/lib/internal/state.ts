@@ -2,7 +2,7 @@
  * @module parjs/internal
  */
 /** */
-import {ResultKind} from "../reply";
+import {ResultKind} from "./reply";
 import {Parjser} from "../parjser";
 
 

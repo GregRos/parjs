@@ -5,7 +5,7 @@
 
 import {Parselets} from "./parselets";
 import {ParsingState} from "../state";
-import {ResultKind} from "../../reply";
+import {ResultKind} from "../reply";
 import {ParserDefinitionError} from "../../errors";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";

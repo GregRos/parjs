@@ -1,4 +1,4 @@
-import {ParjsRejection, ResultKind, ParjsResult} from "../../lib/reply";
+import {ParjsRejection, ResultKind, ParjsResult} from "../../lib/internal/reply";
 import {expectFailure} from "../helpers/custom-matchers";
 import {anyChar} from "../../lib/internal/parsers";
 

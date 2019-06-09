@@ -2,7 +2,7 @@
  * @module parjs
  */
 /** */
-import {ParjsRejection} from "./reply";
+import {ParjsRejection} from "./internal/reply";
 
 /**
  * A parent class for all errors thrown by Parjs.

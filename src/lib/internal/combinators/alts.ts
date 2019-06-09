@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ResultKind} from "../../reply";
+import {ResultKind} from "../reply";
 import {ParjsCombinator} from "../..";
 import {ImplicitLoudParser, LiteralConverter} from "../literal-conversion";
 import {defineCombinator} from "./combinator";

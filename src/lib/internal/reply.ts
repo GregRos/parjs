@@ -2,9 +2,9 @@
  * @module parjs
  */
 /** */
-import {ParjsParsingFailure} from "./errors";
-import {Parjser} from "./parjser";
-import {visualizeTrace} from "./internal/trace-visualizer";
+import {ParjsParsingFailure} from "../errors";
+import {Parjser} from "../parjser";
+import {visualizeTrace} from "./trace-visualizer";
 
 
 /**

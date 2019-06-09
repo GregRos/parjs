@@ -1,4 +1,4 @@
-import {ResultKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/internal/reply";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {eof, fail, position, result, state, string} from "../../../lib/internal/parsers";
 import {late, then} from "../../../lib/combinators";

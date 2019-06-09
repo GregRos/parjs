@@ -3,7 +3,7 @@
  */
 /** */
 
-import {RejectionInfo, ResultKind} from "../../reply";
+import {RejectionInfo, ResultKind} from "../reply";
 import {ParsingState} from "../state";
 
 import {ParjsCombinator} from "../../index";

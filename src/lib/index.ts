@@ -10,7 +10,7 @@ import {Parjser} from "./parjser";
 export {UserState} from "./internal/state";
 export {Parjser} from "./parjser";
 
-export {ResultKind, Reply} from "./reply";
+export {ResultKind, Reply} from "./internal/reply";
 
 export {
     anyStringOf,

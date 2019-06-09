@@ -3,7 +3,7 @@
  */ /** */
 
 
-import {Reply} from "./reply";
+import {Reply} from "./internal/reply";
 import {UserState} from "./internal/state";
 import {ParjsCombinator} from "./index";
 
@@ -44,7 +44,7 @@ export interface Parjser<T> {
     parse(input: string, initialState ?: UserState): Reply<T>;
 
     /**
-     * Applies a combinator this parser, and returns the result. Identical to `cmb1(this)`.
+     * Applies a combinator to this parser, and returns the result. Facilitates chaining combinators.
      * @param cmb1 The combinator to apply.
      */
     pipe<T1>(

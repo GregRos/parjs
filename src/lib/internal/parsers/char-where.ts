@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ResultKind} from "../../reply";
+import {ResultKind} from "../reply";
 import {Parjser, ParjsProjection} from "../../parjser";
 import {ParjserBase} from "../parser";
 

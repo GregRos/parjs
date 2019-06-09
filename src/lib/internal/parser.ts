@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ParjsRejection, Reply, ResultKind, ParjsResult, Trace} from "../reply";
+import {ParjsRejection, Reply, ResultKind, ParjsResult, Trace} from "./reply";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import _defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";

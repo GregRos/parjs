@@ -2,7 +2,7 @@
  * Created by lifeg on 09/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/internal/reply";
 import {
     anyChar,
     anyCharOf,

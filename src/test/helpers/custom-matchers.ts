@@ -1,4 +1,4 @@
-import {Reply, ResultKind} from "../../lib/reply";
+import {Reply, ResultKind} from "../../lib/internal/reply";
 import _matches from "lodash/matches";
 import _isPlainObject from "lodash/isPlainObject";
 

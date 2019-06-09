@@ -2,7 +2,7 @@
  * Created by lifeg on 10/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/internal/reply";
 import {ParjserBase, string} from "../../../lib/internal";
 import {anyCharOf, eof, result, stringLen} from "../../../lib";
 import {cast, each, map, str} from "../../../lib/combinators";
