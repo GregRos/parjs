@@ -5,4 +5,3 @@
  *
  */ /** */
 export {StringHelpers} from "./helpers";
-export {Predicates} from "./predicates";

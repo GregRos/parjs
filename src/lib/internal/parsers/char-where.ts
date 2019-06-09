@@ -29,10 +29,6 @@ export function charWhere(predicate: ParjsProjection<string, boolean>, expecting
             ps.kind = ResultKind.Ok;
         }
 
-        clone() {
-            return new CharWhere();
-        }
-
     }();
 }
 

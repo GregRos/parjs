@@ -6,10 +6,16 @@ import {ResultKind} from "./reply";
 import {Parjser} from "../parjser";
 
 
+/**
+ * Container type for user state data.
+ */
 export interface UserState {
     [key: string]: any;
 }
 
+/**
+ * Maintains progress for parsing a single input.
+ */
 export interface ParsingState {
     /**
      * The original string input on which parsing is performed. Should not be mutated while parsing.
