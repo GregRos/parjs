@@ -2,7 +2,7 @@
 import {ImplicitLoudParser, Parjser, ParjsCombinator, string} from "../../index";
 import {defineCombinator} from "./combinator";
 import {qthen, then, thenq} from "./sequential";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {map} from "./map";
 import {must} from "./must";
 import {LiteralConverter} from "../literal-conversion";

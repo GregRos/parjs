@@ -4,7 +4,7 @@
  * @preferred
  */ /** */
 export {FAIL_RESULT, UNINITIALIZED_RESULT} from "./special-results";
-export {BaseParjsParser} from "./parser";
+export {ParjserBase} from "./parser";
 export {ParsingState} from "./state";
 
 export {string} from "./parsers/string";

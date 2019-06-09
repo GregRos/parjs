@@ -37,7 +37,7 @@ class ParserUserState {
 /**
  * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
  */
-export abstract class BaseParjsParser{
+export abstract class ParjserBase {
     abstract type: string;
     abstract expecting: string;
     private _label: string;

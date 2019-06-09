@@ -8,7 +8,7 @@ import {ReplyKind} from "../../reply";
 import {ParjsCombinator} from "../../index";
 import {Parjser} from "../../loud";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 /**
  * Applies the source parser exactly `count` times, and yields all the results in an array.
@@ -19,7 +19,7 @@ export function exactly<T>(count: number)
 
 export function exactly(count: number) {
     return defineCombinator(source => {
-        return new class Exactly extends BaseParjsParser {
+        return new class Exactly extends ParjserBase {
             type = "exactly";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {

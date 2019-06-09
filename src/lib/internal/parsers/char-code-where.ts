@@ -5,7 +5,7 @@
 
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 /**
@@ -14,7 +14,7 @@ import {Parjser} from "../../loud";
  * @param property
  */
 export function charCodeWhere(predicate: (char: number) => boolean, property = "(a specific property)"): Parjser<string> {
-    return new class CharCodeWhere extends BaseParjsParser {
+    return new class CharCodeWhere extends ParjserBase {
         type = "charCodeWhere";
         expecting = `any character satisfying ${property}`;
 

@@ -8,7 +8,7 @@ import {ReplyKind} from "../../reply";
 import {Parjser, ParjsPredicate} from "../../loud";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 
 //TODO: do sth with reason
@@ -23,7 +23,7 @@ export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: R
 
 export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {
     return defineCombinator(source => {
-        return new class Must extends BaseParjsParser {
+        return new class Must extends ParjserBase {
             type = "must";
             expecting = `internal parser ${source.type} yielding a result satisfying condition`; // TODO better
 

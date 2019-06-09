@@ -5,12 +5,12 @@
 
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 
 export function stringLen(length: number): Parjser<string> {
-    return new class StringLen extends BaseParjsParser {
+    return new class StringLen extends ParjserBase {
         type = "stringLen";
         expecting = `${length} characters`;
         _apply(ps: ParsingState) {

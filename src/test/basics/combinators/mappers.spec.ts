@@ -3,7 +3,7 @@
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ReplyKind} from "../../../lib/reply";
-import {BaseParjsParser, string} from "../../../lib/internal";
+import {ParjserBase, string} from "../../../lib/internal";
 import {anyCharOf, eof, result, stringLen} from "../../../lib";
 import {cast, each, map, str} from "../../../lib/combinators";
 

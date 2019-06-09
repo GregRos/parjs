@@ -11,7 +11,7 @@ import {ParsingState} from "../state";
  * Created by User on 28-Nov-16.
  */
 import _defaults from "lodash/defaults";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 export interface FloatOptions {
@@ -69,7 +69,7 @@ ISSUES:
 */
 export function float(options = defaultFloatOptions): Parjser<number> {
     options = _defaults(options, defaultFloatOptions);
-    return new class Float extends BaseParjsParser {
+    return new class Float extends ParjserBase {
         type = "float";
         expecting = "a floating-point number";
 

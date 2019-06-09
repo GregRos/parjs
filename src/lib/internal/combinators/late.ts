@@ -5,7 +5,7 @@
 
 import {ParsingState} from "../state";
 
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 /**
@@ -14,17 +14,17 @@ import {Parjser} from "../../loud";
  * @param resolver
  */
 export function late<T>(resolver: () => Parjser<T>): Parjser<T> {
-    return new class Late extends BaseParjsParser {
+    return new class Late extends ParjserBase {
         type = "late";
         expecting = "late (unbound)";
-        _resolved: BaseParjsParser;
+        _resolved: ParjserBase;
 
        _apply(ps: ParsingState): void {
             if (this._resolved) {
                 this._resolved.apply(ps);
                 return;
             }
-            this._resolved = resolver() as any as BaseParjsParser;
+            this._resolved = resolver() as any as ParjserBase;
             this._resolved.apply(ps);
             this.expecting = this._resolved.expecting;
         }

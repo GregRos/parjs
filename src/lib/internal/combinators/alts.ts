@@ -10,7 +10,7 @@ import {ParjsCombinator} from "../..";
 import {Parjser} from "../../loud";
 import {ImplicitLoudParser, LiteralConverter} from "../literal-conversion";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 
 /**
@@ -40,12 +40,12 @@ export function or<T1, T2, T3, T4, T5>(
     alt5: ImplicitLoudParser<T5>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
 export function or(...alts: ImplicitLoudParser<any>[]) {
-    let resolvedAlts = alts.map(x => LiteralConverter.convert(x) as any as BaseParjsParser);
+    let resolvedAlts = alts.map(x => LiteralConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
 
         let altNames = resolvedAlts.map(x => x.type);
-        return new class Or extends BaseParjsParser {
+        return new class Or extends ParjserBase {
             type = "or";
             expecting = `one of: ${altNames.join(", ")}`;
             _apply(ps: ParsingState): void {

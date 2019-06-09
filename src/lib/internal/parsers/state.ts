@@ -8,11 +8,11 @@ import {ReplyKind} from "../../reply";
 import {ParjsCombinator} from "../../index";
 
 import {Parjser} from "../../loud";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {defineCombinator} from "../combinators/combinator";
 
 export function state(): Parjser<any> {
-    return new class State extends BaseParjsParser {
+    return new class State extends ParjserBase {
         type = "state";
         expecting = "anything";
 

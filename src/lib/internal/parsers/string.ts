@@ -5,11 +5,11 @@
 
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 export function string(str: string): Parjser<string> {
-    return new class ParseString extends BaseParjsParser {
+    return new class ParseString extends ParjserBase {
         expecting = `'${str}'`;
         type = "string";
         _apply(ps: ParsingState): void {

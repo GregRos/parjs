@@ -8,7 +8,7 @@ import {ReplyKind} from "../../reply";
 import {ParserDefinitionError} from "../../errors";
 import {Parjser} from "../../loud";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {ParjsCombinator} from "../../index";
 
 /**
@@ -18,7 +18,7 @@ import {ParjsCombinator} from "../../index";
 export function maybe<T, S = undefined>(val?: S): ParjsCombinator<T, T|S>;
 export function maybe(val = undefined) {
    return defineCombinator(inner => {
-       return new class MaybeCombinator extends BaseParjsParser {
+       return new class MaybeCombinator extends ParjserBase {
            _inner = inner;
            expecting = "blah blah blah";
            type = "maybe";

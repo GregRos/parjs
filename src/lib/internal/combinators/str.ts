@@ -9,14 +9,14 @@ import {ParjsCombinator} from "../../index";
 
 import {Parjser} from "../../loud";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 /**
  * Applies the source parser and yields a stringified result.
  */
 export function str(): ParjsCombinator<any, string> {
     return defineCombinator(source => {
-        return new class Str extends BaseParjsParser {
+        return new class Str extends ParjserBase {
             type = "str";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {

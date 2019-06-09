@@ -8,7 +8,7 @@ import {ReplyKind} from "../../reply";
 import {Parjser, ParjsCombinator} from "../../";
 
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 /**
  * Applies the source parser and yields its result. Reduces failure severity
@@ -16,7 +16,7 @@ import {BaseParjsParser} from "../parser";
  */
 export function soft<T>(): ParjsCombinator<T, T> {
     return defineCombinator(source => {
-        return new class Soft extends BaseParjsParser {
+        return new class Soft extends ParjserBase {
             type = "soft";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {

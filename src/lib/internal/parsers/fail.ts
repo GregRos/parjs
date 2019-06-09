@@ -6,11 +6,11 @@
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
 import {Issues} from "../issues";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 export function fail<T = never>(expecting: string, kind: ReplyKind): Parjser<T> {
-    return new class Fail extends BaseParjsParser {
+    return new class Fail extends ParjserBase {
         type = "fail";
         expecting = expecting;
 

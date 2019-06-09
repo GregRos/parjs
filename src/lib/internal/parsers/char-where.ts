@@ -6,10 +6,10 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {Parjser, ParjsProjection} from "../../loud";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 export function charWhere(predicate: ParjsProjection<string, boolean>, expecting = "(some property)"): Parjser<string> {
-    return new class CharWhere extends BaseParjsParser {
+    return new class CharWhere extends ParjserBase {
         type = "charWhere";
         expecting = `a char matching: ${expecting}`;
 

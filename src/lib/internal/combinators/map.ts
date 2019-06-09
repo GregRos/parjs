@@ -7,7 +7,7 @@ import {ParsingState} from "../state";
 import {ParjsCombinator} from "../../index";
 import {Parjser, ParjsProjection} from "../../loud";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 /**
  * Applies the source parser and projects its result with `projection`.
@@ -18,7 +18,7 @@ export function map<TIn, TOut>(projection: ParjsProjection<TIn, TOut>)
 
 export function map(projection: any) {
     return defineCombinator(source => {
-        return new class Map extends BaseParjsParser {
+        return new class Map extends ParjserBase {
             type = "map";
             expecting = source.expecting;
 

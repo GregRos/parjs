@@ -6,13 +6,13 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {Parjser} from "../../loud";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 export function regexp(origRegexp: RegExp): Parjser<string[]> {
     let flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"].filter(x => x).join("");
     let regexp = new RegExp(origRegexp.source, `${flags}y`);
     this.expecting = `input matching '${origRegexp.source}'`;
-    return new class Regexp extends BaseParjsParser {
+    return new class Regexp extends ParjserBase {
         type = "regexp";
         expecting = `input matching '${regexp.source}'`;
         _apply(ps: ParsingState) {

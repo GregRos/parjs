@@ -1,6 +1,6 @@
 import {Parjser, ParjsCombinator, UserState} from "../../index";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {ParsingState} from "../state";
 import cloneDeep from "lodash/cloneDeep";
 
@@ -13,7 +13,7 @@ import cloneDeep from "lodash/cloneDeep";
  */
 export function isolateState<T>(innerState?: UserState): ParjsCombinator<T, T> {
     return defineCombinator(source => {
-        return new class IsolateState extends BaseParjsParser {
+        return new class IsolateState extends ParjserBase {
             type = "isolateState";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {

@@ -6,14 +6,14 @@
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
 import {Parjser} from "../../loud";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {
     uniIsNewline,
     AsciiCodes
 
 } from "char-info";
 export function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string> {
-    return new class Newline extends BaseParjsParser {
+    return new class Newline extends ParjserBase {
         expecting = "newline";
         type = "newline";
         _apply(ps: ParsingState) {

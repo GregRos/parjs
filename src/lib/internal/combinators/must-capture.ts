@@ -8,7 +8,7 @@ import {ParsingState} from "../state";
 
 import {Parjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 /**
  * Applies the source parser and makes sure it captured some input.
@@ -16,7 +16,7 @@ import {BaseParjsParser} from "../parser";
  */
 export function mustCapture<T>(failType: ReplyKind = ReplyKind.HardFail): ParjsCombinator<T, T> {
     return defineCombinator(source => {
-        return new class MustCapture extends BaseParjsParser {
+        return new class MustCapture extends ParjserBase {
             expecting = `internal parser ${source.type} to consume input`;
             type = "mustCapture";
             _apply(ps: ParsingState) {

@@ -5,11 +5,11 @@
 
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 
 export function anyStringOf(...strs: string[]): Parjser<string> {
-    return new class StringOf extends BaseParjsParser {
+    return new class StringOf extends ParjserBase {
         type = "anyStringOf"
         expecting = `any of ${strs.map(x => `'${x}'`).join(", ",)}`;
 

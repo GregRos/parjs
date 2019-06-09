@@ -9,7 +9,7 @@ import {ImplicitLoudParser, ParjsCombinator} from "../../index";
 import {Parjser} from "../../loud";
 
 import {composeCombinator, defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {LiteralConverter} from "../literal-conversion";
 import {map} from "./map";
 
@@ -62,11 +62,11 @@ export function then<A, B, C, D>(
     : ParjsCombinator<A, [A, B, C, D]>;
 
 export function then(...parsers: ImplicitLoudParser<any>[]) {
-    let resolvedParsers = parsers.map(x => LiteralConverter.convert(x) as any as BaseParjsParser);
+    let resolvedParsers = parsers.map(x => LiteralConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedParsers.splice(0, 0, source);
 
-        return new class Then extends BaseParjsParser {
+        return new class Then extends ParjserBase {
             type = "then";
             expecting = source.expecting;
 

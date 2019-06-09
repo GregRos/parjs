@@ -6,7 +6,7 @@
 import {ParsingState} from "../state";
 import {ParjsCombinator} from "../../";
 import {Parjser} from "../../loud";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {defineCombinator} from "./combinator";
 
 
@@ -16,7 +16,7 @@ import {defineCombinator} from "./combinator";
  */
 export function backtrack<T>(): ParjsCombinator<T, T> {
     return defineCombinator(source => {
-        return new class Backtrack extends BaseParjsParser {
+        return new class Backtrack extends ParjserBase {
             type = "backtrack";
             expecting = source.expecting;
 

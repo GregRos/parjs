@@ -7,7 +7,7 @@ import {Parselets} from "./parselets";
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {ParserDefinitionError} from "../../errors";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {Parjser} from "../../loud";
 /**
  * Created by User on 28-Nov-16.
@@ -28,7 +28,7 @@ export function int(options: IntOptions): Parjser<number> {
         throw new ParserDefinitionError("int", "invalid base");
     }
     let expecting = `a ${options.allowSign ? "signed" : "unsigned"} integer in base ${options.base}`;
-    return new class Int extends BaseParjsParser {
+    return new class Int extends ParjserBase {
         type = "int";
         displayName = "int";
         expecting = expecting;

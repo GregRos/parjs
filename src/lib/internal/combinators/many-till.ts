@@ -9,7 +9,7 @@ import {ReplyKind} from "../../reply";
 import {ImplicitLoudParser, ParjsCombinator} from "../../index";
 import {Parjser} from "../../loud";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 import {LiteralConverter} from "../literal-conversion";
 
 /**
@@ -22,9 +22,9 @@ import {LiteralConverter} from "../literal-conversion";
 export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
     : ParjsCombinator<T, T[]>;
 export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) {
-    let tillResolved = LiteralConverter.convert(till) as any as BaseParjsParser;
+    let tillResolved = LiteralConverter.convert(till) as any as ParjserBase;
     return defineCombinator(source => {
-        return new class ManyTill extends BaseParjsParser {
+        return new class ManyTill extends ParjserBase {
             type = "manyTill";
             expecting = `${source.expecting} or ${tillResolved.expecting}`;
 

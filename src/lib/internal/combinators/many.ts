@@ -9,7 +9,7 @@ import {ReplyKind} from "../../reply";
 import {ParjsCombinator} from "../../index";
 import {Parjser} from "../../loud";
 import {defineCombinator} from "./combinator";
-import {BaseParjsParser} from "../parser";
+import {ParjserBase} from "../parser";
 
 /**
  * Applies the source parser until it fails softly, and yields all of its results
@@ -22,7 +22,7 @@ export function many<T>(maxIterations?: number)
 
 export function many(maxIterations = Infinity) {
     return defineCombinator(source => {
-        return new class Many extends BaseParjsParser {
+        return new class Many extends ParjserBase {
             type = "many";
             expecting = source.expecting;
 
