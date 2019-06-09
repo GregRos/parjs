@@ -6,6 +6,7 @@
 import {Reply, ReplyKind} from "./reply";
 import {UserState} from "./internal/state";
 import {ImplicitLoudParser} from "./internal/literal-conversion";
+import {ParjsCombinator} from "./index";
 
 /**
  * A projection on the parser result and the parser state.
@@ -43,26 +44,47 @@ export interface Parjser<T> {
      */
     parse(input: string, initialState ?: UserState): Reply<T>;
 
+    /**
+     * Applies a combinator this parser, and returns the result. Identical to `cmb1(this)`.
+     * @param cmb1 The combinator to apply.
+     */
     pipe<T1>(
-        t1: (a: this) => T1
-    ): T1;
+        cmb1: ParjsCombinator<T, T1>
+    ): Parjser<T1>;
 
     pipe<T1, T2>(
-        t1: (a: this) => T1,
-        t2: (a: T1) => T2
-    ): T2;
+        cmb1: ParjsCombinator<T, T1>,
+        cmb2: ParjsCombinator<T1, T2>
+    ): Parjser<T2>;
 
     pipe<T1, T2, T3>(
-        t1: (a: this) => T1,
-        t2: (a: T1) => T2,
-        t3: (a: T2) => T3
-    ): T3;
+        cmb1: ParjsCombinator<T, T1>,
+        cmb2: ParjsCombinator<T1, T2>,
+        cmb3: ParjsCombinator<T2, T3>
+    ): Parjser<T3>;
 
     pipe<T1, T2, T3, T4>(
-        t1: (a: this) => T1,
-        t2: (a: T1) => T2,
-        t3: (a: T2) => T3,
-        t4: (a: T3) => T4
-    ): T4;
+        cmb1: ParjsCombinator<T, T1>,
+        cmb2: ParjsCombinator<T1, T2>,
+        cmb3: ParjsCombinator<T2, T3>,
+        cmb4: ParjsCombinator<T3, T4>
+    ): Parjser<T4>;
+
+    pipe<T1, T2, T3, T4, T5>(
+        cmb1: ParjsCombinator<T, T1>,
+        cmb2: ParjsCombinator<T1, T2>,
+        cmb3: ParjsCombinator<T2, T3>,
+        cmb4: ParjsCombinator<T3, T4>,
+        cmb5: ParjsCombinator<T4, T5>
+    ): Parjser<T5>;
+
+    pipe<T1, T2, T3, T4, T5, T6>(
+        cmb1: ParjsCombinator<T, T1>,
+        cmb2: ParjsCombinator<T1, T2>,
+        cmb3: ParjsCombinator<T2, T3>,
+        cmb4: ParjsCombinator<T3, T4>,
+        cmb5: ParjsCombinator<T4, T5>,
+        cmb6: ParjsCombinator<T5, T6>
+    ): Parjser<T6>;
 
 }
