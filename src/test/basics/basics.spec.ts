@@ -1,6 +1,6 @@
 import {FailureReply, ReplyKind, SuccessReply} from "../../lib/reply";
 import {expectFailure} from "../helpers/custom-matchers";
-import {anyChar} from "../../lib/internal/implementation/parsers";
+import {anyChar} from "../../lib/internal/parsers";
 
 describe("basics: anyChar example", () => {
     let parser = anyChar();

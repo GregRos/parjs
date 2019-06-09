@@ -1,7 +1,7 @@
 import {ReplyKind, uniNewline} from "../../../lib/index";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {many} from "../../../lib/combinators";
-import {uniDigit, uniLetter} from "../../../lib/internal/implementation/parsers/char-types";
+import {uniDigit, uniLetter} from "../../../lib/internal/parsers/char-types";
 
 describe("unicode strings", () => {
 

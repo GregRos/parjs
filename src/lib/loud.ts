@@ -4,7 +4,7 @@
 
 
 import {Reply, ReplyKind} from "./reply";
-import {UserState} from "./internal/implementation/state";
+import {UserState} from "./internal/state";
 import {ImplicitLoudParser} from "./convertible-literal";
 
 /**

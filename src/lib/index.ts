@@ -7,7 +7,7 @@
 
 import {LoudParser} from "./loud";
 
-export {UserState} from "./internal/implementation/state";
+export {UserState} from "./internal/state";
 export {LoudParser} from "./loud";
 export {ParjsParsingFailure} from "./errors";
 
@@ -37,7 +37,7 @@ export {
     anyChar,
     whitespace,
     uniNewline
-} from "./internal/implementation/parsers";
+} from "./internal/parsers";
 
 export interface ParjsCombinator<TFrom, TTo> {
     (from: LoudParser<TFrom>): LoudParser<TTo>;

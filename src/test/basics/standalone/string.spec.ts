@@ -11,8 +11,8 @@ import {
     noCharOf, regexp, rest,
     string, stringLen,
     uniNewline
-} from "../../../lib/internal/implementation/parsers";
-import {letter, lower, spaces1, upper} from "../../../lib/internal/implementation/parsers/char-types";
+} from "../../../lib/internal/parsers";
+import {letter, lower, spaces1, upper} from "../../../lib/internal/parsers/char-types";
 import {many, then} from "../../../lib/combinators";
 import _ = require("lodash");
 

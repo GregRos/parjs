@@ -24,4 +24,4 @@ export {
     mustNotBeOf,
     flatten,
     mapConst,
-} from "./internal/implementation/combinators";
+} from "./internal/combinators";

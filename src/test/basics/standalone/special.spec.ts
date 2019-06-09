@@ -1,6 +1,6 @@
 import {ReplyKind} from "../../../lib/reply";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {eof, fail, position, result, state, string} from "../../../lib/internal/implementation/parsers";
+import {eof, fail, position, result, state, string} from "../../../lib/internal/parsers";
 import {late, then} from "../../../lib/combinators";
 
 describe("special parsers", () => {
@@ -22,7 +22,7 @@ describe("special parsers", () => {
         });
     });
 
-    describe("state", () => {
+    describe("internal.state", () => {
         let parser = state()
         let uState = {tag: 1};
         let someInput = "abcd";

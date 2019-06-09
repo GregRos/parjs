@@ -7,7 +7,7 @@
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ReplyKind} from "../../../lib/reply";
 import _range from "lodash/range";
-import {string, fail, rest, eof, result, anyCharOf} from "../../../lib/internal/implementation/parsers";
+import {string, fail, rest, eof, result, anyCharOf} from "../../../lib/internal/parsers";
 import {
     between,
     each,

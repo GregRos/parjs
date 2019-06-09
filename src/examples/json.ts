@@ -3,7 +3,7 @@ import {LoudParser} from "../lib/loud";
 import {ReplyKind} from "../lib/reply";
 import {exactly, late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
-import {visualizeTrace} from "../lib/internal/implementation/basic-trace-visualizer";
+import {visualizeTrace} from "../lib/internal/trace-visualizer";
 
 class JsonNumber {
     constructor(public value: number) {

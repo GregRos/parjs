@@ -4,7 +4,7 @@
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {LoudParser} from "../../../lib/loud";
 import {ReplyKind} from "../../../lib/reply";
-import {string, fail, rest} from "../../../lib/internal/implementation/parsers";
+import {string, fail, rest} from "../../../lib/internal/parsers";
 import {mapConst, maybe, not, or, qthen, soft, str, then} from "../../../lib/combinators";
 
 

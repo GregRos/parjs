@@ -18,9 +18,9 @@ import "../test/setup";
 
 import {LoudParser} from "../lib/loud";
 import {each, isolateState, late, manySepBy, map, or} from "../lib/combinators";
-import {anyCharOf, float, state, string} from "../lib/internal/implementation/parsers";
-import {between} from "../lib/internal/implementation/combinators/between";
-import {whitespace} from "../lib/internal/implementation/parsers/char-types";
+import {anyCharOf, float, state, string} from "../lib/internal/parsers";
+import {between} from "../lib/internal/combinators/between";
+import {whitespace} from "../lib/internal/parsers/char-types";
 
 interface Expression {
     kind: "expression";
