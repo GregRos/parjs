@@ -5,7 +5,7 @@
  *
  *
  */ /** */
-export {ConversionHelper} from "./implementation/convertible-literal";
+export {LiteralConverter} from "./implementation/convertible-literal";
 export {FailureReply} from "../reply";
 export {SuccessReply} from "../reply";
 export {Trace} from "../reply";

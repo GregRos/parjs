@@ -10,7 +10,7 @@ import {ImplicitLoudParser, ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
 import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
-import {ConversionHelper} from "../convertible-literal";
+import {LiteralConverter} from "../convertible-literal";
 
 /**
  * Tries to apply the source parser repeatedly until `till` succeeds. Yields
@@ -22,7 +22,7 @@ import {ConversionHelper} from "../convertible-literal";
 export function manyTill<T>(till: ImplicitLoudParser<any>, tillOptional?: boolean)
     : ParjsCombinator<T, T[]>;
 export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) {
-    let tillResolved = ConversionHelper.convert(till) as any as BaseParjsParser;
+    let tillResolved = LiteralConverter.convert(till) as any as BaseParjsParser;
     return defineCombinator(source => {
         return new class ManyTill extends BaseParjsParser {
             type = "manyTill";

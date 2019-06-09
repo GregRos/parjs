@@ -2,7 +2,6 @@
  * Created by lifeg on 07/04/2017.
  */
 import "../test/setup";
-import {BasicTraceVisualizer} from "../lib/internal/implementation/basic-trace-visualizer";
 import {between, many, manySepBy} from "../lib/combinators";
 import {float, newline, whitespace} from "../lib";
 
@@ -25,7 +24,6 @@ let surrounded = separated.pipe(
 
 console.log(surrounded.parse("(1,  2 , 3 )"));
 
-const basic = BasicTraceVisualizer();
 let result = surrounded.parse(`
 
 

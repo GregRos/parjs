@@ -5,7 +5,7 @@ import {qthen, then, thenq} from "./sequential";
 import {BaseParjsParser} from "../parser";
 import {map} from "./map";
 import {must} from "./must";
-import {ConversionHelper} from "../convertible-literal";
+import {LiteralConverter} from "../convertible-literal";
 
 /**
  * Applies `pre`, the source parser, and then `post`. Yields the result of the source parser.
@@ -19,8 +19,8 @@ export function between<T>(surrounding: ImplicitLoudParser<any>)
 export function between<T>(implPre: ImplicitLoudParser<any>, implPost?: ImplicitLoudParser<any>)
     : ParjsCombinator<T, T> {
     implPost = implPost || implPre;
-    let pre = ConversionHelper.convert(implPre);
-    let post = ConversionHelper.convert(implPost);
+    let pre = LiteralConverter.convert(implPre);
+    let post = LiteralConverter.convert(implPost);
     return defineCombinator(source => {
         return pre.pipe(
             qthen(source),

@@ -14,6 +14,7 @@ import {
 } from "../../../lib/internal/implementation/parsers";
 import {letter, lower, spaces1, upper} from "../../../lib/internal/implementation/parsers/char-types";
 import {many, then} from "../../../lib/combinators";
+import _ = require("lodash");
 
 
 let uState = {};
@@ -48,7 +49,7 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(" "), " ");
         });
         it("succeeds on multiple spaces", () => {
-            expectSuccess(parser.parse(Es6.strRepeat(" ", 5)), Es6.strRepeat(" ", 5));
+            expectSuccess(parser.parse(_.repeat(" ", 5)), _.repeat(" ", 5));
         });
     });
 

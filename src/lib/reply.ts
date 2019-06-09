@@ -4,8 +4,8 @@
 /** */
 import {Trace} from "./internal";
 import {ParjsParsingFailure} from "./errors";
-import {BasicTraceVisualizer} from "./internal/implementation/basic-trace-visualizer";
 import {LoudParser} from "./loud";
+import {visualizeTrace} from "./internal/implementation/basic-trace-visualizer";
 
 
 /**
@@ -58,7 +58,7 @@ export class FailureReply {
     }
 
     toString() {
-        return BasicTraceVisualizer()(this.trace);
+        return visualizeTrace(this.trace);
     }
 }
 

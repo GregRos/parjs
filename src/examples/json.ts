@@ -3,7 +3,7 @@ import {LoudParser} from "../lib/loud";
 import {ReplyKind} from "../lib/reply";
 import {exactly, late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
-import {BasicTraceVisualizer, BasicTraceVisualizerArgs} from "../lib/internal/implementation/basic-trace-visualizer";
+import {visualizeTrace} from "../lib/internal/implementation/basic-trace-visualizer";
 
 class JsonNumber {
     constructor(public value: number) {
@@ -172,7 +172,7 @@ let result = pJsonValue.parse(`{"a" : 2,
 44325, "z" : "hi!", "a" : true,
  "array" : ["hi", 1, {"a" :    "b\\"" }, [], {}]}`);
 if (result.kind !== ReplyKind.Ok) {
-    console.log(BasicTraceVisualizer()(result.trace));
+    console.log(visualizeTrace(result.trace));
 } else {
     console.log(astToObject(result.value));
 }

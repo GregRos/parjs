@@ -10,7 +10,7 @@ import {ImplicitLoudParser} from "../../convertible-literal";
 import {string} from "./index";
 import {regexp} from "./parsers/regexp";
 
-export namespace ConversionHelper {
+export namespace LiteralConverter {
     export function convert<V>(x: ImplicitLoudParser<V>): LoudParser<V> {
         if (typeof x === "string") {
             return string(x) as any;

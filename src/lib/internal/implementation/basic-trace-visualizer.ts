@@ -7,21 +7,25 @@ import {Trace} from "../../reply";
  * Created by lifeg on 4/29/2017.
  */
 import {NumHelpers} from "./functions/helpers";
-import {TraceVisualizer} from "../visualizer";
 import repeat from "lodash/repeat";
 
-export interface BasicTraceVisualizerArgs {
+export interface TraceVisualizerArgs {
     lineNumbers: boolean;
     linesBefore: number;
 }
 
-const defaultArgs: BasicTraceVisualizerArgs = {
+export interface TraceVisualizer {
+    (trace: Trace): string;
+    configure(args: TraceVisualizerArgs): TraceVisualizer;
+}
+
+const defaultArgs: TraceVisualizerArgs = {
     lineNumbers: true,
     linesBefore: 1
 };
 
-export function BasicTraceVisualizer(args: BasicTraceVisualizerArgs = defaultArgs) {
-    let func = function(trace: Trace) {
+function newTraceVisualizer(args: TraceVisualizerArgs) {
+    let visualizer: any = (trace: Trace) => {
         let rows = trace.input.split(/\r\n|\n|\r/g);
         let locRow = trace.location.row;
         let around = args.linesBefore;
@@ -48,5 +52,8 @@ ${linesVisualization}
 `;
         return fullVisualization;
     };
-    return func as TraceVisualizer;
+    visualizer.configure = newTraceVisualizer as any;
+    return visualizer as TraceVisualizer;
 }
+
+export const visualizeTrace = newTraceVisualizer(defaultArgs);

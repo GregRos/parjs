@@ -9,7 +9,7 @@ import {ReplyKind} from "../../../reply";
 import {ImplicitLoudParser} from "../../../convertible-literal";
 import {ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {ConversionHelper} from "../convertible-literal";
+import {LiteralConverter} from "../convertible-literal";
 import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 
@@ -41,7 +41,7 @@ export function or<T1, T2, T3, T4, T5>(
     alt5: ImplicitLoudParser<T5>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
 export function or(...alts: ImplicitLoudParser<any>[]) {
-    let resolvedAlts = alts.map(x => ConversionHelper.convert(x) as any as BaseParjsParser);
+    let resolvedAlts = alts.map(x => LiteralConverter.convert(x) as any as BaseParjsParser);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
 

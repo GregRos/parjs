@@ -8,7 +8,7 @@ import {ReplyKind} from "../../../reply";
 import {ParsingState} from "../state";
 import {ImplicitLoudParser, ParjsCombinator} from "../../../";
 import {LoudParser} from "../../../loud";
-import {ConversionHelper} from "../convertible-literal";
+import {LiteralConverter} from "../convertible-literal";
 import {BaseParjsParser} from "../parser";
 import {defineCombinator} from "./combinator";
 
@@ -24,7 +24,7 @@ export function manySepBy<T>(delimeter: ImplicitLoudParser<any>, max?: number)
     : ParjsCombinator<T, T[]>;
 
 export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity) {
-    let delimeter = ConversionHelper.convert(implDelimeter) as any as BaseParjsParser;
+    let delimeter = LiteralConverter.convert(implDelimeter) as any as BaseParjsParser;
     return defineCombinator(source => {
         return new class extends BaseParjsParser {
             type = "manySepBy";
