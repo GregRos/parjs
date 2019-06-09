@@ -3,7 +3,7 @@
  */ /** */
 
 
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
@@ -21,17 +21,17 @@ export function charCodeWhere(predicate: (char: number) => boolean, property = "
         _apply(ps: ParsingState): void {
             let {position, input} = ps;
             if (position >= input.length) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 return;
             }
             let curChar = input.charCodeAt(position);
             if (!predicate(curChar)) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 return;
             }
             ps.value = String.fromCharCode(curChar);
             ps.position++;
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
         }
 
     }();

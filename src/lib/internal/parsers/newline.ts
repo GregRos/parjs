@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
@@ -19,7 +19,7 @@ export function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser
         _apply(ps: ParsingState) {
             let {position, input} = ps;
             if (position >= input.length) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 return;
             }
             let charAt = input.charCodeAt(position);
@@ -27,27 +27,27 @@ export function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser
             if (charAt === AsciiCodes.newline) {
                 ps.position++;
                 ps.value = "\n";
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
                 return;
             } else if (charAt === AsciiCodes.carriageReturn) {
                 position++;
                 if (position < input.length && input.charCodeAt(position) === AsciiCodes.newline) {
                     ps.position = position + 1;
                     ps.value = "\r\n";
-                    ps.kind = ReplyKind.Ok;
+                    ps.kind = ResultKind.Ok;
                     return;
                 }
                 ps.position = position;
                 ps.value = "\r";
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
                 return;
             } else if (unicodeRecognizer && unicodeRecognizer(charAt)) {
                 ps.position++;
                 ps.value = input.charAt(position);
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
                 return;
             }
-            ps.kind = ReplyKind.SoftFail;
+            ps.kind = ResultKind.SoftFail;
         }
     }();
 }

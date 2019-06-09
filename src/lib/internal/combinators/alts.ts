@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjsCombinator} from "../..";
 import {ImplicitLoudParser, LiteralConverter} from "../literal-conversion";
 import {defineCombinator} from "./combinator";
@@ -64,7 +64,7 @@ export function or(...alts: ImplicitLoudParser<any>[]) {
                         return;
                     }
                 }
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
             }
 
         }();

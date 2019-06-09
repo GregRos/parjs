@@ -2,7 +2,7 @@
  * @module parjs/internal
  */
 /** */
-import {ReplyKind} from "../reply";
+import {ResultKind} from "../reply";
 import {Parjser} from "../parjser";
 
 
@@ -46,7 +46,7 @@ export interface ParsingState {
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
-    kind: ReplyKind;
+    kind: ResultKind;
     /**
      * Shorthand for this.result == Okay
      */
@@ -64,22 +64,22 @@ export interface ParsingState {
      */
     readonly isFatal: boolean;
 
-    atLeast(kind: ReplyKind);
+    atLeast(kind: ResultKind);
 
-    atMost(kind: ReplyKind);
+    atMost(kind: ResultKind);
 }
 
-function worseThan(a: ReplyKind, b: ReplyKind) {
-    if (a === ReplyKind.Ok) {
-        return b === ReplyKind.Ok;
+function worseThan(a: ResultKind, b: ResultKind) {
+    if (a === ResultKind.Ok) {
+        return b === ResultKind.Ok;
     }
-    if (a === ReplyKind.SoftFail) {
-        return b === ReplyKind.SoftFail || b === ReplyKind.Ok;
+    if (a === ResultKind.SoftFail) {
+        return b === ResultKind.SoftFail || b === ResultKind.Ok;
     }
-    if (a === ReplyKind.HardFail) {
-        return b !== ReplyKind.FatalFail;
+    if (a === ResultKind.HardFail) {
+        return b !== ResultKind.FatalFail;
     }
-    if (a === ReplyKind.FatalFail) {
+    if (a === ResultKind.FatalFail) {
         return true;
     }
 }
@@ -93,7 +93,7 @@ export class BasicParsingState implements ParsingState {
     initialUserState = undefined;
     userState = undefined;
     value = undefined;
-    kind: ReplyKind;
+    kind: ResultKind;
     expecting: string;
 
     constructor(public input: string) {
@@ -101,26 +101,26 @@ export class BasicParsingState implements ParsingState {
     }
 
     get isOk() {
-        return this.kind === ReplyKind.Ok;
+        return this.kind === ResultKind.Ok;
     }
 
     get isSoft() {
-        return this.kind === ReplyKind.SoftFail;
+        return this.kind === ResultKind.SoftFail;
     }
 
     get isHard() {
-        return this.kind === ReplyKind.HardFail;
+        return this.kind === ResultKind.HardFail;
     }
 
     get isFatal() {
-        return this.kind === ReplyKind.FatalFail;
+        return this.kind === ResultKind.FatalFail;
     }
 
-    atLeast(kind: ReplyKind) {
+    atLeast(kind: ResultKind) {
         return worseThan(this.kind, kind);
     }
 
-    atMost(kind: ReplyKind) {
+    atMost(kind: ResultKind) {
         return worseThan(kind, this.kind);
     }
 }

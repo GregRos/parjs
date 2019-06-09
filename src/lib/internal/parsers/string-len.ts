@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
@@ -16,12 +16,12 @@ export function stringLen(length: number): Parjser<string> {
         _apply(ps: ParsingState) {
             let {position, input} = ps;
             if (input.length < position + length) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 return;
             }
             ps.position += length;
             ps.value = input.substr(position, length);
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
         }
     }();
 }

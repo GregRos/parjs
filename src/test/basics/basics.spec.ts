@@ -1,4 +1,4 @@
-import {ParjsRejection, ReplyKind, ParjsResult} from "../../lib/reply";
+import {ParjsRejection, ResultKind, ParjsResult} from "../../lib/reply";
 import {expectFailure} from "../helpers/custom-matchers";
 import {anyChar} from "../../lib/internal/parsers";
 
@@ -13,12 +13,12 @@ describe("basics: anyChar example", () => {
     });
     it("empty input failure", () => {
         let result = parser.parse(failInput, uniqueState) as ParjsRejection;
-        expectFailure(result, ReplyKind.SoftFail);
+        expectFailure(result, ResultKind.SoftFail);
     });
 
     it("fails on too much input", () => {
         let result = parser.parse(tooMuchInput);
-        expectFailure(result, ReplyKind.SoftFail);
+        expectFailure(result, ResultKind.SoftFail);
     });
 
     describe("resolve", () => {

@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjsPredicate} from "../../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
@@ -18,10 +18,10 @@ import {ParjserBase} from "../parser";
  * @param reason
  * @param fail
  */
-export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: ReplyKind.Fail)
+export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: ResultKind.Fail)
     : ParjsCombinator<T, T>;
 
-export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {
+export function must(req: any, reason?: string, fail = ResultKind.HardFail) {
     return defineCombinator(source => {
         return new class Must extends ParjserBase {
             type = "must";
@@ -32,7 +32,7 @@ export function must(req: any, reason?: string, fail = ReplyKind.HardFail) {
                 if (!ps.isOk) {
                     return;
                 }
-                ps.kind = req(ps.value, ps.userState) ? ReplyKind.Ok : fail;
+                ps.kind = req(ps.value, ps.userState) ? ResultKind.Ok : fail;
             }
 
         }();

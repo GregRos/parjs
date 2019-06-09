@@ -5,7 +5,7 @@
 
 import {Issues} from "../issues";
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ImplicitLoudParser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
@@ -35,7 +35,7 @@ export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) 
                     tillResolved.apply(ps);
                     if (ps.isOk) {
                         break;
-                    } else if (ps.atLeast(ReplyKind.HardFail)) {
+                    } else if (ps.atLeast(ResultKind.HardFail)) {
                         //if till failed hard/fatally, we return the fail result.
                         return;
                     }
@@ -48,7 +48,7 @@ export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) 
                         //many failed softly before till...
                         if (!tillOptional) {
                             //if we parsed at least one element, we fail hard.
-                            ps.kind = successes === 0 ? ReplyKind.SoftFail : ReplyKind.HardFail;
+                            ps.kind = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
                             return;
                         } else {
                             //till was optional, so many failing softly is OK.
@@ -65,7 +65,7 @@ export function manyTill(till: ImplicitLoudParser<any>, tillOptional?: boolean) 
                     successes++;
                 }
                 ps.value = arr;
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
             }
 
         }();

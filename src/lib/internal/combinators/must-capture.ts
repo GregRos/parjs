@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 
 import {ParjsCombinator} from "../../index";
@@ -14,7 +14,7 @@ import {ParjserBase} from "../parser";
  * Applies the source parser and makes sure it captured some input.
  * @param failType
  */
-export function mustCapture<T>(failType: ReplyKind = ReplyKind.HardFail): ParjsCombinator<T, T> {
+export function mustCapture<T>(failType: ResultKind = ResultKind.HardFail): ParjsCombinator<T, T> {
     return defineCombinator(source => {
         return new class MustCapture extends ParjserBase {
             expecting = `internal parser ${source.type} to consume input`;
@@ -25,7 +25,7 @@ export function mustCapture<T>(failType: ReplyKind = ReplyKind.HardFail): ParjsC
                 if (!ps.isOk) {
                     return;
                 }
-                ps.kind = position !== ps.position ? ReplyKind.Ok : failType;
+                ps.kind = position !== ps.position ? ResultKind.Ok : failType;
             }
         }();
     });

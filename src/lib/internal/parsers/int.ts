@@ -5,7 +5,7 @@
 
 import {Parselets} from "./parselets";
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParserDefinitionError} from "../../errors";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
@@ -49,10 +49,10 @@ export function int(options: IntOptions): Parjser<number> {
             let value = parseInt(input.substring(initPos, ps.position), base);
 
             if (ps.position === position) {
-                ps.kind = parsedSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
+                ps.kind = parsedSign ? ResultKind.HardFail : ResultKind.SoftFail;
             } else {
                 ps.value = value;
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
             }
         }
 

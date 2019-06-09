@@ -2,7 +2,7 @@
  * Created by lifeg on 12/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ReplyKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/reply";
 import {eof, result, string, stringLen} from "../../../lib";
 import {must, mustCapture, mustNotBeOf, or, str, then} from "../../../lib/combinators";
 
@@ -10,16 +10,16 @@ import {must, mustCapture, mustNotBeOf, or, str, then} from "../../../lib/combin
 describe("must combinators", () => {
     describe("must combinator", () => {
         let parser = stringLen(3).pipe(
-            must(s => s === "abc", "must be 'abc'", ReplyKind.FatalFail)
+            must(s => s === "abc", "must be 'abc'", ResultKind.FatalFail)
         );
         it("fails softly if original fails softly", () => {
-            expectFailure(parser.parse("a"), ReplyKind.SoftFail);
+            expectFailure(parser.parse("a"), ResultKind.SoftFail);
         });
         it("succeeds if original succeeds and matches condition", () => {
             expectSuccess(parser.parse("abc"), "abc");
         });
         it("fails accordingly if it doesn't match the condition", () => {
-            expectFailure(parser.parse("abd"), ReplyKind.FatalFail);
+            expectFailure(parser.parse("abd"), ResultKind.FatalFail);
         });
     });
 
@@ -52,19 +52,19 @@ describe("must combinators", () => {
             then("b"),
             str(),
             or(eof("")),
-            mustCapture(ReplyKind.FatalFail)
+            mustCapture(ResultKind.FatalFail)
         );
         it("succeeds if it captures", () => {
             expectSuccess(parser.parse("ab"), "ab");
         });
         it("fails softly if original fails softly", () => {
-            expectFailure(parser.parse("ba"), ReplyKind.SoftFail);
+            expectFailure(parser.parse("ba"), ResultKind.SoftFail);
         });
         it("fails hard if original fails hard", () => {
-            expectFailure(parser.parse("ax"), ReplyKind.HardFail);
+            expectFailure(parser.parse("ax"), ResultKind.HardFail);
         });
         it("fails accordingly if it succeeds but doesn't capture", () => {
-            expectFailure(parser.parse(""), ReplyKind.FatalFail);
+            expectFailure(parser.parse(""), ResultKind.FatalFail);
         });
     });
 });

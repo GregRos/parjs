@@ -3,12 +3,12 @@
  */
 /** */
 
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
-export function fail<T = never>(expecting: string, kind: ReplyKind): Parjser<T> {
+export function fail<T = never>(expecting: string, kind: ResultKind): Parjser<T> {
     return new class Fail extends ParjserBase {
         type = "fail";
         expecting = expecting;

@@ -1,4 +1,4 @@
-import {ReplyKind, uniNewline} from "../../../lib/index";
+import {ResultKind, uniNewline} from "../../../lib/index";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {many} from "../../../lib/combinators";
 import {uniDigit, uniLetter} from "../../../lib/internal/parsers/char-types";
@@ -12,8 +12,8 @@ describe("unicode strings", () => {
                 many()
             );
             let result = unicodeNewline.parse(allNewlines);
-            expect(result.kind).toBe(ReplyKind.Ok);
-            if (result.kind !== ReplyKind.Ok) return;
+            expect(result.kind).toBe(ResultKind.Ok);
+            if (result.kind !== ResultKind.Ok) return;
             expect(result.value.length).toBe(allNewlines.length - 1);
         });
     });
@@ -26,10 +26,10 @@ describe("unicode strings", () => {
             expectSuccess(pl.parse("a"), "a");
         });
         it("parse symbol fail", () => {
-            expectFailure(pl.parse(":"), ReplyKind.SoftFail);
+            expectFailure(pl.parse(":"), ResultKind.SoftFail);
         });
         it("parse digit fail", () => {
-            expectFailure(pl.parse("5"), ReplyKind.SoftFail);
+            expectFailure(pl.parse("5"), ResultKind.SoftFail);
         });
     });
 
@@ -42,7 +42,7 @@ describe("unicode strings", () => {
             expectSuccess(pd.parse("١"), "١");
         });
         it("fails on letter", () => {
-            expectFailure(pd.parse("a"), ReplyKind.SoftFail);
+            expectFailure(pd.parse("a"), ResultKind.SoftFail);
         });
     });
 });

@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 import {ParjsCombinator} from "../../index";
@@ -25,7 +25,7 @@ export function maybe(val = undefined) {
                if (ps.isSoft) {
                    //on soft failure, set the value and result to OK
                    ps.value = val;
-                   ps.kind = ReplyKind.Ok;
+                   ps.kind = ResultKind.Ok;
                }
                //on ok/hard/fatal, propagate the result.
            }

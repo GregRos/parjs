@@ -5,7 +5,7 @@
 
 import {AsciiCodes} from "char-info/ascii";
 import {Parselets} from "./parselets";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 /**
  * Created by User on 28-Nov-16.
@@ -78,7 +78,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
             let {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent} = options;
             let {position, input} = ps;
             if (position >= input.length) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 return;
             }
             let initPos = position;
@@ -102,7 +102,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
             prevPos = ps.position;
             if (!allowImplicitZero && !hasWhole) {
                 //fail because we don't allow ".1", and similar without allowImplicitZero.
-                ps.kind = hasSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
+                ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
                 ps.expecting = msgOneOrMoreDigits;
                 return;
             }
@@ -129,7 +129,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
 
                 if (!hasWhole && !hasFraction) {
                     //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
-                    ps.kind = hasSign ? ReplyKind.HardFail : ReplyKind.SoftFail;
+                    ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
                     ps.expecting = msgOneOrMoreDigits;
                     return;
                 }
@@ -139,7 +139,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
                     ps.position++;
                     let expSign = Parselets.parseSign(ps);
                     if (expSign === 0) {
-                        ps.kind = ReplyKind.HardFail;
+                        ps.kind = ResultKind.HardFail;
                         ps.expecting = msgExponentSign;
                         return;
                     }
@@ -147,13 +147,13 @@ export function float(options = defaultFloatOptions): Parjser<number> {
                     Parselets.parseDigitsInBase(ps, 10);
                     if (ps.position === prevFractionalPos) {
                         //we parsed e+ but we did not parse any digits.
-                        ps.kind = ReplyKind.HardFail;
+                        ps.kind = ResultKind.HardFail;
                         ps.expecting = msgOneOrMoreDigits;
                         return;
                     }
                 }
             }
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
             ps.value = parseFloat(input.substring(initPos, ps.position));
         }
 

@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjsCombinator} from "../../";
 
 import {defineCombinator} from "./combinator";
@@ -22,7 +22,7 @@ export function soft<T>(): ParjsCombinator<T, T> {
             _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (ps.isHard) {
-                    ps.kind = ReplyKind.SoftFail;
+                    ps.kind = ResultKind.SoftFail;
                 }
             }
 

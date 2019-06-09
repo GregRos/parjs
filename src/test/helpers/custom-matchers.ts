@@ -1,4 +1,4 @@
-import {Reply, ReplyKind} from "../../lib/reply";
+import {Reply, ResultKind} from "../../lib/reply";
 import _matches from "lodash/matches";
 import _isPlainObject from "lodash/isPlainObject";
 
@@ -79,9 +79,9 @@ for (let prop of Object.getOwnPropertyNames(defs)) {
     };
 }
 
-export function expectFailure(result: Reply<any>, failType ?: ReplyKind.Fail) {
-    expect(result.kind).toBeAnyOf([ReplyKind.FatalFail, ReplyKind.HardFail, ReplyKind.SoftFail], "expected kind to be a Fail");
-    if (result.kind === ReplyKind.Ok) return;
+export function expectFailure(result: Reply<any>, failType ?: ResultKind.Fail) {
+    expect(result.kind).toBeAnyOf([ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail], "expected kind to be a Fail");
+    if (result.kind === ResultKind.Ok) return;
     if (failType !== undefined) {
         expect(result.kind).toBe(failType);
     }
@@ -90,8 +90,8 @@ export function expectFailure(result: Reply<any>, failType ?: ReplyKind.Fail) {
 }
 
 export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) {
-    expect(result.kind).toBe(ReplyKind.Ok, "kind wasn't OK");
-    if (result.kind !== ReplyKind.Ok) return;
+    expect(result.kind).toBe(ResultKind.Ok, "kind wasn't OK");
+    if (result.kind !== ResultKind.Ok) return;
     expect(result).toHaveMember("value", "reason value");
     expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
     if (value !== undefined) {
@@ -105,7 +105,7 @@ export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) 
 }
 
 export interface FailArgs {
-    type?: ReplyKind.Fail;
+    type?: ResultKind.Fail;
     state?: any;
 }
 

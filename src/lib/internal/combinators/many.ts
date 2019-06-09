@@ -5,7 +5,7 @@
 
 import {Issues} from "../issues";
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
@@ -40,13 +40,13 @@ export function many(maxIterations = Infinity) {
                     arr.push(ps.value);
                     i++;
                 }
-                if (ps.atLeast(ReplyKind.HardFail)) {
+                if (ps.atLeast(ResultKind.HardFail)) {
                     return;
                 }
                 ps.value = arr;
                 //recover from the last failure.
                 ps.position = position;
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
             }
 
         }();

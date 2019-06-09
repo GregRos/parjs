@@ -11,7 +11,7 @@ import {visualizeTrace} from "./internal/trace-visualizer";
  * Indicates a success reply and contains the value and other information.
  */
 export class ParjsResult<T> {
-    kind = ReplyKind.Ok;
+    kind = ResultKind.Ok;
 
     constructor(public value: T) {
 
@@ -20,6 +20,10 @@ export class ParjsResult<T> {
     toString() {
         return `SuccessReply: ${this.value}`;
     }
+}
+
+export interface RejectionInfo {
+    kind: ResultKind.HardFail;
 }
 
 export interface ErrorLocation {
@@ -34,7 +38,7 @@ export interface Trace {
     userState: object;
     position: number;
     reason: string;
-    kind: ReplyKind.Fail;
+    kind: ResultKind.Fail;
     location: ErrorLocation;
     stackTrace: Parjser<any>[];
     input: string;
@@ -70,7 +74,7 @@ export type Reply<T> = (ParjsResult<T> | ParjsRejection);
 /**
  * Namespace that contains the different reply kinds/error levels.
  */
-export namespace ReplyKind {
+export namespace ResultKind {
     /**
      * An Unknown reply. Used internally.
      */
@@ -121,5 +125,5 @@ export namespace ReplyKind {
 /**
  * Specifies a reply kind, indicating success or failure, and the severity of the failure.
  */
-export type ReplyKind = ReplyKind.Ok | ReplyKind.Fail | ReplyKind.Unknown;
+export type ReplyKind = ResultKind.Ok | ResultKind.Fail | ResultKind.Unknown;
 

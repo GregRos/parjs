@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 import {ParjsCombinator} from "../../";
 
@@ -23,10 +23,10 @@ export function not(): ParjsCombinator<any, void> {
                 source.apply(ps);
                 if (ps.isOk) {
                     ps.position = position;
-                    ps.kind = ReplyKind.SoftFail;
-                } else if (ps.kind === ReplyKind.HardFail || ps.kind === ReplyKind.SoftFail) {
+                    ps.kind = ResultKind.SoftFail;
+                } else if (ps.kind === ResultKind.HardFail || ps.kind === ResultKind.SoftFail) {
                     //hard fails are okay here
-                    ps.kind = ReplyKind.Ok;
+                    ps.kind = ResultKind.Ok;
                     ps.position = position;
                     return;
                 }

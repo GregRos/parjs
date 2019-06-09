@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
 
@@ -14,7 +14,7 @@ export function position(): Parjser<number> {
         type = "position";
         _apply(ps: ParsingState) {
             ps.value = ps.position;
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
         }
     }();
 }

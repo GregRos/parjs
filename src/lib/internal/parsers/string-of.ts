@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
@@ -27,10 +27,10 @@ export function anyStringOf(...strs: string[]): Parjser<string> {
                     //this means we did not contiue strLoop so curStr passed our tests
                     ps.position = position + curStr.length;
                     ps.value = curStr;
-                    ps.kind = ReplyKind.Ok;
+                    ps.kind = ResultKind.Ok;
                     return;
                 }
-            ps.kind = ReplyKind.SoftFail;
+            ps.kind = ResultKind.SoftFail;
         }
 
     }();

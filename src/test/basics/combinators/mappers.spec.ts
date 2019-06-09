@@ -2,7 +2,7 @@
  * Created by lifeg on 10/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ReplyKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/reply";
 import {ParjserBase, string} from "../../../lib/internal";
 import {anyCharOf, eof, result, stringLen} from "../../../lib";
 import {cast, each, map, str} from "../../../lib/combinators";
@@ -21,7 +21,7 @@ describe("map combinators", () => {
             expectSuccess(parser.parse(goodInput, uState), 1);
         });
         it("fails on failure", () => {
-            expectFailure(parser.parse(badInput, uState), ReplyKind.SoftFail);
+            expectFailure(parser.parse(badInput, uState), ResultKind.SoftFail);
         });
     });
 

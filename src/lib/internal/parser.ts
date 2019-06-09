@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ParjsRejection, Reply, ReplyKind, ParjsResult, Trace} from "../reply";
+import {ParjsRejection, Reply, ResultKind, ParjsResult, Trace} from "../reply";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import _defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
@@ -68,11 +68,11 @@ export abstract class ParjserBase {
         let {position, userState} = ps;
 
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
-        ps.kind = ReplyKind.Unknown;
+        ps.kind = ResultKind.Unknown;
         ps.expecting = undefined;
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
-        if (ps.kind === ReplyKind.Unknown) {
+        if (ps.kind === ResultKind.Unknown) {
             throw new ParserDefinitionError(this.type, "the State's kind field must be set");
         }
         if (!ps.isOk) {
@@ -115,15 +115,15 @@ export abstract class ParjserBase {
 
         if (ps.isOk) {
             if (ps.position !== input.length) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 ps.expecting = "parsers did not consume all input";
             }
         }
-        if (ps.kind === ReplyKind.Unknown) {
+        if (ps.kind === ResultKind.Unknown) {
             throw new Error("should not happen.");
         }
         let ret: Reply<any>;
-        if (ps.kind === ReplyKind.Ok) {
+        if (ps.kind === ResultKind.Ok) {
             return new ParjsResult(ps.value);
         } else {
             let trace: Trace = {

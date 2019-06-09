@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
 
@@ -17,7 +17,7 @@ export function rest(): Parjser<string> {
             let text = input.substr(Math.min(position, input.length));
             pr.position = input.length;
             pr.value = text;
-            pr.kind = ReplyKind.Ok;
+            pr.kind = ResultKind.Ok;
         }
     }();
 }

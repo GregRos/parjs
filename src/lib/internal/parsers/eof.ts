@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
@@ -15,10 +15,10 @@ export function eof<T>(result?: T): Parjser<T> {
 
         _apply(ps: ParsingState): void {
             if (ps.position === ps.input.length) {
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
                 ps.value = result;
             } else {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
             }
         }
 

@@ -1,4 +1,4 @@
-import {ReplyKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/reply";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {eof, fail, position, result, state, string} from "../../../lib/internal/parsers";
 import {late, then} from "../../../lib/combinators";
@@ -12,7 +12,7 @@ describe("special parsers", () => {
             expectSuccess(parser.parse(success), undefined);
         });
         it("fail on non-empty input", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
+            expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
         it("chain multiple EOF succeeds", () => {
             let parser2 = parser.pipe(
@@ -62,10 +62,10 @@ describe("special parsers", () => {
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {
-            expectFailure(parser.parse(noInput), ReplyKind.FatalFail);
+            expectFailure(parser.parse(noInput), ResultKind.FatalFail);
         });
         it("fails on non-empty input", () => {
-            expectFailure(parser.parse(input), ReplyKind.FatalFail);
+            expectFailure(parser.parse(input), ResultKind.FatalFail);
         });
     });
 

@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
@@ -14,7 +14,7 @@ export function result<T>(x: T): Parjser<T> {
         type = "result";
         _apply(ps: ParsingState): void {
             ps.value = x;
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
         }
 
     }();

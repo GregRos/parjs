@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
@@ -16,7 +16,7 @@ export function state(): Parjser<any> {
 
         _apply(ps: ParsingState): void {
             ps.value = ps.userState;
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
         }
 
     }();

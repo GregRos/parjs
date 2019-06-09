@@ -4,7 +4,7 @@
 /** */
 
 import {Issues} from "../issues";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 import {ImplicitLoudParser, ParjsCombinator} from "../../index";
 import {LiteralConverter} from "../literal-conversion";
@@ -32,11 +32,11 @@ export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity
             _apply(ps: ParsingState): void {
                 let arr = [];
                 source.apply(ps);
-                if (ps.atLeast(ReplyKind.HardFail)) {
+                if (ps.atLeast(ResultKind.HardFail)) {
                     return;
                 } else if (ps.isSoft) {
                     ps.value = [];
-                    ps.kind = ReplyKind.Ok;
+                    ps.kind = ResultKind.Ok;
                     return;
                 }
                 let {position} = ps;
@@ -47,14 +47,14 @@ export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity
                     delimeter.apply(ps);
                     if (ps.isSoft) {
                         break;
-                    } else if (ps.atLeast(ReplyKind.HardFail)) {
+                    } else if (ps.atLeast(ResultKind.HardFail)) {
                         return;
                     }
 
                     source.apply(ps);
                     if (ps.isSoft) {
                         break;
-                    } else if (ps.atLeast(ReplyKind.HardFail)) {
+                    } else if (ps.atLeast(ResultKind.HardFail)) {
                         return;
                     }
                     if (max >= Infinity && ps.position === position) {
@@ -64,7 +64,7 @@ export function manySepBy(implDelimeter: ImplicitLoudParser<any>, max = Infinity
                     position = ps.position;
                     i++;
                 }
-                ps.kind = ReplyKind.Ok;
+                ps.kind = ResultKind.Ok;
                 ps.position = position;
                 ps.value = arr;
             }

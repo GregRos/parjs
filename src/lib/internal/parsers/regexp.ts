@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
 
@@ -20,12 +20,12 @@ export function regexp(origRegexp: RegExp): Parjser<string[]> {
             regexp.lastIndex = position;
             let match = regexp.exec(input);
             if (!match) {
-                ps.kind = ReplyKind.SoftFail;
+                ps.kind = ResultKind.SoftFail;
                 return;
             }
             ps.position += match[0].length;
             ps.value = match.slice();
-            ps.kind = ReplyKind.Ok;
+            ps.kind = ResultKind.Ok;
         }
     }();
 }

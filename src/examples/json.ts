@@ -1,6 +1,6 @@
 import "../test/setup";
 import {Parjser} from "../lib/parjser";
-import {ReplyKind} from "../lib/reply";
+import {ResultKind} from "../lib/reply";
 import {exactly, late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
 import {visualizeTrace} from "../lib/internal/trace-visualizer";
@@ -171,7 +171,7 @@ let result = pJsonValue.parse(`{"a" : 2,
 "b\\"" : 
 44325, "z" : "hi!", "a" : true,
  "array" : ["hi", 1, {"a" :    "b\\"" }, [], {}]}`);
-if (result.kind !== ReplyKind.Ok) {
+if (result.kind !== ResultKind.Ok) {
     console.log(visualizeTrace(result.trace));
 } else {
     console.log(astToObject(result.value));

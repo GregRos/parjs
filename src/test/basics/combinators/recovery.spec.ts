@@ -3,7 +3,7 @@
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjser} from "../../../lib/parjser";
-import {ReplyKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/reply";
 import {string, fail, rest} from "../../../lib/internal/parsers";
 import {mapConst, maybe, not, or, qthen, soft, str, then} from "../../../lib/combinators";
 
@@ -27,10 +27,10 @@ describe("maybe combinator", () => {
     });
 
     it("propagates hard failure", () => {
-        let p = fail("intentional", ReplyKind.HardFail).pipe(
+        let p = fail("intentional", ResultKind.HardFail).pipe(
             maybe()
         );
-        expectFailure(p.parse(""), ReplyKind.HardFail);
+        expectFailure(p.parse(""), ResultKind.HardFail);
     });
 });
 
@@ -46,23 +46,23 @@ describe("or combinator", () => {
             expectSuccess(parser.parse("cd"), "cd");
         });
         it("fails parsing both", () => {
-            expectFailure(parser.parse("ef"), ReplyKind.SoftFail);
+            expectFailure(parser.parse("ef"), ResultKind.SoftFail);
         });
         it("fails hard when 1st fails hard", () => {
-            let parser2 = fail("fail", ReplyKind.HardFail).pipe(
+            let parser2 = fail("fail", ResultKind.HardFail).pipe(
                 mapConst("x"),
                 or("ab")
             );
-            expectFailure(parser2.parse("ab"), ReplyKind.HardFail);
+            expectFailure(parser2.parse("ab"), ResultKind.HardFail);
         });
         let parser2 = string("ab").pipe(
-            or(fail("x", ReplyKind.HardFail))
+            or(fail("x", ResultKind.HardFail))
         );
         it("succeeds with 2nd would've failed hard", () => {
             expectSuccess(parser2.parse("ab"), "ab");
         });
         it("fails when 2nd fails hard", () => {
-            expectFailure(parser2.parse("cd"), ReplyKind.HardFail);
+            expectFailure(parser2.parse("cd"), ResultKind.HardFail);
         });
     });
 });
@@ -83,7 +83,7 @@ describe("or val combinator", () => {
     });
 
     it("if first fails hard, then fail hard", () => {
-        expectFailure(parser.parse("ax"), ReplyKind.HardFail);
+        expectFailure(parser.parse("ax"), ResultKind.HardFail);
     });
 
     it("if first fail soft, then return value", () => {
@@ -112,16 +112,16 @@ describe("not combinator", () => {
         expectSuccess(parser2.parse("a"));
     });
     it("soft fails on passing input", () => {
-        expectFailure(parser.parse("ab"), ReplyKind.SoftFail);
+        expectFailure(parser.parse("ab"), ResultKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = fail("fatal", ReplyKind.FatalFail).pipe(
+        let parser2 = fail("fatal", ResultKind.FatalFail).pipe(
             not()
         );
-        expectFailure(parser2.parse(""), ReplyKind.FatalFail);
+        expectFailure(parser2.parse(""), ResultKind.FatalFail);
     });
     it("fails on too much input", () => {
-        expectFailure(parser.parse("a"), ReplyKind.SoftFail);
+        expectFailure(parser.parse("a"), ResultKind.SoftFail);
     });
 });
 
@@ -135,15 +135,15 @@ describe("soft combinator", () => {
         expectSuccess(parser.parse("ab"), "ab");
     });
     it("fails softly on soft fail", () => {
-        expectFailure(parser.parse("ba"), ReplyKind.SoftFail);
+        expectFailure(parser.parse("ba"), ResultKind.SoftFail);
     });
     it("fails softly on hard fail", () => {
-        expectFailure(parser.parse("a"), ReplyKind.SoftFail);
+        expectFailure(parser.parse("a"), ResultKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = fail("fatal", ReplyKind.FatalFail).pipe(
+        let parser2 = fail("fatal", ResultKind.FatalFail).pipe(
             soft()
         );
-        expectFailure(parser2.parse(""), ReplyKind.FatalFail);
+        expectFailure(parser2.parse(""), ResultKind.FatalFail);
     });
 });

@@ -2,7 +2,7 @@
  * Created by lifeg on 09/12/2016.
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ReplyKind} from "../../../lib/reply";
+import {ResultKind} from "../../../lib/reply";
 import {
     anyChar,
     anyCharOf,
@@ -30,10 +30,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(successInput, uState), successInput);
         });
         it("fails on empty input", () => {
-            expectFailure(parser.parse(failInput, uState), ReplyKind.SoftFail);
+            expectFailure(parser.parse(failInput, uState), ResultKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse(tooLongInput, uState), ReplyKind.SoftFail);
+            expectFailure(parser.parse(tooLongInput, uState), ResultKind.SoftFail);
         });
     });
 
@@ -100,10 +100,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fails on invalid single char", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
+            expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse("ab"), ReplyKind.SoftFail);
+            expectFailure(parser.parse("ab"), ResultKind.SoftFail);
         });
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
@@ -118,10 +118,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fails on single char from list", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
+            expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
         it("fails on too long input", () => {
-            expectFailure(parser.parse("12"), ReplyKind.SoftFail);
+            expectFailure(parser.parse("12"), ResultKind.SoftFail);
         });
     });
 
@@ -134,10 +134,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success), success);
         });
         it("fail", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
+            expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
         it("fail too long", () => {
-            expectFailure(parser.parse(`${success}1`), ReplyKind.SoftFail);
+            expectFailure(parser.parse(`${success}1`), ResultKind.SoftFail);
         });
     });
 
@@ -153,10 +153,10 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(success2), success2);
         });
         it("fail", () => {
-            expectFailure(parser.parse(fail), ReplyKind.SoftFail);
+            expectFailure(parser.parse(fail), ResultKind.SoftFail);
         });
         it("fail too long", () => {
-            expectFailure(parser.parse(`${success2}1`), ReplyKind.SoftFail);
+            expectFailure(parser.parse(`${success2}1`), ResultKind.SoftFail);
         });
     });
 
@@ -186,8 +186,8 @@ describe("basic string parsers", () => {
                 many()
             );
             let result = unicodeNewline.parse(allNewlines);
-            expect(result.kind).toBe(ReplyKind.Ok);
-            if (result.kind !== ReplyKind.Ok) return;
+            expect(result.kind).toBe(ResultKind.Ok);
+            if (result.kind !== ResultKind.Ok) return;
             expect(result.value.length).toBe(allNewlines.length - 1);
         });
 

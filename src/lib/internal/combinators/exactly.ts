@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ReplyKind} from "../../reply";
+import {ResultKind} from "../../reply";
 import {ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
@@ -26,8 +26,8 @@ export function exactly(count: number) {
                 for (let i = 0; i < count; i++) {
                     source.apply(ps);
                     if (!ps.isOk) {
-                        if (ps.kind === ReplyKind.SoftFail && i > 0) {
-                            ps.kind = ReplyKind.HardFail;
+                        if (ps.kind === ResultKind.SoftFail && i > 0) {
+                            ps.kind = ResultKind.HardFail;
                         }
                         //fail because the inner parser has failed.
                         return;
