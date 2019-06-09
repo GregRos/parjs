@@ -17,7 +17,7 @@ export function not(): ParjsCombinator<any, void> {
     return defineCombinator(source => {
         return new class Not extends ParjserBase {
             type = "not";
-            expecting = `not: ${source.expecting}`; // TODO: better expecting
+            expecting = `not: ${source.expecting}`; // TODO: better reason
             _apply(ps: ParsingState): void {
                 let {position} = ps;
                 source.apply(ps);

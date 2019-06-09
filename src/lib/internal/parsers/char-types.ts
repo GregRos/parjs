@@ -27,7 +27,9 @@ export function space() {
 export function spaces1() {
     return space().pipe(
         many(),
-        must(x => x.length > 0, undefined, "Soft"),
+        must(x => x.length > 0, {
+            kind: "Soft"
+        }),
         str()
     );
 }

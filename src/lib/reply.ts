@@ -23,7 +23,8 @@ export class ParjsResult<T> {
 }
 
 export interface RejectionInfo {
-    kind: ResultKind.HardFail;
+    kind: ResultKind.Fail;
+    reason: string | object;
 }
 
 export interface ErrorLocation {
@@ -34,20 +35,16 @@ export interface ErrorLocation {
 /**
  * An object indicating trace information about the state of parsing when it was stopped.
  */
-export interface Trace {
+export interface Trace extends RejectionInfo {
     userState: object;
     position: number;
-    reason: string;
-    kind: ResultKind.Fail;
     location: ErrorLocation;
     stackTrace: Parjser<any>[];
     input: string;
 }
 
-export class ParjsRejection {
-    reason: string;
+export class ParjsRejection implements RejectionInfo{
     constructor(public trace: Trace) {
-        this.reason = trace.reason;
 
     }
 
@@ -57,6 +54,10 @@ export class ParjsRejection {
 
     get kind() {
         return this.trace.kind;
+    }
+
+    get reason() {
+        return this.trace.reason;
     }
 
     toString() {
@@ -125,5 +126,5 @@ export namespace ResultKind {
 /**
  * Specifies a reply kind, indicating success or failure, and the severity of the failure.
  */
-export type ReplyKind = ResultKind.Ok | ResultKind.Fail | ResultKind.Unknown;
+export type ResultKind = ResultKind.Ok | ResultKind.Fail | ResultKind.Unknown;
 

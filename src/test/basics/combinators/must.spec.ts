@@ -10,7 +10,10 @@ import {must, mustCapture, mustNotBeOf, or, str, then} from "../../../lib/combin
 describe("must combinators", () => {
     describe("must combinator", () => {
         let parser = stringLen(3).pipe(
-            must(s => s === "abc", "must be 'abc'", ResultKind.FatalFail)
+            must(s => s === "abc", {
+                kind: "Fatal",
+                reason: "must be 'abc'"
+            })
         );
         it("fails softly if original fails softly", () => {
             expectFailure(parser.parse("a"), ResultKind.SoftFail);
@@ -52,7 +55,9 @@ describe("must combinators", () => {
             then("b"),
             str(),
             or(eof("")),
-            mustCapture(ResultKind.FatalFail)
+            mustCapture({
+                kind: "Fatal"
+            })
         );
         it("succeeds if it captures", () => {
             expectSuccess(parser.parse("ab"), "ab");

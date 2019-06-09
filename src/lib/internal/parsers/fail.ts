@@ -15,7 +15,7 @@ export function fail<T = never>(expecting: string, kind: ResultKind): Parjser<T>
 
         _apply(ps: ParsingState): void {
             ps.kind = kind;
-            ps.expecting = this.expecting;
+            ps.reason = this.expecting;
         }
     }();
 }

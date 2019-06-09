@@ -3,18 +3,25 @@
  */
 /** */
 
-import {ResultKind} from "../../reply";
+import {RejectionInfo, ResultKind} from "../../reply";
 import {ParsingState} from "../state";
 
 import {ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 
+import defaults from "lodash/defaults";
+const defaultRejection: RejectionInfo = {
+    reason: "succeeded without capturing input",
+    kind: "Hard"
+};
+
 /**
  * Applies the source parser and makes sure it captured some input.
- * @param failType
+ * @param rejection
  */
-export function mustCapture<T>(failType: ResultKind = ResultKind.HardFail): ParjsCombinator<T, T> {
+export function mustCapture<T>(rejection?: Partial<RejectionInfo>): ParjsCombinator<T, T> {
+    rejection = defaults(rejection, defaultRejection);
     return defineCombinator(source => {
         return new class MustCapture extends ParjserBase {
             expecting = `internal parser ${source.type} to consume input`;
@@ -25,7 +32,11 @@ export function mustCapture<T>(failType: ResultKind = ResultKind.HardFail): Parj
                 if (!ps.isOk) {
                     return;
                 }
-                ps.kind = position !== ps.position ? ResultKind.Ok : failType;
+                if (position === ps.position) {
+                    ps.kind = rejection.kind;
+                    ps.reason = rejection.reason;
+                }
+
             }
         }();
     });

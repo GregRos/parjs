@@ -11,7 +11,7 @@ import {ParjserBase} from "../parser";
 export function regexp(origRegexp: RegExp): Parjser<string[]> {
     let flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"].filter(x => x).join("");
     let regexp = new RegExp(origRegexp.source, `${flags}y`);
-    this.expecting = `input matching '${origRegexp.source}'`;
+    this.reason = `input matching '${origRegexp.source}'`;
     return new class Regexp extends ParjserBase {
         type = "regexp";
         expecting = `input matching '${regexp.source}'`;

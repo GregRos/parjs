@@ -4,24 +4,28 @@
 /** */
 
 import {ParsingState} from "../state";
-import {ResultKind} from "../../reply";
+import {RejectionInfo, ResultKind} from "../../reply";
 import {ParjsPredicate} from "../../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
+import defaults from "lodash/defaults";
 
 
-//TODO: do sth with reason
+
+const defaultRejection: RejectionInfo = {
+    kind: "Hard",
+    reason: "failed to fulfill unnamed predicate"
+};
+
 /**
  * Applies the source parser and makes sure its result fulfills `predicate`.
  * @param predicate The condition to check for.
- * @param reason
- * @param fail
+ * @param rejection
  */
-export function must<T>(predicate: ParjsPredicate<T>, reason?: string, fail ?: ResultKind.Fail)
-    : ParjsCombinator<T, T>;
-
-export function must(req: any, reason?: string, fail = ResultKind.HardFail) {
+export function must<T>(predicate: ParjsPredicate<T>, rejection ?: Partial<RejectionInfo>)
+    : ParjsCombinator<T, T> {
+    rejection = defaults(rejection, defaultRejection);
     return defineCombinator(source => {
         return new class Must extends ParjserBase {
             type = "must";
@@ -32,7 +36,10 @@ export function must(req: any, reason?: string, fail = ResultKind.HardFail) {
                 if (!ps.isOk) {
                     return;
                 }
-                ps.kind = req(ps.value, ps.userState) ? ResultKind.Ok : fail;
+                if (!predicate(ps.value, ps.userState)) {
+                    ps.kind = rejection.kind;
+                    ps.reason = rejection.reason;
+                }
             }
 
         }();

@@ -93,7 +93,7 @@ export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) 
     expect(result.kind).toBe(ResultKind.Ok, "kind wasn't OK");
     if (result.kind !== ResultKind.Ok) return;
     expect(result).toHaveMember("value", "reason value");
-    expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
+    expect(result).not.toHaveMember("reason", "unexpected 'reason' attribute");
     if (value !== undefined) {
         if (!_isPlainObject(value)) {
             expect(result.value).toEqual(value);

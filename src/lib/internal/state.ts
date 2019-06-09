@@ -42,7 +42,7 @@ export interface ParsingState {
      * If the result is a failure, this field will indicate the reason for the failure.
      * If the result is OK, this must be undefined.
      */
-    expecting: string;
+    reason: string | object;
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
@@ -94,7 +94,7 @@ export class BasicParsingState implements ParsingState {
     userState = undefined;
     value = undefined;
     kind: ResultKind;
-    expecting: string;
+    reason: string;
 
     constructor(public input: string) {
 

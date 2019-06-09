@@ -69,7 +69,7 @@ export abstract class ParjserBase {
 
         //we do this to verify that the ParsingState's fields have been correctly set by the action.
         ps.kind = ResultKind.Unknown;
-        ps.expecting = undefined;
+        ps.reason = undefined;
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
         if (ps.kind === ResultKind.Unknown) {
@@ -77,7 +77,7 @@ export abstract class ParjserBase {
         }
         if (!ps.isOk) {
             ps.value = FAIL_RESULT;
-            ps.expecting = ps.expecting || this.expecting;
+            ps.reason = ps.reason || this.expecting;
 
         } else {
             if (ps.value === UNINITIALIZED_RESULT) {
@@ -86,7 +86,7 @@ export abstract class ParjserBase {
         }
 
         if (!ps.isOk) {
-            if (ps.expecting === undefined) {
+            if (ps.reason === undefined) {
                 throw new ParserDefinitionError(this.type, "if failure then there must be a reason");
             }
             ps.stack.push(this);
@@ -116,7 +116,7 @@ export abstract class ParjserBase {
         if (ps.isOk) {
             if (ps.position !== input.length) {
                 ps.kind = ResultKind.SoftFail;
-                ps.expecting = "parsers did not consume all input";
+                ps.reason = "parsers did not consume all input";
             }
         }
         if (ps.kind === ResultKind.Unknown) {
@@ -129,7 +129,7 @@ export abstract class ParjserBase {
             let trace: Trace = {
                 userState: ps.userState,
                 position: ps.position,
-                reason: ps.expecting,
+                reason: ps.reason,
                 input,
                 get location() {
                     return getErrorLocation(ps);

@@ -103,7 +103,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
             if (!allowImplicitZero && !hasWhole) {
                 //fail because we don't allow ".1", and similar without allowImplicitZero.
                 ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
-                ps.expecting = msgOneOrMoreDigits;
+                ps.reason = msgOneOrMoreDigits;
                 return;
             }
             // tslint:disable-next-line:label-position
@@ -130,7 +130,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
                 if (!hasWhole && !hasFraction) {
                     //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
                     ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
-                    ps.expecting = msgOneOrMoreDigits;
+                    ps.reason = msgOneOrMoreDigits;
                     return;
                 }
                 //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
@@ -140,7 +140,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
                     let expSign = Parselets.parseSign(ps);
                     if (expSign === 0) {
                         ps.kind = ResultKind.HardFail;
-                        ps.expecting = msgExponentSign;
+                        ps.reason = msgExponentSign;
                         return;
                     }
                     let prevFractionalPos = ps.position;
@@ -148,7 +148,7 @@ export function float(options = defaultFloatOptions): Parjser<number> {
                     if (ps.position === prevFractionalPos) {
                         //we parsed e+ but we did not parse any digits.
                         ps.kind = ResultKind.HardFail;
-                        ps.expecting = msgOneOrMoreDigits;
+                        ps.reason = msgOneOrMoreDigits;
                         return;
                     }
                 }
