@@ -2,10 +2,9 @@
  * @module parjs/internal/implementation
  */
 /** */
-import {FAIL_RESULT, UNINITIALIZED_RESULT} from "./special-results";
 
 import {FailureReply, Reply, ReplyKind, SuccessReply, Trace} from "../reply";
-import {BasicParsingState, ParsingState} from "./state";
+import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import _defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
 
