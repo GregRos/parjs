@@ -5,13 +5,12 @@
 
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
-import {ParjsCombinator} from "../../index";
+import {ImplicitLoudParser, ParjsCombinator} from "../../index";
 import {LoudParser} from "../../loud";
-import {ImplicitLoudParser} from "../../convertible-literal";
 
 import {composeCombinator, defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
-import {LiteralConverter} from "../convertible-literal";
+import {LiteralConverter} from "../literal-conversion";
 import {map} from "./map";
 
 

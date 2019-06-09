@@ -5,7 +5,7 @@
 
 import {Reply, ReplyKind} from "./reply";
 import {UserState} from "./internal/state";
-import {ImplicitLoudParser} from "./convertible-literal";
+import {ImplicitLoudParser} from "./internal/literal-conversion";
 
 /**
  * A projection on the parser result and the parser state.
@@ -42,8 +42,6 @@ export interface LoudParser<T> {
      * @group action
      */
     parse(input: string, initialState ?: UserState): Reply<T>;
-
-
 
     pipe<T1>(
         t1: (a: this) => T1

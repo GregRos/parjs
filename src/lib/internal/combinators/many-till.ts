@@ -10,7 +10,7 @@ import {ImplicitLoudParser, ParjsCombinator} from "../../index";
 import {LoudParser} from "../../loud";
 import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
-import {LiteralConverter} from "../convertible-literal";
+import {LiteralConverter} from "../literal-conversion";
 
 /**
  * Tries to apply the source parser repeatedly until `till` succeeds. Yields

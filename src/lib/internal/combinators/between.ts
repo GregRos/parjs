@@ -5,7 +5,7 @@ import {qthen, then, thenq} from "./sequential";
 import {BaseParjsParser} from "../parser";
 import {map} from "./map";
 import {must} from "./must";
-import {LiteralConverter} from "../convertible-literal";
+import {LiteralConverter} from "../literal-conversion";
 
 /**
  * Applies `pre`, the source parser, and then `post`. Yields the result of the source parser.

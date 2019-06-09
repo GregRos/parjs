@@ -9,10 +9,8 @@ import {LoudParser} from "./loud";
 
 export {UserState} from "./internal/state";
 export {LoudParser} from "./loud";
-export {ParjsParsingFailure} from "./errors";
 
-export {ReplyKind, Reply, QuietReply} from "./reply";
-export {ConvertibleLiteral, ImplicitLoudParser} from "./convertible-literal";
+export {ReplyKind, Reply} from "./reply";
 
 export {
     anyStringOf,
@@ -42,3 +40,6 @@ export {
 export interface ParjsCombinator<TFrom, TTo> {
     (from: LoudParser<TFrom>): LoudParser<TTo>;
 }
+export {ImplicitLoudParser} from "./internal/literal-conversion";
+export {ConvertibleLiteral} from "./internal/literal-conversion";
+export {visualizeTrace, TraceVisualizer} from "./internal/trace-visualizer";
