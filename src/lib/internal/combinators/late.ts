@@ -6,14 +6,14 @@
 import {ParsingState} from "../state";
 
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
 /**
  * Returns a parser that, when it is first applied, will call `resolver`
  * and behave like the parser returned by that function.
  * @param resolver
  */
-export function late<T>(resolver: () => LoudParser<T>): LoudParser<T> {
+export function late<T>(resolver: () => Parjser<T>): Parjser<T> {
     return new class Late extends BaseParjsParser {
         type = "late";
         expecting = "late (unbound)";

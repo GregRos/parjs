@@ -25,7 +25,7 @@ export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
  *
  * @group functional
  */
-export interface LoudParser<T> {
+export interface Parjser<T> {
     /**
      * Exposes the display name of the parser. Userful when debugging.
      *

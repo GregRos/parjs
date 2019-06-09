@@ -4,13 +4,13 @@
  */ /** */
 
 
-import {LoudParser} from "../loud";
+import {Parjser} from "../loud";
 
 import {string} from "./index";
 import {regexp} from "./parsers/regexp";
 
 /**
- * A {@link LoudParser} or a literal value convertible to a {@link LoudParser}.
+ * A {@link Parjser} or a literal value convertible to a {@link Parjser}.
  */
 /**
  * @private
@@ -24,29 +24,29 @@ export const convertibleSymbol = Symbol("ParjsConvertibleLiteral");
  * This normally includes the `string` and `RegExp` types.
  */
 export interface ConvertibleLiteral<T> {
-    [convertibleSymbol](): LoudParser<T>;
+    [convertibleSymbol](): Parjser<T>;
 
 }
 
 declare global {
     interface String {
-        [convertibleSymbol](): LoudParser<string>;
+        [convertibleSymbol](): Parjser<string>;
     }
 
     interface RegExp {
-        [convertibleSymbol](): LoudParser<string>;
+        [convertibleSymbol](): Parjser<string>;
     }
 }
-export type ImplicitLoudParser<T> = LoudParser<T> | ConvertibleLiteral<T>;
+export type ImplicitLoudParser<T> = Parjser<T> | ConvertibleLiteral<T>;
 
 export namespace LiteralConverter {
-    export function convert<V>(x: ImplicitLoudParser<V>): LoudParser<V> {
+    export function convert<V>(x: ImplicitLoudParser<V>): Parjser<V> {
         if (typeof x === "string") {
             return string(x) as any;
         } else if (x instanceof RegExp) {
             return regexp(x) as any;
         } else {
-            return x as LoudParser<V>;
+            return x as Parjser<V>;
         }
     }
 

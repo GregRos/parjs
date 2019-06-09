@@ -5,10 +5,10 @@
 
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 import {BaseParjsParser} from "../parser";
 
-export function result<T>(x: T): LoudParser<T> {
+export function result<T>(x: T): Parjser<T> {
     return new class Result extends BaseParjsParser {
         expecting = "anything";
         type = "result";

@@ -12,7 +12,7 @@ import {ParsingState} from "../state";
  */
 import _defaults from "lodash/defaults";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
 export interface FloatOptions {
     allowSign?: boolean;
@@ -67,7 +67,7 @@ ISSUES:
     Otherwise, an error is thrown.
  b.
 */
-export function float(options = defaultFloatOptions): LoudParser<number> {
+export function float(options = defaultFloatOptions): Parjser<number> {
     options = _defaults(options, defaultFloatOptions);
     return new class Float extends BaseParjsParser {
         type = "float";

@@ -7,9 +7,9 @@ import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
 import {Issues} from "../issues";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
-export function fail<T = never>(expecting: string, kind: ReplyKind): LoudParser<T> {
+export function fail<T = never>(expecting: string, kind: ReplyKind): Parjser<T> {
     return new class Fail extends BaseParjsParser {
         type = "fail";
         expecting = expecting;

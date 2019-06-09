@@ -5,14 +5,14 @@
 
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 import {BaseParjsParser} from "../parser";
 import {
     uniIsNewline,
     AsciiCodes
 
 } from "char-info";
-export function innerNewline(unicodeRecognizer: (x: number) => boolean): LoudParser<string> {
+export function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string> {
     return new class Newline extends BaseParjsParser {
         expecting = "newline";
         type = "newline";

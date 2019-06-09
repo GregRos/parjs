@@ -1,5 +1,5 @@
 import "../test/setup";
-import {LoudParser} from "../lib/loud";
+import {Parjser} from "../lib/loud";
 import {ReplyKind} from "../lib/reply";
 import {exactly, late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
@@ -47,7 +47,7 @@ let escapes = {
     t: "\t"
 };
 
-let _pJsonValue: LoudParser<JsonValue> = null;
+let _pJsonValue: Parjser<JsonValue> = null;
 
 let pJsonValue = late(() => _pJsonValue);
 

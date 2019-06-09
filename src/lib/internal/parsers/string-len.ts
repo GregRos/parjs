@@ -6,10 +6,10 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
 
-export function stringLen(length: number): LoudParser<string> {
+export function stringLen(length: number): Parjser<string> {
     return new class StringLen extends BaseParjsParser {
         type = "stringLen";
         expecting = `${length} characters`;

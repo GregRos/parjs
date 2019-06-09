@@ -1,4 +1,4 @@
-import {LoudParser, ParjsCombinator, UserState} from "../../index";
+import {Parjser, ParjsCombinator, UserState} from "../../index";
 import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {ParsingState} from "../state";

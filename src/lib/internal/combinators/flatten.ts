@@ -1,4 +1,4 @@
-import {LoudParser, ParjsCombinator} from "../../index";
+import {Parjser, ParjsCombinator} from "../../index";
 import {composeCombinator} from "./combinator";
 import {map} from "./map";
 

@@ -1,5 +1,5 @@
 
-import {ImplicitLoudParser, LoudParser, ParjsCombinator, string} from "../../index";
+import {ImplicitLoudParser, Parjser, ParjsCombinator, string} from "../../index";
 import {defineCombinator} from "./combinator";
 import {qthen, then, thenq} from "./sequential";
 import {BaseParjsParser} from "../parser";

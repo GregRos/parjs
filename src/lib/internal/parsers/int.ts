@@ -8,7 +8,7 @@ import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {ParserDefinitionError} from "../../errors";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 /**
  * Created by User on 28-Nov-16.
  */
@@ -23,7 +23,7 @@ export interface IntOptions {
     base?: number;
 }
 
-export function int(options: IntOptions): LoudParser<number> {
+export function int(options: IntOptions): Parjser<number> {
     if (options.base > 36) {
         throw new ParserDefinitionError("int", "invalid base");
     }

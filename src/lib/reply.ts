@@ -3,7 +3,7 @@
  */
 /** */
 import {ParjsParsingFailure} from "./errors";
-import {LoudParser} from "./loud";
+import {Parjser} from "./loud";
 import {visualizeTrace} from "./internal/trace-visualizer";
 
 
@@ -37,7 +37,7 @@ export interface Trace {
     reason: string;
     kind: ReplyKind.Fail;
     location: ErrorLocation;
-    stackTrace: LoudParser<any>[];
+    stackTrace: Parjser<any>[];
     input: string;
 }
 

@@ -6,9 +6,9 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
-export function eof<T>(result?: T): LoudParser<T> {
+export function eof<T>(result?: T): Parjser<T> {
     return new class Eof extends BaseParjsParser {
         type = "eof";
         expecting = "end of input";

@@ -1,8 +1,8 @@
 
 import {BaseParjsParser} from "../parser";
-import {LoudParser, ParjsCombinator} from "../../index";
+import {Parjser, ParjsCombinator} from "../../index";
 
-export function defineCombinator(f: (act: BaseParjsParser) => LoudParser<any>) {
+export function defineCombinator(f: (act: BaseParjsParser) => Parjser<any>) {
     return f as ParjsCombinator<any, any>;
 }
 

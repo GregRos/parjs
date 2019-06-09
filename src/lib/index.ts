@@ -5,10 +5,10 @@
  * @preferred
  */ /** iooi*/
 
-import {LoudParser} from "./loud";
+import {Parjser} from "./loud";
 
 export {UserState} from "./internal/state";
-export {LoudParser} from "./loud";
+export {Parjser} from "./loud";
 
 export {ReplyKind, Reply} from "./reply";
 
@@ -38,7 +38,7 @@ export {
 } from "./internal/parsers";
 
 export interface ParjsCombinator<TFrom, TTo> {
-    (from: LoudParser<TFrom>): LoudParser<TTo>;
+    (from: Parjser<TFrom>): Parjser<TTo>;
 }
 export {ImplicitLoudParser} from "./internal/literal-conversion";
 export {ConvertibleLiteral} from "./internal/literal-conversion";

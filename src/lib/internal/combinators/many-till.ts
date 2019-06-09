@@ -7,7 +7,7 @@ import {Issues} from "../issues";
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {ImplicitLoudParser, ParjsCombinator} from "../../index";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 import {defineCombinator} from "./combinator";
 import {BaseParjsParser} from "../parser";
 import {LiteralConverter} from "../literal-conversion";

@@ -3,7 +3,7 @@
  */
 /** */
 import {ReplyKind} from "../reply";
-import {LoudParser} from "../loud";
+import {Parjser} from "../loud";
 
 
 export interface UserState {
@@ -36,7 +36,7 @@ export interface ParsingState {
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: LoudParser<any>[];
+    stack: Parjser<any>[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.

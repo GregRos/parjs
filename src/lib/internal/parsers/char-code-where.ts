@@ -6,14 +6,14 @@
 import {ReplyKind} from "../../reply";
 import {ParsingState} from "../state";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
 /**
  * Returns a parser that parses one character, and checks its code fulfills `predicate`.
  * @param predicate
  * @param property
  */
-export function charCodeWhere(predicate: (char: number) => boolean, property = "(a specific property)"): LoudParser<string> {
+export function charCodeWhere(predicate: (char: number) => boolean, property = "(a specific property)"): Parjser<string> {
     return new class CharCodeWhere extends BaseParjsParser {
         type = "charCodeWhere";
         expecting = `any character satisfying ${property}`;

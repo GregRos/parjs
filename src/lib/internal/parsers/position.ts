@@ -5,10 +5,10 @@
 
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 import {BaseParjsParser} from "../parser";
 
-export function position(): LoudParser<number> {
+export function position(): Parjser<number> {
     return new class Position extends BaseParjsParser {
         expecting = "anything";
         type = "position";

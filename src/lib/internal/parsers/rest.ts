@@ -5,10 +5,10 @@
 
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 import {BaseParjsParser} from "../parser";
 
-export function rest(): LoudParser<string> {
+export function rest(): Parjser<string> {
     return new class Rest extends BaseParjsParser {
         expecting = "zero or more characters";
         type = "rest";

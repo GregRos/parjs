@@ -16,7 +16,7 @@
 
 import "../test/setup";
 
-import {LoudParser} from "../lib/loud";
+import {Parjser} from "../lib/loud";
 import {each, isolateState, late, manySepBy, map, or} from "../lib/combinators";
 import {anyCharOf, float, state, string} from "../lib/internal/parsers";
 import {between} from "../lib/internal/combinators/between";
@@ -78,7 +78,7 @@ let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?:
 //required because we want to create a self-referencing, recursive parser
 //pExpr is the final parser.
 let _pExpr = null;
-let pExpr: LoudParser<Expression> = late(() => _pExpr);
+let pExpr: Parjser<Expression> = late(() => _pExpr);
 
 //we have a built-in floating point parser in Parjs.
 let pNumber = float().pipe(

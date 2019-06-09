@@ -6,9 +6,9 @@
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
 import {BaseParjsParser} from "../parser";
-import {LoudParser} from "../../loud";
+import {Parjser} from "../../loud";
 
-export function string(str: string): LoudParser<string> {
+export function string(str: string): Parjser<string> {
     return new class ParseString extends BaseParjsParser {
         expecting = `'${str}'`;
         type = "string";
