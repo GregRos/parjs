@@ -1,5 +1,4 @@
-import {Parjser, ParjsCombinator} from "../../index";
-import {composeCombinator} from "./combinator";
+import {ParjsCombinator} from "../../index";
 import {map} from "./map";
 
 export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];

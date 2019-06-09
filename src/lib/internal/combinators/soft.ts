@@ -5,7 +5,7 @@
 
 import {ParsingState} from "../state";
 import {ReplyKind} from "../../reply";
-import {Parjser, ParjsCombinator} from "../../";
+import {ParjsCombinator} from "../../";
 
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";

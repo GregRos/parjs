@@ -8,7 +8,7 @@ describe("special combinators", () => {
         let parser = string("hi").pipe(
             then(eof()),
             backtrack()
-        )
+        );
 
         it("fails soft if inner fails soft", () => {
             expectFailure(parser.parse("x"), "Soft");

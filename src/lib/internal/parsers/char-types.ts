@@ -1,5 +1,3 @@
-
-import {composeCombinator} from "../combinators/combinator";
 import {many} from "../combinators/many";
 import {str} from "../combinators/str";
 import {stringLen} from "./string-len";

@@ -95,7 +95,7 @@ describe("sequential combinators", () => {
             let parser = fstLoud.pipe(
                 then(sndLoud),
                 thenq(eof())
-            )
+            );
             it("succeeds", () => {
                 expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
             });

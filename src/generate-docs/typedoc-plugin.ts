@@ -21,7 +21,7 @@ export class ParjsCustomizationPlugin extends ConverterComponent {
             if (x.flags.isExternal) {
                 x.flags.isExternal = false;
             }
-            remove = x.flags.isExported === false || x.flags.isPrivate === true;
+            remove = !x.flags.isExported || x.flags.isPrivate;
             if (remove) {
                 CommentPlugin.removeReflection(context.project, x);
             }

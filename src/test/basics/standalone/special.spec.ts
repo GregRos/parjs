@@ -23,7 +23,7 @@ describe("special parsers", () => {
     });
 
     describe("internal.state", () => {
-        let parser = state()
+        let parser = state();
         let uState = {tag: 1};
         let someInput = "abcd";
         let noInput = "";
