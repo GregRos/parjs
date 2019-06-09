@@ -8,7 +8,7 @@ import {Trace} from "../../reply";
  */
 import {NumHelpers} from "./functions/helpers";
 import {TraceVisualizer} from "../visualizer";
-import {Es6} from "../../common/common";
+import repeat from "lodash/repeat";
 
 export interface BasicTraceVisualizerArgs {
     lineNumbers: boolean;
@@ -35,7 +35,7 @@ export function BasicTraceVisualizer(args: BasicTraceVisualizerArgs = defaultArg
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }
-        let errorMarked = `${Es6.strRepeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
+        let errorMarked = `${repeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
         linesAround.push(errorMarked);
         let linesVisualization = linesAround.join("\n");
 

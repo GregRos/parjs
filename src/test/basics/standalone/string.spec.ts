@@ -3,7 +3,6 @@
  */
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ReplyKind} from "../../../lib/reply";
-import {Es6} from "../../../lib/common/common";
 import {
     anyChar,
     anyCharOf,

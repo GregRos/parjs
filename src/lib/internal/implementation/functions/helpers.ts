@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation/functions
  */ /** */
 
-import {Es6} from "../../../common/common";
+import repeat from "lodash/repeat";
 
 
 export namespace StringHelpers {
@@ -33,6 +33,6 @@ export namespace NumHelpers {
     export function padInt(n: number, digits: number, char: string) {
         let str = n.toString();
         if (str.length >= digits) return str;
-        return Es6.strRepeat(char, digits - str.length) + str;
+        return repeat(char, digits - str.length) + str;
     }
 }
