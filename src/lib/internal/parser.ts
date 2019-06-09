@@ -3,7 +3,7 @@
  */
 /** */
 
-import {FailureReply, Reply, ReplyKind, SuccessReply, Trace} from "../reply";
+import {ParjsRejection, Reply, ReplyKind, ParjsResult, Trace} from "../reply";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import _defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
@@ -124,7 +124,7 @@ export abstract class ParjserBase {
         }
         let ret: Reply<any>;
         if (ps.kind === ReplyKind.Ok) {
-            return new SuccessReply(ps.value);
+            return new ParjsResult(ps.value);
         } else {
             let trace: Trace = {
                 userState: ps.userState,
@@ -138,7 +138,7 @@ export abstract class ParjserBase {
                 kind: ps.kind
             };
 
-            return new FailureReply(trace);
+            return new ParjsRejection(trace);
         }
     }
 

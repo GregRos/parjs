@@ -10,7 +10,7 @@ import {visualizeTrace} from "./internal/trace-visualizer";
 /**
  * Indicates a success reply and contains the value and other information.
  */
-export class SuccessReply<T> {
+export class ParjsResult<T> {
     kind = ReplyKind.Ok;
 
     constructor(public value: T) {
@@ -20,7 +20,6 @@ export class SuccessReply<T> {
     toString() {
         return `SuccessReply: ${this.value}`;
     }
-
 }
 
 export interface ErrorLocation {
@@ -41,7 +40,7 @@ export interface Trace {
     input: string;
 }
 
-export class FailureReply {
+export class ParjsRejection {
     reason: string;
     constructor(public trace: Trace) {
         this.reason = trace.reason;
@@ -63,9 +62,9 @@ export class FailureReply {
 
 
 /**
- * A type that represents a SuccessReply or a FailureReply. Returned by parsers.
+ * A type that represents a ParjsResult or a ParjsRejection. Returned by parsers.
  */
-export type Reply<T> = (SuccessReply<T> | FailureReply);
+export type Reply<T> = (ParjsResult<T> | ParjsRejection);
 
 
 /**
