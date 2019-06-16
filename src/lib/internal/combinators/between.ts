@@ -1,7 +1,7 @@
 
 import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
-import {qthen, thenq} from "./sequential";
+import {qthen, thenq} from "./then";
 import {LiteralConverter} from "../literal-conversion";
 
 /**

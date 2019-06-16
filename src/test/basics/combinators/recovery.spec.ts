@@ -5,7 +5,7 @@ import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjser} from "../../../lib/parjser";
 import {ResultKind} from "../../../lib/internal/reply";
 import {string, fail, rest} from "../../../lib/internal/parsers";
-import {mapConst, maybe, not, or, qthen, soft, str, then} from "../../../lib/combinators";
+import {mapConst, maybe, not, or, qthen, soft, stringify, then} from "../../../lib/combinators";
 
 
 describe("maybe combinator", () => {
@@ -76,7 +76,7 @@ describe("or combinator", () => {
 describe("or val combinator", () => {
     let parser = string("a").pipe(
         then("b"),
-        str(),
+        stringify(),
         maybe("c")
     );
 
@@ -105,7 +105,7 @@ describe("or val combinator", () => {
 describe("not combinator", () => {
     let parser = string("a").pipe(
         then("b"),
-        str(),
+        stringify(),
         not()
     );
     it("succeeds on empty input/soft fail", () => {
@@ -137,7 +137,7 @@ describe("not combinator", () => {
 describe("soft combinator", () => {
     let parser = string("a").pipe(
         then("b"),
-        str(),
+        stringify(),
         soft()
     );
     it("succeeds", () => {

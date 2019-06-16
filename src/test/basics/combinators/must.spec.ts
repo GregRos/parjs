@@ -4,7 +4,7 @@
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ResultKind} from "../../../lib/internal/reply";
 import {eof, result, string, stringLen} from "../../../lib";
-import {must, mustCapture, mustNotBeOf, or, str, then} from "../../../lib/combinators";
+import {must, mustCapture, mustNotBeOf, or, stringify, then} from "../../../lib/combinators";
 
 
 describe("must combinators", () => {
@@ -53,7 +53,7 @@ describe("must combinators", () => {
     describe("mustCapture combinator", () => {
         let parser = string("a").pipe(
             then("b"),
-            str(),
+            stringify(),
             or(eof("")),
             mustCapture({
                 kind: "Fatal"

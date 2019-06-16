@@ -1,7 +1,7 @@
 import "../test/setup";
 import {Parjser} from "../lib/parjser";
 import {ResultKind} from "../lib/internal/reply";
-import {late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
+import {late, many, manySepBy, map, or, stringify, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
 import {visualizeTrace} from "../lib/internal/trace-visualizer";
 
@@ -87,7 +87,7 @@ let pCharOrEscape = pEscapeAny.pipe(
 // Repeat the char/escape to get a sequence, and then put between quotes to get a string
 let pStr = pCharOrEscape.pipe(
     many(),
-    str(),
+    stringify(),
     between('"'),
 );
 

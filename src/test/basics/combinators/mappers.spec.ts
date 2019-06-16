@@ -5,7 +5,7 @@ import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ResultKind} from "../../../lib/internal/reply";
 import {ParjserBase, string} from "../../../lib/internal";
 import {anyCharOf, eof, result, stringLen} from "../../../lib";
-import {each, map, str} from "../../../lib/combinators";
+import {each, map, stringify} from "../../../lib/combinators";
 
 let goodInput = "abcd";
 let badInput = "";
@@ -37,7 +37,7 @@ describe("map combinators", () => {
         });
     });
 
-    describe("str", () => {
+    describe("stringify", () => {
         it("quiet", () => {
             let p = eof().pipe(
                 map(x => "")
@@ -47,35 +47,35 @@ describe("map combinators", () => {
 
         it("array", () => {
             let p = result(["a", "b", "c"]).pipe(
-                str()
+                stringify()
             );
             expectSuccess(p.parse(""), "abc");
         });
 
         it("nested array", () => {
             let p = result(["a", ["b", ["c"], "d"], "e"]).pipe(
-                str()
+                stringify()
             );
             expectSuccess(p.parse(""), "abcde");
         });
 
         it("null", () => {
             let p = result(null).pipe(
-                str()
+                stringify()
             );
             expectSuccess(p.parse(""), "null");
         });
 
         it("undefined", () => {
             let p = result(undefined).pipe(
-                str()
+                stringify()
             );
             expectSuccess(p.parse(""), "undefined");
         });
 
         it("string", () => {
             let p = string("a").pipe(
-                str()
+                stringify()
             );
             expectSuccess(p.parse("a"), "a");
         });
@@ -83,7 +83,7 @@ describe("map combinators", () => {
 
         it("object", () => {
             let p = result({}).pipe(
-                str()
+                stringify()
             );
             expectSuccess(p.parse(""), {}.toString());
         });

@@ -1,5 +1,5 @@
 import {many} from "../combinators/many";
-import {str} from "../combinators/str";
+import {stringify} from "../combinators/stringify";
 import {stringLen} from "./string-len";
 import {charWhere} from "./char-where";
 
@@ -40,7 +40,7 @@ export function spaces1() {
         must(x => x.length > 0, {
             kind: "Soft"
         }),
-        str()
+        stringify()
     );
 }
 
@@ -127,6 +127,6 @@ export function uniLower() {
 export function whitespace() {
     return charWhere(char => isSpace(char) || isNewline(char)).pipe(
         many(),
-        str()
+        stringify()
     );
 }

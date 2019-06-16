@@ -17,7 +17,7 @@ import {
     manyTill,
     mapConst,
     qthen,
-    str,
+    stringify,
     then,
     thenq
 } from "../../../lib/combinators";
@@ -291,7 +291,7 @@ describe("sequential combinators", () => {
         it("many that fails hard on 2nd iteration", () => {
             let many = string("a").pipe(
                 then("b"),
-                str(),
+                stringify(),
                 manySepBy(", ")
             );
             expectFailure(many.parse("ab, ac"), "Hard");

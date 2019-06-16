@@ -1,5 +1,5 @@
 export {
-    str,
+    stringify,
     soft,
     then,
     not,
