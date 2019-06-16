@@ -12,7 +12,7 @@ import defaults from "lodash/defaults";
 const defaultFailure: RejectionInfo = {
     kind: "Soft",
     reason: "any character fulfilling a predicate"
-}
+};
 
 /**
  * Returns a parser that parses one character, and checks its code fulfills `predicate`.

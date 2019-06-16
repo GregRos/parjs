@@ -11,8 +11,6 @@ import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 import defaults from "lodash/defaults";
 
-
-
 const defaultRejection: RejectionInfo = {
     kind: "Hard",
     reason: "failed to fulfill unnamed predicate"

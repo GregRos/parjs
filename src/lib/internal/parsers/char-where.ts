@@ -12,7 +12,7 @@ import defaults from "lodash/defaults";
 const defaultFailure: RejectionInfo = {
     kind: "Soft",
     reason: "a character fulfilling a predicate"
-}
+};
 
 
 export function charWhere(predicate: ParjsProjection<string, boolean>, failure?: Partial<RejectionInfo>): Parjser<string> {
