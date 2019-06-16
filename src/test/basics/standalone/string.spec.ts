@@ -6,7 +6,7 @@ import {ResultKind} from "../../../lib/internal/reply";
 import {
     anyChar,
     anyCharOf,
-    anyStringOf,
+    anyStringOf, charCodeWhere, charWhere,
     newline,
     noCharOf, regexp, rest,
     string, stringLen,
@@ -21,7 +21,7 @@ let uState = {};
 
 describe("basic string parsers", () => {
 
-    describe("Parjs.anyChar", () => {
+    describe("anyChar", () => {
         let parser = anyChar();
         let successInput = "a";
         let failInput = "";
@@ -37,7 +37,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.spaces1", () => {
+    describe("spaces1", () => {
         let parser = spaces1();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
@@ -53,7 +53,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.upper", () => {
+    describe("upper", () => {
         let parser = upper();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
@@ -66,7 +66,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.upper", () => {
+    describe("lower", () => {
         let parser = lower();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
@@ -79,7 +79,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.letter", () => {
+    describe("letter", () => {
         let parser = letter();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
@@ -92,7 +92,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.anyCharOf[abcd]", () => {
+    describe("anyCharOf[abcd]", () => {
         let parser = anyCharOf("abcd");
         let success = "c";
         let fail = "1";
@@ -110,7 +110,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.noCharOf[abcd]", () => {
+    describe("noCharOf[abcd]", () => {
         let parser = noCharOf("abcd");
         let success = "1";
         let fail = "a";
@@ -126,7 +126,7 @@ describe("basic string parsers", () => {
     });
 
 
-    describe("Parjs.string(hi)", () => {
+    describe("string(hi)", () => {
         let parser = string("hi");
         let success = "hi";
         let fail = "bo";
@@ -141,7 +141,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.anyStringOf(hi, hello)", () => {
+    describe("anyStringOf(hi, hello)", () => {
         let parser = anyStringOf("hi", "hello");
         let success1 = "hello";
         let success2 = "hi";
@@ -160,7 +160,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.newline", () => {
+    describe("newline", () => {
         let parser = newline();
         let unix = "\n";
         let winNewline = "\r\n";
@@ -217,7 +217,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.stringLen(3)", () => {
+    describe("stringLen(3)", () => {
         let parser = stringLen(3);
         let shortInput = "a";
         let goodInput = "abc";
@@ -233,7 +233,7 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("Parjs.regexp", () => {
+    describe("regexp", () => {
         describe("simple regexp", () => {
             let parser = regexp(/abc/);
             it("succeeds on input", () => {
@@ -270,6 +270,30 @@ describe("basic string parsers", () => {
             );
             it("chains correctly", () => {
                 expectSuccess(parser2.parse("abcde"));
+            });
+        });
+
+        describe("charWhere", () => {
+            let parser = charWhere(x => x === "a");
+
+            it("succeeds when true", () => {
+                expectSuccess(parser.parse("a"), "a");
+            });
+
+            it("fails when false", () => {
+                expectFailure(parser.parse("b"), "Soft");
+            });
+        });
+
+        describe("charCodeWhere", () => {
+            let parser = charCodeWhere(x => x === "a".charCodeAt(0));
+
+            it("succeeds when true", () => {
+                expectSuccess(parser.parse("a"), "a");
+            });
+
+            it("fails when false", () => {
+                expectFailure(parser.parse("b"), "Soft");
             });
         });
     });

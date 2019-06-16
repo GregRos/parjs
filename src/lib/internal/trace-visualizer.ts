@@ -8,7 +8,7 @@ import {Trace} from "./reply";
  */
 import {NumHelpers} from "./functions/helpers";
 import repeat from "lodash/repeat";
-
+import defaults from "lodash/defaults";
 export interface TraceVisualizerArgs {
     lineNumbers: boolean;
     linesBefore: number;
@@ -16,7 +16,7 @@ export interface TraceVisualizerArgs {
 
 export interface TraceVisualizer {
     (trace: Trace): string;
-    configure(args: TraceVisualizerArgs): TraceVisualizer;
+    configure(args: Partial<TraceVisualizerArgs>): TraceVisualizer;
 }
 
 const defaultArgs: TraceVisualizerArgs = {
@@ -24,7 +24,8 @@ const defaultArgs: TraceVisualizerArgs = {
     linesBefore: 1
 };
 
-function newTraceVisualizer(args: TraceVisualizerArgs) {
+function newTraceVisualizer(args: Partial<TraceVisualizerArgs>) {
+    args = defaults(args, defaultArgs);
     let visualizer: any = (trace: Trace) => {
         let rows = trace.input.split(/\r\n|\n|\r/g);
         let locRow = trace.location.row;
@@ -44,11 +45,9 @@ function newTraceVisualizer(args: TraceVisualizerArgs) {
         let linesVisualization = linesAround.join("\n");
 
         let fullVisualization =
-            `${trace.kind}
-Row ${trace.location.row + 1}, Col ${trace.location.column + 1}
-Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
-----
+`${trace.kind} failure at Ln ${trace.location.row + 1} Col ${trace.location.column + 1}
 ${linesVisualization}
+Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
 `;
         return fullVisualization;
     };

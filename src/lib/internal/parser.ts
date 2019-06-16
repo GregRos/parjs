@@ -14,19 +14,17 @@ function getErrorLocation(ps: ParsingState) {
     let endln = /\r\n|\n|\r/g;
     let {input, position} = ps;
     let lastPos = 0;
-    let oldPos = 0;
     let result: RegExpMatchArray;
     let line = 0;
 
     while (!!(result = endln.exec(ps.input)) && result.index <= position) {
-        oldPos = lastPos;
-        lastPos = result.index;
+        lastPos = result.index + result[0].length;
         line++;
     }
 
     return {
         row: line,
-        column: line === 0 ? position : lastPos - oldPos
+        column: line === 0 ? position : position - lastPos
     };
 }
 
@@ -39,7 +37,7 @@ class ParserUserState {
  */
 export abstract class ParjserBase implements Parjser<any>{
     abstract type: string;
-    abstract expecting: string;
+    abstract expecting: string | object;
 
     /**
      * Apply the parser to the given state.

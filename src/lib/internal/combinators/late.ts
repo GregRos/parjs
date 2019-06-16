@@ -16,7 +16,9 @@ import {Parjser} from "../../parjser";
 export function late<T>(resolver: () => Parjser<T>): Parjser<T> {
     return new class Late extends ParjserBase {
         type = "late";
-        expecting = "late (unbound)";
+        get expecting() {
+            return !this._resolved ? "late (unbound)" : this._resolved.expecting;
+        }
         _resolved: ParjserBase;
 
        _apply(ps: ParsingState): void {
@@ -26,7 +28,6 @@ export function late<T>(resolver: () => Parjser<T>): Parjser<T> {
             }
             this._resolved = resolver() as any as ParjserBase;
             this._resolved.apply(ps);
-            this.expecting = this._resolved.expecting;
         }
     }();
 }

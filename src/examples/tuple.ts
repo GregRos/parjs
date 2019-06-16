@@ -7,6 +7,7 @@ import {float, newline, whitespace} from "../lib";
 
 //Built-in parser for floating point numbers.
 let tupleElement = float();
+
 //Allow whitespace around elements:
 let paddedElement = tupleElement.pipe(
     between(whitespace())

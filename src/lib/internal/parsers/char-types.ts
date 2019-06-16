@@ -35,11 +35,15 @@ export function spaces1() {
 }
 
 export function anyCharOf(options: string) {
-    return charWhere(c => options.includes(c), `any char of ${options}`);
+    return charWhere(c => options.includes(c), {
+        reason: `any char of ${options}`
+    });
 }
 
 export function noCharOf(options: string) {
-    return charWhere(c => !options.includes(c), `no char of: ${options}`);
+    return charWhere(c => !options.includes(c), {
+        reason: `no char of: ${options}`
+    });
 }
 
 export function letter() {

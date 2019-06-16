@@ -60,6 +60,14 @@ export function then<A, B, C, D>(
 )
     : ParjsCombinator<A, [A, B, C, D]>;
 
+export function then<A, B, C, D, E>(
+    next1: ImplicitParjser<B>,
+    next2: ImplicitParjser<C>,
+    next3: ImplicitParjser<D>,
+    next4: ImplicitParjser<E>
+)
+    : ParjsCombinator<A, [A, B, C, D, E]>;
+
 export function then(...parsers: ImplicitParjser<any>[]) {
     let resolvedParsers = parsers.map(x => LiteralConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
