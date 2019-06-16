@@ -5,7 +5,7 @@ import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ResultKind} from "../../../lib/internal/reply";
 import {ParjserBase, string} from "../../../lib/internal";
 import {anyCharOf, eof, result, stringLen} from "../../../lib";
-import {cast, each, map, str} from "../../../lib/combinators";
+import {each, map, str} from "../../../lib/combinators";
 
 let goodInput = "abcd";
 let badInput = "";
@@ -27,7 +27,7 @@ describe("map combinators", () => {
 
     describe("cast", () => {
         let parser = loudParser.pipe(
-            cast(x => x as unknown as number)
+            map(x => x as unknown as number)
         );
         it("maps on success", () => {
             expectSuccess(parser.parse(goodInput), "abcd" as any);

@@ -12,31 +12,73 @@ import {ParjserBase} from "../parser";
 
 
 /**
- * Applies the source parser. If it fails softly, applies `alt2` at the current
- * position. Yields the result of the successful parser.
- * @param alt2 An alternative parser to apply.
+ * Applies the source parser. If it fails softly, will try to apply the
+ * given parsers in sequential order. If all fail, parsing will fail with the
+ * error of the last parser.
+ * This combinator cannot recover from Hard or Fatal failures. If any parser
+ * fails in that way, the returned parser will fail with that info and will not
+ * try other parsers.
+ *
+ * @param alt1 The first alternative parser to apply.
  */
 export function or<T1, T2>(
-    alt2: ImplicitParjser<T2>
+    alt1: ImplicitParjser<T2>
 ): ParjsCombinator<T1, T1 | T2>;
 
+/**
+ * Applies the source parser. If it fails softly, will try to apply the
+ * given parsers in sequential order. If all fail, parsing will fail with the
+ * error of the last parser.
+ * This combinator cannot recover from Hard or Fatal failures. If any parser
+ * fails in that way, the returned parser will fail with that info and will not
+ * try other parsers.
+ *
+ * @param alt1 The first alternative parser to apply.
+ * @param alt2 The second alternative parser to apply.
+ */
 export function or<T1, T2, T3>(
-    alt2: ImplicitParjser<T2>,
-    alt3: ImplicitParjser<T3>
+    alt1: ImplicitParjser<T2>,
+    alt2: ImplicitParjser<T3>
 ): ParjsCombinator<T1, T1 | T2 | T3>;
 
-
+/**
+ * Applies the source parser. If it fails softly, will try to apply the
+ * given parsers in sequential order. If all fail, parsing will fail with the
+ * error of the last parser.
+ * This combinator cannot recover from Hard or Fatal failures. If any parser
+ * fails in that way, the returned parser will fail with that info and will not
+ * try other parsers.
+ *
+ * @param alt1 The first alternative parser to apply.
+ * @param alt2 The second alternative parser to apply.
+ * @param alt3 The third alternative parser to apply.
+ */
 export function or<T1, T2, T3, T4>(
-    alt2: ImplicitParjser<T2>,
-    alt3: ImplicitParjser<T3>,
-    alt4: ImplicitParjser<T4>
+    alt1: ImplicitParjser<T2>,
+    alt2: ImplicitParjser<T3>,
+    alt3: ImplicitParjser<T4>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4>;
+
+/**
+ * Applies the source parser. If it fails softly, will try to apply the
+ * given parsers in sequential order. If all fail, parsing will fail with the
+ * error of the last parser.
+ * This combinator cannot recover from Hard or Fatal failures. If any parser
+ * fails in that way, the returned parser will fail with that info and will not
+ * try other parsers.
+ *
+ * @param alt1 The first alternative parser to apply.
+ * @param alt2 The second alternative parser to apply.
+ * @param alt3 The third alternative parser to apply.
+ * @param alt4 The fourth alternative parser to apply.
+ */
 export function or<T1, T2, T3, T4, T5>(
-    alt2: ImplicitParjser<T2>,
-    alt3: ImplicitParjser<T3>,
-    alt4: ImplicitParjser<T4>,
-    alt5: ImplicitParjser<T5>
+    alt1: ImplicitParjser<T2>,
+    alt2: ImplicitParjser<T3>,
+    alt3: ImplicitParjser<T4>,
+    alt4: ImplicitParjser<T5>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
+
 export function or(...alts: ImplicitParjser<any>[]) {
     let resolvedAlts = alts.map(x => LiteralConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {

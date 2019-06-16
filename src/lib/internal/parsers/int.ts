@@ -9,21 +9,28 @@ import {ResultKind} from "../reply";
 import {ParserDefinitionError} from "../../errors";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
+import defaults from "lodash/defaults";
+
 /**
- * Created by User on 28-Nov-16.
+ * A set of options for parsing integers.
  */
-
-/*
-    Legal decimal integer format:
-    (-|+)\d+
- */
-
 export interface IntOptions {
-    allowSign?: boolean;
-    base?: number;
+    allowSign: boolean;
+    base: number;
 }
 
-export function int(options: IntOptions): Parjser<number> {
+const defaultOptions: IntOptions = {
+    allowSign: true,
+    base: 10
+};
+
+/**
+ * Returns a parser that will parse a single integer, with the options
+ * given by `options`.
+ * @param options A set of options for parsing integers.
+ */
+export function int(options ?: Partial<IntOptions>): Parjser<number> {
+    options = defaults(options, defaultOptions);
     if (options.base > 36) {
         throw new ParserDefinitionError("int", "invalid base");
     }

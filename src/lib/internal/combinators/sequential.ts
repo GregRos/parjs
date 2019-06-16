@@ -47,12 +47,25 @@ export function thenq<T>(next: ImplicitParjser<any>)
 export function then<A, B>(next: ImplicitParjser<B>)
     : ParjsCombinator<A, [A, B]>;
 
+/**
+ * Applies the source parser, followed by `next1` and then `next2`. Yields the
+ * results of all in an array.
+ * @param next1 The 2nd parser to apply.
+ * @param next2 The 3rd parser to apply.
+ */
 export function then<A, B, C>(
     next1: ImplicitParjser<B>,
     next2: ImplicitParjser<C>
 )
     : ParjsCombinator<A, [A, B, C]>;
 
+/**
+ * Applies the source parser, followed by three other parsers. Yields the
+ * results of all in an array.
+ * @param next1 The 2nd parser to apply.
+ * @param next2 The 3rd parser to apply.
+ * @param next3 The 4th parser to apply.
+ */
 export function then<A, B, C, D>(
     next1: ImplicitParjser<B>,
     next2: ImplicitParjser<C>,
@@ -60,6 +73,14 @@ export function then<A, B, C, D>(
 )
     : ParjsCombinator<A, [A, B, C, D]>;
 
+/**
+ * Applies the source parser, followed by four other parsers. Yields the results
+ * of all in an array.
+ * @param next1 The 2nd parser to apply.
+ * @param next2 The 3rd parser to apply.
+ * @param next3 The 4th parser to apply.
+ * @param next4 The 5th parser to apply.
+ */
 export function then<A, B, C, D, E>(
     next1: ImplicitParjser<B>,
     next2: ImplicitParjser<C>,

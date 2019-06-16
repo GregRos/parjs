@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {RejectionInfo, ResultKind} from "../reply";
+import {RejectionInfo} from "../reply";
 import {ParjsPredicate} from "../../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
@@ -44,11 +44,19 @@ export function must<T>(predicate: ParjsPredicate<T>, rejection ?: Partial<Rejec
     });
 }
 
+/**
+ * Applies the source parser, and makes sure it yields a result in `args`.
+ * @param args A set of allowed results.
+ */
 export function mustBeOf<T>(...args: T[])
     : ParjsCombinator<T, T> {
     return must(x => args.indexOf(x) >= 0);
 }
 
+/**
+ * Applies the source parser and makes sure it does not yield a result in `args`.
+ * @param args
+ */
 export function mustNotBeOf<T>(...args: T[])
     : ParjsCombinator<T, T> {
     return must(x => args.indexOf(x) < 0);

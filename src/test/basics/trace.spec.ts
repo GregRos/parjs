@@ -72,7 +72,7 @@ describe("trace", () => {
         let {trace} = res;
         console.log(visualizeTrace.configure({
             lineNumbers: true
-        })(trace))
+        })(trace));
         it("correct position", () => {
             expect(trace.position).toBe(16);
         });

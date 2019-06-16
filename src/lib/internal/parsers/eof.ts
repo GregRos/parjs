@@ -8,6 +8,11 @@ import {ResultKind} from "../reply";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
+/**
+ * Returns a parser that succeeds if there is no more input.
+ * @param result Optionally, the result the parser will yield. Defaults to
+ * undefined.
+ */
 export function eof<T>(result?: T): Parjser<T> {
     return new class Eof extends ParjserBase {
         type = "eof";

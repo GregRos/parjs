@@ -18,7 +18,7 @@ const defaultRejection: RejectionInfo = {
 
 /**
  * Applies the source parser and makes sure it captured some input.
- * @param rejection
+ * @param rejection The rejection info.
  */
 export function mustCapture<T>(rejection?: Partial<RejectionInfo>): ParjsCombinator<T, T> {
     rejection = defaults(rejection, defaultRejection);

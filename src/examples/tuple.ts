@@ -2,8 +2,8 @@
  * Created by lifeg on 07/04/2017.
  */
 import "../test/setup";
-import {between, many, manySepBy} from "../lib/combinators";
-import {float, newline, whitespace} from "../lib";
+import {between, manySepBy} from "../lib/combinators";
+import {float, whitespace} from "../lib";
 
 //Built-in parser for floating point numbers.
 let tupleElement = float();

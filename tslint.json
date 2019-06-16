@@ -1,5 +1,18 @@
 {
   "extends": [
     "tslint-config-gregros"
-  ]
+  ],
+  "rules": {
+    "completed-docs": [true, {
+      "functions": {
+        "visibilities": ["exported"]
+      },
+      "interfaces": {
+        "visibilities": ["exported"]
+      },
+      "classes": {
+        "visibilities": ["exported"]
+      }
+    }]
+  }
 }

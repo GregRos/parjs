@@ -19,7 +19,6 @@ export {
     qthen,
     isolateState,
     between,
-    cast,
     mustBeOf,
     mustNotBeOf,
     flatten,

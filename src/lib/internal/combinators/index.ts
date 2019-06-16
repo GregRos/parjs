@@ -17,6 +17,5 @@ export {soft} from "./soft";
 export {str} from "./str";
 export {isolateState} from "./isolate-state";
 export {between} from "./between";
-export {cast} from "./cast";
 export {flatten} from "./flatten";
 

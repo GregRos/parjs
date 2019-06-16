@@ -9,11 +9,18 @@ import {Trace} from "./reply";
 import {NumHelpers} from "./functions/helpers";
 import repeat from "lodash/repeat";
 import defaults from "lodash/defaults";
+
+/**
+ * A set of arguments for the trace visualizer.
+ */
 export interface TraceVisualizerArgs {
     lineNumbers: boolean;
     linesBefore: number;
 }
 
+/**
+ * A function that prints out a nice visualization of where a parser failed.
+ */
 export interface TraceVisualizer {
     (trace: Trace): string;
     configure(args: Partial<TraceVisualizerArgs>): TraceVisualizer;

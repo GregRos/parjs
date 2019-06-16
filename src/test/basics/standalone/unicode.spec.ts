@@ -1,7 +1,7 @@
 import {ResultKind, uniNewline} from "../../../lib/index";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {many} from "../../../lib/combinators";
-import {uniDigit, uniLetter} from "../../../lib/internal/parsers/char-types";
+import {uniDecimal, uniLetter} from "../../../lib/internal/parsers/char-types";
 
 describe("unicode strings", () => {
 
@@ -33,8 +33,8 @@ describe("unicode strings", () => {
         });
     });
 
-    describe("uniDigit", () => {
-        let pd = uniDigit();
+    describe("uniDecimal", () => {
+        let pd = uniDecimal();
         it("succeeds on w-arabic", () => {
             expectSuccess(pd.parse("4"), "4");
         });

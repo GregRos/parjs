@@ -27,7 +27,7 @@ describe("maybe combinator", () => {
     });
 
     it("propagates hard failure", () => {
-        let p = fail("intentional", ResultKind.HardFail).pipe(
+        let p = fail().pipe(
             maybe()
         );
         expectFailure(p.parse(""), ResultKind.HardFail);
@@ -49,14 +49,20 @@ describe("or combinator", () => {
             expectFailure(parser.parse("ef"), ResultKind.SoftFail);
         });
         it("fails hard when 1st fails hard", () => {
-            let parser2 = fail("fail", ResultKind.HardFail).pipe(
+            let parser2 = fail({
+                reason: "fail",
+                kind: ResultKind.HardFail
+            }).pipe(
                 mapConst("x"),
                 or("ab")
             );
             expectFailure(parser2.parse("ab"), ResultKind.HardFail);
         });
         let parser2 = string("ab").pipe(
-            or(fail("x", ResultKind.HardFail))
+            or(fail({
+                reason: "x",
+                kind: "Hard"
+            }))
         );
         it("succeeds with 2nd would've failed hard", () => {
             expectSuccess(parser2.parse("ab"), "ab");
@@ -115,7 +121,10 @@ describe("not combinator", () => {
         expectFailure(parser.parse("ab"), ResultKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = fail("fatal", ResultKind.FatalFail).pipe(
+        let parser2 = fail({
+            kind: "Fatal",
+            reason: "fatal"
+        }).pipe(
             not()
         );
         expectFailure(parser2.parse(""), ResultKind.FatalFail);
@@ -141,7 +150,9 @@ describe("soft combinator", () => {
         expectFailure(parser.parse("a"), ResultKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = fail("fatal", ResultKind.FatalFail).pipe(
+        let parser2 = fail({
+            kind: "Fatal"
+        }).pipe(
             soft()
         );
         expectFailure(parser2.parse(""), ResultKind.FatalFail);

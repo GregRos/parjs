@@ -8,6 +8,13 @@ import {ResultKind} from "../reply";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
 
+/**
+ * Returns a parser that will try to match the regular expression at the current
+ * position and yield the result set. If it can't, the parser will fail softly.
+ * The match must start at the current position. It can't skip any part of the
+ * input.
+ * @param origRegexp
+ */
 export function regexp(origRegexp: RegExp): Parjser<string[]> {
     let flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"].filter(x => x).join("");
     let regexp = new RegExp(origRegexp.source, `${flags}y`);

@@ -8,7 +8,11 @@ import {ResultKind} from "../reply";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
-
+/**
+ * Returns a parser that parses exactly `length` characters and yields the
+ * text that was parsed.
+ * @param length The number of characters to parse.
+ */
 export function stringLen(length: number): Parjser<string> {
     return new class StringLen extends ParjserBase {
         type = "stringLen";

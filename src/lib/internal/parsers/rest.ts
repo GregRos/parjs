@@ -8,6 +8,10 @@ import {ResultKind} from "../reply";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";
 
+/**
+ * Returns a parser that consumes all the rest of the input and yields the
+ * text that was parsed. Always succeeds.
+ */
 export function rest(): Parjser<string> {
     return new class Rest extends ParjserBase {
         expecting = "zero or more characters";

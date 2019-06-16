@@ -8,6 +8,11 @@ import {ResultKind} from "../reply";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
+/**
+ * Returns a parser that will parse the string `str` and yield the text
+ * that was parsed. If it can't, it will fail softly without consuming input.
+ * @param str The string to parse.
+ */
 export function string(str: string): Parjser<string> {
     return new class ParseString extends ParjserBase {
         expecting = `'${str}'`;

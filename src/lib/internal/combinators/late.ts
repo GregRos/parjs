@@ -11,7 +11,7 @@ import {Parjser} from "../../parjser";
 /**
  * Returns a parser that, when it is first applied, will call `resolver`
  * and behave like the parser returned by that function.
- * @param resolver
+ * @param resolver The function that resolves the parser to use.
  */
 export function late<T>(resolver: () => Parjser<T>): Parjser<T> {
     return new class Late extends ParjserBase {

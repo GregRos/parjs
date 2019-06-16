@@ -3,7 +3,7 @@
  */
 import {expectSuccess} from "../../helpers/custom-matchers";
 import {string} from "../../../lib/";
-import {cast, each, flatten, map, mapConst} from "../../../lib/combinators";
+import {each, flatten, map, mapConst} from "../../../lib/combinators";
 
 
 describe("overloaded combinators", () => {
@@ -51,7 +51,7 @@ describe("overloaded combinators", () => {
                     ["d"],
                     [[]]
                 ]),
-                cast(x => x as string[]),
+                map(x => x as string[]),
                 flatten(),
                 each(arr => {
                     arr.map(x => x.toUpperCase());

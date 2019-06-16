@@ -39,18 +39,31 @@ declare global {
 }
 export type ImplicitParjser<T> = Parjser<T> | ConvertibleLiteral<T>;
 
+/**
+ * A helper for working with implicit parsers.
+ */
 export namespace LiteralConverter {
-    export function convert<V>(x: ImplicitParjser<V>): Parjser<V> {
-        if (typeof x === "string") {
-            return string(x) as any;
-        } else if (x instanceof RegExp) {
-            return regexp(x) as any;
+
+    /**
+     * Normalizes scalars and Parjsers into Parjsers.
+     * @param scalarOrParjser The literal or parjser.
+     */
+    export function convert<V>(scalarOrParjser: ImplicitParjser<V>): Parjser<V> {
+        if (typeof scalarOrParjser === "string") {
+            return string(scalarOrParjser) as any;
+        } else if (scalarOrParjser instanceof RegExp) {
+            return regexp(scalarOrParjser) as any;
         } else {
-            return x as Parjser<V>;
+            return scalarOrParjser as Parjser<V>;
         }
     }
 
-    export function isConvertibleFromLiteral(x: any): boolean {
-        return typeof x === "string" || x instanceof RegExp;
+    /**
+     * Returns true if the given object is a scalar which is convertable into
+     * a Parjser.
+     * @param scalar A scalar to test.
+     */
+    export function isConvertibleFromLiteral(scalar: any): boolean {
+        return typeof scalar === "string" || scalar instanceof RegExp;
     }
 }

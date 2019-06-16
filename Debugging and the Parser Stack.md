@@ -5,7 +5,7 @@ When you apply a combinator to a parser, you get a new parser object which refer
 ```typescript
 let pMapped = stringLen(2).pipe(
     must(x => x == "ab"),
-	map(x => `the char was: ${x}`);
+	map(x => `the char was: ${x}`)
 );
 ```
 

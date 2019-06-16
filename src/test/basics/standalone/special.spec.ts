@@ -58,7 +58,9 @@ describe("special parsers", () => {
     });
 
     describe("fail", () => {
-        let parser = fail("error", "Fatal");
+        let parser = fail({
+            kind: "Fatal"
+        });
         let noInput = "";
         let input = "abc";
         it("fails on no input", () => {

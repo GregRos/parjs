@@ -11,8 +11,7 @@ import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 
 /**
- * Applies the source parser and yields its result. Reduces failure severity
- * from Hard to Soft.
+ * Reduces Hard failures to Soft ones and behaves in the same way on success.
  */
 export function soft<T>(): ParjsCombinator<T, T> {
     return defineCombinator(source => {

@@ -51,7 +51,7 @@ describe("sequential combinators", () => {
             });
 
             it("fails hard on first hard fail", () => {
-                let parser2 = fail("", "Hard").pipe(
+                let parser2 = fail().pipe(
                     then("hi")
                 );
                 expectFailure(parser2.parse("hi"), "Hard");
@@ -59,7 +59,9 @@ describe("sequential combinators", () => {
 
             it("fails fatally on 2nd fatal fail", () => {
                 let parser2 = string("hi").pipe(
-                    then(fail("", "Fatal"))
+                    then(fail({
+                        kind: "Fatal"
+                    }))
                 );
                 expectFailure(parser2.parse("hi"), "Fatal");
             });
@@ -190,7 +192,7 @@ describe("sequential combinators", () => {
                 expectSuccess(endEof.parse("abab"), ["ab", "ab"]);
             });
             it("fails hard when many fails hard", () => {
-                let parser2 = fail("", "Hard").pipe(many());
+                let parser2 = fail().pipe(many());
                 expectFailure(parser2.parse(""), "Hard");
             });
         });
@@ -259,7 +261,7 @@ describe("sequential combinators", () => {
         });
 
         it("many fails hard on 1st application", () => {
-            let parser2 = fail("", "Hard").pipe(
+            let parser2 = fail().pipe(
                 manySepBy(result(""))
             );
             expectFailure(parser2.parse(""), "Hard");
@@ -267,7 +269,7 @@ describe("sequential combinators", () => {
 
         it("sep fails hard", () => {
             let parser2 = fstLoud.pipe(
-                manySepBy(fail("", "Hard"))
+                manySepBy(fail())
             );
             expectFailure(parser2.parse("ab, ab"), "Hard");
         });
@@ -325,12 +327,12 @@ describe("sequential combinators", () => {
         });
         it("fails hard when till fails hard", () => {
             let parser2 = string("a").pipe(
-                manyTill(fail("", "Hard"))
+                manyTill(fail())
             );
             expectFailure(parser2.parse("a"), "Hard");
         });
         it("fails hard when many failed hard", () => {
-            let parser2 = fail("", "Hard").pipe(
+            let parser2 = fail().pipe(
                 manyTill("a")
             );
             expectFailure(parser2.parse(""), "Hard");

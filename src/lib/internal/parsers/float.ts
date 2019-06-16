@@ -14,11 +14,14 @@ import _defaults from "lodash/defaults";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
+/**
+ * A set of options for parsing floating point numbers.
+ */
 export interface FloatOptions {
-    allowSign?: boolean;
-    allowImplicitZero?: boolean;
-    allowFloatingPoint?: boolean;
-    allowExponent?: boolean;
+    allowSign: boolean;
+    allowImplicitZero: boolean;
+    allowFloatingPoint: boolean;
+    allowExponent: boolean;
 }
 
 const defaultFloatOptions: FloatOptions = {
@@ -67,7 +70,13 @@ ISSUES:
     Otherwise, an error is thrown.
  b.
 */
-export function float(options = defaultFloatOptions): Parjser<number> {
+
+/**
+ * Returns a parser that will parse a single floating point number, in decimal
+ * or scientific form.
+ * @param options Options for parsing the floating-point number.
+ */
+export function float(options: Partial<FloatOptions> = defaultFloatOptions): Parjser<number> {
     options = _defaults(options, defaultFloatOptions);
     return new class Float extends ParjserBase {
         type = "float";

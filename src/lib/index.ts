@@ -37,6 +37,10 @@ export {
     uniNewline
 } from "./internal/parsers";
 
+/**
+ * A combinator or operator that takes a source parser that returns a new parser
+ * based on it.
+ */
 export interface ParjsCombinator<TFrom, TTo> {
     (from: Parjser<TFrom>): Parjser<TTo>;
 }

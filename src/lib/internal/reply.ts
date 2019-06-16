@@ -22,11 +22,17 @@ export class ParjsResult<T> {
     }
 }
 
+/**
+ * Info about a potential rejection.
+ */
 export interface RejectionInfo {
     kind: ResultKind.Fail;
     reason: string | object;
 }
 
+/**
+ * The row and column of where a rejection happened.
+ */
 export interface ErrorLocation {
     row: number;
     column: number;

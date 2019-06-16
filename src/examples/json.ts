@@ -1,7 +1,7 @@
 import "../test/setup";
 import {Parjser} from "../lib/parjser";
 import {ResultKind} from "../lib/internal/reply";
-import {exactly, late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
+import {late, many, manySepBy, map, or, str, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
 import {visualizeTrace} from "../lib/internal/trace-visualizer";
 

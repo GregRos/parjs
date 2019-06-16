@@ -12,7 +12,9 @@ import {
     AsciiCodes
 
 } from "char-info";
-export function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string> {
+
+
+function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string> {
     return new class Newline extends ParjserBase {
         expecting = "newline";
         type = "newline";
@@ -52,11 +54,18 @@ export function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser
     }();
 }
 
+/**
+ * Parses an ASCII newline, which can be a single character or the sequence
+ * `\r\n`. Yields the text that was parsed.
+ */
 export function newline() {
     return innerNewline(null);
 }
 
-
+/**
+ * Parses a Unicode newline, which includes ASCII newline strings as well as
+ * other vertical separators such as PARAGRAPH SEPARATOR.
+ */
 export function uniNewline() {
     return innerNewline(uniIsNewline.code);
 }
