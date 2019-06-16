@@ -1018,12 +1018,12 @@ change-case@2.3.x:
     upper-case "^1.1.1"
     upper-case-first "^1.1.0"
 
-char-info@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/char-info/-/char-info-0.2.0.tgz#1fc1ac21fbc6704494dc586c9db56be1ed4b6bf1"
-  integrity sha512-4UUyjNlO1d/PZGbgvmzE89pv7Xh83/ZRt729mtgWe6mEuUb25F9jQC+7oszH85W/Wai3E4PLFI5AaW6dNT1HrQ==
+char-info@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/char-info/-/char-info-0.3.1.tgz#52ae31b2ea703bb2113136bbc0fd1d833ab60d5b"
+  integrity sha512-N2WcwrsRzfDKsbiIyq65VCsz5l3cvSQrgmWwDyDB4xgYINNdOmxCIBUXPa/d1ilxFnIiI5U0Jn5jkEh/RLp/sQ==
   dependencies:
-    node-interval-tree "^1.0.0"
+    node-interval-tree "^1.3.3"
 
 chokidar@^2.0.0, chokidar@^2.0.2:
   version "2.0.4"
@@ -3405,7 +3405,7 @@ node-forge@0.7.5:
   resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.7.5.tgz#6c152c345ce11c52f465c2abd957e8639cd674df"
   integrity sha512-MmbQJ2MTESTjt3Gi/3yG1wGpIMhUfcIypUCGtTizFR9IiccFwxSpfp0vtIZlkFclEqERemxfnSdZEMR9VqqEFQ==
 
-node-interval-tree@^1.0.0:
+node-interval-tree@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/node-interval-tree/-/node-interval-tree-1.3.3.tgz#15ffb904cde08270214acace8dc7653e89ae32b7"
   integrity sha512-K9vk96HdTK5fEipJwxSvIIqwTqr4e3HRJeJrNxBSeVMNSC/JWARRaX7etOLOuTmrRMeOI/K5TCJu3aWIwZiNTw==
