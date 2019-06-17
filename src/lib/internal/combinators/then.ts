@@ -9,7 +9,7 @@ import {ImplicitParjser, ParjsCombinator} from "../../index";
 
 import {composeCombinator, defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
-import {LiteralConverter} from "../literal-conversion";
+import {ScalarConverter} from "../scalar-converter";
 import {map} from "./map";
 
 
@@ -90,7 +90,7 @@ export function then<A, B, C, D, E>(
     : ParjsCombinator<A, [A, B, C, D, E]>;
 
 export function then(...parsers: ImplicitParjser<any>[]) {
-    let resolvedParsers = parsers.map(x => LiteralConverter.convert(x) as any as ParjserBase);
+    let resolvedParsers = parsers.map(x => ScalarConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedParsers.splice(0, 0, source);
 

@@ -1,4 +1,4 @@
-import {Reply, ResultKind} from "../../lib/internal/reply";
+import {ParjsResult, ResultKind} from "../../lib/internal/reply";
 import _matches from "lodash/matches";
 import _isPlainObject from "lodash/isPlainObject";
 
@@ -79,7 +79,12 @@ for (let prop of Object.getOwnPropertyNames(defs)) {
     };
 }
 
-export function expectFailure(result: Reply<any>, failType ?: ResultKind.Fail) {
+/**
+ * Expects a parjs result to be a failure.
+ * @param result The Parjs result.
+ * @param failType The type of failure to expect. Undefined for any.
+ */
+export function expectFailure(result: ParjsResult<any>, failType ?: ResultKind.Fail) {
     expect(result.kind).toBeAnyOf([ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail], "expected kind to be a Fail");
     if (result.kind === ResultKind.Ok) return;
     if (failType !== undefined) {
@@ -89,7 +94,13 @@ export function expectFailure(result: Reply<any>, failType ?: ResultKind.Fail) {
     expect(result.trace.reason).toHaveType("string", "invaid 'reason' value");
 }
 
-export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) {
+/**
+ * Expects a parjs result to be a success.
+ * @param result The result.
+ * @param value The value to expect.
+ * @param state An object to be deep-equal to the user state.
+ */
+export function expectSuccess<T>(result: ParjsResult<T>, value ?: T, state ?: object) {
     expect(result.kind).toBe(ResultKind.Ok, "kind wasn't OK");
     if (result.kind !== ResultKind.Ok) return;
     expect(result).toHaveMember("value", "reason value");
@@ -102,35 +113,6 @@ export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) 
         }
 
     }
-}
-
-export interface FailArgs {
-    type?: ResultKind.Fail;
-    state?: any;
-}
-
-export interface SuccessArgs {
-    value?: any;
-    state?: any;
-}
-
-export interface ExpectResult {
-    toFail(args ?: FailArgs);
-
-    toSucceed(args ?: SuccessArgs);
-}
-
-export function expectResult(result: Reply<any>): ExpectResult {
-    return {
-        toFail(args) {
-            args = args || {};
-            expectFailure(result, args.type);
-        },
-        toSucceed(args) {
-            args = args || {};
-            expectSuccess(result, args.value);
-        }
-    };
 }
 
 beforeEach(() => {

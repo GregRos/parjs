@@ -2,7 +2,7 @@
 import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {qthen, thenq} from "./then";
-import {LiteralConverter} from "../literal-conversion";
+import {ScalarConverter} from "../scalar-converter";
 
 /**
  * Applies `pre`, the source parser, and then `post`. Yields the result of
@@ -22,8 +22,8 @@ export function between<T>(surrounding: ImplicitParjser<any>)
 export function between<T>(implPre: ImplicitParjser<any>, implPost?: ImplicitParjser<any>)
     : ParjsCombinator<T, T> {
     implPost = implPost || implPre;
-    let pre = LiteralConverter.convert(implPre);
-    let post = LiteralConverter.convert(implPost);
+    let pre = ScalarConverter.convert(implPre);
+    let post = ScalarConverter.convert(implPost);
     return defineCombinator(source => {
         return pre.pipe(
             qthen(source),

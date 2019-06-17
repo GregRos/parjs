@@ -7,7 +7,7 @@ import {Issues} from "../issues";
 import {ResultKind} from "../reply";
 import {ParsingState} from "../state";
 import {ImplicitParjser, ParjsCombinator} from "../../index";
-import {LiteralConverter} from "../literal-conversion";
+import {ScalarConverter} from "../scalar-converter";
 import {ParjserBase} from "../parser";
 import {defineCombinator} from "./combinator";
 
@@ -23,7 +23,7 @@ export function manySepBy<T>(delimeter: ImplicitParjser<any>, max?: number)
     : ParjsCombinator<T, T[]>;
 
 export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
-    let delimeter = LiteralConverter.convert(implDelimeter) as any as ParjserBase;
+    let delimeter = ScalarConverter.convert(implDelimeter) as any as ParjserBase;
     return defineCombinator(source => {
         return new class extends ParjserBase {
             type = "manySepBy";

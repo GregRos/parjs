@@ -10,7 +10,7 @@ import {visualizeTrace} from "./trace-visualizer";
 /**
  * Indicates a success reply and contains the value and other information.
  */
-export class ParjsResult<T> {
+export class ParjsSuccess<T> {
     kind = ResultKind.Ok;
 
     constructor(public value: T) {
@@ -49,6 +49,9 @@ export interface Trace extends RejectionInfo {
     input: string;
 }
 
+/**
+ * A rejection result from a Parjs parser.
+ */
 export class ParjsRejection implements RejectionInfo{
     constructor(public trace: Trace) {
 
@@ -73,9 +76,9 @@ export class ParjsRejection implements RejectionInfo{
 
 
 /**
- * A type that represents a ParjsResult or a ParjsRejection. Returned by parsers.
+ * A type that represents a ParjsSuccess or a ParjsRejection. Returned by parsers.
  */
-export type Reply<T> = (ParjsResult<T> | ParjsRejection);
+export type ParjsResult<T> = (ParjsSuccess<T> | ParjsRejection);
 
 
 /**

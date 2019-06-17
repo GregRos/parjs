@@ -42,7 +42,7 @@ export type ImplicitParjser<T> = Parjser<T> | ConvertibleLiteral<T>;
 /**
  * A helper for working with implicit parsers.
  */
-export namespace LiteralConverter {
+export namespace ScalarConverter {
 
     /**
      * Normalizes scalars and Parjsers into Parjsers.

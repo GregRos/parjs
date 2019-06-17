@@ -6,7 +6,7 @@
 import {ParsingState} from "../state";
 import {ResultKind} from "../reply";
 import {ParjsCombinator} from "../..";
-import {ImplicitParjser, LiteralConverter} from "../literal-conversion";
+import {ImplicitParjser, ScalarConverter} from "../scalar-converter";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 
@@ -80,7 +80,7 @@ export function or<T1, T2, T3, T4, T5>(
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
 
 export function or(...alts: ImplicitParjser<any>[]) {
-    let resolvedAlts = alts.map(x => LiteralConverter.convert(x) as any as ParjserBase);
+    let resolvedAlts = alts.map(x => ScalarConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
 

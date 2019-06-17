@@ -3,7 +3,7 @@
  */ /** */
 
 
-import {Reply} from "./internal/reply";
+import {ParjsResult} from "./internal/reply";
 import {UserState} from "./internal/state";
 import {ParjsCombinator} from "./index";
 
@@ -41,7 +41,7 @@ export interface Parjser<T> {
      *
      * @group action
      */
-    parse(input: string, initialState ?: UserState): Reply<T>;
+    parse(input: string, initialState ?: UserState): ParjsResult<T>;
 
     /**
      * Applies a combinator to this parser, and returns the result. Facilitates chaining combinators.

@@ -1,4 +1,4 @@
-import {ParjsRejection, ResultKind, ParjsResult} from "../../lib/internal/reply";
+import {ParjsRejection, ResultKind, ParjsSuccess} from "../../lib/internal/reply";
 import {expectFailure} from "../helpers/custom-matchers";
 import {anyChar} from "../../lib/internal/parsers";
 
@@ -9,7 +9,7 @@ describe("basics: anyChar example", () => {
     let failInput = "";
     let uniqueState = {};
     it("single char input success", () => {
-        let result = parser.parse(successInput, uniqueState) as ParjsResult<string>;
+        let result = parser.parse(successInput, uniqueState) as ParjsSuccess<string>;
     });
     it("empty input failure", () => {
         let result = parser.parse(failInput, uniqueState) as ParjsRejection;

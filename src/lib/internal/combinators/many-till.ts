@@ -9,7 +9,7 @@ import {ResultKind} from "../reply";
 import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
-import {LiteralConverter} from "../literal-conversion";
+import {ScalarConverter} from "../scalar-converter";
 
 /**
  * Tries to apply the source parser repeatedly until `till` succeeds. Yields
@@ -21,7 +21,7 @@ import {LiteralConverter} from "../literal-conversion";
 export function manyTill<T>(till: ImplicitParjser<any>, tillOptional?: boolean)
     : ParjsCombinator<T, T[]>;
 export function manyTill(till: ImplicitParjser<any>, tillOptional?: boolean) {
-    let tillResolved = LiteralConverter.convert(till) as any as ParjserBase;
+    let tillResolved = ScalarConverter.convert(till) as any as ParjserBase;
     return defineCombinator(source => {
         return new class ManyTill extends ParjserBase {
             type = "manyTill";

@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ParjsRejection, Reply, ResultKind, ParjsResult, Trace} from "./reply";
+import {ParjsRejection, ParjsResult, ResultKind, ParjsSuccess, Trace} from "./reply";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import _defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
@@ -79,7 +79,7 @@ export abstract class ParjserBase implements Parjser<any>{
      */
     abstract _apply(ps: ParsingState): void | void;
 
-    parse(input: string, initialState ?: any): Reply<any> {
+    parse(input: string, initialState ?: any): ParjsResult<any> {
 
         if (typeof input !== "string") {
             // catches input === undefined, null
@@ -99,9 +99,9 @@ export abstract class ParjserBase implements Parjser<any>{
         if (ps.kind === ResultKind.Unknown) {
             throw new Error("should not happen.");
         }
-        let ret: Reply<any>;
+        let ret: ParjsResult<any>;
         if (ps.kind === ResultKind.Ok) {
-            return new ParjsResult(ps.value);
+            return new ParjsSuccess(ps.value);
         } else {
             let trace: Trace = {
                 userState: ps.userState,

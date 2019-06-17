@@ -12,6 +12,9 @@
       },
       "classes": {
         "visibilities": ["exported"]
+      },
+      "namespaces": {
+        "visibilities": ["exported"]
       }
     }]
   }
