@@ -1,6 +1,4 @@
-/**
- * Created by lifeg on 08/04/2017.
- */
+
 
 let Jasmine = require("jasmine");
 const {SpecReporter} = require("jasmine-spec-reporter");

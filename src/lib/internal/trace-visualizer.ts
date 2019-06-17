@@ -3,9 +3,7 @@
  */
 /** */
 import {Trace} from "./reply";
-/**
- * Created by lifeg on 4/29/2017.
- */
+
 import {NumHelpers} from "./functions/helpers";
 import repeat from "lodash/repeat";
 import defaults from "lodash/defaults";

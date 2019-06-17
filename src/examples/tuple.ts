@@ -1,6 +1,4 @@
-/**
- * Created by lifeg on 07/04/2017.
- */
+
 import "../test/setup";
 import {between, manySepBy} from "../lib/combinators";
 import {float, whitespace} from "../lib";

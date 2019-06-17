@@ -21,4 +21,4 @@ async function run() {
     app.generateDocs(files, "docs");
 }
 
-run();
+run().then(() => {});

@@ -1,12 +1,8 @@
-/**
- * Created by lifeg on 10/12/2016.
- */
-/**
- * Created by lifeg on 10/12/2016.
- */
+
+
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ResultKind} from "../../../lib/internal/reply";
-import _range from "lodash/range";
+import range from "lodash/range";
 import {string, fail, rest, eof, result, anyCharOf} from "../../../lib/internal/parsers";
 import {
     between,
@@ -207,7 +203,7 @@ describe("sequential combinators", () => {
                 let parser = result(0).pipe(
                     many(10)
                 );
-                expectSuccess(parser.parse(""), _range(0, 10).map(x => 0));
+                expectSuccess(parser.parse(""), range(0, 10).map(x => 0));
             });
         });
 

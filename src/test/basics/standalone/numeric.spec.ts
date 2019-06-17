@@ -3,9 +3,7 @@ import {ResultKind} from "../../../lib/internal/reply";
 import {float, int, rest} from "../../../lib/";
 import {then, thenq} from "../../../lib/combinators";
 
-/**
- * Created by User on 14-Dec-16.
- */
+
 
 describe("numeric parsers", () => {
     describe("int parser", () => {

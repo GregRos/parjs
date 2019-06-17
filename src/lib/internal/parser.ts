@@ -5,7 +5,7 @@
 
 import {ParjsRejection, ParjsResult, ResultKind, ParjsSuccess, Trace} from "./reply";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
-import _defaults from "lodash/defaults";
+import defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
 import {Parjser} from "../parjser";
 
@@ -86,7 +86,7 @@ export abstract class ParjserBase implements Parjser<any>{
             throw new Error("input must be a valid string");
         }
         let ps = new BasicParsingState(input);
-        ps.userState = _defaults(new ParserUserState(), initialState);
+        ps.userState = defaults(new ParserUserState(), initialState);
         ps.initialUserState = initialState;
         this.apply(ps);
 

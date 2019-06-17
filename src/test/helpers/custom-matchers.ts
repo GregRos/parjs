@@ -1,10 +1,6 @@
 import {ParjsResult, ResultKind} from "../../lib/internal/reply";
-import _matches from "lodash/matches";
-import _isPlainObject from "lodash/isPlainObject";
-
-/**
- * Created by lifeg on 09/12/2016.
- */
+import matches from "lodash/matches";
+import isPlainObject from "lodash/isPlainObject";
 
 declare global {
     namespace jasmine {
@@ -38,7 +34,7 @@ class CustomMatcherDefs {
     }
 
     toBeLike(o, failMessage) {
-        let pass = _matches(o)(this.actual);
+        let pass = matches(o)(this.actual);
         return {
             pass,
             message: pass ? undefined : failMessage
@@ -106,7 +102,7 @@ export function expectSuccess<T>(result: ParjsResult<T>, value ?: T, state ?: ob
     expect(result).toHaveMember("value", "reason value");
     expect(result).not.toHaveMember("reason", "unexpected 'reason' attribute");
     if (value !== undefined) {
-        if (!_isPlainObject(value)) {
+        if (!isPlainObject(value)) {
             expect(result.value).toEqual(value);
         } else {
             expect(result.value).toBeLike(value as any);

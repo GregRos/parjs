@@ -1,6 +1,4 @@
-/**
- * Created by lifeg on 12/12/2016.
- */
+
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjser} from "../../../lib/parjser";
 import {ResultKind} from "../../../lib/internal/reply";

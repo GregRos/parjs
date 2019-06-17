@@ -8,9 +8,7 @@ import {
 } from "char-info/ascii";
 import {ParsingState} from "../state";
 
-/**
- * Created by User on 29-Nov-16.
- */
+
 
 export class ParseletsType {
 

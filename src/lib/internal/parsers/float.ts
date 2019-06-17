@@ -7,10 +7,8 @@ import {AsciiCodes} from "char-info/ascii";
 import {Parselets} from "./parselets";
 import {ResultKind} from "../reply";
 import {ParsingState} from "../state";
-/**
- * Created by User on 28-Nov-16.
- */
-import _defaults from "lodash/defaults";
+
+import defaults from "lodash/defaults";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../../parjser";
 
@@ -77,7 +75,7 @@ ISSUES:
  * @param options Options for parsing the floating-point number.
  */
 export function float(options: Partial<FloatOptions> = defaultFloatOptions): Parjser<number> {
-    options = _defaults(options, defaultFloatOptions);
+    options = defaults(options, defaultFloatOptions);
     return new class Float extends ParjserBase {
         type = "float";
         expecting = "a floating-point number";

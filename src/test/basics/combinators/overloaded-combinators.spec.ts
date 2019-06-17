@@ -1,6 +1,4 @@
-/**
- * Created by lifeg on 12/12/2016.
- */
+
 import {expectSuccess} from "../../helpers/custom-matchers";
 import {string} from "../../../lib/";
 import {each, flatten, map, mapConst} from "../../../lib/combinators";
