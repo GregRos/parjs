@@ -21,7 +21,6 @@ export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
 
 /**
  * Interface for parsers that produce result values of type  {T}
- * @see {@link xQuietParser}
  *
  * @group functional
  */

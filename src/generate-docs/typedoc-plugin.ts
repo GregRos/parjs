@@ -4,6 +4,9 @@ import {Context} from "typedoc/dist/lib/converter/context";
 import {CommentPlugin} from "typedoc/dist/lib/converter/plugins/CommentPlugin";
 import * as _ from "lodash";
 
+/**
+ * Helper
+ */
 @Component({name: "parjs-customization"})
 export class ParjsCustomizationPlugin extends ConverterComponent {
     initialize() {

@@ -24,14 +24,33 @@ let hardBadInput = "ab";
 let excessInput = "abcde";
 let uState = {};
 
-let fstLoud = string("ab");
-let sndLoud = string("cd");
+let prs = string("ab");
+let prs2 = string("cd");
 
 describe("sequential combinators", () => {
-    describe("then combinators", () => {
-        describe("loud then loud", () => {
-            let parser = fstLoud.pipe(
-                then(sndLoud)
+    describe("thenq", () => {
+        let parser = prs.pipe(
+            thenq(prs2)
+        );
+        it("succeeds", () => {
+            expectSuccess(parser.parse(goodInput), "ab");
+        });
+    });
+
+    describe("qthen", () => {
+        let parser = prs.pipe(
+            qthen(prs2)
+        );
+        it("succeeds", () => {
+            expectSuccess(parser.parse(goodInput), "cd");
+        });
+    });
+
+    describe("then", () => {
+
+        describe("1 arg", () => {
+            let parser = prs.pipe(
+                then(prs2)
             );
             it("succeeds", () => {
                 expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
@@ -68,30 +87,11 @@ describe("sequential combinators", () => {
                 );
                 expectSuccess(parser2.parse("hi"), ["hi", "", ""]);
             });
-
         });
 
-        describe("loud then quiet", () => {
-            let parser = fstLoud.pipe(
-                thenq(sndLoud)
-            );
-            it("succeeds", () => {
-                expectSuccess(parser.parse(goodInput), "ab");
-            });
-        });
-
-        describe("quiet then loud", () => {
-            let parser = fstLoud.pipe(
-                qthen(sndLoud)
-            );
-            it("succeeds", () => {
-                expectSuccess(parser.parse(goodInput), "cd");
-            });
-        });
-
-        describe("loud then loud then zero-consuming quiet", () => {
-            let parser = fstLoud.pipe(
-                then(sndLoud),
+        describe("1 arg, then zero consume", () => {
+            let parser = prs.pipe(
+                then(prs2),
                 thenq(eof())
             );
             it("succeeds", () => {
@@ -102,71 +102,54 @@ describe("sequential combinators", () => {
             });
         });
 
-        describe("1 quiet using seq combinator", () => {
-            // TODO: this test?
+        it("2 args", () => {
+            let p2 = string("b").pipe(
+                mapConst(1)
+            );
+            let p3 = string("c").pipe(
+                mapConst([])
+            );
+
+            let p = string("a").pipe(
+                then(p2, p3),
+                each(x => {
+                    Math.log(x[1]);
+                    x[0].toUpperCase();
+                    x[2].map(x => x.toUpperCasfe());
+                })
+            );
+
+            expectSuccess(p.parse("abc"), ["a", 1, []]);
         });
 
-        describe("empty seq combinator same as no match, return []", () => {
-            // TODO: this test?
+        it("3 args", () => {
+            let p2 = string("b").pipe(
+                mapConst(1)
+            );
+            let p3 = string("c").pipe(
+                mapConst([])
+            );
+
+            let p4 = string("d").pipe(
+                mapConst(true)
+            );
+
+            let p = string("a").pipe(
+                then(p2, p3, p4),
+                each(x => {
+                    Math.log(x[1]);
+                    x[0].toUpperCase();
+                    x[2].map(x => x.toUpperCase());
+                })
+            );
+
+            expectSuccess(p.parse("abcd"), ["a", 1, [], true]);
         });
-    });
-
-    describe("then array", () => {
-        describe("this: loud", () => {
-            it("loud ×3", () => {
-                let p2 = string("b").pipe(
-                    mapConst(1)
-                );
-                let p3 = string("c").pipe(
-                    mapConst([])
-                );
-
-                let p4 = string("d").pipe(
-                    mapConst(true)
-                );
-
-                let p = string("a").pipe(
-                    then(p2, p3),
-                    each(x => {
-                        Math.log(x[1]);
-                        x[0].toUpperCase();
-                        x[2].map(x => x.toUpperCasfe());
-                    })
-                );
-
-                expectSuccess(p.parse("abc"), ["a", 1, []]);
-            });
-
-            it("loud ×4", () => {
-                let p2 = string("b").pipe(
-                    mapConst(1)
-                );
-                let p3 = string("c").pipe(
-                    mapConst([])
-                );
-
-                let p4 = string("d").pipe(
-                    mapConst(true)
-                );
-
-                let p = string("a").pipe(
-                    then(p2, p3, p4),
-                    each(x => {
-                        Math.log(x[1]);
-                        x[0].toUpperCase();
-                        x[2].map(x => x.toUpperCase());
-                    })
-                );
-
-                expectSuccess(p.parse("abcd"), ["a", 1, [], true]);
-            });
-        });
-
     });
 
     describe("many combinators", () => {
         describe("regular many", () => {
-            let parser = fstLoud.pipe(
+            let parser = prs.pipe(
                 many()
             );
             it("success on empty input", () => {
@@ -209,7 +192,7 @@ describe("sequential combinators", () => {
 
 
         describe("many with bounded iterations, min successes", () => {
-            let parser = fstLoud.pipe(
+            let parser = prs.pipe(
                 many(2)
             );
             it("succeeds when appropriate", () => {
@@ -222,7 +205,7 @@ describe("sequential combinators", () => {
     });
 
     describe("exactly combinator", () => {
-        let parser = fstLoud.pipe(
+        let parser = prs.pipe(
             exactly(2)
         );
         it("succeeds with exact matches", () => {
@@ -238,12 +221,12 @@ describe("sequential combinators", () => {
     });
 
     describe("manySepBy combinator", () => {
-        let parser = fstLoud.pipe(
+        let parser = prs.pipe(
             manySepBy(", ")
         );
 
         it("works with max iterations", () => {
-            let parser2 = fstLoud.pipe(
+            let parser2 = prs.pipe(
                 manySepBy(", ", 2)
             );
             let parser3 = parser2.pipe(
@@ -264,7 +247,7 @@ describe("sequential combinators", () => {
         });
 
         it("sep fails hard", () => {
-            let parser2 = fstLoud.pipe(
+            let parser2 = prs.pipe(
                 manySepBy(fail())
             );
             expectFailure(parser2.parse("ab, ab"), "Hard");
@@ -309,15 +292,15 @@ describe("sequential combinators", () => {
     });
 
     describe("manyTill combinator", () => {
-        let parser = fstLoud.pipe(
-            manyTill(sndLoud)
+        let parser = prs.pipe(
+            manyTill(prs2)
         );
         it("succeeds matching 1 then till", () => {
             expectSuccess(parser.parse("abcd"), ["ab"]);
         });
         it("succeeds matching 1 then till, chains", () => {
             let parser2 = parser.pipe(
-                thenq(fstLoud)
+                thenq(prs)
             );
             expectSuccess(parser2.parse("abcdab"), ["ab"]);
         });

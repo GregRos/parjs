@@ -32,13 +32,13 @@ Parjs parsers are called "Parjsers". I'm not sure how to pronounce that either.
 
 ## Parjs 0.12.0
 
-I recently decided to make lots of changes to the library, including refactoring lots of code, renaming things, and redesigning the API to support things like tree shaking. I started this library when I had less experience, so after a few years I think I can make some cool improvements.
+I decided to make lots of changes to the library, including refactoring lots of code, renaming things, and redesigning the API to support things like tree shaking. I started this library when I had less experience, so after a few years I think I can make some cool improvements.
 
 I've been seeing more and more stars and views recently, so I was thinking this might be the last time I can do something like this.
 
 Some major things that have been changed:
 
-* No quiet parsers that don't return values. Now all parsers return values.
+* No quiet parsers that don't return values. Now all parsers return values. This seemed like a nice feature in my head, but turned out to cause difficulties down the road.
 * Combinators use a `pipe` method and function operators instead of instance methods. See more on this below.
 * Names for some types and objects.
 
@@ -46,8 +46,7 @@ Some major things that have been changed:
 You can see implementations of example parsers in the `examples` folder:
 
 1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/src/examples/tuple.ts) 
-2. [String Format Parser](https://github.com/GregRos/parjs/blob/master/src/examples/string.format.ts) 
-3. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
+2. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
 4. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
 
 ## What's a parser-combinator library?
@@ -195,7 +194,7 @@ The result of a parser has the property `value` that exposes its result value.
 When parsers don't succeed for an input, they reject or fail. There are several different kinds of failure:
 
 1. A *soft* failure is an expected failure which can be easily recovered from. It usually means that a parser is not appropriate for parsing a given input and another parser should be attempted. 
-2. A *hard* failure usually signals unexpected input. Recovering from this failure may require backtracking a non-constant distance. Combinators like `or` will not accept a hard failure and try another parser - you need to use the special `soft` combinator.
+2. A *hard* failure usually signals unexpected input. Recovering from this failure may require backtracking a non-constant distance. Combinators like `or` will recover from a hard failure.
 3. A *fatal* failure is unrecoverable. Built-in parsers don't fail in this way, but you can signal this kind of failure using various assertion combinators like `must`.
 4. If an exception is thrown, that doesn't indicate parsing the input failed - it means there is a problem in one of the parsers. Parsers aren't supposed to throw errors.
 
@@ -247,9 +246,13 @@ However, `Parjs` is meant to be very easy to extend, so if you can't use existin
 
 To create a custom parser, you need to extend the class `ParjserBase` from `parjs/internal`. This class already implements the `Parjser<T>` interface and provides a bit of boilerplate functionality. It's also required for other combinators to properly recognize your custom parser.
 
-You'll need to implement `type` (just a string) and the important `_apply` method, which is the actual parser logic.
+You'll need to implement:
 
-### Parser flow
+1. The `_apply` method, which contains the actual parser logic.
+2. The `expecting` property, which is a text specifying what input the parser action is expecting to parse. For example, it could be `a digit`, `end of input`, or something else. The text is generally set when the parser is constructed. It is needed for displaying relevant debugging information.
+3. The `type` property, which is a string that is used for identifying the parser type.
+
+### Parser logic
 
 When the `.parse` method is called, a [`ParsingState`](https://gregros.github.io/parjs/interfaces/parjs_internal.parsingstate.html) object is created. This is a mutable object that indicates the state of the parsing process. Here are some of its members:
 
@@ -259,7 +262,7 @@ interface ParsingState {
     position : number;
     value : any;
     userState : any;
-    expecting : string;
+    reason : string;
     kind : ReplyKind;
     //...
 }
@@ -291,12 +294,6 @@ _apply(ps : ParsingState) {
     }
 }    
 ```
-
-### Other required properties of parser actions
-
-In addition to implementing `_apply`, parser actions must also specify:
-
-1. The `expecting` property, which is a text specifying what input the parser action is expecting to parse. For example, it could be `a digit`, `end of input`, or something else. The text is generally set when the parser is constructed. It is needed for displaying relevant debugging information.
 
 [tree-shaking]: https://webpack.js.org/guides/tree-shaking/
 [rxjs]: <https://rxjs-dev.firebaseapp.com/>
