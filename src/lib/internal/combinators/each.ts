@@ -1,11 +1,11 @@
 /**
- * @module parjs/internal/implementation/combinators
+ * @module parjs/combinators
  */
 /** */
 
 import {ParsingState} from "../state";
 
-import {ParjsProjection} from "../../parjser";
+import {ParjsProjection} from "../parjser";
 import {ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";

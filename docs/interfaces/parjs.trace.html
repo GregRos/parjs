@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -80,7 +78,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Trace</span>
+						<a href="parjs.rejectioninfo.html" class="tsd-signature-type">RejectionInfo</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Trace</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -92,10 +95,10 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#input" class="tsd-kind-icon">input</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#kind" class="tsd-kind-icon">kind</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.trace.html#kind" class="tsd-kind-icon">kind</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#location" class="tsd-kind-icon">location</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#position" class="tsd-kind-icon">position</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#reason" class="tsd-kind-icon">reason</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="parjs.trace.html#reason" class="tsd-kind-icon">reason</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#stacktrace" class="tsd-kind-icon">stack<wbr>Trace</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="parjs.trace.html#userstate" class="tsd-kind-icon">user<wbr>State</a></li>
 							</ul>
@@ -111,17 +114,18 @@
 					<div class="tsd-signature tsd-kind-icon">input<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L41">reply.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L49">internal/result.ts:49</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="kind" class="tsd-anchor"></a>
 					<h3>kind</h3>
-					<div class="tsd-signature tsd-kind-icon">kind<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.replykind.html#fail" class="tsd-signature-type">Fail</a></div>
+					<div class="tsd-signature tsd-kind-icon">kind<span class="tsd-signature-symbol">:</span> <a href="../modules/parjs.resultkind.html#fail" class="tsd-signature-type">Fail</a></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="parjs.rejectioninfo.html">RejectionInfo</a>.<a href="parjs.rejectioninfo.html#kind">kind</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L38">reply.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L29">internal/result.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,7 +135,7 @@
 					<div class="tsd-signature tsd-kind-icon">location<span class="tsd-signature-symbol">:</span> <a href="parjs.errorlocation.html" class="tsd-signature-type">ErrorLocation</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L39">reply.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L47">internal/result.ts:47</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -141,27 +145,28 @@
 					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L36">reply.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L46">internal/result.ts:46</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="reason" class="tsd-anchor"></a>
 					<h3>reason</h3>
-					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">reason<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="parjs.rejectioninfo.html">RejectionInfo</a>.<a href="parjs.rejectioninfo.html#reason">reason</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L37">reply.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L30">internal/result.ts:30</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="stacktrace" class="tsd-anchor"></a>
 					<h3>stack<wbr>Trace</h3>
-					<div class="tsd-signature tsd-kind-icon">stack<wbr>Trace<span class="tsd-signature-symbol">:</span> <a href="parjs_internal.anyparseraction.html" class="tsd-signature-type">AnyParserAction</a><span class="tsd-signature-symbol">[]</span></div>
+					<div class="tsd-signature tsd-kind-icon">stack<wbr>Trace<span class="tsd-signature-symbol">:</span> <a href="parjs.parjser.html" class="tsd-signature-type">Parjser</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L40">reply.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L48">internal/result.ts:48</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -171,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">user<wbr>State<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/d97487d/src/lib/reply.ts#L35">reply.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/GregRos/parjs/blob/5a30255/src/lib/internal/result.ts#L45">internal/result.ts:45</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -187,65 +192,47 @@
 						<a href="../modules/parjs.html">parjs</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/parjs_combinators.html">parjs/combinators</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="../modules/parjs_errors.html">parjs/errors</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/parjs_internal.html">parjs/internal</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/parjs_internal_implementation.html">parjs/internal/implementation</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/parjs_internal_implementation_combinators.html">parjs/internal/implementation/combinators</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/parjs_internal_implementation_functions.html">parjs/internal/implementation/functions</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/parjs_internal_implementation_parsers.html">parjs/internal/implementation/parsers</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="../modules/parjs_unicode.html">parjs/unicode</a>
+						<a href="../modules/parjs_trace.html">parjs/trace</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/parjs.failurereply.html" class="tsd-kind-icon">Failure<wbr>Reply</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/parjs.parjserror.html" class="tsd-kind-icon">Parjs<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/parjs.parjsparsingfailure.html" class="tsd-kind-icon">Parjs<wbr>Parsing<wbr>Failure</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="../classes/parjs.parserdefinitionerror.html" class="tsd-kind-icon">Parser<wbr>Definition<wbr>Error</a>
+						<a href="../classes/parjs.parjsrejection.html" class="tsd-kind-icon">Parjs<wbr>Rejection</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../classes/parjs.successreply.html" class="tsd-kind-icon">Success<wbr>Reply</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="parjs.anyparser.html" class="tsd-kind-icon">Any<wbr>Parser</a>
+						<a href="../classes/parjs.parjssuccess.html" class="tsd-kind-icon">Parjs<wbr>Success</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="parjs.errorlocation.html" class="tsd-kind-icon">Error<wbr>Location</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="parjs.floatoptions.html" class="tsd-kind-icon">Float<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="parjs.intoptions.html" class="tsd-kind-icon">Int<wbr>Options</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="parjs.loudparser.html" class="tsd-kind-icon">Loud<wbr>Parser</a>
+						<a href="parjs.parjscombinator.html" class="tsd-kind-icon">Parjs<wbr>Combinator</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="parjs.parjsprojection.html" class="tsd-kind-icon">Parjs<wbr>Projection</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="parjs.parjsprojectionquiet.html" class="tsd-kind-icon">Parjs<wbr>Projection<wbr>Quiet</a>
+						<a href="parjs.parjser.html" class="tsd-kind-icon">Parjser</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="parjs.parjsstatic.html" class="tsd-kind-icon">Parjs<wbr>Static</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="parjs.parjsstatichelper.html" class="tsd-kind-icon">Parjs<wbr>Static<wbr>Helper</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="parjs.quietparser.html" class="tsd-kind-icon">Quiet<wbr>Parser</a>
+						<a href="parjs.rejectioninfo.html" class="tsd-kind-icon">Rejection<wbr>Info</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -255,7 +242,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.trace.html#input" class="tsd-kind-icon">input</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="parjs.trace.html#kind" class="tsd-kind-icon">kind</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -264,7 +251,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="parjs.trace.html#position" class="tsd-kind-icon">position</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="parjs.trace.html#reason" class="tsd-kind-icon">reason</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -278,34 +265,82 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/parjs.html#convertibleliteral" class="tsd-kind-icon">Convertible<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/parjs.html#implicitanyparser" class="tsd-kind-icon">Implicit<wbr>Any<wbr>Parser</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/parjs.html#implicitloudparser" class="tsd-kind-icon">Implicit<wbr>Loud<wbr>Parser</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/parjs.html#nestedarray" class="tsd-kind-icon">Nested<wbr>Array</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../modules/parjs.html#parjspredicate" class="tsd-kind-icon">Parjs<wbr>Predicate</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/parjs.html#parjspredicatequiet" class="tsd-kind-icon">Parjs<wbr>Predicate<wbr>Quiet</a>
-					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/parjs.html#parserspecification" class="tsd-kind-icon">Parser<wbr>Specification</a>
+						<a href="../modules/parjs.html#parjsresult" class="tsd-kind-icon">Parjs<wbr>Result</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/parjs.html#quietreply" class="tsd-kind-icon">Quiet<wbr>Reply</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#msgexponentsign" class="tsd-kind-icon">msg<wbr>Exponent<wbr>Sign</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/parjs.html#reply" class="tsd-kind-icon">Reply</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#msgoneormoredigits" class="tsd-kind-icon">msg<wbr>One<wbr>OrMore<wbr>Digits</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
-						<a href="../modules/parjs.html#parjs-1" class="tsd-kind-icon">Parjs</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#anystringof" class="tsd-kind-icon">any<wbr>String<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#charcodewhere" class="tsd-kind-icon">char<wbr>Code<wbr>Where</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#charwhere" class="tsd-kind-icon">char<wbr>Where</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#eof" class="tsd-kind-icon">eof</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#fail" class="tsd-kind-icon">fail</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#float" class="tsd-kind-icon">float</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#innernewline" class="tsd-kind-icon">inner<wbr>Newline</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#int" class="tsd-kind-icon">int</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#newline" class="tsd-kind-icon">newline</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#position" class="tsd-kind-icon">position</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#regexp" class="tsd-kind-icon">regexp</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#rest" class="tsd-kind-icon">rest</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/parjs.html#result" class="tsd-kind-icon">result</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#state" class="tsd-kind-icon">state</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#string" class="tsd-kind-icon">string</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#stringlen" class="tsd-kind-icon">string<wbr>Len</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/parjs.html#uninewline" class="tsd-kind-icon">uni<wbr>Newline</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#defaultfailure" class="tsd-kind-icon">default<wbr>Failure</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#defaultfailure-1" class="tsd-kind-icon">default<wbr>Failure</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#defaultfloatoptions" class="tsd-kind-icon">default<wbr>Float<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../modules/parjs.html#defaultrejection" class="tsd-kind-icon">default<wbr>Rejection</a>
 					</li>
 				</ul>
 			</nav>

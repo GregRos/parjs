@@ -1,5 +1,5 @@
 /**
- * @module parjs
+ * @module parjs/errors
  */
 /** */
 import {ParjsRejection} from "./internal/result";

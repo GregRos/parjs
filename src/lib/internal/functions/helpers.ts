@@ -1,5 +1,5 @@
 /**
- * @module parjs/internal/implementation/functions
+ * @external
  */ /** */
 
 import repeat from "lodash/repeat";

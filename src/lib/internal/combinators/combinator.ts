@@ -1,4 +1,6 @@
 
+/** @module parjs/internal */ /** */
+
 import {ParjserBase} from "../parser";
 import {Parjser, ParjsCombinator} from "../../index";
 

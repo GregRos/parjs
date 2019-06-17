@@ -16,7 +16,7 @@
 
 import "../test/setup";
 
-import {Parjser} from "../lib/parjser";
+import {Parjser} from "../lib/internal/parjser";
 import {each, isolateState, late, manySepBy, map, or} from "../lib/combinators";
 import {anyCharOf, float, string} from "../lib/internal/parsers";
 import {between} from "../lib/internal/combinators/between";

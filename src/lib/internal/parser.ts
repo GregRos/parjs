@@ -1,5 +1,5 @@
 /**
- * @module parjs/internal/implementation
+ * @module parjs/internal
  */
 /** */
 
@@ -7,7 +7,7 @@ import {ParjsRejection, ParjsResult, ResultKind, ParjsSuccess, Trace} from "./re
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
-import {Parjser} from "../parjser";
+import {Parjser} from "./parjser";
 
 
 function getErrorLocation(ps: ParsingState) {

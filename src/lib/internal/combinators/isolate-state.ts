@@ -1,3 +1,5 @@
+/** @module parjs/combinators */ /** */
+
 import {ParjsCombinator, UserState} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";

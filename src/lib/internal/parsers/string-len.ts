@@ -1,12 +1,12 @@
 /**
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  */
 /** */
 
 import {ParsingState} from "../state";
 import {ResultKind} from "../result";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 
 /**
  * Returns a parser that parses exactly `length` characters and yields the

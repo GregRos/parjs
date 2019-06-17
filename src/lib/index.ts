@@ -1,14 +1,13 @@
 /**
- * The main module.
- * Contains the {@link Parjs} object and the most commonly used public interfaces.
+ * Building-block parsers.
  * @module parjs
  * @preferred
  */ /** iooi*/
 
-import {Parjser} from "./parjser";
+import {Parjser} from "./internal/parjser";
 
 export {UserState} from "./internal/state";
-export {Parjser} from "./parjser";
+export {Parjser} from "./internal/parjser";
 
 export {ResultKind, ParjsResult} from "./internal/result";
 
@@ -46,4 +45,3 @@ export interface ParjsCombinator<TFrom, TTo> {
 }
 export {ImplicitParjser} from "./internal/scalar-converter";
 export {ConvertibleScalar} from "./internal/scalar-converter";
-export {visualizeTrace, TraceVisualizer} from "./internal/trace-visualizer";

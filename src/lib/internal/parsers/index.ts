@@ -1,6 +1,6 @@
 /**
  * Implementations of individual building-block parsers.
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  * @preferred
  */ /** */
 export {charCodeWhere} from "./char-code-where";

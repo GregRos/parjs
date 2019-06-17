@@ -1,14 +1,14 @@
 /**
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  */
 /** */
 
-import {Parselets} from "./parselets";
+import {NumericHelpers} from "./numeric-helpers";
 import {ParsingState} from "../state";
 import {ResultKind} from "../result";
 import {ParserDefinitionError} from "../../errors";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 import defaults from "lodash/defaults";
 
 /**
@@ -44,7 +44,7 @@ export function int(options ?: Partial<IntOptions>): Parjser<number> {
             let {allowSign, base} = options;
             let {position, input} = ps;
             let initPos = ps.position;
-            let sign = allowSign ? Parselets.parseSign(ps) : 0;
+            let sign = allowSign ? NumericHelpers.parseSign(ps) : 0;
             let parsedSign = false;
             if (sign !== 0) {
                 parsedSign = true;
@@ -52,7 +52,7 @@ export function int(options ?: Partial<IntOptions>): Parjser<number> {
                 sign = 1;
             }
             position = ps.position;
-            Parselets.parseDigitsInBase(ps, base);
+            NumericHelpers.parseDigitsInBase(ps, base);
             let value = parseInt(input.substring(initPos, ps.position), base);
 
             if (ps.position === position) {

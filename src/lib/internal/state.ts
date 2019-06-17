@@ -3,7 +3,7 @@
  */
 /** */
 import {ResultKind} from "./result";
-import {Parjser} from "../parjser";
+import {Parjser} from "./parjser";
 
 
 /**

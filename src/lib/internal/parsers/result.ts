@@ -1,11 +1,11 @@
 /**
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  */
 /** */
 
 import {ResultKind} from "../result";
 import {ParsingState} from "../state";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 import {ParjserBase} from "../parser";
 
 /**

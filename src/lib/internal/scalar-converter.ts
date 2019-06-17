@@ -4,7 +4,7 @@
  */ /** */
 
 
-import {Parjser} from "../parjser";
+import {Parjser} from "./parjser";
 
 import {string} from "./index";
 import {regexp} from "./parsers/regexp";
@@ -40,6 +40,7 @@ declare global {
 
 /**
  * Either a Parjser or a scalar value convertible to one.
+ * @module parjs
  */
 export type ImplicitParjser<T> = Parjser<T> | ConvertibleScalar<T>;
 

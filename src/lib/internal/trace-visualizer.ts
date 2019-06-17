@@ -1,5 +1,5 @@
 /**
- * @module parjs/internal/implementation
+ * @module parjs/trace
  */
 /** */
 import {Trace} from "./result";
@@ -60,4 +60,7 @@ Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
     return visualizer as TraceVisualizer;
 }
 
+/**
+ * Visualizes a Parjs rejection.
+ */
 export const visualizeTrace = newTraceVisualizer(defaultArgs);

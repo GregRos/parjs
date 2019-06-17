@@ -1,4 +1,5 @@
 
+/** @module parjs/combinators */ /** */
 import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {qthen, thenq} from "./then";

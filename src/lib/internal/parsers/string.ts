@@ -1,12 +1,12 @@
 /**
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  */
 /** */
 
 import {ParsingState} from "../state";
 import {ResultKind} from "../result";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 
 /**
  * Returns a parser that will parse the string `str` and yield the text

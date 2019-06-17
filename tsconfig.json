@@ -13,6 +13,7 @@
     ],
     "declaration": true,
     "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "moduleResolution": "node"
   },

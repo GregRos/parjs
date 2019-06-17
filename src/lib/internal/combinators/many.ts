@@ -1,5 +1,5 @@
 /**
- * @module parjs/internal/implementation/combinators
+ * @module parjs/combinators
  */
 /** */
 

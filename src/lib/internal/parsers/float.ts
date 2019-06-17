@@ -1,16 +1,16 @@
 /**
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  */
 /** */
 
 import {AsciiCodes} from "char-info/ascii";
-import {Parselets} from "./parselets";
+import {NumericHelpers} from "./numeric-helpers";
 import {ResultKind} from "../result";
 import {ParsingState} from "../state";
 
 import defaults from "lodash/defaults";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 
 /**
  * A set of options for parsing floating point numbers.
@@ -93,7 +93,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
             let hasSign = false, hasWhole = false, hasFraction = false;
             if (allowSign) {
                 // try parse a sign
-                sign = Parselets.parseSign(ps);
+                sign = NumericHelpers.parseSign(ps);
                 if (sign === 0) {
                     sign = 1;
                 } else {
@@ -102,7 +102,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
             }
             // after a sign there needs to come an integer part (if any).
             let prevPos = ps.position;
-            Parselets.parseDigitsInBase(ps, 10);
+            NumericHelpers.parseDigitsInBase(ps, 10);
             hasWhole = ps.position !== prevPos;
             // now if allowFloatingPoint, we try to parse a decimal point.
             let nextChar = input.charCodeAt(ps.position);
@@ -120,7 +120,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                     ps.position++;
                     let prevFractionalPos = ps.position;
                     // parse the fractional part
-                    Parselets.parseDigitsInBase(ps, 10);
+                    NumericHelpers.parseDigitsInBase(ps, 10);
                     hasFraction = prevFractionalPos !== ps.position;
                     if (!allowImplicitZero && !hasFraction) {
                         // we encountered something like 212. but allowImplicitZero is false.
@@ -144,14 +144,14 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                 // if we do allow floating point, then the previous block would've consumed some characters.
                 if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
                     ps.position++;
-                    let expSign = Parselets.parseSign(ps);
+                    let expSign = NumericHelpers.parseSign(ps);
                     if (expSign === 0) {
                         ps.kind = ResultKind.HardFail;
                         ps.reason = msgExponentSign;
                         return;
                     }
                     let prevFractionalPos = ps.position;
-                    Parselets.parseDigitsInBase(ps, 10);
+                    NumericHelpers.parseDigitsInBase(ps, 10);
                     if (ps.position === prevFractionalPos) {
                         // we parsed e+ but we did not parse any digits.
                         ps.kind = ResultKind.HardFail;

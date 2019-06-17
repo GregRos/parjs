@@ -1,5 +1,5 @@
 import "../test/setup";
-import {Parjser} from "../lib/parjser";
+import {Parjser} from "../lib/internal/parjser";
 import {ResultKind} from "../lib/internal/result";
 import {late, many, manySepBy, map, or, stringify, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";

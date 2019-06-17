@@ -138,7 +138,18 @@ In most ways, this API is identical to the prototype-based API. Instead of writi
 * `"parjs"` - here you will find the building-block parsers and no combinators. Also, commonly used types if you're working from TypeScript.
 * `"parjs/combinators"` - here you will find combinators, the stuff you give the `pipe` method.
 * `"parjs/errors"` - here are some error types `parjs` can throw.
+* `"parjs/trace"` - Visualizing parser failures.
 * `"parjs/internal"` - here be dragons. See "creating custom parsers" from more details.
+
+## Parsing Unicode
+
+Parjs can parse Unicode characters in the BMP (Basic Multilingual Plane), which includes all but the most exotic of characters. This is done using the [`char-info`][char-info] package of character recognizers.
+
+Parsers such as `upper()` only parse the ASCII subset of Unicode. Only parsers with names beginning with `uni`, such as `uniUpper()`, parse all Unicode characters. These parsers are inherently slower, because each character needs to be looked up in a tree-like data structure.
+
+Parjs supports tree-shaking, so if you have this feature enabled, it will only embed Unicode data into your bundle if you use the Unicode features.
+
+If you want to parse characters from specific scripts or with other special properties, you should import the `char-info` package yourself.
 
 ## Implicit parsers
 
@@ -183,15 +194,23 @@ let variant2 = myString.pipe(
 
 If `myString` changed when it parsed something, it would influence both `variant1` and `variant2`, which is obviously undesirable.
 
-## Result
+## Results and rejection
+
+### Success
 
 All parses return some sort of result when they parse something. In the past, there used to be silent parsers that didn't return results, but this is not the case anymore.
 
+When a parser succeeds, it returns an object that contains:
+
+1. The final result value.
+2. The final state of the parser.
+3. The status (which is `OK`)
+
 The result of a parser has the property `value` that exposes its result value.
 
-## Rejection
+### Rejection
 
-When parsers don't succeed for an input, they reject or fail. There are several different kinds of failure:
+When parsers don't succeed for an input, they reject (or fail). There are several different kinds of failure:
 
 1. A *soft* failure is an expected failure which can be easily recovered from. It usually means that a parser is not appropriate for parsing a given input and another parser should be attempted. 
 2. A *hard* failure usually signals unexpected input. Recovering from this failure may require backtracking a non-constant distance. Combinators like `or` will recover from a hard failure.
@@ -214,6 +233,19 @@ A soft failure indicates the parser isn't appropriate for a given input, and ano
 Parsers that use sequential combinators - such as `then` - will expect all of their component parsers to succeed if the first one succeeded. If a later parser fails, it means an expectation was broken and a hard failure should be emitted.
 
 Hard failures also happen for specific kinds of malformed input. For example, a `float` parser trying to parse `1.0e+hello` will error because after `1.0e+`, the parser expected to find an exponent but found something else instead.
+
+Failures will generally bubble up the parser chain, potentially getting worse in the process, until a parser accepts a failure and handles it. If no parser handles the failure, or if the last parser failed to parse all of the input, the failure bubbles up to the caller as a rejection result.
+
+### Overall Parsing Failure
+
+When you call `.parse`, parsing will fail if the parser rejects the input or if it fails to consume all of the input. 
+
+The result from a parsing operation that has failed 
+
+1. The `kind` of the failure.
+2. The `trace` object which contains tracing information indicating where the parser failed, and what input was expected. It also contains the parser `userState` at the time of the failure.
+
+In addition to emitting a failure result, parsers can also throw exceptions, as mentioned previously. This indicates an error in the parser.
 
 ## User State
 

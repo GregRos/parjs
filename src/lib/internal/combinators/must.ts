@@ -1,11 +1,11 @@
 /**
- * @module parjs/internal/implementation/combinators
+ * @module parjs/combinators
  */
 /** */
 
 import {ParsingState} from "../state";
 import {RejectionInfo} from "../result";
-import {ParjsPredicate} from "../../parjser";
+import {ParjsPredicate} from "../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";

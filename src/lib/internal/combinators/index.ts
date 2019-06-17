@@ -1,3 +1,5 @@
+/** @module parjs/internal*/ /** */
+
 export {each} from "./each";
 export {maybe} from "./maybe";
 export {or} from "./or";
@@ -18,4 +20,5 @@ export {stringify} from "./stringify";
 export {isolateState} from "./isolate-state";
 export {between} from "./between";
 export {flatten} from "./flatten";
+export {defineCombinator, composeCombinator} from "./combinator";
 

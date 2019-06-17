@@ -2,7 +2,7 @@ import {string, whitespace} from "../../lib/internal/parsers";
 import {exactly, manySepBy, then} from "../../lib/combinators";
 import _ = require("lodash");
 import {ParjsRejection} from "../../lib/internal/result";
-import {visualizeTrace} from "../../lib";
+import {visualizeTrace} from "../../lib/trace";
 
 describe("trace", () => {
     let exampleParser = string("a").pipe(

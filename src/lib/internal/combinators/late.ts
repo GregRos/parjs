@@ -1,12 +1,12 @@
 /**
- * @module parjs/internal/implementation/combinators
+ * @module parjs/combinators
  */
 /** */
 
 import {ParsingState} from "../state";
 
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 
 /**
  * Returns a parser that, when it is first applied, will call `resolver`

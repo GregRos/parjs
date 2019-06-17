@@ -1,5 +1,5 @@
 /**
- * @module parjs/internal/implementation
+ * @module parjs/internal
  */ /** */
 
 import {ParserDefinitionError} from "../errors";

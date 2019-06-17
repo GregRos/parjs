@@ -1,12 +1,12 @@
 /**
- * @module parjs/internal/implementation/parsers
+ * @module parjs
  */
 /** */
 
 import {RejectionInfo, ResultKind} from "../result";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
-import {Parjser} from "../../parjser";
+import {Parjser} from "../parjser";
 import defaults from "lodash/defaults";
 const defaultRejection: RejectionInfo = {
     kind: "Hard",

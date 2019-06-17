@@ -1,3 +1,9 @@
+/**
+ * Parser combinators.
+ * @module parjs/combinators
+ * @preferred
+ * */ /** */
+
 export {
     stringify,
     soft,
