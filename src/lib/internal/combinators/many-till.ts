@@ -36,26 +36,26 @@ export function manyTill(till: ImplicitParjser<any>, tillOptional?: boolean) {
                     if (ps.isOk) {
                         break;
                     } else if (ps.atLeast(ResultKind.HardFail)) {
-                        //if till failed hard/fatally, we return the fail result.
+                        // if till failed hard/fatally, we return the fail result.
                         return;
                     }
-                    //backtrack to before till failed.
+                    // backtrack to before till failed.
                     ps.position = position;
                     source.apply(ps);
                     if (ps.isOk) {
                         arr.push(ps.value);
                     } else if (ps.isSoft) {
-                        //many failed softly before till...
+                        // many failed softly before till...
                         if (!tillOptional) {
-                            //if we parsed at least one element, we fail hard.
+                            // if we parsed at least one element, we fail hard.
                             ps.kind = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
                             return;
                         } else {
-                            //till was optional, so many failing softly is OK.
+                            // till was optional, so many failing softly is OK.
                             break;
                         }
                     } else {
-                        //many failed hard/fatal
+                        // many failed hard/fatal
                         return;
                     }
                     if (ps.position === position) {

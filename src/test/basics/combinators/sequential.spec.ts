@@ -107,11 +107,11 @@ describe("sequential combinators", () => {
         });
 
         describe("1 quiet using seq combinator", () => {
-            //TODO: this test?
+            // TODO: this test?
         });
 
         describe("empty seq combinator same as no match, return []", () => {
-            //TODO: this test?
+            // TODO: this test?
         });
     });
 

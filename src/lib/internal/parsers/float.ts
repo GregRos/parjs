@@ -94,7 +94,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
             let sign = 1;
             let hasSign = false, hasWhole = false, hasFraction = false;
             if (allowSign) {
-                //try parse a sign
+                // try parse a sign
                 sign = Parselets.parseSign(ps);
                 if (sign === 0) {
                     sign = 1;
@@ -102,15 +102,15 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                     hasSign = true;
                 }
             }
-            //after a sign there needs to come an integer part (if any).
+            // after a sign there needs to come an integer part (if any).
             let prevPos = ps.position;
             Parselets.parseDigitsInBase(ps, 10);
             hasWhole = ps.position !== prevPos;
-            //now if allowFloatingPoint, we try to parse a decimal point.
+            // now if allowFloatingPoint, we try to parse a decimal point.
             let nextChar = input.charCodeAt(ps.position);
             prevPos = ps.position;
             if (!allowImplicitZero && !hasWhole) {
-                //fail because we don't allow ".1", and similar without allowImplicitZero.
+                // fail because we don't allow ".1", and similar without allowImplicitZero.
                 ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
                 ps.reason = msgOneOrMoreDigits;
                 return;
@@ -118,32 +118,32 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
             // tslint:disable-next-line:label-position
             floatingParse: {
                 if (allowFloatingPoint && nextChar === AsciiCodes.decimalPoint) {
-                    //skip to the char after the decimal point
+                    // skip to the char after the decimal point
                     ps.position++;
                     let prevFractionalPos = ps.position;
-                    //parse the fractional part
+                    // parse the fractional part
                     Parselets.parseDigitsInBase(ps, 10);
                     hasFraction = prevFractionalPos !== ps.position;
                     if (!allowImplicitZero && !hasFraction) {
-                        //we encountered something like 212. but allowImplicitZero is false.
-                        //that means we need to backtrack to the . character and succeed in parsing the integer.
-                        //the remainder is not a valid number.
+                        // we encountered something like 212. but allowImplicitZero is false.
+                        // that means we need to backtrack to the . character and succeed in parsing the integer.
+                        // the remainder is not a valid number.
                         break floatingParse;
                     }
 
-                    //after parseDigits has been invoked, the ps.position is on the next character (which could be e).
+                    // after parseDigits has been invoked, the ps.position is on the next character (which could be e).
                     nextChar = input.charCodeAt(ps.position);
                     prevPos = ps.position;
                 }
 
                 if (!hasWhole && !hasFraction) {
-                    //even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
+                    // even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
                     ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
                     ps.reason = msgOneOrMoreDigits;
                     return;
                 }
-                //note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
-                //if we do allow floating point, then the previous block would've consumed some characters.
+                // note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
+                // if we do allow floating point, then the previous block would've consumed some characters.
                 if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
                     ps.position++;
                     let expSign = Parselets.parseSign(ps);
@@ -155,7 +155,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                     let prevFractionalPos = ps.position;
                     Parselets.parseDigitsInBase(ps, 10);
                     if (ps.position === prevFractionalPos) {
-                        //we parsed e+ but we did not parse any digits.
+                        // we parsed e+ but we did not parse any digits.
                         ps.kind = ResultKind.HardFail;
                         ps.reason = msgOneOrMoreDigits;
                         return;

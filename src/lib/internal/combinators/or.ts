@@ -91,18 +91,18 @@ export function or(...alts: ImplicitParjser<any>[]) {
             _apply(ps: ParsingState): void {
                 let {position} = ps;
                 for (let i = 0; i < resolvedAlts.length; i++) {
-                    //go over each alternative.
+                    // go over each alternative.
                     let cur = resolvedAlts[i];
-                    //apply it on the current state.
+                    // apply it on the current state.
                     cur.apply(ps);
                     if (ps.isOk) {
-                        //if success, return. The PS records the result.
+                        // if success, return. The PS records the result.
                         return;
                     } else if (ps.isSoft) {
-                        //backtrack to the original position and try again.
+                        // backtrack to the original position and try again.
                         ps.position = position;
                     } else {
-                        //if failure, return false,
+                        // if failure, return false,
                         return;
                     }
                 }

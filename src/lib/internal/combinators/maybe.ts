@@ -23,11 +23,11 @@ export function maybe(val = undefined) {
            _apply(ps: ParsingState): void {
                inner.apply(ps);
                if (ps.isSoft) {
-                   //on soft failure, set the value and result to OK
+                   // on soft failure, set the value and result to OK
                    ps.value = val;
                    ps.kind = ResultKind.Ok;
                }
-               //on ok/hard/fatal, propagate the result.
+               // on ok/hard/fatal, propagate the result.
            }
        }();
    });

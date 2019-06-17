@@ -31,7 +31,7 @@ export function anyStringOf(...strs: string[]): Parjser<string> {
                             continue strLoop;
                         }
                     }
-                    //this means we did not contiue strLoop so curStr passed our tests
+                    // this means we did not contiue strLoop so curStr passed our tests
                     ps.position = position + curStr.length;
                     ps.value = curStr;
                     ps.kind = ResultKind.Ok;

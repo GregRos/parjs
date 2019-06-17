@@ -44,7 +44,7 @@ export function many(maxIterations = Infinity) {
                     return;
                 }
                 ps.value = arr;
-                //recover from the last failure.
+                // recover from the last failure.
                 ps.position = position;
                 ps.kind = ResultKind.Ok;
             }

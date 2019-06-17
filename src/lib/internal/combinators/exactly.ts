@@ -29,7 +29,7 @@ export function exactly(count: number) {
                         if (ps.kind === ResultKind.SoftFail && i > 0) {
                             ps.kind = ResultKind.HardFail;
                         }
-                        //fail because the inner parser has failed.
+                        // fail because the inner parser has failed.
                         return;
                     }
                     arr.push(ps.value);

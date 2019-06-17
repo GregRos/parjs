@@ -107,15 +107,15 @@ export function then(...parsers: ImplicitParjser<any>[]) {
                     if (ps.isOk) {
                         results.push(ps.value);
                     } else if (ps.isSoft && origPos === ps.position) {
-                        //if the first parser failed softly then we propagate a soft failure.
+                        // if the first parser failed softly then we propagate a soft failure.
                         return;
                     } else if (ps.isSoft) {
                         ps.kind = ResultKind.HardFail;
-                        //if a i > 0 parser failed softly, this is a hard fail for us.
-                        //also, propagate the internal expectation.
+                        // if a i > 0 parser failed softly, this is a hard fail for us.
+                        // also, propagate the internal expectation.
                         return;
                     } else {
-                        //ps failed hard or fatally. The same severity.
+                        // ps failed hard or fatally. The same severity.
                         return;
                     }
                 }

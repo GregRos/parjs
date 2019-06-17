@@ -23,10 +23,10 @@ export function backtrack<T>(): ParjsCombinator<T, T> {
                 let {position} = ps;
                 source.apply(ps);
                 if (ps.isOk) {
-                    //if inner succeeded, we backtrack.
+                    // if inner succeeded, we backtrack.
                     ps.position = position;
                 }
-                //whatever code ps had, we return it.
+                // whatever code ps had, we return it.
             }
 
         }();

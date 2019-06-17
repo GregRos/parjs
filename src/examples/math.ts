@@ -75,27 +75,27 @@ let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?:
     }
 };
 
-//required because we want to create a self-referencing, recursive parser
-//pExpr is the final parser.
+// required because we want to create a self-referencing, recursive parser
+// pExpr is the final parser.
 let _pExpr = null;
 let pExpr: Parjser<Expression> = late(() => _pExpr);
 
-//we have a built-in floating point parser in Parjs.
+// we have a built-in floating point parser in Parjs.
 let pNumber = float().pipe(
     map(x => new NumericLiteral(x))
 );
 
-//Parentheses
+// Parentheses
 let pLeftParen = string("(");
 let pRightParen = string(")");
 
-//An expression between parentheses.
+// An expression between parentheses.
 let pParenExpr = pExpr.pipe(
     between(pLeftParen, pRightParen)
 );
 
-//either a numeric literal or an expression between parentheses, (a + b + c).
-//We add the expression to the expresion stack instead of returning it.
+// either a numeric literal or an expression between parentheses, (a + b + c).
+// We add the expression to the expresion stack instead of returning it.
 
 let pUnit = pNumber.pipe(
     or(pParenExpr),
@@ -106,8 +106,8 @@ let pUnit = pNumber.pipe(
 );
 
 
-//Parses a single operator and adds it to the expression stack.
-//Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
+// Parses a single operator and adds it to the expression stack.
+// Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
 let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
     each((op, state: MathState) => {
         let operator = operators.filter(o => o.operator === op)[0];
@@ -119,10 +119,10 @@ let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
     })
 );
 
-//Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
-//Note the call to `isolateState` at the end. We need it because this parser can be called to parse an expression inside parentheses
-//In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
-//An isolated parser blanks out the user state and then restores it.
+// Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
+// Note the call to `isolateState` at the end. We need it because this parser can be called to parse an expression inside parentheses
+// In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
+// An isolated parser blanks out the user state and then restores it.
 
 _pExpr = pUnit.pipe(
     manySepBy(pOp),

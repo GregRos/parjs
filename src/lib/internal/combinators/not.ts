@@ -25,12 +25,12 @@ export function not(): ParjsCombinator<any, void> {
                     ps.position = position;
                     ps.kind = ResultKind.SoftFail;
                 } else if (ps.kind === ResultKind.HardFail || ps.kind === ResultKind.SoftFail) {
-                    //hard fails are okay here
+                    // hard fails are okay here
                     ps.kind = ResultKind.Ok;
                     ps.position = position;
                     return;
                 }
-                //the remaining case is a fatal failure that isn't recovered from.
+                // the remaining case is a fatal failure that isn't recovered from.
             }
 
         }();
