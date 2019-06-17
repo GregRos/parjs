@@ -20,6 +20,9 @@
         },
         "types": {
           "visibilities": ["exported"]
+        },
+        "enums": {
+          "visibilities": ["exported"]
         }
       }
     }
