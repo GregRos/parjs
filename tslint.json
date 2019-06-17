@@ -3,22 +3,25 @@
     "tslint-config-gregros"
   ],
   "rules": {
-    "completed-docs": [true, {
-      "functions": {
-        "visibilities": ["exported"]
-      },
-      "interfaces": {
-        "visibilities": ["exported"]
-      },
-      "classes": {
-        "visibilities": ["exported"]
-      },
-      "namespaces": {
-        "visibilities": ["exported"]
-      },
-      "types": {
-        "visibilities": ["exported"]
+    "completed-docs": {
+      "severity": "warn",
+      "options": {
+        "functions": {
+          "visibilities": ["exported"]
+        },
+        "interfaces": {
+          "visibilities": ["exported"]
+        },
+        "classes": {
+          "visibilities": ["exported"]
+        },
+        "namespaces": {
+          "visibilities": ["exported"]
+        },
+        "types": {
+          "visibilities": ["exported"]
+        }
       }
-    }]
+    }
   }
 }

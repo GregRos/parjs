@@ -4,7 +4,6 @@ import {float, int, rest} from "../../../lib/";
 import {then, thenq} from "../../../lib/combinators";
 
 
-
 describe("numeric parsers", () => {
     describe("int parser", () => {
         describe("default settings", () => {
