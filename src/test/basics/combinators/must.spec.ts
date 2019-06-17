@@ -1,6 +1,6 @@
 
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/reply";
+import {ResultKind} from "../../../lib/internal/result";
 import {eof, result, string, stringLen} from "../../../lib";
 import {must, mustCapture, mustNotBeOf, or, stringify, then} from "../../../lib/combinators";
 

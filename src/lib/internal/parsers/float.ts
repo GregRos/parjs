@@ -5,7 +5,7 @@
 
 import {AsciiCodes} from "char-info/ascii";
 import {Parselets} from "./parselets";
-import {ResultKind} from "../reply";
+import {ResultKind} from "../result";
 import {ParsingState} from "../state";
 
 import defaults from "lodash/defaults";

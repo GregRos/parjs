@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ResultKind} from "../reply";
+import {ResultKind} from "../result";
 import {ParsingState} from "../state";
 import {Parjser} from "../../parjser";
 import {ParjserBase} from "../parser";

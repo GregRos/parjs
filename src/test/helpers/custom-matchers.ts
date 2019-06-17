@@ -1,4 +1,4 @@
-import {ParjsResult, ResultKind} from "../../lib/internal/reply";
+import {ParjsResult, ResultKind} from "../../lib/internal/result";
 import matches from "lodash/matches";
 import isPlainObject from "lodash/isPlainObject";
 

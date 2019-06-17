@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {RejectionInfo, ResultKind} from "../reply";
+import {RejectionInfo, ResultKind} from "../result";
 import {Parjser, ParjsProjection} from "../../parjser";
 import {ParjserBase} from "../parser";
 import defaults from "lodash/defaults";

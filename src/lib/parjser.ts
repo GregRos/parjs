@@ -3,7 +3,7 @@
  */ /** */
 
 
-import {ParjsResult} from "./internal/reply";
+import {ParjsResult} from "./internal/result";
 import {UserState} from "./internal/state";
 import {ParjsCombinator} from "./index";
 

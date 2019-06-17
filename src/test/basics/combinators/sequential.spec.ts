@@ -1,7 +1,7 @@
 
 
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/reply";
+import {ResultKind} from "../../../lib/internal/result";
 import range from "lodash/range";
 import {string, fail, rest, eof, result, anyCharOf} from "../../../lib/internal/parsers";
 import {

@@ -5,7 +5,7 @@
 
 import {Issues} from "../issues";
 import {ParsingState} from "../state";
-import {ResultKind} from "../reply";
+import {ResultKind} from "../result";
 import {ImplicitParjser, ParjsCombinator} from "../../index";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";

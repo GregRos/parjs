@@ -1,5 +1,5 @@
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/reply";
+import {ResultKind} from "../../../lib/internal/result";
 import {float, int, rest} from "../../../lib/";
 import {then, thenq} from "../../../lib/combinators";
 

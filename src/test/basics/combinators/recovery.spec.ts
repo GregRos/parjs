@@ -1,7 +1,7 @@
 
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjser} from "../../../lib/parjser";
-import {ResultKind} from "../../../lib/internal/reply";
+import {ResultKind} from "../../../lib/internal/result";
 import {string, fail, rest} from "../../../lib/internal/parsers";
 import {mapConst, maybe, not, or, qthen, soft, stringify, then} from "../../../lib/combinators";
 

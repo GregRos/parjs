@@ -4,7 +4,7 @@
 /** */
 
 import {ParsingState} from "../state";
-import {RejectionInfo} from "../reply";
+import {RejectionInfo} from "../result";
 import {ParjsPredicate} from "../../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";

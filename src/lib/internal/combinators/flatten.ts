@@ -1,6 +1,9 @@
 import {ParjsCombinator} from "../../index";
 import {map} from "./map";
 
+/**
+ * The type of an arbitrarily nested array or a non-array element.
+ */
 export type NestedArray<T> = T | T[] | T[][] | T[][][] | T[][][][] | T[][][][][] | T[][][][][][] | T[][][][][][][][];
 
 function flattenNestedArrays(arr: unknown[] | unknown) {

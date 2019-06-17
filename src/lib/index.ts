@@ -10,7 +10,7 @@ import {Parjser} from "./parjser";
 export {UserState} from "./internal/state";
 export {Parjser} from "./parjser";
 
-export {ResultKind, ParjsResult} from "./internal/reply";
+export {ResultKind, ParjsResult} from "./internal/result";
 
 export {
     anyStringOf,
@@ -45,5 +45,5 @@ export interface ParjsCombinator<TFrom, TTo> {
     (from: Parjser<TFrom>): Parjser<TTo>;
 }
 export {ImplicitParjser} from "./internal/scalar-converter";
-export {ConvertibleLiteral} from "./internal/scalar-converter";
+export {ConvertibleScalar} from "./internal/scalar-converter";
 export {visualizeTrace, TraceVisualizer} from "./internal/trace-visualizer";

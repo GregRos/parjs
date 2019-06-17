@@ -1,6 +1,6 @@
 
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/reply";
+import {ResultKind} from "../../../lib/internal/result";
 import {
     anyChar,
     anyCharOf,

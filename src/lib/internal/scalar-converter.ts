@@ -23,7 +23,7 @@ export const convertibleSymbol = Symbol("ParjsConvertibleLiteral");
  * A literal type which is implicitly convertible to a parser.
  * This normally includes the `string` and `RegExp` types.
  */
-export interface ConvertibleLiteral<T> {
+export interface ConvertibleScalar<T> {
     [convertibleSymbol](): Parjser<T>;
 
 }
@@ -37,7 +37,11 @@ declare global {
         [convertibleSymbol](): Parjser<string>;
     }
 }
-export type ImplicitParjser<T> = Parjser<T> | ConvertibleLiteral<T>;
+
+/**
+ * Either a Parjser or a scalar value convertible to one.
+ */
+export type ImplicitParjser<T> = Parjser<T> | ConvertibleScalar<T>;
 
 /**
  * A helper for working with implicit parsers.

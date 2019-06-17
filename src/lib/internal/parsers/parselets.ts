@@ -8,8 +8,9 @@ import {
 } from "char-info/ascii";
 import {ParsingState} from "../state";
 
-
-
+/**
+ * Parsing helper.
+ */
 export class ParseletsType {
 
     parseDigitsInBase(ps: ParsingState, base: number) {

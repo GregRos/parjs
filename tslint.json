@@ -15,6 +15,9 @@
       },
       "namespaces": {
         "visibilities": ["exported"]
+      },
+      "types": {
+        "visibilities": ["exported"]
       }
     }]
   }

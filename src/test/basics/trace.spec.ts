@@ -1,7 +1,7 @@
 import {string, whitespace} from "../../lib/internal/parsers";
 import {exactly, manySepBy, then} from "../../lib/combinators";
 import _ = require("lodash");
-import {ParjsRejection} from "../../lib/internal/reply";
+import {ParjsRejection} from "../../lib/internal/result";
 import {visualizeTrace} from "../../lib";
 
 describe("trace", () => {

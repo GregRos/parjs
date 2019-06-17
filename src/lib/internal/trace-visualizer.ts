@@ -2,7 +2,7 @@
  * @module parjs/internal/implementation
  */
 /** */
-import {Trace} from "./reply";
+import {Trace} from "./result";
 
 import {NumHelpers} from "./functions/helpers";
 import repeat from "lodash/repeat";
