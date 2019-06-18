@@ -29,8 +29,8 @@ export function must<T>(predicate: ParjsValidator<T>)
                     return;
                 }
                 let result = predicate(ps.value, ps.userState);
-                if (!result) return;
-                ps.kind = result.kind;
+                if (result === true) return;
+                ps.kind = result.kind || "Soft";
                 ps.reason = result.reason || "failed to fulfill a predicate";
             }
 

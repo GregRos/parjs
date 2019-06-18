@@ -29,8 +29,8 @@ const defaultArgs: TraceVisualizerArgs = {
     linesBefore: 1
 };
 
-function newTraceVisualizer(args: Partial<TraceVisualizerArgs>) {
-    args = defaults(args, defaultArgs);
+function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
+    let args = defaults(pAgs, defaultArgs);
     let visualizer: any = (trace: Trace) => {
         let rows = trace.input.split(/\r\n|\n|\r/g);
         let locRow = trace.location.row;

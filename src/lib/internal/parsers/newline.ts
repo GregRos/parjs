@@ -14,7 +14,7 @@ import {
 } from "char-info";
 
 
-function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string> {
+function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<string> {
     return new class Newline extends ParjserBase {
         expecting = "expecting newline";
         type = "newline";
@@ -59,7 +59,7 @@ function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string
  * `\r\n`. Yields the text that was parsed.
  */
 export function newline() {
-    return innerNewline(null);
+    return innerNewline();
 }
 
 /**

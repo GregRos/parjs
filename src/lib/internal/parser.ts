@@ -14,14 +14,15 @@ function getErrorLocation(ps: ParsingState) {
     let endln = /\r\n|\n|\r/g;
     let {input, position} = ps;
     let lastPos = 0;
-    let result: RegExpMatchArray;
+    let result: RegExpMatchArray | null;
     let line = 0;
 
-    while (!!(result = endln.exec(ps.input)) && result.index <= position) {
-        lastPos = result.index + result[0].length;
+
+    while ((result = endln.exec(ps.input))) {
+        if (result.index! > position) break;
+        lastPos = result.index! + result[0].length;
         line++;
     }
-
     return {
         row: line,
         column: line === 0 ? position : position - lastPos
@@ -51,7 +52,7 @@ export abstract class ParjserBase implements Parjser<any>{
 
         // we do this to verify that the ParsingState's fields have been correctly set by the parser.
         ps.kind = ResultKind.Unknown;
-        ps.reason = undefined;
+        ps.reason = undefined as any;
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
         if (ps.kind === ResultKind.Unknown) {
@@ -88,8 +89,8 @@ export abstract class ParjserBase implements Parjser<any>{
             // catches input === undefined, null
             throw new Error("input must be a valid string");
         }
-        let ps = new BasicParsingState(input);
-        ps.userState = defaults(new ParserUserState(), initialState);
+        let userState = defaults(new ParserUserState(), initialState);
+        let ps = new BasicParsingState(input, userState);
         ps.initialUserState = initialState;
         this.apply(ps);
 

@@ -27,7 +27,7 @@ export function many(maxIterations = Infinity) {
 
             _apply(ps: ParsingState): void {
                 let {position} = ps;
-                let arr = [];
+                let arr = [] as any[];
                 let i = 0;
                 while (true) {
                     source.apply(ps);

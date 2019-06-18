@@ -5,7 +5,7 @@
 
 import {ParsingState} from "../state";
 import {FailureInfo, ResultKind} from "../result";
-import {Parjser, ParjsProjection} from "../parjser";
+import {Parjser, ParjsProjection, ParjsValidator} from "../parjser";
 import {ParjserBase} from "../parser";
 import defaults from "lodash/defaults";
 
@@ -21,21 +21,23 @@ const defaultFailure: FailureInfo = {
  * @param rejection Optionally, specifies how the parser should act in case of
  * rejection.
  */
-export function charWhere(predicate: ParjsProjection<string, boolean>, rejection?: Partial<FailureInfo>): Parjser<string> {
-    rejection = defaults(rejection, defaultFailure);
+export function charWhere(predicate: ParjsValidator<string>): Parjser<string> {
     return new class CharWhere extends ParjserBase {
         type = "charWhere";
-        expecting = rejection.reason;
+        expecting = "expecting a character matching a predicate";
 
         _apply(ps: ParsingState): void {
             let {position, input} = ps;
             if (position >= input.length) {
-                ps.kind = rejection.kind;
+                ps.kind = ResultKind.SoftFail;
+                ps.reason = "expecting a character";
                 return;
             }
             let curChar = input[position];
-            if (!predicate(curChar, ps.userState)) {
-                ps.kind = rejection.kind;
+            let result = predicate(curChar, ps.userState);
+            if (result !== true) {
+                ps.reason = result.reason || this.expecting;
+                ps.kind = result.kind || "Soft";
                 return;
             }
             ps.value = curChar;

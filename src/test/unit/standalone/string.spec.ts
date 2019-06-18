@@ -272,7 +272,9 @@ describe("basic string parsers", () => {
         });
 
         describe("charWhere", () => {
-            let parser = charWhere(x => x === "a");
+            let parser = charWhere(x => x === "a" || {
+
+            });
 
             it("succeeds when true", () => {
                 expectSuccess(parser.parse("a"), "a");
@@ -284,7 +286,7 @@ describe("basic string parsers", () => {
         });
 
         describe("charCodeWhere", () => {
-            let parser = charCodeWhere(x => x === "a".charCodeAt(0));
+            let parser = charCodeWhere(x => x === "a".charCodeAt(0) || {});
 
             it("succeeds when true", () => {
                 expectSuccess(parser.parse("a"), "a");

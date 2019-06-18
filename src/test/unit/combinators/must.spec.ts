@@ -8,7 +8,7 @@ import {must, mustCapture, or, stringify, then} from "../../../lib/combinators";
 describe("must combinators", () => {
     describe("must combinator", () => {
         let parser = stringLen(3).pipe(
-            must(s => s !== "abc" && {
+            must(s => s === "abc" || {
                 kind: "Fatal"
             })
         );

@@ -29,8 +29,8 @@ const defaultOptions: IntOptions = {
  * given by `options`.
  * @param options A set of options for parsing integers.
  */
-export function int(options ?: Partial<IntOptions>): Parjser<number> {
-    options = defaults(options, defaultOptions);
+export function int(pOptions ?: Partial<IntOptions>): Parjser<number> {
+    let options = defaults(pOptions, defaultOptions);
     if (options.base > 36) {
         throw new ParserDefinitionError("int", "invalid base");
     }
