@@ -6,7 +6,7 @@
 
 export {
     stringify,
-    soft,
+    recover,
     then,
     not,
     mustCapture,

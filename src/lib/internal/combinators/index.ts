@@ -15,7 +15,7 @@ export {must, mustBeOf, mustNotBeOf} from "./must";
 export {mustCapture} from "./must-capture";
 export {not} from "./not";
 export {then, qthen, thenq} from "./then";
-export {soft} from "./soft";
+export {recover} from "./recover";
 export {stringify} from "./stringify";
 export {replaceState} from "./replace-state";
 export {between} from "./between";

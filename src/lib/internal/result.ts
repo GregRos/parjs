@@ -10,7 +10,7 @@ import {visualizeTrace} from "./trace-visualizer";
 /**
  * Indicates a success reply and contains the value and other information.
  */
-export class ParjsSuccess<T> {
+export class ParjsSuccess<T> implements SuccessInfo<T> {
     kind = ResultKind.Ok;
 
     constructor(public value: T) {
@@ -24,6 +24,14 @@ export class ParjsSuccess<T> {
     get isOkay() {
         return true;
     }
+}
+
+/**
+ * Info about a success.
+ */
+export interface SuccessInfo<T> {
+    kind: ResultKind.Ok;
+    value: T;
 }
 
 /**

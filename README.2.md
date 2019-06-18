@@ -133,6 +133,14 @@ const parser = string("test").pipe(
 
 In most ways, this API is identical to the prototype-based API. Instead of writing `parser.map(f)`, you write `parser.pipe(map(f))`. This is more long-winded, but the benefits outweigh the drawbacks.
 
+### Using combinators like regular functions
+
+You don't really have to use the `.pipe` method. Combinators are just functions that return functions, and you can call the combinator and the function it creates in a single expression. For example:
+
+```typescript
+let hiOrHello = or("hi")("hello");
+```
+
 ## Import paths
 
 * `"parjs"` - here you will find the building-block parsers and no combinators. Also, commonly used types if you're working from TypeScript.
@@ -194,64 +202,166 @@ let variant2 = myString.pipe(
 
 If `myString` changed when it parsed something, it would influence both `variant1` and `variant2`, which is obviously undesirable.
 
-## Results and rejection
+## Success and failure
 
-### Success
-
-All parses return some sort of result when they parse something. In the past, there used to be silent parsers that didn't return results, but this is not the case anymore.
-
-When a parser succeeds, it returns an object that contains:
-
-1. The final result value.
-2. The final state of the parser.
-3. The status (which is `OK`)
-
-The result of a parser has the property `value` that exposes its result value.
-
-### Rejection
-
-When parsers don't succeed for an input, they reject (or fail). There are several different kinds of failure:
-
-1. A *soft* failure is an expected failure which can be easily recovered from. It usually means that a parser is not appropriate for parsing a given input and another parser should be attempted. 
-2. A *hard* failure usually signals unexpected input. Recovering from this failure may require backtracking a non-constant distance. Combinators like `or` will recover from a hard failure.
-3. A *fatal* failure is unrecoverable. Built-in parsers don't fail in this way, but you can signal this kind of failure using various assertion combinators like `must`.
-4. If an exception is thrown, that doesn't indicate parsing the input failed - it means there is a problem in one of the parsers. Parsers aren't supposed to throw errors.
-
-The difference between soft and hard failures can be seen when talking about combinators that provide a list of alternatives. 
+When the `.parse` method of a Parjser you get a result which can indicate either success or failure. You can tell these apart using the `.kind` property, or using the shorthand `.isOkay`:
 
 ```typescript
-let pNumber = string("hello").pipe(
-	or(
-        "hi",
-        "good evening"
+let result = parser.parse("hello");
+
+// true if result.kind === "OK"
+if (result.isOkay) {
+    // it succeeded
+} else {
+    // result.kind === "Soft", "Hard", "Fatal"
+}
+
+```
+
+You can get the parser's return value by using the `.value` property of the result object, but it will throw an error if the object is a failure.
+
+```typescript
+let finalResult = result.value;
+```
+
+Failures have the extra property `trace` which gives you a trace of where the failure happened, which parser caused it, and other information you can use to diagnose it. 
+
+```typescript
+let {
+    trace,
+    reason,
+    kind,
+} = result;
+```
+
+The `trace` property contains a detailed object with a trace of parsers that led to the failure, the location of the failure, and more. This information is used when you stringify a failed result object with `.toString()`:
+
+```typescript
+console.log(result.toString());
+// Soft failure at Ln 1 Col 1
+// 1 | hello!
+//     ^expecting 'hi'
+// Stack: string
+```
+
+### Failure types
+
+There are several failure types recognized by the library. They're used for slightly different purposes that can drastically change how a parser behaves. From least to most severe, they are:
+
+1. Soft failure
+2. Hard failure
+3. Fatal failure
+
+Different failure types let you accept alternative inputs while not swallowing important syntax errors and not backtracking too much.
+
+Failure bubbles up the parser tree until a parser can handle it, like an exception does. Parsers that deal with Soft failures will usually not handle Hard ones.
+
+#### Soft failure
+
+A parser fails softly if it receives input which it immediately sees as inappropriate. 
+
+This kind of failure allows alternative parser combinators like the `or` combinators to work. The `or` combinator looks like this:
+
+```typescript
+let option1 = string("option1");
+let option2 = string("option2");
+let either = option1.pipe(
+	or(option2)
+);
+```
+
+The combinator will try the `option2` parser if `option1` does not work. This not-working is signalled by a soft failure. If `option2` reports a soft failure too then `either` will bubble that failure up, possibly with some more information.
+
+One way of describing a soft failure is that it doesn't consume much of the input and doesn't require much backtracking.
+
+#### Hard failure
+
+A hard failure means the parser started parsing the input but encountered something unexpected. 
+
+Hard failures are common and are usually caused by syntax errors. A common hard failure appears when you have a parser that uses the `then` sequential combinator:
+
+```typescript
+let p = string("a").pipe(
+    then("b")
+);
+```
+
+And you give it input that makes the 1st parser succeed and the 2nd parser to fail.
+
+```typescript
+p.parse("ac");
+// Hard failure at Ln 1 Col 2
+// 1 | ac
+//      ^expecting 'b'
+// Stack: string < then
+```
+
+In this case, combinators like `or` will not work. Even if we added the `or` combinator to the above:
+
+````typescript
+// doesn't work, still fails
+
+let p2 = p.pipe(
+	or("ac")
+);
+
+p2.parse("ac");
+````
+
+This still results in the same failure as before. The idea behind this is that the input made the parser break an expectation. When the first parser for `"a"` succeeds, it convinces the `then` combinator that this really is the parser it's supposed to be using. When the parser for `"b"` fails, it sees it as a syntax error and not just an alternative input type.
+
+The recommended way to solve this problem is to write parsers that quickly determine if the input is right for them, without having to apply multiple parsers and backtrack a non-constant amount to recover from a failure. For example, we could write the above parser like this:
+
+```typescript
+let example = string("a").pipe(
+    then(
+    	or("b")("c")
     )
 );
 ```
 
-A soft failure indicates the parser isn't appropriate for a given input, and another parser from a list of alternatives should be attempted. A hard failure means that the parser worked at first and expected the input to be in a certain format, but the input broke that expectation.
+This failure can also appear in other parsers. For example:
 
-Parsers that use sequential combinators - such as `then` - will expect all of their component parsers to succeed if the first one succeeded. If a later parser fails, it means an expectation was broken and a hard failure should be emitted.
+```typescript
+let floatParser = float();
 
-Hard failures also happen for specific kinds of malformed input. For example, a `float` parser trying to parse `1.0e+hello` will error because after `1.0e+`, the parser expected to find an exponent but found something else instead.
+floatParser.parse("5.0e+hello");
+```
 
-Failures will generally bubble up the parser chain, potentially getting worse in the process, until a parser accepts a failure and handles it. If no parser handles the failure, or if the last parser failed to parse all of the input, the failure bubbles up to the caller as a rejection result.
+Here we're using the `float()` parser to parse a floating-point number. We give it an input with a number in scientific notation, except the exponent is gibberish.  By the time the parser reached the exponent, it had already chosen to interpret it as a number in scientific notation, so the lack of a valid exponent breaks this expectation.
 
-### Overall Parsing Failure
+See the section below to learn about how to recover from a Hard failure if you really need to.
 
-When you call `.parse`, parsing will fail if the parser rejects the input or if it fails to consume all of the input. 
+#### Fatal failure
 
-The result from a parsing operation that has failed 
+This is an extra failure type which isn't emitted by Parjs by default, but you can build your own parsers to emit it. It won't be handled by any combinator and will cause parsing to fail. 
 
-1. The `kind` of the failure.
-2. The `trace` object which contains tracing information indicating where the parser failed, and what input was expected. It also contains the parser `userState` at the time of the failure.
+### Recovering from (most) failures
 
-In addition to emitting a failure result, parsers can also throw exceptions, as mentioned previously. This indicates an error in the parser.
+You can use the `recover` combinator to recover from non-Fatal failures. You can give it a handler that will be called if the parser it's used on fails, together with all the failure information. You can then alter the parser's result to something else or return nothing to signal nothing should change. The function will not be called if the parser succeeds.
+
+Here is an example of it being used:
+
+```typescript
+let hardFailingParser = fail({kind: "Hard", reason: "who knows"});
+
+let recovered = hardFailingParser.pipe(
+	recover(failure => {
+        if (failure.reason === "who knows") {
+            return {
+                kind: "OK",
+                value: "some value to return"
+            }
+        }
+    })
+);
+```
 
 ## User State
 
-User state is a powerful feature that can be used when parsing complex languages, such as mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
+User state is a feature that can help you to parse complex languages, like mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
 
-Basically, when you invoke the `.parse(str)` method, a unique, mutable user state object is created that is propagated throughout the parsing process. Every parser can read and edit the current parser user state. Built-in parsers aren't allowed to use the user state directly (they can do other things), so the only information in it will be what you put inside it.
+Every time you invoke the `.parse` method Parjs creates a unique, mutable user state object. The object is propagated throughout the parsing process and some combinators and building block parsers can modify it or inspect it. The only information in it will be what you put inside it and it won't change how the rest of the library behaves.
 
 The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
@@ -260,13 +370,25 @@ The `.parse` method accepts an additional parameter `initialState` that contains
 let example = p.parse("hello", {token: "hi", method() {return 1;});
 ```
 
-Among other uses, user state allows you to parse operator precedence using LR parsing techniques even though Parjs is essentially a library for LL parsers.
+The combinator `map` is a projection combinator. You can give it a function taking two parameters: the parser result and the parser state.
 
-Some combinators that project the result of a parser take a function with two arguments, the first being the result and the 2nd being the state object.
+```typescript
+let example = string("a").pipe(
+	map((result, state) => state.flag)
+);
+```
 
-User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser returns.
+`each` is a combinator that doesn't change the parser result, so you can use it to only modify the user state.
 
-You can also make use of the advanced  `isolateState` combinator. This combinator lets you isolate a parser's user state from other parsers. This lets you write a black-box parser that still uses user state.
+User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser results.
+
+### Replacing user state
+
+The combinator `replaceState` lets you *replace* the user state object, but only in the scope of the parser it applied to.
+
+It creates a brand new user state object, merged with properties from the object you specify, and gives it to the parser. Once the parser is finished, the old user state object is restored. This means you will need to use that parser's result value to communicate out of it, and it serves the isolate other parsers from what happens inside.
+
+Replacing user state is powerful, and can allow you to write recursive parsers that need a hierarchy of nested user states to work.
 
 ## Writing a parser with custom low-level logic
 

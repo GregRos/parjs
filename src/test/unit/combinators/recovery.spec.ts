@@ -3,7 +3,7 @@ import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {Parjser} from "../../../lib/internal/parjser";
 import {ResultKind} from "../../../lib/internal/result";
 import {string, fail, rest} from "../../../lib/internal/parsers";
-import {mapConst, maybe, not, or, qthen, soft, stringify, then} from "../../../lib/combinators";
+import {mapConst, maybe, not, or, qthen, recover, stringify, then} from "../../../lib/combinators";
 
 
 describe("maybe combinator", () => {
@@ -136,7 +136,7 @@ describe("soft combinator", () => {
     let parser = string("a").pipe(
         then("b"),
         stringify(),
-        soft()
+        recover(x => ({kind: "Soft"}))
     );
     it("succeeds", () => {
         expectSuccess(parser.parse("ab"), "ab");
@@ -151,7 +151,7 @@ describe("soft combinator", () => {
         let parser2 = fail({
             kind: "Fatal"
         }).pipe(
-            soft()
+            recover(x => ({kind: "Soft"}))
         );
         expectFailure(parser2.parse(""), ResultKind.FatalFail);
     });

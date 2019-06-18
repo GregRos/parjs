@@ -28,7 +28,10 @@ function getErrorLocation(ps: ParsingState) {
     };
 }
 
-class ParserUserState {
+/**
+ * A marker class used for storing the parser's user state.
+ */
+export class ParserUserState {
 
 }
 
