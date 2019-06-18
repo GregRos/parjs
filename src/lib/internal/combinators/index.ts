@@ -17,7 +17,7 @@ export {not} from "./not";
 export {then, qthen, thenq} from "./then";
 export {soft} from "./soft";
 export {stringify} from "./stringify";
-export {isolateState} from "./isolate-state";
+export {replaceState} from "./replace-state";
 export {between} from "./between";
 export {flatten} from "./flatten";
 export {defineCombinator, composeCombinator} from "./combinator";

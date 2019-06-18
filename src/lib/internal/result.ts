@@ -20,12 +20,16 @@ export class ParjsSuccess<T> {
     toString() {
         return `SuccessReply: ${this.value}`;
     }
+
+    get isOkay() {
+        return true;
+    }
 }
 
 /**
  * Info about a potential rejection.
  */
-export interface RejectionInfo {
+export interface FailureInfo {
     kind: ResultKind.Fail;
     reason: string | object;
 }
@@ -41,7 +45,7 @@ export interface ErrorLocation {
 /**
  * An object indicating trace information about the state of parsing when it was stopped.
  */
-export interface Trace extends RejectionInfo {
+export interface Trace extends FailureInfo {
     userState: object;
     position: number;
     location: ErrorLocation;
@@ -52,7 +56,7 @@ export interface Trace extends RejectionInfo {
 /**
  * A rejection result from a Parjs parser.
  */
-export class ParjsRejection implements RejectionInfo{
+export class ParjsFailure implements FailureInfo{
     constructor(public trace: Trace) {
 
     }
@@ -72,13 +76,17 @@ export class ParjsRejection implements RejectionInfo{
     toString() {
         return visualizeTrace(this.trace);
     }
+
+    get isOkay() {
+        return false;
+    }
 }
 
 
 /**
- * A type that represents a ParjsSuccess or a ParjsRejection. Returned by parsers.
+ * A type that represents a ParjsSuccess or a ParjsFailure. Returned by parsers.
  */
-export type ParjsResult<T> = (ParjsSuccess<T> | ParjsRejection);
+export type ParjsResult<T> = (ParjsSuccess<T> | ParjsFailure);
 
 
 /**

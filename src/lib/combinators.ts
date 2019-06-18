@@ -23,7 +23,7 @@ export {
     each,
     thenq,
     qthen,
-    isolateState,
+    replaceState,
     between,
     mustBeOf,
     mustNotBeOf,

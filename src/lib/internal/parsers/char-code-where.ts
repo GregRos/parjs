@@ -3,13 +3,13 @@
  */ /** */
 
 
-import {RejectionInfo, ResultKind} from "../result";
+import {FailureInfo, ResultKind} from "../result";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../parjser";
 import defaults from "lodash/defaults";
 
-const defaultFailure: RejectionInfo = {
+const defaultFailure: FailureInfo = {
     kind: "Soft",
     reason: "any character fulfilling a predicate"
 };
@@ -19,7 +19,7 @@ const defaultFailure: RejectionInfo = {
  * @param predicate
  * @param failure
  */
-export function charCodeWhere(predicate: (char: number) => boolean, failure?: Partial<RejectionInfo>): Parjser<string> {
+export function charCodeWhere(predicate: (char: number) => boolean, failure?: Partial<FailureInfo>): Parjser<string> {
     failure = defaults(failure, defaultFailure);
     return new class CharCodeWhere extends ParjserBase {
         type = "charCodeWhere";

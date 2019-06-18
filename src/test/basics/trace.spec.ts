@@ -1,7 +1,7 @@
 import {string, whitespace} from "../../lib/internal/parsers";
 import {exactly, manySepBy, then} from "../../lib/combinators";
 import _ = require("lodash");
-import {ParjsRejection} from "../../lib/internal/result";
+import {ParjsFailure} from "../../lib/internal/result";
 import {visualizeTrace} from "../../lib/trace";
 
 describe("trace", () => {
@@ -11,7 +11,7 @@ describe("trace", () => {
 
     describe("single line input", () => {
         let input = _.repeat("a", 4);
-        let res = string("a").pipe(exactly(5)).parse(input) as ParjsRejection;
+        let res = string("a").pipe(exactly(5)).parse(input) as ParjsFailure;
         let {trace} = res;
         it("correct position", () => {
             expect(trace.position).toEqual(4);
@@ -45,7 +45,7 @@ describe("trace", () => {
                 exactly(5)
             ))
         );
-        let res = parser.parse(input) as ParjsRejection;
+        let res = parser.parse(input) as ParjsFailure;
         let {trace} = res;
         it("correct position", () => {
             expect(trace.position).toBe(15);
@@ -68,7 +68,7 @@ describe("trace", () => {
             ))
         );
 
-        let res = parser.parse(input) as ParjsRejection;
+        let res = parser.parse(input) as ParjsFailure;
         let {trace} = res;
         console.log(visualizeTrace.configure({
             lineNumbers: true

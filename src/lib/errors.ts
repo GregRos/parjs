@@ -2,7 +2,7 @@
  * @module parjs/errors
  */
 /** */
-import {ParjsRejection} from "./internal/result";
+import {ParjsFailure} from "./internal/result";
 
 /**
  * A parent class for all errors thrown by Parjs.
@@ -15,7 +15,7 @@ export abstract class ParjsError extends Error {
  * An error that is thrown when it is assumed a parser will succeed, but it fails.
  */
 export class ParjsParsingFailure extends ParjsError {
-    constructor(public failure: ParjsRejection) {
+    constructor(public failure: ParjsFailure) {
         super(`Expected parsing to succeeded, but it failed. Reason: ${failure.trace.reason}`);
     }
 }

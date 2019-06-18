@@ -1,6 +1,6 @@
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {eof, state, string} from "../../../lib";
-import {backtrack, each, isolateState, map, must, then} from "../../../lib/combinators";
+import {backtrack, each, replaceState, map, must, then} from "../../../lib/combinators";
 
 let goodInput = "abcd";
 describe("special combinators", () => {
@@ -35,7 +35,7 @@ describe("special combinators", () => {
                     expect(u.innerState).toBe(1, "innerState is set inside isolation");
                     expect(u.outerState).toBeUndefined("outerStste unset inside insolation");
                 }),
-                isolateState({ innerState: 1}),
+                replaceState({ innerState: 1}),
                 map((x, u) => {
                     expect(u.outerState).toBe(1, "outerState set inside isolation");
                     expect(u.innerState).toBeUndefined("innerState unset inside isolation");
@@ -47,20 +47,6 @@ describe("special combinators", () => {
                 outerState: 1
             }).value;
             expect(result.outerState).toBe(1);
-        });
-
-        it("deep clones state", () => {
-            let toBeCloned = { innerState: 2};
-            let parser = string("hi").pipe(
-                map((x, u) => {
-                    u.innerState = 1;
-                    return u;
-                }),
-                isolateState(toBeCloned)
-            );
-            let result = parser.parse("hi").value;
-            expect(result.innerState).toBe(1);
-            expect(toBeCloned.innerState).toBe(2);
         });
     });
 

@@ -17,7 +17,7 @@
 import "../test/setup";
 
 import {Parjser} from "../lib/internal/parjser";
-import {each, isolateState, late, manySepBy, map, or} from "../lib/combinators";
+import {each, replaceState, late, manySepBy, map, or} from "../lib/combinators";
 import {anyCharOf, float, string} from "../lib/internal/parsers";
 import {between} from "../lib/internal/combinators/between";
 import {whitespace} from "../lib/internal/parsers/char-types";
@@ -120,7 +120,7 @@ let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
 );
 
 // Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
-// Note the call to `isolateState` at the end. We need it because this parser can be called to parse an expression inside parentheses
+// Note the call to `replaceState` at the end. We need it because this parser can be called to parse an expression inside parentheses
 // In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
 // An isolated parser blanks out the user state and then restores it.
 
@@ -131,7 +131,7 @@ _pExpr = pUnit.pipe(
         let expr = state.exprs[0] as Expression;
         return expr;
     }),
-    isolateState()
+    replaceState({})
 );
 
 let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {

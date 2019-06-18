@@ -3,12 +3,12 @@
  */
 /** */
 
-import {RejectionInfo, ResultKind} from "../result";
+import {FailureInfo, ResultKind} from "../result";
 import {ParsingState} from "../state";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../parjser";
 import defaults from "lodash/defaults";
-const defaultRejection: RejectionInfo = {
+const defaultRejection: FailureInfo = {
     kind: "Hard",
     reason: "The primitive fail parser has been applied."
 };
@@ -17,7 +17,7 @@ const defaultRejection: RejectionInfo = {
  * Returns a parser that will always fail with the given rejection info.
  * @param rejection How the parser should fail.
  */
-export function fail<T = never>(rejection?: Partial<RejectionInfo>): Parjser<T> {
+export function fail<T = never>(rejection?: Partial<FailureInfo>): Parjser<T> {
     rejection = defaults(rejection, defaultRejection);
     return new class Fail extends ParjserBase {
         type = "fail";

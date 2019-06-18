@@ -4,14 +4,14 @@
 /** */
 
 import {ParsingState} from "../state";
-import {RejectionInfo} from "../result";
+import {FailureInfo} from "../result";
 import {ParjsPredicate} from "../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 import defaults from "lodash/defaults";
 
-const defaultRejection: RejectionInfo = {
+const defaultRejection: FailureInfo = {
     kind: "Hard",
     reason: "failed to fulfill unnamed predicate"
 };
@@ -21,7 +21,7 @@ const defaultRejection: RejectionInfo = {
  * @param predicate The condition to check for.
  * @param rejection
  */
-export function must<T>(predicate: ParjsPredicate<T>, rejection ?: Partial<RejectionInfo>)
+export function must<T>(predicate: ParjsPredicate<T>, rejection ?: Partial<FailureInfo>)
     : ParjsCombinator<T, T> {
     rejection = defaults(rejection, defaultRejection);
     return defineCombinator(source => {

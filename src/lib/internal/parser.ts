@@ -3,7 +3,7 @@
  */
 /** */
 
-import {ParjsRejection, ParjsResult, ResultKind, ParjsSuccess, Trace} from "./result";
+import {ParjsFailure, ParjsResult, ResultKind, ParjsSuccess, Trace} from "./result";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
@@ -115,7 +115,7 @@ export abstract class ParjserBase implements Parjser<any>{
                 kind: ps.kind
             };
 
-            return new ParjsRejection(trace);
+            return new ParjsFailure(trace);
         }
     }
 
