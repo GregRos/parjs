@@ -234,7 +234,9 @@ let {
 } = result;
 ```
 
-The `trace` property contains a detailed object with a trace of parsers that led to the failure, the location of the failure, and more. This information is used when you stringify a failed result object with `.toString()`:
+The `trace` property contains a detailed object with a trace of parsers that led to the failure, the location of the failure, and more. 
+
+This information is used when you stringify a failed result object with `.toString()`:
 
 ```typescript
 console.log(result.toString());
@@ -263,8 +265,8 @@ A parser fails softly if it receives input which it immediately sees as inapprop
 This kind of failure allows alternative parser combinators like the `or` combinators to work. The `or` combinator looks like this:
 
 ```typescript
-let option1 = string("option1");
-let option2 = string("option2");
+let option1 = string("a");
+let option2 = string("b");
 let either = option1.pipe(
 	or(option2)
 );
@@ -338,7 +340,9 @@ This is an extra failure type which isn't emitted by Parjs by default, but you c
 
 ### Recovering from (most) failures
 
-You can use the `recover` combinator to recover from non-Fatal failures. You can give it a handler that will be called if the parser it's used on fails, together with all the failure information. You can then alter the parser's result to something else or return nothing to signal nothing should change. The function will not be called if the parser succeeds.
+You can use the `recover` combinator to recover from non-Fatal failures. 
+
+You can give it a handler that will be called if the parser it's used on fails, together with all the failure information. You can then alter the parser's result to something else or return nothing to signal nothing should change. The function will not be called if the parser succeeds.
 
 Here is an example of it being used:
 
@@ -356,6 +360,16 @@ let recovered = hardFailingParser.pipe(
     })
 );
 ```
+
+### Signalling failure
+
+You can signal a failure in several different ways.
+
+The `fail` basic parser is a parser that fails immediately with the information you give it when it's created. It's mainly provided for completeness.
+
+The `must` combinator makes sure that a parser has the correct user state and return value. Otherwise it makes a parser fail with the info and severity you give it. There also exist several more parsers accepting predicates like this.
+
+The `recover` combinator can be used to re-emit failures too.
 
 ## User State
 
