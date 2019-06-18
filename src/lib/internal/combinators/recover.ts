@@ -52,7 +52,7 @@ export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinato
                     reason: ps.reason
                 });
                 if (!result) return;
-                ps.kind = result.kind;
+                ps.kind = result.kind || ps.kind;
                 if (result.kind === "OK"){
                     ps.value = result.value;
                 } else {

@@ -107,7 +107,7 @@ describe("sequential combinators", () => {
                 mapConst(1)
             );
             let p3 = string("c").pipe(
-                mapConst([])
+                mapConst([] as string[])
             );
 
             let p = string("a").pipe(
@@ -115,7 +115,7 @@ describe("sequential combinators", () => {
                 each(x => {
                     Math.log(x[1]);
                     x[0].toUpperCase();
-                    x[2].map(x => x.toUpperCasfe());
+                    x[2].map(x => x.toUpperCase());
                 })
             );
 
@@ -127,7 +127,7 @@ describe("sequential combinators", () => {
                 mapConst(1)
             );
             let p3 = string("c").pipe(
-                mapConst([])
+                mapConst([] as string[])
             );
 
             let p4 = string("d").pipe(

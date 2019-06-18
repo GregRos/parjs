@@ -32,8 +32,8 @@ describe("basics: anyChar example", () => {
 
     describe("non-string inputs", () => {
         it("throws on null, undefined", () => {
-            expect(() => parser.parse(null)).toThrow();
-            expect(() => parser.parse(undefined)).toThrow();
+            expect(() => parser.parse(null as any)).toThrow();
+            expect(() => parser.parse(undefined as any)).toThrow();
         });
         it("throws on non-string", () => {
             expect(() => parser.parse(5 as any)).toThrow();

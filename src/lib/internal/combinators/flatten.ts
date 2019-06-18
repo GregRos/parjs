@@ -12,7 +12,7 @@ function flattenNestedArrays(arr: unknown[] | unknown) {
     if (!Array.isArray(arr)) {
         return [arr];
     }
-    let items = [];
+    let items = [] as any[];
     for (let item of arr) {
         if (Array.isArray(item)) {
             items.push(...flattenNestedArrays(item));

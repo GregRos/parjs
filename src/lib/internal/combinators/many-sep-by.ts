@@ -30,7 +30,7 @@ export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                let arr = [];
+                let arr = [] as any[];
                 source.apply(ps);
                 if (ps.atLeast(ResultKind.HardFail)) {
                     return;

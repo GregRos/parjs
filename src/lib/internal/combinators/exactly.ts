@@ -22,7 +22,7 @@ export function exactly(count: number) {
             type = "exactly";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {
-                let arr = [];
+                let arr = [] as any[];
                 for (let i = 0; i < count; i++) {
                     source.apply(ps);
                     if (!ps.isOk) {

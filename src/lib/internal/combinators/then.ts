@@ -99,7 +99,7 @@ export function then(...parsers: ImplicitParjser<any>[]) {
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                let results = [];
+                let results = [] as any[];
                 let origPos = ps.position;
                 for (let i = 0; i < resolvedParsers.length; i++) {
                     let cur = resolvedParsers[i];

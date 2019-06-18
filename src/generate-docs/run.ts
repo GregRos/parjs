@@ -23,8 +23,7 @@ async function run() {
         files
     });
 
-    let rs = app.convert(files);
-
+    let rs = app.convert(files)!;
     rs.files.forEach(file => {
         file.reflections.slice().forEach(r => {
 

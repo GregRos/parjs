@@ -77,8 +77,8 @@ let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?:
 
 // required because we want to create a self-referencing, recursive parser
 // pExpr is the final parser.
-let _pExpr = null;
-let pExpr: Parjser<Expression> = late(() => _pExpr);
+let _pExpr: Parjser<Expression>|null = null;
+let pExpr: Parjser<Expression> = late(() => _pExpr!);
 
 // we have a built-in floating point parser in Parjs.
 let pNumber = float().pipe(

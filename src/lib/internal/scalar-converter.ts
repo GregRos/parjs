@@ -34,7 +34,7 @@ declare global {
     }
 
     interface RegExp {
-        [convertibleSymbol](): Parjser<string>;
+        [convertibleSymbol](): Parjser<string[]>;
     }
 }
 

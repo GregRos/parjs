@@ -29,7 +29,7 @@ export function manyTill(till: ImplicitParjser<any>, tillOptional?: boolean) {
 
             _apply(ps: ParsingState): void {
                 let {position} = ps;
-                let arr = [];
+                let arr = [] as any[];
                 let successes = 0;
                 while (true) {
                     tillResolved.apply(ps);

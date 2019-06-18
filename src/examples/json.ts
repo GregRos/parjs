@@ -47,9 +47,9 @@ let escapes = {
     t: "\t"
 };
 
-let _pJsonValue: Parjser<JsonValue> = null;
+let _pJsonValue: Parjser<JsonValue>|null = null;
 
-let pJsonValue = late(() => _pJsonValue);
+let pJsonValue = late(() => _pJsonValue!);
 
 
 let pEscapeChar = anyCharOf(
