@@ -17,7 +17,7 @@
 import "../test/setup";
 
 import {Parjser} from "../lib/internal/parjser";
-import {each, replaceState, late, manySepBy, map, or} from "../lib/combinators";
+import {each, replaceState, later, manySepBy, map, or} from "../lib/combinators";
 import {anyCharOf, float, string} from "../lib/internal/parsers";
 import {between} from "../lib/internal/combinators/between";
 import {whitespace} from "../lib/internal/parsers/char-types";
@@ -75,10 +75,8 @@ let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?:
     }
 };
 
-// required because we want to create a self-referencing, recursive parser
-// pExpr is the final parser.
-let _pExpr: Parjser<Expression>|null = null;
-let pExpr: Parjser<Expression> = late(() => _pExpr!);
+
+let pExpr = later<Expression>();;
 
 // we have a built-in floating point parser in Parjs.
 let pNumber = float().pipe(
@@ -124,7 +122,7 @@ let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
 // In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
 // An isolated parser blanks out the user state and then restores it.
 
-_pExpr = pUnit.pipe(
+pExpr.init(pUnit.pipe(
     manySepBy(pOp),
     map((x, state: MathState) => {
         reduceWithPrecedence(state.exprs);
@@ -132,7 +130,7 @@ _pExpr = pUnit.pipe(
         return expr;
     }),
     replaceState({})
-);
+));
 
 let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
     exprs: []

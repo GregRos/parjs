@@ -1,7 +1,7 @@
 import {ResultKind} from "../../../lib/internal/result";
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {eof, fail, position, result, state, string} from "../../../lib/internal/parsers";
-import {late, then} from "../../../lib/combinators";
+import {later, then} from "../../../lib/combinators";
 
 describe("special parsers", () => {
     describe("Parjs.eof", () => {
@@ -71,12 +71,10 @@ describe("special parsers", () => {
         });
     });
 
-    describe("Parjs.late", () => {
+    describe("Parjs.later", () => {
         let s = "";
-        let parser = late(() => {
-            s += "a";
-            return string(s);
-        });
+        let parser = later<any>();
+        parser.init(string("a"));
 
         it("first success", () => {
             expectSuccess(parser.parse("a"), "a");

@@ -15,7 +15,7 @@ export {
     manyTill,
     manySepBy,
     many,
-    late,
+    later,
     exactly,
     backtrack,
     or,

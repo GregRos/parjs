@@ -1,7 +1,7 @@
 import "../test/setup";
 import {Parjser} from "../lib/internal/parjser";
 import {ResultKind} from "../lib/internal/result";
-import {late, many, manySepBy, map, or, stringify, qthen, thenq, then, between} from "../lib/combinators";
+import {later, many, manySepBy, map, or, stringify, qthen, thenq, then, between} from "../lib/combinators";
 import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
 import {visualizeTrace} from "../lib/internal/trace-visualizer";
 
@@ -47,9 +47,7 @@ let escapes = {
     t: "\t"
 };
 
-let _pJsonValue: Parjser<JsonValue>|null = null;
-
-let pJsonValue = late(() => _pJsonValue!);
+let pJsonValue = later<JsonValue>();
 
 
 let pEscapeChar = anyCharOf(
@@ -142,10 +140,10 @@ let pObject = pObjectProperty.pipe(
     map(properties => new JsonObject(properties))
 );
 
-_pJsonValue = pJsonString.pipe(
+pJsonValue.init(pJsonString.pipe(
     or(pNumber, pBool, pArray, pObject),
     between(whitespace())
-);
+));
 
 function astToObject(obj: JsonValue) {
     if (obj instanceof JsonNumber) {

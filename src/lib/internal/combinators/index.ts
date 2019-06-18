@@ -5,7 +5,7 @@ export {maybe} from "./maybe";
 export {or} from "./or";
 export {backtrack} from "./backtrack";
 export {exactly} from "./exactly";
-export {late} from "./late";
+export {later} from "./later";
 export {many} from "./many";
 export {manySepBy} from "./many-sep-by";
 export {manyTill} from "./many-till";

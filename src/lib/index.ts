@@ -6,6 +6,7 @@
 
 import {Parjser} from "./internal/parjser";
 import {ImplicitParjser} from "./internal/scalar-converter";
+import {DelayedParjser} from "./internal/combinators/later";
 
 export {UserState} from "./internal/state";
 export {Parjser, ParjsCombinator, ParjsProjection, ParjsValidator} from "./internal/parjser";

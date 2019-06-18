@@ -23,9 +23,10 @@ export interface ParjsProjection<T, TOut> {
 }
 
 /**
- * A predicate on the parser result and the user state. This function should
- * return `true` if the input fulfills the predicate, or a failure information
- * object if it does not.
+ * A predicate on the parser result and the user state. This function must
+ * return `true` if the input fulfills the predicate, or failure information
+ * object if it does not. Returning things other than `true` will make it behave
+ * like a failure.
  */
 export type ParjsValidator<T> = ParjsProjection<T, Partial<FailureInfo> | true>;
 

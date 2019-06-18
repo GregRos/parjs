@@ -21,7 +21,7 @@ export function must<T>(predicate: ParjsValidator<T>)
     return defineCombinator(source => {
         return new class Must extends ParjserBase {
             type = "must";
-            expecting = `internal parser ${source.type} yielding a result satisfying condition`; // TODO better
+            expecting = `internal parser ${source.type} yielding a result satisfying condition`;
 
             _apply(ps: ParsingState): void {
                 source.apply(ps);
