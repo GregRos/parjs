@@ -3,9 +3,17 @@
  */ /** */
 
 
-import {ParjsResult} from "./result";
+import {FailureInfo, ParjsResult} from "./result";
 import {UserState} from "./state";
-import {ParjsCombinator} from "../index";
+import {ImplicitParjser} from "./scalar-converter";
+
+/**
+ * A combinator or operator that takes a source parser that returns a new parser
+ * based on it.
+ */
+export interface ParjsCombinator<TFrom, TTo> {
+    (from: ImplicitParjser<TFrom>): Parjser<TTo>;
+}
 
 /**
  * A projection on the parser result and the parser state.
@@ -15,9 +23,10 @@ export interface ParjsProjection<T, TOut> {
 }
 
 /**
- * A predicate on the parser result and the user state.
+ * A predicate on the parser result and the user state. Should return null or undefined
+ * in case of **success** and a **failure object in case of failure**.
  */
-export type ParjsPredicate<T> = ParjsProjection<T, boolean>;
+export type ParjsValidator<T> = ParjsProjection<T, Partial<FailureInfo> | null | undefined>;
 
 /**
  * Interface for parsers that produce result values of type  {T}

@@ -2,15 +2,14 @@
 import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
 import {ResultKind} from "../../../lib/internal/result";
 import {eof, result, string, stringLen} from "../../../lib";
-import {must, mustCapture, mustNotBeOf, or, stringify, then} from "../../../lib/combinators";
+import {must, mustCapture, or, stringify, then} from "../../../lib/combinators";
 
 
 describe("must combinators", () => {
     describe("must combinator", () => {
         let parser = stringLen(3).pipe(
-            must(s => s === "abc", {
-                kind: "Fatal",
-                reason: "must be 'abc'"
+            must(s => s !== "abc" && {
+                kind: "Fatal"
             })
         );
         it("fails softly if original fails softly", () => {
@@ -21,30 +20,6 @@ describe("must combinators", () => {
         });
         it("fails accordingly if it doesn't match the condition", () => {
             expectFailure(parser.parse("abd"), ResultKind.FatalFail);
-        });
-    });
-
-    describe("mustBeOf", () => {
-        let parser = stringLen(1).pipe(
-            must(x => ["a", "b", "c"].indexOf(x) >= 0)
-        );
-        it("succeeds when is of", () => {
-            expectSuccess(parser.parse("b"), "b");
-        });
-        it("fails when is not of", () => {
-            expectFailure(parser.parse("d"), "Hard");
-        });
-    });
-
-    describe("mustBeOf", () => {
-        let parser = stringLen(1).pipe(
-            mustNotBeOf("a", "b", "c")
-        );
-        it("fails when is of", () => {
-            expectFailure(parser.parse("b"), "Hard");
-        });
-        it("succeeds when is not of", () => {
-            expectSuccess(parser.parse("d"), "d");
         });
     });
 

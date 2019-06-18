@@ -6,7 +6,7 @@
 
 import {Parjser} from "./parjser";
 
-import {string} from "./index";
+import {string} from "./parsers/string";
 import {regexp} from "./parsers/regexp";
 
 /**

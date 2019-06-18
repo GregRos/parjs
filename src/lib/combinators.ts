@@ -25,8 +25,6 @@ export {
     qthen,
     replaceState,
     between,
-    mustBeOf,
-    mustNotBeOf,
     flatten,
     mapConst,
 } from "./internal/combinators";

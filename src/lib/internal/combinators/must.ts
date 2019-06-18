@@ -5,25 +5,19 @@
 
 import {ParsingState} from "../state";
 import {FailureInfo} from "../result";
-import {ParjsPredicate} from "../parjser";
+import {ParjsValidator} from "../parjser";
 import {ParjsCombinator} from "../../";
 import {defineCombinator} from "./combinator";
 import {ParjserBase} from "../parser";
 import defaults from "lodash/defaults";
 
-const defaultRejection: FailureInfo = {
-    kind: "Hard",
-    reason: "failed to fulfill unnamed predicate"
-};
 
 /**
  * Applies the source parser and makes sure its result fulfills `predicate`.
  * @param predicate The condition to check for.
- * @param rejection
  */
-export function must<T>(predicate: ParjsPredicate<T>, rejection ?: Partial<FailureInfo>)
+export function must<T>(predicate: ParjsValidator<T>)
     : ParjsCombinator<T, T> {
-    rejection = defaults(rejection, defaultRejection);
     return defineCombinator(source => {
         return new class Must extends ParjserBase {
             type = "must";
@@ -34,30 +28,12 @@ export function must<T>(predicate: ParjsPredicate<T>, rejection ?: Partial<Failu
                 if (!ps.isOk) {
                     return;
                 }
-                if (!predicate(ps.value, ps.userState)) {
-                    ps.kind = rejection.kind;
-                    ps.reason = rejection.reason;
-                }
+                let result = predicate(ps.value, ps.userState);
+                if (!result) return;
+                ps.kind = result.kind;
+                ps.reason = result.reason || "failed to fulfill a predicate";
             }
 
         }();
     });
-}
-
-/**
- * Applies the source parser, and makes sure it yields a result in `args`.
- * @param args A set of allowed results.
- */
-export function mustBeOf<T>(...args: T[])
-    : ParjsCombinator<T, T> {
-    return must(x => args.indexOf(x) >= 0);
-}
-
-/**
- * Applies the source parser and makes sure it does not yield a result in `args`.
- * @param args
- */
-export function mustNotBeOf<T>(...args: T[])
-    : ParjsCombinator<T, T> {
-    return must(x => args.indexOf(x) < 0);
 }

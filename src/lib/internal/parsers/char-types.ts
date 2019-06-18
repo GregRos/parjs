@@ -39,7 +39,7 @@ export function space() {
 export function spaces1() {
     return space().pipe(
         many(),
-        must(x => x.length > 0, {
+        must(x => x.length <= 0 && {
             kind: "Soft"
         }),
         stringify()
