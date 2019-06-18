@@ -7,7 +7,7 @@ import * as glob from "globby";
 
 let jrunner = new Jasmine();
 jrunner.specDir = "dist/test";
-jrunner.specFiles = glob.sync(`${__dirname}/basics/**/*[sS]pec.js`);
+jrunner.specFiles = glob.sync(`${__dirname}/unit/**/*[sS]pec.js`);
 jrunner.helpers = glob.sync(`${__dirname}/helpers/**/*.js`);
 jrunner.stopSpecOnExpectationFailure = false;
 jrunner.random = false;
