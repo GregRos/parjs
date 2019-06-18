@@ -18,7 +18,7 @@ import {Parjser} from "../parjser";
 export function anyStringOf(...strs: string[]): Parjser<string> {
     return new class StringOf extends ParjserBase {
         type = "anyStringOf";
-        expecting = `any of ${strs.map(x => `'${x}'`).join(", ",)}`;
+        expecting = `expecting any of ${strs.map(x => `'${x}'`).join(", ",)}`;
 
         _apply(ps: ParsingState) {
             let {position, input} = ps;

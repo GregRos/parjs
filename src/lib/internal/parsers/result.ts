@@ -15,7 +15,7 @@ import {ParjserBase} from "../parser";
  */
 export function result<T>(value: T): Parjser<T> {
     return new class Result extends ParjserBase {
-        expecting = "anything";
+        expecting = "expecting anything";
         type = "result";
         _apply(ps: ParsingState): void {
             ps.value = value;

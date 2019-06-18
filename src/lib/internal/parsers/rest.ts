@@ -14,7 +14,7 @@ import {ParjserBase} from "../parser";
  */
 export function rest(): Parjser<string> {
     return new class Rest extends ParjserBase {
-        expecting = "zero or more characters";
+        expecting = "expecting anything";
         type = "rest";
         _apply(pr: ParsingState) {
             let {position, input} = pr;

@@ -11,7 +11,7 @@ import defaults from "lodash/defaults";
 
 const defaultFailure: FailureInfo = {
     kind: "Soft",
-    reason: "a character fulfilling a predicate"
+    reason: "expecting a character fulfilling a predicate"
 };
 
 

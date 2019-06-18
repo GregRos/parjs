@@ -18,7 +18,7 @@ export function maybe(val = undefined) {
    return defineCombinator(inner => {
        return new class MaybeCombinator extends ParjserBase {
            _inner = inner;
-           expecting = "blah blah blah";
+           expecting = "expecting anything";
            type = "maybe";
            _apply(ps: ParsingState): void {
                inner.apply(ps);

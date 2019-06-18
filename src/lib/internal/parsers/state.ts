@@ -15,7 +15,7 @@ import {ParjserBase} from "../parser";
 export function state(): Parjser<any> {
     return new class State extends ParjserBase {
         type = "state";
-        expecting = "anything";
+        expecting = "expecting anything";
 
         _apply(ps: ParsingState): void {
             ps.value = ps.userState;

@@ -34,7 +34,7 @@ export function int(options ?: Partial<IntOptions>): Parjser<number> {
     if (options.base > 36) {
         throw new ParserDefinitionError("int", "invalid base");
     }
-    let expecting = `a ${options.allowSign ? "signed" : "unsigned"} integer in base ${options.base}`;
+    let expecting = `expecting a ${options.allowSign ? "signed" : "unsigned"} integer in base ${options.base}`;
     return new class Int extends ParjserBase {
         type = "int";
         displayName = "int";

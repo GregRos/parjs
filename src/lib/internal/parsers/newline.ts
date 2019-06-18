@@ -16,7 +16,7 @@ import {
 
 function innerNewline(unicodeRecognizer: (x: number) => boolean): Parjser<string> {
     return new class Newline extends ParjserBase {
-        expecting = "newline";
+        expecting = "expecting newline";
         type = "newline";
         _apply(ps: ParsingState) {
             let {position, input} = ps;

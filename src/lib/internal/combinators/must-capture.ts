@@ -24,7 +24,7 @@ export function mustCapture<T>(rejection?: Partial<FailureInfo>): ParjsCombinato
     rejection = defaults(rejection, defaultRejection);
     return defineCombinator(source => {
         return new class MustCapture extends ParjserBase {
-            expecting = `internal parser ${source.type} to consume input`;
+            expecting = `expecting internal parser ${source.type} to consume input`;
             type = "mustCapture";
             _apply(ps: ParsingState) {
                 let {position} = ps;

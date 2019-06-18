@@ -87,7 +87,7 @@ export function or(...alts: ImplicitParjser<any>[]) {
         let altNames = resolvedAlts.map(x => x.type);
         return new class Or extends ParjserBase {
             type = "or";
-            expecting = `one of: ${altNames.join(", ")}`;
+            expecting = `expecting one of: ${altNames.join(", ")}`;
             _apply(ps: ParsingState): void {
                 let {position} = ps;
                 for (let i = 0; i < resolvedAlts.length; i++) {

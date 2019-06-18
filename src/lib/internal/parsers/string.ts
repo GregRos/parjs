@@ -15,7 +15,7 @@ import {Parjser} from "../parjser";
  */
 export function string(str: string): Parjser<string> {
     return new class ParseString extends ParjserBase {
-        expecting = `'${str}'`;
+        expecting = `expecting '${str}'`;
         type = "string";
         _apply(ps: ParsingState): void {
             let {position, input} = ps;

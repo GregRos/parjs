@@ -78,7 +78,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
     options = defaults(options, defaultFloatOptions);
     return new class Float extends ParjserBase {
         type = "float";
-        expecting = "a floating-point number";
+        expecting = "expecting a floating-point number";
 
         _apply(ps: ParsingState): void {
 

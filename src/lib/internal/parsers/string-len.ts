@@ -16,7 +16,7 @@ import {Parjser} from "../parjser";
 export function stringLen(length: number): Parjser<string> {
     return new class StringLen extends ParjserBase {
         type = "stringLen";
-        expecting = `${length} characters`;
+        expecting = `expecting ${length} characters`;
         _apply(ps: ParsingState) {
             let {position, input} = ps;
             if (input.length < position + length) {

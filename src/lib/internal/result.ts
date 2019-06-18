@@ -18,7 +18,7 @@ export class ParjsSuccess<T> {
     }
 
     toString() {
-        return `SuccessReply: ${this.value}`;
+        return `Success: ${this.value}`;
     }
 
     get isOkay() {

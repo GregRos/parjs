@@ -1,5 +1,7 @@
-import {anyChar} from "../../lib/internal/parsers";
+import {anyChar, anyStringOf, string} from "../../lib/internal/parsers";
+import {then} from "../../lib/combinators";
 
-console.log(anyChar().parse(""));
-
-console.log(new Error("a"));
+let p = string("a").pipe(
+    then("b")
+);
+console.log(p.parse("ac").toString());
