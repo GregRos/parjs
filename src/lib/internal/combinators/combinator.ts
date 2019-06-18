@@ -2,14 +2,18 @@
 /** @module parjs/internal */ /** */
 
 import {ParjserBase} from "../parser";
-import {Parjser, ParjsCombinator} from "../../index";
+import {Parjser, ParjsCombinator, ImplicitParjser} from "../../index";
+import {ScalarConverter} from "../scalar-converter";
 
 /**
  * Represents the given function as a Parjs combinator.
  * @param f The combinator function.
  */
 export function defineCombinator(f: (act: ParjserBase) => Parjser<any>) {
-    return f as ParjsCombinator<any, any>;
+    return (x: ImplicitParjser<any>) => {
+        let resolved = ScalarConverter.convert(x);
+        return f(resolved as ParjserBase);
+    };
 }
 
 /**

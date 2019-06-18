@@ -1,7 +1,5 @@
 import {anyChar, anyStringOf, string} from "../../lib/internal/parsers";
-import {then} from "../../lib/combinators";
+import {or, then} from "../../lib/combinators";
 
-let p = string("a").pipe(
-    then("b")
-);
-console.log(p.parse("ac").toString());
+let p = or("a")("b");
+console.log(p.parse("a").toString());

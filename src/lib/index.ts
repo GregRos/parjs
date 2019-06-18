@@ -5,6 +5,7 @@
  */ /** iooi*/
 
 import {Parjser} from "./internal/parjser";
+import {ImplicitParjser} from "./internal/scalar-converter";
 
 export {UserState} from "./internal/state";
 export {Parjser} from "./internal/parjser";
@@ -41,7 +42,7 @@ export {
  * based on it.
  */
 export interface ParjsCombinator<TFrom, TTo> {
-    (from: Parjser<TFrom>): Parjser<TTo>;
+    (from: ImplicitParjser<TFrom>): Parjser<TTo>;
 }
 export {ImplicitParjser} from "./internal/scalar-converter";
 export {ConvertibleScalar} from "./internal/scalar-converter";
