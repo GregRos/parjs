@@ -298,7 +298,7 @@ export interface LoudParser<T> extends AnyParser {
 
     then<S1 = T, S2 = S1>(parsers: [ImplicitLoudParser<S1>, ImplicitLoudParser<S2>]): LoudParser<[T, S1, S2]>;
 
-    then<S1 = T, S2 = S2, S3 = S3>(parsers: [ImplicitLoudParser<S1>, ImplicitLoudParser<S2>, ImplicitLoudParser<S3>]): LoudParser<[T, S1, S2, S3]>;
+    then<S1 = T, S2 = S1, S3 = S2>(parsers: [ImplicitLoudParser<S1>, ImplicitLoudParser<S2>, ImplicitLoudParser<S3>]): LoudParser<[T, S1, S2, S3]>;
 
     then(parsers: (QuietParser | ImplicitLoudParser<T>)[]): LoudParser<T[]>;
 
