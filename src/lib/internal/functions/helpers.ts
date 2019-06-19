@@ -21,18 +21,6 @@ export namespace StringHelpers {
         }
     }
 
-    /**
-     * Splices a string.
-     * @param target
-     * @param where
-     * @param what
-     */
-    export function splice(target: string, where: number, what: string) {
-        let start = target.slice(0, where);
-        let end = target.slice(where);
-        return start + what + end;
-    }
-
 }
 
 /**

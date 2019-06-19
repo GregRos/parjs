@@ -27,7 +27,7 @@ const defaultOptions: IntOptions = {
 /**
  * Returns a parser that will parse a single integer, with the options
  * given by `options`.
- * @param options A set of options for parsing integers.
+ * @param pOptions A set of options for parsing integers.
  */
 export function int(pOptions ?: Partial<IntOptions>): Parjser<number> {
     let options = defaults(pOptions, defaultOptions);

@@ -11,6 +11,9 @@ import {visualizeTrace} from "./trace-visualizer";
  * Indicates a success reply and contains the value and other information.
  */
 export class ParjsSuccess<T> implements SuccessInfo<T> {
+    /**
+     * The kind of the result: OK, Soft, Hard, Fatal.
+     */
     kind = ResultKind.Ok;
 
     constructor(public value: T) {
@@ -21,7 +24,10 @@ export class ParjsSuccess<T> implements SuccessInfo<T> {
         return `Success: ${this.value}`;
     }
 
-    get isOkay() {
+    /**
+     * Whether this result is an OK.
+     */
+    get isOk() {
         return true;
     }
 }
@@ -64,7 +70,7 @@ export interface Trace extends FailureInfo {
 /**
  * A failure result from a Parjs parser.
  */
-export class ParjsFailure implements FailureInfo{
+export class ParjsFailure implements FailureInfo {
     constructor(public trace: Trace) {
 
     }
@@ -84,8 +90,10 @@ export class ParjsFailure implements FailureInfo{
     toString() {
         return visualizeTrace(this.trace);
     }
-
-    get isOkay() {
+    /**
+     * Whether this result is an OK.
+     */
+    get isOk() {
         return false;
     }
 }
