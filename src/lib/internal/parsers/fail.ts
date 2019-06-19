@@ -15,7 +15,7 @@ const defaultRejection: FailureInfo = {
 
 /**
  * Returns a parser that will always fail with the given rejection info.
- * @param rejection How the parser should fail.
+ * @param pRejection How the parser should fail.
  */
 export function fail<T = never>(pRejection?: Partial<FailureInfo>): Parjser<T> {
     let rejection = defaults(pRejection, defaultRejection);

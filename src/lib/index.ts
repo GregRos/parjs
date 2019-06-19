@@ -8,7 +8,7 @@ import {Parjser} from "./internal/parjser";
 import {ImplicitParjser} from "./internal/scalar-converter";
 import {DelayedParjser} from "./internal/combinators/later";
 
-export {UserState} from "./internal/state";
+export {UserState, ParsingState} from "./internal/state";
 export {Parjser, ParjsCombinator, ParjsProjection, ParjsValidator} from "./internal/parjser";
 
 export {ResultKind, ParjsResult} from "./internal/result";

@@ -18,7 +18,6 @@ const defaultFailure: FailureInfo = {
 /**
  * Returns a parser that parses a single character fulfilling `predicate`.
  * @param predicate The predicate the character has to fulfill.
- * @param rejection Optionally, specifies how the parser should act in case of
  * rejection.
  */
 export function charWhere(predicate: ParjsValidator<string>): Parjser<string> {
