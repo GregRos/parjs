@@ -35,7 +35,7 @@ export interface SuccessInfo<T> {
 }
 
 /**
- * Info about a potential rejection.
+ * Info about a potential failure.
  */
 export interface FailureInfo {
     kind: ResultKind.Fail;
@@ -43,10 +43,10 @@ export interface FailureInfo {
 }
 
 /**
- * The row and column of where a rejection happened.
+ * The line and column of where a failure happened.
  */
 export interface ErrorLocation {
-    row: number;
+    line: number;
     column: number;
 }
 
@@ -62,7 +62,7 @@ export interface Trace extends FailureInfo {
 }
 
 /**
- * A rejection result from a Parjs parser.
+ * A failure result from a Parjs parser.
  */
 export class ParjsFailure implements FailureInfo{
     constructor(public trace: Trace) {

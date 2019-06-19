@@ -3,7 +3,14 @@
  */
 /** */
 
-import {ParjsFailure, ParjsResult, ResultKind, ParjsSuccess, Trace} from "./result";
+import {
+    ParjsFailure,
+    ParjsResult,
+    ResultKind,
+    ParjsSuccess,
+    Trace,
+    ErrorLocation
+} from "./result";
 import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from "./state";
 import defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
@@ -24,9 +31,9 @@ function getErrorLocation(ps: ParsingState) {
         line++;
     }
     return {
-        row: line,
+        line,
         column: line === 0 ? position : position - lastPos
-    };
+    } as ErrorLocation;
 }
 
 /**
@@ -68,7 +75,7 @@ export abstract class ParjserBase implements Parjser<any>{
 
         if (!ps.isOk) {
             if (ps.reason == null) {
-                throw new ParserDefinitionError(this.type, "a rejection must have a reason");
+                throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
             ps.stack.push(this);
         } else {
@@ -77,7 +84,7 @@ export abstract class ParjserBase implements Parjser<any>{
     }
 
     /**
-     * The internal operation performed by the action. This will be overriden by derived classes.
+     * The internal operation performed by the PARSER. This will be overriden by derived classes.
      * @param ps
      * @private
      */

@@ -21,7 +21,7 @@ export function regexp(origRegexp: RegExp): Parjser<string[]> {
     this.reason = `expecting input matching /${origRegexp.source}/`;
     return new class Regexp extends ParjserBase {
         type = "regexp";
-        expecting = `input matching '${regexp.source}'`;
+        expecting = `expecting input matching '${regexp.source}'`;
         _apply(ps: ParsingState) {
             let {input, position} = ps;
             regexp.lastIndex = position;

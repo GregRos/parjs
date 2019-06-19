@@ -29,7 +29,7 @@ describe("trace", () => {
         });
 
         it("correct line 0", () => {
-            expect(location.row).toBe(0);
+            expect(location.line).toBe(0);
         });
 
         it("correct col", () => {
@@ -55,8 +55,8 @@ describe("trace", () => {
             expect(trace.location.column).toBe(4);
         });
 
-        it("correct row 11", () => {
-            expect(trace.location.row).toBe(11);
+        it("correct line 11", () => {
+            expect(trace.location.line).toBe(11);
         });
     });
 
@@ -82,7 +82,7 @@ describe("trace", () => {
         });
 
         it("correct line", () => {
-            expect(trace.location.row).toBe(8);
+            expect(trace.location.line).toBe(8);
         });
     });
 });

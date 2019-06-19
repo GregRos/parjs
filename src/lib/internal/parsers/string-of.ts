@@ -8,7 +8,6 @@ import {ResultKind} from "../result";
 import {ParjserBase} from "../parser";
 import {Parjser} from "../parjser";
 
-// TODO: rejection info
 /**
  * Returns a parser that will parse any of the strings in `strs` and yield
  * the text that was parsed. If it can't, it will fail softly without consuming

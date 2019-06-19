@@ -33,7 +33,7 @@ function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
     let args = defaults(pAgs, defaultArgs);
     let visualizer: any = (trace: Trace) => {
         let rows = trace.input.split(/\r\n|\n|\r/g);
-        let locRow = trace.location.row;
+        let locRow = trace.location.line;
         let around = args.linesBefore;
         let firstRow = Math.max(0, locRow - around);
         let linesAround = rows.slice(firstRow, locRow + 1);
@@ -50,7 +50,7 @@ function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
         let linesVisualization = linesAround.join("\n");
 
         let fullVisualization =
-`${trace.kind} failure at Ln ${trace.location.row + 1} Col ${trace.location.column + 1}
+`${trace.kind} failure at Ln ${trace.location.line + 1} Col ${trace.location.column + 1}
 ${linesVisualization}
 Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
 `;
@@ -61,6 +61,6 @@ Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
 }
 
 /**
- * Visualizes a Parjs rejection.
+ * Visualizes a Parjs failure.
  */
 export const visualizeTrace = newTraceVisualizer(defaultArgs);
