@@ -54,7 +54,7 @@ By combining different parsers in different ways, you can construct parsers for 
 
 Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.
 
-```ts
+```typescript
 import {float, string, whitespace} from "parjs";
 import {between, manySepBy} from "parjs/combinators"
 
@@ -187,7 +187,7 @@ Parjs parsers are functionally immutable. That is, once a Parjser is created, it
 
 This allows you to write such idiomatic code as:
 
-```ts
+```typescript
 let myString = string("my personal string");
 let variant1 = myString.pipe(
 	then(" is okay.")
@@ -245,7 +245,7 @@ console.log(result.toString());
 
 ### Failure types
 
-There are several failure types recognized by the library. They're used for slightly different purposes that can drastically change how a parser behaves. From least to most severe, they are:
+There are several failure types recognized by the library. They're used for different purposes that can drastically change how a parser behaves. From least to most severe, they are:
 
 1. Soft failure
 2. Hard failure
@@ -376,7 +376,7 @@ Every time you invoke the `.parse` method Parjs creates a unique, mutable user s
 
 The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
-```ts
+```typescript
 // p is called with a parser state initialized with properties and methods.
 let example = p.parse("hello", {token: "hi", method() {return 1;});
 ```
