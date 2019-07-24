@@ -76,7 +76,7 @@ let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?:
 };
 
 
-let pExpr = later<Expression>();;
+let pExpr = later<Expression>();
 
 // we have a built-in floating point parser in Parjs.
 let pNumber = float().pipe(

@@ -7,4 +7,4 @@ let example = string("a").pipe(
     )
 );
 
-console.log(example.parse("ab").toString())
+console.log(example.parse("ab").toString());

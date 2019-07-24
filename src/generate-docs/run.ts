@@ -38,7 +38,6 @@ async function run() {
     });
 
 
-
     console.log(rs.getReflectionsByKind(ReflectionKind.SomeModule).map(x => x.name));
     exec("rm -rf docs/");
     app.generateDocs(rs, "docs");
