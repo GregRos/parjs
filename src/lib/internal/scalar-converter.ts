@@ -62,13 +62,4 @@ export namespace ScalarConverter {
             return scalarOrParjser as Parjser<V>;
         }
     }
-
-    /**
-     * Returns true if the given object is a scalar which is convertable into
-     * a Parjser.
-     * @param scalar A scalar to test.
-     */
-    export function isConvertibleFromLiteral(scalar: any): boolean {
-        return typeof scalar === "string" || scalar instanceof RegExp;
-    }
 }

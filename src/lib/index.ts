@@ -35,7 +35,18 @@ export {
     anyCharOf,
     anyChar,
     whitespace,
-    uniNewline
+    uniNewline,
+    upper,
+    uniLetter,
+    spaces1,
+    space,
+    lower,
+    letter,
+    hex,
+    digit,
+    uniDecimal,
+    uniLower
+
 } from "./internal/parsers";
 
 export {ImplicitParjser} from "./internal/scalar-converter";

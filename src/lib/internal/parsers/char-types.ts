@@ -4,7 +4,7 @@ import {many} from "../combinators/many";
 import {stringify} from "../combinators/stringify";
 import {stringLen} from "./string-len";
 import {charWhere} from "./char-where";
-
+import {Parjser} from "../parjser";
 import {
     isLetter,
     isDigit,

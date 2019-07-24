@@ -15,6 +15,7 @@ import {BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT} from
 import defaults from "lodash/defaults";
 import {ParserDefinitionError} from "../errors";
 import {Parjser} from "./parjser";
+import {pipe} from "./combinators/combinator";
 
 
 function getErrorLocation(ps: ParsingState) {
@@ -131,11 +132,7 @@ export abstract class ParjserBase implements Parjser<any>{
     }
 
     pipe(...funcs: ((x: any) => any)[]) {
-        let last = this;
-        for (let func of funcs) {
-            last = func(last);
-        }
-        return last;
+        return (pipe as any)(this, ...funcs);
     }
 
 }

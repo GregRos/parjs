@@ -18,4 +18,4 @@ export {state} from "./state";
 export {string} from "./string";
 export {stringLen} from "./string-len";
 export {anyStringOf} from "./string-of";
-export {anyChar, anyCharOf, noCharOf, whitespace} from "./char-types";
+export {anyChar, anyCharOf, noCharOf, whitespace, uniLower, uniDecimal, digit, hex, letter, lower, space, spaces1, uniLetter, upper} from "./char-types";

@@ -74,7 +74,17 @@ describe("special parsers", () => {
     describe("Parjs.later", () => {
         let s = "";
         let parser = later<any>();
-        parser.init(string("a"));
+        let internal = string("a");
+
+        it("throws when not init", () => {
+            expect(() => later().parse("")).toThrow();
+        });
+
+        parser.init(internal);
+
+        it("throws when double init", () => {
+            expect(() => parser.init(internal)).toThrow();
+        });
 
         it("first success", () => {
             expectSuccess(parser.parse("a"), "a");
@@ -86,6 +96,10 @@ describe("special parsers", () => {
 
         it("fail", () => {
             expectFailure(parser.parse(""), "Soft");
+        });
+
+        it("expecting after init", () => {
+            expect((parser as any).expecting).toEqual((internal as any).expecting);
         });
     });
 });

@@ -70,7 +70,7 @@ describe("trace", () => {
 
         let res = parser.parse(input) as ParjsFailure;
         let {trace} = res;
-        console.log(visualizeTrace.configure({
+        console.log("EXAMPLE ERROR OUTPUT", visualizeTrace.configure({
             lineNumbers: true
         })(trace));
         it("correct position", () => {

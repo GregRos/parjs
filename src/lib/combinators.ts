@@ -27,4 +27,8 @@ export {
     between,
     flatten,
     mapConst,
+    thenPick,
+    defineCombinator,
+    composeCombinator,
+    manyBetween
 } from "./internal/combinators";

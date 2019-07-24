@@ -11,3 +11,4 @@ export {BasicParsingState} from "./state";
 export {FAIL_RESULT} from "./state";
 export {UNINITIALIZED_RESULT} from "./state";
 export {composeCombinator, defineCombinator} from "./combinators";
+export {ScalarConverter} from "./scalar-converter";

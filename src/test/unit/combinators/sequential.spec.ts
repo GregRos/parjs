@@ -15,7 +15,9 @@ import {
     qthen,
     stringify,
     then,
-    thenq
+    thenq,
+    thenPick,
+    manyBetween
 } from "../../../lib/combinators";
 
 let goodInput = "abcd";
@@ -291,6 +293,19 @@ describe("sequential combinators", () => {
         });
     });
 
+    describe("manyBetween", () => {
+        it("success", () => {
+            let parser = prs.pipe(
+                manyBetween("'", "'", ((sources, till, state) => {
+                    return {sources, till, state};
+                }))
+            );
+            let res = parser.parse("'abab'");
+            expect(res.kind).toEqual("OK");
+            expect(res.value.sources).toEqual(["ab", "ab"]);
+        });
+    });
+
     describe("manyTill combinator", () => {
         let parser = prs.pipe(
             manyTill(prs2)
@@ -323,17 +338,29 @@ describe("sequential combinators", () => {
             expect(() => parser2.parse(" a")).toThrow();
         });
 
-        it("till optional mode", () => {
-            let parser2 = string("a").pipe(
-                manyTill("b", true)
-            );
-            expectSuccess(parser2.parse("a"), ["a"]);
-        });
         it("fails soft when many fails 1st time without till", () => {
             expectFailure(parser.parse("1"), ResultKind.SoftFail);
         });
         it("fails hard when many fails 2nd time without till", () => {
             expectFailure(parser.parse("ab1"), ResultKind.HardFail);
+        });
+    });
+
+    describe("conditional seq combinators", () => {
+        it("thenPick", () =>{
+            let parser = anyCharOf("ab").pipe(
+                thenPick(x => {
+                    if (x === "a") {
+                        return string("a");
+                    } else {
+                        return string("b");
+                    }
+                })
+            );
+
+            expectSuccess(parser.parse("aa"), "a");
+            expectSuccess(parser.parse("bb"), "b");
+            expectFailure(parser.parse("ab"), ResultKind.HardFail);
         });
     });
 
@@ -362,6 +389,8 @@ describe("sequential combinators", () => {
                 expectSuccess(parser.parse("!a!"), "a");
             });
         });
+
+
     });
 
 });
