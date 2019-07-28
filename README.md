@@ -36,6 +36,8 @@ Some major things that have been changed:
 - Combinators use a `pipe` method and function operators instead of instance methods. See more on this below.
 - Names for some types and objects.
 
+If you want to use the previous version for some reason, you can install `parjs@old` to get the last one.
+
 ## Example Parsers
 
 You can see implementations of example parsers in the `examples` folder:
@@ -93,6 +95,16 @@ Parsing, generally. You can parse all sorts of things:
 The possibilities are limitless.
 
 Since it's written in JavaScript, it can be used in web environments.
+
+### Installing
+
+```bash
+# yarn:
+yarn add parjs
+
+# npm:
+npm install parjs --save
+```
 
 ## What's this weird `pipe` method?
 
