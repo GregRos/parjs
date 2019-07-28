@@ -65,17 +65,17 @@ let tupleElement = float();
 
 // Allow whitespace around elements:
 let paddedElement = tupleElement.pipe(
-	between(whitespace())
+    between(whitespace())
 );
 
 // Multiple instances of {paddedElement}, separated by a comma:
 let separated = paddedElement.pipe(
-	manySepBy(",")
+    manySepBy(",")
 );
 
 // Surround everything with parentheses:
 let surrounded = separated.pipe(
-	between("(", ")")
+    between("(", ")")
 );
 
 // Prints [1, 2, 3]:
@@ -136,7 +136,7 @@ import {map} from "parjs/combinators";
 import {string} from "parjs";
 
 const parser = string("test").pipe(
-	map(result => result.length)
+    map(result => result.length)
 );
 ```
 
@@ -179,7 +179,7 @@ These literals are automatically converted to parsers that parse them, using the
 
 ```typescript
 let p = string("a").pipe(
-	then(string("b"))
+    then(string("b"))
 );
 ```
 
@@ -187,7 +187,7 @@ You can simply write:
 
 ```typescript
 let p = string("a").pipe(
-	then("b")
+    then("b")
 );
 ```
 
@@ -202,10 +202,10 @@ This allows you to write such idiomatic code as:
 ```typescript
 let myString = string("my personal string");
 let variant1 = myString.pipe(
-	then(" is okay.")
+    then(" is okay.")
 );
 let variant2 = myString.pipe(
-	then(" is the best.")
+    then(" is the best.")
 );
 ```
 
@@ -277,7 +277,7 @@ This kind of failure allows alternative parser combinators like the `or` combina
 let option1 = string("a");
 let option2 = string("b");
 let either = option1.pipe(
-	or(option2)
+    or(option2)
 );
 ```
 
@@ -313,7 +313,7 @@ In this case, combinators like `or` will not work. Even if we added the `or` com
 // doesn't work, still fails
 
 let p2 = p.pipe(
-	or("ac")
+    or("ac")
 );
 
 p2.parse("ac");
@@ -326,7 +326,7 @@ The recommended way to solve this problem is to write parsers that quickly deter
 ```typescript
 let example = string("a").pipe(
     then(
-    	or("b")("c")
+        or("b")("c")
     )
 );
 ```
@@ -359,7 +359,7 @@ Here is an example of it being used:
 let hardFailingParser = fail({kind: "Hard", reason: "who knows"});
 
 let recovered = hardFailingParser.pipe(
-	recover(failure => {
+    recover(failure => {
         if (failure.reason === "who knows") {
             return {
                 kind: "OK",
@@ -397,7 +397,7 @@ The combinator `map` is a projection combinator. You can give it a function taki
 
 ```typescript
 let example = string("a").pipe(
-	map((result, state) => state.flag)
+    map((result, state) => state.flag)
 );
 ```
 
