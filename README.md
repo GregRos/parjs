@@ -36,7 +36,7 @@ Some major things that have been changed:
 - Combinators use a `pipe` method and function operators instead of instance methods. See more on this below.
 - Names for some types and objects.
 
-If you want to use the previous version for some reason, you can install `parjs@old` to get the last one.
+If you want to use the previous version with the old API, you can install `parjs@pre-0.12.0`. 
 
 ## Example Parsers
 
