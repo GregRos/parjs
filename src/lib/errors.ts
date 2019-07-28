@@ -1,5 +1,10 @@
 /**
+ * Errors thrown by Parjs.
+ *
  * @module parjs/errors
+ * @preferred
+ *
+ *
  */
 /** */
 import {ParjsFailure} from "./internal/result";

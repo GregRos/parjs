@@ -1,3 +1,8 @@
+/**
+ * @module parjs/combinators
+ */
+/** */
+
 import {ParjsCombinator, Parjser, ParjsProjection} from "../parjser";
 import {ParjserBase} from "../parser";
 import {defineCombinator} from "./combinator";
