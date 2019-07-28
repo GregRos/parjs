@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
 [![npm](https://badge.fury.io/js/parjs.svg )](https://www.npmjs.com/package/parjs)
 
-[API Documentation](https://gregros.github.io/parjs/)
+[API Documentation](https://parjs.netlify.com/)
 
 Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and in particular its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
 
