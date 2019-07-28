@@ -15,9 +15,12 @@
  */
 
 import "../test/setup";
-import {Parjs} from "../lib/index";
 
-import {LoudParser} from "../lib/loud";
+import {Parjser} from "../lib/internal/parjser";
+import {each, replaceState, later, manySepBy, map, or} from "../lib/combinators";
+import {anyCharOf, float, string} from "../lib/internal/parsers";
+import {between} from "../lib/internal/combinators/between";
+import {whitespace} from "../lib/internal/parsers/char-types";
 
 interface Expression {
     kind: "expression";
@@ -64,6 +67,7 @@ let operators = [
 let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?: number) => {
     precedence = precedence == null ? -1 : precedence;
     let lastOperator: Expression | OperatorToken;
+
     while ((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
         let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
         exprs.length -= 3;
@@ -71,47 +75,62 @@ let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?:
     }
 };
 
-//required because we want to create a self-referencing, recursive parser
-//pExpr is the final parser.
-let _pExpr = null;
-let pExpr: LoudParser<Expression> = Parjs.late(() => _pExpr);
 
-//we have a built-in floating point parser in Parjs.
-let pNumber = Parjs.float().map(x => new NumericLiteral(x));
+let pExpr = later<Expression>();
 
-//Parentheses
-let pLeftParen = Parjs.string("(");
-let pRightParen = Parjs.string(")");
+// we have a built-in floating point parser in Parjs.
+let pNumber = float().pipe(
+    map(x => new NumericLiteral(x))
+);
 
-//An expression between parentheses.
-let pParenExpr = pExpr.between(pLeftParen, pRightParen);
+// Parentheses
+let pLeftParen = string("(");
+let pRightParen = string(")");
 
-//either a numeric literal or an expression between parentheses, (a + b + c).
-//We add the expression to the expresion stack instead of returning it.
-let pUnit = pNumber.or(pParenExpr).each((result, state: MathState) => {
-    state.exprs.push(result);
-}).between(Parjs.whitespaces).q;
+// An expression between parentheses.
+let pParenExpr = pExpr.pipe(
+    between(pLeftParen, pRightParen)
+);
 
-//Parses a single operator and adds it to the expression stack.
-//Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
-let pOp = Parjs.anyCharOf(operators.map(x => x.operator).join()).each((op, state: MathState) => {
-    let operator = operators.filter(o => o.operator === op)[0];
-    reduceWithPrecedence(state.exprs, operator.precedence);
-    state.exprs.push({
-        ...operator,
-        kind: "operator"
+// either a numeric literal or an expression between parentheses, (a + b + c).
+// We add the expression to the expresion stack instead of returning it.
+
+let pUnit = pNumber.pipe(
+    or(pParenExpr),
+    each((result, state: MathState) => {
+        state.exprs.push(result);
+    }),
+    between(whitespace())
+);
+
+
+// Parses a single operator and adds it to the expression stack.
+// Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
+let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
+    each((op, state: MathState) => {
+        let operator = operators.filter(o => o.operator === op)[0];
+        reduceWithPrecedence(state.exprs, operator.precedence);
+        state.exprs.push({
+            ...operator,
+            kind: "operator"
+        });
     })
-}).q;
+);
 
-//Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
-//Note the call to `isolateState` at the end. We need it because this parser can be called to parse an expression inside parentheses
-//In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
-//An isolated parser blanks out the user state and then restores it.
-_pExpr = pUnit.manySepBy(pOp).map((state: MathState) => {
-    reduceWithPrecedence(state.exprs);
-    let expr = state.exprs[0] as Expression;
-    return expr;
-}).isolateState();
+// Parses a single expression, which is recursively defined as a sequence of expressions separated by operators.
+// Note the call to `replaceState` at the end. We need it because this parser can be called to parse an expression inside parentheses
+// In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
+// An isolated parser blanks out the user state and then restores it.
+
+pExpr.init(pUnit.pipe(
+    manySepBy(pOp),
+    map((x, state: MathState) => {
+        reduceWithPrecedence(state.exprs);
+        let expr = state.exprs[0] as Expression;
+        return expr;
+    }),
+    replaceState({})
+));
 
 let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
     exprs: []
@@ -145,5 +164,4 @@ let evalAst = (ast: Expression) => {
 };
 console.log(printAst(result.value));
 console.log(`Equals: ${evalAst(result.value)}`);
-
 

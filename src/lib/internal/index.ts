@@ -1,13 +1,14 @@
 /**
- * Internal types and interfaces. Useful for working with traces, adding new combinators, and so on.
+ * Implementations of the parser system and individual parsers.
  * @module parjs/internal
  * @preferred
- *
- *
  */ /** */
-export {AnyParserAction} from "./action";
-export {ParjsParser} from "./instance";
-export {ConversionHelper} from "./convertible-literal";
-export {FailureReply} from "../reply";
-export {SuccessReply} from "../reply";
-export {Trace} from "../reply";
+export {ParjserBase} from "./parser";
+export {ParsingState} from "./state";
+
+export {string} from "./parsers/string";
+export {BasicParsingState} from "./state";
+export {FAIL_RESULT} from "./state";
+export {UNINITIALIZED_RESULT} from "./state";
+export {composeCombinator, defineCombinator} from "./combinators";
+export {ScalarConverter} from "./scalar-converter";

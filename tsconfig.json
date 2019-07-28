@@ -12,7 +12,11 @@
       "es2015.collection"
     ],
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true
   },
   "include": [
     "src/**/*.ts"

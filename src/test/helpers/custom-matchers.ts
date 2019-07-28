@@ -1,10 +1,6 @@
-import {Reply, ReplyKind} from "../../lib/reply";
-import _matches = require("lodash/matches");
-import _isPlainObject = require("lodash/isPlainObject");
-
-/**
- * Created by lifeg on 09/12/2016.
- */
+import {ParjsResult, ResultKind} from "../../lib/internal/result";
+import matches from "lodash/matches";
+import isPlainObject from "lodash/isPlainObject";
 
 declare global {
     namespace jasmine {
@@ -38,17 +34,17 @@ class CustomMatcherDefs {
     }
 
     toBeLike(o, failMessage) {
-        let pass = _matches(o)(this.actual);
+        let pass = matches(o)(this.actual);
         return {
-            pass: pass,
+            pass,
             message: pass ? undefined : failMessage
-        }
+        };
     }
 
     toHaveType(type, failMessage) {
         let pass = typeof this.actual === type;
         return {
-            pass: pass,
+            pass,
             message: pass ? undefined : failMessage
         };
     }
@@ -56,9 +52,9 @@ class CustomMatcherDefs {
     toHaveMember(name, failMessage) {
         let pass = name in this.actual;
         return {
-            pass: pass,
+            pass,
             message: pass ? undefined : failMessage
-        }
+        };
     }
 }
 
@@ -69,19 +65,24 @@ let defs = CustomMatcherDefs.prototype;
 for (let prop of Object.getOwnPropertyNames(defs)) {
     if (prop === "constructor") continue;
 
-    CustomMatchers[prop] = function (a, b) {
+    CustomMatchers[prop] = function(a, b) {
         return {
-            compare: function (actual, ...rest) {
+            compare(actual, ...rest) {
                 defs.actual = actual;
                 return defs[prop](...rest);
             }
-        }
-    }
+        };
+    };
 }
 
-export function expectFailure(result: Reply<any>, failType ?: ReplyKind.Fail) {
-    expect(result.kind).toBeAnyOf([ReplyKind.FatalFail, ReplyKind.HardFail, ReplyKind.SoftFail], "expected kind to be a Fail");
-    if (result.kind === ReplyKind.Ok) return;
+/**
+ * Expects a parjs result to be a failure.
+ * @param result The Parjs result.
+ * @param failType The type of failure to expect. Undefined for any.
+ */
+export function expectFailure(result: ParjsResult<any>, failType ?: ResultKind.Fail) {
+    expect(result.kind).toBeAnyOf([ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail], "expected kind to be a Fail");
+    if (result.kind === ResultKind.Ok) return;
     if (failType !== undefined) {
         expect(result.kind).toBe(failType);
     }
@@ -89,47 +90,24 @@ export function expectFailure(result: Reply<any>, failType ?: ReplyKind.Fail) {
     expect(result.trace.reason).toHaveType("string", "invaid 'reason' value");
 }
 
-export function expectSuccess<T>(result: Reply<T>, value ?: T, state ?: object) {
-    expect(result.kind).toBe(ReplyKind.Ok, "kind wasn't OK");
-    if (result.kind !== ReplyKind.Ok) return;
+/**
+ * Expects a parjs result to be a success.
+ * @param result The result.
+ * @param value The value to expect.
+ * @param state An object to be deep-equal to the user state.
+ */
+export function expectSuccess<T>(result: ParjsResult<T>, value ?: T, state ?: object) {
+    expect(result.kind).toBe(ResultKind.Ok, "kind wasn't OK");
+    if (result.kind !== ResultKind.Ok) return;
     expect(result).toHaveMember("value", "reason value");
-    expect(result).not.toHaveMember("expecting", "unexpected 'reason' attribute");
+    expect(result).not.toHaveMember("reason", "unexpected 'reason' attribute");
     if (value !== undefined) {
-        if (!_isPlainObject(value)) {
+        if (!isPlainObject(value)) {
             expect(result.value).toEqual(value);
         } else {
             expect(result.value).toBeLike(value as any);
         }
 
-    }
-}
-
-export interface FailArgs {
-    type?: ReplyKind.Fail;
-    state?: any;
-}
-
-export interface SuccessArgs {
-    value?: any;
-    state?: any;
-}
-
-export interface ExpectResult {
-    toFail(args ?: FailArgs);
-
-    toSucceed(args ?: SuccessArgs)
-}
-
-export function expectResult(result: Reply<any>): ExpectResult {
-    return {
-        toFail(args) {
-            args = args || {};
-            expectFailure(result, args.type);
-        },
-        toSucceed(args) {
-            args = args || {};
-            expectSuccess(result, args.value);
-        }
     }
 }
 

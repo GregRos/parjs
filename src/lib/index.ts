@@ -1,29 +1,53 @@
 /**
- * The main module.
- * Contains the {@link Parjs} object and the most commonly used public interfaces.
+ * Building-block parsers.
  * @module parjs
  * @preferred
  */ /** iooi*/
 
-import {ParjsParsers} from "./internal/static";
-import {ParjsStatic} from "./parjs";
+import {Parjser} from "./internal/parjser";
+import {ImplicitParjser} from "./internal/scalar-converter";
+import {DelayedParjser} from "./internal/combinators/later";
 
-export {ParjsStatic};
-export {UserState} from "./internal/implementation/state";
-export {LoudParser} from "./loud";
-export {QuietParser} from "./quiet";
-export {ParjsParsingFailure} from "./errors"
-export {AnyParser} from "./any";
-export {ReplyKind, Reply, QuietReply} from "./reply";
-export {ConvertibleLiteral, ImplicitAnyParser, ImplicitLoudParser} from "./convertible-literal"
+export {UserState, ParsingState} from "./internal/state";
+export {Parjser, ParjsCombinator, ParjsProjection, ParjsValidator} from "./internal/parjser";
 
-/**
- * The central API of the parjs library. Contains building block parsers and static combinators.
- */
-export const Parjs = new ParjsParsers() as ParjsStatic;
+export {ResultKind, ParjsResult} from "./internal/result";
 
+export {
+    anyStringOf,
+    stringLen,
+    string,
+    state,
+    rest,
+    result,
+    regexp,
+    position,
+    newline,
+    int,
+    IntOptions,
+    FloatOptions,
+    float,
+    fail,
+    eof,
+    charWhere,
+    charCodeWhere,
+    noCharOf,
+    anyCharOf,
+    anyChar,
+    whitespace,
+    uniNewline,
+    upper,
+    uniLetter,
+    spaces1,
+    space,
+    lower,
+    letter,
+    hex,
+    digit,
+    uniDecimal,
+    uniLower
 
-/**
- *
- */
+} from "./internal/parsers";
 
+export {ImplicitParjser} from "./internal/scalar-converter";
+export {ConvertibleScalar} from "./internal/scalar-converter";
