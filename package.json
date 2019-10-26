@@ -32,7 +32,6 @@
     "@types/globby": "^9.1.0",
     "@types/jasmine": "^3.3.0",
     "@types/lodash": "^4.14.104",
-    "@types/mathjs": "^6.0.2",
     "@types/node": "^10.12.9",
     "benchmark": "^2.1.4",
     "codecov": "^3.1.0",
@@ -40,7 +39,6 @@
     "jasmine": "^3.3.0",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "^4.2.1",
-    "mathjs": "^6.2.1",
     "nyc": "^13.1.0",
     "retarget-sourcemaps-after-move": "0.1.1",
     "shelljs": "^0.8.3",
@@ -52,8 +50,8 @@
     "typedoc-plugin-example-tag": "^1.0.2",
     "typedoc-plugin-external-module-name": "^2.1.0",
     "typedoc-plugin-internal-external": "^2.0.2",
-    "typescript": "^3.5.1",
-    "v8-profiler-next": "^1.1.1"
+    "typescript": "^3.5.1"
+
   },
   "optionalDependencies": {},
   "nyc": {
