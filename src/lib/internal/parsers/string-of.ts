@@ -21,21 +21,18 @@ export function anyStringOf(...strs: string[]): Parjser<string> {
 
         _apply(ps: ParsingState) {
             let {position, input} = ps;
-            strLoop:
-                for (let i = 0; i < strs.length; i++) {
-                    let curStr = strs[i];
-                    if (input.length - position < curStr.length) continue;
-                    for (let j = 0; j < curStr.length; j++) {
-                        if (curStr.charCodeAt(j) !== input.charCodeAt(position + j)) {
-                            continue strLoop;
-                        }
-                    }
+            for (let i = 0; i < strs.length; i++) {
+                let curStr = strs[i];
+                if (input.length - position < curStr.length) continue;
+                let curSubstr = input.slice(position, position + curStr.length);
+                if (curSubstr === curStr) {
                     // this means we did not contiue strLoop so curStr passed our tests
                     ps.position = position + curStr.length;
                     ps.value = curStr;
                     ps.kind = ResultKind.Ok;
                     return;
                 }
+            }
             ps.kind = ResultKind.SoftFail;
         }
 

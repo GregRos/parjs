@@ -14,6 +14,7 @@ import {Parjser} from "../parjser";
  * @param str The string to parse.
  */
 export function string(str: string): Parjser<string> {
+
     return new class ParseString extends ParjserBase {
         expecting = `expecting '${str}'`;
         type = "string";
@@ -24,11 +25,14 @@ export function string(str: string): Parjser<string> {
                 ps.kind = ResultKind.SoftFail;
                 return;
             }
-            for (let i = 0; i < str.length; i++, position++) {
-                if (str.charCodeAt(i) !== input.charCodeAt(position)) {
-                    ps.kind = ResultKind.SoftFail;
-                    return;
-                }
+            // This should create a StringSlice object instead of actually
+            // copying a whole string.
+            let substr = input.slice(position, position + str.length);
+
+            // Equality test is very very fast.
+            if (substr !== str) {
+                ps.kind = ResultKind.SoftFail;
+                return;
             }
             ps.position += str.length;
             ps.value = str;

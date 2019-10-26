@@ -24,28 +24,19 @@ function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<strin
                 ps.kind = ResultKind.SoftFail;
                 return;
             }
-            let charAt = input.charCodeAt(position);
 
-            if (charAt === AsciiCodes.newline) {
-                ps.position++;
-                ps.value = "\n";
+            let pair = input.slice(position, position + 2);
+
+            if (pair === "\r\n") {
+                ps.position += 2;
+                ps.value = pair;
                 ps.kind = ResultKind.Ok;
                 return;
-            } else if (charAt === AsciiCodes.carriageReturn) {
-                position++;
-                if (position < input.length && input.charCodeAt(position) === AsciiCodes.newline) {
-                    ps.position = position + 1;
-                    ps.value = "\r\n";
-                    ps.kind = ResultKind.Ok;
-                    return;
-                }
-                ps.position = position;
-                ps.value = "\r";
-                ps.kind = ResultKind.Ok;
-                return;
-            } else if (unicodeRecognizer && unicodeRecognizer(charAt)) {
+            }
+            let firstChar = pair.charCodeAt(0);
+            if (firstChar === AsciiCodes.newline || firstChar === AsciiCodes.carriageReturn || (unicodeRecognizer && unicodeRecognizer(firstChar))) {
                 ps.position++;
-                ps.value = input.charAt(position);
+                ps.value = pair[0];
                 ps.kind = ResultKind.Ok;
                 return;
             }
