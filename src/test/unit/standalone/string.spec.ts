@@ -179,16 +179,6 @@ describe("basic string parsers", () => {
             expectSuccess(parser.parse(macNewline), macNewline);
         });
 
-        it("success on all newline string, incl unicode newline", () => {
-            let unicodeNewline = uniNewline().pipe(
-                many()
-            );
-            let result = unicodeNewline.parse(allNewlines);
-            expect(result.kind).toBe(ResultKind.Ok);
-            if (result.kind !== ResultKind.Ok) return;
-            expect(result.value.length).toBe(allNewlines.length - 1);
-        });
-
         it("fails on empty", () => {
             expectFailure(parser.parse(empty));
         });

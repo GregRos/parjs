@@ -14,7 +14,7 @@ import {
     isHex,
     isUpper,
     isLower,
-    isSpace, isNewline
+    isSpace, isNewline, uniIsUpper
 } from "char-info";
 import {must} from "../combinators/must";
 
@@ -101,6 +101,16 @@ export function uniDecimal() {
         reason: `expecting a Unicode decimal digit`
     });
 }
+
+/**
+ * Returns a parser that parses a single Unicode upper-case character.
+ */
+export function uniUpper() {
+    return charWhere(x => uniIsUpper.char(x) || {
+        reason: `expecting a Unicode upper-case letter`
+    });
+}
+
 
 /**
  * Returns a parser that parses a single hex digit.
