@@ -45,8 +45,8 @@ export {
     hex,
     digit,
     uniDecimal,
-    uniLower
-
+    uniLower,
+    uniUpper
 } from "./internal/parsers";
 
 export {ImplicitParjser} from "./internal/scalar-converter";
