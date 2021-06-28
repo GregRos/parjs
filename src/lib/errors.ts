@@ -21,7 +21,7 @@ export abstract class ParjsError extends Error {
  */
 export class ParjsParsingFailure extends ParjsError {
     constructor(public failure: ParjsFailure) {
-        super(`Expected parsing to succeeded, but it failed. Reason: ${failure.trace.reason}`);
+        super(`Expected parsing to succeed, but it failed. Reason: ${failure.trace.reason}`);
     }
 }
 
