@@ -2,7 +2,6 @@ language: node_js
 branches:
   only:
     - master
-    - new-0.12.0
 cache:
   yarn: true
   directories:
@@ -10,8 +9,11 @@ cache:
 install:
   - yarn install
 script:
+  - curl -Os https://uploader.codecov.io/latest/linux/codecov
+  - chmod +x codecov
+  - ./codecov -t ${CODECOV_TOKEN}
   - yarn run build
   - yarn run test
   - yarn run codecov
 node_js:
-  - "8.9"
+  - "16.20.1"

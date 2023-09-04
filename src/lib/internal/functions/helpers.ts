@@ -4,7 +4,6 @@
 
 import repeat from "lodash/repeat";
 
-
 /**
  * Some simple helpers for working with strings.
  */
@@ -15,12 +14,11 @@ export namespace StringHelpers {
      */
     export function recJoin(arr: any): string {
         if (arr instanceof Array) {
-            return arr.map(x => this.recJoin(x)).join("");
+            return arr.map(x => recJoin(x)).join("");
         } else {
             return String(arr);
         }
     }
-
 }
 
 /**
@@ -34,7 +32,7 @@ export namespace NumHelpers {
      * @param char
      */
     export function padInt(n: number, digits: number, char: string) {
-        let str = n.toString();
+        const str = n.toString();
         if (str.length >= digits) return str;
         return repeat(char, digits - str.length) + str;
     }

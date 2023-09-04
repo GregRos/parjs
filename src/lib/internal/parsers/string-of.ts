@@ -3,10 +3,10 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {ParjserBase} from "../parser";
-import {Parjser} from "../parjser";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { ParjserBase } from "../parser";
+import { Parjser } from "../parjser";
 
 /**
  * Returns a parser that will parse any of the strings in `strs` and yield
@@ -15,16 +15,17 @@ import {Parjser} from "../parjser";
  * @param strs A set of string options to parse.
  */
 export function anyStringOf(...strs: string[]): Parjser<string> {
-    return new class StringOf extends ParjserBase {
+    return new (class StringOf extends ParjserBase {
         type = "anyStringOf";
-        expecting = `expecting any of ${strs.map(x => `'${x}'`).join(", ",)}`;
+        expecting = `expecting any of ${strs.map(x => `'${x}'`).join(", ")}`;
 
         _apply(ps: ParsingState) {
-            let {position, input} = ps;
+            const { position, input } = ps;
+            // eslint-disable-next-line @typescript-eslint/prefer-for-of
             for (let i = 0; i < strs.length; i++) {
-                let curStr = strs[i];
+                const curStr = strs[i];
                 if (input.length - position < curStr.length) continue;
-                let curSubstr = input.slice(position, position + curStr.length);
+                const curSubstr = input.slice(position, position + curStr.length);
                 if (curSubstr === curStr) {
                     // this means we did not contiue strLoop so curStr passed our tests
                     ps.position = position + curStr.length;
@@ -35,6 +36,5 @@ export function anyStringOf(...strs: string[]): Parjser<string> {
             }
             ps.kind = ResultKind.SoftFail;
         }
-
-    }();
+    })();
 }

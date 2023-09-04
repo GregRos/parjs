@@ -2,9 +2,9 @@
  * @module parjs/trace
  */
 /** */
-import {Trace} from "./result";
+import { Trace } from "./result";
 
-import {NumHelpers} from "./functions/helpers";
+import { NumHelpers } from "./functions/helpers";
 import repeat from "lodash/repeat";
 import defaults from "lodash/defaults";
 
@@ -30,29 +30,34 @@ const defaultArgs: TraceVisualizerArgs = {
 };
 
 function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
-    let args = defaults(pAgs, defaultArgs);
-    let visualizer: any = (trace: Trace) => {
-        let rows = trace.input.split(/\r\n|\n|\r/g);
-        let locRow = trace.location.line;
-        let around = args.linesBefore;
-        let firstRow = Math.max(0, locRow - around);
+    const args = defaults(pAgs, defaultArgs);
+    const visualizer: any = (trace: Trace) => {
+        const rows = trace.input.split(/\r\n|\n|\r/g);
+        const locRow = trace.location.line;
+        const around = args.linesBefore;
+        const firstRow = Math.max(0, locRow - around);
         let linesAround = rows.slice(firstRow, locRow + 1);
 
         let prefixLength = 0;
         if (args.lineNumbers) {
-            let numLength = Math.floor(1 + Math.log(locRow + 1) / Math.log(10));
-            let rowNumberPrefixer = (n: number) => `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
+            const numLength = Math.floor(1 + Math.log(locRow + 1) / Math.log(10));
+            const rowNumberPrefixer = (n: number) =>
+                `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }
-        let errorMarked = `${repeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
+        const errorMarked = `${repeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
         linesAround.push(errorMarked);
-        let linesVisualization = linesAround.join("\n");
+        const linesVisualization = linesAround.join("\n");
 
-        let fullVisualization =
-`${trace.kind} failure at Ln ${trace.location.line + 1} Col ${trace.location.column + 1}
+        const fullVisualization = `${trace.kind} failure at Ln ${trace.location.line + 1} Col ${
+            trace.location.column + 1
+        }
 ${linesVisualization}
-Stack: ${trace.stackTrace.map(x => x.type).filter(x => x).join(" < ")}
+Stack: ${trace.stackTrace
+            .map(x => x.type)
+            .filter(x => x)
+            .join(" < ")}
 `;
         return fullVisualization;
     };

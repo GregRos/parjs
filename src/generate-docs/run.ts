@@ -1,15 +1,15 @@
-import {Application, ReflectionFlag, ReflectionKind} from "typedoc";
+import { Application, ReflectionFlag, ReflectionKind } from "typedoc";
 import globby from "globby";
-import {exec} from "shelljs";
+import { exec } from "shelljs";
 
-import {CommentPlugin} from "typedoc/dist/lib/converter/plugins";
+import { CommentPlugin } from "typedoc/dist/lib/converter/plugins";
 
 async function run() {
-    let files = await globby(["./src/lib/**/*.ts", "./src/lib/*.ts", "!**/*.ranges.ts"], {
+    const files = await globby(["./src/lib/**/*.ts", "./src/lib/*.ts", "!**/*.ranges.ts"], {
         absolute: true
     });
 
-    let app = new Application({
+    const app = new Application({
         module: "commonjs",
         target: "es6",
         plugin: [
@@ -23,10 +23,9 @@ async function run() {
         files
     });
 
-    let rs = app.convert(files)!;
+    const rs = app.convert(files)!;
     rs.files.forEach(file => {
         file.reflections.slice().forEach(r => {
-
             if (r.flags.hasFlag(ReflectionFlag.External)) {
                 console.log(r.name);
                 CommentPlugin.removeReflection(rs, r);
@@ -37,11 +36,9 @@ async function run() {
         });
     });
 
-
     console.log(rs.getReflectionsByKind(ReflectionKind.SomeModule).map(x => x.name));
     exec("rm -rf docs/");
     app.generateDocs(rs, "docs");
-
 }
 
-run();
+void run();

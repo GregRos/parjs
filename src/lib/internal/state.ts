@@ -2,9 +2,8 @@
  * @module parjs/internal
  */
 /** */
-import {ResultKind} from "./result";
-import {Parjser} from "./parjser";
-
+import { ResultKind } from "./result";
+import { Parjser } from "./parjser";
 
 /**
  * Container type for user state data.
@@ -101,9 +100,10 @@ export class BasicParsingState implements ParsingState {
     kind: ResultKind;
     reason: string;
 
-    constructor(public input: string, public userState: UserState) {
-
-    }
+    constructor(
+        public input: string,
+        public userState: UserState
+    ) {}
 
     get isOk() {
         return this.kind === ResultKind.Ok;

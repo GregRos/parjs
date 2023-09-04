@@ -3,11 +3,11 @@
  */
 /** */
 
-import {ParsingState} from "../state";
+import { ParsingState } from "../state";
 
-import {ParjserBase} from "../parser";
-import {Parjser} from "../parjser";
-import {Issues} from "../issues";
+import { ParjserBase } from "../parser";
+import { Parjser } from "../parjser";
+import { Issues } from "../issues";
 
 /**
  * A parser with logic to be determined later. Useful for defining some kinds
@@ -22,7 +22,7 @@ export interface DelayedParjser<T> extends Parjser<T> {
  * another parser by calling the parser's `init` function.
  */
 export function later<T>(): DelayedParjser<T> {
-    return new class Late extends ParjserBase {
+    return new (class Late extends ParjserBase {
         type = "later";
         _resolved: ParjserBase;
         get expecting() {
@@ -34,11 +34,11 @@ export function later<T>(): DelayedParjser<T> {
             this._resolved = resolved as ParjserBase;
         }
 
-       _apply(ps: ParsingState): void {
+        _apply(ps: ParsingState): void {
             if (!this._resolved) {
                 Issues.delayedParserNotInit("");
             }
             this._resolved.apply(ps);
         }
-    }();
+    })();
 }

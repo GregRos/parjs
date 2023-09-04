@@ -1,13 +1,12 @@
-import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/result";
-import {float, int, rest} from "../../../lib/";
-import {then, thenq} from "../../../lib/combinators";
-
+import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
+import { ResultKind } from "../../../lib/internal/result";
+import { float, int, rest } from "../../../lib/";
+import { thenq } from "../../../lib/combinators";
 
 describe("numeric parsers", () => {
     describe("int parser", () => {
         describe("default settings", () => {
-            let parser = int({
+            const parser = int({
                 base: 10,
                 allowSign: true
             });
@@ -27,17 +26,14 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("22a"), ResultKind.SoftFail);
             });
             it("chains into rest", () => {
-                expectSuccess(parser.pipe(
-                    thenq(rest())
-                ).parse("22a"), 22);
+                expectSuccess(parser.pipe(thenq(rest())).parse("22a"), 22);
             });
             it("fails hard if there are no digits after sign", () => {
                 expectFailure(parser.parse("+a"), ResultKind.HardFail);
             });
-
         });
         describe("no sign", () => {
-            let parser = int({
+            const parser = int({
                 base: 16,
                 allowSign: false
             });
@@ -52,7 +48,7 @@ describe("numeric parsers", () => {
 
     describe("float parser", () => {
         describe("default settings", () => {
-            let parser = float();
+            const parser = float();
             it("regular float", () => {
                 expectSuccess(parser.parse("0.11"), 0.11);
             });
@@ -60,22 +56,22 @@ describe("numeric parsers", () => {
                 expectSuccess(parser.parse("15"), 15);
             });
             it("float without whole part", () => {
-                expectSuccess(parser.parse(".1"), .1);
+                expectSuccess(parser.parse(".1"), 0.1);
             });
             it("float without fractional part", () => {
-                expectSuccess(parser.parse("1."), 1.);
+                expectSuccess(parser.parse("1."), 1);
             });
             it("integer with positive exponent", () => {
-                expectSuccess(parser.parse("52e+12"), 52e+12);
+                expectSuccess(parser.parse("52e+12"), 52e12);
             });
             it("float with negative exponent", () => {
                 expectSuccess(parser.parse("5.1e-2"), 5.1e-2);
             });
             it("float without whole part and exponent", () => {
-                expectSuccess(parser.parse(".5e+5"), .5e+5);
+                expectSuccess(parser.parse(".5e+5"), 0.5e5);
             });
             it("float without fractional and exponent", () => {
-                expectSuccess(parser.parse("5.e+2"), 5.e+2);
+                expectSuccess(parser.parse("5.e+2"), 5e2);
             });
             it("integer with negative exponent", () => {
                 expectSuccess(parser.parse("52e-12"), 52e-12);
@@ -110,7 +106,7 @@ describe("numeric parsers", () => {
             });
         });
         describe("no sign", () => {
-            let parser = float({
+            const parser = float({
                 allowSign: false
             } as any);
             it("fails on sign", () => {
@@ -121,7 +117,7 @@ describe("numeric parsers", () => {
             });
         });
         describe("no implicit zero", () => {
-            let parser = float({
+            const parser = float({
                 allowImplicitZero: false
             } as any);
             it("fails on implicit zero whole", () => {
@@ -132,19 +128,17 @@ describe("numeric parsers", () => {
             });
 
             it("succeeds on implicit zero fraction when chained into rest", () => {
-                expectSuccess(parser.pipe(
-                    thenq(rest())
-                ).parse("1."), 1);
+                expectSuccess(parser.pipe(thenq(rest())).parse("1."), 1);
             });
             it("succeeds on regular", () => {
                 expectSuccess(parser.parse("1.0"), 1.0);
             });
             it("succeeds on exponent", () => {
-                expectSuccess(parser.parse("1.0e+2"), 1.0e+2);
+                expectSuccess(parser.parse("1.0e+2"), 1.0e2);
             });
         });
         describe("no decimal point", () => {
-            let parser = float({
+            const parser = float({
                 allowFloatingPoint: false
             });
             it("succeeds on integer", () => {
@@ -154,25 +148,21 @@ describe("numeric parsers", () => {
                 expectFailure(parser.parse("1.0"), ResultKind.SoftFail);
             });
             it("succeeds on floating point with chained rest", () => {
-                expectSuccess(parser.pipe(
-                    thenq(rest())
-                ).parse("1.5"), 1);
+                expectSuccess(parser.pipe(thenq(rest())).parse("1.5"), 1);
             });
             it("succeeds on exponent integer", () => {
-                expectSuccess(parser.parse("23e+2"), 23e+2);
+                expectSuccess(parser.parse("23e+2"), 23e2);
             });
         });
         describe("no exponent", () => {
-            let parser = float({
+            const parser = float({
                 allowExponent: false
             });
             it("succeeds on floating point", () => {
                 expectSuccess(parser.parse("23.12"), 23.12);
             });
             it("succeeds on exponent with trailing rest", () => {
-                expectSuccess(parser.pipe(
-                    thenq(rest())
-                ).parse("12e+2", {x: 12}));
+                expectSuccess(parser.pipe(thenq(rest())).parse("12e+2", { x: 12 }));
             });
         });
     });

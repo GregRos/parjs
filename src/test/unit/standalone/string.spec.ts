@@ -1,29 +1,30 @@
-
-import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/result";
+import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
+import { ResultKind } from "../../../lib/internal/result";
 import {
     anyChar,
     anyCharOf,
-    anyStringOf, charCodeWhere, charWhere,
+    anyStringOf,
+    charCodeWhere,
+    charWhere,
     newline,
-    noCharOf, regexp, rest,
-    string, stringLen,
-    uniNewline
+    noCharOf,
+    regexp,
+    rest,
+    string,
+    stringLen
 } from "../../../lib/internal/parsers";
-import {letter, lower, spaces1, upper} from "../../../lib/internal/parsers/char-types";
-import {many, then} from "../../../lib/combinators";
+import { letter, lower, spaces1, upper } from "../../../lib/internal/parsers/char-types";
+import { then } from "../../../lib/combinators";
 import _ = require("lodash");
 
-
-let uState = {};
+const uState = {};
 
 describe("basic string parsers", () => {
-
     describe("anyChar", () => {
-        let parser = anyChar();
-        let successInput = "a";
-        let failInput = "";
-        let tooLongInput = "ab";
+        const parser = anyChar();
+        const successInput = "a";
+        const failInput = "";
+        const tooLongInput = "ab";
         it("succeeds on single char", () => {
             expectSuccess(parser.parse(successInput, uState), successInput);
         });
@@ -36,7 +37,7 @@ describe("basic string parsers", () => {
     });
 
     describe("spaces1", () => {
-        let parser = spaces1();
+        const parser = spaces1();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
         });
@@ -52,7 +53,7 @@ describe("basic string parsers", () => {
     });
 
     describe("upper", () => {
-        let parser = upper();
+        const parser = upper();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
         });
@@ -65,7 +66,7 @@ describe("basic string parsers", () => {
     });
 
     describe("lower", () => {
-        let parser = lower();
+        const parser = lower();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
         });
@@ -78,7 +79,7 @@ describe("basic string parsers", () => {
     });
 
     describe("letter", () => {
-        let parser = letter();
+        const parser = letter();
         it("fails on empty input", () => {
             expectFailure(parser.parse(""), "Soft");
         });
@@ -91,9 +92,9 @@ describe("basic string parsers", () => {
     });
 
     describe("anyCharOf[abcd]", () => {
-        let parser = anyCharOf("abcd");
-        let success = "c";
-        let fail = "1";
+        const parser = anyCharOf("abcd");
+        const success = "c";
+        const fail = "1";
         it("succeeds on single char from success", () => {
             expectSuccess(parser.parse(success), success);
         });
@@ -109,9 +110,9 @@ describe("basic string parsers", () => {
     });
 
     describe("noCharOf[abcd]", () => {
-        let parser = noCharOf("abcd");
-        let success = "1";
-        let fail = "a";
+        const parser = noCharOf("abcd");
+        const success = "1";
+        const fail = "a";
         it("success on single char not from list", () => {
             expectSuccess(parser.parse(success), success);
         });
@@ -123,11 +124,10 @@ describe("basic string parsers", () => {
         });
     });
 
-
     describe("string(hi)", () => {
-        let parser = string("hi");
-        let success = "hi";
-        let fail = "bo";
+        const parser = string("hi");
+        const success = "hi";
+        const fail = "bo";
         it("success", () => {
             expectSuccess(parser.parse(success), success);
         });
@@ -140,10 +140,10 @@ describe("basic string parsers", () => {
     });
 
     describe("anyStringOf(hi, hello)", () => {
-        let parser = anyStringOf("hi", "hello");
-        let success1 = "hello";
-        let success2 = "hi";
-        let fail = "bo";
+        const parser = anyStringOf("hi", "hello");
+        const success1 = "hello";
+        const success2 = "hi";
+        const fail = "bo";
         it("success1", () => {
             expectSuccess(parser.parse(success1), success1);
         });
@@ -159,15 +159,14 @@ describe("basic string parsers", () => {
     });
 
     describe("newline", () => {
-        let parser = newline();
-        let unix = "\n";
-        let winNewline = "\r\n";
-        let macNewline = "\r";
-        let badInput = "a";
-        let empty = "";
-        let tooLong1 = "\r\n1";
-        let tooLong2 = "\n\r";
-        let allNewlines = "\r\r\n\n\u0085\u2028\u2029";
+        const parser = newline();
+        const unix = "\n";
+        const winNewline = "\r\n";
+        const macNewline = "\r";
+        const badInput = "a";
+        const empty = "";
+        const tooLong1 = "\r\n1";
+        const tooLong2 = "\n\r";
 
         it("success unix newline", () => {
             expectSuccess(parser.parse(unix), unix);
@@ -194,9 +193,9 @@ describe("basic string parsers", () => {
     });
 
     describe("rest", () => {
-        let parser = rest();
-        let nonEmpty = "abcd";
-        let empty = "";
+        const parser = rest();
+        const nonEmpty = "abcd";
+        const empty = "";
         it("success on non-empty let input", () => {
             expectSuccess(parser.parse(nonEmpty));
         });
@@ -206,10 +205,10 @@ describe("basic string parsers", () => {
     });
 
     describe("stringLen(3)", () => {
-        let parser = stringLen(3);
-        let shortInput = "a";
-        let goodInput = "abc";
-        let longInput = "abcd";
+        const parser = stringLen(3);
+        const shortInput = "a";
+        const goodInput = "abc";
+        const longInput = "abcd";
         it("fails on too short input", () => {
             expectFailure(parser.parse(shortInput));
         });
@@ -223,7 +222,7 @@ describe("basic string parsers", () => {
 
     describe("regexp", () => {
         describe("simple regexp", () => {
-            let parser = regexp(/abc/);
+            const parser = regexp(/abc/);
             it("succeeds on input", () => {
                 expectSuccess(parser.parse("abc"), ["abc"]);
             });
@@ -234,37 +233,31 @@ describe("basic string parsers", () => {
                 expectFailure(parser.parse("ab"), "Soft");
             });
             it("match starts in the proper location", () => {
-                let p = string("abc");
+                const p = string("abc");
                 expectSuccess(p.pipe(then(parser)).parse("abcabc"), ["abc", ["abc"]]);
             });
             it("match ends in the proper location", () => {
-                let p1 = string("abc");
-                let p2 = regexp(/.{3}/);
-                let p3 = string("eeee");
-                let r = p1.pipe(
-                    then(p2, p3)
-                );
+                const p1 = string("abc");
+                const p2 = regexp(/.{3}/);
+                const p3 = string("eeee");
+                const r = p1.pipe(then(p2, p3));
                 expectSuccess(r.parse("abcabceeee"), ["abc", ["abc"], "eeee"]);
             });
         });
 
         describe("multi-match regexp", () => {
-            let parser = regexp(/(ab)(c)/);
+            const parser = regexp(/(ab)(c)/);
             it("succeeds on input", () => {
                 expectSuccess(parser.parse("abc"), ["abc", "ab", "c"]);
             });
-            let parser2 = parser.pipe(
-                then("de")
-            );
+            const parser2 = parser.pipe(then("de"));
             it("chains correctly", () => {
                 expectSuccess(parser2.parse("abcde"));
             });
         });
 
         describe("charWhere", () => {
-            let parser = charWhere(x => x === "a" || {
-
-            });
+            const parser = charWhere(x => x === "a" || {});
 
             it("succeeds when true", () => {
                 expectSuccess(parser.parse("a"), "a");
@@ -276,7 +269,7 @@ describe("basic string parsers", () => {
         });
 
         describe("charCodeWhere", () => {
-            let parser = charCodeWhere(x => x === "a".charCodeAt(0) || {});
+            const parser = charCodeWhere(x => x === "a".charCodeAt(0) || {});
 
             it("succeeds when true", () => {
                 expectSuccess(parser.parse("a"), "a");

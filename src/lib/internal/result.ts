@@ -2,10 +2,9 @@
  * @module parjs
  */
 /** */
-import {ParjsParsingFailure} from "../errors";
-import {Parjser} from "./parjser";
-import {visualizeTrace} from "./trace-visualizer";
-
+import { ParjsParsingFailure } from "../errors";
+import { Parjser } from "./parjser";
+import { visualizeTrace } from "./trace-visualizer";
 
 /**
  * Indicates a success reply and contains the value and other information.
@@ -16,9 +15,7 @@ export class ParjsSuccess<T> implements SuccessInfo<T> {
      */
     kind = ResultKind.Ok;
 
-    constructor(public value: T) {
-
-    }
+    constructor(public value: T) {}
 
     toString() {
         return `Success: ${this.value}`;
@@ -71,9 +68,7 @@ export interface Trace extends FailureInfo {
  * A failure result from a Parjs parser.
  */
 export class ParjsFailure implements FailureInfo {
-    constructor(public trace: Trace) {
-
-    }
+    constructor(public trace: Trace) {}
 
     get value(): never {
         throw new ParjsParsingFailure(this);
@@ -98,12 +93,10 @@ export class ParjsFailure implements FailureInfo {
     }
 }
 
-
 /**
  * A type that represents a ParjsSuccess or a ParjsFailure. Returned by parsers.
  */
-export type ParjsResult<T> = (ParjsSuccess<T> | ParjsFailure);
-
+export type ParjsResult<T> = ParjsSuccess<T> | ParjsFailure;
 
 /**
  * Namespace that contains the different reply kinds/error levels.
@@ -160,4 +153,3 @@ export namespace ResultKind {
  * Specifies a reply kind, indicating success or failure, and the severity of the failure.
  */
 export type ResultKind = ResultKind.Ok | ResultKind.Fail | ResultKind.Unknown;
-

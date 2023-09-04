@@ -3,11 +3,10 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ParjsCombinator} from "../../";
-import {ParjserBase} from "../parser";
-import {defineCombinator} from "./combinator";
-
+import { ParsingState } from "../state";
+import { ParjsCombinator } from "../../";
+import { ParjserBase } from "../parser";
+import { defineCombinator } from "./combinator";
 
 /**
  * Applies the source parser. If it succeeds, backtracks to the current position in the input
@@ -15,12 +14,12 @@ import {defineCombinator} from "./combinator";
  */
 export function backtrack<T>(): ParjsCombinator<T, T> {
     return defineCombinator(source => {
-        return new class Backtrack extends ParjserBase {
+        return new (class Backtrack extends ParjserBase {
             type = "backtrack";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                let {position} = ps;
+                const { position } = ps;
                 source.apply(ps);
                 if (ps.isOk) {
                     // if inner succeeded, we backtrack.
@@ -28,7 +27,6 @@ export function backtrack<T>(): ParjsCombinator<T, T> {
                 }
                 // whatever code ps had, we return it.
             }
-
-        }();
+        })();
     });
 }

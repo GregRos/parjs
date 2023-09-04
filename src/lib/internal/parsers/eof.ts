@@ -3,10 +3,10 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {ParjserBase} from "../parser";
-import {Parjser} from "../parjser";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { ParjserBase } from "../parser";
+import { Parjser } from "../parjser";
 
 /**
  * Returns a parser that succeeds if there is no more input.
@@ -14,7 +14,7 @@ import {Parjser} from "../parjser";
  * undefined.
  */
 export function eof<T>(result?: T): Parjser<T> {
-    return new class Eof extends ParjserBase {
+    return new (class Eof extends ParjserBase {
         type = "eof";
         expecting = "expecting end of input";
 
@@ -26,6 +26,5 @@ export function eof<T>(result?: T): Parjser<T> {
                 ps.kind = ResultKind.SoftFail;
             }
         }
-
-    }() as any;
+    })() as any;
 }

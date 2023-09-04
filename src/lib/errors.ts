@@ -7,7 +7,7 @@
  *
  */
 /** */
-import {ParjsFailure} from "./internal/result";
+import { ParjsFailure } from "./internal/result";
 
 /**
  * A parent class for all errors thrown by Parjs.
@@ -29,7 +29,10 @@ export class ParjsParsingFailure extends ParjsError {
  * An error thrown to indicate that a parser has been constructed inappropriately.
  */
 export class ParserDefinitionError extends ParjsError {
-    constructor(public parserName: string, message: string) {
+    constructor(
+        public parserName: string,
+        message: string
+    ) {
         super(`${parserName}: ${message}`);
     }
 }

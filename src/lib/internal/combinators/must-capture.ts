@@ -3,12 +3,12 @@
  */
 /** */
 
-import {FailureInfo, ResultKind} from "../result";
-import {ParsingState} from "../state";
+import { FailureInfo } from "../result";
+import { ParsingState } from "../state";
 
-import {ParjsCombinator} from "../../index";
-import {defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
+import { ParjsCombinator } from "../../index";
+import { defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
 
 import defaults from "lodash/defaults";
 const defaultFailure: FailureInfo = {
@@ -21,13 +21,13 @@ const defaultFailure: FailureInfo = {
  * @param pFailure The failure info.
  */
 export function mustCapture<T>(pFailure?: Partial<FailureInfo>): ParjsCombinator<T, T> {
-    let failure = defaults(pFailure, defaultFailure);
+    const failure = defaults(pFailure, defaultFailure);
     return defineCombinator(source => {
-        return new class MustCapture extends ParjserBase {
+        return new (class MustCapture extends ParjserBase {
             expecting = `expecting internal parser ${source.type} to consume input`;
             type = "mustCapture";
             _apply(ps: ParsingState) {
-                let {position} = ps;
+                const { position } = ps;
                 source.apply(ps);
                 if (!ps.isOk) {
                     return;
@@ -36,8 +36,7 @@ export function mustCapture<T>(pFailure?: Partial<FailureInfo>): ParjsCombinator
                     ps.kind = failure.kind;
                     ps.reason = failure.reason;
                 }
-
             }
-        }();
+        })();
     });
 }

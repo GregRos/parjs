@@ -1,10 +1,9 @@
 /** @module parjs/combinators */ /** */
 
-import {ParjsCombinator, UserState} from "../../index";
-import {defineCombinator} from "./combinator";
-import {ParjserBase, ParserUserState} from "../parser";
-import {ParsingState} from "../state";
-import cloneDeep from "lodash/cloneDeep";
+import { ParjsCombinator, UserState } from "../../index";
+import { defineCombinator } from "./combinator";
+import { ParjserBase, ParserUserState } from "../parser";
+import { ParsingState } from "../state";
 import defaults from "lodash/defaults";
 
 /**
@@ -26,11 +25,11 @@ export type UserStateOrProjection = UserState | ((externalState: UserState) => U
  */
 export function replaceState<T>(innerStateOrCtor: UserStateOrProjection): ParjsCombinator<T, T> {
     return defineCombinator(source => {
-        return new class IsolateState extends ParjserBase {
+        return new (class IsolateState extends ParjserBase {
             type = "replaceState";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {
-                let state = ps.userState;
+                const state = ps.userState;
                 if (typeof innerStateOrCtor === "function") {
                     ps.userState = defaults(new ParserUserState(), innerStateOrCtor(state));
                 } else {
@@ -39,6 +38,6 @@ export function replaceState<T>(innerStateOrCtor: UserStateOrProjection): ParjsC
                 source.apply(ps);
                 ps.userState = state;
             }
-        }();
+        })();
     });
 }

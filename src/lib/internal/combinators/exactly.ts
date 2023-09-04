@@ -3,26 +3,25 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {ParjsCombinator} from "../../index";
-import {defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { ParjsCombinator } from "../../index";
+import { defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
 
 /**
  * Applies the source parser exactly `count` times, and yields all the results in an array.
  * @param count The number of times to apply the source parser.
  */
-export function exactly<T>(count: number)
-    : ParjsCombinator<T, T[]>;
+export function exactly<T>(count: number): ParjsCombinator<T, T[]>;
 
 export function exactly(count: number) {
     return defineCombinator(source => {
-        return new class Exactly extends ParjserBase {
+        return new (class Exactly extends ParjserBase {
             type = "exactly";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {
-                let arr = [] as any[];
+                const arr = [] as any[];
                 for (let i = 0; i < count; i++) {
                     source.apply(ps);
                     if (!ps.isOk) {
@@ -36,6 +35,6 @@ export function exactly(count: number) {
                 }
                 ps.value = arr;
             }
-        }();
+        })();
     });
 }

@@ -3,10 +3,10 @@
  */
 /** */
 
-import {FailureInfo, ResultKind} from "../result";
-import {ParsingState} from "../state";
-import {ParjserBase} from "../parser";
-import {Parjser} from "../parjser";
+import { FailureInfo } from "../result";
+import { ParsingState } from "../state";
+import { ParjserBase } from "../parser";
+import { Parjser } from "../parjser";
 import defaults from "lodash/defaults";
 const defaultFailure: FailureInfo = {
     kind: "Hard",
@@ -18,8 +18,8 @@ const defaultFailure: FailureInfo = {
  * @param pFailure How the parser should fail.
  */
 export function fail<T = never>(pFailure?: Partial<FailureInfo>): Parjser<T> {
-    let failure = defaults(pFailure, defaultFailure);
-    return new class Fail extends ParjserBase {
+    const failure = defaults(pFailure, defaultFailure);
+    return new (class Fail extends ParjserBase {
         type = "fail";
         expecting = failure.reason;
 
@@ -27,5 +27,5 @@ export function fail<T = never>(pFailure?: Partial<FailureInfo>): Parjser<T> {
             ps.kind = failure.kind;
             ps.reason = this.expecting;
         }
-    }();
+    })();
 }

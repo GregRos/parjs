@@ -3,29 +3,24 @@
  */
 /** */
 
-import {ResultKind} from "../result";
-import {ParsingState} from "../state";
-import {Parjser} from "../parjser";
-import {ParjserBase} from "../parser";
-import {
-    uniIsNewline,
-    AsciiCodes
-
-} from "char-info";
-
+import { ResultKind } from "../result";
+import { ParsingState } from "../state";
+import { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
+import { uniIsNewline, AsciiCodes } from "char-info";
 
 function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<string> {
-    return new class Newline extends ParjserBase {
+    return new (class Newline extends ParjserBase {
         expecting = "expecting newline";
         type = "newline";
         _apply(ps: ParsingState) {
-            let {position, input} = ps;
+            const { position, input } = ps;
             if (position >= input.length) {
                 ps.kind = ResultKind.SoftFail;
                 return;
             }
 
-            let pair = input.slice(position, position + 2);
+            const pair = input.slice(position, position + 2);
 
             if (pair === "\r\n") {
                 ps.position += 2;
@@ -33,8 +28,12 @@ function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<strin
                 ps.kind = ResultKind.Ok;
                 return;
             }
-            let firstChar = pair.charCodeAt(0);
-            if (firstChar === AsciiCodes.newline || firstChar === AsciiCodes.carriageReturn || (unicodeRecognizer && unicodeRecognizer(firstChar))) {
+            const firstChar = pair.charCodeAt(0);
+            if (
+                firstChar === AsciiCodes.newline ||
+                firstChar === AsciiCodes.carriageReturn ||
+                (unicodeRecognizer && unicodeRecognizer(firstChar))
+            ) {
                 ps.position++;
                 ps.value = pair[0];
                 ps.kind = ResultKind.Ok;
@@ -42,7 +41,7 @@ function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<strin
             }
             ps.kind = ResultKind.SoftFail;
         }
-    }();
+    })();
 }
 
 /**
@@ -60,4 +59,3 @@ export function newline() {
 export function uniNewline() {
     return innerNewline(uniIsNewline.code);
 }
-

@@ -3,23 +3,21 @@
  */
 /** */
 
-import {ResultKind} from "../result";
-import {ParsingState} from "../state";
-import {ImplicitParjser, ParjsCombinator} from "../../index";
+import { ResultKind } from "../result";
+import { ParsingState } from "../state";
+import { ImplicitParjser, ParjsCombinator } from "../../index";
 
-import {composeCombinator, defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
-import {ScalarConverter} from "../scalar-converter";
-import {map} from "./map";
-
+import { composeCombinator, defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
+import { ScalarConverter } from "../scalar-converter";
+import { map } from "./map";
 
 /**
  * Applies the source parser followed by `next`. Yields the result of
  * `next`.
  * @param next
  */
-export function qthen<T>(next: ImplicitParjser<T>)
-    : ParjsCombinator<any, T> {
+export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<any, T> {
     return composeCombinator(
         then(next),
         map(arr => arr[1])
@@ -31,8 +29,7 @@ export function qthen<T>(next: ImplicitParjser<T>)
  * the source parser.
  * @param next
  */
-export function thenq<T>(next: ImplicitParjser<any>)
-    : ParjsCombinator<T, T> {
+export function thenq<T>(next: ImplicitParjser<any>): ParjsCombinator<T, T> {
     return composeCombinator(
         then(next),
         map(arr => arr[0])
@@ -44,8 +41,7 @@ export function thenq<T>(next: ImplicitParjser<any>)
  * both in an array.
  * @param next
  */
-export function then<A, B>(next: ImplicitParjser<B>)
-    : ParjsCombinator<A, [A, B]>;
+export function then<A, B>(next: ImplicitParjser<B>): ParjsCombinator<A, [A, B]>;
 
 /**
  * Applies the source parser, followed by `next1` and then `next2`. Yields the
@@ -56,8 +52,7 @@ export function then<A, B>(next: ImplicitParjser<B>)
 export function then<A, B, C>(
     next1: ImplicitParjser<B>,
     next2: ImplicitParjser<C>
-)
-    : ParjsCombinator<A, [A, B, C]>;
+): ParjsCombinator<A, [A, B, C]>;
 
 /**
  * Applies the source parser, followed by three other parsers. Yields the
@@ -70,8 +65,7 @@ export function then<A, B, C, D>(
     next1: ImplicitParjser<B>,
     next2: ImplicitParjser<C>,
     next3: ImplicitParjser<D>
-)
-    : ParjsCombinator<A, [A, B, C, D]>;
+): ParjsCombinator<A, [A, B, C, D]>;
 
 /**
  * Applies the source parser, followed by four other parsers. Yields the results
@@ -86,23 +80,22 @@ export function then<A, B, C, D, E>(
     next2: ImplicitParjser<C>,
     next3: ImplicitParjser<D>,
     next4: ImplicitParjser<E>
-)
-    : ParjsCombinator<A, [A, B, C, D, E]>;
+): ParjsCombinator<A, [A, B, C, D, E]>;
 
 export function then(...parsers: ImplicitParjser<any>[]) {
-    let resolvedParsers = parsers.map(x => ScalarConverter.convert(x) as any as ParjserBase);
+    const resolvedParsers = parsers.map(x => ScalarConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedParsers.splice(0, 0, source);
 
-        return new class Then extends ParjserBase {
+        return new (class Then extends ParjserBase {
             type = "then";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                let results = [] as any[];
-                let origPos = ps.position;
+                const results = [] as any[];
+                const origPos = ps.position;
                 for (let i = 0; i < resolvedParsers.length; i++) {
-                    let cur = resolvedParsers[i];
+                    const cur = resolvedParsers[i];
                     cur.apply(ps);
                     if (ps.isOk) {
                         results.push(ps.value);
@@ -122,7 +115,6 @@ export function then(...parsers: ImplicitParjser<any>[]) {
                 ps.value = results;
                 ps.kind = ResultKind.Ok;
             }
-
-        }();
+        })();
     });
 }

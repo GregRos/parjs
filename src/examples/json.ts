@@ -1,44 +1,59 @@
 import "../test/setup";
-import {Parjser} from "../lib/internal/parjser";
-import {ResultKind} from "../lib/internal/result";
-import {later, many, manySepBy, map, or, stringify, qthen, thenq, then, between} from "../lib/combinators";
-import {anyStringOf, float, string, stringLen,anyCharOf, noCharOf, whitespace} from "../lib/index";
-import {visualizeTrace} from "../lib/internal/trace-visualizer";
+import { ResultKind } from "../lib/internal/result";
+import {
+    later,
+    many,
+    manySepBy,
+    map,
+    or,
+    stringify,
+    qthen,
+    thenq,
+    then,
+    between
+} from "../lib/combinators";
+import {
+    anyStringOf,
+    float,
+    string,
+    stringLen,
+    anyCharOf,
+    noCharOf,
+    whitespace
+} from "../lib/index";
+import { visualizeTrace } from "../lib/internal/trace-visualizer";
 
 class JsonNumber {
-    constructor(public value: number) {
-    }
+    constructor(public value: number) {}
 }
 
 class JsonString {
-    constructor(public value: string) {
-    }
+    constructor(public value: string) {}
 }
 
 class JsonBool {
-    constructor(public value: boolean) {
-    }
+    constructor(public value: boolean) {}
 }
 
 class JsonArray {
-    constructor(public value: JsonValue[]) {
-    }
+    constructor(public value: JsonValue[]) {}
 }
 
 class JsonObjectProperty {
-    constructor(public name: string, public value: JsonValue) {
-    }
+    constructor(
+        public name: string,
+        public value: JsonValue
+    ) {}
 }
 
 class JsonObject {
-    constructor(public value: JsonObjectProperty[]) {
-    }
+    constructor(public value: JsonObjectProperty[]) {}
 }
 
 type JsonValue = JsonNumber | JsonString | JsonBool | JsonArray | JsonObject;
 
-let escapes = {
-    "\"": `"`,
+const escapes = {
+    '"': `"`,
     "\\": "\\",
     "/": "/",
     f: "\f",
@@ -47,17 +62,14 @@ let escapes = {
     t: "\t"
 };
 
-let pJsonValue = later<JsonValue>();
+const pJsonValue = later<JsonValue>();
 
-
-let pEscapeChar = anyCharOf(
-    Object.getOwnPropertyNames(escapes).join()
-).pipe(
+const pEscapeChar = anyCharOf(Object.getOwnPropertyNames(escapes).join()).pipe(
     map(char => escapes[char] as string)
 );
 
 // A unicode escape sequence is "u" followed by exactly 4 hex digits
-let pEscapeUnicode = string("u").pipe(
+const pEscapeUnicode = string("u").pipe(
     qthen(
         stringLen(4).pipe(
             map(str => parseInt(str, 16)),
@@ -68,44 +80,24 @@ let pEscapeUnicode = string("u").pipe(
 
 // Any escape sequence begins with a \
 
-let pEscapeAny = string("\\").pipe(
-    qthen(
-        pEscapeChar.pipe(
-            or(pEscapeUnicode)
-        )
-    )
-);
+const pEscapeAny = string("\\").pipe(qthen(pEscapeChar.pipe(or(pEscapeUnicode))));
 
 // Here we process regular characters vs escape sequences
-let pCharOrEscape = pEscapeAny.pipe(
-    or(
-        noCharOf('"')
-    )
-);
+const pCharOrEscape = pEscapeAny.pipe(or(noCharOf('"')));
 // Repeat the char/escape to get a sequence, and then put between quotes to get a string
-let pStr = pCharOrEscape.pipe(
-    many(),
-    stringify(),
-    between('"'),
-);
+const pStr = pCharOrEscape.pipe(many(), stringify(), between('"'));
 
 // This is also a JSON string value
-let pJsonString = pStr.pipe(
-    map(str => new JsonString(str))
-);
+const pJsonString = pStr.pipe(map(str => new JsonString(str)));
 
 // Parjs has a dedicated floating point number parser
-let pNumber = float().pipe(
-    map(n => new JsonNumber(n))
-);
+const pNumber = float().pipe(map(n => new JsonNumber(n)));
 
 // Parse bools
-let pBool = anyStringOf("true", "false").pipe(
-    map(str => new JsonBool(str === "true"))
-);
+const pBool = anyStringOf("true", "false").pipe(map(str => new JsonBool(str === "true")));
 
 // An array is a sequence of JSON values between ,s
-let pArray = pJsonValue.pipe(
+const pArray = pJsonValue.pipe(
     manySepBy(","),
     between("[", "]"),
     map(arr => new JsonArray(arr))
@@ -113,37 +105,23 @@ let pArray = pJsonValue.pipe(
 
 // An object property is a string key, and then a value, separated by : and whitespace around it
 // Plus, whitespace around the property
-let pObjectProperty = pStr.pipe(
-    thenq(
-        string(":").pipe(
-            between(
-                whitespace()
-            )
-        )
-    ),
-    then(
-        pJsonValue
-    ),
-    between(
-        whitespace()
-    ),
+const pObjectProperty = pStr.pipe(
+    thenq(string(":").pipe(between(whitespace()))),
+    then(pJsonValue),
+    between(whitespace()),
     map(([name, value]) => {
         return new JsonObjectProperty(name, value);
     })
 );
 
-
 // An object is a sequence of object properties between {...} separated by ","
-let pObject = pObjectProperty.pipe(
+const pObject = pObjectProperty.pipe(
     manySepBy(","),
     between("{", "}"),
     map(properties => new JsonObject(properties))
 );
 
-pJsonValue.init(pJsonString.pipe(
-    or(pNumber, pBool, pArray, pObject),
-    between(whitespace())
-));
+pJsonValue.init(pJsonString.pipe(or(pNumber, pBool, pArray, pObject), between(whitespace())));
 
 function astToObject(obj: JsonValue) {
     if (obj instanceof JsonNumber) {
@@ -155,15 +133,15 @@ function astToObject(obj: JsonValue) {
     } else if (obj instanceof JsonArray) {
         return obj.value.map(x => astToObject(x));
     } else if (obj instanceof JsonObject) {
-        let res = {};
-        for (let prop of obj.value) {
+        const res = {};
+        for (const prop of obj.value) {
             res[prop.name] = astToObject(prop.value);
         }
         return res;
     }
 }
 
-let result = pJsonValue.parse(`{"a" : 2, 
+const result = pJsonValue.parse(`{"a" : 2, 
 
 
 "b\\"" : 

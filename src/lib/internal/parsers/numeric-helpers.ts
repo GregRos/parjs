@@ -2,23 +2,20 @@
  * @external
  */
 /** */
-import {
-    isDigitCode,
-    AsciiCodes
-} from "char-info/ascii";
-import {ParsingState} from "../state";
+import { isDigitCode, AsciiCodes } from "char-info/ascii";
+import { ParsingState } from "../state";
 
 /**
  * Parsing helper.
  */
 export class NumericHelpersType {
-
     parseDigitsInBase(ps: ParsingState, base: number) {
-        let {position, input} = ps;
-        let length = input.length;
-        let result = 0;
+        let { position } = ps;
+        const { input } = ps;
+        const length = input.length;
+        const result = 0;
         for (; position < length; position++) {
-            let curCode = input.charCodeAt(position);
+            const curCode = input.charCodeAt(position);
             if (!isDigitCode(curCode, base)) {
                 break;
             }
@@ -34,7 +31,7 @@ export class NumericHelpersType {
      */
     parseSign(ps: ParsingState) {
         let sign = 0;
-        let curChar = ps.input.charCodeAt(ps.position);
+        const curChar = ps.input.charCodeAt(ps.position);
         if (curChar === AsciiCodes.minus) {
             sign = -1;
             ps.position++;

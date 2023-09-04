@@ -1,16 +1,17 @@
-
-import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/result";
-import {eof, result, string, stringLen} from "../../../lib";
-import {must, mustCapture, or, stringify, then} from "../../../lib/combinators";
-
+import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
+import { ResultKind } from "../../../lib/internal/result";
+import { eof, string, stringLen } from "../../../lib";
+import { must, mustCapture, or, stringify, then } from "../../../lib/combinators";
 
 describe("must combinators", () => {
     describe("must combinator", () => {
-        let parser = stringLen(3).pipe(
-            must(s => s === "abc" || {
-                kind: "Fatal"
-            })
+        const parser = stringLen(3).pipe(
+            must(
+                s =>
+                    s === "abc" || {
+                        kind: "Fatal"
+                    }
+            )
         );
         it("fails softly if original fails softly", () => {
             expectFailure(parser.parse("a"), ResultKind.SoftFail);
@@ -24,7 +25,7 @@ describe("must combinators", () => {
     });
 
     describe("mustCapture combinator", () => {
-        let parser = string("a").pipe(
+        const parser = string("a").pipe(
             then("b"),
             stringify(),
             or(eof("")),

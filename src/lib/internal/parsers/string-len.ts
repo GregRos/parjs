@@ -3,10 +3,10 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {ParjserBase} from "../parser";
-import {Parjser} from "../parjser";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { ParjserBase } from "../parser";
+import { Parjser } from "../parjser";
 
 /**
  * Returns a parser that parses exactly `length` characters and yields the
@@ -14,11 +14,11 @@ import {Parjser} from "../parjser";
  * @param length The number of characters to parse.
  */
 export function stringLen(length: number): Parjser<string> {
-    return new class StringLen extends ParjserBase {
+    return new (class StringLen extends ParjserBase {
         type = "stringLen";
         expecting = `expecting ${length} characters`;
         _apply(ps: ParsingState) {
-            let {position, input} = ps;
+            const { position, input } = ps;
             if (input.length < position + length) {
                 ps.kind = ResultKind.SoftFail;
                 return;
@@ -27,5 +27,5 @@ export function stringLen(length: number): Parjser<string> {
             ps.value = input.substr(position, length);
             ps.kind = ResultKind.Ok;
         }
-    }();
+    })();
 }

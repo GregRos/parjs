@@ -3,13 +3,12 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {ParjsCombinator} from "../..";
-import {ImplicitParjser, ScalarConverter} from "../scalar-converter";
-import {defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
-
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { ParjsCombinator } from "../..";
+import { ImplicitParjser, ScalarConverter } from "../scalar-converter";
+import { defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
 
 /**
  * Applies the source parser. If it fails softly, will try to apply the
@@ -21,9 +20,7 @@ import {ParjserBase} from "../parser";
  *
  * @param alt1 The first alternative parser to apply.
  */
-export function or<T1, T2>(
-    alt1: ImplicitParjser<T2>
-): ParjsCombinator<T1, T1 | T2>;
+export function or<T1, T2>(alt1: ImplicitParjser<T2>): ParjsCombinator<T1, T1 | T2>;
 
 /**
  * Applies the source parser. If it fails softly, will try to apply the
@@ -80,19 +77,20 @@ export function or<T1, T2, T3, T4, T5>(
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
 
 export function or(...alts: ImplicitParjser<any>[]) {
-    let resolvedAlts = alts.map(x => ScalarConverter.convert(x) as any as ParjserBase);
+    const resolvedAlts = alts.map(x => ScalarConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
 
-        let altNames = resolvedAlts.map(x => x.type);
-        return new class Or extends ParjserBase {
+        const altNames = resolvedAlts.map(x => x.type);
+        return new (class Or extends ParjserBase {
             type = "or";
             expecting = `expecting one of: ${altNames.join(", ")}`;
             _apply(ps: ParsingState): void {
-                let {position} = ps;
+                const { position } = ps;
+                // eslint-disable-next-line @typescript-eslint/prefer-for-of
                 for (let i = 0; i < resolvedAlts.length; i++) {
                     // go over each alternative.
-                    let cur = resolvedAlts[i];
+                    const cur = resolvedAlts[i];
                     // apply it on the current state.
                     cur.apply(ps);
                     if (ps.isOk) {
@@ -108,7 +106,6 @@ export function or(...alts: ImplicitParjser<any>[]) {
                 }
                 ps.kind = ResultKind.SoftFail;
             }
-
-        }();
+        })();
     });
 }

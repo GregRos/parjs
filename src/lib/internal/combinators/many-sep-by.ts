@@ -3,13 +3,13 @@
  */
 /** */
 
-import {Issues} from "../issues";
-import {ResultKind} from "../result";
-import {ParsingState} from "../state";
-import {ImplicitParjser, ParjsCombinator} from "../../index";
-import {ScalarConverter} from "../scalar-converter";
-import {ParjserBase} from "../parser";
-import {defineCombinator} from "./combinator";
+import { Issues } from "../issues";
+import { ResultKind } from "../result";
+import { ParsingState } from "../state";
+import { ImplicitParjser, ParjsCombinator } from "../../index";
+import { ScalarConverter } from "../scalar-converter";
+import { ParjserBase } from "../parser";
+import { defineCombinator } from "./combinator";
 
 /**
  * Applies the source parser repeatedly until it fails softly, with each pair of
@@ -19,18 +19,20 @@ import {defineCombinator} from "./combinator";
  * @param max Optionally, then maximum number of times to apply the source
  * parser. Defaults to `Infinity`.
  */
-export function manySepBy<T>(delimeter: ImplicitParjser<any>, max?: number)
-    : ParjsCombinator<T, T[]>;
+export function manySepBy<T>(
+    delimeter: ImplicitParjser<any>,
+    max?: number
+): ParjsCombinator<T, T[]>;
 
 export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
-    let delimeter = ScalarConverter.convert(implDelimeter) as any as ParjserBase;
+    const delimeter = ScalarConverter.convert(implDelimeter) as any as ParjserBase;
     return defineCombinator(source => {
-        return new class extends ParjserBase {
+        return new (class extends ParjserBase {
             type = "manySepBy";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                let arr = [] as any[];
+                const arr = [] as any[];
                 source.apply(ps);
                 if (ps.atLeast(ResultKind.HardFail)) {
                     return;
@@ -39,10 +41,10 @@ export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
                     ps.kind = ResultKind.Ok;
                     return;
                 }
-                let {position} = ps;
+                let { position } = ps;
                 arr.push(ps.value);
                 let i = 1;
-                while (true) {
+                for (;;) {
                     if (i >= max) break;
                     delimeter.apply(ps);
                     if (ps.isSoft) {
@@ -68,6 +70,6 @@ export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
                 ps.position = position;
                 ps.value = arr;
             }
-        }();
+        })();
     });
 }

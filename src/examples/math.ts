@@ -16,11 +16,10 @@
 
 import "../test/setup";
 
-import {Parjser} from "../lib/internal/parjser";
-import {each, replaceState, later, manySepBy, map, or} from "../lib/combinators";
-import {anyCharOf, float, string} from "../lib/internal/parsers";
-import {between} from "../lib/internal/combinators/between";
-import {whitespace} from "../lib/internal/parsers/char-types";
+import { each, replaceState, later, manySepBy, map, or } from "../lib/combinators";
+import { anyCharOf, float, string } from "../lib/internal/parsers";
+import { between } from "../lib/internal/combinators/between";
+import { whitespace } from "../lib/internal/parsers/char-types";
 
 interface Expression {
     kind: "expression";
@@ -29,16 +28,17 @@ interface Expression {
 class BinaryOperator implements Expression {
     kind: "expression" = "expression";
 
-    constructor(public operator: string, public left: Expression, public right: Expression) {
-    }
+    constructor(
+        public operator: string,
+        public left: Expression,
+        public right: Expression
+    ) {}
 }
 
 class NumericLiteral implements Expression {
     kind: "expression" = "expression";
 
-    constructor(public value: number) {
-
-    }
+    constructor(public value: number) {}
 }
 
 interface OperatorToken {
@@ -51,11 +51,11 @@ interface MathState {
     exprs: (Expression | OperatorToken)[];
 }
 
-let operators = [
-    {operator: "+", precedence: 1},
-    {operator: "-", precedence: 1},
-    {operator: "*", precedence: 2},
-    {operator: "/", precedence: 2}
+const operators = [
+    { operator: "+", precedence: 1 },
+    { operator: "-", precedence: 1 },
+    { operator: "*", precedence: 2 },
+    { operator: "/", precedence: 2 }
 ];
 
 /**
@@ -64,38 +64,41 @@ let operators = [
  * @param exprs
  * @param precedence
  */
-let reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence ?: number) => {
+const reduceWithPrecedence = (exprs: (OperatorToken | Expression)[], precedence?: number) => {
     precedence = precedence == null ? -1 : precedence;
     let lastOperator: Expression | OperatorToken;
 
-    while ((lastOperator = exprs[exprs.length - 2]) && lastOperator.kind === "operator" && lastOperator.precedence >= precedence) {
-        let [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [Expression, OperatorToken, Expression];
+    while (
+        (lastOperator = exprs[exprs.length - 2]) &&
+        lastOperator.kind === "operator" &&
+        lastOperator.precedence >= precedence
+    ) {
+        const [lhs, op, rhs] = exprs.slice(exprs.length - 3) as [
+            Expression,
+            OperatorToken,
+            Expression
+        ];
         exprs.length -= 3;
         exprs.push(new BinaryOperator(op.operator, lhs, rhs));
     }
 };
 
-
-let pExpr = later<Expression>();
+const pExpr = later<Expression>();
 
 // we have a built-in floating point parser in Parjs.
-let pNumber = float().pipe(
-    map(x => new NumericLiteral(x))
-);
+const pNumber = float().pipe(map(x => new NumericLiteral(x)));
 
 // Parentheses
-let pLeftParen = string("(");
-let pRightParen = string(")");
+const pLeftParen = string("(");
+const pRightParen = string(")");
 
 // An expression between parentheses.
-let pParenExpr = pExpr.pipe(
-    between(pLeftParen, pRightParen)
-);
+const pParenExpr = pExpr.pipe(between(pLeftParen, pRightParen));
 
 // either a numeric literal or an expression between parentheses, (a + b + c).
 // We add the expression to the expresion stack instead of returning it.
 
-let pUnit = pNumber.pipe(
+const pUnit = pNumber.pipe(
     or(pParenExpr),
     each((result, state: MathState) => {
         state.exprs.push(result);
@@ -103,12 +106,11 @@ let pUnit = pNumber.pipe(
     between(whitespace())
 );
 
-
 // Parses a single operator and adds it to the expression stack.
 // Each time an operator is parsed, the expression stack is potentially reduced to create a partial AST.
-let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
+const pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
     each((op, state: MathState) => {
-        let operator = operators.filter(o => o.operator === op)[0];
+        const operator = operators.filter(o => o.operator === op)[0];
         reduceWithPrecedence(state.exprs, operator.precedence);
         state.exprs.push({
             ...operator,
@@ -122,21 +124,23 @@ let pOp = anyCharOf(operators.map(x => x.operator).join()).pipe(
 // In that case, each parenthesized expression should have a separate expression stack so we don't reduce unnecessary operators.
 // An isolated parser blanks out the user state and then restores it.
 
-pExpr.init(pUnit.pipe(
-    manySepBy(pOp),
-    map((x, state: MathState) => {
-        reduceWithPrecedence(state.exprs);
-        let expr = state.exprs[0] as Expression;
-        return expr;
-    }),
-    replaceState({})
-));
+pExpr.init(
+    pUnit.pipe(
+        manySepBy(pOp),
+        map((x, state: MathState) => {
+            reduceWithPrecedence(state.exprs);
+            const expr = state.exprs[0] as Expression;
+            return expr;
+        }),
+        replaceState({})
+    )
+);
 
-let result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
+const result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
     exprs: []
 });
 
-let printAst = (ast: Expression) => {
+const printAst = (ast: Expression) => {
     if (ast instanceof BinaryOperator) {
         return `${ast.operator}(${printAst(ast.left)}, ${printAst(ast.right)})`;
     } else if (ast instanceof NumericLiteral) {
@@ -144,10 +148,10 @@ let printAst = (ast: Expression) => {
     }
 };
 
-let evalAst = (ast: Expression) => {
+const evalAst = (ast: Expression) => {
     if (ast instanceof BinaryOperator) {
-        let vLeft = evalAst(ast.left);
-        let vRight = evalAst(ast.right);
+        const vLeft = evalAst(ast.left);
+        const vRight = evalAst(ast.right);
         switch (ast.operator) {
             case "+":
                 return vLeft + vRight;
@@ -164,4 +168,3 @@ let evalAst = (ast: Expression) => {
 };
 console.log(printAst(result.value));
 console.log(`Equals: ${evalAst(result.value)}`);
-

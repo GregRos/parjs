@@ -3,12 +3,12 @@
  */
 /** */
 
-import {Issues} from "../issues";
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {ParjsCombinator} from "../../index";
-import {defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
+import { Issues } from "../issues";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { ParjsCombinator } from "../../index";
+import { defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
 
 /**
  * Applies the source parser until it fails softly, and yields all of its results
@@ -16,20 +16,19 @@ import {ParjserBase} from "../parser";
  * @param maxIterations Optionally, the maximum number of times to apply
  * the source parser. Defaults to `Infinity`.
  */
-export function many<T>(maxIterations?: number)
-    : ParjsCombinator<T, T[]>;
+export function many<T>(maxIterations?: number): ParjsCombinator<T, T[]>;
 
 export function many(maxIterations = Infinity) {
     return defineCombinator(source => {
-        return new class Many extends ParjserBase {
+        return new (class Many extends ParjserBase {
             type = "many";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                let {position} = ps;
-                let arr = [] as any[];
+                let { position } = ps;
+                const arr = [] as any[];
                 let i = 0;
-                while (true) {
+                for (;;) {
                     source.apply(ps);
                     if (!ps.isOk) break;
                     if (i >= maxIterations) break;
@@ -48,7 +47,6 @@ export function many(maxIterations = Infinity) {
                 ps.position = position;
                 ps.kind = ResultKind.Ok;
             }
-
-        }();
+        })();
     });
 }

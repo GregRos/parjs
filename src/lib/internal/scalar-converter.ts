@@ -3,11 +3,10 @@
  *
  */ /** */
 
+import { Parjser } from "./parjser";
 
-import {Parjser} from "./parjser";
-
-import {string} from "./parsers/string";
-import {regexp} from "./parsers/regexp";
+import { string } from "./parsers/string";
+import { regexp } from "./parsers/regexp";
 
 /**
  * A {@link Parjser} or a literal value convertible to a {@link Parjser}.
@@ -25,7 +24,6 @@ export const convertibleSymbol = Symbol("ParjsConvertibleLiteral");
  */
 export interface ConvertibleScalar<T> {
     [convertibleSymbol](): Parjser<T>;
-
 }
 
 declare global {
@@ -48,7 +46,6 @@ export type ImplicitParjser<T> = Parjser<T> | ConvertibleScalar<T>;
  * A helper for working with implicit parsers.
  */
 export namespace ScalarConverter {
-
     /**
      * Normalizes scalars and Parjsers into Parjsers.
      * @param scalarOrParjser The literal or parjser.

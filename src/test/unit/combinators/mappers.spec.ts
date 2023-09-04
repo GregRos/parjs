@@ -1,20 +1,17 @@
+import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
+import { ResultKind } from "../../../lib/internal/result";
+import { string } from "../../../lib/internal";
+import { anyCharOf, eof, result, stringLen } from "../../../lib";
+import { each, map, stringify } from "../../../lib/combinators";
 
-import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {ResultKind} from "../../../lib/internal/result";
-import {ParjserBase, string} from "../../../lib/internal";
-import {anyCharOf, eof, result, stringLen} from "../../../lib";
-import {each, map, stringify} from "../../../lib/combinators";
-
-let goodInput = "abcd";
-let badInput = "";
-let uState = {};
-let loudParser = stringLen(4);
+const goodInput = "abcd";
+const badInput = "";
+const uState = {};
+const loudParser = stringLen(4);
 
 describe("map combinators", () => {
     describe("map", () => {
-        let parser = loudParser.pipe(
-            map(x => 1)
-        );
+        const parser = loudParser.pipe(map(() => 1));
         it("maps on success", () => {
             expectSuccess(parser.parse(goodInput, uState), 1);
         });
@@ -24,9 +21,7 @@ describe("map combinators", () => {
     });
 
     describe("cast", () => {
-        let parser = loudParser.pipe(
-            map(x => x as unknown as number)
-        );
+        const parser = loudParser.pipe(map(x => x as unknown as number));
         it("maps on success", () => {
             expectSuccess(parser.parse(goodInput), "abcd" as any);
         });
@@ -37,59 +32,44 @@ describe("map combinators", () => {
 
     describe("stringify", () => {
         it("quiet", () => {
-            let p = eof().pipe(
-                map(x => "")
-            );
+            const p = eof().pipe(map(() => ""));
             expectSuccess(p.parse(""), "");
         });
 
         it("array", () => {
-            let p = result(["a", "b", "c"]).pipe(
-                stringify()
-            );
+            const p = result(["a", "b", "c"]).pipe(stringify());
             expectSuccess(p.parse(""), "abc");
         });
 
         it("nested array", () => {
-            let p = result(["a", ["b", ["c"], "d"], "e"]).pipe(
-                stringify()
-            );
+            const p = result(["a", ["b", ["c"], "d"], "e"]).pipe(stringify());
             expectSuccess(p.parse(""), "abcde");
         });
 
         it("null", () => {
-            let p = result(null).pipe(
-                stringify()
-            );
+            const p = result(null).pipe(stringify());
             expectSuccess(p.parse(""), "null");
         });
 
         it("undefined", () => {
-            let p = result(undefined).pipe(
-                stringify()
-            );
+            const p = result(undefined).pipe(stringify());
             expectSuccess(p.parse(""), "undefined");
         });
 
         it("string", () => {
-            let p = string("a").pipe(
-                stringify()
-            );
+            const p = string("a").pipe(stringify());
             expectSuccess(p.parse("a"), "a");
         });
 
-
         it("object", () => {
-            let p = result({}).pipe(
-                stringify()
-            );
+            const p = result({}).pipe(stringify());
             expectSuccess(p.parse(""), {}.toString());
         });
     });
 
     describe("each", () => {
         let tally = "";
-        let p = anyCharOf("abc").pipe(
+        const p = anyCharOf("abc").pipe(
             each((result, state) => {
                 tally += result;
                 state.char = result;

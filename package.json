@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.12.7",
+  "version": "0.13.0",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "typings": "index",
@@ -9,8 +9,15 @@
   "scripts": {
     "test": "nyc node ./dist/test/runner.js",
     "build": "rm -rf dist/ && tsc",
+    "rebuild": "shx rm -rf dist/ && tsc",
     "docs": "node dist/generate-docs/run.js",
-    "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish"
+    "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
+    "eslint": "eslint 'src/**/*.ts'",
+    "eslint:fix": "eslint --fix src/**/*.ts",
+    "lint:fix": "run-s prettier:fix eslint:fix",
+    "lint:check": "run-s -c prettier eslint",
+    "prettier:fix": "prettier -w src/**/*.ts",
+    "prettier": "prettier --check 'src/**/*.ts'"
   },
   "keywords": [
     "parser",
@@ -25,31 +32,34 @@
   "author": "Greg Rosenbaum",
   "license": "MIT",
   "dependencies": {
-    "char-info": "^0.3.1",
-    "lodash": "^4.17.13"
+    "char-info": "^0.3.2",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@gregros/eslint-config": "^0.4.0",
     "@types/jasmine": "^3.3.0",
     "@types/lodash": "^4.14.104",
     "@types/node": "^10.12.9",
-    "codecov": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "6.5.0",
+    "@typescript-eslint/parser": "6.5.0",
+    "eslint": "8.48.0",
     "globby": "^9.2.0",
     "jasmine": "^3.3.0",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "^4.2.1",
+    "npm-run-all": "^4.1.5",
     "nyc": "^13.1.0",
+    "prettier": "3.0.3",
     "retarget-sourcemaps-after-move": "0.1.1",
     "shelljs": "^0.8.3",
+    "shx": "^0.3.4",
     "source-map": "^0.7.3",
     "source-map-support": "^0.5.9",
-    "tslint": "^5.17.0",
-    "tslint-config-gregros": "^1.2.1",
     "typedoc": "^0.15.0",
     "typedoc-plugin-example-tag": "^1.0.2",
     "typedoc-plugin-external-module-name": "^2.1.0",
     "typedoc-plugin-internal-external": "^2.0.2",
-    "typescript": "^3.5.1"
-
+    "typescript": "^5.2.2"
   },
   "optionalDependencies": {},
   "nyc": {

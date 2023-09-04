@@ -5,4 +5,4 @@
  * @preferred
  * */ /** */
 
-export {visualizeTrace, TraceVisualizer, TraceVisualizerArgs} from "./internal/trace-visualizer";
+export { visualizeTrace, TraceVisualizer, TraceVisualizerArgs } from "./internal/trace-visualizer";

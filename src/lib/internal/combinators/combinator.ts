@@ -1,8 +1,8 @@
 /** @module parjs/internal */ /** */
 
-import {ParjserBase} from "../parser";
-import {Parjser, ParjsCombinator, ImplicitParjser} from "../../index";
-import {ScalarConverter} from "../scalar-converter";
+import { ParjserBase } from "../parser";
+import { Parjser, ParjsCombinator, ImplicitParjser } from "../../index";
+import { ScalarConverter } from "../scalar-converter";
 
 /**
  * Represents the given function as a Parjs combinator.
@@ -10,7 +10,7 @@ import {ScalarConverter} from "../scalar-converter";
  */
 export function defineCombinator(f: (act: ParjserBase) => Parjser<any>) {
     return (x: ImplicitParjser<any>) => {
-        let resolved = ScalarConverter.convert(x);
+        const resolved = ScalarConverter.convert(x);
         return f(resolved as ParjserBase);
     };
 }
@@ -19,9 +19,7 @@ export function defineCombinator(f: (act: ParjserBase) => Parjser<any>) {
  * Creates a new combinator by composing a series of functions.
  * @param f1 A single function. It will be returned.
  */
-export function composeCombinator<A, B>(
-    f1: ParjsCombinator<A, B>
-): ParjsCombinator<A, B>;
+export function composeCombinator<A, B>(f1: ParjsCombinator<A, B>): ParjsCombinator<A, B>;
 
 /**
  * Creates a new combinator by composing a series of functions.
@@ -48,7 +46,7 @@ export function composeCombinator<A, B, C, D>(
 export function composeCombinator(...fs: ParjsCombinator<any, any>[]) {
     return x => {
         let last = x;
-        for (let f of fs) {
+        for (const f of fs) {
             last = f(last);
         }
         return last;
@@ -61,10 +59,7 @@ export function composeCombinator(...fs: ParjsCombinator<any, any>[]) {
  * @param source The source parser on which to apply the combinators.
  @param cmb1 The single combinator to apply.
  */
-export function pipe<T, T1>(
-    source: ImplicitParjser<T>,
-    cmb1: ParjsCombinator<T, T1>
-): Parjser<T1>;
+export function pipe<T, T1>(source: ImplicitParjser<T>, cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
 
 /**
  * The chaining or piping operator. Applies a sequence of combinators to
@@ -153,7 +148,7 @@ export function pipe<T, T1, T2, T3, T4, T5, T6>(
 
 export function pipe(source: any, ...funcs: ((x: any) => any)[]) {
     let last = ScalarConverter.convert(source);
-    for (let func of funcs) {
+    for (const func of funcs) {
         last = func(last);
     }
     return last;

@@ -3,14 +3,14 @@
  */
 /** */
 
-import {Issues} from "../issues";
-import {ParsingState, UserState} from "../state";
-import {ResultKind} from "../result";
-import {ImplicitParjser, ParjsCombinator} from "../../index";
-import {defineCombinator, pipe} from "./combinator";
-import {ParjserBase} from "../parser";
-import {ScalarConverter} from "../scalar-converter";
-import {qthen} from "./then";
+import { Issues } from "../issues";
+import { ParsingState, UserState } from "../state";
+import { ResultKind } from "../result";
+import { ImplicitParjser, ParjsCombinator } from "../../index";
+import { defineCombinator, pipe } from "./combinator";
+import { ParjserBase } from "../parser";
+import { ScalarConverter } from "../scalar-converter";
+import { qthen } from "./then";
 
 const defaultProjection = (sourceMatches, tillMatch, userState) => sourceMatches;
 
@@ -29,18 +29,18 @@ export function manyTill(
     till: ImplicitParjser<any>,
     pProject?: (source: any[], till: any, user: UserState) => any
 ) {
-    let tillResolved = ScalarConverter.convert(till) as any as ParjserBase;
-    let project = pProject || defaultProjection;
+    const tillResolved = ScalarConverter.convert(till) as any as ParjserBase;
+    const project = pProject || defaultProjection;
     return defineCombinator(source => {
-        return new class ManyTill extends ParjserBase {
+        return new (class ManyTill extends ParjserBase {
             type = "manyTill";
             expecting = `${source.expecting} or ${tillResolved.expecting}`;
 
             _apply(ps: ParsingState): void {
-                let {position} = ps;
-                let arr = [] as any[];
+                let { position } = ps;
+                const arr = [] as any[];
                 let successes = 0;
-                while (true) {
+                for (;;) {
                     tillResolved.apply(ps);
                     if (ps.isOk) {
                         break;
@@ -70,8 +70,7 @@ export function manyTill(
                 ps.value = project(arr, ps.value, ps.userState);
                 ps.kind = ResultKind.Ok;
             }
-
-        }();
+        })();
     });
 }
 
@@ -87,15 +86,8 @@ export function manyBetween<TSource, TTill = any, TResult = TSource[]>(
     pTill?: ImplicitParjser<TTill>,
     projection?: (sources: TSource[], till: TTill, state: UserState) => TResult
 ): ParjsCombinator<TSource, TResult> {
-    let till = pTill || start;
+    const till = pTill || start;
     return defineCombinator(source => {
-        return pipe(
-            start,
-            qthen(
-                source.pipe(
-                    manyTill(till, projection)
-                )
-            )
-        );
+        return pipe(start, qthen(source.pipe(manyTill(till, projection))));
     });
 }

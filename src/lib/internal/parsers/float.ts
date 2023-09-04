@@ -3,14 +3,14 @@
  */
 /** */
 
-import {AsciiCodes} from "char-info/ascii";
-import {NumericHelpers} from "./numeric-helpers";
-import {ResultKind} from "../result";
-import {ParsingState} from "../state";
+import { AsciiCodes } from "char-info/ascii";
+import { NumericHelpers } from "./numeric-helpers";
+import { ResultKind } from "../result";
+import { ParsingState } from "../state";
 
 import defaults from "lodash/defaults";
-import {ParjserBase} from "../parser";
-import {Parjser} from "../parjser";
+import { ParjserBase } from "../parser";
+import { Parjser } from "../parjser";
 
 /**
  * A set of options for parsing floating point numbers.
@@ -76,21 +76,22 @@ ISSUES:
  */
 export function float(options: Partial<FloatOptions> = defaultFloatOptions): Parjser<number> {
     options = defaults(options, defaultFloatOptions);
-    return new class Float extends ParjserBase {
+    return new (class Float extends ParjserBase {
         type = "float";
         expecting = "expecting a floating-point number";
 
         _apply(ps: ParsingState): void {
-
-            let {allowSign, allowFloatingPoint, allowImplicitZero, allowExponent} = options;
-            let {position, input} = ps;
+            const { allowSign, allowFloatingPoint, allowImplicitZero, allowExponent } = options;
+            const { position, input } = ps;
             if (position >= input.length) {
                 ps.kind = ResultKind.SoftFail;
                 return;
             }
-            let initPos = position;
+            const initPos = position;
             let sign = 1;
-            let hasSign = false, hasWhole = false, hasFraction = false;
+            let hasSign = false,
+                hasWhole = false,
+                hasFraction = false;
             if (allowSign) {
                 // try parse a sign
                 sign = NumericHelpers.parseSign(ps);
@@ -118,7 +119,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                 if (allowFloatingPoint && nextChar === AsciiCodes.decimalPoint) {
                     // skip to the char after the decimal point
                     ps.position++;
-                    let prevFractionalPos = ps.position;
+                    const prevFractionalPos = ps.position;
                     // parse the fractional part
                     NumericHelpers.parseDigitsInBase(ps, 10);
                     hasFraction = prevFractionalPos !== ps.position;
@@ -144,13 +145,13 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                 // if we do allow floating point, then the previous block would've consumed some characters.
                 if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
                     ps.position++;
-                    let expSign = NumericHelpers.parseSign(ps);
+                    const expSign = NumericHelpers.parseSign(ps);
                     if (expSign === 0) {
                         ps.kind = ResultKind.HardFail;
                         ps.reason = msgExponentSign;
                         return;
                     }
-                    let prevFractionalPos = ps.position;
+                    const prevFractionalPos = ps.position;
                     NumericHelpers.parseDigitsInBase(ps, 10);
                     if (ps.position === prevFractionalPos) {
                         // we parsed e+ but we did not parse any digits.
@@ -163,6 +164,5 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
             ps.kind = ResultKind.Ok;
             ps.value = parseFloat(input.substring(initPos, ps.position));
         }
-
-    }();
+    })();
 }

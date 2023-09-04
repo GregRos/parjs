@@ -3,23 +3,23 @@
  */
 /** */
 
-import {ResultKind} from "../result";
-import {ParsingState} from "../state";
-import {ParjsCombinator} from "../../";
+import { ResultKind } from "../result";
+import { ParsingState } from "../state";
+import { ParjsCombinator } from "../../";
 
-import {defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
+import { defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
 
 /**
  * Applies the source parser. Succeeds if if it fails softly, and fails otherwise.
  */
 export function not(): ParjsCombinator<any, void> {
     return defineCombinator(source => {
-        return new class Not extends ParjserBase {
+        return new (class Not extends ParjserBase {
             type = "not";
             expecting = `not expecting: ${source.expecting}`; // TODO: better reason
             _apply(ps: ParsingState): void {
-                let {position} = ps;
+                const { position } = ps;
                 source.apply(ps);
                 if (ps.isOk) {
                     ps.position = position;
@@ -32,7 +32,6 @@ export function not(): ParjsCombinator<any, void> {
                 }
                 // the remaining case is a fatal failure that isn't recovered from.
             }
-
-        }();
+        })();
     });
 }

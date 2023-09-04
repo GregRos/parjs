@@ -3,17 +3,17 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
 
-import {Parjser} from "../parjser";
-import {ParjserBase} from "../parser";
+import { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
 
 /**
  * Returns a parser that yields the current user state object. It always succeeds.
  */
 export function state(): Parjser<any> {
-    return new class State extends ParjserBase {
+    return new (class State extends ParjserBase {
         type = "state";
         expecting = "expecting anything";
 
@@ -21,6 +21,5 @@ export function state(): Parjser<any> {
             ps.value = ps.userState;
             ps.kind = ResultKind.Ok;
         }
-
-    }();
+    })();
 }

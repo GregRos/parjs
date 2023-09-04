@@ -2,10 +2,9 @@
  * @module parjs
  */ /** */
 
-
-import {FailureInfo, ParjsResult} from "./result";
-import {UserState} from "./state";
-import {ImplicitParjser} from "./scalar-converter";
+import { FailureInfo, ParjsResult } from "./result";
+import { UserState } from "./state";
+import { ImplicitParjser } from "./scalar-converter";
 
 /**
  * A combinator or operator that takes a source parser that returns a new parser
@@ -51,16 +50,14 @@ export interface Parjser<T> {
      *
      * @group action
      */
-    parse(input: string, initialState ?: UserState): ParjsResult<T>;
+    parse(input: string, initialState?: UserState): ParjsResult<T>;
 
     /**
      * The chaining or piping operator. Applies a sequence of combinators to
      * this parser, feeding the result of one into the input of the next.
      * @param cmb1 The single combinator to apply.
      */
-    pipe<T1>(
-        cmb1: ParjsCombinator<T, T1>
-    ): Parjser<T1>;
+    pipe<T1>(cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
 
     /**
      * The chaining or piping operator. Applies a sequence of combinators to
@@ -68,10 +65,7 @@ export interface Parjser<T> {
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      */
-    pipe<T1, T2>(
-        cmb1: ParjsCombinator<T, T1>,
-        cmb2: ParjsCombinator<T1, T2>
-    ): Parjser<T2>;
+    pipe<T1, T2>(cmb1: ParjsCombinator<T, T1>, cmb2: ParjsCombinator<T1, T2>): Parjser<T2>;
 
     /**
      * The chaining or piping operator. Applies a sequence of combinators to
@@ -136,5 +130,4 @@ export interface Parjser<T> {
         cmb5: ParjsCombinator<T4, T5>,
         cmb6: ParjsCombinator<T5, T6>
     ): Parjser<T6>;
-
 }

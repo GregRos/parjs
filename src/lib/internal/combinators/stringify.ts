@@ -3,19 +3,19 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {StringHelpers} from "../functions/helpers";
-import {ParjsCombinator} from "../../index";
+import { ParsingState } from "../state";
+import { StringHelpers } from "../functions/helpers";
+import { ParjsCombinator } from "../../index";
 
-import {defineCombinator} from "./combinator";
-import {ParjserBase} from "../parser";
+import { defineCombinator } from "./combinator";
+import { ParjserBase } from "../parser";
 
 /**
  * Applies the source parser and yields a stringified result.
  */
 export function stringify(): ParjsCombinator<any, string> {
     return defineCombinator(source => {
-        return new class Str extends ParjserBase {
+        return new (class Str extends ParjserBase {
             type = "stringify";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {
@@ -23,10 +23,9 @@ export function stringify(): ParjsCombinator<any, string> {
                 if (!ps.isOk) {
                     return;
                 }
-                let {value} = ps;
-                let typeStr = typeof value;
+                const { value } = ps;
+                const typeStr = typeof value;
                 if (typeStr === "string") {
-
                 } else if (value === null || value === undefined) {
                     ps.value = String(value);
                 } else if (value instanceof Array) {
@@ -37,7 +36,6 @@ export function stringify(): ParjsCombinator<any, string> {
                     ps.value = value.toString();
                 }
             }
-
-        }();
+        })();
     });
 }

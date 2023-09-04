@@ -1,23 +1,23 @@
-import {ParjsFailure, ResultKind, ParjsSuccess} from "../../lib/internal/result";
-import {expectFailure} from "../helpers/custom-matchers";
-import {anyChar} from "../../lib/internal/parsers";
+import { ParjsFailure, ResultKind, ParjsSuccess } from "../../lib/internal/result";
+import { expectFailure } from "../helpers/custom-matchers";
+import { anyChar } from "../../lib/internal/parsers";
 
 describe("basics: anyChar example", () => {
-    let parser = anyChar();
-    let successInput = "a";
-    let tooMuchInput = "ab";
-    let failInput = "";
-    let uniqueState = {};
+    const parser = anyChar();
+    const successInput = "a";
+    const tooMuchInput = "ab";
+    const failInput = "";
+    const uniqueState = {};
     it("single char input success", () => {
-        let result = parser.parse(successInput, uniqueState) as ParjsSuccess<string>;
+        parser.parse(successInput, uniqueState) as ParjsSuccess<string>;
     });
     it("empty input failure", () => {
-        let result = parser.parse(failInput, uniqueState) as ParjsFailure;
+        const result = parser.parse(failInput, uniqueState) as ParjsFailure;
         expectFailure(result, ResultKind.SoftFail);
     });
 
     it("fails on too much input", () => {
-        let result = parser.parse(tooMuchInput);
+        const result = parser.parse(tooMuchInput);
         expectFailure(result, ResultKind.SoftFail);
     });
 

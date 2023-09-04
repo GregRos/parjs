@@ -3,10 +3,10 @@
  */
 /** */
 
-import {ParsingState} from "../state";
-import {ResultKind} from "../result";
-import {Parjser} from "../parjser";
-import {ParjserBase} from "../parser";
+import { ParsingState } from "../state";
+import { ResultKind } from "../result";
+import { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
 
 /**
  * Returns a parser that will try to match the regular expression at the current
@@ -16,16 +16,17 @@ import {ParjserBase} from "../parser";
  * @param origRegexp
  */
 export function regexp(origRegexp: RegExp): Parjser<string[]> {
-    let flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"].filter(x => x).join("");
-    let regexp = new RegExp(origRegexp.source, `${flags}y`);
-    this.reason = `expecting input matching /${origRegexp.source}/`;
-    return new class Regexp extends ParjserBase {
+    const flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"]
+        .filter(x => x)
+        .join("");
+    const regexp = new RegExp(origRegexp.source, `${flags}y`);
+    return new (class Regexp extends ParjserBase {
         type = "regexp";
         expecting = `expecting input matching '${regexp.source}'`;
         _apply(ps: ParsingState) {
-            let {input, position} = ps;
+            const { input, position } = ps;
             regexp.lastIndex = position;
-            let match = regexp.exec(input);
+            const match = regexp.exec(input);
             if (!match) {
                 ps.kind = ResultKind.SoftFail;
                 return;
@@ -34,5 +35,5 @@ export function regexp(origRegexp: RegExp): Parjser<string[]> {
             ps.value = match.slice();
             ps.kind = ResultKind.Ok;
         }
-    }();
+    })();
 }

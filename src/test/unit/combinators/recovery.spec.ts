@@ -1,42 +1,39 @@
-
-import {expectFailure, expectSuccess} from "../../helpers/custom-matchers";
-import {Parjser} from "../../../lib/internal/parjser";
-import {ResultKind} from "../../../lib/internal/result";
-import {string, fail, rest} from "../../../lib/internal/parsers";
-import {mapConst, maybe, not, or, qthen, recover, stringify, then} from "../../../lib/combinators";
-
+import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
+import { ResultKind } from "../../../lib/internal/result";
+import { string, fail, rest } from "../../../lib/internal/parsers";
+import {
+    mapConst,
+    maybe,
+    not,
+    or,
+    qthen,
+    recover,
+    stringify,
+    then
+} from "../../../lib/combinators";
 
 describe("maybe combinator", () => {
     it("works", () => {
-        let p = string("a");
-        let m = p.pipe(
-            maybe()
-        );
+        const p = string("a");
+        const m = p.pipe(maybe());
         expectSuccess(m.parse("a"));
         expectSuccess(m.parse(""));
     });
 
     it("causes progress on success", () => {
-        let p = string("abc").pipe(
-            maybe(),
-            qthen("123")
-        );
+        const p = string("abc").pipe(maybe(), qthen("123"));
         expectSuccess(p.parse("abc123"), "123");
     });
 
     it("propagates hard failure", () => {
-        let p = fail().pipe(
-            maybe()
-        );
+        const p = fail().pipe(maybe());
         expectFailure(p.parse(""), ResultKind.HardFail);
     });
 });
 
 describe("or combinator", () => {
     describe("loud or loud", () => {
-        let parser = string("ab").pipe(
-            or("cd")
-        );
+        const parser = string("ab").pipe(or("cd"));
         it("succeeds parsing 1st option", () => {
             expectSuccess(parser.parse("ab"), "ab");
         });
@@ -47,20 +44,19 @@ describe("or combinator", () => {
             expectFailure(parser.parse("ef"), ResultKind.SoftFail);
         });
         it("fails hard when 1st fails hard", () => {
-            let parser2 = fail({
+            const parser2 = fail({
                 reason: "fail",
                 kind: ResultKind.HardFail
-            }).pipe(
-                mapConst("x"),
-                or("ab")
-            );
+            }).pipe(mapConst("x"), or("ab"));
             expectFailure(parser2.parse("ab"), ResultKind.HardFail);
         });
-        let parser2 = string("ab").pipe(
-            or(fail({
-                reason: "x",
-                kind: "Hard"
-            }))
+        const parser2 = string("ab").pipe(
+            or(
+                fail({
+                    reason: "x",
+                    kind: "Hard"
+                })
+            )
         );
         it("succeeds with 2nd would've failed hard", () => {
             expectSuccess(parser2.parse("ab"), "ab");
@@ -72,16 +68,9 @@ describe("or combinator", () => {
 });
 
 describe("or val combinator", () => {
-    let parser = string("a").pipe(
-        then("b"),
-        stringify(),
-        maybe("c")
-    );
+    const parser = string("a").pipe(then("b"), stringify(), maybe("c"));
 
-    let p2 = string("a").pipe(
-        maybe(0),
-        then("b")
-    );
+    const p2 = string("a").pipe(maybe(0), then("b"));
     it("succeeds to parse", () => {
         expectSuccess(parser.parse("ab"), "ab");
     });
@@ -95,36 +84,28 @@ describe("or val combinator", () => {
     });
 
     it("falsy alt value", () => {
-        let result = p2.parse("b");
+        const result = p2.parse("b");
         expectSuccess(result, [0, "b"]);
     });
 });
 
 describe("not combinator", () => {
-    let parser = string("a").pipe(
-        then("b"),
-        stringify(),
-        not()
-    );
+    const parser = string("a").pipe(then("b"), stringify(), not());
     it("succeeds on empty input/soft fail", () => {
         expectSuccess(parser.parse(""), undefined);
     });
     it("succeeds on hard fail if we take care of the rest", () => {
-        let parser2 = parser.pipe(
-            then(rest())
-        );
+        const parser2 = parser.pipe(then(rest()));
         expectSuccess(parser2.parse("a"));
     });
     it("soft fails on passing input", () => {
         expectFailure(parser.parse("ab"), ResultKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = fail({
+        const parser2 = fail({
             kind: "Fatal",
             reason: "fatal"
-        }).pipe(
-            not()
-        );
+        }).pipe(not());
         expectFailure(parser2.parse(""), ResultKind.FatalFail);
     });
     it("fails on too much input", () => {
@@ -133,10 +114,10 @@ describe("not combinator", () => {
 });
 
 describe("soft combinator", () => {
-    let parser = string("a").pipe(
+    const parser = string("a").pipe(
         then("b"),
         stringify(),
-        recover(x => ({kind: "Soft"}))
+        recover(() => ({ kind: "Soft" }))
     );
     it("succeeds", () => {
         expectSuccess(parser.parse("ab"), "ab");
@@ -148,11 +129,9 @@ describe("soft combinator", () => {
         expectFailure(parser.parse("a"), ResultKind.SoftFail);
     });
     it("fails fatally on fatal fail", () => {
-        let parser2 = fail({
+        const parser2 = fail({
             kind: "Fatal"
-        }).pipe(
-            recover(x => ({kind: "Soft"}))
-        );
+        }).pipe(recover(() => ({ kind: "Soft" })));
         expectFailure(parser2.parse(""), ResultKind.FatalFail);
     });
 });

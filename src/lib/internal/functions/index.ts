@@ -2,4 +2,4 @@
  * @external a
  *
  */ /** */
-export {StringHelpers} from "./helpers";
+export { StringHelpers } from "./helpers";
