@@ -1,11 +1,31 @@
 {
   "name": "parjs",
-  "version": "0.13.0",
+  "version": "0.13.0-test",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
-  "typings": "index",
+  "exports": {
+    ".": {
+      "require": "./dist/lib/index.js",
+      "import": "./dist/lib/index.js",
+      "default": "./dist/lib/index.js",
+      "types": "./dist/lib/index.d.ts"
+    },
+    "./combinators": {
+      "require": "./dist/lib/combinators.js",
+      "import": "./dist/lib/combinators.js",
+      "default": "./dist/lib/combinators.js",
+      "types": "./dist/lib/combinators.d.ts"
+    },
+    "./internal": {
+      "require": "./dist/lib/internal.js",
+      "import": "./dist/lib/internal.js",
+      "default": "./dist/lib/internal.js",
+      "types": "./dist/lib/internal.d.ts"
+    }
+  },
+  "typings": "dist/lib/index",
   "description": "A parser-combinator library for JavaScript.",
-  "main": "index.js",
+  "main": "dist/lib/index.js",
   "scripts": {
     "test": "nyc node ./dist/test/runner.js",
     "build": "rm -rf dist/ && tsc",
@@ -55,10 +75,8 @@
     "shx": "^0.3.4",
     "source-map": "^0.7.3",
     "source-map-support": "^0.5.9",
-    "typedoc": "^0.15.0",
-    "typedoc-plugin-example-tag": "^1.0.2",
-    "typedoc-plugin-external-module-name": "^2.1.0",
-    "typedoc-plugin-internal-external": "^2.0.2",
+    "typedoc": "^0.25.0",
+    "typedoc-plugin-internal-external": "^2.2.0",
     "typescript": "^5.2.2"
   },
   "optionalDependencies": {},

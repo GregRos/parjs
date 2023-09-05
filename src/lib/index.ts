@@ -1,16 +1,13 @@
 /**
  * Building-block parsers.
+ * @example
+ * import { string, anyChar, anyStringOf } from "parjs";
  * @module parjs
  * @preferred
  */ /** iooi*/
 
-
-export { UserState, ParsingState } from "./internal/state";
-export { Parjser, ParjsCombinator, ParjsProjection, ParjsValidator } from "./internal/parjser";
-
-export { ResultKind, ParjsResult } from "./internal/result";
-
 export {
+    ResultKind,
     anyStringOf,
     stringLen,
     string,
@@ -43,8 +40,20 @@ export {
     digit,
     uniDecimal,
     uniLower,
-    uniUpper
-} from "./internal/parsers";
-
+    uniUpper,
+    ParjsResult,
+    ParjsSuccess,
+    Parjser,
+    ParjsCombinator,
+    ParjsProjection,
+    ParjsValidator,
+    UserState,
+    SuccessInfo,
+    ParjsFailure,
+    FailureInfo,
+    ErrorLocation,
+    Trace
+} from "./internal/index";
+export { ParjsError, ParjsParsingFailure, ParserDefinitionError } from "./errors";
 export { ImplicitParjser } from "./internal/scalar-converter";
 export { ConvertibleScalar } from "./internal/scalar-converter";

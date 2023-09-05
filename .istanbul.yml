@@ -9,3 +9,5 @@ instrumentation:
     - "**/functions/**" #many indicators are not utilized so let's ignore them.
     - "**/implementation/issues.js" #contains things like exception throws, not executable code
     - "**/basics/result.js" #should not be instrumented
+    - ".obsidian/**" #not executable code
+    - ".github/**" #not executable code

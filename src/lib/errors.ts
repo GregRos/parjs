@@ -1,8 +1,7 @@
 /**
  * Errors thrown by Parjs.
  *
- * @module parjs/errors
- * @preferred
+ * @module parjs
  *
  *
  */

@@ -1,8 +1,8 @@
-import { string, whitespace } from "../../lib/internal/parsers";
+import { string, whitespace } from "../../lib";
 import { exactly, manySepBy, then } from "../../lib/combinators";
 import _ = require("lodash");
-import { ParjsFailure } from "../../lib/internal/result";
-import { visualizeTrace } from "../../lib/trace";
+import { ParjsFailure } from "../../lib";
+import { visualizeTrace } from "../../lib/internal/trace-visualizer";
 
 describe("trace", () => {
     string("a").pipe(manySepBy(whitespace()));

@@ -1,4 +1,4 @@
-# Parjs - Parser Combinator Library
+# Parjs
 
 [![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
 [![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
@@ -6,385 +6,283 @@
 
 [API Documentation](https://parjs.netlify.com/)
 
-Parjs is a JavaScript library of parser combinators, similar in principle and in design to the likes of [Parsec](https://wiki.haskell.org/Parsec) and in particular its F# adaptation [FParsec](http://www.quanttec.com/fparsec/).
+Parjs a parser combinator library inspired by [Parsec](https://wiki.haskell.org/Parsec) and [FParsec](http://www.quanttec.com/fparsec/) (its F# adaptation), and written in TypeScript.
 
-Parjs was originally meant to be pronounced *"Paris"*, because the *j* kind'a looks like an *i*, but I just kept calling it *par-js* in my head anyway, so make of that what you will.
+```bash
+yarn add parjs
+```
 
-It's also similar to the [parsimmon](https://github.com/jneen/parsimmon) library, but intends to be superior to it. Some of its features:
+🍕 Lots of parsers!
 
-1. Many more combinators and basic parsers.
-2. Support for parsing Unicode characters.
-3. Written in TypeScript with ES6 features.
-4. Systematically documented.
-5. Advanced debugging features and ability to parse very complex languages.
+⚙️ Lots of combinators!
 
-Parjs is written in TypeScript, using features of ES6+ such as classes, getter/setters, and other things. It's designed to be used from TypeScript too, but that's not necessary.
+💎 Lots of immutability!
 
-Starting from version 0.12.0, Parjs is written to leverage [tree-shaking][tree-shaking]. If you don't use something in the library, it won't be inserted into your bundle. This includes the Unicode parsers. They're pretty heavy.
+🔍 Systematically documented!
 
-Parjs parsers are called "Parjsers". I'm not sure how to pronounce that either.
+🧐 Debugging features!
 
-## Parjs 0.12.0
+## What is it?
+**PROTIP:** 🍕 is the universal symbol for *parser*.
 
-I decided to make lots of changes to the library, including refactoring lots of code, renaming things, and redesigning the API to support things like tree shaking. I started this library when I had less experience, so after a few years I think I can make some cool improvements.
+Parser combinator libraries let you construct parsers from small parsers and combinators that transform those parsers by, for example, applying a parser multiple times in a row.
 
-I've been seeing more and more stars and views recently, so I was thinking this might be the last time I can do something like this.
+For example, you could have **a** parser `🍕"fi"` that parses the string `fi` and a combinator `⚙️exactly 2` that applies a parser exactly two times. Combining them lets you parse the string `fifi`!
 
-Some major things that have been changed:
+```typescript
+// 🍕string "fi" ➜ ⚙️exactly 2
+string("fi").pipe(
+    exactly(2)
+)
+```
 
-- No quiet parsers that don't return values. Now all parsers return values. This seemed like a nice feature in my head, but turned out to cause difficulties down the road.
-- Combinators use a `pipe` method and function operators instead of instance methods. See more on this below.
-- Names for some types and objects.
-
-If you want to use the previous version with the old API, you can install `parjs@pre-0.12.0`. 
-
-## Example Parsers
-
-You can see implementations of example parsers in the `examples` folder:
-
-1. [Tuple Parser](https://github.com/GregRos/parjs/blob/master/src/examples/tuple.ts) 
-2. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
-3. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
-
-## What's a parser-combinator library?
-
-It's a library for building complex parsers out of smaller, simpler ones. It also provides a set of those simpler building block parsers.
-
-For example, if you have a parser `digit` for parsing decimal digits, you can parse a number by applying `digit` multiple times until it fails, and then producing the consumed text as a result. Then you can use another *combinator*  to convert the result to a number.
-
-By combining different parsers in different ways, you can construct parsers for arbitrary expressions and languages.
-
-Here is how you might construct a parser for text in the form `(a, b, c, ...)` where `a, b, c` are floating point numbers. One feature of the expression is that arbitrary amounts of whitespace are allowed in between the numbers.
+Here is an example that constructs a parser that parses n-tuples of numbers like `(12.5, -1, 2)`, which is impossible using other parsing techniques<sup>citation needed</sup>.
 
 ```typescript
 import {float, string, whitespace} from "parjs";
 import {between, manySepBy} from "parjs/combinators"
 
-// Built-in building block parser for floating point numbers.
-let tupleElement = float();
+// 🍕float
+//  Parses a floating point number
+const tupleElement = float();
 
-// Allow whitespace around elements:
-let paddedElement = tupleElement.pipe(
+//  🍕float ➜ ⚙️between 🍕whitespace
+//  Parses a float between whitespace
+const paddedElement = tupleElement.pipe(
     between(whitespace())
 );
 
-// Multiple instances of {paddedElement}, separated by a comma:
-let separated = paddedElement.pipe(
+//  🍕float ➜ ⚙️between 🍕whitespace ➜ 
+//  ⚙️until fails, separated by 🍕"," 
+//  Parses many floats between whitespace, separated by commas.
+const separated = paddedElement.pipe(
     manySepBy(",")
 );
 
-// Surround everything with parentheses:
-let surrounded = separated.pipe(
+//  🍕float ➜ ⚙️between 🍕whitespace ➜ 
+//  ⚙️until fails, separated by 🍕"," ➜ ⚙️between 🍕"(" and 🍕")"
+//  Parses many floats separated by commas and surrounded by parens.
+const surrounded = separated.pipe(
     between("(", ")")
 );
 
-// Prints [1, 2, 3]:
+//  Parses the string and print [1, 2, 3]
 console.log(surrounded.parse("(1,  2 , 3 )"));
 ```
 
-In the above example, `float`, `string`, and `whitespace` are building-block parsers that parse certain kinds of text, and `between` and `manySepBy` are *combinators*, which take those parsers and apply them in different ways.
+Here are some more cool examples:
 
-## What can you use it for?
+1. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
+2. [Math Expression Parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
 
-Parsing, generally. You can parse all sorts of things:
+## How does it work?
+Parsers are called on an input via the `parse(input)` method and return a `result` object. 
 
-1. A custom DSL specifying an algorithm for chicken counting.
-2. Your own flavor of markdown, just to make things even more confusing.
-3. A custom data-interchange format inspired by chess notation.
+Parsers that succeed return some kind of value. While basic parsers return the parsed input (always a string), combinators (such as `map`) let you change the returned value to pretty much anything. It’s normal to use this feature to return an AST, the result of a calculation, and so on. 
 
-The possibilities are limitless.
-
-Since it's written in JavaScript, it can be used in web environments.
-
-### Installing
-
-```bash
-# yarn:
-yarn add parjs
-
-# npm:
-npm install parjs --save
-```
-
-## What's this weird `pipe` method?
-
-Prior to version 0.12.0, `parjs` implemented combinators as instance methods. This is nice, but has downsides:
-
-1. It's less convenient to add your own combinators, since that required modifying the prototype.
-2. More importantly, it makes [tree-shaking][tree-shaking] impossible. So even if you don't use one of the combinators, you still have to put it into your bundle. This is a big deal for web environments.
-
-Parjs makes the same move as [rxjs][rxjs], another much more popular library of combinators (though a different kind) and introduces an API based on higher-order function operators, what rxjs calls [lettable operators](lettable-operators). 
-
-Each parser supports one key prototype method: `pipe`, and this method accepts a chain of functions that feed into each other, transforming the original, source parser.
-
-These transformations are created by calling other functions and giving them various arguments. For example, the factory function for the `map` combinator looks like this:
+If parsing succeeded, you can access the `result.value` property to get the return value. 
 
 ```typescript
-function map<A, B>(projection: (x: A) => B): ParjsCombinator<A, B>
+const parser = string("hello world").pipe(
+	map(text => text.length)
+)
+const result = parser.parse("hello world")
+assert(result.value === 11)
 ```
 
-Where:
+However, doing this if parsing failed throws an exception. To check if parsing succeeded or not, use the `isOkay` property. 
+
+You can also use `toString` to get a textual description of the result.
 
 ```typescript
-type ParjsCombinator<A, B> = (source: Parjser<A>) => Parjser<B>;
-```
-
-So it's a function that returns another function. Here is how it's used in practice:
-
-```typescript
-import {map} from "parjs/combinators";
-import {string} from "parjs";
-
-const parser = string("test").pipe(
-    map(result => result.length)
-);
-```
-
-In most ways, this API is identical to the prototype-based API. Instead of writing `parser.map(f)`, you write `parser.pipe(map(f))`. This is more long-winded, but the benefits outweigh the drawbacks.
-
-### Using combinators like regular functions
-
-You don't really have to use the `.pipe` method. Combinators are just functions that return functions, and you can call the combinator and the function it creates in a single expression. For example:
-
-```typescript
-let hiOrHello = or("hi")("hello");
-```
-
-## Import paths
-
-- `"parjs"` - here you will find the building-block parsers and no combinators. Also, commonly used types if you're working from TypeScript.
-- `"parjs/combinators"` - here you will find combinators, the stuff you give the `pipe` method.
-- `"parjs/errors"` - here are some error types `parjs` can throw.
-- `"parjs/trace"` - Visualizing parser failures.
-- `"parjs/internal"` - here be dragons. See "creating custom parsers" from more details.
-
-## Parsing Unicode
-
-Parjs can parse Unicode characters in the BMP (Basic Multilingual Plane), which includes all but the most exotic of characters. This is done using the [`char-info`][char-info] package of character recognizers.
-
-Parsers such as `upper()` only parse the ASCII subset of Unicode. Only parsers with names beginning with `uni`, such as `uniUpper()`, parse all Unicode characters. These parsers are inherently slower, because each character needs to be looked up in a tree-like data structure.
-
-Parjs supports tree-shaking, so if you have this feature enabled, it will only embed Unicode data into your bundle if you use the Unicode features.
-
-If you want to parse characters from specific scripts or with other special properties, you should import the `char-info` package yourself.
-
-## Implicit parsers
-
-Combinators that accept parsers as parameters can be given a literal instead. Two types of literals are supported:
-
-1. A string.
-2. A regular expression.
-
-These literals are automatically converted to parsers that parse them, using the `string` and `regexp` parsers, respectively. So while it is clearer to write:
-
-```typescript
-let p = string("a").pipe(
-    then(string("b"))
-);
-```
-
-You can simply write:
-
-```typescript
-let p = string("a").pipe(
-    then("b")
-);
-```
-
-And your code will behave the same way.
-
-## Immutability
-
-Parjs parsers are functionally immutable. That is, once a Parjser is created, it will always do the same thing, whether it's applied for the first or tenth time. Some things, like non-functional metadata, may be subject to change though.
-
-This allows you to write such idiomatic code as:
-
-```typescript
-let myString = string("my personal string");
-let variant1 = myString.pipe(
-    then(" is okay.")
-);
-let variant2 = myString.pipe(
-    then(" is the best.")
-);
-```
-
-If `myString` changed when it parsed something, it would influence both `variant1` and `variant2`, which is obviously undesirable.
-
-## Success and failure
-
-When the `.parse` method of a Parjser you get a result which can indicate either success or failure. You can tell these apart using the `.kind` property, or using the shorthand `.isOkay`:
-
-```typescript
-let result = parser.parse("hello");
-
-// true if result.kind === "OK"
+const result2 = parser.parse("hello wrld")
 if (result.isOkay) {
-    // it succeeded
+    console.log(result.value)
 } else {
-    // result.kind === "Soft", "Hard", "Fatal"
+    console.log(result.toString())
+    // Soft failure at Ln 1 Col 1
+	// 1 | hello wrld
+	//     ^expecting 'hello world'
+	// Stack: string
 }
 
 ```
+### Dealing with failure
+Dealing with failure is hard, whether you’re realizing you can never be a father, or whether you’re a parser combinator library. You need to be able to signal syntax errors to the user, but also be capable of parsing alternative expressions.
 
-You can get the parser's return value by using the `.value` property of the result object, but it will throw an error if the object is a failure.
+`parjs` handles it by using the SHF or 😕😬💀 system, which I just made up. It recognizes three kinds of failures:
+
+😕 **S**oft failures — A parser quickly says it’s not applicable to the input. Used to parse alternative inputs.
+😬 **H**ard failures — Parsing failed unexpectedly. Can only be handled by special combinators. 
+💀 **F**atal failure — Happen when you decide and tell the parser to [halt and catch fire](https://en.wikipedia.org/wiki/Halt_and_Catch_Fire_(computing)). They can’t be handled.
+
+Parsing failures bubble up through combinators unless they’re handled, just like exceptions. Handling a failure always means backtracking to before it happened.
+
+Some combinators can upgrade soft failures to hard ones (if it says so in their documentation).
+
+Failing to parse something is a common occurrence and not exceptional in the slightest. As such, `parjs` won’t throw an exception when this happens. Instead, it will only throw exceptions if you used it incorrectly or there is a bug.
+
+The `result` object mentioned earlier also gives the failure type via its `kind` property. It can be `OK`, `Soft`, `Hard`, or `Fatal`.
 
 ```typescript
-let finalResult = result.value;
+console.log(result.kind) // "Soft"
 ```
 
-Failures have the extra property `trace` which gives you a trace of where the failure happened, which parser caused it, and other information you can use to diagnose it. 
+#### The `reason` field
+The parsing result also includes the important `reason` field which says why parsing failed and usually what input was expected.
+
+This text appears after the `^` character in the visualization, but can also be used elsewhere. It can be specified explicitly in some cases, but will usually come from the parser’s `expecting` property.
+
+#### 😕 **S**oft failures
+>A parser quickly says it’s not applicable to the input.
+
+You can recover from soft failures by backtracking a constant amount. These failures are used to parse alternative inputs using lots of different combinators, like `or`:
 
 ```typescript
-let {
-    trace,
-    reason,
-    kind,
-} = result;
+// 🍕"hello" ➜ ⚙️or 🍕"goodbye" ➜ ⚙️or 🍕"blort"
+// Parses any of the strings, "hello", "goodbye", or "blort"
+const parser = string("hello").pipe(
+	or("goodbye"),
+	or("blort")
+)
 ```
+#### 😬 Hard failure
+> An unexpected failure that usually indicates a syntax error.
 
-The `trace` property contains a detailed object with a trace of parsers that led to the failure, the location of the failure, and more. 
+Hard failures usually indicate unexpected input, such as a syntax error. These failures bubble up through multiple parsers and recovering from them can involve backtracking any number of characters.
 
-This information is used when you stringify a failed result object with `.toString()`:
+Most hard failures were soft failures in an internal parser that weren’t handled, and got upgraded by a combinator. After this happens, combinators like `⚙️or` that recover from soft failures no longer work.
 
-```typescript
-console.log(result.toString());
-// Soft failure at Ln 1 Col 1
-// 1 | hello!
-//     ^expecting 'hi'
-// Stack: string
-```
-
-### Failure types
-
-There are several failure types recognized by the library. They're used for different purposes that can drastically change how a parser behaves. From least to most severe, they are:
-
-1. Soft failure
-2. Hard failure
-3. Fatal failure
-
-Different failure types let you accept alternative inputs while not swallowing important syntax errors and not backtracking too much.
-
-Failure bubbles up the parser tree until a parser can handle it, like an exception does. Parsers that deal with Soft failures will usually not handle Hard ones.
-
-#### Soft failure
-
-A parser fails softly if it receives input which it immediately sees as inappropriate. 
-
-This kind of failure allows alternative parser combinators like the `or` combinators to work. The `or` combinator looks like this:
+Sequential combinators tend to do this a lot if a parser fails late in the sequence. For example:
 
 ```typescript
-let option1 = string("a");
-let option2 = string("b");
-let either = option1.pipe(
-    or(option2)
-);
-```
-
-The combinator will try the `option2` parser if `option1` does not work. This not-working is signalled by a soft failure. If `option2` reports a soft failure too then `either` will bubble that failure up, possibly with some more information.
-
-One way of describing a soft failure is that it doesn't consume much of the input and doesn't require much backtracking.
-
-#### Hard failure
-
-A hard failure means the parser started parsing the input but encountered something unexpected. 
-
-Hard failures are common and are usually caused by syntax errors. A common hard failure appears when you have a parser that uses the `then` sequential combinator:
-
-```typescript
-let p = string("a").pipe(
-    then("b")
-);
-```
-
-And you give it input that makes the 1st parser succeed and the 2nd parser to fail.
-
-```typescript
-p.parse("ac");
-// Hard failure at Ln 1 Col 2
-// 1 | ac
-//      ^expecting 'b'
-// Stack: string < then
-```
-
-In this case, combinators like `or` will not work. Even if we added the `or` combinator to the above:
-
-```typescript
-// doesn't work, still fails
-
-let p2 = p.pipe(
-    or("ac")
-);
-
-p2.parse("ac");
-```
-
-This still results in the same failure as before. The idea behind this is that the input made the parser break an expectation. When the first parser for `"a"` succeeds, it convinces the `then` combinator that this really is the parser it's supposed to be using. When the parser for `"b"` fails, it sees it as a syntax error and not just an alternative input type.
-
-The recommended way to solve this problem is to write parsers that quickly determine if the input is right for them, without having to apply multiple parsers and backtrack a non-constant amount to recover from a failure. For example, we could write the above parser like this:
-
-```typescript
-let example = string("a").pipe(
+// 🍕"hello " ➜ ⚙️and then, 🍕"world" ➜ ⚙️or 🍕"whatever" 
+// Parses the string "hello " and then the string "world"
+// or parses the string "hello kittie"
+const helloParser = string("hello ").pipe(
     then(
-        or("b")("c")
-    )
+	    // If this parser fails, ⚙️then will upgrade
+	    // it to a 😬Hard failure.
+	    string("world")
+    ),
+    // The ⚙️or combinator can't recover from this: 
+    or("hello kittie")
 );
+
+
+console.log(helloParser.parse("whatever").toString())
+// Hard failure at Ln 1 Col 6
+// 1 | hello world
+//           ^expecting "world"
+// Stack: string < then < string
+
 ```
 
-This failure can also appear in other parsers. For example:
+To avoid this situation, write parsers that quickly determine if the input is for them, and combinators like `or` that will immediately apply a fallback parser instead.
 
 ```typescript
-let floatParser = float();
 
-floatParser.parse("5.0e+hello");
+const helloParser2 = string("hello ").pipe(
+	then(
+		// The 😕Soft failure in the 🍕"world" parser
+		// is handled immediately using ⚙️or
+		// so it doesn't reach ⚙️then
+		string("world").or("kittie")
+	)
+)
 ```
 
-Here we're using the `float()` parser to parse a floating-point number. We give it an input with a number in scientific notation, except the exponent is gibberish.  By the time the parser reached the exponent, it had already chosen to interpret it as a number in scientific notation, so the lack of a valid exponent breaks this expectation.
-
-See the section below to learn about how to recover from a Hard failure if you really need to.
-
-#### Fatal failure
-
-This is an extra failure type which isn't emitted by Parjs by default, but you can build your own parsers to emit it. It won't be handled by any combinator and will cause parsing to fail. 
-
-### Recovering from (most) failures
-
-You can use the `recover` combinator to recover from non-Fatal failures. 
-
-You can give it a handler that will be called if the parser it's used on fails, together with all the failure information. You can then alter the parser's result to something else or return nothing to signal nothing should change. The function will not be called if the parser succeeds.
-
-Here is an example of it being used:
+However, sometimes hard failures are inevitable or you can’t be bothered. In those cases, you can use `⚙️recover` which lets you downgrade the failure or even pass it off as a success.
 
 ```typescript
-let hardFailingParser = fail({kind: "Hard", reason: "who knows"});
-
-let recovered = hardFailingParser.pipe(
-    recover(failure => {
-        if (failure.reason === "who knows") {
-            return {
-                kind: "OK",
-                value: "some value to return"
-            }
-        }
-    })
+// Let's do the same thing as the first time:
+const helloParser3 = string("hello ").pipe(
+	// ⚙️then will fail 😬Hard, like we talked about:
+    then(string("world")),
+    // But then the ⚙️recover combinator will downgrade the failure:
+    recover(() => ({kind: "Soft"})),
+    // So the ⚙️or combinator can be used:
+    or("kittie")
 );
 ```
+However, code like this is the equivalent of using `try .. catch` for control flow and should be avoided.
 
-### Signalling failure
+The `⚙️must` combinator, which validates the result of a parser, emits **😬 Hard** failures by default.
 
-You can signal a failure in several different ways.
+#### 💀 Fatal failures
+A **💀 Fatal** failure is the parsing equivalent of a Halt and Catch Fire instruction and can’t be recovered from – in other words, they cause the overall parsing operation to fail immediately and control to be returned to the caller.
 
-The `fail` basic parser is a parser that fails immediately with the information you give it when it's created. It's mainly provided for completeness.
+They act kind of like thrown exceptions, except that **parsers don’t throw exceptions for bad inputs.** 
 
-The `must` combinator makes sure that a parser has the correct user state and return value. Otherwise it makes a parser fail with the info and severity you give it. There also exist several more parsers accepting predicates like this.
+`parjs` parsers will never fail this way unless **you** explicitly tell them to. One way to do this is using the `fail` basic parser. This parser fails immediately for any input and can emit any failure type.
 
-The `recover` combinator can be used to re-emit failures too.
+```typescript
+const parser = fail({
+	kind: "Fatal"
+});
 
-## User State
+console.log(parse.parse("").toString())
 
-User state is a feature that can help you to parse complex languages, like mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
+```
+## Cool features
 
-Every time you invoke the `.parse` method Parjs creates a unique, mutable user state object. The object is propagated throughout the parsing process and some combinators and building block parsers can modify it or inspect it. The only information in it will be what you put inside it and it won't change how the rest of the library behaves.
+### Immutability
+In `parjs`, parsers are functionally immutable. Once a `parjs` parser is created, it will always do the same thing and can never change. I mean, **you** could do something like this:
+
+```typescript
+// 🍕"hello world" ➜ predicate `() => Math.random() > 0.5`
+string("hello world").pipe(
+    must(() => Math.random() > 0.5)
+)
+```
+
+But then it’s on **you**. And *you know what you did.*
+### Unicode support
+JavaScript supports Unicode strings, including **”抱き枕”**, **”כחול”**, and **”tủ lạnh”**. Those characters aren’t ASCII – most of them have character codes in the low thousands. 
+
+That doesn’t matter if you’re parsing a specific string, since it ends up being a binary comparison, but it definitely does if you’re trying to parse 4 *letters*, a broad Unicode category that includes thousands of characters.
+
+Luckily, `parjs` has got you covered. Parsers such as `letter`, have Unicode versions – `uniLetter`. These Unicode versions use the package [`char-info`](https://www.npmjs.com/package/char-info) to figure out if each character is a letter or not. 
+
+This probably involves a lookup in some complicated data structure for each potential letter.
+
+```typescript
+// 🍕ᵘLetter  
+// Parses any unicode letter
+const pNameChar = uniLetter()
+
+// 🍕ᵘLetter ➜ ⚙️until it fails  
+// Parses any number of unicode letterss
+const pName = pNameChar.pipe(
+    many()
+)
+
+// 🍕"שלום שמי " ➜ ⚙️and then, 🍕ᵘLetter ➜ ⚙️until it fails
+const greeting = string(`שלום שמי `).pipe(
+	qthen(pName)
+)
+
+assert(greeting.parser("שלום, שמי גרג").value === "גרג")
+```
+
+### Shorthand for literal parsers
+**Parsers accept strings**, but **combinators accept other parsers**. This is to make sure they’re as general as possible. However, in practice, a lot of their inputs are going to be stuff like `string(“hello”)`. 
+
+`parjs` knows about this, and will automatically convert string literals into parsers that parse those literals.
+
+```typescript
+// 🍕"ice " ➜ ⚙️and then, 🍕one or more spaces 
+// ➜ ⚙️and then, the regexp /\s*baby/
+string("ice").pipe(
+    thenq(spaces1()),
+    then("ice"), // Implicitly: string("ice ")
+    then(/\s*baby/) // Implicitly: regexp(/\s*baby/)
+)
+```
+### User state
+User state can help you to parse complex languages, like mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
+
+Every time you invoke the `.parse` method `parjs` creates a unique, mutable user state object. The object is propagated throughout the parsing process and some combinators and building block parsers allow you to modify it or inspect it. It’s called *user* state because the library will never modify it by itself.
 
 The `.parse` method accepts an additional parameter `initialState` that contains properties and methods that are merged with the user state:
 
@@ -403,9 +301,7 @@ let example = string("a").pipe(
 
 `each` is a combinator that doesn't change the parser result, so you can use it to only modify the user state.
 
-User state is a less idiomatic and elegant feature meant to be used together with, rather than instead of, parser results.
-
-### Replacing user state
+#### Replacing user state
 
 The combinator `replaceState` lets you *replace* the user state object, but only in the scope of the parser it applied to.
 
@@ -415,7 +311,7 @@ Replacing user state is powerful, and can allow you to write recursive parsers t
 
 ## Writing a parser with custom low-level logic
 
-**In most cases, it should be easy to use existing combinators and building block parsers to create what you want. You shouldn't automatically write a custom parser.**
+In most cases, you should use the existing parsers and combinators to write your parser. You shouldn't automatically write a custom parser like this.
 
 Writing a parser with totally custom logic lets you read the input and manage the position directly. This can allow you to implement new kinds of building-block parsers. While Parjs is meant to be easily extensible, this API will probably change more than more outward facing APIs, so be warned.
 
@@ -425,12 +321,12 @@ When parsing, a unique mutable `ParsingState` object is created. This object has
 
 ```typescript
 interface ParsingState {
-    readonly input : string;
-    position : number;
-    value : any;
-    userState : UserState;
-    reason : string;
-    kind : ReplyKind;
+    readonly input: string;
+    position: number;
+    value: any;
+    userState: UserState;
+    reason: string;
+    kind: ReplyKind;
     //...
 }
 ```
@@ -480,7 +376,3 @@ export class Eof extends ParjserBase {
     }
 }
 ```
-
-[tree-shaking]: https://webpack.js.org/guides/tree-shaking/
-[rxjs]: https://rxjs-dev.firebaseapp.com/
-[lettable-operators]: https://blog.angularindepth.com/rxjs-understanding-lettable-operators-fe74dda186d3
