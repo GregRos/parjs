@@ -52,7 +52,6 @@ export abstract class ParjserBase implements Parjser<any> {
      * @param ps The parsing state.
      */
     apply(ps: ParsingState): void {
-
         // we do this to verify that the ParsingState's fields have been correctly set by the parser.
         ps.kind = ResultKind.Unknown;
         ps.reason = undefined as any;

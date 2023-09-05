@@ -18,6 +18,7 @@ export function stringify(): ParjsCombinator<any, string> {
         return new (class Str extends ParjserBase {
             type = "stringify";
             expecting = source.expecting;
+
             _apply(ps: ParsingState): void {
                 source.apply(ps);
                 if (!ps.isOk) {
@@ -26,7 +27,9 @@ export function stringify(): ParjsCombinator<any, string> {
                 const { value } = ps;
                 const typeStr = typeof value;
                 if (typeStr === "string") {
-                } else if (value === null || value === undefined) {
+                    return;
+                }
+                if (value === null || value === undefined) {
                     ps.value = String(value);
                 } else if (value instanceof Array) {
                     ps.value = StringHelpers.recJoin(value);
