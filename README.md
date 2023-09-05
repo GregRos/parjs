@@ -105,9 +105,9 @@ Dealing with failure is hard, whether you’re realizing you can never be a fath
 
 `parjs` handles it by using the SHF or 😕😬💀 system, which I just made up. It recognizes three kinds of failures:
 
-😕 **S**oft failures — A parser quickly says it’s not applicable to the input. Used to parse alternative inputs.
-😬 **H**ard failures — Parsing failed unexpectedly. Can only be handled by special combinators.
-💀 **F**atal failure — Happen when you decide and tell the parser to [halt and catch fire](<https://en.wikipedia.org/wiki/Halt_and_Catch_Fire_(computing)>). They can’t be handled.
+* *😕 **S**oft failures — A parser quickly says it’s not applicable to the input. Used to parse alternative inputs.
+* *😬 **H**ard failures — Parsing failed unexpectedly. Can only be handled by special combinators.
+* *💀 **F**atal failure — Happen when you decide and tell the parser to [halt and catch fire](<https://en.wikipedia.org/wiki/Halt_and_Catch_Fire_(computing)>). They can’t be handled.
 
 Parsing failures bubble up through combinators unless they’re handled, just like exceptions. Handling a failure always means backtracking to before it happened.
 
