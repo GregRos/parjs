@@ -1,10 +1,10 @@
 # Parjs
 
-[![build](https://travis-ci.org/GregRos/parjs.svg?branch=master)](https://travis-ci.org/GregRos/parjs)
-[![codecov](https://codecov.io/gh/GregRos/parjs/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/parjs)
-[![npm](https://badge.fury.io/js/parjs.svg)](https://www.npmjs.com/package/parjs)
+![build](https://github.com/GregRos/parjs/actions/workflows/push.yaml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/GregRos/parjs/badge.svg?branch=master)](https://coveralls.io/github/GregRos/parjs?branch=master)
+[![npm](https://img.shields.io/npm/v/parjs)](https://www.npmjs.com/package/parjs)
 
-[API Documentation](https://parjs.netlify.com/)
+[API Documentation](https://gregros.github.io/parjs/)
 
 Parjs a parser combinator library inspired by [Parsec](https://wiki.haskell.org/Parsec) and [FParsec](http://www.quanttec.com/fparsec/) (its F# adaptation), and written in TypeScript.
 
