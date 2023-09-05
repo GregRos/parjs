@@ -40,7 +40,7 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: typedoc --out docs
+      - run: node_modules/.bin/typedoc --out docs
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
