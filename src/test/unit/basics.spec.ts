@@ -39,4 +39,13 @@ describe("basics: anyChar example", () => {
             expect(() => parser.parse(5 as any)).toThrow();
         });
     });
+
+    describe("expects", () => {
+        it("is correct", () => {
+            const base = anyChar().expects("a character");
+            const parser = anyChar().expects("a character of some sort");
+            expect((parser as any).expecting).toBe("a character of some sort");
+            expect((base as any).expecting).toBe("a character");
+        });
+    });
 });

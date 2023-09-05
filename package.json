@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "exports": {
@@ -75,15 +75,20 @@
     "shx": "^0.3.4",
     "source-map": "^0.7.3",
     "source-map-support": "^0.5.9",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.25.0",
     "typedoc-plugin-internal-external": "^2.2.0",
     "typescript": "^5.2.2"
   },
   "optionalDependencies": {},
   "typesVersions": {
-      "*": {
-        "combinators": ["./dist/lib/combinators.d.ts"],
-        "internal": ["./dist/lib/internal.d.ts"]
+    "*": {
+      "combinators": [
+        "./dist/lib/combinators.d.ts"
+      ],
+      "internal": [
+        "./dist/lib/internal.d.ts"
+      ]
     }
   },
   "nyc": {

@@ -16,6 +16,7 @@ import defaults from "lodash/defaults";
 import { ParserDefinitionError } from "../errors";
 import { Parjser } from "./parjser";
 import { pipe } from "./combinators/combinator";
+import clone from "lodash/clone";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;
@@ -47,6 +48,11 @@ export abstract class ParjserBase implements Parjser<any> {
     abstract type: string;
     abstract expecting: string | object;
 
+    expects(expecting: string | object): this {
+        const copy = clone(this);
+        copy.expecting = expecting;
+        return copy;
+    }
     /**
      * Apply the parser to the given state.
      * @param ps The parsing state.

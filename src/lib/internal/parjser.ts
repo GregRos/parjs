@@ -130,4 +130,11 @@ export interface Parjser<T> {
         cmb5: ParjsCombinator<T4, T5>,
         cmb6: ParjsCombinator<T5, T6>
     ): Parjser<T6>;
+
+    /**
+     * Returns a new parser that applies `this`, but describing the expected
+     * input as `description`.
+     * @param description Description of the input.
+     */
+    expects(description: string): Parjser<T>;
 }

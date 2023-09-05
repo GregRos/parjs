@@ -17,9 +17,9 @@
 import "../test/setup";
 
 import { each, replaceState, later, manySepBy, map, or } from "../lib/combinators";
-import { anyCharOf, float, string } from "../lib/internal/parsers";
-import { between } from "../lib/internal/combinators/between";
-import { whitespace } from "../lib/internal/parsers/char-types";
+import { anyCharOf, float, string } from "../lib";
+import { between } from "../lib/combinators";
+import { whitespace } from "../lib";
 
 interface Expression {
     kind: "expression";
@@ -103,7 +103,8 @@ const pUnit = pNumber.pipe(
     each((result, state: MathState) => {
         state.exprs.push(result);
     }),
-    between(whitespace())
+    between(whitespace()),
+    replaceState({ exprs: [] })
 );
 
 // Parses a single operator and adds it to the expression stack.
@@ -131,14 +132,19 @@ pExpr.init(
             reduceWithPrecedence(state.exprs);
             const expr = state.exprs[0] as Expression;
             return expr;
-        }),
-        replaceState({})
+        })
     )
 );
 
-const result = pExpr.parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2 + 0.25", {
-    exprs: []
-});
+const result = pExpr
+    .pipe(
+        map((a, state) => {
+            return state.exprs[0] as Expression;
+        })
+    )
+    .parse("( 1 + 2 ) * 2 * 2+( 3 * 5   ) / 2 / 2", {
+        exprs: []
+    });
 
 const printAst = (ast: Expression) => {
     if (ast instanceof BinaryOperator) {
