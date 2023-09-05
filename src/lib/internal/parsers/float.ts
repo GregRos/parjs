@@ -146,11 +146,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                 if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
                     ps.position++;
                     const expSign = NumericHelpers.parseSign(ps);
-                    if (expSign === 0) {
-                        ps.kind = ResultKind.HardFail;
-                        ps.reason = msgExponentSign;
-                        return;
-                    }
+
                     const prevFractionalPos = ps.position;
                     NumericHelpers.parseDigitsInBase(ps, 10);
                     if (ps.position === prevFractionalPos) {

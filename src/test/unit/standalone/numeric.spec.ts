@@ -136,6 +136,9 @@ describe("numeric parsers", () => {
             it("succeeds on exponent", () => {
                 expectSuccess(parser.parse("1.0e+2"), 1.0e2);
             });
+            it("asaa", () => {
+                expectSuccess(parser.parse("1.0e2"), 1.0e2);
+            });
         });
         describe("no decimal point", () => {
             const parser = float({
