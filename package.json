@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "0.13.0-test2",
+  "version": "0.13.0-test3",
   "repository": "https://github.com/GregRos/parjs",
   "homepage": "https://github.com/GregRos/parjs",
   "exports": {
@@ -80,6 +80,12 @@
     "typescript": "^5.2.2"
   },
   "optionalDependencies": {},
+  "typesVersions": {
+      "*": {
+        "combinators": ["./dist/lib/combinators.d.ts"],
+        "internal": ["./dist/lib/internal.d.ts"]
+    }
+  },
   "nyc": {
     "produce-source-map": true,
     "include": [
