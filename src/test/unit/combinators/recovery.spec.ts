@@ -159,7 +159,10 @@ describe("expects combinator", () => {
         });
     });
     it("modifies expecting", () => {
-        const parser = base.pipe(reason(x => `${x.reason}! gottem!`));
+        const parser = base.pipe(
+            then(fail("deez nuts")),
+            reason(x => `${x.reason}! gottem!`)
+        );
         expect(parser.parse("abc")).toBeLike({
             kind: "Soft",
             reason: "deez nuts! gottem!"
