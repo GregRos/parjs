@@ -6,7 +6,7 @@
 export { charCodeWhere } from "./char-code-where";
 export { charWhere } from "./char-where";
 export { eof } from "./eof";
-export { fail } from "./fail";
+export { fail, nope } from "./fail";
 export { float, FloatOptions } from "./float";
 export { IntOptions, int } from "./int";
 export { newline, uniNewline } from "./newline";

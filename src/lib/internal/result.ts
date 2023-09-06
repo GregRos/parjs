@@ -42,7 +42,7 @@ export interface SuccessInfo<T> {
  */
 export interface FailureInfo {
     kind: ResultKind.Fail;
-    reason: string | object;
+    reason: string;
 }
 
 /**
@@ -103,10 +103,6 @@ export type ParjsResult<T> = ParjsSuccess<T> | ParjsFailure;
  */
 export namespace ResultKind {
     /**
-     * An Unknown reply. Used internally.
-     */
-    export type Unknown = "Unknown";
-    /**
      * The OK reply type.
      */
     export type Ok = "OK";
@@ -123,10 +119,6 @@ export namespace ResultKind {
      */
     export type FatalFail = "Fatal";
 
-    /**
-     * An Unknown reply.
-     */
-    export const Unknown: Unknown = "Unknown";
     /**
      * An OK reply.
      */
@@ -152,4 +144,4 @@ export namespace ResultKind {
 /**
  * Specifies a reply kind, indicating success or failure, and the severity of the failure.
  */
-export type ResultKind = ResultKind.Ok | ResultKind.Fail | ResultKind.Unknown;
+export type ResultKind = ResultKind.Ok | ResultKind.Fail;

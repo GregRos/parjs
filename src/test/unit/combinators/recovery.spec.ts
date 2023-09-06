@@ -1,6 +1,5 @@
 import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
-import { ParjsFailure, ResultKind } from "../../../lib/internal/result";
-import { string, fail, rest } from "../../../lib/internal/parsers";
+import { nope, string, fail, rest, ParjsFailure, ResultKind } from "../../../lib";
 import {
     mapConst,
     maybe,
@@ -9,7 +8,8 @@ import {
     qthen,
     recover,
     stringify,
-    then
+    then,
+    reason
 } from "../../../lib/combinators";
 
 describe("maybe combinator", () => {
@@ -145,5 +145,24 @@ describe("soft combinator", () => {
             kind: "Fatal"
         }).pipe(recover(() => ({ kind: "Soft" })));
         expectFailure(parser2.parse(""), ResultKind.FatalFail);
+    });
+});
+
+describe("expects combinator", () => {
+    const base = nope("deez nuts");
+    it("sets the expecting", () => {
+        const parser = base.pipe(reason("imma let you finish"));
+
+        expect(parser.parse("abc")).toBeLike({
+            kind: "Soft",
+            reason: "imma let you finish"
+        });
+    });
+    it("modifies expecting", () => {
+        const parser = base.pipe(reason(x => `${x.reason}! gottem!`));
+        expect(parser.parse("abc")).toBeLike({
+            kind: "Soft",
+            reason: "deez nuts! gottem!"
+        });
     });
 });

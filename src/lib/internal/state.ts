@@ -47,7 +47,7 @@ export interface ParsingState {
      * If the result is a failure, this field will indicate the reason for the failure.
      * If the result is OK, this must be undefined.
      */
-    reason: string | object;
+    reason: string;
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */

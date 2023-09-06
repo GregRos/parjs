@@ -27,6 +27,7 @@ export {
     stringLen,
     state,
     rest,
+    nope,
     string,
     result,
     regexp,

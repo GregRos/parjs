@@ -16,6 +16,7 @@ export {
     map,
     manyTill,
     manySepBy,
+    reason,
     many,
     later,
     exactly,

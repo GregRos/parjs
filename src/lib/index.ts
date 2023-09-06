@@ -35,6 +35,7 @@ export {
     spaces1,
     space,
     lower,
+    nope,
     letter,
     hex,
     digit,

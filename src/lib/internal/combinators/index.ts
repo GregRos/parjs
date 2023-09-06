@@ -2,6 +2,7 @@
 
 export { each } from "./each";
 export { maybe } from "./maybe";
+export { reason } from "./reason";
 export { or } from "./or";
 export { backtrack } from "./backtrack";
 export { exactly } from "./exactly";

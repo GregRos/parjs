@@ -13,7 +13,7 @@ import {
 } from "./result";
 import { BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT } from "./state";
 import defaults from "lodash/defaults";
-import { ParserDefinitionError } from "../errors";
+import { ParjsError, ParserDefinitionError } from "../errors";
 import { Parjser } from "./parjser";
 import { pipe } from "./combinators/combinator";
 import clone from "lodash/clone";
@@ -46,9 +46,9 @@ export class ParserUserState {}
  */
 export abstract class ParjserBase implements Parjser<any> {
     abstract type: string;
-    abstract expecting: string | object;
+    abstract expecting: string;
 
-    expects(expecting: string | object): this {
+    expects(expecting: string): this {
         const copy = clone(this);
         copy.expecting = expecting;
         return copy;
@@ -58,12 +58,13 @@ export abstract class ParjserBase implements Parjser<any> {
      * @param ps The parsing state.
      */
     apply(ps: ParsingState): void {
-        // we do this to verify that the ParsingState's fields have been correctly set by the parser.
-        ps.kind = ResultKind.Unknown;
+        // @ts-expect-error Check for uninitialized kind.
+        ps.kind = "Unknown";
         ps.reason = undefined as any;
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
-        if (ps.kind === ResultKind.Unknown) {
+        // @ts-expect-error Check for uninitialized kind.
+        if (ps.kind === "Unknown") {
             throw new ParserDefinitionError(
                 this.type,
                 "the parser's result kind field has not been set."
@@ -99,7 +100,7 @@ export abstract class ParjserBase implements Parjser<any> {
     parse(input: string, initialState?: any): ParjsResult<any> {
         if (typeof input !== "string") {
             // catches input === undefined, null
-            throw new Error("input must be a valid string");
+            throw new TypeError("input must be a valid string");
         }
         const userState = defaults(new ParserUserState(), initialState);
         const ps = new BasicParsingState(input, userState);
@@ -112,8 +113,9 @@ export abstract class ParjserBase implements Parjser<any> {
                 ps.reason = "parsers did not consume all input";
             }
         }
-        if (ps.kind === ResultKind.Unknown) {
-            throw new Error("should not happen.");
+        // @ts-expect-error Check for uninitialized kind.
+        if (ps.kind === "Unknown") {
+            throw new Error("Kind was Unknown after parsing finished. This is a bug.");
         }
         if (ps.kind === ResultKind.Ok) {
             return new ParjsSuccess(ps.value);

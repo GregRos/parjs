@@ -132,9 +132,8 @@ export interface Parjser<T> {
     ): Parjser<T6>;
 
     /**
-     * Returns a new parser that applies `this`, but describing the expected
-     * input as `description`.
-     * @param description Description of the input.
+     * Returns a copy of this, but with the given default error message.
+     * @param message Description of the input.
      */
-    expects(description: string): Parjser<T>;
+    expects(message: string): Parjser<T>;
 }
