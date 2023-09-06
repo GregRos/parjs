@@ -1,5 +1,5 @@
 import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
-import { ResultKind } from "../../../lib/internal/result";
+import { ParjsFailure, ResultKind } from "../../../lib/internal/result";
 import { string, fail, rest } from "../../../lib/internal/parsers";
 import {
     mapConst,
@@ -63,6 +63,18 @@ describe("or combinator", () => {
         });
         it("fails when 2nd fails hard", () => {
             expectFailure(parser2.parse("cd"), ResultKind.HardFail);
+        });
+        it("reason includes all expecting", () => {
+            const reasons = ["it broke", "nope", "not this", "not that"];
+            const allFails = reasons.map(x =>
+                fail({
+                    reason: x,
+                    kind: "Soft"
+                })
+            );
+            const parser = allFails[0].pipe(or.call(null, ...allFails.slice(1)));
+            const result = parser.parse("a") as ParjsFailure;
+            expect(result.reason).toBe(reasons.join(" OR "));
         });
     });
 });

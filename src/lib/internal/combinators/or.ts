@@ -80,8 +80,8 @@ export function or(...alts: ImplicitParjser<any>[]) {
     const resolvedAlts = alts.map(x => ScalarConverter.convert(x) as any as ParjserBase);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
-
         const altNames = resolvedAlts.map(x => x.type);
+        const allExpectations = resolvedAlts.map(x => x.expecting);
         return new (class Or extends ParjserBase {
             type = "or";
             expecting = `expecting one of: ${altNames.join(", ")}`;
@@ -99,11 +99,13 @@ export function or(...alts: ImplicitParjser<any>[]) {
                     } else if (ps.isSoft) {
                         // backtrack to the original position and try again.
                         ps.position = position;
+                        allExpectations[i] = ps.reason;
                     } else {
-                        // if failure, return false,
+                        // propagate hard failure
                         return;
                     }
                 }
+                ps.reason = allExpectations.join(" OR ");
                 ps.kind = ResultKind.SoftFail;
             }
         })();

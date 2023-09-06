@@ -10,7 +10,7 @@ import { Parjser } from "../parjser";
 import defaults from "lodash/defaults";
 const defaultFailure: FailureInfo = {
     kind: "Hard",
-    reason: "The primitive fail parser has been applied."
+    reason: "User initiated failure."
 };
 
 /**
