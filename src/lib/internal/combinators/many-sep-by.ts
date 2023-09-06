@@ -6,10 +6,19 @@
 import { Issues } from "../issues";
 import { ResultKind } from "../result";
 import { ParsingState } from "../state";
-import { ImplicitParjser, ParjsCombinator } from "../../index";
+import { ImplicitParjser, ParjsCombinator, Parjser } from "../../index";
 import { ScalarConverter } from "../scalar-converter";
 import { ParjserBase } from "../parser";
 import { defineCombinator } from "./combinator";
+
+export type ArrayWithSeparators<Normal, Separator> = Normal[] & {
+    separators: Separator[];
+};
+
+export function getArrayWithSeparators<T, S>(arr: T[], separators: S[]): ArrayWithSeparators<T, S> {
+    (arr as any).separators = separators;
+    return arr as any;
+}
 
 /**
  * Applies the source parser repeatedly until it fails softly, with each pair of
@@ -19,30 +28,31 @@ import { defineCombinator } from "./combinator";
  * @param max Optionally, then maximum number of times to apply the source
  * parser. Defaults to `Infinity`.
  */
-export function manySepBy<T>(
-    delimeter: ImplicitParjser<any>,
+export function manySepBy<E, S>(
+    delimeter: ImplicitParjser<S>,
     max?: number
-): ParjsCombinator<T, T[]>;
+): ParjsCombinator<E, ArrayWithSeparators<E, S>>;
 
-export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
-    const delimeter = ScalarConverter.convert(implDelimeter) as any as ParjserBase;
-    return defineCombinator(source => {
+export function manySepBy<E, S>(implDelimeter: ImplicitParjser<S>, max = Infinity) {
+    const delimeter = ScalarConverter.convert(implDelimeter) as ParjserBase & Parjser<S>;
+    return defineCombinator<E>(source => {
         return new (class extends ParjserBase {
             type = "manySepBy";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                const arr = [] as any[];
+                const results = getArrayWithSeparators<E, S>([], []);
+
                 source.apply(ps);
                 if (ps.atLeast(ResultKind.HardFail)) {
                     return;
                 } else if (ps.isSoft) {
-                    ps.value = [];
+                    ps.value = results;
                     ps.kind = ResultKind.Ok;
                     return;
                 }
                 let { position } = ps;
-                arr.push(ps.value);
+                results.push(ps.value);
                 let i = 1;
                 for (;;) {
                     if (i >= max) break;
@@ -52,7 +62,7 @@ export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
                     } else if (ps.atLeast(ResultKind.HardFail)) {
                         return;
                     }
-
+                    results.separators.push(ps.value);
                     source.apply(ps);
                     if (ps.isSoft) {
                         break;
@@ -62,13 +72,13 @@ export function manySepBy(implDelimeter: ImplicitParjser<any>, max = Infinity) {
                     if (max >= Infinity && ps.position === position) {
                         Issues.guardAgainstInfiniteLoop("many");
                     }
-                    arr.push(ps.value);
+                    results.push(ps.value);
                     position = ps.position;
                     i++;
                 }
                 ps.kind = ResultKind.Ok;
                 ps.position = position;
-                ps.value = arr;
+                ps.value = results;
             }
         })();
     });

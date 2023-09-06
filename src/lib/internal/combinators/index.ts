@@ -8,7 +8,7 @@ export { backtrack } from "./backtrack";
 export { exactly } from "./exactly";
 export { later, DelayedParjser } from "./later";
 export { many } from "./many";
-export { manySepBy } from "./many-sep-by";
+export { manySepBy, ArrayWithSeparators } from "./many-sep-by";
 export { manyTill, manyBetween } from "./many-till";
 export { map, mapConst } from "./map";
 export { must } from "./must";

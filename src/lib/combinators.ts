@@ -16,6 +16,7 @@ export {
     map,
     manyTill,
     manySepBy,
+    ArrayWithSeparators,
     reason,
     many,
     later,

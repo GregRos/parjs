@@ -17,6 +17,7 @@ import {
     thenPick,
     manyBetween
 } from "../../../lib/combinators";
+import { getArrayWithSeparators } from "../../../lib/internal/combinators/many-sep-by";
 
 const goodInput = "abcd";
 const softBadInput = "a";
@@ -198,7 +199,7 @@ describe("sequential combinators", () => {
         });
 
         it("succeeds with empty input", () => {
-            expectSuccess(parser.parse(""), []);
+            expectSuccess(parser.parse(""), getArrayWithSeparators([], []));
         });
 
         it("many fails hard on 1st application", () => {
@@ -218,7 +219,7 @@ describe("sequential combinators", () => {
 
         it("sep+many that don't consume succeed with max iterations", () => {
             const parser2 = string("").pipe(manySepBy("", 2));
-            expectSuccess(parser2.parse(""), ["", ""]);
+            expectSuccess(parser2.parse(""), getArrayWithSeparators(["", ""], [""]));
         });
 
         it("many that fails hard on 2nd iteration", () => {
@@ -227,12 +228,15 @@ describe("sequential combinators", () => {
         });
 
         it("succeeds with non-empty input", () => {
-            expectSuccess(parser.parse("ab, ab"), ["ab", "ab"]);
+            expectSuccess(parser.parse("ab, ab"), getArrayWithSeparators(["ab", "ab"], [", "]));
         });
 
         it("chains into terminating separator", () => {
             const parser2 = parser.pipe(thenq(", "));
-            expectSuccess(parser2.parse("ab, ab, "), ["ab", "ab"]);
+            expectSuccess(
+                parser2.parse("ab, ab, "),
+                getArrayWithSeparators(["ab", "ab"], [", ", ", "])
+            );
         });
         it("fails soft if first many fails", () => {
             expectFailure(parser.parse("xa"), ResultKind.SoftFail);

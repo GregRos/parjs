@@ -8,7 +8,7 @@ import { ScalarConverter } from "../scalar-converter";
  * Represents the given function as a Parjs combinator.
  * @param f The combinator function.
  */
-export function defineCombinator(f: (act: ParjserBase) => Parjser<any>) {
+export function defineCombinator<E>(f: (act: ParjserBase & Parjser<E>) => Parjser<any>) {
     return (x: ImplicitParjser<any>) => {
         const resolved = ScalarConverter.convert(x);
         return f(resolved as ParjserBase);
