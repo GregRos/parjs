@@ -36,8 +36,8 @@
     "eslint:fix": "eslint --fix src/**/*.ts",
     "lint:fix": "run-s prettier:fix eslint:fix",
     "lint:check": "run-s -c prettier eslint",
-    "prettier:fix": "prettier -w src/**/*.ts",
-    "prettier": "prettier --check 'src/**/*.ts'"
+    "prettier:fix": "prettier --write .",
+    "prettier": "prettier --check ."
   },
   "keywords": [
     "parser",
