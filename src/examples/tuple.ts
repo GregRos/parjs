@@ -11,7 +11,7 @@ const paddedElement = tupleElement.pipe(between(whitespace()));
 const separated = paddedElement.pipe(manySepBy(","));
 
 // Surround everything with parentheses:
-const surrounded = separated.pipe(between("(", ")"), between(whitespace()));
+export const surrounded = separated.pipe(between("(", ")"), between(whitespace()));
 
 console.log(surrounded.parse("(1,  2 , 3 )"));
 
