@@ -11,6 +11,6 @@ yarn
 # build (must be done before testing)
 yarn build
 
-# test
-yarn test
+# test (remember to build first to make sure the code is up to date)
+yarn build && yarn test
 ```
