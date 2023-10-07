@@ -3,7 +3,6 @@
         "strict": true,
         "module": "CommonJS",
         "target": "ES2020",
-        "noImplicitAny": false,
         "sourceMap": true,
         "lib": ["dom"],
         "declaration": true,

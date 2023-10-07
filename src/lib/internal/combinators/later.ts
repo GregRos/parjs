@@ -14,7 +14,7 @@ import { Issues } from "../issues";
  * of recursive parsers.
  */
 export interface DelayedParjser<T> extends Parjser<T> {
-    init(resolved: Parjser<T>);
+    init(resolved: Parjser<T>): void;
 }
 
 /**

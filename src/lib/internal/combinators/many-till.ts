@@ -12,7 +12,8 @@ import { ParjserBase } from "../parser";
 import { ScalarConverter } from "../scalar-converter";
 import { qthen } from "./then";
 
-const defaultProjection = (sourceMatches, tillMatch, userState) => sourceMatches;
+const defaultProjection = (sourceMatches: any[], tillMatch: any, userState: UserState) =>
+    sourceMatches;
 
 /**
  * Tries to apply the source parser repeatedly until `till` succeeds. Yields

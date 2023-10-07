@@ -6,21 +6,21 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jasmine {
         interface Matchers<T> {
-            toBeAnyOf(expecteds: Expected<T>[], failMessage?: string);
+            toBeAnyOf(expecteds: Expected<T>[], failMessage?: string): void;
 
-            toHaveType(type: string, failMessage?: string);
+            toHaveType(type: string, failMessage?: string): void;
 
-            toHaveMember(name: string, failMessage?: string);
+            toHaveMember(name: string, failMessage?: string): void;
 
-            toBeLike(obj: Partial<Expected<T>>);
+            toBeLike(obj: Partial<Expected<T>>): void;
         }
     }
 }
 
 class CustomMatcherDefs {
-    actual: any;
+    actual: unknown;
 
-    toBeAnyOf(expecteds, failMessage) {
+    toBeAnyOf(expecteds: unknown[], failMessage: string) {
         let result;
         for (let i = 0, l = expecteds.length; i < l; i++) {
             if (this.actual === expecteds[i]) {
@@ -34,7 +34,7 @@ class CustomMatcherDefs {
         };
     }
 
-    toBeLike(o, failMessage) {
+    toBeLike(o: unknown, failMessage: string) {
         const pass = matches(o)(this.actual);
         return {
             pass,
@@ -42,7 +42,7 @@ class CustomMatcherDefs {
         };
     }
 
-    toHaveType(type, failMessage) {
+    toHaveType(type: unknown, failMessage: string) {
         const pass = typeof this.actual === type;
         return {
             pass,
@@ -50,8 +50,8 @@ class CustomMatcherDefs {
         };
     }
 
-    toHaveMember(name, failMessage) {
-        const pass = name in this.actual;
+    toHaveMember(name: string, failMessage: string) {
+        const pass = name in (this.actual as object);
         return {
             pass,
             message: pass ? undefined : failMessage
@@ -66,11 +66,11 @@ const defs = CustomMatcherDefs.prototype;
 for (const prop of Object.getOwnPropertyNames(defs)) {
     if (prop === "constructor") continue;
 
-    CustomMatchers[prop] = function (a, b) {
+    CustomMatchers[prop] = function (_a: unknown, _b: unknown) {
         return {
-            compare(actual, ...rest) {
+            compare(actual: unknown, ...rest: unknown[]) {
                 defs.actual = actual;
-                return defs[prop](...rest);
+                return (defs as any)[prop](...rest);
             }
         };
     };

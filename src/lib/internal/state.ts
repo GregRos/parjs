@@ -69,9 +69,9 @@ export interface ParsingState {
      */
     readonly isFatal: boolean;
 
-    atLeast(kind: ResultKind);
+    atLeast(kind: ResultKind): boolean | undefined;
 
-    atMost(kind: ResultKind);
+    atMost(kind: ResultKind): boolean | undefined;
 }
 
 function worseThan(a: ResultKind, b: ResultKind) {

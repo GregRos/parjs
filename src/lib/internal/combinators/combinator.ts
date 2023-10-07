@@ -43,8 +43,8 @@ export function composeCombinator<A, B, C, D>(
     f3: ParjsCombinator<C, D>
 ): ParjsCombinator<A, D>;
 
-export function composeCombinator(...fs: ParjsCombinator<any, any>[]) {
-    return x => {
+export function composeCombinator(...fs: ParjsCombinator<unknown, unknown>[]) {
+    return (x: ImplicitParjser<unknown>) => {
         let last = x;
         for (const f of fs) {
             last = f(last);
