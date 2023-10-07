@@ -3,15 +3,16 @@ import matches from "lodash/matches";
 import isPlainObject from "lodash/isPlainObject";
 
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace jasmine {
         interface Matchers<T> {
-            toBeAnyOf(options: any[], failMessage?: string);
+            toBeAnyOf(expecteds: Expected<T>[], failMessage?: string);
 
             toHaveType(type: string, failMessage?: string);
 
             toHaveMember(name: string, failMessage?: string);
 
-            toBeLike(obj: object);
+            toBeLike(obj: Partial<Expected<T>>);
         }
     }
 }
