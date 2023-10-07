@@ -1,106 +1,106 @@
 {
-  "name": "parjs",
-  "version": "0.16.1",
-  "repository": "https://github.com/GregRos/parjs",
-  "homepage": "https://github.com/GregRos/parjs",
-  "exports": {
-    ".": {
-      "require": "./dist/lib/index.js",
-      "import": "./dist/lib/index.js",
-      "default": "./dist/lib/index.js",
-      "types": "./dist/lib/index.d.ts"
+    "name": "parjs",
+    "version": "0.16.1",
+    "repository": "https://github.com/GregRos/parjs",
+    "homepage": "https://github.com/GregRos/parjs",
+    "exports": {
+        ".": {
+            "require": "./dist/lib/index.js",
+            "import": "./dist/lib/index.js",
+            "default": "./dist/lib/index.js",
+            "types": "./dist/lib/index.d.ts"
+        },
+        "./combinators": {
+            "require": "./dist/lib/combinators.js",
+            "import": "./dist/lib/combinators.js",
+            "default": "./dist/lib/combinators.js",
+            "types": "./dist/lib/combinators.d.ts"
+        },
+        "./internal": {
+            "require": "./dist/lib/internal.js",
+            "import": "./dist/lib/internal.js",
+            "default": "./dist/lib/internal.js",
+            "types": "./dist/lib/internal.d.ts"
+        }
     },
-    "./combinators": {
-      "require": "./dist/lib/combinators.js",
-      "import": "./dist/lib/combinators.js",
-      "default": "./dist/lib/combinators.js",
-      "types": "./dist/lib/combinators.d.ts"
+    "typings": "dist/lib/index",
+    "description": "A parser-combinator library for JavaScript.",
+    "main": "dist/lib/index.js",
+    "scripts": {
+        "test": "nyc node ./dist/test/runner.js",
+        "build": "rm -rf dist/ && tsc",
+        "rebuild": "shx rm -rf dist/ && tsc",
+        "docs": "node dist/generate-docs/run.js",
+        "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
+        "eslint": "eslint 'src/**/*.ts'",
+        "eslint:fix": "eslint --fix src/**/*.ts",
+        "lint:fix": "run-s prettier:fix eslint:fix",
+        "lint:check": "run-s -c prettier eslint",
+        "prettier:fix": "prettier --write .",
+        "prettier": "prettier --check ."
     },
-    "./internal": {
-      "require": "./dist/lib/internal.js",
-      "import": "./dist/lib/internal.js",
-      "default": "./dist/lib/internal.js",
-      "types": "./dist/lib/internal.d.ts"
-    }
-  },
-  "typings": "dist/lib/index",
-  "description": "A parser-combinator library for JavaScript.",
-  "main": "dist/lib/index.js",
-  "scripts": {
-    "test": "nyc node ./dist/test/runner.js",
-    "build": "rm -rf dist/ && tsc",
-    "rebuild": "shx rm -rf dist/ && tsc",
-    "docs": "node dist/generate-docs/run.js",
-    "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
-    "eslint": "eslint 'src/**/*.ts'",
-    "eslint:fix": "eslint --fix src/**/*.ts",
-    "lint:fix": "run-s prettier:fix eslint:fix",
-    "lint:check": "run-s -c prettier eslint",
-    "prettier:fix": "prettier --write .",
-    "prettier": "prettier --check ."
-  },
-  "keywords": [
-    "parser",
-    "combinator",
-    "parsing",
-    "text",
-    "string",
-    "parser combinator",
-    "parser-combinator",
-    "functional"
-  ],
-  "author": "Greg Rosenbaum",
-  "license": "MIT",
-  "dependencies": {
-    "char-info": "^0.3.2",
-    "lodash": "^4.17.21"
-  },
-  "devDependencies": {
-    "@gregros/eslint-config": "^0.4.0",
-    "@types/jasmine": "^3.3.0",
-    "@types/lodash": "^4.14.104",
-    "@types/node": "^10.12.9",
-    "@typescript-eslint/eslint-plugin": "6.5.0",
-    "@typescript-eslint/parser": "6.5.0",
-    "eslint": "8.48.0",
-    "globby": "^9.2.0",
-    "jasmine": "^3.3.0",
-    "jasmine-core": "^3.3.0",
-    "jasmine-spec-reporter": "^4.2.1",
-    "npm-run-all": "^4.1.5",
-    "nyc": "^13.1.0",
-    "prettier": "3.0.3",
-    "shelljs": "^0.8.3",
-    "shx": "^0.3.4",
-    "source-map": "^0.7.3",
-    "source-map-support": "^0.5.9",
-    "ts-node": "^10.9.1",
-    "typedoc": "^0.25.0",
-    "typedoc-plugin-internal-external": "^2.2.0",
-    "typescript": "^5.2.2"
-  },
-  "optionalDependencies": {},
-  "typesVersions": {
-    "*": {
-      "combinators": [
-        "./dist/lib/combinators.d.ts"
-      ],
-      "internal": [
-        "./dist/lib/internal.d.ts"
-      ]
-    }
-  },
-  "nyc": {
-    "produce-source-map": true,
-    "include": [
-      "dist/lib/**/*.js"
+    "keywords": [
+        "parser",
+        "combinator",
+        "parsing",
+        "text",
+        "string",
+        "parser combinator",
+        "parser-combinator",
+        "functional"
     ],
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "sourceMap": true
-  },
-  "sideEffects": false,
-  "packageManager": "yarn@1.22.19"
+    "author": "Greg Rosenbaum",
+    "license": "MIT",
+    "dependencies": {
+        "char-info": "^0.3.2",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "@gregros/eslint-config": "^0.4.0",
+        "@types/jasmine": "^3.3.0",
+        "@types/lodash": "^4.14.104",
+        "@types/node": "^10.12.9",
+        "@typescript-eslint/eslint-plugin": "6.5.0",
+        "@typescript-eslint/parser": "6.5.0",
+        "eslint": "8.48.0",
+        "globby": "^9.2.0",
+        "jasmine": "^3.3.0",
+        "jasmine-core": "^3.3.0",
+        "jasmine-spec-reporter": "^4.2.1",
+        "npm-run-all": "^4.1.5",
+        "nyc": "^13.1.0",
+        "prettier": "3.0.3",
+        "shelljs": "^0.8.3",
+        "shx": "^0.3.4",
+        "source-map": "^0.7.3",
+        "source-map-support": "^0.5.9",
+        "ts-node": "^10.9.1",
+        "typedoc": "^0.25.0",
+        "typedoc-plugin-internal-external": "^2.2.0",
+        "typescript": "^5.2.2"
+    },
+    "optionalDependencies": {},
+    "typesVersions": {
+        "*": {
+            "combinators": [
+                "./dist/lib/combinators.d.ts"
+            ],
+            "internal": [
+                "./dist/lib/internal.d.ts"
+            ]
+        }
+    },
+    "nyc": {
+        "produce-source-map": true,
+        "include": [
+            "dist/lib/**/*.js"
+        ],
+        "reporter": [
+            "lcov",
+            "text-summary"
+        ],
+        "sourceMap": true
+    },
+    "sideEffects": false,
+    "packageManager": "yarn@1.22.19"
 }

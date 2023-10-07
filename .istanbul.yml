@@ -1,13 +1,13 @@
 instrumentation:
-  root: .
-  extensions:
-    - .js
-  default-excludes: true
-  excludes:
-    - "**/*.no-cover.js"
-    - "**/test/**" #no need to instrument this test code! Things references by it remain covered.
-    - "**/functions/**" #many indicators are not utilized so let's ignore them.
-    - "**/implementation/issues.js" #contains things like exception throws, not executable code
-    - "**/basics/result.js" #should not be instrumented
-    - ".obsidian/**" #not executable code
-    - ".github/**" #not executable code
+    root: .
+    extensions:
+        - .js
+    default-excludes: true
+    excludes:
+        - "**/*.no-cover.js"
+        - "**/test/**" #no need to instrument this test code! Things references by it remain covered.
+        - "**/functions/**" #many indicators are not utilized so let's ignore them.
+        - "**/implementation/issues.js" #contains things like exception throws, not executable code
+        - "**/basics/result.js" #should not be instrumented
+        - ".obsidian/**" #not executable code
+        - ".github/**" #not executable code
