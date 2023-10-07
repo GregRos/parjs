@@ -57,7 +57,7 @@ export function composeCombinator(...fs: ParjsCombinator<unknown, unknown>[]) {
  * The chaining or piping operator. Applies a sequence of combinators to
  * this parser, feeding the result of one into the input of the next.
  * @param source The source parser on which to apply the combinators.
- @param cmb1 The single combinator to apply.
+ * @param cmb1 The single combinator to apply.
  */
 export function pipe<T, T1>(source: ImplicitParjser<T>, cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
 
@@ -65,7 +65,7 @@ export function pipe<T, T1>(source: ImplicitParjser<T>, cmb1: ParjsCombinator<T,
  * The chaining or piping operator. Applies a sequence of combinators to
  * this parser, feeding the result of one into the input of the next.
  * @param source The source parser on which to apply the combinators.
- @param cmb1 The first combinator to apply.
+ * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
  */
 export function pipe<T, T1, T2>(
@@ -78,7 +78,7 @@ export function pipe<T, T1, T2>(
  * The chaining or piping operator. Applies a sequence of combinators to
  * this parser, feeding the result of one into the input of the next.
  * @param source The source parser on which to apply the combinators.
- @param cmb1 The first combinator to apply.
+ * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
  * @param cmb3 The third combinator to apply.
  */
@@ -93,7 +93,7 @@ export function pipe<T, T1, T2, T3>(
  * The chaining or piping operator. Applies a sequence of combinators to
  * this parser, feeding the result of one into the input of the next.
  * @param source The source parser on which to apply the combinators.
- @param cmb1 The first combinator to apply.
+ * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
  * @param cmb3 The third combinator to apply.
  * @param cmb4 The fourth combinator to apply.
@@ -110,7 +110,7 @@ export function pipe<T, T1, T2, T3, T4>(
  * The chaining or piping operator. Applies a sequence of combinators to
  * this parser, feeding the result of one into the input of the next.
  * @param source The source parser on which to apply the combinators.
- @param cmb1 The first combinator to apply.
+ * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
  * @param cmb3 The third combinator to apply.
  * @param cmb4 The fourth combinator to apply.
@@ -129,7 +129,7 @@ export function pipe<T, T1, T2, T3, T4, T5>(
  * The chaining or piping operator. Applies a sequence of combinators to
  * this parser, feeding the result of one into the input of the next.
  * @param source The source parser on which to apply the combinators.
- @param cmb1 The first combinator to apply.
+ * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
  * @param cmb3 The third combinator to apply.
  * @param cmb4 The fourth combinator to apply.
