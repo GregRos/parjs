@@ -62,7 +62,7 @@ const escapes = {
     t: "\t"
 };
 
-const pJsonValue = later<JsonValue>();
+export const pJsonValue = later<JsonValue>();
 
 const pEscapeChar = anyCharOf(Object.getOwnPropertyNames(escapes).join()).pipe(
     map(char => escapes[char] as string)
