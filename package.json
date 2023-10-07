@@ -101,5 +101,6 @@
     ],
     "sourceMap": true
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "packageManager": "yarn@1.22.19"
 }
