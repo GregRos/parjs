@@ -24,7 +24,7 @@ export interface DelayedParjser<T> extends Parjser<T> {
 export function later<T>(): DelayedParjser<T> {
     return new (class Late extends ParjserBase {
         type = "later";
-        _resolved: ParjserBase;
+        _resolved!: ParjserBase;
         get expecting() {
             return !this._resolved ? "unbound delayed parser" : this._resolved.expecting;
         }

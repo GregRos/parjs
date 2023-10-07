@@ -97,8 +97,8 @@ export class BasicParsingState implements ParsingState {
     stack = [];
     initialUserState = undefined;
     value = undefined;
-    kind: ResultKind;
-    reason: string;
+    kind!: ResultKind;
+    reason!: string;
 
     constructor(
         public input: string,
