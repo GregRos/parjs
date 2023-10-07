@@ -22,8 +22,8 @@ const defaultFailure: FailureInfo = {
  */
 export function mustCapture<T>(pFailure?: Partial<FailureInfo>): ParjsCombinator<T, T> {
     const failure = defaults(pFailure, defaultFailure);
-    return defineCombinator(source => {
-        return new (class MustCapture extends ParjserBase {
+    return defineCombinator<T, T>(source => {
+        return new (class MustCapture extends ParjserBase<T> {
             expecting = `expecting internal parser ${source.type} to consume input`;
             type = "mustCapture";
             _apply(ps: ParsingState) {

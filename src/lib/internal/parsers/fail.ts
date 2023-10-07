@@ -34,7 +34,7 @@ export function fail<T = never>(pFailure?: Partial<FailureInfo> | string): Parjs
         typeof pFailure === "string"
             ? ({ kind: "Hard", reason: pFailure } as const)
             : defaults(pFailure, defaultFailure);
-    return new (class Fail extends ParjserBase {
+    return new (class Fail extends ParjserBase<T> {
         type = "fail";
         expecting = failure.reason;
 

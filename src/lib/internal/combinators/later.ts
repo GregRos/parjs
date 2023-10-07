@@ -22,16 +22,16 @@ export interface DelayedParjser<T> extends Parjser<T> {
  * another parser by calling the parser's `init` function.
  */
 export function later<T>(): DelayedParjser<T> {
-    return new (class Late extends ParjserBase {
+    return new (class Late extends ParjserBase<T> implements DelayedParjser<T> {
         type = "later";
-        _resolved!: ParjserBase;
+        _resolved!: ParjserBase<T>;
         get expecting() {
             return !this._resolved ? "unbound delayed parser" : this._resolved.expecting;
         }
 
         init(resolved: Parjser<T>) {
             if (this._resolved) Issues.delayedParserAlreadyInit();
-            this._resolved = resolved as ParjserBase;
+            this._resolved = resolved as ParjserBase<T>;
         }
 
         _apply(ps: ParsingState): void {

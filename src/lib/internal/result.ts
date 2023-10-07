@@ -60,7 +60,7 @@ export interface Trace extends FailureInfo {
     userState: object;
     position: number;
     location: ErrorLocation;
-    stackTrace: Parjser<any>[];
+    stackTrace: Parjser<unknown>[];
     input: string;
 }
 

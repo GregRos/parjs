@@ -18,15 +18,15 @@ import { ParjserBase } from "../parser";
  */
 export function many<T>(maxIterations?: number): ParjsCombinator<T, T[]>;
 
-export function many(maxIterations = Infinity) {
+export function many<T>(maxIterations = Infinity) {
     return defineCombinator(source => {
-        return new (class Many extends ParjserBase {
+        return new (class Many extends ParjserBase<T[]> {
             type = "many";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
                 let { position } = ps;
-                const arr = [] as any[];
+                const arr = [] as unknown[];
                 let i = 0;
                 for (;;) {
                     source.apply(ps);

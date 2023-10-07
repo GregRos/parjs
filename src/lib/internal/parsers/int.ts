@@ -37,7 +37,7 @@ export function int(pOptions?: Partial<IntOptions>): Parjser<number> {
     const expecting = `expecting a ${options.allowSign ? "signed" : "unsigned"} integer in base ${
         options.base
     }`;
-    return new (class Int extends ParjserBase {
+    return new (class Int extends ParjserBase<number> {
         type = "int";
         displayName = "int";
         expecting = expecting;

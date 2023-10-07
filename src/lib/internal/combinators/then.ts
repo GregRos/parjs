@@ -17,7 +17,7 @@ import { map } from "./map";
  * `next`.
  * @param next
  */
-export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<any, T> {
+export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<unknown, T> {
     return composeCombinator(
         then(next),
         map(arr => arr[1])
@@ -29,7 +29,7 @@ export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<any, T> {
  * the source parser.
  * @param next
  */
-export function thenq<T>(next: ImplicitParjser<any>): ParjsCombinator<T, T> {
+export function thenq<T>(next: ImplicitParjser<unknown>): ParjsCombinator<T, T> {
     return composeCombinator(
         then(next),
         map(arr => arr[0])
@@ -82,18 +82,20 @@ export function then<A, B, C, D, E>(
     next4: ImplicitParjser<E>
 ): ParjsCombinator<A, [A, B, C, D, E]>;
 
-export function then(...parsers: ImplicitParjser<any>[]) {
-    const resolvedParsers = parsers.map(x => ScalarConverter.convert(x) as any as ParjserBase);
+export function then(...parsers: ImplicitParjser<unknown>[]) {
+    const resolvedParsers = parsers.map(x => ScalarConverter.convert(x) as ParjserBase<unknown>);
     return defineCombinator(source => {
         resolvedParsers.splice(0, 0, source);
 
-        return new (class Then extends ParjserBase {
+        return new (class Then extends ParjserBase<unknown[]> {
             type = "then";
             expecting = source.expecting;
 
             _apply(ps: ParsingState): void {
-                const results = [] as any[];
+                const results = [] as unknown[];
                 const origPos = ps.position;
+                // for loop might be very slightly more performant
+                // eslint-disable-next-line @typescript-eslint/prefer-for-of
                 for (let i = 0; i < resolvedParsers.length; i++) {
                     const cur = resolvedParsers[i];
                     cur.apply(ps);

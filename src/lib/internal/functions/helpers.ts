@@ -12,7 +12,8 @@ export namespace StringHelpers {
      * Recursively applies join to an array of arrays.
      * @param arr
      */
-    export function recJoin(arr: any): string {
+    type StringOrArray = string | StringOrArray[];
+    export function recJoin(arr: StringOrArray): string {
         if (arr instanceof Array) {
             return arr.map(x => recJoin(x)).join("");
         } else {

@@ -13,8 +13,8 @@ import { defineCombinator } from "./combinator";
  * and yields the result.
  */
 export function backtrack<T>(): ParjsCombinator<T, T> {
-    return defineCombinator(source => {
-        return new (class Backtrack extends ParjserBase {
+    return defineCombinator<T, T>(source => {
+        return new (class Backtrack extends ParjserBase<T> {
             type = "backtrack";
             expecting = source.expecting;
 

@@ -2,17 +2,18 @@ import { ResultKind } from "../../../lib/internal/result";
 import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
 import { eof, fail, position, result, state, string } from "../../../lib/internal/parsers";
 import { later, then } from "../../../lib/combinators";
+import { ParjserBase } from "../../../lib/internal";
 
 describe("special parsers", () => {
     describe("Parjs.eof", () => {
         const parser = eof();
-        const fail = "a";
-        const success = "";
+        const failInput = "a";
+        const successInput = "";
         it("success on empty input", () => {
-            expectSuccess(parser.parse(success), undefined);
+            expectSuccess(parser.parse(successInput), undefined);
         });
         it("fail on non-empty input", () => {
-            expectFailure(parser.parse(fail), ResultKind.SoftFail);
+            expectFailure(parser.parse(failInput), ResultKind.SoftFail);
         });
         it("chain multiple EOF succeeds", () => {
             const parser2 = parser.pipe(then(eof()));
@@ -25,8 +26,8 @@ describe("special parsers", () => {
         const uState = { tag: 1 };
         const someInput = "abcd";
         it("fails on non-empty input", () => {
-            const result = parser.parse(someInput, uState);
-            expectFailure(result);
+            const parseResult = parser.parse(someInput, uState);
+            expectFailure(parseResult);
         });
     });
 
@@ -34,12 +35,12 @@ describe("special parsers", () => {
         const parser = position();
         const noInput = "";
         it("succeeds on empty input", () => {
-            const result = parser.parse(noInput);
-            expectSuccess(result, 0);
+            const parseResult = parser.parse(noInput);
+            expectSuccess(parseResult, 0);
         });
         it("fails on non-empty input", () => {
-            const result = parser.parse("abc");
-            expectFailure(result);
+            const parseResult = parser.parse("abc");
+            expectFailure(parseResult);
         });
     });
 
@@ -69,8 +70,8 @@ describe("special parsers", () => {
     });
 
     describe("Parjs.later", () => {
-        const parser = later<any>();
-        const internal = string("a");
+        const internal = string("a") as ParjserBase<string>;
+        const parser = later<string>();
 
         it("throws when not init", () => {
             expect(() => later().parse("")).toThrow();
@@ -95,7 +96,9 @@ describe("special parsers", () => {
         });
 
         it("expecting after init", () => {
-            expect((parser as any).expecting).toEqual((internal as any).expecting);
+            expect((parser as unknown as ParjserBase<string>).expecting).toEqual(
+                internal.expecting
+            );
         });
     });
 });

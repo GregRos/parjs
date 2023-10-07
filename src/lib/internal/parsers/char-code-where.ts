@@ -13,7 +13,7 @@ import { Parjser, ParjsValidator } from "../parjser";
  * @param failure
  */
 export function charCodeWhere(predicate: ParjsValidator<number>): Parjser<string> {
-    return new (class CharCodeWhere extends ParjserBase {
+    return new (class CharCodeWhere extends ParjserBase<string> {
         type = "charCodeWhere";
         expecting = "expecting a character matching a predicate";
 

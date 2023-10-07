@@ -12,34 +12,28 @@ import { ParjserBase } from "../parser";
 import { ScalarConverter } from "../scalar-converter";
 import { qthen } from "./then";
 
-const defaultProjection = (sourceMatches: any[], tillMatch: any, userState: UserState) =>
-    sourceMatches;
+const defaultProjection = <TSource>(sourceMatches: TSource[]) => sourceMatches;
 
 /**
  * Tries to apply the source parser repeatedly until `till` succeeds. Yields
  * the results of the source parser in an array.
  * @param till The parser that indicates iteration should stop.
- * @param project
- * fails softly. Defaults to false.
+ * @param projection Optionally, a projection to apply on the captured results.
  */
-export function manyTill<TSource, TTill = any, TResult = TSource[]>(
+export function manyTill<TSource, TTill, TResult = TSource[]>(
     till: ImplicitParjser<TTill>,
-    project?: (source: TSource[], till: TTill, user: UserState) => TResult
-): ParjsCombinator<TSource, TResult>;
-export function manyTill(
-    till: ImplicitParjser<any>,
-    pProject?: (source: any[], till: any, user: UserState) => any
-) {
-    const tillResolved = ScalarConverter.convert(till) as any as ParjserBase;
+    pProject?: (source: TSource[], till: TTill, user: UserState) => TResult
+): ParjsCombinator<TSource, TResult> {
+    const tillResolved = ScalarConverter.convert(till) as ParjserBase<TTill>;
     const project = pProject || defaultProjection;
-    return defineCombinator(source => {
-        return new (class ManyTill extends ParjserBase {
+    return defineCombinator<TSource, TResult>(source => {
+        return new (class ManyTill extends ParjserBase<TResult> {
             type = "manyTill";
             expecting = `${source.expecting} or ${tillResolved.expecting}`;
 
             _apply(ps: ParsingState): void {
                 let { position } = ps;
-                const arr = [] as any[];
+                const arr: TSource[] = [];
                 let successes = 0;
                 for (;;) {
                     tillResolved.apply(ps);
@@ -53,7 +47,7 @@ export function manyTill(
                     ps.position = position;
                     source.apply(ps);
                     if (ps.isOk) {
-                        arr.push(ps.value);
+                        arr.push(ps.value as TSource);
                     } else if (ps.isSoft) {
                         // many failed softly before till...
                         ps.kind = successes === 0 ? ResultKind.SoftFail : ResultKind.HardFail;
@@ -68,7 +62,7 @@ export function manyTill(
                     position = ps.position;
                     successes++;
                 }
-                ps.value = project(arr, ps.value, ps.userState);
+                ps.value = project(arr, ps.value as TTill, ps.userState);
                 ps.kind = ResultKind.Ok;
             }
         })();
@@ -77,17 +71,18 @@ export function manyTill(
 
 /**
  * Applies `start` and then repeatedly applies the source parser until
- * `pTill` succeeds. Similar to a mix of `between` and `manyTill`.
+ * `pTill` succeeds. Similar to a mix of `between` and `manyTill`. Yields the
+ * results of the source parser in an array.
  * @param start The initial parser to apply.
- * @param pTill The terminator.
+ * @param pTill Optionally, the terminator. Defaults to `start`.
  * @param projection Optionally, a projection to apply on the captured results.
  */
-export function manyBetween<TSource, TTill = any, TResult = TSource[]>(
-    start: ImplicitParjser<any>,
+export function manyBetween<TSource, TStart, TTill = TStart, TResult = TSource[]>(
+    start: ImplicitParjser<TStart>,
     pTill?: ImplicitParjser<TTill>,
-    projection?: (sources: TSource[], till: TTill, state: UserState) => TResult
+    projection?: (sources: TSource[], till: TTill | TStart, state: UserState) => TResult
 ): ParjsCombinator<TSource, TResult> {
-    const till = pTill || start;
+    const till: ImplicitParjser<TTill | TStart> = pTill || start;
     return defineCombinator(source => {
         return pipe(start, qthen(source.pipe(manyTill(till, projection))));
     });

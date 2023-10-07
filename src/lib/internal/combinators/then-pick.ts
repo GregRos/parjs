@@ -17,8 +17,8 @@ import { ImplicitParjser } from "../scalar-converter";
 export function thenPick<A, B>(
     selector: ParjsProjection<A, ImplicitParjser<B>>
 ): ParjsCombinator<A, B> {
-    return defineCombinator(source => {
-        return new (class ThenPick extends ParjserBase {
+    return defineCombinator<A, B>(source => {
+        return new (class ThenPick extends ParjserBase<B> {
             expecting = source.expecting;
             type = "then-pick";
 
@@ -27,7 +27,7 @@ export function thenPick<A, B>(
                 if (!ps.isOk) {
                     return;
                 }
-                const nextParser = selector(ps.value, ps.userState) as ParjserBase;
+                const nextParser = selector(ps.value as A, ps.userState) as ParjserBase<B>;
                 nextParser.apply(ps);
                 if (ps.isOk) {
                     return;

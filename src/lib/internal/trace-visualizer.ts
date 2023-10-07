@@ -31,7 +31,7 @@ const defaultArgs: TraceVisualizerArgs = {
 
 function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
     const args = defaults(pAgs, defaultArgs);
-    const visualizer: any = (trace: Trace) => {
+    const visualizer: TraceVisualizer = (trace: Trace) => {
         const rows = trace.input.split(/\r\n|\n|\r/g);
         const locRow = trace.location.line;
         const around = args.linesBefore;
@@ -61,7 +61,7 @@ Stack: ${trace.stackTrace
 `;
         return fullVisualization;
     };
-    visualizer.configure = newTraceVisualizer as any;
+    visualizer.configure = newTraceVisualizer;
     return visualizer as TraceVisualizer;
 }
 

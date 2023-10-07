@@ -13,11 +13,9 @@ import { ParjserBase } from "../parser";
  * Applies the source parser and projects its result with `projection`.
  * @param projection The projection to apply.
  */
-export function map<TIn, TOut>(projection: ParjsProjection<TIn, TOut>): ParjsCombinator<TIn, TOut>;
-
-export function map(projection: any) {
-    return defineCombinator(source => {
-        return new (class Map extends ParjserBase {
+export function map<A, B>(projection: ParjsProjection<A, B>): ParjsCombinator<A, B> {
+    return defineCombinator<A, B>(source => {
+        return new (class Map extends ParjserBase<B> {
             type = "map";
             expecting = source.expecting;
 
@@ -26,7 +24,7 @@ export function map(projection: any) {
                 if (!ps.isOk) {
                     return;
                 }
-                ps.value = projection(ps.value, ps.userState);
+                ps.value = projection(ps.value as A, ps.userState);
             }
         })();
     });
@@ -36,6 +34,6 @@ export function map(projection: any) {
  * Applies the source parser and yields the constant value `result`.
  * @param result The constant value to yield.
  */
-export function mapConst<T>(result: T): ParjsCombinator<any, T> {
+export function mapConst<T>(result: T): ParjsCombinator<unknown, T> {
     return map(() => result);
 }

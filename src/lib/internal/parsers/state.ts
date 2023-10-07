@@ -12,8 +12,8 @@ import { ParjserBase } from "../parser";
 /**
  * Returns a parser that yields the current user state object. It always succeeds.
  */
-export function state(): Parjser<any> {
-    return new (class State extends ParjserBase {
+export function state<T>(): Parjser<T> {
+    return new (class State extends ParjserBase<T> {
         type = "state";
         expecting = "expecting anything";
 

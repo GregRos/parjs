@@ -13,7 +13,7 @@ import { ParjserBase } from "../parser";
  * text that was parsed. Always succeeds.
  */
 export function rest(): Parjser<string> {
-    return new (class Rest extends ParjserBase {
+    return new (class Rest extends ParjserBase<string> {
         expecting = "expecting anything";
         type = "rest";
         _apply(pr: ParsingState) {

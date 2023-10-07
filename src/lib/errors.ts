@@ -12,7 +12,7 @@ import { ParjsFailure } from "./internal/result";
  * A parent class for all errors thrown by Parjs.
  */
 export abstract class ParjsError extends Error {
-    name = this.constructor.name;
+    override name = this.constructor.name;
 }
 
 /**

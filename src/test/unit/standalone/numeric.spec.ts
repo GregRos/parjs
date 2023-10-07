@@ -108,7 +108,7 @@ describe("numeric parsers", () => {
         describe("no sign", () => {
             const parser = float({
                 allowSign: false
-            } as any);
+            });
             it("fails on sign", () => {
                 expectFailure(parser.parse("+1"), ResultKind.SoftFail);
             });
@@ -119,7 +119,7 @@ describe("numeric parsers", () => {
         describe("no implicit zero", () => {
             const parser = float({
                 allowImplicitZero: false
-            } as any);
+            });
             it("fails on implicit zero whole", () => {
                 expectFailure(parser.parse(".1"), ResultKind.SoftFail);
             });

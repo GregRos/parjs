@@ -23,12 +23,12 @@ describe("special combinators", () => {
     describe("isolate state", () => {
         it("works", () => {
             const parser = string("hi").pipe(
-                each((x, u) => {
+                each((_x, u) => {
                     expect(u.innerState).toBe(1, "innerState is set inside isolation");
                     expect(u.outerState).toBeUndefined("outerStste unset inside insolation");
                 }),
                 replaceState({ innerState: 1 }),
-                map((x, u) => {
+                map((_x, u) => {
                     expect(u.outerState).toBe(1, "outerState set inside isolation");
                     expect(u.innerState).toBeUndefined("innerState unset inside isolation");
                     return u;

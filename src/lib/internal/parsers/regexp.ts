@@ -19,14 +19,14 @@ export function regexp(origRegexp: RegExp): Parjser<string[]> {
     const flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"]
         .filter(x => x)
         .join("");
-    const regexp = new RegExp(origRegexp.source, `${flags}y`);
-    return new (class Regexp extends ParjserBase {
+    const re = new RegExp(origRegexp.source, `${flags}y`);
+    return new (class Regexp extends ParjserBase<string[]> {
         type = "regexp";
-        expecting = `expecting input matching '${regexp.source}'`;
+        expecting = `expecting input matching '${re.source}'`;
         _apply(ps: ParsingState) {
             const { input, position } = ps;
-            regexp.lastIndex = position;
-            const match = regexp.exec(input);
+            re.lastIndex = position;
+            const match = re.exec(input);
             if (!match) {
                 ps.kind = ResultKind.SoftFail;
                 return;

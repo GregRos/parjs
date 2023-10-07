@@ -16,7 +16,7 @@ import { regexp } from "./parsers/regexp";
  * Should not be used from user code. Used to implement implicit parser literals.
  * @type {symbol}
  */
-export const convertibleSymbol = Symbol("ParjsConvertibleLiteral");
+export const convertibleSymbol: unique symbol = Symbol("ParjsConvertibleLiteral");
 
 /**
  * A literal type which is implicitly convertible to a parser.
@@ -52,9 +52,9 @@ export namespace ScalarConverter {
      */
     export function convert<V>(scalarOrParjser: ImplicitParjser<V>): Parjser<V> {
         if (typeof scalarOrParjser === "string") {
-            return string(scalarOrParjser) as any;
+            return string(scalarOrParjser) as Parjser<V>;
         } else if (scalarOrParjser instanceof RegExp) {
-            return regexp(scalarOrParjser) as any;
+            return regexp(scalarOrParjser) as Parjser<V>;
         } else {
             return scalarOrParjser as Parjser<V>;
         }
