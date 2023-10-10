@@ -52,7 +52,7 @@ class JsonObject {
 
 type JsonValue = JsonNumber | JsonString | JsonBool | JsonArray | JsonObject;
 
-const escapes = {
+const escapes: Record<string, string> = {
     '"': `"`,
     "\\": "\\",
     "/": "/",
@@ -62,7 +62,7 @@ const escapes = {
     t: "\t"
 };
 
-const pJsonValue = later<JsonValue>();
+export const pJsonValue = later<JsonValue>();
 
 const pEscapeChar = anyCharOf(Object.getOwnPropertyNames(escapes).join()).pipe(
     map(char => escapes[char] as string)
@@ -123,7 +123,7 @@ const pObject = pObjectProperty.pipe(
 
 pJsonValue.init(pJsonString.pipe(or(pNumber, pBool, pArray, pObject), between(whitespace())));
 
-function astToObject(obj: JsonValue) {
+function astToObject(obj: JsonValue): unknown {
     if (obj instanceof JsonNumber) {
         return obj.value;
     } else if (obj instanceof JsonString) {
@@ -133,7 +133,7 @@ function astToObject(obj: JsonValue) {
     } else if (obj instanceof JsonArray) {
         return obj.value.map(x => astToObject(x));
     } else if (obj instanceof JsonObject) {
-        const res = {};
+        const res: Record<string, unknown> = {};
         for (const prop of obj.value) {
             res[prop.name] = astToObject(prop.value);
         }

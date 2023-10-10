@@ -69,9 +69,9 @@ export interface ParsingState {
      */
     readonly isFatal: boolean;
 
-    atLeast(kind: ResultKind);
+    atLeast(kind: ResultKind): boolean | undefined;
 
-    atMost(kind: ResultKind);
+    atMost(kind: ResultKind): boolean | undefined;
 }
 
 function worseThan(a: ResultKind, b: ResultKind) {
@@ -97,8 +97,8 @@ export class BasicParsingState implements ParsingState {
     stack = [];
     initialUserState = undefined;
     value = undefined;
-    kind: ResultKind;
-    reason: string;
+    kind!: ResultKind;
+    reason!: string;
 
     constructor(
         public input: string,

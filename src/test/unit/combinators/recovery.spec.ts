@@ -72,7 +72,7 @@ describe("or combinator", () => {
                     kind: "Soft"
                 })
             );
-            const parser = allFails[0].pipe(or.call(null, ...allFails.slice(1)));
+            const parser = allFails[0].pipe(or(allFails[1], allFails[2], allFails[3]));
             const result = parser.parse("a") as ParjsFailure;
             expect(result.reason).toBe(reasons.join(" OR "));
         });
