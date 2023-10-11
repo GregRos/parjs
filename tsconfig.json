@@ -4,7 +4,6 @@
         "module": "CommonJS",
         "target": "ES2020",
         "sourceMap": true,
-        "lib": ["dom"],
         "declaration": true,
         "outDir": "dist",
         "allowSyntheticDefaultImports": true,
