@@ -30,7 +30,7 @@
         "test": "nyc node ./dist/test/runner.js",
         "build": "rm -rf dist/ && tsc",
         "rebuild": "shx rm -rf dist/ && tsc",
-        "docs": "node dist/generate-docs/run.js",
+        "docs": "typedoc --out docs",
         "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
         "eslint": "eslint 'src/**/*.ts'",
         "eslint:fix": "eslint --fix src/**/*.ts",
