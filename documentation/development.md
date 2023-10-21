@@ -16,4 +16,8 @@ yarn build
 
 # test (remember to build first to make sure the code is up to date)
 yarn build && yarn test
+
+# quality checks
+yarn lint:check
+yarn lint:fix
 ```
