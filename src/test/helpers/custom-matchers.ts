@@ -119,5 +119,5 @@ export function expectSuccess<T>(result: ParjsResult<T>, value?: T, state?: obje
 }
 
 beforeEach(() => {
-    jasmine.addMatchers(CustomMatchers);
+    jasmine.addMatchers(CustomMatchers as never);
 });
