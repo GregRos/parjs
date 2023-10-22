@@ -23,24 +23,24 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 16.x
+                    - 18.x
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v3
               with:
-                  node-version: "16"
+                  node-version: "18"
                   cache: npm
                   registry-url: https://registry.npmjs.org
-            - run: npm install
-            - run: npm run build
-            - run: npm run lint:check
-            - run: npm test
+            - run: yarn install --frozen-lockfile
+            - run: yarn build
+            - run: yarn lint:check
+            - run: yarn test
             - name: Coveralls
               uses: coverallsapp/github-action@master
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-            - run: npm run docs
+            - run: yarn run docs
             - name: Setup Pages
               uses: actions/configure-pages@v3
             - name: Upload artifact
@@ -51,6 +51,6 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v2
             - name: publish
-              run: npm publish
+              run: yarn publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
