@@ -79,7 +79,6 @@
         "typedoc-plugin-internal-external": "^2.2.0",
         "typescript": "^5.2.2"
     },
-    "optionalDependencies": {},
     "typesVersions": {
         "*": {
             "combinators": [
@@ -102,5 +101,5 @@
         "sourceMap": true
     },
     "sideEffects": false,
-    "packageManager": "yarn@1.22.19"
+    "packageManager": "yarn@4.0.0"
 }

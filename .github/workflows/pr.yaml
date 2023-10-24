@@ -16,9 +16,9 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: "18"
-                  cache: npm
-                  registry-url: https://registry.npmjs.org
-            - run: yarn install --frozen-lockfile
+                  cache: yarn
+                  registry-url: "https://registry.yarnpkg.com"
+            - run: yarn install --immutable
             - run: yarn build
             - run: yarn lint:check
             - run: yarn test
