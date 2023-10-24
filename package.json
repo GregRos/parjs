@@ -63,7 +63,6 @@
         "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
         "eslint": "^8.52.0",
-        "globby": "^9.2.0",
         "jasmine": "^5.1.0",
         "jasmine-core": "^5.1.1",
         "jasmine-spec-reporter": "^7.0.0",
@@ -75,7 +74,7 @@
         "source-map": "^0.7.4",
         "source-map-support": "^0.5.21",
         "ts-node": "^10.9.1",
-        "typedoc": "^0.25.2",
+        "typedoc": "^0.25.3",
         "typedoc-plugin-internal-external": "^2.2.0",
         "typescript": "^5.2.2"
     },

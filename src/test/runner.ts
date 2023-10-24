@@ -1,11 +1,10 @@
 import Jasmine from "jasmine";
 import { SpecReporter } from "jasmine-spec-reporter";
 import "./setup";
-import * as glob from "globby";
 
 const jrunner = new Jasmine();
-jrunner.addMatchingSpecFiles(glob.sync(`${__dirname}/**/*[sS]pec.js`));
-jrunner.addMatchingHelperFiles(glob.sync(`${__dirname}/helpers/**/*.js`));
+jrunner.addMatchingSpecFiles([`${__dirname}/**/*[sS]pec.js`]);
+jrunner.addMatchingHelperFiles([`${__dirname}/helpers/**/*.js`]);
 jrunner.env.configure({
     stopSpecOnExpectationFailure: false,
     random: false
