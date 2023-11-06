@@ -9,19 +9,19 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 16.x
+                    - 18.x
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v3
               with:
-                  node-version: "16"
-                  cache: npm
-                  registry-url: https://registry.npmjs.org
-            - run: npm install
-            - run: npm run build
-            - run: npm run lint:check
-            - run: npm test
+                  node-version: "18"
+                  cache: yarn
+                  registry-url: "https://registry.yarnpkg.com"
+            - run: yarn install --immutable
+            - run: yarn build
+            - run: yarn lint:check
+            - run: yarn test
             - name: Coveralls
               uses: coverallsapp/github-action@master
               with:

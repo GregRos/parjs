@@ -14,8 +14,8 @@ import { ParjserBase } from "../parser";
  * @param predicate The condition to check for.
  */
 export function must<T>(predicate: ParjsValidator<T>): ParjsCombinator<T, T> {
-    return defineCombinator(source => {
-        return new (class Must extends ParjserBase {
+    return defineCombinator<T, T>(source => {
+        return new (class Must extends ParjserBase<T> {
             type = "must";
             expecting = `internal parser ${source.type} yielding a result satisfying condition`;
 
@@ -24,7 +24,7 @@ export function must<T>(predicate: ParjsValidator<T>): ParjsCombinator<T, T> {
                 if (!ps.isOk) {
                     return;
                 }
-                const result = predicate(ps.value, ps.userState);
+                const result = predicate(ps.value as T, ps.userState);
                 if (result === true) return;
                 ps.kind = result.kind || "Soft";
                 ps.reason = result.reason || "failed to fulfill a predicate";

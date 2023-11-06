@@ -11,12 +11,19 @@ import {
     Trace,
     ErrorLocation
 } from "./result";
-import { BasicParsingState, FAIL_RESULT, ParsingState, UNINITIALIZED_RESULT } from "./state";
+import {
+    BasicParsingState,
+    FAIL_RESULT,
+    ParsingState,
+    UNINITIALIZED_RESULT,
+    UserState
+} from "./state";
 import defaults from "lodash/defaults";
-import { ParjsError, ParserDefinitionError } from "../errors";
-import { Parjser } from "./parjser";
+import { ParserDefinitionError } from "../errors";
+import { ParjsCombinator, Parjser } from "./parjser";
 import { pipe } from "./combinators/combinator";
 import clone from "lodash/clone";
+import { ScalarConverter } from ".";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;
@@ -39,19 +46,22 @@ function getErrorLocation(ps: ParsingState) {
 /**
  * A marker class used for storing the parser's user state.
  */
-export class ParserUserState {}
+export class ParserUserState implements UserState {
+    [key: string]: unknown;
+}
 
 /**
- * The base Parjs parser class, which supports only basic parsing operations. Should not be used in user code.
+ * The internal base Parjs parser class, which supports only basic parsing
+ * operations. Should not be used in user code.
  */
-export abstract class ParjserBase implements Parjser<any> {
+export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     abstract type: string;
     abstract expecting: string;
 
-    expects(expecting: string): this {
+    expects(expecting: string): Parjser<TValue> {
         const copy = clone(this);
         copy.expecting = expecting;
-        return copy;
+        return copy as Parjser<TValue>;
     }
     /**
      * Apply the parser to the given state.
@@ -60,7 +70,7 @@ export abstract class ParjserBase implements Parjser<any> {
     apply(ps: ParsingState): void {
         // @ts-expect-error Check for uninitialized kind.
         ps.kind = "Unknown";
-        ps.reason = undefined as any;
+        ps.reason = undefined;
         ps.value = UNINITIALIZED_RESULT;
         this._apply(ps);
         // @ts-expect-error Check for uninitialized kind.
@@ -84,7 +94,7 @@ export abstract class ParjserBase implements Parjser<any> {
             if (ps.reason == null) {
                 throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
-            ps.stack.push(this);
+            ps.stack.push(this as unknown as Parjser<unknown>);
         } else {
             ps.stack = [];
         }
@@ -95,15 +105,17 @@ export abstract class ParjserBase implements Parjser<any> {
      * @param ps
      * @private
      */
-    abstract _apply(ps: ParsingState): void | void;
+    abstract _apply(ps: ParsingState): void;
 
-    parse(input: string, initialState?: any): ParjsResult<any> {
+    parse(input: string, initialState?: UserState): ParjsResult<TValue> {
         if (typeof input !== "string") {
             // catches input === undefined, null
             throw new TypeError("input must be a valid string");
         }
-        const userState = defaults(new ParserUserState(), initialState);
-        const ps = new BasicParsingState(input, userState);
+        const ps = new BasicParsingState<TValue>(
+            input,
+            defaults(new ParserUserState(), initialState)
+        );
         ps.initialUserState = initialState;
         this.apply(ps);
 
@@ -118,7 +130,7 @@ export abstract class ParjserBase implements Parjser<any> {
             throw new Error("Kind was Unknown after parsing finished. This is a bug.");
         }
         if (ps.kind === ResultKind.Ok) {
-            return new ParjsSuccess(ps.value);
+            return new ParjsSuccess(ps.value!);
         } else {
             const trace: Trace = {
                 userState: ps.userState,
@@ -136,7 +148,23 @@ export abstract class ParjserBase implements Parjser<any> {
         }
     }
 
-    pipe(...funcs: ((x: any) => any)[]) {
-        return (pipe as any)(this, ...funcs);
+    // eslint-disable-next-line max-params
+    pipe<T, T1, T2 = T1, T3 = T2, T4 = T3, T5 = T4, T6 = T5>(
+        cmb1?: ParjsCombinator<T, T1>,
+        cmb2?: ParjsCombinator<T1, T2>,
+        cmb3?: ParjsCombinator<T2, T3>,
+        cmb4?: ParjsCombinator<T3, T4>,
+        cmb5?: ParjsCombinator<T4, T5>,
+        cmb6?: ParjsCombinator<T5, T6>
+    ): Parjser<T6> {
+        const combinators = [cmb1, cmb2, cmb3, cmb4, cmb5, cmb6].filter(x => x != null);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let last: any = ScalarConverter.convert(this);
+
+        for (const cmb of combinators) {
+            last = pipe(last, cmb as ParjsCombinator<unknown, unknown>);
+        }
+
+        return last as unknown as Parjser<T6>;
     }
 }

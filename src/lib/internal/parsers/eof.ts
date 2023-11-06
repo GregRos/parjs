@@ -14,7 +14,7 @@ import { Parjser } from "../parjser";
  * undefined.
  */
 export function eof<T>(result?: T): Parjser<T> {
-    return new (class Eof extends ParjserBase {
+    return new (class Eof extends ParjserBase<T> {
         type = "eof";
         expecting = "expecting end of input";
 
@@ -26,5 +26,5 @@ export function eof<T>(result?: T): Parjser<T> {
                 ps.kind = ResultKind.SoftFail;
             }
         }
-    })() as any;
+    })();
 }

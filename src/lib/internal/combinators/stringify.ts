@@ -13,9 +13,9 @@ import { ParjserBase } from "../parser";
 /**
  * Applies the source parser and yields a stringified result.
  */
-export function stringify(): ParjsCombinator<any, string> {
-    return defineCombinator(source => {
-        return new (class Str extends ParjserBase {
+export function stringify(): ParjsCombinator<unknown, string> {
+    return defineCombinator<unknown, string>(source => {
+        return new (class Str extends ParjserBase<string> {
             type = "stringify";
             expecting = source.expecting;
 

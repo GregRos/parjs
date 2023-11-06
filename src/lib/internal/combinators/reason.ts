@@ -1,7 +1,7 @@
 import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
 import { ParsingState } from "../state";
-import { FailureInfo, ResultKind } from "../result";
+import { FailureInfo } from "../result";
 import { ParjsCombinator } from "../parjser";
 
 /**
@@ -14,9 +14,9 @@ export function reason<T>(message: string): ParjsCombinator<T, T>;
  * @param onFailure A function that takes the failure info and returns the new reason.
  */
 export function reason<T>(onFailure: (failure: FailureInfo) => string): ParjsCombinator<T, T>;
-export function reason(messageOrFunction: string | ((failure: FailureInfo) => string)) {
+export function reason<T>(messageOrFunction: string | ((failure: FailureInfo) => string)) {
     return defineCombinator(source => {
-        return new (class Expects extends ParjserBase {
+        return new (class Expects extends ParjserBase<T> {
             type = "expects";
             expecting = typeof messageOrFunction === "string" ? messageOrFunction : "<dynamic>";
 
@@ -29,7 +29,7 @@ export function reason(messageOrFunction: string | ((failure: FailureInfo) => st
                             ? messageOrFunction
                             : messageOrFunction({
                                   kind: ps.kind,
-                                  reason: ps.reason
+                                  reason: ps.reason! // the error is guaranteed to be non-null
                               });
                     return;
                 }

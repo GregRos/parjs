@@ -24,8 +24,8 @@ export type UserStateOrProjection = UserState | ((externalState: UserState) => U
  * existing user state.
  */
 export function replaceState<T>(innerStateOrCtor: UserStateOrProjection): ParjsCombinator<T, T> {
-    return defineCombinator(source => {
-        return new (class IsolateState extends ParjserBase {
+    return defineCombinator<T, T>(source => {
+        return new (class IsolateState extends ParjserBase<T> {
             type = "replaceState";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {

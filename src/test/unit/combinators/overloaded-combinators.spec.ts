@@ -62,7 +62,7 @@ describe("overloaded combinators", () => {
                 ] as string[]),
                 flatten(),
                 each(x => {
-                    x.forEach(x => x.toUpperCase());
+                    x.forEach(a => a.toUpperCase());
                 })
             );
 

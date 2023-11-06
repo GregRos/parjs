@@ -5,6 +5,9 @@ This project is using [Yarn](https://yarnpkg.com/) as a package manager. The rec
 Common development commands:
 
 ```sh
+# use the correct version of node (defined in .nvmrc)
+nvm use
+
 # install dependencies
 yarn
 
@@ -13,4 +16,8 @@ yarn build
 
 # test (remember to build first to make sure the code is up to date)
 yarn build && yarn test
+
+# quality checks
+yarn lint:check
+yarn lint:fix
 ```

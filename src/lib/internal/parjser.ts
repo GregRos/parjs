@@ -30,7 +30,7 @@ export interface ParjsProjection<T, TOut> {
 export type ParjsValidator<T> = ParjsProjection<T, Partial<FailureInfo> | true>;
 
 /**
- * Interface for parsers that produce result values of type  {TSource}
+ * Interface for parsers that produce result values of type {T}
  *
  * @group functional
  */

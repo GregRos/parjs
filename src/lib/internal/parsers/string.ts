@@ -6,7 +6,7 @@
 import { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import { ParjserBase } from "../parser";
-import { Parjser } from "../parjser";
+import { Parjser } from "..";
 
 /**
  * Returns a parser that will parse the string `str` and yield the text
@@ -14,12 +14,11 @@ import { Parjser } from "../parjser";
  * @param str The string to parse.
  */
 export function string(str: string): Parjser<string> {
-    return new (class ParseString extends ParjserBase {
+    return new (class ParseString extends ParjserBase<string> {
         expecting = `expecting '${str}'`;
         type = "string";
         _apply(ps: ParsingState): void {
             const { position, input } = ps;
-            let i;
             if (position + str.length > input.length) {
                 ps.kind = ResultKind.SoftFail;
                 return;

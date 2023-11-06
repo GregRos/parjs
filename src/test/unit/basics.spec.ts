@@ -1,6 +1,7 @@
 import { ParjsFailure, ResultKind, ParjsSuccess } from "../../lib/internal/result";
 import { expectFailure } from "../helpers/custom-matchers";
 import { anyChar } from "../../lib/internal/parsers";
+import { ParjserBase } from "../../lib/internal";
 
 describe("basics: anyChar example", () => {
     const parser = anyChar();
@@ -32,20 +33,20 @@ describe("basics: anyChar example", () => {
 
     describe("non-string inputs", () => {
         it("throws on null, undefined", () => {
-            expect(() => parser.parse(null as any)).toThrow();
-            expect(() => parser.parse(undefined as any)).toThrow();
+            expect(() => parser.parse(null as never)).toThrow();
+            expect(() => parser.parse(undefined as never)).toThrow();
         });
         it("throws on non-string", () => {
-            expect(() => parser.parse(5 as any)).toThrow();
+            expect(() => parser.parse(5 as never)).toThrow();
         });
     });
+});
 
-    describe("expects", () => {
-        it("is correct", () => {
-            const base = anyChar().expects("a character");
-            const parser = anyChar().expects("a character of some sort");
-            expect((parser as any).expecting).toBe("a character of some sort");
-            expect((base as any).expecting).toBe("a character");
-        });
+describe("expects", () => {
+    it("is correct", () => {
+        const base = anyChar().expects("a character") as ParjserBase<string>;
+        const parser = anyChar().expects("a character of some sort") as ParjserBase<string>;
+        expect(parser.expecting).toBe("a character of some sort");
+        expect(base.expecting).toBe("a character");
     });
 });

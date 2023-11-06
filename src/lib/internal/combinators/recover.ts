@@ -40,9 +40,9 @@ export type RecoveryFunction<T> = (
 /**
  * Reduces Hard failures to Soft ones and behaves in the same way on success.
  */
-export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinator<any, T> {
-    return defineCombinator(source => {
-        return new (class Soft extends ParjserBase {
+export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinator<unknown, T> {
+    return defineCombinator<unknown, T>(source => {
+        return new (class Soft extends ParjserBase<T> {
             type = "recover";
             expecting = source.expecting;
             _apply(ps: ParsingState): void {
@@ -51,8 +51,8 @@ export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinato
                 const result = recoverFunction({
                     userState: ps.userState,
                     kind: ps.kind as ResultKind.Fail,
-                    reason: ps.reason
-                });
+                    reason: ps.reason! // the error is guaranteed to be non-null
+                } satisfies ParserFailureState);
                 if (!result) return;
                 ps.kind = result.kind || ps.kind;
                 if (result.kind === "OK") {

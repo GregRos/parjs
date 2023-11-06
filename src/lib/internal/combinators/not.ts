@@ -13,9 +13,9 @@ import { ParjserBase } from "../parser";
 /**
  * Applies the source parser. Succeeds if if it fails softly, and fails otherwise.
  */
-export function not(): ParjsCombinator<any, void> {
-    return defineCombinator(source => {
-        return new (class Not extends ParjserBase {
+export function not(): ParjsCombinator<unknown, void> {
+    return defineCombinator<unknown, void>(source => {
+        return new (class Not extends ParjserBase<void> {
             type = "not";
             expecting = `not expecting: ${source.expecting}`; // TODO: better reason
             _apply(ps: ParsingState): void {

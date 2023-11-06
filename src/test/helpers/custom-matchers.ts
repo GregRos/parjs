@@ -59,7 +59,10 @@ class CustomMatcherDefs {
     }
 }
 
-export const CustomMatchers = {} as any;
+export const CustomMatchers = {} as Record<
+    string,
+    (a: unknown, b: unknown) => jasmine.CustomMatcher
+>;
 
 const defs = CustomMatcherDefs.prototype;
 
@@ -70,6 +73,7 @@ for (const prop of Object.getOwnPropertyNames(defs)) {
         return {
             compare(actual: unknown, ...rest: unknown[]) {
                 defs.actual = actual;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 return (defs as any)[prop](...rest);
             }
         };
@@ -81,7 +85,7 @@ for (const prop of Object.getOwnPropertyNames(defs)) {
  * @param result The Parjs result.
  * @param failType The type of failure to expect. Undefined for any.
  */
-export function expectFailure(result: ParjsResult<any>, failType?: ResultKind.Fail) {
+export function expectFailure(result: ParjsResult<unknown>, failType?: ResultKind.Fail) {
     expect(result.kind).toBeAnyOf(
         [ResultKind.FatalFail, ResultKind.HardFail, ResultKind.SoftFail],
         "expected kind to be a Fail"
@@ -109,11 +113,11 @@ export function expectSuccess<T>(result: ParjsResult<T>, value?: T, state?: obje
         if (!isPlainObject(value)) {
             expect(result.value).toEqual(value);
         } else {
-            expect(result.value).toBeLike(value as any);
+            expect(result.value).toBeLike(value as never);
         }
     }
 }
 
 beforeEach(() => {
-    jasmine.addMatchers(CustomMatchers);
+    jasmine.addMatchers(CustomMatchers as never);
 });

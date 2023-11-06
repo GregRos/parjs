@@ -8,10 +8,12 @@ import { ScalarConverter } from "../scalar-converter";
  * Represents the given function as a Parjs combinator.
  * @param f The combinator function.
  */
-export function defineCombinator<E>(f: (act: ParjserBase & Parjser<E>) => Parjser<any>) {
-    return (x: ImplicitParjser<any>) => {
+export function defineCombinator<A, B>(
+    f: (act: ParjserBase<A> & Parjser<A>) => Parjser<B>
+): ParjsCombinator<A, B> {
+    return (x: ImplicitParjser<A>) => {
         const resolved = ScalarConverter.convert(x);
-        return f(resolved as ParjserBase);
+        return f(resolved as ParjserBase<A>);
     };
 }
 
@@ -146,6 +148,7 @@ export function pipe<T, T1, T2, T3, T4, T5, T6>(
     cmb6: ParjsCombinator<T5, T6>
 ): Parjser<T6>;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function pipe(source: any, ...funcs: ((x: any) => any)[]) {
     let last = ScalarConverter.convert(source);
     for (const func of funcs) {

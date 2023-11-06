@@ -30,7 +30,6 @@ const defaultFloatOptions: FloatOptions = {
 };
 
 const msgOneOrMoreDigits = "one or more digits";
-const msgExponentSign = "exponent sign (+ or -)";
 
 /*
 This work is really better done using Parjs itself, but it's wrapped in (mostly) a single parser for efficiency purposes.
@@ -76,7 +75,7 @@ ISSUES:
  */
 export function float(options: Partial<FloatOptions> = defaultFloatOptions): Parjser<number> {
     options = defaults(options, defaultFloatOptions);
-    return new (class Float extends ParjserBase {
+    return new (class Float extends ParjserBase<number> {
         type = "float";
         expecting = "expecting a floating-point number";
 
@@ -145,7 +144,7 @@ export function float(options: Partial<FloatOptions> = defaultFloatOptions): Par
                 // if we do allow floating point, then the previous block would've consumed some characters.
                 if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
                     ps.position++;
-                    const expSign = NumericHelpers.parseSign(ps);
+                    NumericHelpers.parseSign(ps);
 
                     const prevFractionalPos = ps.position;
                     NumericHelpers.parseDigitsInBase(ps, 10);

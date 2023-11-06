@@ -13,10 +13,9 @@ import { ParjsCombinator } from "../../index";
  * Applies the source parser. If it fails softly, succeeds and yields `val`.
  * @param val
  */
-export function maybe<T, S = undefined>(val?: S): ParjsCombinator<T, T | S>;
-export function maybe(val = undefined) {
-    return defineCombinator(inner => {
-        return new (class MaybeCombinator extends ParjserBase {
+export function maybe<T, S = T>(val?: S): ParjsCombinator<T, S> {
+    return defineCombinator<T, S>(inner => {
+        return new (class MaybeCombinator extends ParjserBase<S> {
             _inner = inner;
             expecting = "expecting anything";
             type = "maybe";

@@ -9,7 +9,7 @@ import { Parjser } from "./parjser";
  * Container type for user state data.
  */
 export interface UserState {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -27,7 +27,7 @@ export interface ParsingState {
     /**
      * The value from the last parser action performed on this state.
      */
-    value: any;
+    value: unknown;
     /**
      * Additional state data.
      */
@@ -36,18 +36,18 @@ export interface ParsingState {
     /**
      * Initial user state.
      */
-    readonly initialUserState: any;
+    readonly initialUserState: UserState | undefined;
 
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: Parjser<any>[];
+    stack: Parjser<unknown>[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.
      * If the result is OK, this must be undefined.
      */
-    reason: string;
+    reason: string | undefined;
     /**
      * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
      */
@@ -92,11 +92,11 @@ function worseThan(a: ResultKind, b: ResultKind) {
 /**
  * Basic implementation of the ParsingState interface.
  */
-export class BasicParsingState implements ParsingState {
+export class BasicParsingState<TValue> implements ParsingState {
     position = 0;
     stack = [];
-    initialUserState = undefined;
-    value = undefined;
+    initialUserState: UserState | undefined = undefined;
+    value: TValue | undefined = undefined;
     kind!: ResultKind;
     reason!: string;
 

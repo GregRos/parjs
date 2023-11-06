@@ -13,7 +13,7 @@ import { ParjserBase } from "../parser";
  * current position as an integer.
  */
 export function position(): Parjser<number> {
-    return new (class Position extends ParjserBase {
+    return new (class Position extends ParjserBase<number> {
         expecting = "anything";
         type = "position";
         _apply(ps: ParsingState) {

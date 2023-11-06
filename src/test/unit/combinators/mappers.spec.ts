@@ -23,7 +23,7 @@ describe("map combinators", () => {
     describe("cast", () => {
         const parser = loudParser.pipe(map(x => x as unknown as number));
         it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput), "abcd" as any);
+            expectSuccess(parser.parse(goodInput), "abcd" as never);
         });
         it("fails on failure", () => {
             expectFailure(parser.parse(badInput));
@@ -70,9 +70,9 @@ describe("map combinators", () => {
     describe("each", () => {
         let tally = "";
         const p = anyCharOf("abc").pipe(
-            each((result, state) => {
-                tally += result;
-                state.char = result;
+            each((res, state) => {
+                tally += res;
+                state.char = res;
             })
         );
         it("works", () => {

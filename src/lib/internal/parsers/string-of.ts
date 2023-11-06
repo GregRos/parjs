@@ -15,7 +15,7 @@ import { Parjser } from "../parjser";
  * @param strs A set of string options to parse.
  */
 export function anyStringOf(...strs: string[]): Parjser<string> {
-    return new (class StringOf extends ParjserBase {
+    return new (class StringOf extends ParjserBase<string> {
         type = "anyStringOf";
         expecting = `expecting any of ${strs.map(x => `'${x}'`).join(", ")}`;
 

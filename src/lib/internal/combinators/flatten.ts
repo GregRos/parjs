@@ -6,21 +6,13 @@ import { map } from "./map";
 /**
  * The type of an arbitrarily nested array or a non-array element.
  */
-export type NestedArray<T> =
-    | T
-    | T[]
-    | T[][]
-    | T[][][]
-    | T[][][][]
-    | T[][][][][]
-    | T[][][][][][]
-    | T[][][][][][][][];
+export type NestedArray<T> = T | NestedArray<T>[];
 
-function flattenNestedArrays(arr: unknown[] | unknown) {
+function flattenNestedArrays<T>(arr: NestedArray<T>): T[] {
     if (!Array.isArray(arr)) {
         return [arr];
     }
-    const items = [] as any[];
+    const items = [] as T[];
     for (const item of arr) {
         if (Array.isArray(item)) {
             items.push(...flattenNestedArrays(item));

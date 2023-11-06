@@ -1,7 +1,7 @@
 import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
 import { ResultKind } from "../../../lib/internal/result";
 import range from "lodash/range";
-import { string, fail, rest, eof, result, anyCharOf } from "../../../lib/internal/parsers";
+import { string, fail, rest, eof, result, anyCharOf, float } from "../../../lib/internal/parsers";
 import {
     between,
     each,
@@ -98,7 +98,7 @@ describe("sequential combinators", () => {
                 each(x => {
                     Math.log(x[1]);
                     x[0].toUpperCase();
-                    x[2].map(x => x.toUpperCase());
+                    x[2].map(xx => xx.toUpperCase());
                 })
             );
 
@@ -116,7 +116,7 @@ describe("sequential combinators", () => {
                 each(x => {
                     Math.log(x[1]);
                     x[0].toUpperCase();
-                    x[2].map(x => x.toUpperCase());
+                    x[2].map(xx => xx.toUpperCase());
                 })
             );
 
@@ -150,8 +150,8 @@ describe("sequential combinators", () => {
         });
 
         describe("many with zero-length match", () => {
-            const parser = result(0).pipe(many());
             it("guards against zero match in inner parser", () => {
+                const parser = result(0).pipe(many());
                 expect(() => parser.parse("")).toThrow();
             });
 
@@ -223,8 +223,8 @@ describe("sequential combinators", () => {
         });
 
         it("many that fails hard on 2nd iteration", () => {
-            const many = string("a").pipe(then("b"), stringify(), manySepBy(", "));
-            expectFailure(many.parse("ab, ac"), "Hard");
+            const manyParser = string("a").pipe(then("b"), stringify(), manySepBy(", "));
+            expectFailure(manyParser.parse("ab, ac"), "Hard");
         });
 
         it("succeeds with non-empty input", () => {
@@ -322,6 +322,13 @@ describe("sequential combinators", () => {
             const parser = string("a").pipe(between("!"));
             it("succeeds", () => {
                 expectSuccess(parser.parse("!a!"), "a");
+            });
+        });
+
+        describe("two argument version with different types", () => {
+            const parser = string("a").pipe(between("_", float()));
+            it("succeeds", () => {
+                expectSuccess(parser.parse("_a3.14"), "a");
             });
         });
     });

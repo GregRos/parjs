@@ -15,7 +15,7 @@ import {
 } from "../../../lib/internal/parsers";
 import { letter, lower, spaces1, upper } from "../../../lib/internal/parsers/char-types";
 import { then } from "../../../lib/combinators";
-import _ = require("lodash");
+import _ from "lodash";
 
 const uState = {};
 

@@ -76,13 +76,13 @@ export function or<T1, T2, T3, T4, T5>(
     alt4: ImplicitParjser<T5>
 ): ParjsCombinator<T1, T1 | T2 | T3 | T4 | T5>;
 
-export function or(...alts: ImplicitParjser<any>[]) {
-    const resolvedAlts = alts.map(x => ScalarConverter.convert(x) as any as ParjserBase);
+export function or(...alts: ImplicitParjser<unknown>[]) {
+    const resolvedAlts = alts.map(x => ScalarConverter.convert(x) as ParjserBase<unknown>);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
         const altNames = resolvedAlts.map(x => x.type);
         const allExpectations = resolvedAlts.map(x => x.expecting);
-        return new (class Or extends ParjserBase {
+        return new (class Or extends ParjserBase<unknown> {
             type = "or";
             expecting = `expecting one of: ${altNames.join(", ")}`;
             _apply(ps: ParsingState): void {
@@ -99,7 +99,7 @@ export function or(...alts: ImplicitParjser<any>[]) {
                     } else if (ps.isSoft) {
                         // backtrack to the original position and try again.
                         ps.position = position;
-                        allExpectations[i] = ps.reason;
+                        allExpectations[i] = ps.reason!;
                     } else {
                         // propagate hard failure
                         return;

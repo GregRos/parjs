@@ -18,26 +18,27 @@ import {
     uniIsUpper
 } from "char-info";
 import { must } from "../combinators/must";
+import { Parjser } from "../..";
 
 /**
  * Returns a parser that parses any single character. Equivalent
  * to `stringLen(1)`.
  */
-export function anyChar() {
+export function anyChar(): Parjser<string> {
     return stringLen(1);
 }
 
 /**
  * Returns a parser that parses a single ASCII inline space.
  */
-export function space() {
+export function space(): Parjser<string> {
     return charWhere(x => isSpace(x) || { reason: "expecting a space" });
 }
 
 /**
  * Returns a parser that parses at least one ASCII inline space.
  */
-export function spaces1() {
+export function spaces1(): Parjser<string> {
     return space().pipe(
         many(),
         must(
@@ -54,7 +55,7 @@ export function spaces1() {
  * Returns a parser that parses any character in the string `options`.
  * @param options A string of alternative characters.
  */
-export function anyCharOf(options: string) {
+export function anyCharOf(options: string): Parjser<string> {
     return charWhere(
         c =>
             options.includes(c) || {
@@ -67,7 +68,7 @@ export function anyCharOf(options: string) {
  * Returns a parser that parses any character not in the string `exclusions`.
  * @param exclusions A string of characters to exclude.
  */
-export function noCharOf(exclusions: string) {
+export function noCharOf(exclusions: string): Parjser<string> {
     return charWhere(
         c =>
             !exclusions.includes(c) || {
@@ -79,7 +80,7 @@ export function noCharOf(exclusions: string) {
 /**
  * Returns a parser that parses a single ASCII letter.
  */
-export function letter() {
+export function letter(): Parjser<string> {
     return charWhere(
         x =>
             isLetter(x) || {
@@ -91,7 +92,7 @@ export function letter() {
 /**
  * Returns a parser that parses a single Unicode letter.
  */
-export function uniLetter() {
+export function uniLetter(): Parjser<string> {
     return charWhere(
         x =>
             uniIsLetter.char(x) || {
@@ -103,7 +104,7 @@ export function uniLetter() {
 /**
  * Returns a parser that parses a single digit in base `base`.
  */
-export function digit(base = 10) {
+export function digit(base = 10): Parjser<string> {
     return charWhere(
         x =>
             isDigit(x, base) || {
@@ -115,7 +116,7 @@ export function digit(base = 10) {
 /**
  * Returns a parser that parses a single Unicode decimal digit.
  */
-export function uniDecimal() {
+export function uniDecimal(): Parjser<string> {
     return charWhere(
         x =>
             uniIsDecimal.char(x) || {
@@ -127,7 +128,7 @@ export function uniDecimal() {
 /**
  * Returns a parser that parses a single Unicode upper-case character.
  */
-export function uniUpper() {
+export function uniUpper(): Parjser<string> {
     return charWhere(
         x =>
             uniIsUpper.char(x) || {
@@ -139,7 +140,7 @@ export function uniUpper() {
 /**
  * Returns a parser that parses a single hex digit.
  */
-export function hex() {
+export function hex(): Parjser<string> {
     return charWhere(
         x =>
             isHex(x) || {
@@ -151,7 +152,7 @@ export function hex() {
 /**
  * Returns a parser that parses a single ASCII lowercase letter.
  */
-export function lower() {
+export function lower(): Parjser<string> {
     return charWhere(
         x =>
             isLower(x) || {
@@ -163,7 +164,7 @@ export function lower() {
 /**
  * Returns a parser that parses a single uppercase ASCII letter.
  */
-export function upper() {
+export function upper(): Parjser<string> {
     return charWhere(
         x =>
             isUpper(x) || {
@@ -175,7 +176,7 @@ export function upper() {
 /**
  * Returns a parser that parses a single lowercase Unicode letter.
  */
-export function uniLower() {
+export function uniLower(): Parjser<string> {
     return charWhere(
         x =>
             uniIsLower.char(x) || {
@@ -188,7 +189,7 @@ export function uniLower() {
  * Returns a parser that parses any amount of ASCII whitespace characters
  * and yields the parsed text.
  */
-export function whitespace() {
+export function whitespace(): Parjser<string> {
     return charWhere(
         char =>
             isSpace(char) ||

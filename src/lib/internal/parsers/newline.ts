@@ -10,7 +10,7 @@ import { ParjserBase } from "../parser";
 import { uniIsNewline, AsciiCodes } from "char-info";
 
 function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<string> {
-    return new (class Newline extends ParjserBase {
+    return new (class Newline extends ParjserBase<string> {
         expecting = "expecting newline";
         type = "newline";
         _apply(ps: ParsingState) {
@@ -48,7 +48,7 @@ function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<strin
  * Parses an ASCII newline, which can be a single character or the sequence
  * `\r\n`. Yields the text that was parsed.
  */
-export function newline() {
+export function newline(): Parjser<string> {
     return innerNewline();
 }
 
@@ -56,6 +56,6 @@ export function newline() {
  * Parses a Unicode newline, which includes ASCII newline strings as well as
  * other vertical separators such as PARAGRAPH SEPARATOR.
  */
-export function uniNewline() {
+export function uniNewline(): Parjser<string> {
     return innerNewline(uniIsNewline.code);
 }
