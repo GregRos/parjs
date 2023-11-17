@@ -9,13 +9,13 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 18.x
+                    - 20.9.0
         steps:
             - uses: actions/checkout@v4
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v3
               with:
-                  node-version: "18"
+                  node-version: "20.9.0"
                   cache: yarn
                   registry-url: "https://registry.yarnpkg.com"
             - run: yarn install --immutable
