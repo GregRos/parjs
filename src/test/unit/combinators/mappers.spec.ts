@@ -1,4 +1,3 @@
-import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
 import { ResultKind } from "../../../lib";
 import { string } from "../../../lib";
 import { anyCharOf, eof, result, stringLen } from "../../../lib";
@@ -13,57 +12,57 @@ describe("map combinators", () => {
     describe("map", () => {
         const parser = loudParser.pipe(map(() => 1));
         it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput, uState), 1);
+            expect(parser.parse(goodInput, uState)).toBeSuccessful(1);
         });
         it("fails on failure", () => {
-            expectFailure(parser.parse(badInput, uState), ResultKind.SoftFail);
+            expect(parser.parse(badInput, uState)).toBeFailure(ResultKind.SoftFail);
         });
     });
 
     describe("cast", () => {
         const parser = loudParser.pipe(map(x => x as unknown as number));
         it("maps on success", () => {
-            expectSuccess(parser.parse(goodInput), "abcd" as never);
+            expect(parser.parse(goodInput)).toBeSuccessful("abcd" as never);
         });
         it("fails on failure", () => {
-            expectFailure(parser.parse(badInput));
+            expect(parser.parse(badInput)).toBeFailure();
         });
     });
 
     describe("stringify", () => {
         it("quiet", () => {
             const p = eof().pipe(map(() => ""));
-            expectSuccess(p.parse(""), "");
+            expect(p.parse("")).toBeSuccessful("");
         });
 
         it("array", () => {
             const p = result(["a", "b", "c"]).pipe(stringify());
-            expectSuccess(p.parse(""), "abc");
+            expect(p.parse("")).toBeSuccessful("abc");
         });
 
         it("nested array", () => {
             const p = result(["a", ["b", ["c"], "d"], "e"]).pipe(stringify());
-            expectSuccess(p.parse(""), "abcde");
+            expect(p.parse("")).toBeSuccessful("abcde");
         });
 
         it("null", () => {
             const p = result(null).pipe(stringify());
-            expectSuccess(p.parse(""), "null");
+            expect(p.parse("")).toBeSuccessful("null");
         });
 
         it("undefined", () => {
             const p = result(undefined).pipe(stringify());
-            expectSuccess(p.parse(""), "undefined");
+            expect(p.parse("")).toBeSuccessful("undefined");
         });
 
         it("string", () => {
             const p = string("a").pipe(stringify());
-            expectSuccess(p.parse("a"), "a");
+            expect(p.parse("a")).toBeSuccessful("a");
         });
 
         it("object", () => {
             const p = result({}).pipe(stringify());
-            expectSuccess(p.parse(""), {}.toString());
+            expect(p.parse("")).toBeSuccessful({}.toString());
         });
     });
 
@@ -76,11 +75,11 @@ describe("map combinators", () => {
             })
         );
         it("works", () => {
-            expectSuccess(p.parse("a"), "a");
+            expect(p.parse("a")).toBeSuccessful("a");
             expect(tally).toBe("a");
-            expectSuccess(p.parse("b"), "b");
+            expect(p.parse("b")).toBeSuccessful("b");
             expect(tally).toBe("ab");
-            expectFailure(p.parse("d"), "Soft");
+            expect(p.parse("d")).toBeFailure("Soft");
             expect(tally).toBe("ab");
         });
     });

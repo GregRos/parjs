@@ -1,4 +1,3 @@
-import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
 import { ResultKind } from "../../../lib/internal/result";
 import range from "lodash/range";
 import { string, fail, rest, eof, result, anyCharOf, float } from "../../../lib/internal/parsers";
@@ -30,14 +29,14 @@ describe("sequential combinators", () => {
     describe("thenq", () => {
         const parser = prs.pipe(thenq(prs2));
         it("succeeds", () => {
-            expectSuccess(parser.parse(goodInput), "ab");
+            expect(parser.parse(goodInput)).toBeSuccessful("ab");
         });
     });
 
     describe("qthen", () => {
         const parser = prs.pipe(qthen(prs2));
         it("succeeds", () => {
-            expectSuccess(parser.parse(goodInput), "cd");
+            expect(parser.parse(goodInput)).toBeSuccessful("cd");
         });
     });
 
@@ -45,21 +44,21 @@ describe("sequential combinators", () => {
         describe("1 arg", () => {
             const parser = prs.pipe(then(prs2));
             it("succeeds", () => {
-                expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
+                expect(parser.parse(goodInput)).toBeSuccessful(["ab", "cd"]);
             });
             it("fails softly on first fail", () => {
-                expectFailure(parser.parse(softBadInput), ResultKind.SoftFail);
+                expect(parser.parse(softBadInput)).toBeFailure(ResultKind.SoftFail);
             });
             it("fails hard on 2nd fail", () => {
-                expectFailure(parser.parse(hardBadInput), ResultKind.HardFail);
+                expect(parser.parse(hardBadInput)).toBeFailure(ResultKind.HardFail);
             });
             it("fails on excess input", () => {
-                expectFailure(parser.parse(excessInput), ResultKind.SoftFail);
+                expect(parser.parse(excessInput)).toBeFailure(ResultKind.SoftFail);
             });
 
             it("fails hard on first hard fail", () => {
                 const parser2 = fail().pipe(then("hi"));
-                expectFailure(parser2.parse("hi"), "Hard");
+                expect(parser2.parse("hi")).toBeFailure("Hard");
             });
 
             it("fails fatally on 2nd fatal fail", () => {
@@ -70,22 +69,22 @@ describe("sequential combinators", () => {
                         })
                     )
                 );
-                expectFailure(parser2.parse("hi"), "Fatal");
+                expect(parser2.parse("hi")).toBeFailure("Fatal");
             });
 
             it("chain zero-matching parsers", () => {
                 const parser2 = string("hi").pipe(then(rest(), rest()));
-                expectSuccess(parser2.parse("hi"), ["hi", "", ""]);
+                expect(parser2.parse("hi")).toBeSuccessful(["hi", "", ""]);
             });
         });
 
         describe("1 arg, then zero consume", () => {
             const parser = prs.pipe(then(prs2), thenq(eof()));
             it("succeeds", () => {
-                expectSuccess(parser.parse(goodInput), ["ab", "cd"]);
+                expect(parser.parse(goodInput)).toBeSuccessful(["ab", "cd"]);
             });
             it("fails hard when 3rd fails", () => {
-                expectFailure(parser.parse(excessInput), ResultKind.HardFail);
+                expect(parser.parse(excessInput)).toBeFailure(ResultKind.HardFail);
             });
         });
 
@@ -102,7 +101,7 @@ describe("sequential combinators", () => {
                 })
             );
 
-            expectSuccess(p.parse("abc"), ["a", 1, []]);
+            expect(p.parse("abc")).toBeSuccessful(["a", 1, []]);
         });
 
         it("3 args", () => {
@@ -120,7 +119,7 @@ describe("sequential combinators", () => {
                 })
             );
 
-            expectSuccess(p.parse("abcd"), ["a", 1, [], true]);
+            expect(p.parse("abcd")).toBeSuccessful(["a", 1, [], true]);
         });
     });
 
@@ -128,24 +127,24 @@ describe("sequential combinators", () => {
         describe("regular many", () => {
             const parser = prs.pipe(many());
             it("success on empty input", () => {
-                expectSuccess(parser.parse(""), []);
+                expect(parser.parse("")).toBeSuccessful([]);
             });
             it("failure on non-empty input without any matches", () => {
-                expectFailure(parser.parse("12"), ResultKind.SoftFail);
+                expect(parser.parse("12")).toBeFailure(ResultKind.SoftFail);
             });
             it("success on single match", () => {
-                expectSuccess(parser.parse("ab"), ["ab"]);
+                expect(parser.parse("ab")).toBeSuccessful(["ab"]);
             });
             it("success on N matches", () => {
-                expectSuccess(parser.parse("ababab"), ["ab", "ab", "ab"]);
+                expect(parser.parse("ababab")).toBeSuccessful(["ab", "ab", "ab"]);
             });
             it("chains to EOF correctly", () => {
                 const endEof = parser.pipe(thenq(eof()));
-                expectSuccess(endEof.parse("abab"), ["ab", "ab"]);
+                expect(endEof.parse("abab")).toBeSuccessful(["ab", "ab"]);
             });
             it("fails hard when many fails hard", () => {
                 const parser2 = fail().pipe(many());
-                expectFailure(parser2.parse(""), "Hard");
+                expect(parser2.parse("")).toBeFailure("Hard");
             });
         });
 
@@ -157,20 +156,17 @@ describe("sequential combinators", () => {
 
             it("ignores guard when given max iterations", () => {
                 const parser = result(0).pipe(many(10));
-                expectSuccess(
-                    parser.parse(""),
-                    range(0, 10).map(() => 0)
-                );
+                expect(parser.parse("")).toBeSuccessful(range(0, 10).map(() => 0));
             });
         });
 
         describe("many with bounded iterations, min successes", () => {
             const parser = prs.pipe(many(2));
             it("succeeds when appropriate", () => {
-                expectSuccess(parser.parse("abab"), ["ab", "ab"]);
+                expect(parser.parse("abab")).toBeSuccessful(["ab", "ab"]);
             });
             it("fails when there is excess input", () => {
-                expectFailure(parser.parse("ababab"), ResultKind.SoftFail);
+                expect(parser.parse("ababab")).toBeFailure(ResultKind.SoftFail);
             });
         });
     });
@@ -178,14 +174,14 @@ describe("sequential combinators", () => {
     describe("exactly combinator", () => {
         const parser = prs.pipe(exactly(2));
         it("succeeds with exact matches", () => {
-            expectSuccess(parser.parse("abab"), ["ab", "ab"]);
+            expect(parser.parse("abab")).toBeSuccessful(["ab", "ab"]);
         });
 
         it("hard fails with 0 < matches <= N", () => {
-            expectFailure(parser.parse("ab"), ResultKind.HardFail);
+            expect(parser.parse("ab")).toBeFailure(ResultKind.HardFail);
         });
         it("soft fails with matches == 0", () => {
-            expectFailure(parser.parse("a"), ResultKind.SoftFail);
+            expect(parser.parse("a")).toBeFailure(ResultKind.SoftFail);
         });
     });
 
@@ -195,21 +191,21 @@ describe("sequential combinators", () => {
         it("works with max iterations", () => {
             const parser2 = prs.pipe(manySepBy(", ", 2));
             const parser3 = parser2.pipe(thenq(string(", ab")));
-            expectSuccess(parser3.parse("ab, ab, ab"));
+            expect(parser3.parse("ab, ab, ab")).toBeSuccessful();
         });
 
         it("succeeds with empty input", () => {
-            expectSuccess(parser.parse(""), getArrayWithSeparators([], []));
+            expect(parser.parse("")).toBeSuccessful(getArrayWithSeparators([], []));
         });
 
         it("many fails hard on 1st application", () => {
             const parser2 = fail().pipe(manySepBy(result("")));
-            expectFailure(parser2.parse(""), "Hard");
+            expect(parser2.parse("")).toBeFailure("Hard");
         });
 
         it("sep fails hard", () => {
             const parser2 = prs.pipe(manySepBy(fail()));
-            expectFailure(parser2.parse("ab, ab"), "Hard");
+            expect(parser2.parse("ab, ab")).toBeFailure("Hard");
         });
 
         it("sep+many that don't consume throw without max iterations", () => {
@@ -219,27 +215,28 @@ describe("sequential combinators", () => {
 
         it("sep+many that don't consume succeed with max iterations", () => {
             const parser2 = string("").pipe(manySepBy("", 2));
-            expectSuccess(parser2.parse(""), getArrayWithSeparators(["", ""], [""]));
+            expect(parser2.parse("")).toBeSuccessful(getArrayWithSeparators(["", ""], [""]));
         });
 
         it("many that fails hard on 2nd iteration", () => {
             const manyParser = string("a").pipe(then("b"), stringify(), manySepBy(", "));
-            expectFailure(manyParser.parse("ab, ac"), "Hard");
+            expect(manyParser.parse("ab, ac")).toBeFailure("Hard");
         });
 
         it("succeeds with non-empty input", () => {
-            expectSuccess(parser.parse("ab, ab"), getArrayWithSeparators(["ab", "ab"], [", "]));
+            expect(parser.parse("ab, ab")).toBeSuccessful(
+                getArrayWithSeparators(["ab", "ab"], [", "])
+            );
         });
 
         it("chains into terminating separator", () => {
             const parser2 = parser.pipe(thenq(", "));
-            expectSuccess(
-                parser2.parse("ab, ab, "),
+            expect(parser2.parse("ab, ab, ")).toBeSuccessful(
                 getArrayWithSeparators(["ab", "ab"], [", ", ", "])
             );
         });
         it("fails soft if first many fails", () => {
-            expectFailure(parser.parse("xa"), ResultKind.SoftFail);
+            expect(parser.parse("xa")).toBeFailure(ResultKind.SoftFail);
         });
     });
 
@@ -259,19 +256,19 @@ describe("sequential combinators", () => {
     describe("manyTill combinator", () => {
         const parser = prs.pipe(manyTill(prs2));
         it("succeeds matching 1 then till", () => {
-            expectSuccess(parser.parse("abcd"), ["ab"]);
+            expect(parser.parse("abcd")).toBeSuccessful(["ab"]);
         });
         it("succeeds matching 1 then till, chains", () => {
             const parser2 = parser.pipe(thenq(prs));
-            expectSuccess(parser2.parse("abcdab"), ["ab"]);
+            expect(parser2.parse("abcdab")).toBeSuccessful(["ab"]);
         });
         it("fails hard when till fails hard", () => {
             const parser2 = string("a").pipe(manyTill(fail()));
-            expectFailure(parser2.parse("a"), "Hard");
+            expect(parser2.parse("a")).toBeFailure("Hard");
         });
         it("fails hard when many failed hard", () => {
             const parser2 = fail().pipe(manyTill("a"));
-            expectFailure(parser2.parse(""), "Hard");
+            expect(parser2.parse("")).toBeFailure("Hard");
         });
         it("guards against zero-match in many", () => {
             const parser2 = result("").pipe(manyTill("a"));
@@ -279,10 +276,10 @@ describe("sequential combinators", () => {
         });
 
         it("fails soft when many fails 1st time without till", () => {
-            expectFailure(parser.parse("1"), ResultKind.SoftFail);
+            expect(parser.parse("1")).toBeFailure(ResultKind.SoftFail);
         });
         it("fails hard when many fails 2nd time without till", () => {
-            expectFailure(parser.parse("ab1"), ResultKind.HardFail);
+            expect(parser.parse("ab1")).toBeFailure(ResultKind.HardFail);
         });
     });
 
@@ -298,9 +295,9 @@ describe("sequential combinators", () => {
                 })
             );
 
-            expectSuccess(parser.parse("aa"), "a");
-            expectSuccess(parser.parse("bb"), "b");
-            expectFailure(parser.parse("ab"), ResultKind.HardFail);
+            expect(parser.parse("aa")).toBeSuccessful("a");
+            expect(parser.parse("bb")).toBeSuccessful("b");
+            expect(parser.parse("ab")).toBeFailure(ResultKind.HardFail);
         });
     });
 
@@ -308,27 +305,27 @@ describe("sequential combinators", () => {
         describe("two argument version", () => {
             const parser = string("a").pipe(between("(", string(")")));
             it("succeeds", () => {
-                expectSuccess(parser.parse("(a)"), "a");
+                expect(parser.parse("(a)")).toBeSuccessful("a");
             });
             it("fails soft if first between fails", () => {
-                expectFailure(parser.parse("[a)"), ResultKind.SoftFail);
+                expect(parser.parse("[a)")).toBeFailure(ResultKind.SoftFail);
             });
             it("fails hard if middle/last fails", () => {
-                expectFailure(parser.parse("(b)"), ResultKind.HardFail);
-                expectFailure(parser.parse("(b]"), ResultKind.HardFail);
+                expect(parser.parse("(b)")).toBeFailure(ResultKind.HardFail);
+                expect(parser.parse("(b]")).toBeFailure(ResultKind.HardFail);
             });
         });
         describe("one argument version", () => {
             const parser = string("a").pipe(between("!"));
             it("succeeds", () => {
-                expectSuccess(parser.parse("!a!"), "a");
+                expect(parser.parse("!a!")).toBeSuccessful("a");
             });
         });
 
         describe("two argument version with different types", () => {
             const parser = string("a").pipe(between("_", float()));
             it("succeeds", () => {
-                expectSuccess(parser.parse("_a3.14"), "a");
+                expect(parser.parse("_a3.14")).toBeSuccessful("a");
             });
         });
     });

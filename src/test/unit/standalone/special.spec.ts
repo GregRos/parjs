@@ -1,8 +1,7 @@
-import { ResultKind } from "../../../lib/internal/result";
-import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
-import { eof, fail, position, result, state, string } from "../../../lib/internal/parsers";
 import { later, then } from "../../../lib/combinators";
 import { ParjserBase } from "../../../lib/internal";
+import { eof, fail, position, result, state, string } from "../../../lib/internal/parsers";
+import { ResultKind } from "../../../lib/internal/result";
 
 describe("special parsers", () => {
     describe("Parjs.eof", () => {
@@ -10,14 +9,14 @@ describe("special parsers", () => {
         const failInput = "a";
         const successInput = "";
         it("success on empty input", () => {
-            expectSuccess(parser.parse(successInput), undefined);
+            expect(parser.parse(successInput)).toBeSuccessful(undefined);
         });
         it("fail on non-empty input", () => {
-            expectFailure(parser.parse(failInput), ResultKind.SoftFail);
+            expect(parser.parse(failInput)).toBeFailure(ResultKind.SoftFail);
         });
         it("chain multiple EOF succeeds", () => {
             const parser2 = parser.pipe(then(eof()));
-            expectSuccess(parser2.parse(""), undefined);
+            expect(parser2.parse("")).toBeSuccessful(undefined);
         });
     });
 
@@ -27,7 +26,7 @@ describe("special parsers", () => {
         const someInput = "abcd";
         it("fails on non-empty input", () => {
             const parseResult = parser.parse(someInput, uState);
-            expectFailure(parseResult);
+            expect(parseResult).toBeFailure();
         });
     });
 
@@ -36,11 +35,11 @@ describe("special parsers", () => {
         const noInput = "";
         it("succeeds on empty input", () => {
             const parseResult = parser.parse(noInput);
-            expectSuccess(parseResult, 0);
+            expect(parseResult).toBeSuccessful(0);
         });
         it("fails on non-empty input", () => {
             const parseResult = parser.parse("abc");
-            expectFailure(parseResult);
+            expect(parseResult).toBeFailure();
         });
     });
 
@@ -48,10 +47,10 @@ describe("special parsers", () => {
         const parser = result("x");
         const noInput = "";
         it("succeeds on empty input", () => {
-            expectSuccess(parser.parse(noInput), "x");
+            expect(parser.parse(noInput)).toBeSuccessful("x");
         });
         it("fails on non-empty input", () => {
-            expectFailure(parser.parse("a"));
+            expect(parser.parse("a")).toBeFailure();
         });
     });
 
@@ -62,10 +61,10 @@ describe("special parsers", () => {
         const noInput = "";
         const input = "abc";
         it("fails on no input", () => {
-            expectFailure(parser.parse(noInput), ResultKind.FatalFail);
+            expect(parser.parse(noInput)).toBeFailure(ResultKind.FatalFail);
         });
         it("fails on non-empty input", () => {
-            expectFailure(parser.parse(input), ResultKind.FatalFail);
+            expect(parser.parse(input)).toBeFailure(ResultKind.FatalFail);
         });
     });
 
@@ -84,15 +83,15 @@ describe("special parsers", () => {
         });
 
         it("first success", () => {
-            expectSuccess(parser.parse("a"), "a");
+            expect(parser.parse("a")).toBeSuccessful("a");
         });
 
         it("second success", () => {
-            expectSuccess(parser.parse("a"), "a");
+            expect(parser.parse("a")).toBeSuccessful("a");
         });
 
         it("fail", () => {
-            expectFailure(parser.parse(""), "Soft");
+            expect(parser.parse("")).toBeFailure("Soft");
         });
 
         it("expecting after init", () => {

@@ -1,4 +1,3 @@
-import { expectSuccess } from "../helpers/custom-matchers";
 import { surrounded } from "../../examples/tuple";
 
 describe("the tuple example", () => {
@@ -9,7 +8,7 @@ describe("the tuple example", () => {
 
         it("can parse the example", () => {
             const result = parser.parse(successInput);
-            expectSuccess(result);
+            expect(result).toBeSuccessful();
         });
     });
 });

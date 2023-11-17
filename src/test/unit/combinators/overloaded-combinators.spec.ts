@@ -1,4 +1,3 @@
-import { expectSuccess } from "../../helpers/custom-matchers";
 import { string } from "../../../lib/";
 import { each, flatten, map, mapConst } from "../../../lib/combinators";
 
@@ -12,7 +11,7 @@ describe("overloaded combinators", () => {
                     arr.map(x => x.toUpperCase());
                 })
             );
-            expectSuccess(p.parse("a"), ["a"]);
+            expect(p.parse("a")).toBeSuccessful(["a"]);
         });
 
         it("works with level-1 array", () => {
@@ -23,7 +22,7 @@ describe("overloaded combinators", () => {
                     arr.map(x => x.toUpperCase());
                 })
             );
-            expectSuccess(p.parse("a"), ["a", "b"]);
+            expect(p.parse("a")).toBeSuccessful(["a", "b"]);
         });
 
         it("works with level-2 array with nesting", () => {
@@ -35,10 +34,10 @@ describe("overloaded combinators", () => {
                     arr.map(x => x.toUpperCase());
                 })
             );
-            expectSuccess(p.parse("a"), ["a", "b", "c", "d", "e"]);
+            expect(p.parse("a")).toBeSuccessful(["a", "b", "c", "d", "e"]);
         });
 
-        it("works with level-2 array with nesting", () => {
+        it("works with level-2 array with nesting, take 2", () => {
             const p = q.pipe(
                 mapConst(["a", [], ["b", ["c"]], ["d"], [[]]]),
                 map(x => x as string[]),
@@ -47,7 +46,7 @@ describe("overloaded combinators", () => {
                     arr.map(x => x.toUpperCase());
                 })
             );
-            expectSuccess(p.parse("a"), ["a", "b", "c", "d"]);
+            expect(p.parse("a")).toBeSuccessful(["a", "b", "c", "d"]);
         });
 
         it("worked with level-3 array with nesting", () => {
@@ -66,7 +65,7 @@ describe("overloaded combinators", () => {
                 })
             );
 
-            expectSuccess(p.parse("a"), ["a", "b", "c", "d", "e", "f", "g", "h"]);
+            expect(p.parse("a")).toBeSuccessful(["a", "b", "c", "d", "e", "f", "g", "h"]);
         });
     });
 });
