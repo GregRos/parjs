@@ -194,7 +194,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gregros/eslint-config@npm:^0.4.0":
+"@gregros/eslint-config@npm:0.4.0":
   version: 0.4.0
   resolution: "@gregros/eslint-config@npm:0.4.0"
   dependencies:
@@ -364,7 +364,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jasmine@npm:^5.1.1":
+"@types/jasmine@npm:5.1.1":
   version: 5.1.1
   resolution: "@types/jasmine@npm:5.1.1"
   checksum: c56c0acb97b9cba44e37b1a2b6a6330277a71fc9b79fca9a4b25fee94b18243d6b7f16766e14f6c05b01a7d8ae651cb282b6b902a754c4c4932d51cbbaed2aec
@@ -378,14 +378,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.14.200":
+"@types/lodash@npm:4.14.200":
   version: 4.14.200
   resolution: "@types/lodash@npm:4.14.200"
   checksum: 7a8dac6dc866f10d1888846d6189d1faeb4f65adb139f0837a005fd1adcde62e60d7e7abb1a2733d13fc57bebb337d74182d8ad3dbd1d211dcd0c310c47e81bc
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.9.1":
+"@types/node@npm:20.9.1":
   version: 20.9.1
   resolution: "@types/node@npm:20.9.1"
   dependencies:
@@ -401,7 +401,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^6.9.1":
+"@typescript-eslint/eslint-plugin@npm:6.9.1":
   version: 6.9.1
   resolution: "@typescript-eslint/eslint-plugin@npm:6.9.1"
   dependencies:
@@ -426,7 +426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^6.9.1":
+"@typescript-eslint/parser@npm:6.9.1":
   version: 6.9.1
   resolution: "@typescript-eslint/parser@npm:6.9.1"
   dependencies:
@@ -803,7 +803,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"char-info@npm:^0.3.2":
+"char-info@npm:0.3.2":
   version: 0.3.2
   resolution: "char-info@npm:0.3.2"
   dependencies:
@@ -1170,7 +1170,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8.52.0":
+"eslint@npm:8.52.0":
   version: 8.52.0
   resolution: "eslint@npm:8.52.0"
   dependencies:
@@ -2029,14 +2029,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jasmine-core@npm:^5.1.1, jasmine-core@npm:~5.1.0":
+"jasmine-core@npm:5.1.1, jasmine-core@npm:~5.1.0":
   version: 5.1.1
   resolution: "jasmine-core@npm:5.1.1"
   checksum: 2958bebf45e2ae2c9ecc876f2afa16d96fd9974fba15235747adc7447d49c8133d0b5f3358ab9f5087e2b2d80aa3a6b52bc918acbab5a54d6a7261664c8d742e
   languageName: node
   linkType: hard
 
-"jasmine-spec-reporter@npm:^7.0.0":
+"jasmine-spec-reporter@npm:7.0.0":
   version: 7.0.0
   resolution: "jasmine-spec-reporter@npm:7.0.0"
   dependencies:
@@ -2045,7 +2045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jasmine@npm:^5.1.0":
+"jasmine@npm:5.1.0":
   version: 5.1.0
   resolution: "jasmine@npm:5.1.0"
   dependencies:
@@ -2192,7 +2192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.21":
+"lodash@npm:4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -2412,7 +2412,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-all@npm:^4.1.5":
+"npm-run-all@npm:4.1.5":
   version: 4.1.5
   resolution: "npm-run-all@npm:4.1.5"
   dependencies:
@@ -2639,29 +2639,29 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "parjs@workspace:."
   dependencies:
-    "@gregros/eslint-config": "npm:^0.4.0"
-    "@types/jasmine": "npm:^5.1.1"
-    "@types/lodash": "npm:^4.14.200"
-    "@types/node": "npm:^20.9.1"
-    "@typescript-eslint/eslint-plugin": "npm:^6.9.1"
-    "@typescript-eslint/parser": "npm:^6.9.1"
-    char-info: "npm:^0.3.2"
-    eslint: "npm:^8.52.0"
-    jasmine: "npm:^5.1.0"
-    jasmine-core: "npm:^5.1.1"
-    jasmine-spec-reporter: "npm:^7.0.0"
-    lodash: "npm:^4.17.21"
-    npm-run-all: "npm:^4.1.5"
+    "@gregros/eslint-config": "npm:0.4.0"
+    "@types/jasmine": "npm:5.1.1"
+    "@types/lodash": "npm:4.14.200"
+    "@types/node": "npm:20.9.1"
+    "@typescript-eslint/eslint-plugin": "npm:6.9.1"
+    "@typescript-eslint/parser": "npm:6.9.1"
+    char-info: "npm:0.3.2"
+    eslint: "npm:8.52.0"
+    jasmine: "npm:5.1.0"
+    jasmine-core: "npm:5.1.1"
+    jasmine-spec-reporter: "npm:7.0.0"
+    lodash: "npm:4.17.21"
+    npm-run-all: "npm:4.1.5"
     nyc: "npm:^13.1.0"
     prettier: "npm:3.0.3"
-    shelljs: "npm:^0.8.5"
-    shx: "npm:^0.3.4"
-    source-map: "npm:^0.7.4"
-    source-map-support: "npm:^0.5.21"
-    ts-node: "npm:^10.9.1"
-    typedoc: "npm:^0.25.3"
-    typedoc-plugin-internal-external: "npm:^2.2.0"
-    typescript: "npm:^5.2.2"
+    shelljs: "npm:0.8.5"
+    shx: "npm:0.3.4"
+    source-map: "npm:0.7.4"
+    source-map-support: "npm:0.5.21"
+    ts-node: "npm:10.9.1"
+    typedoc: "npm:0.25.3"
+    typedoc-plugin-internal-external: "npm:2.2.0"
+    typescript: "npm:5.2.2"
   languageName: unknown
   linkType: soft
 
@@ -3099,7 +3099,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shelljs@npm:^0.8.5":
+"shelljs@npm:0.8.5, shelljs@npm:^0.8.5":
   version: 0.8.5
   resolution: "shelljs@npm:0.8.5"
   dependencies:
@@ -3124,7 +3124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shx@npm:^0.3.4":
+"shx@npm:0.3.4":
   version: 0.3.4
   resolution: "shx@npm:0.3.4"
   dependencies:
@@ -3168,7 +3168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.21":
+"source-map-support@npm:0.5.21":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
@@ -3178,17 +3178,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"source-map@npm:0.7.4":
+  version: 0.7.4
+  resolution: "source-map@npm:0.7.4"
+  checksum: dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
+  languageName: node
+  linkType: hard
+
 "source-map@npm:^0.6.0, source-map@npm:^0.6.1":
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: ab55398007c5e5532957cb0beee2368529618ac0ab372d789806f5718123cc4367d57de3904b4e6a4170eb5a0b0f41373066d02ca0735a0c4d75c7d328d3e011
-  languageName: node
-  linkType: hard
-
-"source-map@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "source-map@npm:0.7.4"
-  checksum: dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
   languageName: node
   linkType: hard
 
@@ -3462,7 +3462,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.9.1":
+"ts-node@npm:10.9.1":
   version: 10.9.1
   resolution: "ts-node@npm:10.9.1"
   dependencies:
@@ -3563,7 +3563,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-plugin-internal-external@npm:^2.2.0":
+"typedoc-plugin-internal-external@npm:2.2.0":
   version: 2.2.0
   resolution: "typedoc-plugin-internal-external@npm:2.2.0"
   peerDependencies:
@@ -3572,7 +3572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.25.3":
+"typedoc@npm:0.25.3":
   version: 0.25.3
   resolution: "typedoc@npm:0.25.3"
   dependencies:
@@ -3588,7 +3588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.2.2":
+"typescript@npm:5.2.2":
   version: 5.2.2
   resolution: "typescript@npm:5.2.2"
   bin:
@@ -3598,7 +3598,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>":
   version: 5.2.2
   resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
