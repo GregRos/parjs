@@ -93,6 +93,18 @@ export class ParjsFailure implements FailureInfo {
     }
 }
 
+export function isParjsSuccess<T>(x: unknown): x is ParjsSuccess<T> {
+    return x instanceof ParjsSuccess;
+}
+
+export function isParjsFailure(x: unknown): x is ParjsFailure {
+    return x instanceof ParjsFailure;
+}
+
+export function isParjsResult<T>(x: unknown): x is ParjsResult<T> {
+    return x instanceof ParjsSuccess || x instanceof ParjsFailure;
+}
+
 /**
  * A type that represents a ParjsSuccess or a ParjsFailure. Returned by parsers.
  */
