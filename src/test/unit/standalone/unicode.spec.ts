@@ -1,5 +1,4 @@
 import { ResultKind, uniNewline } from "../../../lib/index";
-import { expectFailure, expectSuccess } from "../../helpers/custom-matchers";
 import { many } from "../../../lib/combinators";
 import { uniDecimal, uniLetter } from "../../../lib/internal/parsers/char-types";
 
@@ -17,29 +16,29 @@ describe("unicode strings", () => {
     describe("uniLetter", () => {
         const pl = uniLetter();
         it("parse hebrew success", () => {
-            expectSuccess(pl.parse("ש"), "ש");
+            expect(pl.parse("ש")).toBeSuccessful("ש");
         });
         it("parse english success", () => {
-            expectSuccess(pl.parse("a"), "a");
+            expect(pl.parse("a")).toBeSuccessful("a");
         });
         it("parse symbol fail", () => {
-            expectFailure(pl.parse(":"), ResultKind.SoftFail);
+            expect(pl.parse(":")).toBeFailure(ResultKind.SoftFail);
         });
         it("parse digit fail", () => {
-            expectFailure(pl.parse("5"), ResultKind.SoftFail);
+            expect(pl.parse("5")).toBeFailure(ResultKind.SoftFail);
         });
     });
 
     describe("uniDecimal", () => {
         const pd = uniDecimal();
         it("succeeds on w-arabic", () => {
-            expectSuccess(pd.parse("4"), "4");
+            expect(pd.parse("4")).toBeSuccessful("4");
         });
         it("succeeds on e-arabic", () => {
-            expectSuccess(pd.parse("١"), "١");
+            expect(pd.parse("١")).toBeSuccessful("١");
         });
         it("fails on letter", () => {
-            expectFailure(pd.parse("a"), ResultKind.SoftFail);
+            expect(pd.parse("a")).toBeFailure(ResultKind.SoftFail);
         });
     });
 });

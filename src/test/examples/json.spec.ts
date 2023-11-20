@@ -1,4 +1,3 @@
-import { expectSuccess } from "../helpers/custom-matchers";
 import { pJsonValue } from "../../examples/json";
 
 describe("the JSON example", () => {
@@ -14,7 +13,7 @@ describe("the JSON example", () => {
 
         it("can parse a complex example", () => {
             const result = parser.parse(successInput);
-            expectSuccess(result);
+            expect(result).toBeSuccessful();
         });
     });
 });

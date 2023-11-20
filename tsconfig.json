@@ -4,6 +4,7 @@
         "noImplicitOverride": true,
         "module": "CommonJS",
         "target": "ES2020",
+        "types": ["jest"],
         "sourceMap": true,
         "declaration": true,
         "outDir": "dist",
@@ -12,6 +13,6 @@
         "moduleResolution": "node",
         "strictNullChecks": true
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "jest.config.ts"],
     "exclude": ["dist", "node_modules"]
 }
