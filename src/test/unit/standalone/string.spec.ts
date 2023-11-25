@@ -126,6 +126,9 @@ describe("basic string parsers", () => {
 
     describe("string(hi)", () => {
         const parser = string("hi");
+        // when parsing, the return type of the parser is what was parsed, literally
+        parser satisfies Parjser<"hi">;
+
         const success = "hi";
         const fail = "bo";
         it("success", () => {

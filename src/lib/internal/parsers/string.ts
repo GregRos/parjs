@@ -13,8 +13,8 @@ import { Parjser } from "..";
  * that was parsed. If it can't, it will fail softly without consuming input.
  * @param str The string to parse.
  */
-export function string(str: string): Parjser<string> {
-    return new (class ParseString extends ParjserBase<string> {
+export function string<T extends string>(str: T): Parjser<T> {
+    return new (class ParseString extends ParjserBase<T> {
         expecting = `expecting '${str}'`;
         type = "string";
         _apply(ps: ParsingState): void {
