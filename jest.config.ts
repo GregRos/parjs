@@ -3,7 +3,6 @@ import { Config } from "jest";
 
 const config: Config = {
     preset: "ts-jest",
-    collectCoverage: true,
     setupFilesAfterEnv: [path.join(__dirname, "src", "test", "helpers", "jest-setup.ts")],
     testPathIgnorePatterns: ["dist"],
     transform: {
