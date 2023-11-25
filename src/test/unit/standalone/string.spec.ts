@@ -14,7 +14,14 @@ import {
     string,
     stringLen
 } from "../../../lib/internal/parsers";
-import { letter, lower, space, spaces1, upper } from "../../../lib/internal/parsers/char-types";
+import {
+    letter,
+    lower,
+    space,
+    spaces1,
+    upper,
+    whitespace
+} from "../../../lib/internal/parsers/char-types";
 import { ResultKind } from "../../../lib/internal/result";
 
 const uState = {};
@@ -43,6 +50,20 @@ describe("basic string parsers", () => {
 
         it("can parse a tab", () => {
             expect(space().parse("\t")).toBeSuccessful("\t");
+        });
+    });
+
+    describe("whitespace", () => {
+        it("can parse a space", () => {
+            expect(whitespace().parse(" ")).toBeSuccessful(" ");
+        });
+
+        it("can parse a tab", () => {
+            expect(whitespace().parse("\t")).toBeSuccessful("\t");
+        });
+
+        it("can parse a newline", () => {
+            expect(whitespace().parse("\n")).toBeSuccessful("\n");
         });
     });
 
