@@ -72,7 +72,6 @@
         "shx": "0.3.4",
         "source-map": "0.7.4",
         "source-map-support": "0.5.21",
-        "ts-jest": "29.1.1",
         "ts-node": "10.9.1",
         "typedoc": "0.25.3",
         "typedoc-plugin-internal-external": "2.2.0",
