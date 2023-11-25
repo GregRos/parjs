@@ -1,4 +1,6 @@
-import { ResultKind } from "../../../lib/internal/result";
+import _ from "lodash";
+import { ParjsResult, Parjser } from "../../../lib";
+import { then } from "../../../lib/combinators";
 import {
     anyChar,
     anyCharOf,
@@ -12,10 +14,8 @@ import {
     string,
     stringLen
 } from "../../../lib/internal/parsers";
-import { letter, lower, spaces1, upper } from "../../../lib/internal/parsers/char-types";
-import { map, then } from "../../../lib/combinators";
-import _ from "lodash";
-import { ParjsResult, Parjser } from "../../../lib";
+import { letter, lower, space, spaces1, upper } from "../../../lib/internal/parsers/char-types";
+import { ResultKind } from "../../../lib/internal/result";
 
 const uState = {};
 
@@ -33,6 +33,16 @@ describe("basic string parsers", () => {
         });
         it("fails on too long input", () => {
             expect(parser.parse(tooLongInput, uState)).toBeFailure(ResultKind.SoftFail);
+        });
+    });
+
+    describe("space", () => {
+        it("can parse a space", () => {
+            expect(space().parse(" ")).toBeSuccessful(" ");
+        });
+
+        it("can parse a tab", () => {
+            expect(space().parse("\t")).toBeSuccessful("\t");
         });
     });
 
