@@ -94,7 +94,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
             if (ps.reason == null) {
                 throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
-            ps.stack.push(this as unknown as Parjser<unknown>);
+            ps.stack.push(this);
         } else {
             ps.stack = [];
         }

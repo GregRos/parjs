@@ -21,7 +21,7 @@ const toBeSuccessful: MatcherFunction<[value: unknown]> =
         }
 
         if (!isParjsSuccess(actual)) {
-            return fail(`expected the parse result ${actual} to be a ParjsSuccess instance`);
+            return fail(`expected the parse result to be a ParjsSuccess instance:\n\n${actual}`);
         }
 
         const actualString = JSON.stringify(actual);

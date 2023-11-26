@@ -7,6 +7,7 @@ import { Trace } from "./result";
 import { NumHelpers } from "./functions/helpers";
 import repeat from "lodash/repeat";
 import defaults from "lodash/defaults";
+import { ParjserBase } from "./parser";
 
 /**
  * A set of arguments for the trace visualizer.
@@ -50,19 +51,25 @@ function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
         linesAround.push(errorMarked);
         const linesVisualization = linesAround.join("\n");
 
+        const stack = trace.stackTrace
+            .map(x => {
+                const base = x as ParjserBase<unknown>;
+                return `${base.expecting} (${x.type})`;
+            })
+            .filter(x => x)
+            .join("\n");
         const fullVisualization = `${trace.kind} failure at Ln ${trace.location.line + 1} Col ${
             trace.location.column + 1
         }
 ${linesVisualization}
-Stack: ${trace.stackTrace
-            .map(x => x.type)
-            .filter(x => x)
-            .join(" < ")}
+
+Stack:
+${stack}
 `;
         return fullVisualization;
     };
     visualizer.configure = newTraceVisualizer;
-    return visualizer as TraceVisualizer;
+    return visualizer;
 }
 
 /**

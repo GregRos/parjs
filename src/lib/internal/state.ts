@@ -3,7 +3,7 @@
  */
 /** */
 import { ResultKind } from "./result";
-import { Parjser } from "./parjser";
+import { ParjserBase } from ".";
 
 /**
  * Container type for user state data.
@@ -41,7 +41,7 @@ export interface ParsingState {
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: Parjser<unknown>[];
+    stack: ParjserBase<unknown>[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.
