@@ -130,8 +130,6 @@ export class BasicParsingState<TValue> implements ParsingState {
     }
 }
 
-// tslint:disable:naming-convention
-
 /**
  * A unique object value indicating the reuslt of a failed parser.
  */

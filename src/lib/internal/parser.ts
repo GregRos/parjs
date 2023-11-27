@@ -162,7 +162,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
         let last: any = ScalarConverter.convert(this);
 
         for (const cmb of combinators) {
-            last = pipe(last, cmb as ParjsCombinator<unknown, unknown>);
+            last = (cmb as ParjsCombinator<unknown, unknown>)(last);
         }
 
         return last as Parjser<T6>;
