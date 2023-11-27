@@ -17,7 +17,9 @@ const toBeSuccessful: MatcherFunction<[value: unknown]> =
     // jest recommends to type the parameters as `unknown` and to validate the values
     function (actual: unknown, expected: unknown): SyncExpectationResult {
         if (!isParjsResult(actual)) {
-            throw new Error("toBeSuccessful must be called on a ParjsResult");
+            throw new Error(
+                `toBeSuccessful must be called on a ParjsResult, but was called on ${typeof actual}`
+            );
         }
 
         if (!isParjsSuccess(actual)) {
