@@ -61,7 +61,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     expects(expecting: string): Parjser<TValue> {
         const copy = clone(this);
         copy.expecting = expecting;
-        return copy as Parjser<TValue>;
+        return copy;
     }
     /**
      * Apply the parser to the given state.
@@ -165,6 +165,6 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
             last = pipe(last, cmb as ParjsCombinator<unknown, unknown>);
         }
 
-        return last as unknown as Parjser<T6>;
+        return last as Parjser<T6>;
     }
 }

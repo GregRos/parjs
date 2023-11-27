@@ -74,7 +74,7 @@ export interface ParsingState {
     atMost(kind: ResultKind): boolean | undefined;
 }
 
-function worseThan(a: ResultKind, b: ResultKind) {
+function worseThan(a: ResultKind, b: ResultKind): boolean | undefined {
     if (a === ResultKind.Ok) {
         return b === ResultKind.Ok;
     }
