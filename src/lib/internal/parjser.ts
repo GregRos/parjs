@@ -3,8 +3,8 @@
  */ /** */
 
 import { FailureInfo, ParjsResult } from "./result";
-import { UserState } from "./state";
 import { ImplicitParjser } from "./scalar-converter";
+import { UserState } from "./state";
 
 /**
  * A combinator or operator that takes a source parser that returns a new parser
@@ -57,7 +57,7 @@ export interface Parjser<T> {
      * this parser, feeding the result of one into the input of the next.
      * @param cmb1 The single combinator to apply.
      */
-    pipe<T1>(cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
+    pipe<const T1>(cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
 
     /**
      * The chaining or piping operator. Applies a sequence of combinators to
@@ -65,7 +65,10 @@ export interface Parjser<T> {
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      */
-    pipe<T1, T2>(cmb1: ParjsCombinator<T, T1>, cmb2: ParjsCombinator<T1, T2>): Parjser<T2>;
+    pipe<const T1, const T2>(
+        cmb1: ParjsCombinator<T, T1>,
+        cmb2: ParjsCombinator<T1, T2>
+    ): Parjser<T2>;
 
     /**
      * The chaining or piping operator. Applies a sequence of combinators to
@@ -74,7 +77,7 @@ export interface Parjser<T> {
      * @param cmb2 The second combinator to apply.
      * @param cmb3 The third combinator to apply.
      */
-    pipe<T1, T2, T3>(
+    pipe<const T1, const T2, const T3>(
         cmb1: ParjsCombinator<T, T1>,
         cmb2: ParjsCombinator<T1, T2>,
         cmb3: ParjsCombinator<T2, T3>
@@ -88,7 +91,7 @@ export interface Parjser<T> {
      * @param cmb3 The third combinator to apply.
      * @param cmb4 The fourth combinator to apply.
      */
-    pipe<T1, T2, T3, T4>(
+    pipe<const T1, const T2, const T3, const T4>(
         cmb1: ParjsCombinator<T, T1>,
         cmb2: ParjsCombinator<T1, T2>,
         cmb3: ParjsCombinator<T2, T3>,
@@ -104,7 +107,7 @@ export interface Parjser<T> {
      * @param cmb4 The fourth combinator to apply.
      * @param cmb5 The fifth combinator to apply.
      */
-    pipe<T1, T2, T3, T4, T5>(
+    pipe<const T1, const T2, const T3, const T4, const T5>(
         cmb1: ParjsCombinator<T, T1>,
         cmb2: ParjsCombinator<T1, T2>,
         cmb3: ParjsCombinator<T2, T3>,
@@ -122,7 +125,7 @@ export interface Parjser<T> {
      * @param cmb5 The fifth combinator to apply.
      * @param cmb6 The sixth combinator to apply.
      */
-    pipe<T1, T2, T3, T4, T5, T6>(
+    pipe<const T1, const T2, const T3, const T4, const T5, const T6>(
         cmb1: ParjsCombinator<T, T1>,
         cmb2: ParjsCombinator<T1, T2>,
         cmb3: ParjsCombinator<T2, T3>,

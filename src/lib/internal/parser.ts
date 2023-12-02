@@ -3,13 +3,18 @@
  */
 /** */
 
+import clone from "lodash/clone";
+import defaults from "lodash/defaults";
+import { ScalarConverter } from ".";
+import { ParserDefinitionError } from "../errors";
+import { ParjsCombinator, Parjser } from "./parjser";
 import {
+    ErrorLocation,
     ParjsFailure,
     ParjsResult,
-    ResultKind,
     ParjsSuccess,
-    Trace,
-    ErrorLocation
+    ResultKind,
+    Trace
 } from "./result";
 import {
     BasicParsingState,
@@ -18,12 +23,6 @@ import {
     UNINITIALIZED_RESULT,
     UserState
 } from "./state";
-import defaults from "lodash/defaults";
-import { ParserDefinitionError } from "../errors";
-import { ParjsCombinator, Parjser } from "./parjser";
-import { pipe } from "./combinators/combinator";
-import clone from "lodash/clone";
-import { ScalarConverter } from ".";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;

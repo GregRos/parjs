@@ -3,12 +3,12 @@
  */
 /** */
 
-import { ParsingState } from "../state";
-import { ResultKind } from "../result";
 import { ParjsCombinator } from "../..";
-import { ImplicitParjser, ScalarConverter } from "../scalar-converter";
-import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import { ImplicitParjser, ScalarConverter } from "../scalar-converter";
+import { ParsingState } from "../state";
+import { defineCombinator } from "./combinator";
 
 /**
  * Applies the source parser. If it fails softly, will try to apply the
@@ -20,7 +20,7 @@ import { ParjserBase } from "../parser";
  *
  * @param alt1 The first alternative parser to apply.
  */
-export function or<T1, T2>(alt1: ImplicitParjser<T2>): ParjsCombinator<T1, T1 | T2>;
+export function or<const T1, const T2>(alt1: ImplicitParjser<T2>): ParjsCombinator<T1, T1 | T2>;
 
 /**
  * Applies the source parser. If it fails softly, will try to apply the
@@ -33,7 +33,7 @@ export function or<T1, T2>(alt1: ImplicitParjser<T2>): ParjsCombinator<T1, T1 | 
  * @param alt1 The first alternative parser to apply.
  * @param alt2 The second alternative parser to apply.
  */
-export function or<T1, T2, T3>(
+export function or<const T1, const T2, const T3>(
     alt1: ImplicitParjser<T2>,
     alt2: ImplicitParjser<T3>
 ): ParjsCombinator<T1, T1 | T2 | T3>;
@@ -50,7 +50,7 @@ export function or<T1, T2, T3>(
  * @param alt2 The second alternative parser to apply.
  * @param alt3 The third alternative parser to apply.
  */
-export function or<T1, T2, T3, T4>(
+export function or<const T1, const T2, const T3, const T4>(
     alt1: ImplicitParjser<T2>,
     alt2: ImplicitParjser<T3>,
     alt3: ImplicitParjser<T4>
@@ -69,7 +69,7 @@ export function or<T1, T2, T3, T4>(
  * @param alt3 The third alternative parser to apply.
  * @param alt4 The fourth alternative parser to apply.
  */
-export function or<T1, T2, T3, T4, T5>(
+export function or<const T1, const T2, const T3, const T4, const T5>(
     alt1: ImplicitParjser<T2>,
     alt2: ImplicitParjser<T3>,
     alt3: ImplicitParjser<T4>,

@@ -5,8 +5,8 @@
 
 import { Parjser } from "./parjser";
 
-import { string } from "./parsers/string";
 import { regexp } from "./parsers/regexp";
+import { string } from "./parsers/string";
 
 /**
  * A {@link Parjser} or a literal value convertible to a {@link Parjser}.
