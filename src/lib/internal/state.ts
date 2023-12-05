@@ -3,7 +3,7 @@
  */
 /** */
 import { ResultKind } from "./result";
-import { Parjser } from "./parjser";
+import { ParjserBase } from ".";
 
 /**
  * Container type for user state data.
@@ -41,7 +41,7 @@ export interface ParsingState {
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: Parjser<unknown>[];
+    stack: ParjserBase<unknown>[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.
@@ -74,7 +74,7 @@ export interface ParsingState {
     atMost(kind: ResultKind): boolean | undefined;
 }
 
-function worseThan(a: ResultKind, b: ResultKind) {
+function worseThan(a: ResultKind, b: ResultKind): boolean | undefined {
     if (a === ResultKind.Ok) {
         return b === ResultKind.Ok;
     }
@@ -129,8 +129,6 @@ export class BasicParsingState<TValue> implements ParsingState {
         return worseThan(kind, this.kind);
     }
 }
-
-// tslint:disable:naming-convention
 
 /**
  * A unique object value indicating the reuslt of a failed parser.

@@ -29,7 +29,7 @@ export function anyChar(): Parjser<string> {
 }
 
 /**
- * Returns a parser that parses a single ASCII inline space.
+ * Returns a parser that parses a single space (`[ \t]`).
  */
 export function space(): Parjser<string> {
     return charWhere(x => isSpace(x) || { reason: "expecting a space" });

@@ -3,12 +3,12 @@
  */
 /** */
 
-import { ParsingState, UserState } from "../state";
-import { FailureInfo, ResultKind, SuccessInfo } from "../result";
 import { ParjsCombinator } from "../../";
+import { FailureInfo, ResultKind, SuccessInfo } from "../result";
+import { ParsingState, UserState } from "../state";
 
-import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
+import { defineCombinator } from "./combinator";
 
 /**
  * Information about the failure.
@@ -40,7 +40,7 @@ export type RecoveryFunction<T> = (
 /**
  * Reduces Hard failures to Soft ones and behaves in the same way on success.
  */
-export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinator<unknown, T> {
+export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinator<T, T> {
     return defineCombinator<unknown, T>(source => {
         return new (class Soft extends ParjserBase<T> {
             type = "recover";

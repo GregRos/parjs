@@ -1,4 +1,6 @@
-import { ResultKind } from "../../../lib/internal/result";
+import _ from "lodash";
+import { ParjsResult, Parjser } from "../../../lib";
+import { then } from "../../../lib/combinators";
 import {
     anyChar,
     anyCharOf,
@@ -12,9 +14,15 @@ import {
     string,
     stringLen
 } from "../../../lib/internal/parsers";
-import { letter, lower, spaces1, upper } from "../../../lib/internal/parsers/char-types";
-import { then } from "../../../lib/combinators";
-import _ from "lodash";
+import {
+    letter,
+    lower,
+    space,
+    spaces1,
+    upper,
+    whitespace
+} from "../../../lib/internal/parsers/char-types";
+import { ResultKind } from "../../../lib/internal/result";
 
 const uState = {};
 
@@ -32,6 +40,30 @@ describe("basic string parsers", () => {
         });
         it("fails on too long input", () => {
             expect(parser.parse(tooLongInput, uState)).toBeFailure(ResultKind.SoftFail);
+        });
+    });
+
+    describe("space", () => {
+        it("can parse a space", () => {
+            expect(space().parse(" ")).toBeSuccessful(" ");
+        });
+
+        it("can parse a tab", () => {
+            expect(space().parse("\t")).toBeSuccessful("\t");
+        });
+    });
+
+    describe("whitespace", () => {
+        it("can parse a space", () => {
+            expect(whitespace().parse(" ")).toBeSuccessful(" ");
+        });
+
+        it("can parse a tab", () => {
+            expect(whitespace().parse("\t")).toBeSuccessful("\t");
+        });
+
+        it("can parse a newline", () => {
+            expect(whitespace().parse("\n")).toBeSuccessful("\n");
         });
     });
 
@@ -125,6 +157,9 @@ describe("basic string parsers", () => {
 
     describe("string(hi)", () => {
         const parser = string("hi");
+        // when parsing, the return type of the parser is what was parsed, literally
+        parser satisfies Parjser<"hi">;
+
         const success = "hi";
         const fail = "bo";
         it("success", () => {
@@ -138,22 +173,30 @@ describe("basic string parsers", () => {
         });
     });
 
-    describe("anyStringOf(hi, hello)", () => {
-        const parser = anyStringOf("hi", "hello");
-        const success1 = "hello";
-        const success2 = "hi";
-        const fail = "bo";
+    describe("anyStringOf", () => {
         it("success1", () => {
-            expect(parser.parse(success1)).toBeSuccessful(success1);
+            expect(anyStringOf("hi", "hello").parse("hello")).toBeSuccessful("hello");
         });
         it("success2", () => {
-            expect(parser.parse(success2)).toBeSuccessful(success2);
+            expect(anyStringOf("hi", "hello").parse("hi")).toBeSuccessful("hi");
         });
         it("fail", () => {
-            expect(parser.parse(fail)).toBeFailure(ResultKind.SoftFail);
+            expect(anyStringOf("hi", "hello").parse("bo")).toBeFailure(ResultKind.SoftFail);
         });
         it("fail too long", () => {
-            expect(parser.parse(`${success2}1`)).toBeFailure(ResultKind.SoftFail);
+            expect(anyStringOf("hi", "hello").parse(`hi1`)).toBeFailure(ResultKind.SoftFail);
+        });
+
+        it("retains type information when using constant tuples", () => {
+            const letters = ["a", "b", "c"] as const;
+            letters satisfies readonly ["a", "b", "c"]; // must be a constant tuple
+
+            // type information must be retained in the parser type
+            const parser: Parjser<"a" | "c" | "b"> = anyStringOf(...letters);
+
+            // type information must be retained in the result type
+            const result: ParjsResult<"a" | "c" | "b"> = parser.parse("a");
+            expect(result).toBeSuccessful("a");
         });
     });
 

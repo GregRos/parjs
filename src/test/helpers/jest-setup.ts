@@ -17,16 +17,19 @@ const toBeSuccessful: MatcherFunction<[value: unknown]> =
     // jest recommends to type the parameters as `unknown` and to validate the values
     function (actual: unknown, expected: unknown): SyncExpectationResult {
         if (!isParjsResult(actual)) {
-            throw new Error("toBeSuccessful must be called on a ParjsResult");
+            throw new Error(
+                `toBeSuccessful must be called on a ParjsResult, but was called on ${typeof actual}`
+            );
         }
 
         if (!isParjsSuccess(actual)) {
-            return fail(`expected the parse result ${actual} to be a ParjsSuccess instance`);
+            return fail(`expected the parse result to be a ParjsSuccess instance:\n\n${actual}`);
         }
 
+        const actualString = JSON.stringify(actual);
         if (actual.kind !== "OK") {
             return fail(
-                `expected the parse result ${actual} to have kind 'OK' but it had kind '${actual.kind}'`
+                `expected the parse result ${actualString} to have kind 'OK' but it had kind '${actual.kind}'`
             );
         }
 
@@ -35,9 +38,7 @@ const toBeSuccessful: MatcherFunction<[value: unknown]> =
                 // check the structure of the objects, not their references
                 expect(actual.value).toEqual(expected);
             } catch (error) {
-                return fail(
-                    `expected the parse result ${actual} to have value ${expected}.\n\n${error}`
-                );
+                return fail(`Unexpected parser result value. \n\n${error}`);
             }
         }
 
@@ -57,16 +58,18 @@ const toBeFailure: MatcherFunction<[kind?: string]> = function (
         throw new Error("toBeFailure must be called on a ParjsResult");
     }
 
+    const actualString = JSON.stringify(actual);
+
     if (!isParjsFailure(actual)) {
         return fail(
-            `expected the parse result ${actual} to be a ParjsFailure instance, but its type is '${typeof actual}'`
+            `expected the parse result ${actualString} to be a ParjsFailure instance, but its type is '${typeof actual}'`
         );
     }
 
     // if a kind was specified, check it
     if (expected !== undefined && actual.kind !== expected) {
         return fail(
-            `expected the parse result ${actual} to have kind '${expected}' but it had kind '${actual.kind}'`
+            `expected the parse result ${actualString} to have kind '${expected}' but it had kind '${actual.kind}'`
         );
     }
 

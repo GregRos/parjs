@@ -12,10 +12,11 @@ import { Parjser } from "../parjser";
  * Returns a parser that will parse any of the strings in `strs` and yield
  * the text that was parsed. If it can't, it will fail softly without consuming
  * input.
- * @param strs A set of string options to parse.
+ * @param strs A set of string options to parse. In typescript, you can also use
+ * a constant tuple if you pass it in using the spread operator (`...`).
  */
-export function anyStringOf(...strs: string[]): Parjser<string> {
-    return new (class StringOf extends ParjserBase<string> {
+export function anyStringOf<T extends string>(...strs: T[]): Parjser<T> {
+    return new (class StringOf extends ParjserBase<T> {
         type = "anyStringOf";
         expecting = `expecting any of ${strs.map(x => `'${x}'`).join(", ")}`;
 

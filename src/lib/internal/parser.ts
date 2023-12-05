@@ -3,13 +3,18 @@
  */
 /** */
 
+import clone from "lodash/clone";
+import defaults from "lodash/defaults";
+import { ScalarConverter } from ".";
+import { ParserDefinitionError } from "../errors";
+import { ParjsCombinator, Parjser } from "./parjser";
 import {
+    ErrorLocation,
     ParjsFailure,
     ParjsResult,
-    ResultKind,
     ParjsSuccess,
-    Trace,
-    ErrorLocation
+    ResultKind,
+    Trace
 } from "./result";
 import {
     BasicParsingState,
@@ -18,12 +23,6 @@ import {
     UNINITIALIZED_RESULT,
     UserState
 } from "./state";
-import defaults from "lodash/defaults";
-import { ParserDefinitionError } from "../errors";
-import { ParjsCombinator, Parjser } from "./parjser";
-import { pipe } from "./combinators/combinator";
-import clone from "lodash/clone";
-import { ScalarConverter } from ".";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;
@@ -61,7 +60,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     expects(expecting: string): Parjser<TValue> {
         const copy = clone(this);
         copy.expecting = expecting;
-        return copy as Parjser<TValue>;
+        return copy;
     }
     /**
      * Apply the parser to the given state.
@@ -94,7 +93,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
             if (ps.reason == null) {
                 throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
-            ps.stack.push(this as unknown as Parjser<unknown>);
+            ps.stack.push(this);
         } else {
             ps.stack = [];
         }
@@ -162,9 +161,9 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
         let last: any = ScalarConverter.convert(this);
 
         for (const cmb of combinators) {
-            last = pipe(last, cmb as ParjsCombinator<unknown, unknown>);
+            last = (cmb as ParjsCombinator<unknown, unknown>)(last);
         }
 
-        return last as unknown as Parjser<T6>;
+        return last as Parjser<T6>;
     }
 }
