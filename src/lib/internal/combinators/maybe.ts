@@ -3,17 +3,17 @@
  */
 /** */
 
-import { ParsingState } from "../state";
-import { ResultKind } from "../result";
-import { defineCombinator } from "./combinator";
-import { ParjserBase } from "../parser";
 import { ParjsCombinator } from "../../index";
+import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import { ParsingState } from "../state";
+import { defineCombinator } from "./combinator";
 
 /**
  * Applies the source parser. If it fails softly, succeeds and yields `val`.
  * @param val
  */
-export function maybe<T, S = T>(val?: S): ParjsCombinator<T, S> {
+export function maybe<const T, const S = T | undefined>(val?: S): ParjsCombinator<T, T | S> {
     return defineCombinator<T, S>(inner => {
         return new (class MaybeCombinator extends ParjserBase<S> {
             _inner = inner;
