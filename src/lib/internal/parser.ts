@@ -102,9 +102,8 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     /**
      * The internal operation performed by the PARSER. This will be overriden by derived classes.
      * @param ps
-     * @private
      */
-    abstract _apply(ps: ParsingState): void;
+    protected abstract _apply(ps: ParsingState): void;
 
     parse(input: string, initialState?: UserState): ParjsResult<TValue> {
         if (typeof input !== "string") {
