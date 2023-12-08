@@ -76,7 +76,7 @@ export function manySepBy<E, Sep>(implDelimeter: ImplicitParjser<Sep>, max = Inf
                         return;
                     }
                     if (max >= Infinity && ps.position === position) {
-                        Issues.guardAgainstInfiniteLoop("many");
+                        Issues.guardAgainstInfiniteLoop("manySepBy");
                     }
                     results.push(ps.value as E);
                     position = ps.position;
