@@ -1,22 +1,24 @@
-import { ResultKind } from "../../../lib/internal/result";
 import range from "lodash/range";
-import { string, fail, rest, eof, result, anyCharOf, float } from "../../../lib/internal/parsers";
+import { Parjser } from "../../../lib";
 import {
     between,
     each,
     exactly,
     many,
+    manyBetween,
     manySepBy,
     manyTill,
     mapConst,
     qthen,
     stringify,
     then,
-    thenq,
     thenPick,
-    manyBetween
+    thenq
 } from "../../../lib/combinators";
 import { getArrayWithSeparators } from "../../../lib/internal/combinators/many-sep-by";
+import { many1 } from "../../../lib/internal/combinators/many1";
+import { anyCharOf, eof, fail, float, rest, result, string } from "../../../lib/internal/parsers";
+import { ResultKind } from "../../../lib/internal/result";
 
 const goodInput = "abcd";
 const softBadInput = "a";
@@ -125,7 +127,7 @@ describe("sequential combinators", () => {
 
     describe("many combinators", () => {
         describe("regular many", () => {
-            const parser = prs.pipe(many());
+            const parser: Parjser<"ab"[]> = prs.pipe(many());
             it("success on empty input", () => {
                 expect(parser.parse("")).toBeSuccessful([]);
             });
@@ -168,6 +170,28 @@ describe("sequential combinators", () => {
             it("fails when there is excess input", () => {
                 expect(parser.parse("ababab")).toBeFailure(ResultKind.SoftFail);
             });
+        });
+    });
+
+    describe("many1 combinator", () => {
+        const parser = prs.pipe(many1());
+        it("succeeds with 1 match", () => {
+            expect(parser.parse("ab")).toBeSuccessful(["ab"]);
+        });
+        it("succeeds with N>1 matches", () => {
+            expect(parser.parse("ababab")).toBeSuccessful(["ab", "ab", "ab"]);
+        });
+        it("fails with 0 matches", () => {
+            expect(parser.parse("")).toBeFailure(ResultKind.SoftFail);
+        });
+        it("fails hard when parser fails hard", () => {
+            const parser2 = fail().pipe(many1());
+            const error = parser2.parse("");
+            expect(error).toBeFailure("Hard");
+        });
+
+        it("fails soft when many fails soft on 1st iteration", () => {
+            expect(parser.parse("a")).toBeFailure(ResultKind.SoftFail);
         });
     });
 

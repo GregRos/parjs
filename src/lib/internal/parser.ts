@@ -49,6 +49,34 @@ export class ParserUserState implements UserState {
     [key: string]: unknown;
 }
 
+export type ParjserDebugFunction = <T>(
+    ps: ParsingState,
+    current: Parjser<T>,
+    startingPosition: number
+) => void;
+
+export const defaultDebugFunction: ParjserDebugFunction = <T>(
+    ps: ParsingState,
+    current: Parjser<T>,
+    startingPosition: number
+) => {
+    const kindEmoji: Record<ResultKind, string> = {
+        [ResultKind.Ok]: "👍🏻 (Ok)",
+        [ResultKind.SoftFail]: "😕 (Soft failure)",
+        [ResultKind.HardFail]: "😬 (Hard failure)",
+        [ResultKind.FatalFail]: "💀 (Fatal failure)"
+    };
+    const consumedInput = ps.input.slice(startingPosition, ps.position);
+    const consumed = [
+        `consumed '${consumedInput}' (length ${consumedInput.length})`,
+        `at position ${startingPosition}->${ps.position}`,
+        kindEmoji[ps.kind],
+        JSON.stringify(ps, null, 2),
+        JSON.stringify(current, null, 2)
+    ].join("\n");
+    console.log(consumed);
+};
+
 /**
  * The internal base Parjs parser class, which supports only basic parsing
  * operations. Should not be used in user code.
@@ -56,17 +84,26 @@ export class ParserUserState implements UserState {
 export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     abstract type: string;
     abstract expecting: string;
+    private debugFunction?: ParjserDebugFunction;
 
     expects(expecting: string): Parjser<TValue> {
         const copy = clone(this);
         copy.expecting = expecting;
         return copy;
     }
+
+    debug(fn: ParjserDebugFunction = defaultDebugFunction): Parjser<TValue> {
+        this.debugFunction = fn;
+        return this;
+    }
+
     /**
      * Apply the parser to the given state.
      * @param ps The parsing state.
      */
     apply(ps: ParsingState): void {
+        const startingPosition = ps.position;
+
         // @ts-expect-error Check for uninitialized kind.
         ps.kind = "Unknown";
         ps.reason = undefined;
@@ -94,7 +131,9 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
                 throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
             ps.stack.push(this);
+            this.debugFunction?.(ps, this, startingPosition);
         } else {
+            this.debugFunction?.(ps, this, startingPosition);
             ps.stack = [];
         }
     }
@@ -102,9 +141,8 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     /**
      * The internal operation performed by the PARSER. This will be overriden by derived classes.
      * @param ps
-     * @private
      */
-    abstract _apply(ps: ParsingState): void;
+    protected abstract _apply(ps: ParsingState): void;
 
     parse(input: string, initialState?: UserState): ParjsResult<TValue> {
         if (typeof input !== "string") {

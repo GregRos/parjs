@@ -2,6 +2,7 @@
  * @module parjs
  */ /** */
 
+import { ParjserDebugFunction } from "./parser";
 import { FailureInfo, ParjsResult } from "./result";
 import { ImplicitParjser } from "./scalar-converter";
 import { UserState } from "./state";
@@ -139,4 +140,10 @@ export interface Parjser<T> {
      * @param message Description of the input.
      */
     expects(message: string): Parjser<T>;
+
+    /**
+     * Returns this parser unchanged, but logs the result of the parse to the
+     * console. This is useful for debugging.
+     */
+    debug(fn?: ParjserDebugFunction): Parjser<T>;
 }

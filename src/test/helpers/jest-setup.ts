@@ -26,7 +26,7 @@ const toBeSuccessful: MatcherFunction<[value: unknown]> =
             return fail(`expected the parse result to be a ParjsSuccess instance:\n\n${actual}`);
         }
 
-        const actualString = JSON.stringify(actual);
+        const actualString = JSON.stringify(actual, null, 2);
         if (actual.kind !== "OK") {
             return fail(
                 `expected the parse result ${actualString} to have kind 'OK' but it had kind '${actual.kind}'`
@@ -58,7 +58,7 @@ const toBeFailure: MatcherFunction<[kind?: string]> = function (
         throw new Error("toBeFailure must be called on a ParjsResult");
     }
 
-    const actualString = JSON.stringify(actual);
+    const actualString = JSON.stringify(actual, null, 2);
 
     if (!isParjsFailure(actual)) {
         return fail(

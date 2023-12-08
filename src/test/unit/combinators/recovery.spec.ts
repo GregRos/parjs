@@ -1,14 +1,14 @@
-import { nope, string, fail, rest, ParjsFailure, ResultKind } from "../../../lib";
+import { ParjsFailure, Parjser, ResultKind, fail, nope, rest, string } from "../../../lib";
 import {
     mapConst,
     maybe,
     not,
     or,
     qthen,
+    reason,
     recover,
     stringify,
-    then,
-    reason
+    then
 } from "../../../lib/combinators";
 
 describe("maybe combinator", () => {
@@ -81,7 +81,7 @@ describe("or combinator", () => {
 describe("or val combinator", () => {
     const parser = string("a").pipe(then("b"), stringify(), maybe("c"));
 
-    const p2 = string("a").pipe(maybe(0), then("b"));
+    const p2: Parjser<[0 | "a", "b"]> = string("a").pipe(maybe(0), then(string("b")));
     it("succeeds to parse", () => {
         expect(parser.parse("ab")).toBeSuccessful("ab");
     });

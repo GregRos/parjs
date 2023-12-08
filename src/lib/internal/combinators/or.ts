@@ -80,7 +80,7 @@ export function or(...alts: ImplicitParjser<unknown>[]) {
     const resolvedAlts = alts.map(x => ScalarConverter.convert(x) as ParjserBase<unknown>);
     return defineCombinator(source => {
         resolvedAlts.splice(0, 0, source);
-        const altNames = resolvedAlts.map(x => x.type);
+        const altNames = resolvedAlts.map(x => `'${x.expecting}' (${x.type})`);
         const allExpectations = resolvedAlts.map(x => x.expecting);
         return new (class Or extends ParjserBase<unknown> {
             type = "or";
