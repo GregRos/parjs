@@ -66,6 +66,7 @@ console.log(surrounded.parse("(1,  2 , 3 )"));
 Here are some more cool examples:
 
 1. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
+2. [Math expression parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
 
 ## How does it work?
 
