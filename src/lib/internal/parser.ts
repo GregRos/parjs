@@ -93,8 +93,9 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     }
 
     debug(fn: ParjserDebugFunction = defaultDebugFunction): Parjser<TValue> {
-        this.debugFunction = fn;
-        return this;
+        const copy = clone(this);
+        copy.debugFunction = fn;
+        return copy;
     }
 
     /**
