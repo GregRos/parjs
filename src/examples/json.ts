@@ -1,56 +1,56 @@
-import "../test/setup";
-import { ResultKind } from "../lib/internal/result";
 import {
+    between,
     later,
     many,
     manySepBy,
     map,
     or,
-    stringify,
     qthen,
-    thenq,
+    stringify,
     then,
-    between
+    thenq
 } from "../lib/combinators";
 import {
+    anyCharOf,
     anyStringOf,
     float,
+    noCharOf,
     string,
     stringLen,
-    anyCharOf,
-    noCharOf,
     whitespace
 } from "../lib/index";
+import { ResultKind } from "../lib/internal/result";
 import { visualizeTrace } from "../lib/internal/trace-visualizer";
+import "../test/setup";
 
-class JsonNumber {
+export class JsonNumber {
     constructor(public value: number) {}
 }
 
-class JsonString {
+export class JsonString {
     constructor(public value: string) {}
 }
 
-class JsonBool {
+export class JsonBool {
     constructor(public value: boolean) {}
 }
 
-class JsonArray {
+export class JsonArray {
     constructor(public value: JsonValue[]) {}
 }
 
-class JsonObjectProperty {
+export class JsonObjectProperty {
     constructor(
         public name: string,
         public value: JsonValue
     ) {}
 }
 
-class JsonObject {
+export class JsonObject {
     constructor(public value: JsonObjectProperty[]) {}
 }
 
-type JsonValue = JsonNumber | JsonString | JsonBool | JsonArray | JsonObject;
+export type JsonValue = JsonNumber | JsonString | JsonBool | JsonArray | JsonObject;
 
 const escapes: Record<string, string> = {
     '"': `"`,
@@ -141,14 +141,18 @@ function astToObject(obj: JsonValue): unknown {
     }
 }
 
-const result = pJsonValue.parse(`{"a" : 2, 
+export const exampleInput = `{"a" : 2, 
 
 
 "b\\"" : 
 44325, "z" : "hi!", "a" : true,
- "array" : ["hi", 1, {"a" :    "b\\"" }, [], {}]}`);
-if (result.kind !== ResultKind.Ok) {
-    console.log(visualizeTrace(result.trace));
-} else {
-    console.log(astToObject(result.value));
+ "array" : ["hi", 1, {"a" :    "b\\"" }, [], {}]}`;
+
+export function runExample() {
+    const result = pJsonValue.parse(exampleInput);
+    if (result.kind !== ResultKind.Ok) {
+        console.log(visualizeTrace(result.trace));
+    } else {
+        console.log(astToObject(result.value));
+    }
 }
