@@ -65,9 +65,9 @@ console.log(surrounded.parse("(1,  2 , 3 )"));
 
 Here are some more cool examples:
 
-1. [.ini parser](https://github.com/GregRos/parjs/blob/master/src/examples/ini.ts)
-1. [JSON parser](https://github.com/GregRos/parjs/blob/master/src/examples/json.ts)
-1. [Math expression parser](https://github.com/GregRos/parjs/blob/master/src/examples/math.ts)
+1. [.ini parser](./src/examples/ini.ts) ([tests](./src/test/examples/ini.spec.ts))
+1. [JSON parser](./src/examples/json.ts) ([tests](./src/test/examples/json.spec.ts))
+1. [Math expression parser](./src/examples/math.ts) ([tests](./src/test/examples/math.spec.ts))
 
 ## How does it work?
 
