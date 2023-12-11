@@ -1,6 +1,6 @@
-import "../test/setup";
-import { between, manySepBy } from "../lib/combinators";
 import { float, whitespace } from "../lib";
+import { between, manySepBy } from "../lib/combinators";
+import "../test/setup";
 
 // Built-in parser for floating point numbers.
 const tupleElement = float();
@@ -13,9 +13,10 @@ const separated = paddedElement.pipe(manySepBy(","));
 // Surround everything with parentheses:
 export const surrounded = separated.pipe(between("(", ")"), between(whitespace()));
 
-console.log(surrounded.parse("(1,  2 , 3 )"));
+export function runExample() {
+    console.log(surrounded.parse("(1,  2 , 3 )"));
 
-const result = surrounded.parse(`
+    const result = surrounded.parse(`
 
 
 
@@ -27,4 +28,5 @@ const result = surrounded.parse(`
 (1, a, 3
 
 `);
-console.log(result.toString());
+    console.log(result.toString());
+}

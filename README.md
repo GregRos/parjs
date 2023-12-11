@@ -65,6 +65,7 @@ console.log(surrounded.parse("(1,  2 , 3 )"));
 
 Here are some more cool examples:
 
+1. [tuple parser](./src/examples/tuple.ts) ([tests](./src/test/examples/tuple.spec.ts))
 1. [.ini parser](./src/examples/ini.ts) ([tests](./src/test/examples/ini.spec.ts))
 1. [JSON parser](./src/examples/json.ts) ([tests](./src/test/examples/json.spec.ts))
 1. [Math expression parser](./src/examples/math.ts) ([tests](./src/test/examples/math.spec.ts))

@@ -38,7 +38,6 @@ describe("the manyBetween combinator", () => {
 
     describe("with a projection function", () => {
         const projection = (results: string[], till: string, state: UserState): string => {
-            console.log(results);
             return [...results, till].join(",");
         };
         const parser = string("a").pipe(manyBetween("(", ")", projection));
