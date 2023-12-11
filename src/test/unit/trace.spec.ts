@@ -1,7 +1,6 @@
-import { string, whitespace } from "../../lib";
-import { exactly, manySepBy, then } from "../../lib/combinators";
 import _ from "lodash";
-import { ParjsFailure } from "../../lib";
+import { ParjsFailure, string, whitespace } from "../../lib";
+import { exactly, manySepBy, then } from "../../lib/combinators";
 import { visualizeTrace } from "../../lib/internal/trace-visualizer";
 
 describe("trace", () => {
@@ -59,12 +58,24 @@ describe("trace", () => {
 
         const res = parser.parse(input) as ParjsFailure;
         const { trace } = res;
-        console.log(
-            "EXAMPLE ERROR OUTPUT",
-            visualizeTrace.configure({
+        it("correct message", () => {
+            const traceOutput = visualizeTrace.configure({
                 lineNumbers: true
-            })(trace)
-        );
+            })(trace);
+            expect(traceOutput).toMatchInlineSnapshot(`
+                "Hard failure at Ln 9 Col 5
+                8 | 
+                9 | aaaa
+                        ^expecting 'a'
+
+                Stack:
+                expecting 'a' (string)
+                expecting 'a' (exactly)
+                expecting a character matching a predicate (then)
+                "
+            `);
+        });
+
         it("correct position", () => {
             expect(trace.position).toBe(16);
         });
