@@ -1,11 +1,12 @@
-import { defineCombinator } from "./combinator";
-import { ParjserBase } from "../parser";
-import { ParsingState } from "../state";
-import { FailureInfo } from "../result";
 import { ParjsCombinator } from "../parjser";
+import { ParjserBase } from "../parser";
+import { FailureInfo } from "../result";
+import { ParsingState } from "../state";
+import { defineCombinator } from "./combinator";
 
 /**
  * Applies the source parser, modifying the failure reason to the given message if it fails Softly.
+ * Useful for providing the user with a more meaningful error message than was is provided by default.
  * @param message The new message.
  */
 export function reason<T>(message: string): ParjsCombinator<T, T>;
