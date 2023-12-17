@@ -4,7 +4,7 @@
 /** */
 
 import { ParjsCombinator } from "../../";
-import { FailureInfo, ResultKind, SuccessInfo } from "../result";
+import { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
 import { ParsingState, UserState } from "../state";
 
 import { ParjserBase } from "../parser";
@@ -25,7 +25,7 @@ export interface ParserFailureState {
     /**
      * The severity of the failure.
      */
-    readonly kind: ResultKind.Fail;
+    readonly kind: ResultKindFail;
 }
 
 /**
@@ -50,7 +50,7 @@ export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinato
                 if (ps.isOk || ps.isFatal) return;
                 const result = recoverFunction({
                     userState: ps.userState,
-                    kind: ps.kind as ResultKind.Fail,
+                    kind: ps.kind as ResultKindFail,
                     reason: ps.reason! // the error is guaranteed to be non-null
                 } satisfies ParserFailureState);
                 if (!result) return;
