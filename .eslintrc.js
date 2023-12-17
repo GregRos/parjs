@@ -1,6 +1,7 @@
-const path = require("path");
+// @ts-check
 
-module.exports = {
+/** @type {import("@typescript-eslint/utils/dist/ts-eslint/Linter").Linter.Config} c */
+const config = {
     root: true,
     extends: [
         "@gregros/eslint-config",
@@ -10,10 +11,8 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint", "jest"],
     rules: {
-        // 'any' is used in many places to simplify the type system
-        "@typescript-eslint/no-explicit-any": "warn",
-
-        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-namespace": "error",
 
         // eslint's rule needs to be switched off in favour of the typescript one
         "@typescript-eslint/no-shadow": "error",
@@ -24,3 +23,4 @@ module.exports = {
         project: "**/tsconfig.json"
     }
 };
+module.exports = config;
