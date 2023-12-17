@@ -3,12 +3,12 @@
  */
 /** */
 
+import { ImplicitParjser, ParjsCombinator } from "../../index";
 import { Issues } from "../issues";
-import { ResultKind } from "../result";
-import { ParsingState } from "../state";
-import { ImplicitParjser, ParjsCombinator, Parjser } from "../../index";
-import { ScalarConverter } from "../scalar-converter";
 import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import { ScalarConverter } from "../scalar-converter";
+import { ParsingState } from "../state";
 import { defineCombinator } from "./combinator";
 
 export type ArrayWithSeparators<Normal, Separator> = Normal[] & {
@@ -40,7 +40,7 @@ export function manySepBy<E, Sep>(
 ): ParjsCombinator<E, ArrayWithSeparators<E, Sep>>;
 
 export function manySepBy<E, Sep>(implDelimeter: ImplicitParjser<Sep>, max = Infinity) {
-    const delimeter = ScalarConverter.convert(implDelimeter) as ParjserBase<Sep> & Parjser<Sep>;
+    const delimeter = ScalarConverter.convert(implDelimeter) as ParjserBase<Sep>;
     return defineCombinator<E, E>(source => {
         return new (class extends ParjserBase<E> {
             type = "manySepBy";
@@ -76,7 +76,7 @@ export function manySepBy<E, Sep>(implDelimeter: ImplicitParjser<Sep>, max = Inf
                         return;
                     }
                     if (max >= Infinity && ps.position === position) {
-                        Issues.guardAgainstInfiniteLoop("many");
+                        Issues.guardAgainstInfiniteLoop("manySepBy");
                     }
                     results.push(ps.value as E);
                     position = ps.position;

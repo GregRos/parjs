@@ -45,12 +45,12 @@ export type ImplicitParjser<T> = Parjser<T> | ConvertibleScalar<T>;
 /**
  * A helper for working with implicit parsers.
  */
-export namespace ScalarConverter {
+export const ScalarConverter = {
     /**
      * Normalizes scalars and Parjsers into Parjsers.
      * @param scalarOrParjser The literal or parjser.
      */
-    export function convert<V>(scalarOrParjser: ImplicitParjser<V>): Parjser<V> {
+    convert<V>(scalarOrParjser: ImplicitParjser<V>): Parjser<V> {
         if (typeof scalarOrParjser === "string") {
             return string(scalarOrParjser) as Parjser<V>;
         } else if (scalarOrParjser instanceof RegExp) {
@@ -59,4 +59,4 @@ export namespace ScalarConverter {
             return scalarOrParjser as Parjser<V>;
         }
     }
-}
+};

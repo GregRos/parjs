@@ -33,7 +33,7 @@ export class ParjsSuccess<T> implements SuccessInfo<T> {
  * Info about a success.
  */
 export interface SuccessInfo<T> {
-    kind: ResultKind.Ok;
+    kind: ResultKindOk;
     value: T;
 }
 
@@ -41,7 +41,7 @@ export interface SuccessInfo<T> {
  * Info about a potential failure.
  */
 export interface FailureInfo {
-    kind: ResultKind.Fail;
+    kind: ResultKindFail;
     reason: string;
 }
 
@@ -113,47 +113,48 @@ export type ParjsResult<T> = ParjsSuccess<T> | ParjsFailure;
 /**
  * Namespace that contains the different reply kinds/error levels.
  */
-export namespace ResultKind {
-    /**
-     * The OK reply type.
-     */
-    export type Ok = "OK";
-    /**
-     * The soft failure type.
-     */
-    export type SoftFail = "Soft";
-    /**
-     * The hard failure type.
-     */
-    export type HardFail = "Hard";
-    /**
-     * The fatal failure type.
-     */
-    export type FatalFail = "Fatal";
-
+export const ResultKind = {
     /**
      * An OK reply.
      */
-    export const Ok: Ok = "OK";
+    Ok: "OK" as const,
     /**
      * A soft failure reply.
      */
-    export const SoftFail: SoftFail = "Soft";
+    SoftFail: "Soft" as const,
     /**
      * A hard failure reply.
      */
-    export const HardFail: HardFail = "Hard";
+    HardFail: "Hard" as const,
     /**
      * A fatal failure reply.
      */
-    export const FatalFail: FatalFail = "Fatal";
+    FatalFail: "Fatal" as const
+};
 
-    /**
-     * Specifies any kind of failure.
-     */
-    export type Fail = HardFail | FatalFail | SoftFail;
-}
+/**
+ * The OK reply type.
+ */
+export type ResultKindOk = typeof ResultKind.Ok;
+/**
+ * The soft failure type.
+ */
+export type ResultKindSoftFail = typeof ResultKind.SoftFail;
+/**
+ * The hard failure type.
+ */
+export type ResultKindHardFail = typeof ResultKind.HardFail;
+/**
+ * The fatal failure type.
+ */
+export type ResultKindFatalFail = typeof ResultKind.FatalFail;
+
+/**
+ * Specifies any kind of failure.
+ */
+export type ResultKindFail = ResultKindHardFail | ResultKindFatalFail | ResultKindSoftFail;
+
 /**
  * Specifies a reply kind, indicating success or failure, and the severity of the failure.
  */
-export type ResultKind = ResultKind.Ok | ResultKind.Fail;
+export type ResultKind = ResultKindOk | ResultKindFail;
