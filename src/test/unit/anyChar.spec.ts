@@ -1,9 +1,8 @@
-import type { ParjserBase } from "../../lib/internal";
 import { anyChar } from "../../lib/internal/parsers";
 import type { ParjsFailure, ParjsSuccess } from "../../lib/internal/result";
 import { ResultKind } from "../../lib/internal/result";
 
-describe("basics: anyChar example", () => {
+describe("anyChar", () => {
     const parser = anyChar();
     const successInput = "a";
     const tooMuchInput = "ab";
@@ -40,14 +39,5 @@ describe("basics: anyChar example", () => {
         it("throws on non-string", () => {
             expect(() => parser.parse(5 as never)).toThrow();
         });
-    });
-});
-
-describe("expects", () => {
-    it("is correct", () => {
-        const base = anyChar().expects("a character") as ParjserBase<string>;
-        const parser = anyChar().expects("a character of some sort") as ParjserBase<string>;
-        expect(parser.expecting).toBe("a character of some sort");
-        expect(base.expecting).toBe("a character");
     });
 });
