@@ -6,7 +6,7 @@
  *
  */
 /** */
-import { ParjsFailure } from "./internal/result";
+import type { ParjsFailure } from "./internal/result";
 
 /**
  * A parent class for all errors thrown by Parjs.

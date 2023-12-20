@@ -1,7 +1,7 @@
-import { ParjsCombinator } from "../parjser";
+import type { ParjsCombinator } from "../parjser";
 import { ParjserBase } from "../parser";
-import { FailureInfo } from "../result";
-import { ParsingState } from "../state";
+import type { FailureInfo } from "../result";
+import type { ParsingState } from "../state";
 import { defineCombinator } from "./combinator";
 
 /**

@@ -3,11 +3,11 @@
  */
 /** */
 
-import { ParjsCombinator, ParjsProjection } from "../parjser";
+import type { ParjsCombinator, ParjsProjection } from "../parjser";
 import { ParjserBase } from "../parser";
 import { defineCombinator } from "./combinator";
-import { ParsingState } from "../state";
-import { ImplicitParjser } from "../scalar-converter";
+import type { ParsingState } from "../state";
+import type { ImplicitParjser } from "../scalar-converter";
 
 /**
  * Applies the source parser, and then applies a selector on the source parser's

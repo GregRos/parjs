@@ -3,10 +3,10 @@
  */
 /** */
 
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import { ParjserBase } from "../parser";
-import { Parjser } from "../..";
+import type { Parjser } from "../..";
 
 /**
  * Returns a parser that parses exactly `length` characters and yields the

@@ -7,22 +7,11 @@ import clone from "lodash/clone";
 import defaults from "lodash/defaults";
 import { ScalarConverter } from ".";
 import { ParserDefinitionError } from "../errors";
-import { ParjsCombinator, Parjser } from "./parjser";
-import {
-    ErrorLocation,
-    ParjsFailure,
-    ParjsResult,
-    ParjsSuccess,
-    ResultKind,
-    Trace
-} from "./result";
-import {
-    BasicParsingState,
-    FAIL_RESULT,
-    ParsingState,
-    UNINITIALIZED_RESULT,
-    UserState
-} from "./state";
+import type { ParjsCombinator, Parjser } from "./parjser";
+import type { ErrorLocation, ParjsResult, Trace } from "./result";
+import { ParjsFailure, ParjsSuccess, ResultKind } from "./result";
+import type { ParsingState, UserState } from "./state";
+import { BasicParsingState, FAIL_RESULT, UNINITIALIZED_RESULT } from "./state";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;

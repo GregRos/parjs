@@ -3,10 +3,10 @@
  */
 /** */
 
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import { ParjserBase } from "../parser";
-import { Parjser } from "../parjser";
+import type { Parjser } from "../parjser";
 
 /**
  * Returns a parser that succeeds if there is no more input.

@@ -3,9 +3,9 @@
  */
 /** */
 
-import { ParsingState } from "../state";
-import { ParjsValidator } from "../parjser";
-import { ParjsCombinator } from "../../";
+import type { ParsingState } from "../state";
+import type { ParjsValidator } from "../parjser";
+import type { ParjsCombinator } from "../../";
 import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
 

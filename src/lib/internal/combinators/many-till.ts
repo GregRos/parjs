@@ -4,9 +4,9 @@
 /** */
 
 import { Issues } from "../issues";
-import { ParsingState, UserState } from "../state";
+import type { ParsingState, UserState } from "../state";
 import { ResultKind } from "../result";
-import { ImplicitParjser, ParjsCombinator } from "../../index";
+import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { defineCombinator, pipe } from "./combinator";
 import { ParjserBase } from "../parser";
 import { ScalarConverter } from "../scalar-converter";

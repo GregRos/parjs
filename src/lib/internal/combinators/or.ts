@@ -3,11 +3,12 @@
  */
 /** */
 
-import { ParjsCombinator } from "../..";
+import type { ParjsCombinator } from "../..";
 import { ParjserBase } from "../parser";
 import { ResultKind } from "../result";
-import { ImplicitParjser, ScalarConverter } from "../scalar-converter";
-import { ParsingState } from "../state";
+import type { ImplicitParjser } from "../scalar-converter";
+import { ScalarConverter } from "../scalar-converter";
+import type { ParsingState } from "../state";
 import { defineCombinator } from "./combinator";
 
 /**

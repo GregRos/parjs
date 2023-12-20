@@ -1,6 +1,6 @@
 /** @module parjs/combinators */ /** */
 
-import { ParjsCombinator } from "../../index";
+import type { ParjsCombinator } from "../../index";
 import { map } from "./map";
 
 /**

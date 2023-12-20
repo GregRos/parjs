@@ -3,7 +3,7 @@
  */
 /** */
 import { ResultKind } from "./result";
-import { ParjserBase } from ".";
+import type { ParjserBase } from ".";
 
 /**
  * Container type for user state data.

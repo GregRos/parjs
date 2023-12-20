@@ -3,7 +3,7 @@
  */
 /** */
 import { isDigitCode, AsciiCodes } from "char-info/ascii";
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 
 /**
  * Parsing helper.

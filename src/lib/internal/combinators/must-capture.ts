@@ -3,10 +3,10 @@
  */
 /** */
 
-import { FailureInfo } from "../result";
-import { ParsingState } from "../state";
+import type { FailureInfo } from "../result";
+import type { ParsingState } from "../state";
 
-import { ParjsCombinator } from "../../index";
+import type { ParjsCombinator } from "../../index";
 import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
 

@@ -1,6 +1,7 @@
-import { ParjserBase } from "../../lib/internal";
+import type { ParjserBase } from "../../lib/internal";
 import { anyChar } from "../../lib/internal/parsers";
-import { ParjsFailure, ParjsSuccess, ResultKind } from "../../lib/internal/result";
+import type { ParjsFailure, ParjsSuccess } from "../../lib/internal/result";
+import { ResultKind } from "../../lib/internal/result";
 
 describe("basics: anyChar example", () => {
     const parser = anyChar();

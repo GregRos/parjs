@@ -4,8 +4,8 @@
 /** */
 
 import { ResultKind } from "../result";
-import { ParsingState } from "../state";
-import { Parjser } from "../parjser";
+import type { ParsingState } from "../state";
+import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 import { uniIsNewline, AsciiCodes } from "char-info";
 

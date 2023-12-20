@@ -4,11 +4,11 @@
 /** */
 
 import { NumericHelpers } from "./numeric-helpers";
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import { ParserDefinitionError } from "../../errors";
 import { ParjserBase } from "../parser";
-import { Parjser } from "../parjser";
+import type { Parjser } from "../parjser";
 import defaults from "lodash/defaults";
 
 /**

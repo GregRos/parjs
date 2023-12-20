@@ -6,6 +6,14 @@
  * @preferred
  * */ /** */
 
+export type {
+    ArrayWithSeparators,
+    NestedArray,
+    UserStateOrProjection,
+    RecoveryFunction,
+    ParserFailureState,
+    DelayedParjser
+} from "./internal/combinators";
 export {
     stringify,
     recover,
@@ -16,7 +24,6 @@ export {
     map,
     manyTill,
     manySepBy,
-    ArrayWithSeparators,
     reason,
     many,
     later,
@@ -33,10 +40,5 @@ export {
     mapConst,
     thenPick,
     manyBetween,
-    pipe,
-    NestedArray,
-    UserStateOrProjection,
-    RecoveryFunction,
-    ParserFailureState,
-    DelayedParjser
+    pipe
 } from "./internal/combinators";
