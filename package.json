@@ -33,7 +33,7 @@
         "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
         "eslint": "eslint 'src/**/*.ts'",
         "eslint:fix": "eslint --fix src/**/*.ts",
-        "lint:fix": "run-s prettier:fix eslint:fix",
+        "lint:fix": "run-s eslint:fix prettier:fix",
         "lint:check": "run-s -c prettier eslint",
         "prettier:fix": "prettier --write .",
         "prettier": "prettier --check ."
