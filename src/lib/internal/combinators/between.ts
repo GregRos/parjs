@@ -1,5 +1,5 @@
 /** @module parjs/combinators */ /** */
-import { ImplicitParjser, ParjsCombinator } from "../../index";
+import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { ScalarConverter } from "../scalar-converter";
 import { defineCombinator } from "./combinator";
 import { qthen, thenq } from "./then";

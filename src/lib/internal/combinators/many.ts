@@ -4,9 +4,9 @@
 /** */
 
 import { Issues } from "../issues";
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
-import { ParjsCombinator } from "../../index";
+import type { ParjsCombinator } from "../../index";
 import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
 

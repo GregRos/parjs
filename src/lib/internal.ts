@@ -5,4 +5,5 @@
  * @module parjs/internal
  * @preferred
  */ /** iooi*/
-export { ParjserBase, defineCombinator, composeCombinator, ParsingState } from "./internal/index";
+export type { ParsingState } from "./internal/index";
+export { ParjserBase, defineCombinator, composeCombinator } from "./internal/index";

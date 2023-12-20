@@ -6,11 +6,11 @@
 import { AsciiCodes } from "char-info/ascii";
 import { NumericHelpers } from "./numeric-helpers";
 import { ResultKind } from "../result";
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 
 import defaults from "lodash/defaults";
 import { ParjserBase } from "../parser";
-import { Parjser } from "../parjser";
+import type { Parjser } from "../parjser";
 
 /**
  * A set of options for parsing floating point numbers.

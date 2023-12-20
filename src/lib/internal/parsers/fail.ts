@@ -3,10 +3,10 @@
  */
 /** */
 
-import { FailureInfo } from "../result";
-import { ParsingState } from "../state";
+import type { FailureInfo } from "../result";
+import type { ParsingState } from "../state";
 import { ParjserBase } from "../parser";
-import { Parjser } from "../parjser";
+import type { Parjser } from "../parjser";
 import defaults from "lodash/defaults";
 
 const defaultFailure: FailureInfo = {

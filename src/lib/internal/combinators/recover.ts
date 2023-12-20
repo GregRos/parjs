@@ -3,9 +3,9 @@
  */
 /** */
 
-import { ParjsCombinator } from "../../";
-import { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
-import { ParsingState, UserState } from "../state";
+import type { ParjsCombinator } from "../../";
+import type { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
+import type { ParsingState, UserState } from "../state";
 
 import { ParjserBase } from "../parser";
 import { defineCombinator } from "./combinator";

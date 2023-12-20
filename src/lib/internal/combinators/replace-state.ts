@@ -1,9 +1,9 @@
 /** @module parjs/combinators */ /** */
 
-import { ParjsCombinator, UserState } from "../../index";
+import type { ParjsCombinator, UserState } from "../../index";
 import { defineCombinator } from "./combinator";
 import { ParjserBase, ParserUserState } from "../parser";
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import defaults from "lodash/defaults";
 
 /**

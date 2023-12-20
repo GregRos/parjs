@@ -3,10 +3,10 @@
  */
 /** */
 
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import { ParjserBase } from "../parser";
-import { Parjser } from "..";
+import type { Parjser } from "..";
 
 /**
  * Returns a parser that will parse the string `str` and yield the text

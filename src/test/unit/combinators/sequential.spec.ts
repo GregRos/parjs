@@ -1,5 +1,5 @@
 import range from "lodash/range";
-import { Parjser } from "../../../lib";
+import type { Parjser } from "../../../lib";
 import {
     between,
     each,

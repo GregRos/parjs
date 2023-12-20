@@ -4,24 +4,17 @@
  * @preferred
  */ /** */
 export { ParjserBase, ParserUserState } from "./parser";
-export { ParsingState, UserState } from "./state";
+export type { ParsingState, UserState } from "./state";
 
 export { BasicParsingState } from "./state";
 export { FAIL_RESULT } from "./state";
 export { UNINITIALIZED_RESULT } from "./state";
 export { composeCombinator, defineCombinator } from "./combinators";
 export { ScalarConverter } from "./scalar-converter";
-export { Parjser, ParjsCombinator, ParjsProjection, ParjsValidator } from "./parjser";
-export {
-    ResultKind,
-    ParjsResult,
-    ParjsSuccess,
-    ErrorLocation,
-    FailureInfo,
-    Trace,
-    SuccessInfo,
-    ParjsFailure
-} from "./result";
+export type { Parjser, ParjsCombinator, ParjsProjection, ParjsValidator } from "./parjser";
+export type { ParjsResult, ErrorLocation, FailureInfo, Trace, SuccessInfo } from "./result";
+export { ResultKind, ParjsSuccess, ParjsFailure } from "./result";
+export type { IntOptions, FloatOptions } from "./parsers";
 export {
     anyStringOf,
     stringLen,
@@ -34,8 +27,6 @@ export {
     position,
     newline,
     int,
-    IntOptions,
-    FloatOptions,
     float,
     fail,
     eof,

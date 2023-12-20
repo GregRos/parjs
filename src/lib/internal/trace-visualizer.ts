@@ -2,12 +2,12 @@
  * @module parjs/trace
  */
 /** */
-import { Trace } from "./result";
+import type { Trace } from "./result";
 
 import { NumHelpers } from "./functions/helpers";
 import repeat from "lodash/repeat";
 import defaults from "lodash/defaults";
-import { ParjserBase } from "./parser";
+import type { ParjserBase } from "./parser";
 
 /**
  * A set of arguments for the trace visualizer.

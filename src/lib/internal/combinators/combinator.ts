@@ -1,7 +1,7 @@
 /** @module parjs/internal */ /** */
 
-import { ParjserBase } from "../parser";
-import { Parjser, ParjsCombinator, ImplicitParjser } from "../../index";
+import type { ParjserBase } from "../parser";
+import type { Parjser, ParjsCombinator, ImplicitParjser } from "../../index";
 import { ScalarConverter } from "../scalar-converter";
 
 /**

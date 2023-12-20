@@ -3,10 +3,10 @@
  */
 /** */
 
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 
-import { Parjser } from "../parjser";
+import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 
 /**

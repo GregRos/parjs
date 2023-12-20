@@ -1,5 +1,5 @@
 import { later, then } from "../../../lib/combinators";
-import { ParjserBase } from "../../../lib/internal";
+import type { ParjserBase } from "../../../lib/internal";
 import { eof, fail, position, result, state, string } from "../../../lib/internal/parsers";
 import { ResultKind } from "../../../lib/internal/result";
 

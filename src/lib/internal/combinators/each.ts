@@ -3,10 +3,10 @@
  */
 /** */
 
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 
-import { ParjsProjection } from "../parjser";
-import { ParjsCombinator } from "../../index";
+import type { ParjsProjection } from "../parjser";
+import type { ParjsCombinator } from "../../index";
 import { defineCombinator } from "./combinator";
 import { ParjserBase } from "../parser";
 

@@ -3,7 +3,7 @@
  *
  */ /** */
 
-import { Parjser } from "./parjser";
+import type { Parjser } from "./parjser";
 
 import { regexp } from "./parsers/regexp";
 import { string } from "./parsers/string";

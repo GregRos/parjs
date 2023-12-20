@@ -18,7 +18,7 @@ import {
     uniIsUpper
 } from "char-info";
 import { must } from "../combinators/must";
-import { Parjser } from "../..";
+import type { Parjser } from "../..";
 
 /**
  * Returns a parser that parses any single character. Equivalent

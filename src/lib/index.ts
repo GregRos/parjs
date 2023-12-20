@@ -6,6 +6,20 @@
  * @preferred
  */ /** iooi*/
 
+export type {
+    IntOptions,
+    FloatOptions,
+    ParjsResult,
+    Parjser,
+    ParjsCombinator,
+    ParjsProjection,
+    ParjsValidator,
+    UserState,
+    SuccessInfo,
+    FailureInfo,
+    ErrorLocation,
+    Trace
+} from "./internal/index";
 export {
     ResultKind,
     anyStringOf,
@@ -18,8 +32,6 @@ export {
     position,
     newline,
     int,
-    IntOptions,
-    FloatOptions,
     float,
     fail,
     eof,
@@ -42,19 +54,9 @@ export {
     uniDecimal,
     uniLower,
     uniUpper,
-    ParjsResult,
     ParjsSuccess,
-    Parjser,
-    ParjsCombinator,
-    ParjsProjection,
-    ParjsValidator,
-    UserState,
-    SuccessInfo,
-    ParjsFailure,
-    FailureInfo,
-    ErrorLocation,
-    Trace
+    ParjsFailure
 } from "./internal/index";
 export { ParjsError, ParjsParsingFailure, ParserDefinitionError } from "./errors";
-export { ImplicitParjser } from "./internal/scalar-converter";
-export { ConvertibleScalar } from "./internal/scalar-converter";
+export type { ImplicitParjser } from "./internal/scalar-converter";
+export type { ConvertibleScalar } from "./internal/scalar-converter";

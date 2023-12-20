@@ -16,7 +16,9 @@ const config = {
 
         // eslint's rule needs to be switched off in favour of the typescript one
         "@typescript-eslint/no-shadow": "error",
-        "no-shadow": "off"
+        "no-shadow": "off",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/consistent-type-exports": "error"
     },
 
     parserOptions: {

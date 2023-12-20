@@ -2,10 +2,10 @@
  * @module parjs
  */ /** */
 
-import { ParjserDebugFunction } from "./parser";
-import { FailureInfo, ParjsResult } from "./result";
-import { ImplicitParjser } from "./scalar-converter";
-import { UserState } from "./state";
+import type { ParjserDebugFunction } from "./parser";
+import type { FailureInfo, ParjsResult } from "./result";
+import type { ImplicitParjser } from "./scalar-converter";
+import type { UserState } from "./state";
 
 /**
  * A combinator or operator that takes a source parser that returns a new parser

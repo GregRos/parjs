@@ -3,12 +3,12 @@
  */
 /** */
 
-import { ImplicitParjser, ParjsCombinator } from "../../index";
+import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { Issues } from "../issues";
 import { ParjserBase } from "../parser";
 import { ResultKind } from "../result";
 import { ScalarConverter } from "../scalar-converter";
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { defineCombinator } from "./combinator";
 
 export type ArrayWithSeparators<Normal, Separator> = Normal[] & {

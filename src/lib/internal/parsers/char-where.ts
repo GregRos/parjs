@@ -3,9 +3,9 @@
  */
 /** */
 
-import { ParsingState } from "../state";
+import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
-import { ParjsValidator, Parjser } from "../parjser";
+import type { ParjsValidator, Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 /**
  * Returns a parser that parses a single character fulfilling `predicate`.
