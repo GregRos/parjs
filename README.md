@@ -275,6 +275,21 @@ string("ice").pipe(
 );
 ```
 
+#### Constant type inference
+
+If you're using TypeScript, you may want to keep using `string("world")` instead of `"world"`. This is because the former will infer the type of the parser to be `Parjser<"world">`, while the latter will infer it to be `Parjser<string>`.
+
+Here's an example of the difference:
+
+```typescript
+// This will infer "world" to the constant type of "world"
+const parser: Parjser<["hello", "world"]> = string("hello").pipe(then(string("world")));
+
+// This will infer to the string type, which may be more confusing to debug, and
+// have issues with type aliases
+const parser: Parjser<["hello", string]> = string("hello").pipe(then("world"));
+```
+
 ### Debugging
 
 > 🆕 new in version `1.0.0`
