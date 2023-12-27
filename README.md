@@ -275,6 +275,45 @@ string("ice").pipe(
 );
 ```
 
+### Debugging
+
+> 🆕 new in version `1.0.0`
+
+The `.debug()` method is a powerful tool for debugging parsers in your code.
+
+When you call `.debug()` on a parser, it enables debug mode for that parser (and returns itself). In debug mode, the parser logs detailed information about its operation, which can help you understand how it's processing the input and where it might be going wrong.
+
+Here's an example of how to use it:
+
+```typescript
+const parser: Parjser<"a"> = string("a").expects("an 'a' character").debug();
+
+// when you execute the parser:
+parser.parse("a");
+
+// it will console.log() something like this:
+//
+// "consumed 'a' (length 1)
+// at position 0->1
+// 👍🏻 (Ok)
+// {
+//     "input": "a",
+//     "userState": {},
+//     "position": 1,
+//     "stack": [],
+//     "value": "a",
+//     "kind": "OK"
+// }
+// {
+//     "expecting": "an 'a' character",
+//     "type": "string"
+// }"
+```
+
+When you execute this parser, it will log information about how it's trying to match "hello" in the input.
+
+Remember that `.debug()` affects only the parser it's called on. If you have a complex parser built from many smaller parsers and you call `.debug()` on the complex parser, it won't enable debug mode for the smaller parsers. If you want to debug the smaller parsers, you need to call `.debug()` on each of them. This way you can customize the debugging output to show only the information you need.
+
 ### User state
 
 User state can help you to parse complex languages, like mathematical expressions with operator precedence and languages like XML where you need to match up an end tag to a start tag.
