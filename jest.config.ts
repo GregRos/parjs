@@ -1,5 +1,5 @@
+import type { Config } from "jest";
 import path from "path";
-import { Config } from "jest";
 
 const config: Config = {
     setupFilesAfterEnv: [path.join(__dirname, "src", "test", "helpers", "jest-setup.ts")],
