@@ -388,25 +388,24 @@ Here is a simple implementation of the `eof` parser, which detects the end of th
 ```typescript
 import { ParjserBase, ParsingState } from "parjs/internal";
 
-export class Eof extends ParjserBase {
-    type = "eof";
-    expecting = "expecting end of input";
-    constResult = undefined;
+/**
+ * Returns a parser that succeeds if there is no more input.
+ * @param result Optionally, the result the parser will yield. Defaults to
+ * undefined.
+ */
+export function eof<T>(result?: T): Parjser<T> {
+    return new (class Eof extends ParjserBase<T> {
+        type = "eof";
+        expecting = "expecting end of input";
 
-    constructor(constResult: any) {
-        this.constResult = constResult;
-    }
-
-    _apply(state: ParsingState) {
-        if (state.position === state.input.length) {
-            state.kind = "OK";
-            state.value = this.constResult;
-            return;
+        _apply(ps: ParsingState): void {
+            if (ps.position === ps.input.length) {
+                ps.kind = ResultKind.Ok;
+                ps.value = result;
+            } else {
+                ps.kind = ResultKind.SoftFail;
+            }
         }
-        // we don't set the `reason` so it will be taken out of the `expecting
-        // property
-        state.kind = "Soft";
-        return;
-    }
+    })();
 }
 ```
