@@ -357,7 +357,7 @@ When parsing, a unique mutable `ParsingState` object is created. This object has
 interface ParsingState {
     readonly input: string;
     position: number;
-    value: any;
+    value: unknown;
     userState: UserState;
     reason: string;
     kind: ReplyKind;
