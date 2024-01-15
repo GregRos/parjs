@@ -30,7 +30,7 @@
         "test": "jest --coverage",
         "build": "rm -rf dist/ && tsc",
         "docs": "typedoc --out docs",
-        "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
+        "do-publish": "yarn build && yarn npm publish",
         "eslint": "eslint 'src/**/*.ts'",
         "eslint:fix": "eslint --fix src/**/*.ts",
         "lint:fix": "run-s eslint:fix prettier:fix",
