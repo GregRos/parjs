@@ -99,5 +99,15 @@
         "sourceMap": true
     },
     "sideEffects": false,
+    "files": [
+        "src",
+        "dist",
+        "package.json",
+        "package-lock.json",
+        "tsconfig.json",
+        "CHANGELOG.md",
+        "LICENSE.md",
+        "README.md"
+    ],
     "packageManager": "yarn@4.0.2"
 }
