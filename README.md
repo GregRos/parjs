@@ -65,6 +65,8 @@ const surrounded = separated.pipe(between("(", ")"));
 console.log(surrounded.parse("(1,  2 , 3 )"));
 ```
 
+## Examples
+
 Here are some more cool examples:
 
 1. [tuple parser](./src/examples/tuple.ts) ([tests](./src/test/examples/tuple.spec.ts))
