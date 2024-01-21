@@ -1,37 +1,37 @@
 name: Node.js CI
 on:
-    pull_request:
-        branches:
-            - master
+  pull_request:
+    branches:
+      - master
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version:
-                    - 20.9.0
-        steps:
-            - uses: actions/checkout@v4
-            - name: Enable corepack
-              run: corepack enable
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3
-              with:
-                  node-version: "20.9.0"
-                  cache: yarn
-                  registry-url: "https://registry.yarnpkg.com"
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 20.9.0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Enable corepack
+        run: corepack enable
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.9.0"
+          cache: yarn
+          registry-url: "https://registry.yarnpkg.com"
 
-            - name: Set yarn version
-              run: yarn set version stable
-            - name: Install dependencies
-              run: yarn install --immutable
-            - name: build
-              run: yarn build
-            - name: lint:check
-              run: yarn lint:check
-            - name: test
-              run: yarn test
-            - name: code coverage
-              uses: coverallsapp/github-action@master
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set yarn version
+        run: yarn set version stable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: build
+        run: yarn build
+      - name: lint:check
+        run: yarn lint:check
+      - name: test
+        run: yarn test
+      - name: code coverage
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

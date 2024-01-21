@@ -1,19 +1,19 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "noImplicitOverride": true,
-        "module": "CommonJS",
-        "target": "ES2020",
-        "types": ["jest"],
-        "sourceMap": true,
-        "declaration": true,
-        "rootDir": "src",
-        "outDir": "dist",
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "strictNullChecks": true
-    },
-    "include": ["src/**/*.ts"],
-    "exclude": ["dist", "node_modules", "jest.config.ts"]
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "module": "CommonJS",
+    "target": "ES2020",
+    "types": ["jest"],
+    "sourceMap": true,
+    "declaration": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "node_modules", "jest.config.ts"]
 }
