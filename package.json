@@ -28,9 +28,8 @@
   "main": "dist/lib/index.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "rm -rf dist/ && tsc",
+    "build": "shx rm -rf dist/ && tsc",
     "docs": "typedoc --out docs",
-    "do-publish": "yarn build && yarn npm publish",
     "eslint": "eslint 'src/**/*.ts'",
     "eslint:fix": "eslint --fix src/**/*.ts",
     "lint:fix": "run-s eslint:fix prettier:fix",
