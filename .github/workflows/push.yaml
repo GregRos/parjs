@@ -24,6 +24,8 @@ jobs:
             matrix:
                 node-version:
                     - 20.9.0
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         steps:
             - uses: actions/checkout@v4
             - name: Enable corepack
@@ -62,5 +64,4 @@ jobs:
               uses: actions/deploy-pages@v2
             - name: publish
               run: yarn npm publish
-              env:
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
