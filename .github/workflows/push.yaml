@@ -61,6 +61,6 @@ jobs:
               id: deployment
               uses: actions/deploy-pages@v2
             - name: publish
-              run: yarn do-publish
+              run: yarn npm publish
               env:
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
