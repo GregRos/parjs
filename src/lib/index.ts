@@ -35,6 +35,7 @@ export {
     float,
     fail,
     eof,
+    caseString,
     charWhere,
     charCodeWhere,
     noCharOf,

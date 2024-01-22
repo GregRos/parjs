@@ -3,6 +3,7 @@
  * @module parjs
  * @preferred
  */ /** */
+export { caseString } from "./case-string";
 export { charCodeWhere } from "./char-code-where";
 export { charWhere } from "./char-where";
 export { eof } from "./eof";
