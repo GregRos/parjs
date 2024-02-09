@@ -4,8 +4,9 @@ import { wrapImplicit } from "../wrap-implicit";
 import type { ParsingState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import type { getParsedType } from "../utils/type";
 import type { ParjsCombinator } from "../parjser";
+
+import type { getParsedType } from "../util-types";
 
 class Or<T, Alts extends CombinatorInput<unknown>[]> extends Combinated<
     T,

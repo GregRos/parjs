@@ -1,5 +1,5 @@
-import type { Parjser } from "../parjser";
-import type { ImplicitParjser } from "../wrap-implicit";
+import type { ImplicitParjser } from "./wrap-implicit";
+import type { Parjser } from "./parjser";
 
 export type union<Args extends unknown[]> = Args extends [
     infer A,
@@ -19,7 +19,6 @@ export type union<Args extends unknown[]> = Args extends [
     : Args extends [infer A, ...infer Rest]
     ? A | union<Rest>
     : never;
-
 export type getParsedType<T extends ImplicitParjser<unknown>> = T extends RegExp
     ? string[]
     : T extends string

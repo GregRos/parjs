@@ -4,7 +4,7 @@ import type { ParsingState } from "../state";
 import type { ParjsCombinator } from "../parjser";
 import type { ParjserBase } from "../parser";
 
-import defaults from "lodash/defaults";
+import { defaults } from "../../utils";
 import { Combinated } from "../combinated";
 import { wrapImplicit } from "../wrap-implicit";
 

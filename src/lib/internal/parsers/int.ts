@@ -4,7 +4,7 @@ import { ResultKind } from "../result";
 import { ParserDefinitionError } from "../../errors";
 import { ParjserBase } from "../parser";
 import type { Parjser } from "../parjser";
-import defaults from "lodash/defaults";
+import { defaults } from "../../utils";
 
 /**
  * A set of options for parsing integers.

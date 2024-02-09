@@ -4,8 +4,7 @@
 /** */
 import type { Trace } from "./result";
 
-import repeat from "lodash/repeat";
-import defaults from "lodash/defaults";
+import { defaults } from "../utils";
 import type { ParjserBase } from "./parser";
 import { padInt } from "./functions";
 
@@ -46,7 +45,7 @@ function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }
-        const errorMarked = `${repeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
+        const errorMarked = `${" ".repeat(prefixLength + trace.location.column)}^${trace.reason}`;
         linesAround.push(errorMarked);
         const linesVisualization = linesAround.join("\n");
 

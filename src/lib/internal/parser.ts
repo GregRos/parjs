@@ -1,5 +1,4 @@
-import clone from "lodash/clone";
-import defaults from "lodash/defaults";
+import { clone, defaults } from "../utils";
 import { ParserDefinitionError } from "../errors";
 import type { ParjsCombinator, Parjser } from "./parjser";
 import type { ErrorLocation, ParjsResult, Trace } from "./result";
@@ -104,7 +103,6 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
      */
     apply(ps: ParsingState): void {
         const startingPosition = ps.position;
-
         // @ts-expect-error Check for uninitialized kind.
         ps.kind = "Unknown";
         ps.reason = undefined;

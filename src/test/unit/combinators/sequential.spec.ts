@@ -1,4 +1,4 @@
-import range from "lodash/range";
+import { range } from "../../../lib/utils";
 import type { Parjser } from "../../../lib";
 import { string } from "../../../lib";
 import {

@@ -5,9 +5,10 @@ import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { composeCombinator } from "./combinator";
 import { wrapImplicit } from "../wrap-implicit";
 import { map } from "./map";
-import type { getParsedType } from "../utils/type";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
+
+import type { getParsedType } from "../util-types";
 
 /**
  * Applies the source parser followed by `next`. Yields the result of
