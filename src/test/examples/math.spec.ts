@@ -267,11 +267,11 @@ describe("evaluation", () => {
                   },
                   {
                     "type": "then",
-                    "expecting": "expecting one of: expecting '-'"
+                    "expecting": "expecting one of: 'expecting '+'' (string), 'expecting '-'' (string)"
                   },
                   {
                     "type": "many",
-                    "expecting": "expecting one of: expecting '-'"
+                    "expecting": "expecting one of: 'expecting '+'' (string), 'expecting '-'' (string)"
                   },
                   {
                     "type": "then",

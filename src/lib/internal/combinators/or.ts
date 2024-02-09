@@ -13,7 +13,7 @@ class Or<T, Alts extends CombinatorInput<unknown>[]> extends Combinated<
     T | getParsedType<Alts[number]>
 > {
     type = "or";
-    _altNames = this._alts.map(x => x.expecting);
+    _altNames = [this.source, ...this._alts].map(x => `'${x.expecting}' (${x.type})`);
     expecting = `expecting one of: ${this._altNames.join(", ")}`;
 
     constructor(
@@ -50,7 +50,7 @@ class Or<T, Alts extends CombinatorInput<unknown>[]> extends Combinated<
     }
 }
 
-export function or<T, Opts extends ImplicitParjser<unknown>[]>(
+export function or<const T, Opts extends ImplicitParjser<unknown>[]>(
     ...alts: Opts
 ): ParjsCombinator<T, T | getParsedType<Opts[number]>> {
     const resolvedAlts = alts.map(wrapImplicit) as {
