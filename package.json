@@ -37,7 +37,8 @@
     "lint:fix": "run-s eslint:fix prettier:fix",
     "lint:check": "run-s -c prettier eslint",
     "prettier:fix": "prettier --write .",
-    "prettier": "prettier --check ."
+    "prettier": "prettier --check .",
+    "prepare": "husky"
   },
   "keywords": [
     "parser",
@@ -65,7 +66,7 @@
     "@typescript-eslint/parser": "6.9.1",
     "eslint": "8.54.0",
     "eslint-plugin-jest": "27.6.0",
-    "husky": "^8.0.3",
+    "husky": "^9.0.10",
     "jest": "30.0.0-alpha.2",
     "lint-staged": "^15.2.2",
     "madge": "^6.1.0",
