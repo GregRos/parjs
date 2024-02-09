@@ -1,5 +1,5 @@
 import range from "lodash/range";
-import type { Parjser } from "../../../lib";
+import { Parjser, string } from "../../../lib";
 import {
     between,
     each,
@@ -17,7 +17,7 @@ import {
 } from "../../../lib/combinators";
 import { getArrayWithSeparators } from "../../../lib/internal/combinators/many-sep-by";
 import { many1 } from "../../../lib/internal/combinators";
-import { anyCharOf, eof, fail, float, rest, result, string } from "../../../lib";
+import { anyCharOf, eof, fail, float, rest, result } from "../../../lib";
 import { ResultKind } from "../../../lib";
 
 const goodInput = "abcd";

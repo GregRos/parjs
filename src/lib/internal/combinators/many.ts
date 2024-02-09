@@ -5,11 +5,11 @@ import type { ImplicitParjser, ParjsCombinator } from "../../index";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 class Many<T> extends Combinated<T, T[]> {
     type = "many";
-    expecting = this.source.expecting + " (one or more)";
+    expecting = this.source.expecting;
 
     constructor(
         source: CombinatorInput<T>,

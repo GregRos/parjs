@@ -2,7 +2,7 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 import type { ParjsCombinator } from "../../";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 class Not extends Combinated<unknown, void> {
     type = "not";

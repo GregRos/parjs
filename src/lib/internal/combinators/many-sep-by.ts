@@ -2,7 +2,7 @@ import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { Issues } from "../issues";
 import type { ParjserBase } from "../parser";
 import { ResultKind } from "../result";
-import { ScalarConverter, wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 import type { ParsingState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
@@ -95,7 +95,7 @@ export function manySepBy<E, Sep>(
 ): ParjsCombinator<E, ArrayWithSeparators<E, Sep>>;
 
 export function manySepBy<E, Sep>(implDelimeter: ImplicitParjser<Sep>, max = Infinity) {
-    const delimeter = ScalarConverter.convert(implDelimeter) as ParjserBase<Sep>;
+    const delimeter = wrapImplicit(implDelimeter) as ParjserBase<Sep>;
     return (source: ImplicitParjser<E>) => {
         return new ManySepBy(wrapImplicit(source), { delimeter, max });
     };

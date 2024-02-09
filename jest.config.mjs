@@ -2,7 +2,6 @@ import path from "path";
 
 /** @type {import("jest").Config} */
 const config = {
-    automock: false,
     setupFilesAfterEnv: [path.join("<rootDir>", "src", "test", "helpers", "jest-setup.ts")],
     testEnvironment: "node",
     testPathIgnorePatterns: ["dist"],

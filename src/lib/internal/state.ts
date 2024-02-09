@@ -37,7 +37,10 @@ export interface ParsingState {
     /**
      * A stack that indicates entered parsers. Should not be modified by user code.
      */
-    stack: ParjserBase<unknown>[];
+    stack: {
+        type: string;
+        expecting: string;
+    }[];
 
     /**
      * If the result is a failure, this field will indicate the reason for the failure.

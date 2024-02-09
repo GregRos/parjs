@@ -1,12 +1,18 @@
 import clone from "lodash/clone";
 import defaults from "lodash/defaults";
-import { ScalarConverter } from ".";
 import { ParserDefinitionError } from "../errors";
 import type { ParjsCombinator, Parjser } from "./parjser";
-import type { ErrorLocation, ParjsResult, Trace } from "./result";
-import { ParjsFailure, ParjsSuccess, ResultKind } from "./result";
+import {
+    ErrorLocation,
+    ParjsFailure,
+    ParjsResult,
+    ParjsSuccess,
+    ResultKind,
+    Trace
+} from "./result";
 import type { ParsingState, UserState } from "./state";
 import { BasicParsingState, FAIL_RESULT, UNINITIALIZED_RESULT } from "./state";
+import { wrapImplicit } from "./wrap-implicit";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;
@@ -56,10 +62,26 @@ export const defaultDebugFunction: ParjserDebugFunction = <T>(
         `at position ${startingPosition}->${ps.position}`,
         kindEmoji[ps.kind],
         JSON.stringify(ps, null, 2),
-        JSON.stringify(current, null, 2)
+        JSON.stringify(
+            {
+                type: current.type,
+                expecting: current.expecting
+            },
+            null,
+            2
+        )
     ].join("\n");
     console.log(consumed);
 };
+
+/**
+ * Returns a parser that will parse the string `str` and yield the text
+ * that was parsed. If it can't, it will fail softly without consuming input.
+ * @param str The string to parse.
+ */
+export function string<T extends string>(str: T): Parjser<T> {
+    return new ParseString(str);
+}
 
 /**
  * The internal base Parjs parser class, which supports only basic parsing
@@ -115,7 +137,10 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
             if (ps.reason == null) {
                 throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
-            ps.stack.push(this);
+            ps.stack.push({
+                expecting: this.expecting,
+                type: this.type
+            });
             this.debugFunction?.(ps, this, startingPosition);
         } else {
             this.debugFunction?.(ps, this, startingPosition);
@@ -181,12 +206,80 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     ): Parjser<T6> {
         const combinators = [cmb1, cmb2, cmb3, cmb4, cmb5, cmb6].filter(x => x != null);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let last: any = ScalarConverter.convert(this);
+        let last: any = wrapImplicit(this);
 
         for (const cmb of combinators) {
             last = (cmb as ParjsCombinator<unknown, unknown>)(last);
         }
 
         return last as Parjser<T6>;
+    }
+}
+
+class Regexp extends ParjserBase<string[]> {
+    type = "regexp";
+    expecting = `expecting input matching '${this.re.source}'`;
+
+    constructor(private re: RegExp) {
+        super();
+    }
+
+    _apply(ps: ParsingState) {
+        const { input, position } = ps;
+        const re = this.re;
+        re.lastIndex = position;
+        const match = re.exec(input);
+        if (!match) {
+            ps.kind = ResultKind.SoftFail;
+            return;
+        }
+        ps.position += match[0].length;
+        ps.value = match.slice();
+        ps.kind = ResultKind.Ok;
+    }
+}
+
+/**
+ * Returns a parser that will try to match the regular expression at the current
+ * position and yield the result set. If it can't, the parser will fail softly.
+ * The match must start at the current position. It can't skip any part of the
+ * input.
+ * @param origRegexp
+ */
+export function regexp(origRegexp: RegExp): Parjser<string[]> {
+    const flags = [origRegexp.ignoreCase && "i", origRegexp.multiline && "m"]
+        .filter(x => x)
+        .join("");
+    const re = new RegExp(origRegexp.source, `${flags}y`);
+    return new Regexp(re);
+}
+
+class ParseString<T> extends ParjserBase<T> {
+    expecting = `expecting '${this.str}'`;
+    type = "string";
+
+    constructor(private str: string) {
+        super();
+    }
+
+    _apply(ps: ParsingState): void {
+        const { position, input } = ps;
+        const str = this.str;
+        if (position + str.length > input.length) {
+            ps.kind = ResultKind.SoftFail;
+            return;
+        }
+        // This should create a StringSlice object instead of actually
+        // copying a whole string.
+        const substr = input.slice(position, position + str.length);
+
+        // Equality test is very very fast.
+        if (substr !== str) {
+            ps.kind = ResultKind.SoftFail;
+            return;
+        }
+        ps.position += str.length;
+        ps.value = str;
+        ps.kind = ResultKind.Ok;
     }
 }

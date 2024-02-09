@@ -1,7 +1,7 @@
 import range from "lodash/range";
-import type { Parjser } from "../../../lib";
+import { Parjser, string } from "../../../lib";
 import { many, thenq } from "../../../lib/combinators";
-import { eof, fail, result, string } from "../../../lib";
+import { eof, fail, result } from "../../../lib";
 import { ResultKind } from "../../../lib";
 
 describe("many combinators", () => {

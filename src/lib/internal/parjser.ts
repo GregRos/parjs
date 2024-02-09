@@ -1,6 +1,6 @@
 import type { ParjserDebugFunction } from "./parser";
 import type { FailureInfo, ParjsResult } from "./result";
-import type { ImplicitParjser } from "./scalar-converter";
+import type { ImplicitParjser } from "./wrap-implicit";
 import type { ParsingState, UserState } from "./state";
 
 /**

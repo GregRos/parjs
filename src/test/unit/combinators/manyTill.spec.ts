@@ -1,5 +1,4 @@
-import type { UserState } from "../../../lib";
-import { string } from "../../../lib";
+import { string, UserState } from "../../../lib";
 import { manyBetween, manyTill } from "../../../lib/combinators";
 import { ResultKind } from "../../../lib";
 

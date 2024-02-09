@@ -1,5 +1,5 @@
-import { qthen } from "../../../lib/combinators";
 import { string } from "../../../lib";
+import { qthen } from "../../../lib/combinators";
 
 describe("qthen", () => {
     it("succeeds", () => {

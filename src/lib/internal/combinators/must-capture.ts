@@ -6,7 +6,7 @@ import type { ParjserBase } from "../parser";
 
 import defaults from "lodash/defaults";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 const defaultFailure: FailureInfo = {
     reason: "succeeded without capturing input",
@@ -18,8 +18,7 @@ class MustCapture<T> extends Combinated<T, T> {
     type = "mustCapture";
     constructor(
         source: ParjserBase<T>,
-        private readonly _failure: FailureInfo,
-        private readonly _predicate: (captured: string) => boolean = x => x.length > 0
+        private readonly _failure: FailureInfo
     ) {
         super(source);
     }
@@ -30,8 +29,7 @@ class MustCapture<T> extends Combinated<T, T> {
         if (!ps.isOk) {
             return;
         }
-        const captured = ps.input.slice(position, ps.position);
-        if (this._predicate(captured)) {
+        if (position === ps.position) {
             ps.kind = this._failure.kind;
             ps.reason = this._failure.reason;
         }

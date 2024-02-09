@@ -5,7 +5,7 @@ import type { ParjsCombinator } from "../parjser";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 class Each<T> extends Combinated<T, T> {
     type = "each";

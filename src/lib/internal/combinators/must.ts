@@ -3,7 +3,7 @@ import type { ParjsValidator } from "../parjser";
 import type { ParjsCombinator } from "../../";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 class Must<T> extends Combinated<T, T> {
     type = "must";

@@ -4,7 +4,7 @@ import { ParserUserState } from "../parser";
 import type { ParsingState } from "../state";
 import defaults from "lodash/defaults";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 /**
  * A user state object or a projection to the external user state.

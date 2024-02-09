@@ -1,6 +1,6 @@
 import { ResultKind } from "../result";
-import type { ImplicitParjser } from "../scalar-converter";
-import { wrapImplicit } from "../scalar-converter";
+import type { ImplicitParjser } from "../wrap-implicit";
+import { wrapImplicit } from "../wrap-implicit";
 import type { ParsingState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";

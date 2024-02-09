@@ -5,7 +5,7 @@ export { BasicParsingState } from "./state";
 export { FAIL_RESULT } from "./state";
 export { UNINITIALIZED_RESULT } from "./state";
 export { composeCombinator, defineCombinator } from "./combinators";
-export { ScalarConverter } from "./scalar-converter";
+export { wrapImplicit } from "./wrap-implicit";
 export type { Parjser, ParjsCombinator, ParjsProjection, ParjsValidator } from "./parjser";
 export type { ParjsResult, ErrorLocation, FailureInfo, Trace, SuccessInfo } from "./result";
 export { ResultKind, ParjsSuccess, ParjsFailure } from "./result";
@@ -16,9 +16,7 @@ export {
     state,
     rest,
     nope,
-    string,
     result,
-    regexp,
     position,
     newline,
     int,
@@ -44,3 +42,5 @@ export {
     uniLower,
     uniUpper
 } from "./parsers";
+export { regexp } from "./parser";
+export { string } from "./parser";

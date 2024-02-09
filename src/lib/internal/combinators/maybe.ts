@@ -3,17 +3,20 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 class MaybeCombinator<T, S> extends Combinated<T, S | T> {
-    expecting = "expecting anything";
     type = "maybe";
+
+    expecting = "expecting anything";
+
     constructor(
         source: CombinatorInput<T>,
         private readonly _val: S | undefined
     ) {
         super(source);
     }
+
     _apply(ps: ParsingState): void {
         this.source.apply(ps);
         if (ps.isSoft) {

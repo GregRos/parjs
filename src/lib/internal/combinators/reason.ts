@@ -3,8 +3,8 @@ import type { FailureInfo } from "../result";
 import type { ParsingState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import type { ImplicitParjser } from "../scalar-converter";
-import { wrapImplicit } from "../scalar-converter";
+import type { ImplicitParjser } from "../wrap-implicit";
+import { wrapImplicit } from "../wrap-implicit";
 
 class Expects<T> extends Combinated<T, T> {
     type = "expects";

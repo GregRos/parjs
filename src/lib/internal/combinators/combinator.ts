@@ -1,5 +1,5 @@
 import type { ImplicitParjser, ParjsCombinator, Parjser } from "../../index";
-import { ScalarConverter, wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 import type { CombinatorInput } from "../combinated";
 
 /**
@@ -148,7 +148,7 @@ export function pipe<T, T1, T2, T3, T4, T5, T6>(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function pipe(source: any, ...funcs: ((x: any) => any)[]) {
-    let last = ScalarConverter.convert(source);
+    let last = wrapImplicit(source);
     for (const func of funcs) {
         last = func(last);
     }

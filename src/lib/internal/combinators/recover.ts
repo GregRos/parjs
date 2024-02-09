@@ -3,7 +3,7 @@ import type { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
 import type { ParsingState, UserState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 
 /**
  * Information about the failure.

@@ -1,7 +1,7 @@
 import type { ParsingState } from "../state";
 import type { ParjsCombinator } from "../parjser";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 import { recJoin } from "../functions";
 
 class Str extends Combinated<unknown, string> {

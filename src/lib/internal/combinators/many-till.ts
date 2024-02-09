@@ -3,7 +3,7 @@ import type { ParsingState, UserState } from "../state";
 import { ResultKind } from "../result";
 import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { pipe } from "./combinator";
-import { wrapImplicit } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 import { qthen } from "./then";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
