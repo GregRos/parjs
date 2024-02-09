@@ -6,8 +6,8 @@ import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 
 class ThenPick<A, B> extends Combinated<A, B> {
-    expecting = `${this.source.expecting} then <dynamic>`;
     type = "then-pick";
+    expecting = `${this.source.expecting} then <dynamic>`;
     constructor(
         source: CombinatorInput<A>,
         private _ctor: ParjsProjection<A, ImplicitParjser<B>>

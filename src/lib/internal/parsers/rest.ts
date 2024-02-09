@@ -4,8 +4,8 @@ import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 
 class Rest extends ParjserBase<string> {
-    expecting = "expecting anything";
     type = "rest";
+    expecting = "expecting anything";
 
     _apply(pr: ParsingState) {
         const { position, input } = pr;

@@ -5,8 +5,8 @@ import { ParjserBase } from "../parser";
 import { AsciiCodes, uniIsNewline } from "char-info";
 
 class Newline extends ParjserBase<string> {
-    expecting = "expecting newline";
     type = "newline";
+    expecting = "expecting newline";
 
     constructor(private _unicodeRecognizer?: (x: number) => boolean) {
         super();

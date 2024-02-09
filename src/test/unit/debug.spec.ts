@@ -24,8 +24,8 @@ describe("the 'debug' method", () => {
               "kind": "OK"
             }
             {
-              "expecting": "an 'a' character",
-              "type": "string"
+              "type": "string",
+              "expecting": "an 'a' character"
             }"
         `);
     });

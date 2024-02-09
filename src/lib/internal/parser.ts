@@ -138,8 +138,8 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
                 throw new ParserDefinitionError(this.type, "a failure must have a reason");
             }
             ps.stack.push({
-                expecting: this.expecting,
-                type: this.type
+                type: this.type,
+                expecting: this.expecting
             });
             this.debugFunction?.(ps, this, startingPosition);
         } else {
@@ -255,8 +255,8 @@ export function regexp(origRegexp: RegExp): Parjser<string[]> {
 }
 
 class ParseString<T> extends ParjserBase<T> {
-    expecting = `expecting '${this.str}'`;
     type = "string";
+    expecting = `expecting '${this.str}'`;
 
     constructor(private str: string) {
         super();

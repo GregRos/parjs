@@ -4,8 +4,8 @@ import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 
 class Result<T> extends ParjserBase<T> {
-    expecting = "expecting anything";
     type = "result";
+    expecting = "expecting anything";
     constructor(private value: T) {
         super();
     }
