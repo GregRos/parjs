@@ -1,4 +1,4 @@
-#!/bin/bash
 
-yarn rebuild
+
+yarn run rebuild
 yarn lint-staged
