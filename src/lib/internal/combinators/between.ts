@@ -1,4 +1,3 @@
-/** @module parjs/combinators */ /** */
 import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { ScalarConverter } from "../scalar-converter";
 import { defineCombinator } from "./combinator";

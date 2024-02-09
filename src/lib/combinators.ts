@@ -1,11 +1,3 @@
-/**
- * Parser combinators.
- * @module parjs/combinators
- * @example
- * import { exactly, or, maybe, many } from "parjs/combinators
- * @preferred
- * */ /** */
-
 export type {
     ArrayWithSeparators,
     NestedArray,

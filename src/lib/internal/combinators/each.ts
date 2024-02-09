@@ -1,32 +1,36 @@
-/**
- * @module parjs/combinators
- */
-/** */
-
 import type { ParsingState } from "../state";
 
 import type { ParjsProjection } from "../parjser";
-import type { ParjsCombinator } from "../../index";
-import { defineCombinator } from "./combinator";
-import { ParjserBase } from "../parser";
+import type { ParjsCombinator } from "../parjser";
+
+import type { CombinatorInput } from "../combinated";
+import { Combinated } from "../combinated";
+import { wrapImplicit } from "../scalar-converter";
+
+class Each<T> extends Combinated<T, T> {
+    type = "each";
+    expecting = this.source.expecting;
+
+    constructor(
+        source: CombinatorInput<T>,
+        private readonly _action: ParjsProjection<T, void>
+    ) {
+        super(source);
+    }
+
+    _apply(ps: ParsingState): void {
+        this.source.apply(ps);
+        if (!ps.isOk) {
+            return;
+        }
+        this._action(ps.value as T, ps.userState);
+    }
+}
 
 /**
  * Applies `action` to each result emitted by the source parser and emits its results unchanged.
  * @param action
  */
 export function each<T>(action: ParjsProjection<T, void>): ParjsCombinator<T, T> {
-    return defineCombinator<T, T>(source => {
-        return new (class extends ParjserBase<T> {
-            type = "each";
-            expecting = source.expecting;
-
-            _apply(ps: ParsingState): void {
-                source.apply(ps);
-                if (!ps.isOk) {
-                    return;
-                }
-                action(ps.value as T, ps.userState);
-            }
-        })();
-    });
+    return source => new Each(wrapImplicit(source), action);
 }

@@ -1,8 +1,8 @@
 import range from "lodash/range";
 import type { Parjser } from "../../../lib";
 import { many, thenq } from "../../../lib/combinators";
-import { eof, fail, result, string } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { eof, fail, result, string } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 describe("many combinators", () => {
     describe("regular many", () => {

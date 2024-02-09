@@ -1,19 +1,17 @@
-/** @module parjs/internal */ /** */
-
-import type { ParjserBase } from "../parser";
-import type { Parjser, ParjsCombinator, ImplicitParjser } from "../../index";
-import { ScalarConverter } from "../scalar-converter";
+import type { ImplicitParjser, ParjsCombinator, Parjser } from "../../index";
+import { ScalarConverter, wrapImplicit } from "../scalar-converter";
+import type { CombinatorInput } from "../combinated";
 
 /**
  * Represents the given function as a Parjs combinator.
  * @param f The combinator function.
  */
 export function defineCombinator<A, B>(
-    f: (act: ParjserBase<A> & Parjser<A>) => Parjser<B>
+    f: (act: CombinatorInput<A>) => Parjser<B>
 ): ParjsCombinator<A, B> {
-    return (x: ImplicitParjser<A>) => {
-        const resolved = ScalarConverter.convert(x);
-        return f(resolved as ParjserBase<A>);
+    return (x: ImplicitParjser<A>): Parjser<B> => {
+        const resolved = wrapImplicit(x);
+        return f(resolved);
     };
 }
 

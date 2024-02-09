@@ -1,7 +1,3 @@
-/**
- * @module parjs
- */
-/** */
 import { ParjsParsingFailure } from "../errors";
 import type { Parjser } from "./parjser";
 import { visualizeTrace } from "./trace-visualizer";

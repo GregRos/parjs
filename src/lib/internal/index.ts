@@ -1,8 +1,3 @@
-/**
- * Implementations of the parser system and individual parsers.
- * @module parjs/internal
- * @preferred
- */ /** */
 export { ParjserBase, ParserUserState } from "./parser";
 export type { ParsingState, UserState } from "./state";
 

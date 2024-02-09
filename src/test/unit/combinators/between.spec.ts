@@ -1,6 +1,6 @@
 import { between } from "../../../lib/combinators";
-import { float, string } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { float, string } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 describe("the between combinators", () => {
     describe("two argument version", () => {

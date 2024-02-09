@@ -1,6 +1,6 @@
 import { later } from "../../../lib/combinators";
 import type { ParjserBase } from "../../../lib/internal";
-import { string } from "../../../lib/internal/parsers";
+import { string } from "../../../lib";
 
 describe("later", () => {
     const internal = string("a") as ParjserBase<string>;

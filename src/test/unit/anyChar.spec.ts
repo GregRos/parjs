@@ -1,6 +1,6 @@
-import { anyChar } from "../../lib/internal/parsers";
-import type { ParjsFailure, ParjsSuccess } from "../../lib/internal/result";
-import { ResultKind } from "../../lib/internal/result";
+import { anyChar } from "../../lib";
+import type { ParjsFailure, ParjsSuccess } from "../../lib";
+import { ResultKind } from "../../lib";
 
 describe("anyChar", () => {
     const parser = anyChar();

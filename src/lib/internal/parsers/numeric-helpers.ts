@@ -1,8 +1,4 @@
-/**
- * @external
- */
-/** */
-import { isDigitCode, AsciiCodes } from "char-info/ascii";
+import { AsciiCodes, isDigitCode } from "char-info/ascii";
 import type { ParsingState } from "../state";
 
 /**

@@ -1,12 +1,8 @@
-/**
- * @module parjs/internal
- *
- */ /** */
-
 import type { Parjser } from "./parjser";
 
 import { regexp } from "./parsers/regexp";
 import { string } from "./parsers/string";
+import type { CombinatorInput } from "./combinated";
 
 /**
  * A {@link Parjser} or a literal value convertible to a {@link Parjser}.
@@ -51,12 +47,16 @@ export const ScalarConverter = {
      * @param scalarOrParjser The literal or parjser.
      */
     convert<V>(scalarOrParjser: ImplicitParjser<V>): Parjser<V> {
-        if (typeof scalarOrParjser === "string") {
-            return string(scalarOrParjser) as Parjser<V>;
-        } else if (scalarOrParjser instanceof RegExp) {
-            return regexp(scalarOrParjser) as Parjser<V>;
-        } else {
-            return scalarOrParjser as Parjser<V>;
-        }
+        return wrapImplicit(scalarOrParjser) as Parjser<V>;
     }
 };
+
+export function wrapImplicit<V>(scalarOrParjser: ImplicitParjser<V>): CombinatorInput<V> {
+    if (typeof scalarOrParjser === "string") {
+        return string(scalarOrParjser) as unknown as CombinatorInput<V>;
+    } else if (scalarOrParjser instanceof RegExp) {
+        return regexp(scalarOrParjser) as CombinatorInput<V>;
+    } else {
+        return scalarOrParjser as CombinatorInput<V>;
+    }
+}

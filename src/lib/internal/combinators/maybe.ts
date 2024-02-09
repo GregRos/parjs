@@ -1,33 +1,34 @@
-/**
- * @module parjs/combinators
- */
-/** */
-
-import type { ParjsCombinator } from "../../index";
-import { ParjserBase } from "../parser";
+import type { ParjsCombinator } from "../parjser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { defineCombinator } from "./combinator";
+import type { CombinatorInput } from "../combinated";
+import { Combinated } from "../combinated";
+import { wrapImplicit } from "../scalar-converter";
+
+class MaybeCombinator<T, S> extends Combinated<T, S | T> {
+    expecting = "expecting anything";
+    type = "maybe";
+    constructor(
+        source: CombinatorInput<T>,
+        private readonly _val: S | undefined
+    ) {
+        super(source);
+    }
+    _apply(ps: ParsingState): void {
+        this.source.apply(ps);
+        if (ps.isSoft) {
+            // on soft failure, set the value and result to OK
+            ps.value = this._val;
+            ps.kind = ResultKind.Ok;
+        }
+        // on ok/hard/fatal, propagate the result.
+    }
+}
 
 /**
  * Applies the source parser. If it fails softly, succeeds and yields `val`.
  * @param val
  */
 export function maybe<const T, const S = T | undefined>(val?: S): ParjsCombinator<T, T | S> {
-    return defineCombinator<T, S>(inner => {
-        return new (class MaybeCombinator extends ParjserBase<S> {
-            _inner = inner;
-            expecting = "expecting anything";
-            type = "maybe";
-            _apply(ps: ParsingState): void {
-                inner.apply(ps);
-                if (ps.isSoft) {
-                    // on soft failure, set the value and result to OK
-                    ps.value = val;
-                    ps.kind = ResultKind.Ok;
-                }
-                // on ok/hard/fatal, propagate the result.
-            }
-        })();
-    });
+    return source => new MaybeCombinator<T, S>(wrapImplicit(source), val);
 }

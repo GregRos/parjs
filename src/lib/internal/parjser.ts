@@ -1,11 +1,7 @@
-/**
- * @module parjs
- */ /** */
-
 import type { ParjserDebugFunction } from "./parser";
 import type { FailureInfo, ParjsResult } from "./result";
 import type { ImplicitParjser } from "./scalar-converter";
-import type { UserState } from "./state";
+import type { ParsingState, UserState } from "./state";
 
 /**
  * A combinator or operator that takes a source parser that returns a new parser
@@ -35,7 +31,10 @@ export type ParjsValidator<T> = ParjsProjection<T, Partial<FailureInfo> | true>;
  *
  * @group functional
  */
-export interface Parjser<T> {
+export interface Parjser<out T> {
+    apply(ps: ParsingState): void;
+
+    readonly expecting: string;
     /**
      * Exposes the display name of the parser. Userful when debugging.
      *

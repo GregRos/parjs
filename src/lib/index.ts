@@ -1,11 +1,3 @@
-/**
- * Building-block parsers.
- * @example
- * import { string, anyChar, anyStringOf } from "parjs";
- * @module parjs
- * @preferred
- */ /** iooi*/
-
 export type {
     IntOptions,
     FloatOptions,

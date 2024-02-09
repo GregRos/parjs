@@ -1,12 +1,22 @@
-/**
- * @module parjs/combinators
- */
-/** */
-
 import type { ParsingState } from "../state";
 import type { ParjsCombinator } from "../../";
-import { ParjserBase } from "../parser";
+import { Combinated } from "../combinated";
 import { defineCombinator } from "./combinator";
+
+class Backtrack<T> extends Combinated<T, T> {
+    type = "backtrack";
+    expecting = this.source.expecting;
+
+    _apply(ps: ParsingState): void {
+        const { position } = ps;
+        this.source.apply(ps);
+        if (ps.isOk) {
+            // if inner succeeded, we backtrack.
+            ps.position = position;
+        }
+        // whatever code ps had, we return it.
+    }
+}
 
 /**
  * Applies the source parser. If it succeeds, backtracks to the current position in the input
@@ -14,19 +24,6 @@ import { defineCombinator } from "./combinator";
  */
 export function backtrack<T>(): ParjsCombinator<T, T> {
     return defineCombinator<T, T>(source => {
-        return new (class Backtrack extends ParjserBase<T> {
-            type = "backtrack";
-            expecting = source.expecting;
-
-            _apply(ps: ParsingState): void {
-                const { position } = ps;
-                source.apply(ps);
-                if (ps.isOk) {
-                    // if inner succeeded, we backtrack.
-                    ps.position = position;
-                }
-                // whatever code ps had, we return it.
-            }
-        })();
+        return new Backtrack<T>(source);
     });
 }

@@ -1,8 +1,3 @@
-/**
- * @module parjs/internal
- */
-/** */
-
 import clone from "lodash/clone";
 import defaults from "lodash/defaults";
 import { ScalarConverter } from ".";

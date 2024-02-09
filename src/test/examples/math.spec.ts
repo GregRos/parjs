@@ -1,12 +1,12 @@
 import {
     BinaryOperation,
-    NumberLiteral,
-    UnaryOperation,
     evaluate,
     expression,
+    NumberLiteral,
     product,
     sum,
     unary,
+    UnaryOperation,
     value
 } from "../../examples/math";
 

@@ -1,7 +1,3 @@
-/**
- * @module parjs/internal
- */
-/** */
 import { ResultKind } from "./result";
 import type { ParjserBase } from ".";
 

@@ -1,6 +1,6 @@
 import { thenPick } from "../../../lib/combinators";
-import { anyCharOf, string } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { anyCharOf, string } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 it("thenPick", () => {
     const parser = anyCharOf("ab").pipe(

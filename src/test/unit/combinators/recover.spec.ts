@@ -1,4 +1,4 @@
-import { ResultKind, fail, string } from "../../../lib";
+import { fail, ResultKind, string } from "../../../lib";
 import { recover, stringify, then } from "../../../lib/combinators";
 
 describe("recover combinator", () => {

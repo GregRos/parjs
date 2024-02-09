@@ -1,12 +1,30 @@
-/**
- * @module parjs
- */
-/** */
-
 import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
+
+class Regexp extends ParjserBase<string[]> {
+    type = "regexp";
+    expecting = `expecting input matching '${this.re.source}'`;
+
+    constructor(private re: RegExp) {
+        super();
+    }
+
+    _apply(ps: ParsingState) {
+        const { input, position } = ps;
+        const re = this.re;
+        re.lastIndex = position;
+        const match = re.exec(input);
+        if (!match) {
+            ps.kind = ResultKind.SoftFail;
+            return;
+        }
+        ps.position += match[0].length;
+        ps.value = match.slice();
+        ps.kind = ResultKind.Ok;
+    }
+}
 
 /**
  * Returns a parser that will try to match the regular expression at the current
@@ -20,20 +38,5 @@ export function regexp(origRegexp: RegExp): Parjser<string[]> {
         .filter(x => x)
         .join("");
     const re = new RegExp(origRegexp.source, `${flags}y`);
-    return new (class Regexp extends ParjserBase<string[]> {
-        type = "regexp";
-        expecting = `expecting input matching '${re.source}'`;
-        _apply(ps: ParsingState) {
-            const { input, position } = ps;
-            re.lastIndex = position;
-            const match = re.exec(input);
-            if (!match) {
-                ps.kind = ResultKind.SoftFail;
-                return;
-            }
-            ps.position += match[0].length;
-            ps.value = match.slice();
-            ps.kind = ResultKind.Ok;
-        }
-    })();
+    return new Regexp(re);
 }

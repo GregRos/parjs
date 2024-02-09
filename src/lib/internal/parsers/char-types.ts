@@ -1,23 +1,21 @@
-/** @module parjs/combinators */ /** */
-
-import { many } from "../combinators/many";
-import { stringify } from "../combinators/stringify";
+import { many } from "../combinators";
+import { stringify } from "../combinators";
 import { stringLen } from "./string-len";
 import { charWhere } from "./char-where";
 import {
-    isLetter,
     isDigit,
+    isHex,
+    isLetter,
+    isLower,
+    isNewline,
+    isSpace,
+    isUpper,
     uniIsDecimal,
     uniIsLetter,
     uniIsLower,
-    isHex,
-    isUpper,
-    isLower,
-    isSpace,
-    isNewline,
     uniIsUpper
 } from "char-info";
-import { must } from "../combinators/must";
+import { must } from "../combinators";
 import type { Parjser } from "../..";
 
 /**

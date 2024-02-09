@@ -1,4 +1,4 @@
-import { ResultKind } from "../../../lib/internal/result";
+import { ResultKind } from "../../../lib";
 import { eof, string, stringLen } from "../../../lib";
 import { must, mustCapture, or, stringify, then } from "../../../lib/combinators";
 

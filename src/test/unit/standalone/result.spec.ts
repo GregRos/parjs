@@ -1,4 +1,4 @@
-import { result } from "../../../lib/internal/parsers";
+import { result } from "../../../lib";
 
 describe("result", () => {
     const parser = result("x");
