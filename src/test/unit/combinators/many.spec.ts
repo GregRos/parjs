@@ -1,5 +1,6 @@
 import range from "lodash/range";
-import { Parjser, string } from "../../../lib";
+import type { Parjser } from "../../../lib";
+import { string } from "../../../lib";
 import { many, thenq } from "../../../lib/combinators";
 import { eof, fail, result } from "../../../lib";
 import { ResultKind } from "../../../lib";

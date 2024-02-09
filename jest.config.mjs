@@ -6,9 +6,12 @@ const config = {
     testEnvironment: "node",
     testPathIgnorePatterns: ["dist"],
     transform: {
-        "^.+\\.tsx?$": ["ts-jest", {
-            transpileOnly: true
-        }]
+        "^.+\\.tsx?$": [
+            "ts-jest",
+            {
+                transpileOnly: true
+            }
+        ]
     },
     rootDir: ".",
     testMatch: ["<rootDir>/src/test/**/*.spec.ts"],

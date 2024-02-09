@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { ParjsFailure, string } from "../../lib";
+import type { ParjsFailure } from "../../lib";
+import { string } from "../../lib";
 import { whitespace } from "../../lib";
 import { exactly, manySepBy, then } from "../../lib/combinators";
 import { visualizeTrace } from "../../lib/internal/trace-visualizer";

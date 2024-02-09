@@ -1,4 +1,5 @@
-import { ParjsFailure, string } from "../../../lib";
+import type { ParjsFailure } from "../../../lib";
+import { string } from "../../../lib";
 import { fail, ResultKind } from "../../../lib";
 import { mapConst, or } from "../../../lib/combinators";
 

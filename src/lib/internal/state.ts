@@ -1,5 +1,4 @@
 import { ResultKind } from "./result";
-import type { ParjserBase } from ".";
 
 /**
  * Container type for user state data.

@@ -1,5 +1,6 @@
 import _ from "lodash";
-import { Parjser, ParjsResult, regexp, string } from "../../../lib";
+import type { Parjser, ParjsResult } from "../../../lib";
+import { regexp, string } from "../../../lib";
 import { then } from "../../../lib/combinators";
 import {
     anyChar,
