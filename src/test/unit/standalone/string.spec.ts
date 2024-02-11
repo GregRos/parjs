@@ -167,9 +167,9 @@ describe("basic string parsers", () => {
 
     describe("caseString(foo)", () => {
         const s = "foo";
-        const parser: Parjser<"foo"> = caseString(s);
+        const parser: Parjser<string> = caseString(s);
 
-        ["foo", "foO", "fOo", "fOO", "Foo", "FoO", "FOo", "FOO"].forEach((success) => {
+        ["foo", "foO", "fOo", "fOO", "Foo", "FoO", "FOo", "FOO"].forEach(success => {
             it(`succeeds in parsing "${success}"`, () => {
                 expect(parser.parse(success)).toBeSuccessful(success);
             });
@@ -180,7 +180,7 @@ describe("basic string parsers", () => {
             expect(parser.parse(fail)).toBeFailure(ResultKind.SoftFail);
         });
 
-        const tooLongFail = `${s}1`
+        const tooLongFail = `${s}1`;
         it(`fails to parse "${tooLongFail}"`, () => {
             expect(parser.parse(tooLongFail)).toBeFailure(ResultKind.SoftFail);
         });
