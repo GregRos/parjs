@@ -4,10 +4,9 @@
 /** */
 import type { Trace } from "./result";
 
-import { NumHelpers } from "./functions/helpers";
-import repeat from "lodash/repeat";
-import defaults from "lodash/defaults";
+import { defaults } from "../utils";
 import type { ParjserBase } from "./parser";
+import { padInt } from "./functions";
 
 /**
  * A set of arguments for the trace visualizer.
@@ -42,12 +41,11 @@ function newTraceVisualizer(pAgs: Partial<TraceVisualizerArgs>) {
         let prefixLength = 0;
         if (args.lineNumbers) {
             const numLength = Math.floor(1 + Math.log(locRow + 1) / Math.log(10));
-            const rowNumberPrefixer = (n: number) =>
-                `${NumHelpers.padInt(firstRow + n, numLength, " ")} | `;
+            const rowNumberPrefixer = (n: number) => `${padInt(firstRow + n, numLength, " ")} | `;
             prefixLength = numLength + 3;
             linesAround = linesAround.map((row, i) => `${rowNumberPrefixer(i + 1)}${row}`);
         }
-        const errorMarked = `${repeat(" ", prefixLength + trace.location.column)}^${trace.reason}`;
+        const errorMarked = `${" ".repeat(prefixLength + trace.location.column)}^${trace.reason}`;
         linesAround.push(errorMarked);
         const linesVisualization = linesAround.join("\n");
 

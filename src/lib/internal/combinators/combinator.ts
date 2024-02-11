@@ -1,19 +1,17 @@
-/** @module parjs/internal */ /** */
-
-import type { ParjserBase } from "../parser";
-import type { Parjser, ParjsCombinator, ImplicitParjser } from "../../index";
-import { ScalarConverter } from "../scalar-converter";
+import type { ImplicitParjser, ParjsCombinator, Parjser } from "../../index";
+import { wrapImplicit } from "../wrap-implicit";
+import type { CombinatorInput } from "../combinated";
 
 /**
  * Represents the given function as a Parjs combinator.
  * @param f The combinator function.
  */
 export function defineCombinator<A, B>(
-    f: (act: ParjserBase<A> & Parjser<A>) => Parjser<B>
+    f: (act: CombinatorInput<A>) => Parjser<B>
 ): ParjsCombinator<A, B> {
-    return (x: ImplicitParjser<A>) => {
-        const resolved = ScalarConverter.convert(x);
-        return f(resolved as ParjserBase<A>);
+    return (x: ImplicitParjser<A>): Parjser<B> => {
+        const resolved = wrapImplicit(x);
+        return f(resolved);
     };
 }
 
@@ -150,7 +148,7 @@ export function pipe<T, T1, T2, T3, T4, T5, T6>(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function pipe(source: any, ...funcs: ((x: any) => any)[]) {
-    let last = ScalarConverter.convert(source);
+    let last = wrapImplicit(source);
     for (const func of funcs) {
         last = func(last);
     }

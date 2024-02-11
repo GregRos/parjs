@@ -1,6 +1,5 @@
-/** @module parjs/combinators */ /** */
 import type { ImplicitParjser, ParjsCombinator } from "../../index";
-import { ScalarConverter } from "../scalar-converter";
+import { wrapImplicit } from "../wrap-implicit";
 import { defineCombinator } from "./combinator";
 import { qthen, thenq } from "./then";
 
@@ -24,8 +23,8 @@ export function between<T, TPre, TPost = TPre>(
     implPre: ImplicitParjser<TPre>,
     implPost?: ImplicitParjser<TPost>
 ): ParjsCombinator<T, T> {
-    const pre = ScalarConverter.convert(implPre);
-    const post = implPost ? ScalarConverter.convert(implPost) : pre;
+    const pre = wrapImplicit(implPre);
+    const post = implPost ? wrapImplicit(implPost) : pre;
     return defineCombinator(source => {
         return pre.pipe(qthen(source), thenq(post));
     });

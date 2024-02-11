@@ -10,18 +10,9 @@ import {
     then,
     thenq
 } from "../lib/combinators";
-import {
-    anyCharOf,
-    anyStringOf,
-    float,
-    noCharOf,
-    string,
-    stringLen,
-    whitespace
-} from "../lib/index";
-import { ResultKind } from "../lib/internal/result";
+import { anyCharOf, anyStringOf, float, noCharOf, string, stringLen, whitespace } from "../lib";
+import { ResultKind } from "../lib";
 import { visualizeTrace } from "../lib/internal/trace-visualizer";
-import "../test/setup";
 
 export class JsonNumber {
     constructor(public value: number) {}

@@ -1,6 +1,6 @@
 import { each, mapConst, then, thenq } from "../../../lib/combinators";
-import { eof, fail, rest, string } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { eof, fail, rest, string } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 const excessInput = "abcde";
 

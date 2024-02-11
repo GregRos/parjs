@@ -1,5 +1,5 @@
-import { fail } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { fail } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 describe("fail", () => {
     const parser = fail({

@@ -1,7 +1,7 @@
 import type { UserState } from "../../../lib";
 import { string } from "../../../lib";
 import { manyBetween } from "../../../lib/combinators";
-import { ResultKind } from "../../../lib/internal/result";
+import { ResultKind } from "../../../lib";
 
 describe("the manyBetween combinator", () => {
     describe("without a projection function", () => {

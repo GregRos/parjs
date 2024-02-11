@@ -1,5 +1,6 @@
 import { eof, string } from "../../../lib";
-import { backtrack, each, replaceState, map, then } from "../../../lib/combinators";
+import { backtrack, each, map, replaceState, then } from "../../../lib/combinators";
+
 describe("special combinators", () => {
     describe("backtrack", () => {
         const parser = string("hi").pipe(then(eof()), backtrack());

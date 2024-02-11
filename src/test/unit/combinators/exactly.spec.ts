@@ -1,6 +1,5 @@
 import { exactly } from "../../../lib/combinators";
-import { string } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { ResultKind, string } from "../../../lib";
 
 describe("exactly combinator", () => {
     const parser = string("ab").pipe(exactly(2));

@@ -1,12 +1,35 @@
-/**
- * @module parjs
- */
-/** */
-
 import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
 import { ParjserBase } from "../parser";
 import type { Parjser } from "../parjser";
+
+class StringOf<T> extends ParjserBase<T> {
+    type = "anyStringOf";
+    expecting = `expecting any of ${this.strs.map(x => `'${x}'`).join(", ")}`;
+
+    constructor(private strs: string[]) {
+        super();
+    }
+
+    _apply(ps: ParsingState) {
+        const { position, input } = ps;
+        const { strs } = this;
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
+        for (let i = 0; i < strs.length; i++) {
+            const curStr = strs[i];
+            if (input.length - position < curStr.length) continue;
+            const curSubstr = input.slice(position, position + curStr.length);
+            if (curSubstr === curStr) {
+                // this means we did not contiue strLoop so curStr passed our tests
+                ps.position = position + curStr.length;
+                ps.value = curStr;
+                ps.kind = ResultKind.Ok;
+                return;
+            }
+        }
+        ps.kind = ResultKind.SoftFail;
+    }
+}
 
 /**
  * Returns a parser that will parse any of the strings in `strs` and yield
@@ -16,26 +39,5 @@ import type { Parjser } from "../parjser";
  * a constant tuple if you pass it in using the spread operator (`...`).
  */
 export function anyStringOf<T extends string>(...strs: T[]): Parjser<T> {
-    return new (class StringOf extends ParjserBase<T> {
-        type = "anyStringOf";
-        expecting = `expecting any of ${strs.map(x => `'${x}'`).join(", ")}`;
-
-        _apply(ps: ParsingState) {
-            const { position, input } = ps;
-            // eslint-disable-next-line @typescript-eslint/prefer-for-of
-            for (let i = 0; i < strs.length; i++) {
-                const curStr = strs[i];
-                if (input.length - position < curStr.length) continue;
-                const curSubstr = input.slice(position, position + curStr.length);
-                if (curSubstr === curStr) {
-                    // this means we did not contiue strLoop so curStr passed our tests
-                    ps.position = position + curStr.length;
-                    ps.value = curStr;
-                    ps.kind = ResultKind.Ok;
-                    return;
-                }
-            }
-            ps.kind = ResultKind.SoftFail;
-        }
-    })();
+    return new StringOf(strs);
 }

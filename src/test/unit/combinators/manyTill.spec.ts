@@ -1,7 +1,7 @@
 import type { UserState } from "../../../lib";
 import { string } from "../../../lib";
 import { manyBetween, manyTill } from "../../../lib/combinators";
-import { ResultKind } from "../../../lib/internal/result";
+import { ResultKind } from "../../../lib";
 
 describe("the manyTill combinator", () => {
     const parser = string("a").pipe(manyTill("b"));

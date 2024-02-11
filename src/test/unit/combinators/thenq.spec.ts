@@ -1,5 +1,5 @@
 import { thenq } from "../../../lib/combinators";
-import { string } from "../../../lib/internal/parsers";
+import { string } from "../../../lib";
 
 describe("thenq", () => {
     it("succeeds", () => {

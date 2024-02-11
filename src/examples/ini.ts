@@ -1,5 +1,6 @@
 import type { Parjser } from "../lib";
-import { anyCharOf, eof, newline, result, string } from "../lib";
+import { string } from "../lib";
+import { anyCharOf, eof, newline, result } from "../lib";
 import { many, map, or, qthen, stringify, then, thenq } from "../lib/combinators";
 import { between, many1, maybe } from "../lib/internal/combinators";
 

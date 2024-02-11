@@ -1,5 +1,6 @@
 import type { ParjsFailure } from "../../../lib";
-import { ResultKind, fail, string } from "../../../lib";
+import { string } from "../../../lib";
+import { fail, ResultKind } from "../../../lib";
 import { mapConst, or } from "../../../lib/combinators";
 
 describe("or combinator", () => {

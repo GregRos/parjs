@@ -1,14 +1,9 @@
-/**
- * @module parjs
- */
-/** */
-
 import { AsciiCodes } from "char-info/ascii";
 import { NumericHelpers } from "./numeric-helpers";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
-import defaults from "lodash/defaults";
+import { defaults } from "../../utils";
 import { ParjserBase } from "../parser";
 import type { Parjser } from "../parjser";
 
@@ -67,6 +62,95 @@ ISSUES:
     Otherwise, an error is thrown.
  b.
 */
+class Float extends ParjserBase<number> {
+    type = "float";
+    expecting = "expecting a floating-point number";
+
+    constructor(readonly options: FloatOptions) {
+        super();
+    }
+
+    _apply(ps: ParsingState): void {
+        const { allowSign, allowFloatingPoint, allowImplicitZero, allowExponent } = this.options;
+        const { position, input } = ps;
+        if (position >= input.length) {
+            ps.kind = ResultKind.SoftFail;
+            return;
+        }
+        const initPos = position;
+        let sign = 1;
+        let hasSign = false,
+            hasWhole = false,
+            hasFraction = false;
+        if (allowSign) {
+            // try parse a sign
+            sign = NumericHelpers.parseSign(ps);
+            if (sign === 0) {
+                sign = 1;
+            } else {
+                hasSign = true;
+            }
+        }
+        // after a sign there needs to come an integer part (if any).
+        let prevPos = ps.position;
+        NumericHelpers.parseDigitsInBase(ps, 10);
+        hasWhole = ps.position !== prevPos;
+        // now if allowFloatingPoint, we try to parse a decimal point.
+        let nextChar = input.charCodeAt(ps.position);
+        prevPos = ps.position;
+        if (!allowImplicitZero && !hasWhole) {
+            // fail because we don't allow ".1", and similar without allowImplicitZero.
+            ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
+            ps.reason = msgOneOrMoreDigits;
+            return;
+        }
+        // tslint:disable-next-line:label-position
+        floatingParse: {
+            if (allowFloatingPoint && nextChar === AsciiCodes.decimalPoint) {
+                // skip to the char after the decimal point
+                ps.position++;
+                const prevFractionalPos = ps.position;
+                // parse the fractional part
+                NumericHelpers.parseDigitsInBase(ps, 10);
+                hasFraction = prevFractionalPos !== ps.position;
+                if (!allowImplicitZero && !hasFraction) {
+                    // we encountered something like 212. but allowImplicitZero is false.
+                    // that means we need to backtrack to the . character and succeed in parsing the integer.
+                    // the remainder is not a valid number.
+                    break floatingParse;
+                }
+
+                // after parseDigits has been invoked, the ps.position is on the next character (which could be e).
+                nextChar = input.charCodeAt(ps.position);
+                prevPos = ps.position;
+            }
+
+            if (!hasWhole && !hasFraction) {
+                // even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
+                ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
+                ps.reason = msgOneOrMoreDigits;
+                return;
+            }
+            // note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
+            // if we do allow floating point, then the previous block would've consumed some characters.
+            if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
+                ps.position++;
+                NumericHelpers.parseSign(ps);
+
+                const prevFractionalPos = ps.position;
+                NumericHelpers.parseDigitsInBase(ps, 10);
+                if (ps.position === prevFractionalPos) {
+                    // we parsed e+ but we did not parse any digits.
+                    ps.kind = ResultKind.HardFail;
+                    ps.reason = msgOneOrMoreDigits;
+                    return;
+                }
+            }
+        }
+        ps.kind = ResultKind.Ok;
+        ps.value = parseFloat(input.substring(initPos, ps.position));
+    }
+}
 
 /**
  * Returns a parser that will parse a single floating point number, in decimal
@@ -75,89 +159,5 @@ ISSUES:
  */
 export function float(options: Partial<FloatOptions> = defaultFloatOptions): Parjser<number> {
     options = defaults(options, defaultFloatOptions);
-    return new (class Float extends ParjserBase<number> {
-        type = "float";
-        expecting = "expecting a floating-point number";
-
-        _apply(ps: ParsingState): void {
-            const { allowSign, allowFloatingPoint, allowImplicitZero, allowExponent } = options;
-            const { position, input } = ps;
-            if (position >= input.length) {
-                ps.kind = ResultKind.SoftFail;
-                return;
-            }
-            const initPos = position;
-            let sign = 1;
-            let hasSign = false,
-                hasWhole = false,
-                hasFraction = false;
-            if (allowSign) {
-                // try parse a sign
-                sign = NumericHelpers.parseSign(ps);
-                if (sign === 0) {
-                    sign = 1;
-                } else {
-                    hasSign = true;
-                }
-            }
-            // after a sign there needs to come an integer part (if any).
-            let prevPos = ps.position;
-            NumericHelpers.parseDigitsInBase(ps, 10);
-            hasWhole = ps.position !== prevPos;
-            // now if allowFloatingPoint, we try to parse a decimal point.
-            let nextChar = input.charCodeAt(ps.position);
-            prevPos = ps.position;
-            if (!allowImplicitZero && !hasWhole) {
-                // fail because we don't allow ".1", and similar without allowImplicitZero.
-                ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
-                ps.reason = msgOneOrMoreDigits;
-                return;
-            }
-            // tslint:disable-next-line:label-position
-            floatingParse: {
-                if (allowFloatingPoint && nextChar === AsciiCodes.decimalPoint) {
-                    // skip to the char after the decimal point
-                    ps.position++;
-                    const prevFractionalPos = ps.position;
-                    // parse the fractional part
-                    NumericHelpers.parseDigitsInBase(ps, 10);
-                    hasFraction = prevFractionalPos !== ps.position;
-                    if (!allowImplicitZero && !hasFraction) {
-                        // we encountered something like 212. but allowImplicitZero is false.
-                        // that means we need to backtrack to the . character and succeed in parsing the integer.
-                        // the remainder is not a valid number.
-                        break floatingParse;
-                    }
-
-                    // after parseDigits has been invoked, the ps.position is on the next character (which could be e).
-                    nextChar = input.charCodeAt(ps.position);
-                    prevPos = ps.position;
-                }
-
-                if (!hasWhole && !hasFraction) {
-                    // even if allowImplicitZero is true, we still don't parse '.' as '0.0'.
-                    ps.kind = hasSign ? ResultKind.HardFail : ResultKind.SoftFail;
-                    ps.reason = msgOneOrMoreDigits;
-                    return;
-                }
-                // note that if we don't allow floating point, the char that might've been '.' will instead be 'e' or 'E'.
-                // if we do allow floating point, then the previous block would've consumed some characters.
-                if (allowExponent && (nextChar === AsciiCodes.e || nextChar === AsciiCodes.E)) {
-                    ps.position++;
-                    NumericHelpers.parseSign(ps);
-
-                    const prevFractionalPos = ps.position;
-                    NumericHelpers.parseDigitsInBase(ps, 10);
-                    if (ps.position === prevFractionalPos) {
-                        // we parsed e+ but we did not parse any digits.
-                        ps.kind = ResultKind.HardFail;
-                        ps.reason = msgOneOrMoreDigits;
-                        return;
-                    }
-                }
-            }
-            ps.kind = ResultKind.Ok;
-            ps.value = parseFloat(input.substring(initPos, ps.position));
-        }
-    })();
+    return new Float(options as FloatOptions);
 }

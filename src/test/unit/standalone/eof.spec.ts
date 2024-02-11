@@ -1,6 +1,6 @@
 import { then } from "../../../lib/combinators";
-import { eof } from "../../../lib/internal/parsers";
-import { ResultKind } from "../../../lib/internal/result";
+import { eof } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 describe("eof", () => {
     const parser = eof();

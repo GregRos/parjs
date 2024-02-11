@@ -1,5 +1,5 @@
 import type { ParjserBase } from "../../lib/internal";
-import { anyChar } from "../../lib/internal/parsers";
+import { anyChar } from "../../lib";
 
 describe("expects", () => {
     it("is correct", () => {

@@ -1,5 +1,6 @@
-import type { ParjsFailure, Parjser } from "../../../lib";
-import { ResultKind, fail, nope, rest, string } from "../../../lib";
+import type { Parjser, ParjsFailure } from "../../../lib";
+import { string } from "../../../lib";
+import { fail, nope, rest, ResultKind } from "../../../lib";
 import {
     mapConst,
     maybe,

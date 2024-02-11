@@ -1,12 +1,4 @@
-/**
- * Errors thrown by Parjs.
- *
- * @module parjs
- *
- *
- */
-/** */
-import type { ParjsFailure } from "./internal/result";
+import type { ParjsFailure } from "./internal";
 
 /**
  * A parent class for all errors thrown by Parjs.

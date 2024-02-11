@@ -1,6 +1,6 @@
 import { float, rest } from "../../../lib";
 import { thenq } from "../../../lib/combinators";
-import { ResultKind } from "../../../lib/internal/result";
+import { ResultKind } from "../../../lib";
 
 describe("numeric parsers", () => {
     describe("float parser", () => {

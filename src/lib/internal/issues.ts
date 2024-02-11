@@ -1,7 +1,3 @@
-/**
- * @module parjs/internal
- */ /** */
-
 import { ParserDefinitionError } from "../errors";
 
 /**

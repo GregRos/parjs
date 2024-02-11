@@ -1,47 +1,45 @@
-/**
- * @module parjs
- */
-/** */
-
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
-import { uniIsNewline, AsciiCodes } from "char-info";
+import { AsciiCodes, uniIsNewline } from "char-info";
 
-function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<string> {
-    return new (class Newline extends ParjserBase<string> {
-        expecting = "expecting newline";
-        type = "newline";
-        _apply(ps: ParsingState) {
-            const { position, input } = ps;
-            if (position >= input.length) {
-                ps.kind = ResultKind.SoftFail;
-                return;
-            }
+class Newline extends ParjserBase<string> {
+    type = "newline";
+    expecting = "expecting newline";
 
-            const pair = input.slice(position, position + 2);
+    constructor(private _unicodeRecognizer?: (x: number) => boolean) {
+        super();
+    }
 
-            if (pair === "\r\n") {
-                ps.position += 2;
-                ps.value = pair;
-                ps.kind = ResultKind.Ok;
-                return;
-            }
-            const firstChar = pair.charCodeAt(0);
-            if (
-                firstChar === AsciiCodes.newline ||
-                firstChar === AsciiCodes.carriageReturn ||
-                (unicodeRecognizer && unicodeRecognizer(firstChar))
-            ) {
-                ps.position++;
-                ps.value = pair[0];
-                ps.kind = ResultKind.Ok;
-                return;
-            }
+    _apply(ps: ParsingState) {
+        const { position, input } = ps;
+        if (position >= input.length) {
             ps.kind = ResultKind.SoftFail;
+            return;
         }
-    })();
+
+        const pair = input.slice(position, position + 2);
+
+        if (pair === "\r\n") {
+            ps.position += 2;
+            ps.value = pair;
+            ps.kind = ResultKind.Ok;
+            return;
+        }
+        const firstChar = pair.charCodeAt(0);
+        if (
+            firstChar === AsciiCodes.newline ||
+            firstChar === AsciiCodes.carriageReturn ||
+            this._unicodeRecognizer?.(firstChar)
+        ) {
+            ps.position++;
+            ps.value = pair[0];
+            ps.kind = ResultKind.Ok;
+            return;
+        }
+        ps.kind = ResultKind.SoftFail;
+    }
 }
 
 /**
@@ -49,7 +47,7 @@ function innerNewline(unicodeRecognizer?: (x: number) => boolean): Parjser<strin
  * `\r\n`. Yields the text that was parsed.
  */
 export function newline(): Parjser<string> {
-    return innerNewline();
+    return new Newline();
 }
 
 /**
@@ -57,5 +55,5 @@ export function newline(): Parjser<string> {
  * other vertical separators such as PARAGRAPH SEPARATOR.
  */
 export function uniNewline(): Parjser<string> {
-    return innerNewline(uniIsNewline.code);
+    return new Newline(uniIsNewline.code);
 }

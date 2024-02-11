@@ -1,5 +1,3 @@
-/** @module parjs/internal*/ /** */
-
 export { backtrack } from "./backtrack";
 export { between } from "./between";
 export { composeCombinator, defineCombinator, pipe } from "./combinator";

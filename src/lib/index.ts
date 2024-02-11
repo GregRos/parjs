@@ -1,11 +1,3 @@
-/**
- * Building-block parsers.
- * @example
- * import { string, anyChar, anyStringOf } from "parjs";
- * @module parjs
- * @preferred
- */ /** iooi*/
-
 export type {
     IntOptions,
     FloatOptions,
@@ -20,15 +12,15 @@ export type {
     ErrorLocation,
     Trace
 } from "./internal/index";
+
+export { string, regexp } from "./internal/index";
 export {
     ResultKind,
     anyStringOf,
     stringLen,
-    string,
     state,
     rest,
     result,
-    regexp,
     position,
     newline,
     int,
@@ -58,5 +50,5 @@ export {
     ParjsFailure
 } from "./internal/index";
 export { ParjsError, ParjsParsingFailure, ParserDefinitionError } from "./errors";
-export type { ImplicitParjser } from "./internal/scalar-converter";
-export type { ConvertibleScalar } from "./internal/scalar-converter";
+export type { ImplicitParjser } from "./internal/wrap-implicit";
+export type { ConvertibleScalar } from "./internal/wrap-implicit";

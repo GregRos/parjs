@@ -1,5 +1,5 @@
-import _ from "lodash";
-import type { ParjsResult, Parjser } from "../../../lib";
+import type { Parjser, ParjsResult } from "../../../lib";
+import { regexp, string } from "../../../lib";
 import { then } from "../../../lib/combinators";
 import {
     anyChar,
@@ -9,20 +9,11 @@ import {
     charWhere,
     newline,
     noCharOf,
-    regexp,
     rest,
-    string,
     stringLen
-} from "../../../lib/internal/parsers";
-import {
-    letter,
-    lower,
-    space,
-    spaces1,
-    upper,
-    whitespace
-} from "../../../lib/internal/parsers/char-types";
-import { ResultKind } from "../../../lib/internal/result";
+} from "../../../lib";
+import { letter, lower, space, spaces1, upper, whitespace } from "../../../lib";
+import { ResultKind } from "../../../lib";
 
 const uState = {};
 
@@ -79,7 +70,7 @@ describe("basic string parsers", () => {
             expect(parser.parse(" ")).toBeSuccessful(" ");
         });
         it("succeeds on multiple spaces", () => {
-            expect(parser.parse(_.repeat(" ", 5))).toBeSuccessful(_.repeat(" ", 5));
+            expect(parser.parse(" ".repeat(5))).toBeSuccessful(" ".repeat(5));
         });
     });
 

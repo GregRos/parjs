@@ -1,13 +1,34 @@
-/**
- * @module parjs/combinators
- */
-/** */
-
 import type { ParjsCombinator, ParjsProjection } from "../parjser";
-import { ParjserBase } from "../parser";
-import { defineCombinator } from "./combinator";
 import type { ParsingState } from "../state";
-import type { ImplicitParjser } from "../scalar-converter";
+import type { ImplicitParjser } from "../wrap-implicit";
+import { wrapImplicit } from "../wrap-implicit";
+import type { CombinatorInput } from "../combinated";
+import { Combinated } from "../combinated";
+
+class ThenPick<A, B> extends Combinated<A, B> {
+    type = "then-pick";
+    expecting = `${this.source.expecting} then <dynamic>`;
+    constructor(
+        source: CombinatorInput<A>,
+        private _ctor: ParjsProjection<A, ImplicitParjser<B>>
+    ) {
+        super(source);
+    }
+    _apply(ps: ParsingState): void {
+        this.source.apply(ps);
+        if (!ps.isOk) {
+            return;
+        }
+        const nextParser = wrapImplicit(this._ctor(ps.value as A, ps.userState));
+        nextParser.apply(ps);
+        if (ps.isOk) {
+            return;
+        }
+        if (ps.isSoft) {
+            ps.kind = "Hard";
+        }
+    }
+}
 
 /**
  * Applies the source parser, and then applies a selector on the source parser's
@@ -17,25 +38,5 @@ import type { ImplicitParjser } from "../scalar-converter";
 export function thenPick<A, B>(
     selector: ParjsProjection<A, ImplicitParjser<B>>
 ): ParjsCombinator<A, B> {
-    return defineCombinator<A, B>(source => {
-        return new (class ThenPick extends ParjserBase<B> {
-            expecting = source.expecting;
-            type = "then-pick";
-
-            _apply(ps: ParsingState): void {
-                source.apply(ps);
-                if (!ps.isOk) {
-                    return;
-                }
-                const nextParser = selector(ps.value as A, ps.userState) as ParjserBase<B>;
-                nextParser.apply(ps);
-                if (ps.isOk) {
-                    return;
-                }
-                if (ps.isSoft) {
-                    ps.kind = "Hard";
-                }
-            }
-        })();
-    });
+    return source => new ThenPick(wrapImplicit(source), selector);
 }

@@ -1,0 +1,4 @@
+
+
+yarn run rebuild
+yarn lint-staged

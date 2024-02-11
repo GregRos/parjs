@@ -1,4 +1,4 @@
-import { ResultKind, fail, rest, string } from "../../../lib";
+import { fail, rest, ResultKind, string } from "../../../lib";
 import { not, stringify, then } from "../../../lib/combinators";
 
 describe("not combinator", () => {

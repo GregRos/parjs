@@ -1,4 +1,4 @@
-import { state } from "../../../lib/internal/parsers";
+import { state } from "../../../lib";
 
 describe("state", () => {
     const parser = state();

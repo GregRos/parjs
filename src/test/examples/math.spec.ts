@@ -1,12 +1,12 @@
 import {
     BinaryOperation,
-    NumberLiteral,
-    UnaryOperation,
     evaluate,
     expression,
+    NumberLiteral,
     product,
     sum,
     unary,
+    UnaryOperation,
     value
 } from "../../examples/math";
 
@@ -178,8 +178,8 @@ describe("evaluation", () => {
                 },
                 "stackTrace": [
                   {
-                    "expecting": "expecting '-'",
-                    "type": "string"
+                    "type": "string",
+                    "expecting": "expecting '-'"
                   },
                   {
                     "type": "then",
@@ -222,8 +222,8 @@ describe("evaluation", () => {
                     "expecting": "expecting a floating-point number"
                   },
                   {
-                    "expecting": "expecting '('",
-                    "type": "string"
+                    "type": "string",
+                    "expecting": "expecting '('"
                   },
                   {
                     "type": "then",
@@ -283,10 +283,7 @@ describe("evaluation", () => {
                   },
                   {
                     "type": "later",
-                    "_resolved": {
-                      "type": "map",
-                      "expecting": "expression"
-                    }
+                    "expecting": "expression"
                   }
                 ],
                 "kind": "Hard"

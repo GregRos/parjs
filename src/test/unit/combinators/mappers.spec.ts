@@ -1,6 +1,4 @@
-import { ResultKind } from "../../../lib";
-import { string } from "../../../lib";
-import { anyCharOf, eof, result, stringLen } from "../../../lib";
+import { anyCharOf, eof, result, ResultKind, string, stringLen } from "../../../lib";
 import { each, map, stringify } from "../../../lib/combinators";
 
 const goodInput = "abcd";

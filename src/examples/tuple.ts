@@ -1,6 +1,5 @@
 import { float, whitespace } from "../lib";
 import { between, manySepBy } from "../lib/combinators";
-import "../test/setup";
 
 // Built-in parser for floating point numbers.
 const tupleElement = float();
