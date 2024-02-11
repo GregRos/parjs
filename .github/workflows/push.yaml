@@ -63,6 +63,6 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
       - name: Setup token
-        run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml"'
+        run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
       - name: publish
         run: yarn npm publish
