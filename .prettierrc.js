@@ -11,5 +11,6 @@ module.exports = {
                 tabWidth: 2
             }
         }
-    ]
+    ],
+    plugins: ["prettier-plugin-organize-imports"]
 };
