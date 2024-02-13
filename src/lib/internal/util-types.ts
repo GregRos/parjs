@@ -22,7 +22,7 @@ export type union<Args extends unknown[]> = Args extends [
 export type getParsedType<T extends ImplicitParjser<unknown>> = T extends RegExp
     ? string[]
     : T extends string
-    ? string
+    ? T
     : T extends Parjser<infer U>
     ? U
     : never;
