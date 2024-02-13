@@ -5,6 +5,7 @@ import {
     anyChar,
     anyCharOf,
     anyStringOf,
+    caseString,
     charCodeWhere,
     charWhere,
     newline,
@@ -161,6 +162,27 @@ describe("basic string parsers", () => {
         });
         it("fail too long", () => {
             expect(parser.parse(`${success}1`)).toBeFailure(ResultKind.SoftFail);
+        });
+    });
+
+    describe("caseString(foo)", () => {
+        const s = "foo";
+        const parser: Parjser<string> = caseString(s);
+
+        ["foo", "foO", "fOo", "fOO", "Foo", "FoO", "FOo", "FOO"].forEach(success => {
+            it(`succeeds in parsing "${success}"`, () => {
+                expect(parser.parse(success)).toBeSuccessful(success);
+            });
+        });
+
+        const fail = "abc";
+        it(`fails to parse "${fail}"`, () => {
+            expect(parser.parse(fail)).toBeFailure(ResultKind.SoftFail);
+        });
+
+        const tooLongFail = `${s}1`;
+        it(`fails to parse "${tooLongFail}"`, () => {
+            expect(parser.parse(tooLongFail)).toBeFailure(ResultKind.SoftFail);
         });
     });
 

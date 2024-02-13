@@ -20,6 +20,7 @@ export {
     position,
     newline,
     int,
+    caseString,
     float,
     fail,
     eof,
