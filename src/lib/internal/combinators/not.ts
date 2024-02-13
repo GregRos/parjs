@@ -1,7 +1,7 @@
-import { ResultKind } from "../result";
-import type { ParsingState } from "../state";
 import type { ParjsCombinator } from "../../";
 import { Combinated } from "../combinated";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Not extends Combinated<unknown, void> {

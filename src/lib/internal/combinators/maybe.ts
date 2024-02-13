@@ -1,8 +1,8 @@
+import type { CombinatorInput } from "../combinated";
+import { Combinated } from "../combinated";
 import type { ParjsCombinator } from "../parjser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import type { CombinatorInput } from "../combinated";
-import { Combinated } from "../combinated";
 import { wrapImplicit } from "../wrap-implicit";
 
 class MaybeCombinator<T, S> extends Combinated<T, S | T> {

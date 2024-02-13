@@ -1,5 +1,5 @@
-import type { ParsingState } from "../state";
 import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";

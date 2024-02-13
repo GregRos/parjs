@@ -1,11 +1,11 @@
 import { AsciiCodes } from "char-info/ascii";
-import { NumericHelpers } from "./numeric-helpers";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
+import { NumericHelpers } from "./numeric-helpers";
 
 import { defaults } from "../../utils";
-import { ParjserBase } from "../parser";
 import type { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
 
 /**
  * A set of options for parsing floating point numbers.

@@ -1,12 +1,12 @@
+import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import type { ImplicitParjser, ParjsCombinator } from "../../index";
 
-import { composeCombinator } from "./combinator";
-import { wrapImplicit } from "../wrap-implicit";
-import { map } from "./map";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
+import { wrapImplicit } from "../wrap-implicit";
+import { composeCombinator } from "./combinator";
+import { map } from "./map";
 
 import type { getParsedType } from "../util-types";
 

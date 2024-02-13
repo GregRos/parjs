@@ -1,7 +1,7 @@
-import type { ParsingState } from "../state";
-import { ResultKind } from "../result";
-import { ParjserBase } from "../parser";
 import type { Parjser } from "../..";
+import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 
 class StringLen extends ParjserBase<string> {
     type = "stringLen";

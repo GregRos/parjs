@@ -1,7 +1,6 @@
+import { ResultKind, fail, result, string } from "../../../lib";
 import { manySepBy, stringify, then, thenq } from "../../../lib/combinators";
 import { getArrayWithSeparators } from "../../../lib/internal/combinators/many-sep-by";
-import { fail, result, string } from "../../../lib";
-import { ResultKind } from "../../../lib";
 
 const prs = string("ab");
 

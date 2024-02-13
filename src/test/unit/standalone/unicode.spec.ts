@@ -1,6 +1,5 @@
-import { ResultKind, uniNewline } from "../../../lib";
+import { ResultKind, uniDecimal, uniLetter, uniNewline } from "../../../lib";
 import { many } from "../../../lib/combinators";
-import { uniDecimal, uniLetter } from "../../../lib";
 
 describe("unicode strings", () => {
     describe("uniNewline", () => {

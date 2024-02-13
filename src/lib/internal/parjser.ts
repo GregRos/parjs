@@ -1,7 +1,7 @@
 import type { ParjserDebugFunction } from "./parser";
 import type { FailureInfo, ParjsResult } from "./result";
-import type { ImplicitParjser } from "./wrap-implicit";
 import type { ParsingState, UserState } from "./state";
+import type { ImplicitParjser } from "./wrap-implicit";
 
 /**
  * A combinator or operator that takes a source parser that returns a new parser

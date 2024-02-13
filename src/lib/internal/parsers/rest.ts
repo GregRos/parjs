@@ -1,7 +1,7 @@
-import type { ParsingState } from "../state";
-import { ResultKind } from "../result";
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 
 class Rest extends ParjserBase<string> {
     type = "rest";

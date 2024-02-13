@@ -1,8 +1,7 @@
-import type { ParsingState } from "../state";
-import type { ParjsCombinator } from "../parjser";
-import type { ParjsProjection } from "../parjser";
-import type { ParjserBase } from "../parser";
 import { Combinated } from "../combinated";
+import type { ParjsCombinator, ParjsProjection } from "../parjser";
+import type { ParjserBase } from "../parser";
+import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Map<T, S> extends Combinated<T, S> {

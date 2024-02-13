@@ -1,8 +1,8 @@
-import type { ParsingState } from "../state";
-import type { ParjsValidator } from "../parjser";
 import type { ParjsCombinator } from "../../";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
+import type { ParjsValidator } from "../parjser";
+import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Must<T> extends Combinated<T, T> {

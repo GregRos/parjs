@@ -1,9 +1,9 @@
-import type { ParjsCombinator } from "../parjser";
+import { Combinated } from "../combinated";
 import { Issues } from "../issues";
+import type { ParjsCombinator } from "../parjser";
 import type { ParjserBase } from "../parser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { Combinated } from "../combinated";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Many1<T> extends Combinated<T, [T, ...T[]]> {

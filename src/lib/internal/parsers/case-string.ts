@@ -5,10 +5,10 @@
  * @module parjs
  */
 
-import type { ParsingState } from "../state";
-import { ResultKind } from "../result";
-import { ParjserBase } from "../parser";
 import type { Parjser } from "..";
+import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 
 class CaseInsensitiveString extends ParjserBase<string> {
     expecting = `expecting '${this.str}' (case insensitive)`;

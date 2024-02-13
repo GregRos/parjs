@@ -1,7 +1,7 @@
+import type { Parjser, ParjsValidator } from "../parjser";
+import { ParjserBase } from "../parser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { ParjserBase } from "../parser";
-import type { Parjser, ParjsValidator } from "../parjser";
 
 class CharCodeWhere extends ParjserBase<string> {
     type = "charCodeWhere";

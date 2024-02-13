@@ -1,2 +1,2 @@
-export type { ParsingState, ParjsFailure } from "./internal/index";
-export { ParjserBase, defineCombinator, composeCombinator } from "./internal/index";
+export { ParjserBase, composeCombinator, defineCombinator } from "./internal/index";
+export type { ParjsFailure, ParsingState } from "./internal/index";

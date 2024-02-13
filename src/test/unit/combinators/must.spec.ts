@@ -1,5 +1,4 @@
-import { ResultKind, string } from "../../../lib";
-import { eof, stringLen } from "../../../lib";
+import { ResultKind, eof, string, stringLen } from "../../../lib";
 import { must, mustCapture, or, stringify, then } from "../../../lib/combinators";
 
 describe("must combinators", () => {

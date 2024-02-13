@@ -1,6 +1,6 @@
 import type { ImplicitParjser, ParjsCombinator, Parjser } from "../../index";
-import { wrapImplicit } from "../wrap-implicit";
 import type { CombinatorInput } from "../combinated";
+import { wrapImplicit } from "../wrap-implicit";
 
 /**
  * Represents the given function as a Parjs combinator.

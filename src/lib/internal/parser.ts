@@ -1,5 +1,5 @@
-import { clone, defaults } from "../utils";
 import { ParserDefinitionError } from "../errors";
+import { clone, defaults } from "../utils";
 import type { ParjsCombinator, Parjser } from "./parjser";
 import type { ErrorLocation, ParjsResult, Trace } from "./result";
 import { ParjsFailure, ParjsSuccess, ResultKind } from "./result";

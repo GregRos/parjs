@@ -1,7 +1,7 @@
-import { Issues } from "../issues";
-import type { ParsingState } from "../state";
-import { ResultKind } from "../result";
 import type { ImplicitParjser, ParjsCombinator } from "../../index";
+import { Issues } from "../issues";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";

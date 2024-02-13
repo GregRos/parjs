@@ -1,9 +1,9 @@
 import type { ParjsCombinator, UserState } from "../../index";
+import { defaults } from "../../utils";
+import { Combinated } from "../combinated";
 import type { ParjserBase } from "../parser";
 import { ParserUserState } from "../parser";
 import type { ParsingState } from "../state";
-import { defaults } from "../../utils";
-import { Combinated } from "../combinated";
 import { wrapImplicit } from "../wrap-implicit";
 
 /**

@@ -1,6 +1,4 @@
 import type { Parjser, ParjsResult } from "../../../lib";
-import { regexp, string } from "../../../lib";
-import { then } from "../../../lib/combinators";
 import {
     anyChar,
     anyCharOf,
@@ -8,13 +6,21 @@ import {
     caseString,
     charCodeWhere,
     charWhere,
+    letter,
+    lower,
     newline,
     noCharOf,
+    regexp,
     rest,
-    stringLen
+    ResultKind,
+    space,
+    spaces1,
+    string,
+    stringLen,
+    upper,
+    whitespace
 } from "../../../lib";
-import { letter, lower, space, spaces1, upper, whitespace } from "../../../lib";
-import { ResultKind } from "../../../lib";
+import { then } from "../../../lib/combinators";
 
 const uState = {};
 

@@ -1,47 +1,44 @@
 export { ParjserBase, ParserUserState } from "./parser";
 export type { ParsingState, UserState } from "./state";
 
-export { BasicParsingState } from "./state";
-export { FAIL_RESULT } from "./state";
-export { UNINITIALIZED_RESULT } from "./state";
 export { composeCombinator, defineCombinator } from "./combinators";
-export { wrapImplicit } from "./wrap-implicit";
-export type { Parjser, ParjsCombinator, ParjsProjection, ParjsValidator } from "./parjser";
-export type { ParjsResult, ErrorLocation, FailureInfo, Trace, SuccessInfo } from "./result";
-export { ResultKind, ParjsSuccess, ParjsFailure } from "./result";
-export type { IntOptions, FloatOptions } from "./parsers";
+export type { ParjsCombinator, ParjsProjection, ParjsValidator, Parjser } from "./parjser";
+export { regexp, string } from "./parser";
 export {
-    anyStringOf,
-    stringLen,
-    state,
-    rest,
-    nope,
-    result,
-    position,
-    newline,
-    int,
-    caseString,
-    float,
-    fail,
-    eof,
-    charWhere,
-    charCodeWhere,
-    noCharOf,
-    anyCharOf,
     anyChar,
-    whitespace,
-    uniNewline,
-    upper,
-    uniLetter,
-    spaces1,
-    space,
-    lower,
-    letter,
-    hex,
+    anyCharOf,
+    anyStringOf,
+    caseString,
+    charCodeWhere,
+    charWhere,
     digit,
+    eof,
+    fail,
+    float,
+    hex,
+    int,
+    letter,
+    lower,
+    newline,
+    noCharOf,
+    nope,
+    position,
+    rest,
+    result,
+    space,
+    spaces1,
+    state,
+    stringLen,
     uniDecimal,
+    uniLetter,
     uniLower,
-    uniUpper
+    uniNewline,
+    uniUpper,
+    upper,
+    whitespace
 } from "./parsers";
-export { regexp } from "./parser";
-export { string } from "./parser";
+export type { FloatOptions, IntOptions } from "./parsers";
+export { ParjsFailure, ParjsSuccess, ResultKind } from "./result";
+export type { ErrorLocation, FailureInfo, ParjsResult, SuccessInfo, Trace } from "./result";
+export { BasicParsingState, FAIL_RESULT, UNINITIALIZED_RESULT } from "./state";
+export { wrapImplicit } from "./wrap-implicit";

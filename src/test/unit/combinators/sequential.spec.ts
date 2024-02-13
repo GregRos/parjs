@@ -1,6 +1,5 @@
-import { range } from "../../../lib/utils";
 import type { Parjser } from "../../../lib";
-import { string } from "../../../lib";
+import { ResultKind, anyCharOf, eof, fail, float, rest, result, string } from "../../../lib";
 import {
     between,
     each,
@@ -16,10 +15,9 @@ import {
     thenPick,
     thenq
 } from "../../../lib/combinators";
-import { getArrayWithSeparators } from "../../../lib/internal/combinators/many-sep-by";
 import { many1 } from "../../../lib/internal/combinators";
-import { anyCharOf, eof, fail, float, rest, result } from "../../../lib";
-import { ResultKind } from "../../../lib";
+import { getArrayWithSeparators } from "../../../lib/internal/combinators/many-sep-by";
+import { range } from "../../../lib/utils";
 
 const goodInput = "abcd";
 const softBadInput = "a";

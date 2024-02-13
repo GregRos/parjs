@@ -1,7 +1,6 @@
 import type { ParsingState } from "../state";
 
-import type { ParjsProjection } from "../parjser";
-import type { ParjsCombinator } from "../parjser";
+import type { ParjsCombinator, ParjsProjection } from "../parjser";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
