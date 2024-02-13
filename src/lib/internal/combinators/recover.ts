@@ -1,8 +1,8 @@
 import type { ParjsCombinator } from "../../";
-import type { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
-import type { ParsingState, UserState } from "../state";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
+import type { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
+import type { ParsingState, UserState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 /**

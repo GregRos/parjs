@@ -1,7 +1,3 @@
-import { many } from "../combinators";
-import { stringify } from "../combinators";
-import { stringLen } from "./string-len";
-import { charWhere } from "./char-where";
 import {
     isDigit,
     isHex,
@@ -15,8 +11,10 @@ import {
     uniIsLower,
     uniIsUpper
 } from "char-info";
-import { must } from "../combinators";
 import type { Parjser } from "../..";
+import { many, must, stringify } from "../combinators";
+import { charWhere } from "./char-where";
+import { stringLen } from "./string-len";
 
 /**
  * Returns a parser that parses any single character. Equivalent

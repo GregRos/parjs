@@ -1,6 +1,5 @@
 import type { Parjser } from "../../../lib";
-import { string } from "../../../lib";
-import { fail, ResultKind } from "../../../lib";
+import { fail, ResultKind, string } from "../../../lib";
 import { maybe, qthen, stringify, then } from "../../../lib/combinators";
 
 describe("maybe combinator", () => {

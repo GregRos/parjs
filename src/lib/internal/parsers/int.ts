@@ -1,10 +1,10 @@
-import { NumericHelpers } from "./numeric-helpers";
-import type { ParsingState } from "../state";
-import { ResultKind } from "../result";
 import { ParserDefinitionError } from "../../errors";
-import { ParjserBase } from "../parser";
-import type { Parjser } from "../parjser";
 import { defaults } from "../../utils";
+import type { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
+import { NumericHelpers } from "./numeric-helpers";
 
 /**
  * A set of options for parsing integers.

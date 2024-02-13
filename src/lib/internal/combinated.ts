@@ -1,5 +1,5 @@
-import { ParjserBase } from "./parser";
 import type { Parjser } from "./parjser";
+import { ParjserBase } from "./parser";
 
 export abstract class Combinated<From, To> extends ParjserBase<To> implements Parjser<To> {
     constructor(protected source: CombinatorInput<From>) {

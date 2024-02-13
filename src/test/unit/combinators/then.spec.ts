@@ -1,6 +1,5 @@
+import { ResultKind, eof, fail, rest, string } from "../../../lib";
 import { each, mapConst, then, thenq } from "../../../lib/combinators";
-import { eof, fail, rest, string } from "../../../lib";
-import { ResultKind } from "../../../lib";
 
 const excessInput = "abcde";
 

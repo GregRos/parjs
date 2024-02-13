@@ -1,8 +1,8 @@
-import type { ParsingState } from "../state";
-import { ResultKind } from "../result";
 import type { ImplicitParjser } from "../../index";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Exactly<T> extends Combinated<T, T[]> {

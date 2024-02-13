@@ -1,4 +1,14 @@
 import {
+    ResultKind,
+    anyCharOf,
+    anyStringOf,
+    float,
+    noCharOf,
+    string,
+    stringLen,
+    whitespace
+} from "../lib";
+import {
     between,
     later,
     many,
@@ -10,8 +20,6 @@ import {
     then,
     thenq
 } from "../lib/combinators";
-import { anyCharOf, anyStringOf, float, noCharOf, string, stringLen, whitespace } from "../lib";
-import { ResultKind } from "../lib";
 import { visualizeTrace } from "../lib/internal/trace-visualizer";
 
 export class JsonNumber {

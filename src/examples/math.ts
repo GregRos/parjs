@@ -16,8 +16,7 @@
  *  6. Easily extendable by the addition of custom functions, variables, and more operators.
  */
 import type { Parjser } from "../lib";
-import { string } from "../lib";
-import { float } from "../lib";
+import { float, string } from "../lib";
 import type { DelayedParjser } from "../lib/combinators";
 import { between, later, many, map, or, then, thenq } from "../lib/combinators";
 

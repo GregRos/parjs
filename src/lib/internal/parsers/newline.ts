@@ -1,8 +1,8 @@
-import { ResultKind } from "../result";
-import type { ParsingState } from "../state";
+import { AsciiCodes, uniIsNewline } from "char-info";
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
-import { AsciiCodes, uniIsNewline } from "char-info";
+import { ResultKind } from "../result";
+import type { ParsingState } from "../state";
 
 class Newline extends ParjserBase<string> {
     type = "newline";

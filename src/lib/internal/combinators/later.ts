@@ -1,8 +1,8 @@
 import type { ParsingState } from "../state";
 
-import { ParjserBase } from "../parser";
-import type { Parjser } from "../parjser";
 import { Issues } from "../issues";
+import type { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
 
 /**
  * A parser with logic to be determined later. Useful for defining some kinds

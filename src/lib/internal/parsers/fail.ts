@@ -3,11 +3,11 @@
  */
 /** */
 
+import { defaults } from "../../utils";
+import type { Parjser } from "../parjser";
+import { ParjserBase } from "../parser";
 import type { FailureInfo } from "../result";
 import type { ParsingState } from "../state";
-import { ParjserBase } from "../parser";
-import type { Parjser } from "../parjser";
-import { defaults } from "../../utils";
 
 const defaultFailure: FailureInfo = {
     kind: "Hard",

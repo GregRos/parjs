@@ -1,8 +1,8 @@
-import type { ParsingState } from "../state";
-import type { ParjsCombinator } from "../parjser";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../wrap-implicit";
 import { recJoin } from "../functions";
+import type { ParjsCombinator } from "../parjser";
+import type { ParsingState } from "../state";
+import { wrapImplicit } from "../wrap-implicit";
 
 class Str extends Combinated<unknown, string> {
     type = "stringify";

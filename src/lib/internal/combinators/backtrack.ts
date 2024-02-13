@@ -1,6 +1,6 @@
-import type { ParsingState } from "../state";
 import type { ParjsCombinator } from "../../";
 import { Combinated } from "../combinated";
+import type { ParsingState } from "../state";
 import { defineCombinator } from "./combinator";
 
 class Backtrack<T> extends Combinated<T, T> {

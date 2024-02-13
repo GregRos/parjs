@@ -5,8 +5,8 @@
 import type { Trace } from "./result";
 
 import { defaults } from "../utils";
-import type { ParjserBase } from "./parser";
 import { padInt } from "./functions";
+import type { ParjserBase } from "./parser";
 
 /**
  * A set of arguments for the trace visualizer.
