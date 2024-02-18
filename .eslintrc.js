@@ -9,7 +9,7 @@ const config = {
         "plugin:jest/recommended"
     ],
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "jest"],
+    plugins: ["@typescript-eslint", "jest", "eslint-plugin-parjs"],
     rules: {
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-namespace": "error",
@@ -18,7 +18,8 @@ const config = {
         "@typescript-eslint/no-shadow": "error",
         "no-shadow": "off",
         "@typescript-eslint/consistent-type-imports": "error",
-        "@typescript-eslint/consistent-type-exports": "error"
+        "@typescript-eslint/consistent-type-exports": "error",
+        "parjs/no-debug-method": "error"
     },
 
     parserOptions: {
