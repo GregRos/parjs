@@ -20,7 +20,7 @@ import {
     upper,
     whitespace
 } from "../../../lib";
-import { then } from "../../../lib/combinators";
+import { many, then } from "../../../lib/combinators";
 
 const uState = {};
 
@@ -278,6 +278,19 @@ describe("basic string parsers", () => {
         });
         it("fails on long input", () => {
             expect(parser.parse(longInput)).toBeFailure();
+        });
+
+        it("succeeds when used repeatedly", () => {
+            const repeatedParser = stringLen(1).pipe(many());
+            expect(repeatedParser.parse("abcdefg")).toBeSuccessful([
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f",
+                "g"
+            ]);
         });
     });
 

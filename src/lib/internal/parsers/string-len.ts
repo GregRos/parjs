@@ -19,7 +19,7 @@ class StringLen extends ParjserBase<string> {
             return;
         }
         ps.position += length;
-        ps.value = input.substring(position, length);
+        ps.value = input.substring(position, position + length);
         ps.kind = ResultKind.Ok;
     }
 }
