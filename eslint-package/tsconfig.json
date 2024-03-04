@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "allowJs": true,
+    "checkJs": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["lib/**/*.js", "tests/**/*.js"]
+}
