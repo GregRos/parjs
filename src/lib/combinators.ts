@@ -6,6 +6,7 @@ export {
     flatten,
     later,
     many,
+    many1,
     manyBetween,
     manySepBy,
     manyTill,
