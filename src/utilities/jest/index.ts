@@ -1,6 +1,6 @@
 import { expect } from "@jest/globals";
 import type { MatcherFunction, SyncExpectationResult } from "expect";
-import type { ResultKind } from "../../lib";
+import type { ResultKind } from "../../lib/internal/result";
 import { isParjsFailure, isParjsResult, isParjsSuccess } from "../../lib/internal/result";
 
 // helper
@@ -9,7 +9,7 @@ const fail = (message: string): SyncExpectationResult => ({
     message: () => message
 });
 
-const toBeSuccessful: MatcherFunction<[value: unknown]> =
+export const toBeSuccessful: MatcherFunction<[value: unknown]> =
     // jest recommends to type the parameters as `unknown` and to validate the values
     function (actual: unknown, expected: unknown): SyncExpectationResult {
         if (!isParjsResult(actual)) {
@@ -46,7 +46,7 @@ const toBeSuccessful: MatcherFunction<[value: unknown]> =
         };
     };
 
-const toBeFailure: MatcherFunction<[kind?: string]> = function (
+export const toBeFailure: MatcherFunction<[kind?: string]> = function (
     actual: unknown,
     expected: unknown
 ): SyncExpectationResult {
@@ -84,12 +84,10 @@ expect.extend({
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace jest {
-        interface Matchers<R> {
+    export namespace jest {
+        export interface Matchers<R> {
             toBeSuccessful<T>(value?: T): R;
             toBeFailure(kind?: ResultKind): R;
         }
     }
 }
-
-export {};

@@ -2,7 +2,7 @@ import path from "path";
 
 /** @type {import("jest").Config} */
 const config = {
-    setupFilesAfterEnv: [path.join("<rootDir>", "src", "test", "helpers", "jest-setup.ts")],
+    setupFilesAfterEnv: [path.join("<rootDir>", "src", "utilities", "jest", "index.ts")],
     testEnvironment: "node",
     testPathIgnorePatterns: ["dist"],
     transform: {

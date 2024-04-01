@@ -21,6 +21,12 @@
       "import": "./dist/lib/internal.js",
       "default": "./dist/lib/internal.js",
       "types": "./dist/lib/internal.d.ts"
+    },
+    "./utilities": {
+      "require": "./dist/utilities/index.js",
+      "import": "./dist/utilities/index.js",
+      "default": "./dist/utilities/index.js",
+      "types": "./dist/utilities/index.d.ts"
     }
   },
   "typings": "dist/lib/index",
