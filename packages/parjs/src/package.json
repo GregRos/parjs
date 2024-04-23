@@ -112,8 +112,9 @@
     "README.md"
   ],
   "scripts": {
-    "test": "jest --coverage",
-    "build": "tsc",
+    "test": "jest",
+    "test:cov": "jest --coverage",
+    "build": "tsc -b .",
     "clean": "shx rm -rf dist",
     "rebuild": "run-s clean build",
     "docs": "typedoc --out docs",
@@ -122,8 +123,7 @@
     "lint:fix": "run-s eslint:fix prettier:fix",
     "lint:check": "run-s -c prettier eslint",
     "prettier:fix": "prettier --write .",
-    "prettier": "prettier --check .",
-    "prepare": "husky"
+    "prettier": "prettier --check ."
   },
   "husky": {
     "hooks": {
@@ -170,8 +170,6 @@
     "shelljs": "0.8.5",
     "shx": "0.3.4",
     "ts-node": "10.9.1",
-    "typedoc": "0.25.13",
-    "typedoc-plugin-internal-external": "2.2.0",
     "typescript": "5.3.3"
   },
   "packageManager": "yarn@4.1.1",

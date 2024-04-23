@@ -1,12 +1,14 @@
 {
   "name": "parjs-examples",
-  "license": "MIT",
+  "private": true,
   "dependencies": {
     "parjs": "*"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "@types/node": "20.9.1"
+
   },
   "packageManager": "yarn@4.1.1"
 }

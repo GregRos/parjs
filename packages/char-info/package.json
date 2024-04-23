@@ -1,22 +1,12 @@
 {
   "name": "char-info",
   "version": "0.3.1",
-  "repository": "https://github.com/GregRos/char-info",
-  "homepage": "https://github.com/GregRos/char-info",
-  "typings": "index",
-  "description": "Unicode character information library. For both server-side and client-side use.",
-  "main": "index.js",
-  "scripts": {
-    "test": "nyc node_modules/ava/cli.js --files='dist/test/unit/**/*.js' --verbose",
-    "build": "rm -rf dist && tsc",
-    "gen-docs": "node ./dist/generate-docs/run.js"
-  },
-  "sideEffects": false,
+  "description": "Unicode character information library.",
   "keywords": [
     "text",
     "string",
     "character",
-    "parser",
+    "char",
     "indicator",
     "isUpper",
     "isLower",
@@ -24,47 +14,62 @@
     "utf8",
     "utf16"
   ],
-  "author": "Greg Rosenbaum",
+  "homepage": "https://char-info.parjs.org",
+  "repository": "https://github.com/GregRos/char-info",
   "license": "MIT",
-  "dependencies": {
-    "node-interval-tree": "^1.3.3"
+  "author": "GregRos <work.gregr@gmail.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
-  "devDependencies": {
-    "@types/globby": "^9.1.0",
-    "@types/shelljs": "^0.8.5",
-    "ava": "^2.1.0",
-    "codecov": "^2.1.0",
-    "globby": "^9.2.0",
-    "jasmine-spec-reporter": "^2.7.0",
-    "lodash": "^4.17.4",
-    "nyc": "13.3.0",
-    "retarget-sourcemaps-after-move": "0.1.1",
-    "shelljs": "^0.8.3",
-    "source-map-support": "^0.4.14",
-    "tslint": "^5.17.0",
-    "tslint-config-gregros": "^1.1.0",
-    "typedoc": "^0.14.2",
-    "typedoc-plugin-example-tag": "^1.0.2",
-    "typedoc-plugin-external-module-name": "^2.1.0",
-    "typedoc-plugin-internal-external": "^2.0.2",
-    "typescript": "^3.5.1"
+  "main": "dist/index.js",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.ts"
+      ]
+    }
   },
-  "optionalDependencies": {},
-  "module": "_es2015/index.js",
+  "typings": "dist/index",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE.md",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "gen-docs": "node ./dist/generate-docs/run.js",
+    "test": "nyc node_modules/ava/cli.js --files='dist/test/unit/**/*.js' --verbose"
+  },
   "ava": {
     "files": [
       "dist/test/unit/**/*.js"
     ]
   },
   "nyc": {
-    "produce-source-map": true,
     "include": [
       "dist/lib/**/*.js"
     ],
+    "produce-source-map": true,
     "reporter": [
       "lcov",
       "text-summary"
     ],
     "sourceMap": true
+  },
+  "dependencies": {
+    "node-interval-tree": "^1.3.3"
+  },
+  "devDependencies": {
+    "ava": "^2.1.0",
+    "typescript": "^3.5.1"
   }
 }

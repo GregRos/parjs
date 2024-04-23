@@ -1,19 +1,15 @@
 {
+  "references": [
+    {
+      "path": "./packages/parjs/tsconfig.json"
+    },
+    {
+      "path": "./packages/char-info/tsconfig.json"
+    }
+  ],
   "compilerOptions": {
-    "strict": true,
-    "noImplicitOverride": true,
-    "module": "CommonJS",
-    "target": "ES2020",
-    "types": ["jest"],
-    "sourceMap": true,
-    "declaration": true,
-    "rootDir": "src",
-    "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "strictNullChecks": true
+    "module": "commonjs",
+    "noEmit": true
   },
-  "include": ["src/**/*.ts", "packages/parjs/test/utilities/index.ts"],
-  "exclude": ["dist", "node_modules"]
+  "files": []
 }

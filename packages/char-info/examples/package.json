@@ -1,10 +1,12 @@
 {
   "name": "char-info-examples",
+  "private": true,
   "license": "MIT",
   "dependencies": {
     "char-info": "*"
   },
   "devDependencies": {
+    "@types/node": "20.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },

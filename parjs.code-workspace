@@ -1,0 +1,37 @@
+{
+    "folders": [
+        {
+            "path": "./packages/parjs",
+            "name": "parjs"
+        },
+        {
+            "path": "./packages/char-info",
+            "name": "char-info"
+        },
+        {
+            "path": ".",
+            "name": "root"
+        }
+    ],
+    "settings": {
+        "jest.disabledWorkspaceFolders": ["root"],
+        "files.exclude": {
+            "packages": true
+        },
+        "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+        // GregRos @ 2024
+        // For this to work, you need the 'APC Customize UI++' extension.
+        // It will color the rows in the explorer view based on the workspace folder.
+        // Even if you don't use the extension, please don't remove it, unless you don't know who I am.
+        "apc.stylesheet": {
+            ".explorer-folders-view.explorer-folders-view .monaco-list-row:has(.monaco-icon-label[aria-label*='packages\\\\parjs'])": {
+                "background-image": "linear-gradient(to right, #0E5DE610, transparent)",
+                "border-left": "2px solid #7DADFF7D"
+            },
+            ".explorer-folders-view.explorer-folders-view .monaco-list-row:has(.monaco-icon-label[aria-label*='packages\\\\char-info'])": {
+                "background-image": "linear-gradient(to right, #6EED1314, transparent)",
+                "border-left": "2px solid #6EED137C"
+            }
+        }
+    }
+}

@@ -1,0 +1,88 @@
+name: PUBLISH CHAR-INFO
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "packages/char-info/**"
+      - ".github/workflows/char-info.push.yaml"
+      - "yaml.lock"
+      - ".*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build_deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version:
+          - 20.9.0
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - name: CHECKOUT CODE
+        uses: actions/checkout@v4
+
+      - name: SETUP NODE.JS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.9.0"
+          cache: yarn
+          registry-url: "https://registry.yarnpkg.com"
+
+      - name: SETUP YARN
+        run: |
+          corepack enable
+          yarn set version stable
+
+      - name: INSTALL
+        run: yarn install --immutable
+
+      - name: BUILD
+        run: yarn workspaces foreach -Rpt --from '{char-info,char-info}' run build
+
+      - name: LINT
+        run: yarn workspace char-info run lint:check
+
+      - name: TEST
+        run: yarn workspace char-info run test:coverage
+
+      - name: UPLOAD COVERAGE REPORT
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-path: packages/char-info
+
+      # - name: GENERATE DOCS
+      #   run: yarn workspace char-info run docs
+
+      # - name: SETUP PAGES
+      #   uses: actions/configure-pages@v3
+
+      # - name: UPLOAD PAGES ARTIFACT
+      #   uses: actions/upload-pages-artifact@v2
+      #   with:
+      #     path: "packages/char-info/docs"
+
+      # - name: DEPLOY PAGES
+      #   id: deployment
+      #   uses: actions/deploy-pages@v2
+
+      - name: SETUP PUBLISH TOKEN
+        run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
+
+      - name: PUBLISH CHAR-INFO PACKAGE
+        working-directory: packages/char-info
+        run: yarn npm publish --access public
