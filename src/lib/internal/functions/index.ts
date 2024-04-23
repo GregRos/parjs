@@ -1,5 +1,6 @@
 /**
  * Recursively applies join to an array of arrays.
+ *
  * @param arr
  */
 type StringOrArray = string | StringOrArray[];

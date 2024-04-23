@@ -19,8 +19,8 @@ class Backtrack<T> extends Combinated<T, T> {
 }
 
 /**
- * Applies the source parser. If it succeeds, backtracks to the current position in the input
- * and yields the result.
+ * Applies the source parser. If it succeeds, backtracks to the current position in the input and
+ * yields the result.
  */
 export function backtrack<T>(): ParjsCombinator<T, T> {
     return defineCombinator<T, T>(source => {

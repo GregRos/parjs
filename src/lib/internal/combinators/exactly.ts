@@ -35,6 +35,7 @@ class Exactly<T> extends Combinated<T, T[]> {
 
 /**
  * Applies the source parser exactly `count` times, and yields all the results in an array.
+ *
  * @param count The number of times to apply the source parser.
  */
 export function exactly(count: number) {

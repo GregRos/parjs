@@ -60,8 +60,9 @@ class ManyTill<TSource, TTill, TResult> extends Combinated<TSource, TResult> {
 }
 
 /**
- * Tries to apply the source parser repeatedly until `till` succeeds. Yields
- * the results of the source parser in an array.
+ * Tries to apply the source parser repeatedly until `till` succeeds. Yields the results of the
+ * source parser in an array.
+ *
  * @param till The parser that indicates iteration should stop.
  * @param pProject A projection to apply on the captured results.
  */
@@ -89,9 +90,9 @@ export function manyTill<TSource, TTill, TResult = TSource[]>(
 }
 
 /**
- * Applies `start` and then repeatedly applies the source parser until
- * `pTill` succeeds. Similar to a mix of `between` and `manyTill`. Yields the
- * results of the source parser in an array.
+ * Applies `start` and then repeatedly applies the source parser until `pTill` succeeds. Similar to
+ * a mix of `between` and `manyTill`. Yields the results of the source parser in an array.
+ *
  * @param start The initial parser to apply.
  * @param pTill Optionally, the terminator. Defaults to `start`.
  * @param projection Optionally, a projection to apply on the captured results.

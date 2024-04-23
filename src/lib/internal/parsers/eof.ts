@@ -21,8 +21,8 @@ class Eof<T> extends ParjserBase<T> {
 
 /**
  * Returns a parser that succeeds if there is no more input.
- * @param result Optionally, the result the parser will yield. Defaults to
- * undefined.
+ *
+ * @param result Optionally, the result the parser will yield. Defaults to undefined.
  */
 export function eof<T = undefined>(result?: T): Parjser<T> {
     return new Eof(result);

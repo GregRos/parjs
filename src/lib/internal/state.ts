@@ -1,70 +1,44 @@
 import { ResultKind } from "./result";
 
-/**
- * Container type for user state data.
- */
+/** Container type for user state data. */
 export interface UserState {
     [key: string]: unknown;
 }
 
-/**
- * Maintains progress for parsing a single input.
- */
+/** Maintains progress for parsing a single input. */
 export interface ParsingState {
-    /**
-     * The original string input on which parsing is performed. Should not be mutated while parsing.
-     */
+    /** The original string input on which parsing is performed. Should not be mutated while parsing. */
     readonly input: string;
-    /**
-     * The next character waiting to be parsed.
-     */
+    /** The next character waiting to be parsed. */
     position: number;
-    /**
-     * The value from the last parser action performed on this state.
-     */
+    /** The value from the last parser action performed on this state. */
     value: unknown;
-    /**
-     * Additional state data.
-     */
+    /** Additional state data. */
     userState: UserState;
 
-    /**
-     * Initial user state.
-     */
+    /** Initial user state. */
     readonly initialUserState: UserState | undefined;
 
-    /**
-     * A stack that indicates entered parsers. Should not be modified by user code.
-     */
+    /** A stack that indicates entered parsers. Should not be modified by user code. */
     stack: {
         type: string;
         expecting: string;
     }[];
 
     /**
-     * If the result is a failure, this field will indicate the reason for the failure.
-     * If the result is OK, this must be undefined.
+     * If the result is a failure, this field will indicate the reason for the failure. If the
+     * result is OK, this must be undefined.
      */
     reason: string | undefined;
-    /**
-     * The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure.
-     */
+    /** The result of the last parser action: OK, SoftFailure, HardFailure, FatalFailure. */
     kind: ResultKind;
-    /**
-     * Shorthand for this.result == Okay
-     */
+    /** Shorthand for this.result == Okay */
     readonly isOk: boolean;
-    /**
-     * Shorthand for this.result == SoftFailure
-     */
+    /** Shorthand for this.result == SoftFailure */
     readonly isSoft: boolean;
-    /**
-     * Shorthand for this.result == HardFailure
-     */
+    /** Shorthand for this.result == HardFailure */
     readonly isHard: boolean;
-    /**
-     * Shorthand for this.result == FatalFailure
-     */
+    /** Shorthand for this.result == FatalFailure */
     readonly isFatal: boolean;
 
     atLeast(kind: ResultKind): boolean | undefined;
@@ -87,9 +61,7 @@ function worseThan(a: ResultKind, b: ResultKind): boolean | undefined {
     }
 }
 
-/**
- * Basic implementation of the ParsingState interface.
- */
+/** Basic implementation of the ParsingState interface. */
 export class BasicParsingState<TValue> implements ParsingState {
     position = 0;
     stack = [];
@@ -128,12 +100,11 @@ export class BasicParsingState<TValue> implements ParsingState {
     }
 }
 
-/**
- * A unique object value indicating the reuslt of a failed parser.
- */
+/** A unique object value indicating the reuslt of a failed parser. */
 export const FAIL_RESULT = Object.create(null);
 /**
- * A unique object value indicating that a parser did not initialize the ParsingState's value property before terminating, which is an error.
+ * A unique object value indicating that a parser did not initialize the ParsingState's value
+ * property before terminating, which is an error.
  */
 export const UNINITIALIZED_RESULT = Object.create(null);
 

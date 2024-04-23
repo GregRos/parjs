@@ -30,9 +30,7 @@ class Str extends Combinated<unknown, string> {
     }
 }
 
-/**
- * Applies the source parser and yields a stringified result.
- */
+/** Applies the source parser and yields a stringified result. */
 export function stringify(): ParjsCombinator<unknown, string> {
     return source => new Str(wrapImplicit(source));
 }

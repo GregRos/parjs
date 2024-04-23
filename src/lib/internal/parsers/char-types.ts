@@ -16,24 +16,17 @@ import { many, must, stringify } from "../combinators";
 import { charWhere } from "./char-where";
 import { stringLen } from "./string-len";
 
-/**
- * Returns a parser that parses any single character. Equivalent
- * to `stringLen(1)`.
- */
+/** Returns a parser that parses any single character. Equivalent to `stringLen(1)`. */
 export function anyChar(): Parjser<string> {
     return stringLen(1);
 }
 
-/**
- * Returns a parser that parses a single space (`[ \t]`).
- */
+/** Returns a parser that parses a single space (`[ \t]`). */
 export function space(): Parjser<string> {
     return charWhere(x => isSpace(x) || { reason: "expecting a space" });
 }
 
-/**
- * Returns a parser that parses at least one ASCII inline space.
- */
+/** Returns a parser that parses at least one ASCII inline space. */
 export function spaces1(): Parjser<string> {
     return space().pipe(
         many(),
@@ -49,6 +42,7 @@ export function spaces1(): Parjser<string> {
 
 /**
  * Returns a parser that parses any character in the string `options`.
+ *
  * @param options A string of alternative characters.
  */
 export function anyCharOf(options: string): Parjser<string> {
@@ -62,6 +56,7 @@ export function anyCharOf(options: string): Parjser<string> {
 
 /**
  * Returns a parser that parses any character not in the string `exclusions`.
+ *
  * @param exclusions A string of characters to exclude.
  */
 export function noCharOf(exclusions: string): Parjser<string> {
@@ -73,9 +68,7 @@ export function noCharOf(exclusions: string): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single ASCII letter.
- */
+/** Returns a parser that parses a single ASCII letter. */
 export function letter(): Parjser<string> {
     return charWhere(
         x =>
@@ -85,9 +78,7 @@ export function letter(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single Unicode letter.
- */
+/** Returns a parser that parses a single Unicode letter. */
 export function uniLetter(): Parjser<string> {
     return charWhere(
         x =>
@@ -97,9 +88,7 @@ export function uniLetter(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single digit in base `base`.
- */
+/** Returns a parser that parses a single digit in base `base`. */
 export function digit(base = 10): Parjser<string> {
     return charWhere(
         x =>
@@ -109,9 +98,7 @@ export function digit(base = 10): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single Unicode decimal digit.
- */
+/** Returns a parser that parses a single Unicode decimal digit. */
 export function uniDecimal(): Parjser<string> {
     return charWhere(
         x =>
@@ -121,9 +108,7 @@ export function uniDecimal(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single Unicode upper-case character.
- */
+/** Returns a parser that parses a single Unicode upper-case character. */
 export function uniUpper(): Parjser<string> {
     return charWhere(
         x =>
@@ -133,9 +118,7 @@ export function uniUpper(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single hex digit.
- */
+/** Returns a parser that parses a single hex digit. */
 export function hex(): Parjser<string> {
     return charWhere(
         x =>
@@ -145,9 +128,7 @@ export function hex(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single ASCII lowercase letter.
- */
+/** Returns a parser that parses a single ASCII lowercase letter. */
 export function lower(): Parjser<string> {
     return charWhere(
         x =>
@@ -157,9 +138,7 @@ export function lower(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single uppercase ASCII letter.
- */
+/** Returns a parser that parses a single uppercase ASCII letter. */
 export function upper(): Parjser<string> {
     return charWhere(
         x =>
@@ -169,9 +148,7 @@ export function upper(): Parjser<string> {
     );
 }
 
-/**
- * Returns a parser that parses a single lowercase Unicode letter.
- */
+/** Returns a parser that parses a single lowercase Unicode letter. */
 export function uniLower(): Parjser<string> {
     return charWhere(
         x =>
@@ -182,8 +159,8 @@ export function uniLower(): Parjser<string> {
 }
 
 /**
- * Returns a parser that parses any amount of ASCII whitespace characters
- * and yields the parsed text.
+ * Returns a parser that parses any amount of ASCII whitespace characters and yields the parsed
+ * text.
  */
 export function whitespace(): Parjser<string> {
     return charWhere(

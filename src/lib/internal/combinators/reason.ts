@@ -36,12 +36,16 @@ class Expects<T> extends Combinated<T, T> {
 
 /**
  * Applies the source parser, modifying the failure reason to the given message if it fails Softly.
- * Useful for providing the user with a more meaningful error message than was is provided by default.
+ * Useful for providing the user with a more meaningful error message than was is provided by
+ * default.
+ *
  * @param message The new message.
  */
 export function reason<T>(message: string): ParjsCombinator<T, T>;
 /**
- * Applies the source parser. If it fails, calls `onFailure` with the failure info and uses the returned string as the new failure reason.
+ * Applies the source parser. If it fails, calls `onFailure` with the failure info and uses the
+ * returned string as the new failure reason.
+ *
  * @param onFailure A function that takes the failure info and returns the new reason.
  */
 export function reason<T>(onFailure: (failure: FailureInfo) => string): ParjsCombinator<T, T>;

@@ -31,8 +31,9 @@ class ThenPick<A, B> extends Combinated<A, B> {
 }
 
 /**
- * Applies the source parser, and then applies a selector on the source parser's
- * result and user state to choose or create the parser to apply next.
+ * Applies the source parser, and then applies a selector on the source parser's result and user
+ * state to choose or create the parser to apply next.
+ *
  * @param selector
  */
 export function thenPick<A, B>(

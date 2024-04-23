@@ -80,14 +80,15 @@ class ManySepBy<E, Sep> extends Combinated<E, ArrayWithSeparators<E, Sep>> {
 }
 
 /**
- * Applies the source parser repeatedly until it fails softly, with each pair of
- * applications separated by applying `delimeter`. Also terminates if `delimeter`
- * fails softly. Yields all the results of the source parser in an array.
- * @param delimeter Parser that separates two applications of the source.
- * @param max Optionally, then maximum number of times to apply the source
- * parser. Defaults to `Infinity`.
+ * Applies the source parser repeatedly until it fails softly, with each pair of applications
+ * separated by applying `delimeter`. Also terminates if `delimeter` fails softly. Yields all the
+ * results of the source parser in an array.
+ *
  * @template E The type of the source parser.
  * @template Sep The type of the delimeter (separator) parser.
+ * @param delimeter Parser that separates two applications of the source.
+ * @param max Optionally, then maximum number of times to apply the source parser. Defaults to
+ *   `Infinity`.
  */
 export function manySepBy<E, Sep>(
     delimeter: ImplicitParjser<Sep>,

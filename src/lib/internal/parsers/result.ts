@@ -17,8 +17,8 @@ class Result<T> extends ParjserBase<T> {
 }
 
 /**
- * Returns a parser that succeeds without consuming input and yields the
- * constant `value`.
+ * Returns a parser that succeeds without consuming input and yields the constant `value`.
+ *
  * @param value The value the returned parser will yield.
  */
 export function result<T>(value: T): Parjser<T> {

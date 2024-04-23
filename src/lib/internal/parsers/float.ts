@@ -7,9 +7,7 @@ import { defaults } from "../../utils";
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 
-/**
- * A set of options for parsing floating point numbers.
- */
+/** A set of options for parsing floating point numbers. */
 export interface FloatOptions {
     allowSign: boolean;
     allowImplicitZero: boolean;
@@ -153,8 +151,8 @@ class Float extends ParjserBase<number> {
 }
 
 /**
- * Returns a parser that will parse a single floating point number, in decimal
- * or scientific form.
+ * Returns a parser that will parse a single floating point number, in decimal or scientific form.
+ *
  * @param options Options for parsing the floating-point number.
  */
 export function float(options: Partial<FloatOptions> = defaultFloatOptions): Parjser<number> {

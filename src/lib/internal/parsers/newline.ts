@@ -43,16 +43,16 @@ class Newline extends ParjserBase<string> {
 }
 
 /**
- * Parses an ASCII newline, which can be a single character or the sequence
- * `\r\n`. Yields the text that was parsed.
+ * Parses an ASCII newline, which can be a single character or the sequence `\r\n`. Yields the text
+ * that was parsed.
  */
 export function newline(): Parjser<string> {
     return new Newline();
 }
 
 /**
- * Parses a Unicode newline, which includes ASCII newline strings as well as
- * other vertical separators such as PARAGRAPH SEPARATOR.
+ * Parses a Unicode newline, which includes ASCII newline strings as well as other vertical
+ * separators such as PARAGRAPH SEPARATOR.
  */
 export function uniNewline(): Parjser<string> {
     return new Newline(uniIsNewline.code);

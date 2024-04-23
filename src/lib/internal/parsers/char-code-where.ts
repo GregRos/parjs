@@ -34,6 +34,7 @@ class CharCodeWhere extends ParjserBase<string> {
 
 /**
  * Returns a parser that parses one character, and checks its code fulfills `predicate`.
+ *
  * @param predicate
  */
 export function charCodeWhere(predicate: ParjsValidator<number>): Parjser<string> {

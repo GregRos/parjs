@@ -24,9 +24,7 @@ class Not extends Combinated<unknown, void> {
     }
 }
 
-/**
- * Applies the source parser. Succeeds if if it fails softly, and fails otherwise.
- */
+/** Applies the source parser. Succeeds if if it fails softly, and fails otherwise. */
 export function not(): ParjsCombinator<unknown, void> {
     return source => new Not(wrapImplicit(source));
 }

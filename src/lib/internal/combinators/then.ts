@@ -11,8 +11,8 @@ import { map } from "./map";
 import type { getParsedType } from "../util-types";
 
 /**
- * Applies the source parser followed by `next`. Yields the result of
- * `next`.
+ * Applies the source parser followed by `next`. Yields the result of `next`.
+ *
  * @param next
  */
 export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<unknown, T> {
@@ -23,8 +23,8 @@ export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<unknown, T> 
 }
 
 /**
- * Applies the source parser followed by `next`. Yields the result of
- * the source parser.
+ * Applies the source parser followed by `next`. Yields the result of the source parser.
+ *
  * @param next
  */
 export function thenq<T>(next: ImplicitParjser<unknown>): ParjsCombinator<T, T> {

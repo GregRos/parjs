@@ -25,8 +25,8 @@ class StringLen extends ParjserBase<string> {
 }
 
 /**
- * Returns a parser that parses exactly `length` characters and yields the
- * text that was parsed.
+ * Returns a parser that parses exactly `length` characters and yields the text that was parsed.
+ *
  * @param length The number of characters to parse.
  */
 export function stringLen(length: number): Parjser<string> {

@@ -3,7 +3,7 @@
   "arrowParens": "avoid",
   "trailingComma": "none",
   "printWidth": 100,
-  "endOfLine": "auto",
+  "endOfLine": "lf",
   "overrides": [
     {
       "files": "*.{json,yml,yaml}",
@@ -13,5 +13,9 @@
       }
     }
   ],
-  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-packagejson"]
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-packagejson",
+    "prettier-plugin-jsdoc"
+  ]
 }

@@ -48,10 +48,11 @@ class Many1<T> extends Combinated<T, [T, ...T[]]> {
 }
 
 /**
- * Applies the source parser 1 or more times until it fails softly. Yields all
- * of its results in an array.
- * @param maxIterations Optionally, the maximum number of times to apply
- * the source parser. Defaults to `Infinity`.
+ * Applies the source parser 1 or more times until it fails softly. Yields all of its results in an
+ * array.
+ *
+ * @param maxIterations Optionally, the maximum number of times to apply the source parser. Defaults
+ *   to `Infinity`.
  */
 export function many1<T>(maxIterations = Infinity): ParjsCombinator<T, [T, ...T[]]> {
     return source => new Many1<T>(wrapImplicit(source), maxIterations);

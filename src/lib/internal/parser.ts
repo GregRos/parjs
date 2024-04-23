@@ -25,9 +25,7 @@ function getErrorLocation(ps: ParsingState) {
     } as ErrorLocation;
 }
 
-/**
- * A marker class used for storing the parser's user state.
- */
+/** A marker class used for storing the parser's user state. */
 export class ParserUserState implements UserState {
     [key: string]: unknown;
 }
@@ -68,8 +66,9 @@ export const defaultDebugFunction: ParjserDebugFunction = <T>(
 };
 
 /**
- * Returns a parser that will parse the string `str` and yield the text
- * that was parsed. If it can't, it will fail softly without consuming input.
+ * Returns a parser that will parse the string `str` and yield the text that was parsed. If it
+ * can't, it will fail softly without consuming input.
+ *
  * @param str The string to parse.
  */
 export function string<T extends string>(str: T): Parjser<T> {
@@ -77,8 +76,8 @@ export function string<T extends string>(str: T): Parjser<T> {
 }
 
 /**
- * The internal base Parjs parser class, which supports only basic parsing
- * operations. Should not be used in user code.
+ * The internal base Parjs parser class, which supports only basic parsing operations. Should not be
+ * used in user code.
  */
 export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     abstract type: string;
@@ -99,6 +98,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
 
     /**
      * Apply the parser to the given state.
+     *
      * @param ps The parsing state.
      */
     apply(ps: ParsingState): void {
@@ -142,6 +142,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
 
     /**
      * The internal operation performed by the PARSER. This will be overriden by derived classes.
+     *
      * @param ps
      */
     protected abstract _apply(ps: ParsingState): void;
@@ -232,10 +233,10 @@ class Regexp extends ParjserBase<string[]> {
 }
 
 /**
- * Returns a parser that will try to match the regular expression at the current
- * position and yield the result set. If it can't, the parser will fail softly.
- * The match must start at the current position. It can't skip any part of the
- * input.
+ * Returns a parser that will try to match the regular expression at the current position and yield
+ * the result set. If it can't, the parser will fail softly. The match must start at the current
+ * position. It can't skip any part of the input.
+ *
  * @param origRegexp
  */
 export function regexp(origRegexp: RegExp): Parjser<string[]> {
