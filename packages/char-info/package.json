@@ -1,0 +1,70 @@
+{
+  "name": "char-info",
+  "version": "0.3.1",
+  "repository": "https://github.com/GregRos/char-info",
+  "homepage": "https://github.com/GregRos/char-info",
+  "typings": "index",
+  "description": "Unicode character information library. For both server-side and client-side use.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc node_modules/ava/cli.js --files='dist/test/unit/**/*.js' --verbose",
+    "build": "rm -rf dist && tsc",
+    "gen-docs": "node ./dist/generate-docs/run.js"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "text",
+    "string",
+    "character",
+    "parser",
+    "indicator",
+    "isUpper",
+    "isLower",
+    "unicode",
+    "utf8",
+    "utf16"
+  ],
+  "author": "Greg Rosenbaum",
+  "license": "MIT",
+  "dependencies": {
+    "node-interval-tree": "^1.3.3"
+  },
+  "devDependencies": {
+    "@types/globby": "^9.1.0",
+    "@types/shelljs": "^0.8.5",
+    "ava": "^2.1.0",
+    "codecov": "^2.1.0",
+    "globby": "^9.2.0",
+    "jasmine-spec-reporter": "^2.7.0",
+    "lodash": "^4.17.4",
+    "nyc": "13.3.0",
+    "retarget-sourcemaps-after-move": "0.1.1",
+    "shelljs": "^0.8.3",
+    "source-map-support": "^0.4.14",
+    "tslint": "^5.17.0",
+    "tslint-config-gregros": "^1.1.0",
+    "typedoc": "^0.14.2",
+    "typedoc-plugin-example-tag": "^1.0.2",
+    "typedoc-plugin-external-module-name": "^2.1.0",
+    "typedoc-plugin-internal-external": "^2.0.2",
+    "typescript": "^3.5.1"
+  },
+  "optionalDependencies": {},
+  "module": "_es2015/index.js",
+  "ava": {
+    "files": [
+      "dist/test/unit/**/*.js"
+    ]
+  },
+  "nyc": {
+    "produce-source-map": true,
+    "include": [
+      "dist/lib/**/*.js"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "sourceMap": true
+  }
+}
