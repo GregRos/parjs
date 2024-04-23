@@ -1,19 +1,15 @@
 /**
- * This is a simple yet powerful parser for mathematical expressions meant to demonstrate the power of Parjs.
- * It takes in a string such as:
- *      1 + 3 * 2
- * And outputs an AST such as:
- *      +(1, *(3, 2))
- * It can then evaluate the AST to get the result.
- * Some important features:
- *  1. Supports floating point numbers
- *  2. Maintains precedence and order of operations
- *  3. Maintains associativity
- *  4. Allows the use of parentheses
- *  5. Implemented as a recursive descent parser, which works well for simple
- *     grammars such as this one. Each level of precedence is implemented as a
- *     separate parser.
- *  6. Easily extendable by the addition of custom functions, variables, and more operators.
+ * This is a simple yet powerful parser for mathematical expressions meant to demonstrate the power
+ * of Parjs. It takes in a string such as: 1 + 3 * 2 And outputs an AST such as: +(1, *(3, 2)) It
+ * can then evaluate the AST to get the result. Some important features:
+ *
+ * 1. Supports floating point numbers
+ * 2. Maintains precedence and order of operations
+ * 3. Maintains associativity
+ * 4. Allows the use of parentheses
+ * 5. Implemented as a recursive descent parser, which works well for simple grammars such as this one.
+ *    Each level of precedence is implemented as a separate parser.
+ * 6. Easily extendable by the addition of custom functions, variables, and more operators.
  */
 import type { Parjser } from "../lib";
 import { float, string } from "../lib";

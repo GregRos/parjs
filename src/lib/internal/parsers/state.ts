@@ -14,9 +14,7 @@ class State<T> extends ParjserBase<T> {
     }
 }
 
-/**
- * Returns a parser that yields the current user state object. It always succeeds.
- */
+/** Returns a parser that yields the current user state object. It always succeeds. */
 export function state<T>(): Parjser<T> {
     return new State();
 }

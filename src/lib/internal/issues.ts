@@ -1,12 +1,10 @@
 import { ParserDefinitionError } from "../errors";
 
-/**
- * Some canned error throwers.
- */
+/** Some canned error throwers. */
 export const Issues = {
     /**
-     * Throws an error saying that the parser is about to enter an infinite
-     * loop.
+     * Throws an error saying that the parser is about to enter an infinite loop.
+     *
      * @param name
      */
     guardAgainstInfiniteLoop(name: string): never {

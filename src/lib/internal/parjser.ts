@@ -3,26 +3,20 @@ import type { FailureInfo, ParjsResult } from "./result";
 import type { ParsingState, UserState } from "./state";
 import type { ImplicitParjser } from "./wrap-implicit";
 
-/**
- * A combinator or operator that takes a source parser that returns a new parser
- * based on it.
- */
+/** A combinator or operator that takes a source parser that returns a new parser based on it. */
 export interface ParjsCombinator<TFrom, TTo> {
     (from: ImplicitParjser<TFrom>): Parjser<TTo>;
 }
 
-/**
- * A projection on the parser result and the parser state.
- */
+/** A projection on the parser result and the parser state. */
 export interface ParjsProjection<T, TOut> {
     (value: T, userState: UserState): TOut;
 }
 
 /**
- * A predicate on the parser result and the user state. This function must
- * return `true` if the input fulfills the predicate, or failure information
- * object if it does not. Returning things other than `true` will make it behave
- * like a failure.
+ * A predicate on the parser result and the user state. This function must return `true` if the
+ * input fulfills the predicate, or failure information object if it does not. Returning things
+ * other than `true` will make it behave like a failure.
  */
 export type ParjsValidator<T> = ParjsProjection<T, Partial<FailureInfo> | true>;
 
@@ -46,22 +40,24 @@ export interface Parjser<out T> {
      * Applies `this` on the given input string.
      *
      * @param input The input string.
-     * @param initialState An object containing properties that are merged with this parse invocation's user state.
-     *
+     * @param initialState An object containing properties that are merged with this parse
+     *   invocation's user state.
      * @group action
      */
     parse(input: string, initialState?: UserState): ParjsResult<T>;
 
     /**
-     * The chaining or piping operator. Applies a sequence of combinators to
-     * this parser, feeding the result of one into the input of the next.
+     * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding
+     * the result of one into the input of the next.
+     *
      * @param cmb1 The single combinator to apply.
      */
     pipe<const T1>(cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
 
     /**
-     * The chaining or piping operator. Applies a sequence of combinators to
-     * this parser, feeding the result of one into the input of the next.
+     * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding
+     * the result of one into the input of the next.
+     *
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      */
@@ -71,8 +67,9 @@ export interface Parjser<out T> {
     ): Parjser<T2>;
 
     /**
-     * The chaining or piping operator. Applies a sequence of combinators to
-     * this parser, feeding the result of one into the input of the next.
+     * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding
+     * the result of one into the input of the next.
+     *
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      * @param cmb3 The third combinator to apply.
@@ -84,8 +81,9 @@ export interface Parjser<out T> {
     ): Parjser<T3>;
 
     /**
-     * The chaining or piping operator. Applies a sequence of combinators to
-     * this parser, feeding the result of one into the input of the next.
+     * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding
+     * the result of one into the input of the next.
+     *
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      * @param cmb3 The third combinator to apply.
@@ -99,8 +97,9 @@ export interface Parjser<out T> {
     ): Parjser<T4>;
 
     /**
-     * The chaining or piping operator. Applies a sequence of combinators to
-     * this parser, feeding the result of one into the input of the next.
+     * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding
+     * the result of one into the input of the next.
+     *
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      * @param cmb3 The third combinator to apply.
@@ -116,8 +115,9 @@ export interface Parjser<out T> {
     ): Parjser<T5>;
 
     /**
-     * The chaining or piping operator. Applies a sequence of combinators to
-     * this parser, feeding the result of one into the input of the next.
+     * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding
+     * the result of one into the input of the next.
+     *
      * @param cmb1 The first combinator to apply.
      * @param cmb2 The second combinator to apply.
      * @param cmb3 The third combinator to apply.
@@ -136,13 +136,14 @@ export interface Parjser<out T> {
 
     /**
      * Returns a copy of this, but with the given default error message.
+     *
      * @param message Description of the input.
      */
     expects(message: string): Parjser<T>;
 
     /**
-     * Returns this parser unchanged, but logs the result of the parse to the
-     * console. This is useful for debugging.
+     * Returns this parser unchanged, but logs the result of the parse to the console. This is
+     * useful for debugging.
      */
     debug(fn?: ParjserDebugFunction): Parjser<T>;
 }

@@ -1,24 +1,17 @@
-/**
- * @module parjs/trace
- */
-/** */
+/** @module parjs/trace */
 import type { Trace } from "./result";
 
 import { defaults } from "../utils";
 import { padInt } from "./functions";
 import type { ParjserBase } from "./parser";
 
-/**
- * A set of arguments for the trace visualizer.
- */
+/** A set of arguments for the trace visualizer. */
 export interface TraceVisualizerArgs {
     lineNumbers: boolean;
     linesBefore: number;
 }
 
-/**
- * A function that prints out a nice visualization of where a parser failed.
- */
+/** A function that prints out a nice visualization of where a parser failed. */
 export interface TraceVisualizer {
     (trace: Trace): string;
     configure(args: Partial<TraceVisualizerArgs>): TraceVisualizer;
@@ -70,7 +63,5 @@ ${stack}
     return visualizer;
 }
 
-/**
- * Visualizes a Parjs failure.
- */
+/** Visualizes a Parjs failure. */
 export const visualizeTrace = newTraceVisualizer(defaultArgs);

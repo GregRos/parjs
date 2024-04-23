@@ -28,6 +28,7 @@ class Each<T> extends Combinated<T, T> {
 
 /**
  * Applies `action` to each result emitted by the source parser and emits its results unchanged.
+ *
  * @param action
  */
 export function each<T>(action: ParjsProjection<T, void>): ParjsCombinator<T, T> {

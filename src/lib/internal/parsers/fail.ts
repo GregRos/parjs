@@ -1,8 +1,4 @@
-/**
- * @module parjs
- */
-/** */
-
+/** @module parjs */
 import { defaults } from "../../utils";
 import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
@@ -16,6 +12,7 @@ const defaultFailure: FailureInfo = {
 
 /**
  * Returns a parser that fails softly with a given reason.
+ *
  * @param reason The reason for the failure.
  */
 export function nope<T>(reason: string): Parjser<T> {
@@ -39,6 +36,7 @@ class Fail<T> extends ParjserBase<T> {
 
 /**
  * Returns a parser that will always fail with the given failure info.
+ *
  * @param pFailure How the parser should fail.
  */
 export function fail<T = never>(pFailure?: Partial<FailureInfo> | string): Parjser<T> {

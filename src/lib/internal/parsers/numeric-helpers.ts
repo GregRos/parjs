@@ -1,9 +1,7 @@
 import { AsciiCodes, isDigitCode } from "char-info/ascii";
 import type { ParsingState } from "../state";
 
-/**
- * Parsing helper.
- */
+/** Parsing helper. */
 export class NumericHelpersType {
     parseDigitsInBase(ps: ParsingState, base: number) {
         let { position } = ps;
@@ -22,6 +20,7 @@ export class NumericHelpersType {
 
     /**
      * Tries to parse a '+' or '-'. Returns the sign that was parsed, or 0 if the parsing failed.
+     *
      * @param ps
      * @returns {number}
      */

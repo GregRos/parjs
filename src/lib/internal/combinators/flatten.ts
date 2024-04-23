@@ -1,9 +1,7 @@
 import type { ParjsCombinator } from "../parjser";
 import { map } from "./map";
 
-/**
- * The type of an arbitrarily nested array or a non-array element.
- */
+/** The type of an arbitrarily nested array or a non-array element. */
 export type NestedArray<T> = T | NestedArray<T>[];
 
 function flattenNestedArrays<T>(arr: NestedArray<T>): T[] {
@@ -22,8 +20,8 @@ function flattenNestedArrays<T>(arr: NestedArray<T>): T[] {
 }
 
 /**
- * Applies the source parser and projects its result into a flat array - an array
- * with non-array elements.
+ * Applies the source parser and projects its result into a flat array - an array with non-array
+ * elements.
  */
 export function flatten<T>(): ParjsCombinator<NestedArray<T>, T[]> {
     return map<NestedArray<T>, T[]>(x => flattenNestedArrays(x));

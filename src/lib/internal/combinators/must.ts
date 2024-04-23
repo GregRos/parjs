@@ -28,6 +28,7 @@ class Must<T> extends Combinated<T, T> {
 
 /**
  * Applies the source parser and makes sure its result fulfills `predicate`.
+ *
  * @param predicate The condition to check for.
  */
 export function must<T>(predicate: ParjsValidator<T>): ParjsCombinator<T, T> {

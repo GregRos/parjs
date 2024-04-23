@@ -1,9 +1,5 @@
-/**
- * Copyright © 2024, Oracle and/or its affiliates.
- */
-/**
- * @module parjs
- */
+/** Copyright © 2024, Oracle and/or its affiliates. */
+/** @module parjs */
 
 import type { Parjser } from "..";
 import { ParjserBase } from "../parser";
@@ -40,9 +36,9 @@ class CaseInsensitiveString extends ParjserBase<string> {
 }
 
 /**
- * Returns a parser that will parse the string `str` insensitive to its case
- * and yield the text that was parsed. If it can't, it will fail softly without
- * consuming input.
+ * Returns a parser that will parse the string `str` insensitive to its case and yield the text that
+ * was parsed. If it can't, it will fail softly without consuming input.
+ *
  * @param str The string to parse case insensitively.
  */
 export function caseString(str: string): Parjser<string> {

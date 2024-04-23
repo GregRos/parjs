@@ -38,6 +38,7 @@ class MustCapture<T> extends Combinated<T, T> {
 
 /**
  * Applies the source parser and makes sure it captured some input.
+ *
  * @param pFailure The failure info.
  */
 export function mustCapture<T>(pFailure?: Partial<FailureInfo>): ParjsCombinator<T, T> {

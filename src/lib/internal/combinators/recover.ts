@@ -5,28 +5,20 @@ import type { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
 import type { ParsingState, UserState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
-/**
- * Information about the failure.
- */
+/** Information about the failure. */
 export interface ParserFailureState {
-    /**
-     * The parser's user state at the moment of failure.
-     */
+    /** The parser's user state at the moment of failure. */
     readonly userState: UserState;
-    /**
-     * The reason reported by the failure.
-     */
+    /** The reason reported by the failure. */
     readonly reason: string | object;
-    /**
-     * The severity of the failure.
-     */
+    /** The severity of the failure. */
     readonly kind: ResultKindFail;
 }
 
 /**
- * Function used to recover from a failure. The `kind`, `reason`, and `value`
- * fields of the result are used to determine the new parser success state.
- * You can return a falsy value to indicate nothing should change.
+ * Function used to recover from a failure. The `kind`, `reason`, and `value` fields of the result
+ * are used to determine the new parser success state. You can return a falsy value to indicate
+ * nothing should change.
  */
 export type RecoveryFunction<T> = (
     failure: ParserFailureState
@@ -61,9 +53,7 @@ class Soft<T> extends Combinated<T, T> {
     }
 }
 
-/**
- * Reduces Hard failures to Soft ones and behaves in the same way on success.
- */
+/** Reduces Hard failures to Soft ones and behaves in the same way on success. */
 export function recover<T>(recoverFunction: RecoveryFunction<T>): ParjsCombinator<T, T> {
     return source => new Soft(wrapImplicit(source), recoverFunction);
 }

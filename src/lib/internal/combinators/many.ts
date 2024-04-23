@@ -45,10 +45,10 @@ class Many<T> extends Combinated<T, T[]> {
 }
 
 /**
- * Applies the source parser until it fails softly, and yields all of its results
- * in an array.
- * @param maxIterations Optionally, the maximum number of times to apply
- * the source parser. Defaults to `Infinity`.
+ * Applies the source parser until it fails softly, and yields all of its results in an array.
+ *
+ * @param maxIterations Optionally, the maximum number of times to apply the source parser. Defaults
+ *   to `Infinity`.
  */
 export function many<T>(maxIterations = Infinity): ParjsCombinator<T, T[]> {
     return (source: ImplicitParjser<T>) => {

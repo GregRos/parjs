@@ -30,6 +30,7 @@ class MaybeCombinator<T, S> extends Combinated<T, S | T> {
 
 /**
  * Applies the source parser. If it fails softly, succeeds and yields `val`.
+ *
  * @param val
  */
 export function maybe<const T, const S = T | undefined>(val?: S): ParjsCombinator<T, T | S> {

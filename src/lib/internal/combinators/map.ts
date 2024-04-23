@@ -24,6 +24,7 @@ class Map<T, S> extends Combinated<T, S> {
 
 /**
  * Applies the source parser and projects its result with `projection`.
+ *
  * @param projection The projection to apply.
  */
 export function map<A, B>(projection: ParjsProjection<A, B>): ParjsCombinator<A, B> {
@@ -32,6 +33,7 @@ export function map<A, B>(projection: ParjsProjection<A, B>): ParjsCombinator<A,
 
 /**
  * Applies the source parser and yields the constant value `result`.
+ *
  * @param result The constant value to yield.
  */
 export function mapConst<T>(result: T): ParjsCombinator<unknown, T> {

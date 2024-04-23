@@ -6,9 +6,7 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 import { NumericHelpers } from "./numeric-helpers";
 
-/**
- * A set of options for parsing integers.
- */
+/** A set of options for parsing integers. */
 export interface IntOptions {
     allowSign: boolean;
     base: number;
@@ -55,8 +53,8 @@ class Int extends ParjserBase<number> {
 }
 
 /**
- * Returns a parser that will parse a single integer, with the options
- * given by `options`.
+ * Returns a parser that will parse a single integer, with the options given by `options`.
+ *
  * @param pOptions A set of options for parsing integers.
  */
 export function int(pOptions?: Partial<IntOptions>): Parjser<number> {

@@ -4,6 +4,7 @@ import { wrapImplicit } from "../wrap-implicit";
 
 /**
  * Represents the given function as a Parjs combinator.
+ *
  * @param f The combinator function.
  */
 export function defineCombinator<A, B>(
@@ -17,12 +18,14 @@ export function defineCombinator<A, B>(
 
 /**
  * Creates a new combinator by composing a series of functions.
+ *
  * @param f1 A single function. It will be returned.
  */
 export function composeCombinator<A, B>(f1: ParjsCombinator<A, B>): ParjsCombinator<A, B>;
 
 /**
  * Creates a new combinator by composing a series of functions.
+ *
  * @param f1 The first function in the series.
  * @param f2 The 2nd function.
  */
@@ -33,6 +36,7 @@ export function composeCombinator<A, B, C>(
 
 /**
  * Creates a new combinator by composing a series of functions.
+ *
  * @param f1 The first function in the series.
  * @param f2 The 2nd function.
  * @param f3 The 3rd function.
@@ -54,16 +58,18 @@ export function composeCombinator(...fs: ParjsCombinator<unknown, unknown>[]) {
 }
 
 /**
- * The chaining or piping operator. Applies a sequence of combinators to
- * this parser, feeding the result of one into the input of the next.
+ * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding the
+ * result of one into the input of the next.
+ *
  * @param source The source parser on which to apply the combinators.
  * @param cmb1 The single combinator to apply.
  */
 export function pipe<T, T1>(source: ImplicitParjser<T>, cmb1: ParjsCombinator<T, T1>): Parjser<T1>;
 
 /**
- * The chaining or piping operator. Applies a sequence of combinators to
- * this parser, feeding the result of one into the input of the next.
+ * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding the
+ * result of one into the input of the next.
+ *
  * @param source The source parser on which to apply the combinators.
  * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
@@ -75,8 +81,9 @@ export function pipe<T, T1, T2>(
 ): Parjser<T2>;
 
 /**
- * The chaining or piping operator. Applies a sequence of combinators to
- * this parser, feeding the result of one into the input of the next.
+ * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding the
+ * result of one into the input of the next.
+ *
  * @param source The source parser on which to apply the combinators.
  * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
@@ -90,8 +97,9 @@ export function pipe<T, T1, T2, T3>(
 ): Parjser<T3>;
 
 /**
- * The chaining or piping operator. Applies a sequence of combinators to
- * this parser, feeding the result of one into the input of the next.
+ * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding the
+ * result of one into the input of the next.
+ *
  * @param source The source parser on which to apply the combinators.
  * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
@@ -107,8 +115,9 @@ export function pipe<T, T1, T2, T3, T4>(
 ): Parjser<T4>;
 
 /**
- * The chaining or piping operator. Applies a sequence of combinators to
- * this parser, feeding the result of one into the input of the next.
+ * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding the
+ * result of one into the input of the next.
+ *
  * @param source The source parser on which to apply the combinators.
  * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
@@ -126,8 +135,9 @@ export function pipe<T, T1, T2, T3, T4, T5>(
 ): Parjser<T5>;
 
 /**
- * The chaining or piping operator. Applies a sequence of combinators to
- * this parser, feeding the result of one into the input of the next.
+ * The chaining or piping operator. Applies a sequence of combinators to this parser, feeding the
+ * result of one into the input of the next.
+ *
  * @param source The source parser on which to apply the combinators.
  * @param cmb1 The first combinator to apply.
  * @param cmb2 The second combinator to apply.
