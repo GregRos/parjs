@@ -110,9 +110,7 @@ if (result.isOkay) {
 
 ### Dealing with failure
 
-Dealing with failure is hard, whether you’re realizing you can never be a father, or whether you’re a parser combinator library. You need to be able to signal syntax errors to the user, but also be capable of parsing alternative expressions.
-
-`parjs` handles it by using the SHF or 😕😬💀 system, which I just made up. It recognizes three kinds of failures:
+`parjs` handles failure by using the SHF or 😕😬💀 system. It recognizes three kinds of failures:
 
 -   😕 **S**oft failures — A parser quickly says it’s not applicable to the input. Used to parse alternative inputs.
 -   😬 **H**ard failures — Parsing failed unexpectedly. Can only be handled by special combinators.
@@ -410,8 +408,8 @@ import { ParjserBase, ParsingState } from "parjs/internal";
 
 /**
  * Returns a parser that succeeds if there is no more input.
- * @param result Optionally, the result the parser will yield. Defaults to
- * undefined.
+ *
+ * @param result Optionally, the result the parser will yield. Defaults to undefined.
  */
 export function eof<T>(result?: T): Parjser<T> {
     return new (class Eof extends ParjserBase<T> {
