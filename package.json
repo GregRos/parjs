@@ -46,6 +46,9 @@
     "prettier": "prettier --check .",
     "prepare": "husky"
   },
+  "workspaces": [
+    "./eslint-package/"
+  ],
   "keywords": [
     "parser",
     "combinator",
