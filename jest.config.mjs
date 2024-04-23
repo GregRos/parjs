@@ -17,10 +17,6 @@ const config = {
     moduleNameMapper: {
         "^@lib/(.*)$": "<rootDir>/src/lib/$1",
         "^@lib$": "<rootDir>/src/lib"
-    },
-
-    globals: {
-        defaults: {}
     }
 };
 

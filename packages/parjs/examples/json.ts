@@ -7,7 +7,7 @@ import {
     string,
     stringLen,
     whitespace
-} from "../lib";
+} from "../../../../src/lib";
 import {
     between,
     later,
@@ -19,8 +19,8 @@ import {
     stringify,
     then,
     thenq
-} from "../lib/combinators";
-import { visualizeTrace } from "../lib/internal/trace-visualizer";
+} from "../../../../src/lib/combinators";
+import { visualizeTrace } from "../../../../src/lib/internal/trace-visualizer";
 
 export class JsonNumber {
     constructor(public value: number) {}

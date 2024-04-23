@@ -4,13 +4,12 @@
       "path": "./src/tsconfig.json"
     },
     {
-      "path": "./test/tsconfig.json"
+      "path": "./spec/tsconfig.json"
     }
   ],
   "compilerOptions": {
     "composite": true,
-    "module": "commonjs",
-    "sourceMap": true
+    "noEmit": true
   },
   "files": []
 }

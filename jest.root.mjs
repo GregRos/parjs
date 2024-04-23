@@ -1,23 +1,18 @@
 /** @type {import("jest").Config} */
 const common = {
     moduleNameMapper: {
-        "^@lib/(.*)$": "<rootDir>/lib/$1",
-        "^@lib$": "<rootDir>/lib"
+        "^@lib/(.*)$": "<rootDir>/src/$1",
+        "^@lib$": "<rootDir>/src"
     },
     transform: {
-        "^.+\\.tsx?$": [
-            "ts-jest",
-            {
-                tsconfig: "<rootDir>/test/tsconfig.json",
-                transpileOnly: true
-            }
-        ]
+        "^.+\\.tsx?$": ["@swc/jest"]
     },
     testEnvironment: "node",
-    testMatch: ["<rootDir>/test/**/*.test.ts"],
-    collectCoverageFrom: ["<rootDir>/lib/**/*.ts"],
+    testMatch: ["<rootDir>/spec/**/*.spec.ts"],
+    collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
     coverageDirectory: "./coverage",
-    collectCoverage: false
-}
+    collectCoverage: false,
+    testPathIgnorePatterns: ["node_modules", "dist"]
+};
 
-export default common
+export default common;

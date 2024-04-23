@@ -126,7 +126,7 @@
 
     "@typescript-eslint/no-misused-promises": "warn",
 
-    "@typescript-eslint/no-namespace": "warn",
+    "@typescript-eslint/no-namespace": "off",
 
     "@typescript-eslint/no-non-null-asserted-optional-chain": "warn",
 

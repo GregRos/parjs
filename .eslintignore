@@ -3,5 +3,6 @@ node_modules/
 .idea/
 .vscode/
 .obsidian/
-
+jest
 *.js
+jest.config.mjs

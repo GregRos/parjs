@@ -1,10 +1,7 @@
-/** @module char-info/unicode
- * */
+/** @module char-info/unicode */
 /* tslint:disable:naming-convention */
 
-/**
- * Unicode block names.
- */
+/** Unicode block names. */
 export namespace UnicodeBlock {
     export const AlphabeticPresentationForms = "AlphabeticPresentationForms";
     export const Arabic = "Arabic";
@@ -158,7 +155,8 @@ export namespace UnicodeBlock {
     export const Tibetan = "Tibetan";
     export const Tifinagh = "Tifinagh";
     export const UnifiedCanadianAboriginalSyllabics = "UnifiedCanadianAboriginalSyllabics";
-    export const UnifiedCanadianAboriginalSyllabicsExtended = "UnifiedCanadianAboriginalSyllabicsExtended";
+    export const UnifiedCanadianAboriginalSyllabicsExtended =
+        "UnifiedCanadianAboriginalSyllabicsExtended";
     export const Vai = "Vai";
     export const VariationSelectors = "VariationSelectors";
     export const VedicExtensions = "VedicExtensions";
