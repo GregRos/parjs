@@ -35,6 +35,9 @@ jobs:
       - name: CHECKOUT CODE
         uses: actions/checkout@v4
 
+      - name: SETUP COREPACK
+        run: corepack enable
+
       - name: SETUP NODE.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -43,10 +46,7 @@ jobs:
           registry-url: "https://registry.yarnpkg.com"
 
       - name: SETUP YARN
-        run: |
-          corepack enable
-          yarn set version stable
-
+        run: yarn set version stable
       - name: INSTALL
         run: yarn install --immutable
 
