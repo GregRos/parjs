@@ -13,7 +13,7 @@ import {
     section,
     sectionHeader,
     value
-} from "../../examples/ini";
+} from "../src/ini";
 
 describe("comments", () => {
     it("can parse a ; comment", () => {

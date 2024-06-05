@@ -1,9 +1,6 @@
-/** @module char-info/unicode
- * */
+/** @module char-info/unicode */
 /* tslint:disable:naming-convention */
-/**
- * Unicode category names.
- */
+/** Unicode category names. */
 export namespace UnicodeCategory {
     export const Letter = "L";
     export const LetterUppercase = "Lu";

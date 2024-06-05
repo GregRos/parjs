@@ -8,8 +8,8 @@ import {
     isSpace,
     isUpper,
     isWordChar
-} from "../../lib";
-import {defineIndicatorTest} from "../helpers/indicator-test";
+} from "../dist";
+import { defineIndicatorTest } from "./indicator-test";
 
 defineIndicatorTest("isLetter", isLetter, {
     true: ["G", "g"],
@@ -31,17 +31,17 @@ defineIndicatorTest("isSpace", isSpace, {
     false: ["G", "\n", "\r", "", "4"]
 });
 
-defineIndicatorTest("isDigit - default base", x => isDigit(x), {
+defineIndicatorTest("isDigit - default base", (x: string) => isDigit(x), {
     true: ["4", "2", "9", "0"],
     false: ["g", "", "G", "a", "-"]
 });
 
-defineIndicatorTest("isDigit - base 4", x => isDigit(x, 4), {
+defineIndicatorTest("isDigit - base 4", (x: string) => isDigit(x, 4), {
     true: ["3", "0"],
     false: ["", "4", "a", "9"]
 });
 
-defineIndicatorTest("isDigit - base 13", x => isDigit(x, 13), {
+defineIndicatorTest("isDigit - base 13", (x: string) => isDigit(x, 13), {
     true: ["3", "c"],
     false: ["d", "f", ""]
 });
@@ -65,5 +65,3 @@ defineIndicatorTest("isAscii", isAscii, {
     true: ["a", "1", "-", "_", ";", "~", " "],
     false: ["Ṛ", "¶", "Ä", "Ÿ", "", "ѥ"]
 });
-
-

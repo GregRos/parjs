@@ -1,4 +1,4 @@
-import { exampleInput, pJsonValue } from "../../examples/json";
+import { exampleInput, pJsonValue } from "../src/json";
 
 describe("the JSON example", () => {
     describe("a complex example", () => {

@@ -1,5 +1,5 @@
-import { ResultKind, fail, string } from "../../../lib";
-import { many1 } from "../../../lib/internal/combinators";
+import { ResultKind, fail, string } from "@lib";
+import { many1 } from "@lib/internal/combinators";
 
 describe("many1 combinator", () => {
     const parser = string("ab").pipe(many1());

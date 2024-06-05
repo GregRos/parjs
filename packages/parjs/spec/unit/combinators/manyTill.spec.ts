@@ -1,6 +1,6 @@
-import type { UserState } from "../../../lib";
-import { ResultKind, string } from "../../../lib";
-import { manyBetween, manyTill } from "../../../lib/combinators";
+import type { UserState } from "@lib";
+import { ResultKind, string } from "@lib";
+import { manyBetween, manyTill } from "@lib/combinators";
 
 describe("the manyTill combinator", () => {
     const parser = string("a").pipe(manyTill("b"));

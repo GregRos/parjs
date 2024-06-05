@@ -1,5 +1,5 @@
-import { string } from "../../../lib";
-import { each, flatten, map, mapConst } from "../../../lib/combinators";
+import { string } from "@lib";
+import { each, flatten, map, mapConst } from "@lib/combinators";
 
 describe("flatten", () => {
     const q = string("a");

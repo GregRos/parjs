@@ -2,6 +2,9 @@
   "name": "char-info-examples",
   "private": true,
   "license": "MIT",
+  "scripts": {
+    "clean": "shx rm -rf dist"
+  },
   "dependencies": {
     "char-info": "*"
   },

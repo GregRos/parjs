@@ -1,14 +1,16 @@
 {
   "name": "parjs-examples",
   "private": true,
+  "scripts": {
+    "clean": "shx rm -rf dist"
+  },
   "dependencies": {
     "parjs": "*"
   },
   "devDependencies": {
+    "@types/node": "20.9.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "@types/node": "20.9.1"
-
+    "typescript": "^5.4.5"
   },
   "packageManager": "yarn@4.1.1"
 }

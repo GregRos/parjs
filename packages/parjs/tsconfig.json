@@ -5,6 +5,9 @@
     },
     {
       "path": "./spec/tsconfig.json"
+    },
+    {
+      "path": "./examples/tsconfig.json"
     }
   ],
   "compilerOptions": {

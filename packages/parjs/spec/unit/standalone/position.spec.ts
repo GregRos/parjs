@@ -1,4 +1,4 @@
-import { position } from "../../../lib";
+import { position } from "@lib";
 
 describe("position", () => {
     const parser = position();

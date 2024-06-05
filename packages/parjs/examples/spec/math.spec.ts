@@ -8,7 +8,7 @@ import {
     unary,
     UnaryOperation,
     value
-} from "../../examples/math";
+} from "@examples/math";
 
 describe("value parser", () => {
     it("can parse 1", () => {

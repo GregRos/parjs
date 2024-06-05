@@ -6,13 +6,9 @@
     }
   ],
   "compilerOptions": {
-    "noEmit": true,
-    "baseUrl": ".",
-    "types": ["jest", "node"],
-    "paths": {
-      "@lib": ["../src"],
-      "@lib/*": ["../src/*"]
-    }
+    "noEmit": false,
+    "tsBuildInfoFile": "../dist-spec/tsconfig.tsbuildinfo",
+    "outDir": "../dist-spec"
   },
   "include": ["**/*.ts"]
 }

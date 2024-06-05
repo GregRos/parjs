@@ -1,5 +1,5 @@
-import { ResultKind, float, rest } from "../../../lib";
-import { thenq } from "../../../lib/combinators";
+import { ResultKind, float, rest } from "@lib";
+import { thenq } from "@lib/combinators";
 
 describe("numeric parsers", () => {
     describe("float parser", () => {

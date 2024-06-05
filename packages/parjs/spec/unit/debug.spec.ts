@@ -1,5 +1,5 @@
-import type { Parjser } from "../../lib";
-import { string } from "../../lib";
+import type { Parjser } from "@lib";
+import { string } from "@lib";
 
 const consoleSpy = jest.spyOn(console, "log").mockImplementation();
 

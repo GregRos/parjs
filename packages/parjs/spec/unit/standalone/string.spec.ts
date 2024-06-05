@@ -1,4 +1,4 @@
-import type { Parjser, ParjsResult } from "../../../lib";
+import type { Parjser, ParjsResult } from "@lib";
 import {
     anyChar,
     anyCharOf,
@@ -19,8 +19,8 @@ import {
     stringLen,
     upper,
     whitespace
-} from "../../../lib";
-import { many, then } from "../../../lib/combinators";
+} from "@lib";
+import { many, then } from "@lib/combinators";
 
 const uState = {};
 

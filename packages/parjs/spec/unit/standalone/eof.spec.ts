@@ -1,5 +1,5 @@
-import { ResultKind, eof } from "../../../lib";
-import { then } from "../../../lib/combinators";
+import { ResultKind, eof } from "@lib";
+import { then } from "@lib/combinators";
 
 describe("eof", () => {
     const parser = eof();

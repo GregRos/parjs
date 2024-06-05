@@ -1,7 +1,7 @@
 import { expect } from "@jest/globals";
-import type { ResultKind } from "@lib";
-import { isParjsFailure, isParjsResult, isParjsSuccess } from "@lib/internal";
 import type { MatcherFunction, SyncExpectationResult } from "expect";
+import type { ResultKind } from "parjs";
+import { isParjsFailure, isParjsResult, isParjsSuccess } from "parjs/internal";
 
 // helper
 const fail = (message: string): SyncExpectationResult => ({

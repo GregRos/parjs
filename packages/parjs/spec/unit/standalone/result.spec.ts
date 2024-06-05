@@ -1,4 +1,4 @@
-import { result } from "../../../lib";
+import { result } from "@lib";
 
 describe("result", () => {
     const parser = result("x");

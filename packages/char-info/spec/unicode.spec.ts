@@ -1,3 +1,4 @@
+import test from "ava";
 import {
     UnicodeBlock,
     UnicodeCategory,
@@ -14,10 +15,9 @@ import {
     uniIsNewline,
     uniIsSpace,
     uniIsUpper
-} from "../../lib";
-import test from "ava";
-import {defineIndicatorTest} from "../helpers/indicator-test";
-
+} from "../dist";
+import type { UnicodeCharGroup } from "../dist/unicode-lookup";
+import { defineIndicatorTest } from "./indicator-test";
 
 const uniPunctuation = uniInCategory(UnicodeCategory.Punctuation);
 
@@ -42,7 +42,6 @@ defineIndicatorTest("category - decimal", uniIsDecimal.char, {
     true: ["٤", "۹", "1", "9", "\u09e8"],
     false: ["a", " ", "A", "X", "Ⅵ", "ⅸ"]
 });
-
 
 defineIndicatorTest("category - letter", uniIsLetter.char, {
     true: ["A", "Ę", "Ц", "ö", "ė", "e", "ר", "ج"],
@@ -69,12 +68,10 @@ defineIndicatorTest("custom category - linebreak", uniIsNewline.char, {
     false: ["", "4", "a", " ", "-", "\u200a", "\u3000", "\u2008", "\u2005", " "]
 });
 
-
-
 const uniIsHebrew = uniInScript(UnicodeScript.Hebrew);
 
 defineIndicatorTest("script - hebrew", uniIsHebrew.char, {
-    true: ["רּ", "ﬤ", "ﬠ", ],
+    true: ["רּ", "ﬤ", "ﬠ"],
     false: ["ℵ", "a", "x", "", "o"]
 });
 
@@ -100,7 +97,7 @@ defineIndicatorTest("block - greek and coptic", uniIsGreekCoptic.char, {
     false: ["a", "b", "c", " ", "'", "", "Ѐ"]
 });
 
-const getScriptNames = x => uniGetScripts.char(x).map(x => x.name);
+const getScriptNames = (x: string) => uniGetScripts.char(x).map((x: UnicodeCharGroup) => x.name);
 
 test("identify script", t => {
     t.deepEqual(getScriptNames("a"), [UnicodeScript.Latin]);
@@ -111,17 +108,24 @@ test("identify script", t => {
     t.deepEqual(getScriptNames("Ͽ"), [UnicodeScript.Greek]);
 });
 
-const getCategoryNames = x => uniGetCategories.char(x).map(x => x.name);
+const getCategoryNames = (x: string) =>
+    uniGetCategories.char(x).map((x: UnicodeCharGroup) => x.name);
 
 test("identify categories", t => {
-    t.deepEqual(getCategoryNames("-"), [UnicodeCategory.Punctuation, UnicodeCategory.PunctuationDash]);
-    t.deepEqual(getCategoryNames("&"), [UnicodeCategory.Punctuation, UnicodeCategory.PunctuationOther]);
+    t.deepEqual(getCategoryNames("-"), [
+        UnicodeCategory.Punctuation,
+        UnicodeCategory.PunctuationDash
+    ]);
+    t.deepEqual(getCategoryNames("&"), [
+        UnicodeCategory.Punctuation,
+        UnicodeCategory.PunctuationOther
+    ]);
     t.deepEqual(getCategoryNames("h"), [UnicodeCategory.Letter, UnicodeCategory.LetterLowercase]);
     t.deepEqual(getCategoryNames("~"), [UnicodeCategory.Symbol, UnicodeCategory.SymbolMath]);
     t.deepEqual(getCategoryNames("ﬠ"), [UnicodeCategory.Letter, UnicodeCategory.LetterOther]);
 });
 
-const getBlockName = x => uniGetBlock.char(x).displayName;
+const getBlockName = (x: string) => uniGetBlock.char(x).displayName;
 test("identify blocks", t => {
     t.is(getBlockName("a"), UnicodeBlock.BasicLatin);
     t.is(getBlockName(","), UnicodeBlock.BasicLatin);

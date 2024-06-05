@@ -1,5 +1,5 @@
-import { ResultKind, float, string } from "../../../lib";
-import { between } from "../../../lib/combinators";
+import { ResultKind, float, string } from "@lib";
+import { between } from "@lib/combinators";
 
 describe("the between combinators", () => {
     describe("two argument version", () => {

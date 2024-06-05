@@ -7,7 +7,7 @@ import {
     string,
     stringLen,
     whitespace
-} from "../../../../src/lib";
+} from "parjs";
 import {
     between,
     later,
@@ -19,8 +19,7 @@ import {
     stringify,
     then,
     thenq
-} from "../../../../src/lib/combinators";
-import { visualizeTrace } from "../../../../src/lib/internal/trace-visualizer";
+} from "parjs/combinators";
 
 export class JsonNumber {
     constructor(public value: number) {}
@@ -150,7 +149,7 @@ export const exampleInput = `{"a" : 2,
 export function runExample() {
     const result = pJsonValue.parse(exampleInput);
     if (result.kind !== ResultKind.Ok) {
-        console.log(visualizeTrace(result.trace));
+        console.log(result.toString());
     } else {
         console.log(astToObject(result.value));
     }

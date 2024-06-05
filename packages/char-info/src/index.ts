@@ -1,50 +1,43 @@
-/**
- * Main module.
- * Re-exports everything found in `char-info/ascii` and `char-info/unicode`.
- *
- * @module char-info
- * @preferred
- */ /**  */
-export {Interval} from "node-interval-tree";
+export type { Interval } from "node-interval-tree";
 
 export {
-    isDigitCode,
     AsciiCodes,
+    isAscii,
     isAsciiCode,
-    isHexCode,
-    isLetterCode,
-    isLowerCode,
-    isNewlineCode,
-    isSpaceCode,
-    isUpperCode,
-    isWordCharCode,
-    isWordChar,
-    isUpper,
-    isSpace,
-    isNewline,
-    isLower,
-    isLetter,
-    isHex,
     isDigit,
-    isAscii
+    isDigitCode,
+    isHex,
+    isHexCode,
+    isLetter,
+    isLetterCode,
+    isLower,
+    isLowerCode,
+    isNewline,
+    isNewlineCode,
+    isSpace,
+    isSpaceCode,
+    isUpper,
+    isUpperCode,
+    isWordChar,
+    isWordCharCode
 } from "./ascii";
 
 export {
-    uniGetScripts,
-    uniInScript,
-    uniIsLower,
-    uniIsLetter,
-    uniGetCategories,
-    uniGetBlock,
-    uniInCategory,
-    uniIsNewline,
-    uniInBlock,
-    uniIsDecimal,
-    uniIsSpace,
-    uniIsUpper,
     UnicodeBlock,
     UnicodeCategory,
-    UnicodeScript
+    UnicodeScript,
+    uniGetBlock,
+    uniGetCategories,
+    uniGetScripts,
+    uniInBlock,
+    uniInCategory,
+    uniInScript,
+    uniIsDecimal,
+    uniIsLetter,
+    uniIsLower,
+    uniIsNewline,
+    uniIsSpace,
+    uniIsUpper
 } from "./unicode";
 
-export {CharClassIndicator} from "./internal/indicator-type";
+export type { CharClassIndicator } from "./indicator-type";

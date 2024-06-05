@@ -1,5 +1,5 @@
-import { fail, rest, ResultKind, string } from "../../../lib";
-import { not, stringify, then } from "../../../lib/combinators";
+import { fail, rest, ResultKind, string } from "@lib";
+import { not, stringify, then } from "@lib/combinators";
 
 describe("not combinator", () => {
     const parser = string("a").pipe(then("b"), stringify(), not());

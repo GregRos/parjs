@@ -1,5 +1,5 @@
-import { ResultKind, int, rest } from "../../../lib";
-import { thenq } from "../../../lib/combinators";
+import { ResultKind, int, rest } from "@lib";
+import { thenq } from "@lib/combinators";
 
 describe("int parser", () => {
     describe("default settings", () => {

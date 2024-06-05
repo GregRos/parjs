@@ -1,0 +1,15 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "references": [
+    {
+      "path": "../../src/tsconfig.json"
+    }
+  ],
+  "compilerOptions": {
+    "noEmit": false,
+    "baseUrl": ".",
+    "composite": true,
+    "outDir": "../dist"
+  },
+  "include": ["**/*.ts"]
+}

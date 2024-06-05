@@ -1,7 +1,7 @@
-import type { ParjsFailure } from "../../lib";
-import { string, whitespace } from "../../lib";
-import { exactly, manySepBy, then } from "../../lib/combinators";
-import { visualizeTrace } from "../../lib/internal/trace-visualizer";
+import type { ParjsFailure } from "@lib";
+import { string, whitespace } from "@lib";
+import { exactly, manySepBy, then } from "@lib/combinators";
+import { visualizeTrace } from "@lib/internal/trace-visualizer";
 
 describe("trace", () => {
     string("a").pipe(manySepBy(whitespace()));

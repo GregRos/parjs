@@ -3,84 +3,70 @@
  *
  * @module char-info/unicode
  * @preferred
- */ /** */
-
-import {lookup} from "./internal/unicode-lookup";
-import {BasicCharClassIndicator} from "./internal/indicators";
-import {UnicodeCategory} from "./internal/names";
-import {CharClassIndicator} from "./internal/indicator-type";
+ */ import type { CharClassIndicator } from "./indicator-type";
+import { BasicCharClassIndicator } from "./indicators";
+import { UnicodeCategory } from "./names";
+import { lookup } from "./unicode-lookup";
 
 function homogenizeInputStr(str: string) {
     return str.toLowerCase().replace(/[_ -,]/g, "");
 }
 
 /**
- * Returns an indicator for characters belonging to the Unicode category,
- * `category`.
+ * Returns an indicator for characters belonging to the Unicode category, `category`.
+ *
  * @param category The category to test for.
  */
 export function uniInCategory(category: string): CharClassIndicator {
     category = homogenizeInputStr(category);
     if (category.length > 3) {
-        category = lookup.longCategoryToCode.get(category);
+        category = lookup.longCategoryToCode.get(category)!;
     }
-    let uGroup = lookup.categories.get(category);
-    return new BasicCharClassIndicator(uGroup);
+    const uGroup = lookup.categories.get(category);
+    return new BasicCharClassIndicator(uGroup!);
 }
 
 /**
  * Returns an indicator for characters belonging to a Unicode script, `script`.
+ *
  * @param script
  */
 export function uniInScript(script: string) {
     script = homogenizeInputStr(script);
-    let uGroup = lookup.scripts.get(script);
-    return new BasicCharClassIndicator(uGroup);
+    const uGroup = lookup.scripts.get(script);
+    return new BasicCharClassIndicator(uGroup!);
 }
 
 /**
  * Returns an indicator for characters belonging to the Unicode block, `block`.
+ *
  * @param block
  */
 export function uniInBlock(block: string) {
     block = homogenizeInputStr(block);
-    let uGroup = lookup.blocks.get(block);
-    return new BasicCharClassIndicator(uGroup);
+    const uGroup = lookup.blocks.get(block);
+    return new BasicCharClassIndicator(uGroup!);
 }
 
-/**
- * Indicator for Unicode decimal digit characters.
- */
+/** Indicator for Unicode decimal digit characters. */
 export const uniIsDecimal = uniInCategory(UnicodeCategory.NumberDecimalDigit);
 
-/**
- * Indicator for Unicode letters.
- */
+/** Indicator for Unicode letters. */
 export const uniIsLetter = uniInCategory(UnicodeCategory.Letter);
 
-/**
- * Indicator for Unicode lowercase letters.
- */
+/** Indicator for Unicode lowercase letters. */
 export const uniIsLower = uniInCategory(UnicodeCategory.LetterLowercase);
 
-/**
- * Indicator for Unicode uppercase letters.
- */
+/** Indicator for Unicode uppercase letters. */
 export const uniIsUpper = uniInCategory(UnicodeCategory.LetterUppercase);
 
-/**
- * Indicator for Unicode inline spaces.
- */
+/** Indicator for Unicode inline spaces. */
 export const uniIsSpace = uniInCategory(UnicodeCategory.SeparatorSpace);
 
-/**
- * Indicator for Unicode vertical separators.
- */
+/** Indicator for Unicode vertical separators. */
 export const uniIsNewline = uniInCategory(UnicodeCategory.Custom_SeparatorVertical);
 
-/**
- * Returns the Unicode categories for a character or code.
- */
+/** Returns the Unicode categories for a character or code. */
 export const uniGetCategories = {
     code(code: number) {
         return lookup.allCategories.search(code, code);
@@ -90,9 +76,7 @@ export const uniGetCategories = {
     }
 };
 
-/**
- * Returns the Unicode scripts for a character or code.
- */
+/** Returns the Unicode scripts for a character or code. */
 export const uniGetScripts = {
     code(code: number) {
         return lookup.allScripts.search(code, code);
@@ -102,9 +86,7 @@ export const uniGetScripts = {
     }
 };
 
-/**
- * Returns the Unicode block for a character or code.
- */
+/** Returns the Unicode block for a character or code. */
 export const uniGetBlock = {
     code(code: number) {
         return lookup.allBlocks.search(code, code)[0];
@@ -114,8 +96,4 @@ export const uniGetBlock = {
     }
 };
 
-export {
-    UnicodeScript,
-    UnicodeCategory,
-    UnicodeBlock
-} from "./internal/names";
+export { UnicodeBlock, UnicodeCategory, UnicodeScript } from "./names";

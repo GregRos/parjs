@@ -6,27 +6,31 @@
     "packages/*/examples"
   ],
   "scripts": {
-    "test": "jest --coverage",
-    "build": "tsc",
-    "clean": "shx rm -rf dist",
-    "rebuild": "run-s clean build",
-    "eslint": "eslint src/**/*.ts",
-    "eslint:fix": "eslint --fix src/**/*.ts",
-    "lint:fix": "run-s eslint:fix prettier:fix",
-    "lint:check": "run-s -c prettier eslint",
-    "prettier:fix": "prettier --write .",
-    "prettier": "prettier --check .",
-    "prepare": "husky"
+    "build": "tsc -b",
+    "watch": "tsc -b -w",
+    "clean": "yarn workspaces foreach -A run clean",
+    "build:clean": "run-s clean build",
+    "prettier:check": "yarn workspaces foreach -A run prettier:check",
+    "prettier:fix": "yarn workspaces foreach -A run prettier:fix",
+    "eslint:check": "yarn workspaces foreach -A run eslint:check",
+    "eslint:fix": "yarn workspaces foreach -A run eslint:fix",
+    "lint:check": "run-s eslint:check prettier:check",
+    "lint:fix": "run-s eslint:fix prettier:fix"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run rebuild && lint-staged"
+      "pre-commit": "yarn run build:clean && lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,css,md,ts,html,htm,yaml,yml,json,md}": "prettier --write"
+    "*.{ts,js,mjs,mts,cjs,cts}": "eslint --cache --fix",
+    "*.{ts,js,mts,mjs,cts,cjs,css,md,yml,yaml,json}": "prettier --write"
   },
   "prettier": "./.prettierrc.json",
+  "dependencies": {
+    "char-info": "workspace:^",
+    "parjs": "workspace:^"
+  },
   "devDependencies": {
     "@types/node": "20.9.1",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
@@ -46,10 +50,11 @@
     "shx": "0.3.4",
     "ts-node": "10.9.1",
     "typedoc": "0.25.13",
-    "typedoc-plugin-internal-external": "2.2.0"
+    "typedoc-plugin-internal-external": "2.2.0",
+    "typescript": "^5.4.5"
   },
   "packageManager": "yarn@4.1.1",
   "engines": {
-    "node": "^18.13.0 || ^20.9.0"
+    "node": ">=16.0.0"
   }
 }

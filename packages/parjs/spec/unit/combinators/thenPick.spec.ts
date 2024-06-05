@@ -1,5 +1,5 @@
-import { ResultKind, anyCharOf, string } from "../../../lib";
-import { thenPick } from "../../../lib/combinators";
+import { ResultKind, anyCharOf, string } from "@lib";
+import { thenPick } from "@lib/combinators";
 
 it("thenPick", () => {
     const parser = anyCharOf("ab").pipe(

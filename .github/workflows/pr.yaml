@@ -33,7 +33,7 @@ jobs:
         run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run build
 
       - name: LINT
-        run: yarn workspace char-info run lint:check
+        run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run lint:check
 
       - name: TEST
         run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run test:coverage

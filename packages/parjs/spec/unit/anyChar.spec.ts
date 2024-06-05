@@ -1,5 +1,5 @@
-import type { ParjsFailure, ParjsSuccess } from "../../lib";
-import { ResultKind, anyChar } from "../../lib";
+import type { ParjsFailure, ParjsSuccess } from "@lib";
+import { ResultKind, anyChar } from "@lib";
 
 describe("anyChar", () => {
     const parser = anyChar();

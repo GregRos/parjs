@@ -1,7 +1,17 @@
-import type { Parjser } from "../../../../src/lib";
-import { anyCharOf, eof, newline, result, string } from "../../../../src/lib";
-import { many, map, or, qthen, stringify, then, thenq } from "../../../../src/lib/combinators";
-import { between, many1, maybe } from "../../../../src/lib/internal/combinators";
+import type { Parjser } from "parjs";
+import { anyCharOf, eof, newline, result, string } from "parjs";
+import {
+    between,
+    many,
+    many1,
+    map,
+    maybe,
+    or,
+    qthen,
+    stringify,
+    then,
+    thenq
+} from "parjs/combinators";
 
 // This is a parser for .ini files. It's a simple format that looks like this:
 //

@@ -1,4 +1,4 @@
-import { ResultKind, fail } from "../../../lib";
+import { ResultKind, fail } from "@lib";
 
 describe("fail", () => {
     const parser = fail({

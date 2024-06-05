@@ -1,8 +1,5 @@
-/** @module char-info/unicode
- * */
-/**
- * Unicode script names.
- */
+/** @module char-info/unicode */
+/** Unicode script names. */
 export namespace UnicodeScript {
     export const Arabic = "Arabic";
     export const Armenian = "Armenian";

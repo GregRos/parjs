@@ -1,4 +1,4 @@
-import { surrounded } from "../../examples/tuple";
+import { surrounded } from "../src/tuple";
 
 describe("the tuple example", () => {
     describe("a complex example", () => {

@@ -1,9 +1,7 @@
-/**
- * @external
- */ /** */
-/* tslint:disable:naming-convention */
+/** @external */ /* tslint:disable:naming-convention */
 
-import DataIntervalTree, {Interval} from "node-interval-tree";
+import type { Interval } from "node-interval-tree";
+import DataIntervalTree from "node-interval-tree";
 
 import blocks from "./data/block.ranges";
 import categories from "./data/category.ranges";
@@ -15,7 +13,6 @@ export interface UnicodeCharGroup {
     intervals: Interval[];
     displayName: string;
 }
-
 
 export interface UnicodeLookup {
     allBlocks: DataIntervalTree<UnicodeCharGroup>;
@@ -37,21 +34,21 @@ function getCharCode(str: string) {
     if (str.length === 1) {
         return str.charCodeAt(0);
     }
-    let hex = str.slice(2);
+    const hex = str.slice(2);
     return Number.parseInt(hex, 16);
 }
 
 function expandIntoRanges(compressedForm: string) {
-    let matches = [];
+    const matches = [];
     let x = null;
-    while (x = rangeRegex.exec(compressedForm)) {
+    while ((x = rangeRegex.exec(compressedForm))) {
         matches.push([x[1], x[2] || x[1]]);
     }
-    let ranges = [];
+    const ranges = [];
 
-    for (let match of matches) {
-        let start = getCharCode(match[0]);
-        let end = getCharCode(match[1]);
+    for (const match of matches) {
+        const start = getCharCode(match[0]);
+        const end = getCharCode(match[1]);
         ranges.push({
             low: start,
             high: end
@@ -67,8 +64,8 @@ type RawUnicodeRecord = [RawUnicodeName, string];
 
 function expandRawRecord(raw: RawUnicodeRecord) {
     let name: string;
-    let alias: string;
-    let fst = raw[0];
+    let alias: string | undefined = undefined;
+    const fst = raw[0];
     if (fst.constructor === Array) {
         name = fst[0];
         alias = fst[1];
@@ -86,7 +83,7 @@ function expandRawRecord(raw: RawUnicodeRecord) {
 }
 
 function buildLookup() {
-    let lookup: UnicodeLookup = {
+    const lookup: UnicodeLookup = {
         allBlocks: new DataIntervalTree<UnicodeCharGroup>(),
         allCategories: new DataIntervalTree<UnicodeCharGroup>(),
         allScripts: new DataIntervalTree<UnicodeCharGroup>(),
@@ -95,26 +92,26 @@ function buildLookup() {
         scripts: new Map(),
         longCategoryToCode: new Map()
     };
-    for (let rawBlock of blocks) {
-        let block = expandRawRecord(rawBlock as RawUnicodeRecord);
+    for (const rawBlock of blocks) {
+        const block = expandRawRecord(rawBlock as RawUnicodeRecord);
         lookup.blocks.set(homogenizeRawStr(block.name), block);
-        for (let interval of block.intervals) {
+        for (const interval of block.intervals) {
             lookup.allBlocks.insert(interval.low, interval.high, block);
         }
     }
-    for (let rawCategory of categories) {
-        let cat = expandRawRecord(rawCategory as RawUnicodeRecord);
-        let hName = homogenizeRawStr(cat.name);
+    for (const rawCategory of categories) {
+        const cat = expandRawRecord(rawCategory as RawUnicodeRecord);
+        const hName = homogenizeRawStr(cat.name);
         lookup.categories.set(hName, cat);
-        lookup.longCategoryToCode.set(homogenizeRawStr(cat.alias), hName);
-        for (let interval of cat.intervals) {
+        lookup.longCategoryToCode.set(homogenizeRawStr(cat.alias!), hName);
+        for (const interval of cat.intervals) {
             lookup.allCategories.insert(interval.low, interval.high, cat);
         }
     }
-    for (let rawScript of scripts) {
-        let script = expandRawRecord(rawScript as RawUnicodeRecord);
+    for (const rawScript of scripts) {
+        const script = expandRawRecord(rawScript as RawUnicodeRecord);
         lookup.scripts.set(homogenizeRawStr(script.name), script);
-        for (let interval of script.intervals) {
+        for (const interval of script.intervals) {
             lookup.allScripts.insert(interval.low, interval.high, script);
         }
     }

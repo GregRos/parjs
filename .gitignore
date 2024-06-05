@@ -95,3 +95,4 @@ jspm_packages
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+**/dist-spec

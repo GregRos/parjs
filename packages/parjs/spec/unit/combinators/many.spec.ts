@@ -1,7 +1,7 @@
-import type { Parjser } from "../../../lib";
-import { ResultKind, eof, fail, result, string } from "../../../lib";
-import { many, thenq } from "../../../lib/combinators";
-import { range } from "../../../lib/utils";
+import type { Parjser } from "@lib";
+import { ResultKind, eof, fail, result, string } from "@lib";
+import { many, thenq } from "@lib/combinators";
+import { range } from "@lib/utils";
 
 describe("many combinators", () => {
     describe("regular many", () => {

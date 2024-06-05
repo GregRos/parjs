@@ -8,7 +8,6 @@
     }
   ],
   "compilerOptions": {
-    "module": "commonjs",
     "noEmit": true
   },
   "files": []

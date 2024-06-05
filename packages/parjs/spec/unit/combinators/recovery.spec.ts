@@ -1,5 +1,5 @@
-import type { Parjser, ParjsFailure } from "../../../lib";
-import { fail, nope, rest, ResultKind, string } from "../../../lib";
+import type { Parjser, ParjsFailure } from "@lib";
+import { fail, nope, rest, ResultKind, string } from "@lib";
 import {
     mapConst,
     maybe,
@@ -10,7 +10,7 @@ import {
     recover,
     stringify,
     then
-} from "../../../lib/combinators";
+} from "@lib/combinators";
 
 describe("maybe combinator", () => {
     it("works", () => {

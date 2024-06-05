@@ -1,5 +1,5 @@
-import { anyChar } from "../../lib";
-import type { ParjserBase } from "../../lib/internal";
+import { anyChar } from "@lib";
+import type { ParjserBase } from "@lib/internal";
 
 describe("expects", () => {
     it("is correct", () => {

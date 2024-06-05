@@ -1,5 +1,5 @@
-import { anyCharOf, eof, result, ResultKind, string, stringLen } from "../../../lib";
-import { each, map, stringify } from "../../../lib/combinators";
+import { anyCharOf, eof, result, ResultKind, string, stringLen } from "@lib";
+import { each, map, stringify } from "@lib/combinators";
 
 const goodInput = "abcd";
 const badInput = "";

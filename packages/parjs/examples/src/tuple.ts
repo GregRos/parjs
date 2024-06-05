@@ -1,5 +1,5 @@
-import { float, whitespace } from "../../../../src/lib";
-import { between, manySepBy } from "../../../../src/lib/combinators";
+import { float, whitespace } from "parjs";
+import { between, manySepBy } from "parjs/combinators";
 
 // Built-in parser for floating point numbers.
 const tupleElement = float();

@@ -5,4 +5,4 @@ node_modules/
 .obsidian/
 jest
 *.js
-jest.config.mjs
+*.mjs
