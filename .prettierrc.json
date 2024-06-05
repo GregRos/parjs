@@ -4,6 +4,7 @@
   "trailingComma": "none",
   "printWidth": 100,
   "endOfLine": "lf",
+
   "overrides": [
     {
       "files": "*.{json,yml,yaml}",
