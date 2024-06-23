@@ -18,8 +18,6 @@ const defaultOptions: IntOptions = {
 };
 
 class Int extends ParjserBase<number> {
-    type = "int";
-
     constructor(
         readonly options: IntOptions,
         readonly expecting: string

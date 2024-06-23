@@ -1,0 +1,6 @@
+many(name) [1, 3]¹:
+  +sepBy:
+    string: "abc"
+  ⁴=then:
+    - ⁵string: "abc"
+    - ⁵string: "def"

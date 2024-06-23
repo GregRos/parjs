@@ -23,7 +23,6 @@ export function nope<T>(reason: string): Parjser<T> {
 }
 
 class Fail<T> extends ParjserBase<T> {
-    type = "fail";
     expecting = this.failure.reason;
     constructor(private failure: FailureInfo) {
         super();

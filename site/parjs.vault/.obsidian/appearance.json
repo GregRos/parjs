@@ -1,0 +1,9 @@
+{
+  "cssTheme": "Royal Velvet",
+  "enabledCssSnippets": [
+    "main.electron"
+  ],
+  "theme": "obsidian",
+  "monospaceFontFamily": "FiraCode Nerd Font",
+  "baseFontSize": 17
+}

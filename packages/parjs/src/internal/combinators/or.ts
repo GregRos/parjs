@@ -12,7 +12,6 @@ class Or<T, Alts extends CombinatorInput<unknown>[]> extends Combinated<
     T,
     T | getParsedType<Alts[number]>
 > {
-    type = "or";
     _altNames = [this.source, ...this._alts].map(x => `'${x.expecting}' (${x.type})`);
     expecting = `expecting one of: ${this._altNames.join(", ")}`;
 

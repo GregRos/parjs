@@ -12,7 +12,6 @@ const defaultProjection = <TSource>(sourceMatches: TSource[], till: unknown, sta
     sourceMatches;
 
 class ManyTill<TSource, TTill, TResult> extends Combinated<TSource, TResult> {
-    type = "manyTill";
     expecting = `${this.source.expecting} or ${this._till.expecting}`;
 
     constructor(

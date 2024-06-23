@@ -7,7 +7,6 @@ import { Combinated } from "../combinated";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Each<T> extends Combinated<T, T> {
-    type = "each";
     expecting = this.source.expecting;
 
     constructor(

@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-redirect",
+	"name": "Redirect",
+	"version": "0.2.0",
+	"minAppVersion": "0.14.15",
+	"description": "An Obsidian (https://obsidian.md) plugin for redirecting links based on YAML frontmatter.",
+	"author": "Jacob Levernier",
+	"authorUrl": "https://github.com/jglev",
+	"isDesktopOnly": false
+}

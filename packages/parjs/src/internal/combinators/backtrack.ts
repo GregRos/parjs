@@ -4,7 +4,6 @@ import type { ParsingState } from "../state";
 import { defineCombinator } from "./combinator";
 
 class Backtrack<T> extends Combinated<T, T> {
-    type = "backtrack";
     expecting = this.source.expecting;
 
     _apply(ps: ParsingState): void {

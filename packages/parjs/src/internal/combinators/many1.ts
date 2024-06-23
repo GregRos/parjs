@@ -7,7 +7,6 @@ import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Many1<T> extends Combinated<T, [T, ...T[]]> {
-    type = "many1";
     expecting = this.source.expecting;
     constructor(
         source: ParjserBase<T>,

@@ -4,7 +4,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class StringLen extends ParjserBase<string> {
-    type = "stringLen";
     expecting = `expecting ${this.length} characters`;
 
     constructor(private length: number) {

@@ -5,7 +5,6 @@ import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Str extends Combinated<unknown, string> {
-    type = "stringify";
     expecting = this.source.expecting;
 
     _apply(ps: ParsingState): void {

@@ -14,7 +14,6 @@ const defaultFailure: FailureInfo = {
 };
 
 class MustCapture<T> extends Combinated<T, T> {
-    type = "mustCapture";
     expecting = `expecting internal parser ${this.source.type} to consume input`;
     constructor(
         source: ParjserBase<T>,

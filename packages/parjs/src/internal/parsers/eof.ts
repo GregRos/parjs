@@ -4,7 +4,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class Eof<T> extends ParjserBase<T> {
-    type = "eof";
     expecting = "expecting end of input";
     constructor(private result?: T) {
         super();

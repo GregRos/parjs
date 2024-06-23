@@ -6,7 +6,6 @@ import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Must<T> extends Combinated<T, T> {
-    type = "must";
     expecting = `internal parser ${this.source.type} yielding a result satisfying condition`;
     constructor(
         source: CombinatorInput<T>,

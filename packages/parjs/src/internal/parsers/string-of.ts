@@ -4,7 +4,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class StringOf<T> extends ParjserBase<T> {
-    type = "anyStringOf";
     expecting = `expecting any of ${this.strs.map(x => `'${x}'`).join(", ")}`;
 
     constructor(private strs: string[]) {

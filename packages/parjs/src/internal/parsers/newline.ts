@@ -5,7 +5,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class Newline extends ParjserBase<string> {
-    type = "newline";
     expecting = "expecting newline";
 
     constructor(private _unicodeRecognizer?: (x: number) => boolean) {

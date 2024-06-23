@@ -5,7 +5,6 @@ import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Not extends Combinated<unknown, void> {
-    type = "not";
     expecting = `not expecting: ${this.source.expecting}`; // TODO: better reason
 
     _apply(ps: ParsingState): void {

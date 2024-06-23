@@ -19,7 +19,7 @@ Parjs a parser combinator library inspired by [Parsec](https://wiki.haskell.org/
 yarn add parjs
 ```
 
-🍕 Lots of parsers!
+🧩 Lots of parsers!
 
 ⚙️ Lots of combinators!
 
@@ -31,14 +31,14 @@ yarn add parjs
 
 ## What is it?
 
-**PROTIP:** 🍕 is the universal symbol for _parser_.
+**PROTIP:** 🧩 is the universal symbol for _parser_.
 
 Parser combinator libraries let you construct parsers from small parsers and combinators that transform those parsers by, for example, applying a parser multiple times in a row.
 
-For example, you could have **a** parser `🍕"fi"` that parses the string `fi` and a combinator `⚙️exactly 2` that applies a parser exactly two times. Combining them lets you parse the string `fifi`!
+For example, you could have **a** parser `🧩"fi"` that parses the string `fi` and a combinator `⚙️exactly 2` that applies a parser exactly two times. Combining them lets you parse the string `fifi`!
 
 ```typescript
-// 🍕string "fi" ➜ ⚙️exactly 2
+// 🧩string "fi" ➜ ⚙️exactly 2
 string("fi").pipe(exactly(2));
 ```
 
@@ -48,21 +48,21 @@ Here is an example that constructs a parser that parses n-tuples of numbers like
 import { float, string, whitespace } from "parjs";
 import { between, manySepBy } from "parjs/combinators";
 
-// 🍕float
+// 🧩float
 //  Parses a floating point number
 const tupleElement = float();
 
-//  🍕float ➜ ⚙️between 🍕whitespace
+//  🧩float ➜ ⚙️between 🧩whitespace
 //  Parses a float between whitespace
 const paddedElement = tupleElement.pipe(between(whitespace()));
 
-//  🍕float ➜ ⚙️between 🍕whitespace ➜
-//  ⚙️until fails, separated by 🍕","
+//  🧩float ➜ ⚙️between 🧩whitespace ➜
+//  ⚙️until fails, separated by 🧩","
 //  Parses many floats between whitespace, separated by commas.
 const separated = paddedElement.pipe(manySepBy(","));
 
-//  🍕float ➜ ⚙️between 🍕whitespace ➜
-//  ⚙️until fails, separated by 🍕"," ➜ ⚙️between 🍕"(" and 🍕")"
+//  🧩float ➜ ⚙️between 🧩whitespace ➜
+//  ⚙️until fails, separated by 🧩"," ➜ ⚙️between 🧩"(" and 🧩")"
 //  Parses many floats separated by commas and surrounded by parens.
 const surrounded = separated.pipe(between("(", ")"));
 
@@ -136,19 +136,19 @@ The parsing result also includes the important `reason` field which says why par
 
 This text appears after the `^` character in the visualization, but can also be used elsewhere. It can be specified explicitly in some cases, but will usually come from the parser’s `expecting` property.
 
-#### 😕 **S**oft failures
+#### 😕 **R**eject
 
 > A parser quickly says it’s not applicable to the input.
 
 You can recover from soft failures by backtracking a constant amount. These failures are used to parse alternative inputs using lots of different combinators, like `or`:
 
 ```typescript
-// 🍕"hello" ➜ ⚙️or 🍕"goodbye" ➜ ⚙️or 🍕"blort"
+// 🧩"hello" ➜ ⚙️or 🧩"goodbye" ➜ ⚙️or 🧩"blort"
 // Parses any of the strings, "hello", "goodbye", or "blort"
 const parser = string("hello").pipe(or("goodbye"), or("blort"));
 ```
 
-#### 😬 Hard failure
+#### 😬 **E**rror
 
 > An unexpected failure that usually indicates a syntax error.
 
@@ -159,7 +159,7 @@ Most hard failures were soft failures in an internal parser that weren’t handl
 Sequential combinators tend to do this a lot if a parser fails late in the sequence. For example:
 
 ```typescript
-// 🍕"hello " ➜ ⚙️and then, 🍕"world" ➜ ⚙️or 🍕"whatever"
+// 🧩"hello " ➜ ⚙️and then, 🧩"world" ➜ ⚙️or 🧩"whatever"
 // Parses the string "hello " and then the string "world"
 // or parses the string "hello kittie"
 const helloParser = string("hello ").pipe(
@@ -184,7 +184,7 @@ To avoid this situation, write parsers that quickly determine if the input is fo
 ```typescript
 const helloParser2 = string("hello ").pipe(
     then(
-        // The 😕Soft failure in the 🍕"world" parser
+        // The 😕Soft failure in the 🧩"world" parser
         // is handled immediately using ⚙️or
         // so it doesn't reach ⚙️then
         string("world").or("kittie")
@@ -192,7 +192,7 @@ const helloParser2 = string("hello ").pipe(
 );
 ```
 
-However, sometimes hard failures are inevitable or you can’t be bothered. In those cases, you can use `⚙️recover` which lets you downgrade the failure or even pass it off as a success.
+However, sometimes hard failures are inevitable or you can’t be bothered. In those cases, you can use `⚙️recover` which lets you downgrade the failure or even accept it off as a success.
 
 ```typescript
 // Let's do the same thing as the first time:
@@ -210,7 +210,7 @@ However, code like this is the equivalent of using `try .. catch` for control fl
 
 The `⚙️must` combinator, which validates the result of a parser, emits **😬 Hard** failures by default.
 
-#### 💀 Fatal failures
+#### 💀 **D**ie
 
 A **💀 Fatal** failure is the parsing equivalent of a Halt and Catch Fire instruction and can’t be recovered from – in other words, they cause the overall parsing operation to fail immediately and control to be returned to the caller.
 
@@ -233,7 +233,7 @@ console.log(parse.parse("").toString());
 In `parjs`, parsers are functionally immutable. Once a `parjs` parser is created, it will always do the same thing and can never change. I mean, **you** could do something like this:
 
 ```typescript
-// 🍕"hello world" ➜ predicate `() => Math.random() > 0.5`
+// 🧩"hello world" ➜ predicate `() => Math.random() > 0.5`
 string("hello world").pipe(must(() => Math.random() > 0.5));
 ```
 
@@ -250,15 +250,15 @@ Luckily, `parjs` has got you covered. Parsers such as `letter`, have Unicode ver
 This probably involves a lookup in some complicated data structure for each potential letter.
 
 ```typescript
-// 🍕ᵘLetter
+// 🧩ᵘLetter
 // Parses any unicode letter
 const pNameChar = uniLetter();
 
-// 🍕ᵘLetter ➜ ⚙️until it fails
+// 🧩ᵘLetter ➜ ⚙️until it fails
 // Parses any number of unicode letterss
 const pName = pNameChar.pipe(many());
 
-// 🍕"שלום שמי " ➜ ⚙️and then, 🍕ᵘLetter ➜ ⚙️until it fails
+// 🧩"שלום שמי " ➜ ⚙️and then, 🧩ᵘLetter ➜ ⚙️until it fails
 const greeting = string(`שלום שמי `).pipe(qthen(pName));
 
 assert(greeting.parser("שלום, שמי גרג").value === "גרג");
@@ -271,7 +271,7 @@ assert(greeting.parser("שלום, שמי גרג").value === "גרג");
 `parjs` knows about this, and will automatically convert string literals into parsers that parse those literals.
 
 ```typescript
-// 🍕"ice " ➜ ⚙️and then, 🍕one or more spaces
+// 🧩"ice " ➜ ⚙️and then, 🧩one or more spaces
 // ➜ ⚙️and then, the regexp /\s*baby/
 string("ice").pipe(
     thenq(spaces1()),

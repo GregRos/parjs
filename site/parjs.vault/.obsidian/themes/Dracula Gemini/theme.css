@@ -1,0 +1,539 @@
+:root {
+  --color-dracula-background: #282a36;
+  --color-dracula-selection: #44475a; /* a.k.a. "Current line" */
+  --color-dracula-foreground: #f8f8f2;
+  --color-dracula-comment: #6272a4;
+
+  --color-dracula-cyan: #8be9fd;
+  --color-dracula-green: #50fa7b;
+  --color-dracula-orange: #ffb86c;
+  --color-dracula-pink: #ff79c6;
+  --color-dracula-purple: #bd93f9;
+  --color-dracula-red: #ff5555;
+  --color-dracula-yellow: #f1fa8c;
+
+  --color-dracula-yellow-ish: #f4f9bf; /* 50/50 blend of -yellow and -foreground */
+
+  --empty-line-height: 1em; /* 1em = 16px = 2/3 of the height of the normal line, which is 24px */
+  --header-hanging-margin: 30px; /* extra margin for hanging ### (header formatting) in there */
+}
+
+body {
+  /* HSL components of --color-dracula-comment */
+  --accent-h: 225;
+  --accent-s: 27%;
+  --accent-l: 51%;
+
+  /* Text editor layout */
+  --file-margins: var(--size-4-8) var(--size-4-12); /* wider left margin for hanging header prefixes (see below) */
+}
+
+body.theme-dark {
+  --color-base-00: var(--color-dracula-background); /* a.k.a. hsl(231, 15%, 18%) */
+  --color-base-10: hsl(231, 15%, 22%);
+  --color-base-20: hsl(231, 15%, 24%);
+  --color-base-25: hsl(231, 15%, 27%);
+  --color-base-30: hsl(231, 15%, 30%);
+  --color-base-35: hsl(231, 15%, 33%);
+  --color-base-40: hsl(231, 15%, 40%);
+  --color-base-50: hsl(231, 15%, 50%);
+  --color-base-60: hsl(231, 15%, 65%);
+  --color-base-70: hsl(231, 15%, 84%);
+  --color-base-100: var(--color-dracula-foreground); /* a.k.a. hsl(60, 30%, 96%) */
+
+  --text-selection: var(--color-dracula-selection);
+
+  --checklist-done-decoration: none; /* line-through */
+  --checklist-done-color: var(--text-faint); /* --text-muted */
+}
+
+body.theme-dark.is-mobile {
+  --color-base-00: hsl(231, 15%, 12%); /* 6pp lower than Desktop, default was #000000 */
+  --color-base-10: hsl(231, 15%, 17%); /* 5pp lower than Desktop, default was #121212 */
+  --color-base-20: hsl(231, 15%, 20%); /* 4pp lower than Desktop, default was #1e1e1e */
+}
+
+/*
+ ********************************************************************************************************************
+  * Block quotes
+*/
+
+body {
+  --blockquote-border-thickness: 4px;
+  --blockquote-border-color: var(--color-dracula-yellow);
+  --blockquote-color: var(--color-dracula-yellow-ish);
+}
+
+.markdown-source-view .HyperMD-quote {
+  text-indent: -0.875em !important;
+  padding-inline-start: 2.375em !important;
+}
+
+/* Empty line inside the blockquote */
+.markdown-source-view .HyperMD-quote:has(> .cm-formatting-quote:only-child) {
+  height: var(--empty-line-height);
+  line-height: var(--empty-line-height); /* to vertically align the lonely `>` in the otherwise empty blockquote line */
+}
+
+.markdown-preview-view blockquote {
+  margin: 0 0 var(--empty-line-height) 1em; /* like paragraphs, plus left margin */
+  padding: 0 0 0 1.125em;
+}
+.markdown-preview-view blockquote > :last-child {
+  padding-bottom: 0;
+}
+
+/*
+ ********************************************************************************************************************
+ * Bold and italic
+*/
+
+body {
+  --bold-color: var(--color-dracula-orange);
+  --italic-color: var(--color-dracula-yellow);
+}
+
+.markdown-source-view .cm-formatting-strong,
+.markdown-source-view .cm-formatting-em {
+  opacity: 0.4;
+
+  /* For bold text, make the formatting asterisks non-bold */
+  font-weight: normal;
+
+  /* For italic text though, we still let the asterisks to be italic,
+     so they align better with the text between them. */
+}
+
+/*
+ ********************************************************************************************************************
+ * Code: block code
+*/
+
+body {
+  --code-size: var(--font-small); /* `small` is a bit bigger than code's default `smaller` */
+
+  --code-normal:      var(--text-muted);                /* --text-muted */
+  --code-comment:     var(--color-dracula-comment);     /* --text-faint */
+  --code-function:    var(--color-dracula-green);       /* --color-yellow */
+  --code-important:   var(--color-dracula-red);         /* --color-orange */
+  --code-keyword:     var(--color-dracula-pink);        /* --color-pink */
+  --code-operator:    var(--color-dracula-foreground);  /* --color-red */
+  --code-property:    var(--color-dracula-orange);      /* --color-cyan */
+  --code-punctuation: var(--text-muted);                /* --text-muted */
+  --code-string:      var(--color-dracula-yellow);      /* --color-green */
+  --code-tag:         var(--color-dracula-red);         /* --color-red */
+  --code-value:       var(--color-dracula-purple);      /* --color-purple */
+}
+
+.markdown-source-view .HyperMD-codeblock-begin,
+.markdown-source-view .HyperMD-codeblock-end {
+  /* make backticks small */
+  font-size: 0.625em;
+
+  /* limit "top padding" height of the block */
+  height: 0.75rem; /* 12px */
+  line-height: 1.2rem !important; /* move backticks a bit down */
+}
+.markdown-source-view .HyperMD-codeblock-begin {
+  z-index: 1; /* make overflow visible */
+}
+
+.markdown-preview-view pre {
+  padding: 0.75em 1em; /* 12px - to match Source's top and bottom backtick rows */
+  margin: 0 0 var(--empty-line-height) 0; /* like paragraphs */
+}
+
+.markdown-source-view .HyperMD-codeblock,
+.markdown-preview-view pre code {
+  line-height: 1.5rem;
+}
+
+/*
+ ********************************************************************************************************************
+ * Code: inline code
+*/
+
+.markdown-source-view span.cm-inline-code,
+.markdown-preview-view :not(pre) > code {
+  color: var(--color-dracula-green);
+  padding-top: 0.1875em; /* 3px */
+  padding-bottom: 0.1875em; /* 3px */
+}
+
+/*
+ ********************************************************************************************************************
+ * Hashtags
+*/
+
+body {
+  --tag-size: var(--font-text-size);
+  --tag-color: var(--color-dracula-pink);
+  --tag-color-hover: var(--color-dracula-pink);
+  --tag-background: hsla(var(--interactive-accent-hsl), 0.2);
+  --tag-background-hover: hsla(var(--interactive-accent-hsl), 0.4);
+  --tag-padding-x: 0.25em; /* 4px */
+  --tag-padding-y: 0.125em; /* 2px */
+  --tag-radius: 0.1875em; /* 3px */
+}
+
+/*
+ ********************************************************************************************************************
+ * Headings
+ * - Six Dracula colors (the "red" is not used)
+ * - Sizes from 1em to 2em with 0.2em interval
+ * - Same look in Source and Preview (except for ###)
+ * - Formatting (###) is header's font-size * 0.6
+*/
+
+body {
+  --h1-color: var(--color-dracula-pink);
+  --h2-color: var(--color-dracula-purple);
+  --h3-color: var(--color-dracula-cyan);
+  --h4-color: var(--color-dracula-green);
+  --h5-color: var(--color-dracula-yellow);
+  --h6-color: var(--color-dracula-orange);
+
+  --h1-size: 2em;
+  --h2-size: 1.8em;
+  --h3-size: 1.6em;
+  --h4-size: 1.4em;
+  --h5-size: 1.2em;
+  --h6-size: 1em;
+
+  --h1-weight: 600;
+  --h2-weight: 600;
+  --h3-weight: 600;
+  --h4-weight: 600;
+  --h5-weight: 600;
+  --h6-weight: 600;
+
+  --h1-line-height: 1.3125; /* 41.6px → 42px */
+  --h2-line-height: 1.2847; /* 37.44px → 37px */
+  --h3-line-height: 1.2891; /* 33.28px → 33px */
+  --h4-line-height: 1.2946; /* 29.12px → 29px */
+  --h5-line-height: 1.3021; /* 24.96px → 25px */
+  --h6-line-height: 1.3125; /* 20.8px → 21px */
+
+  --heading-spacing: 0;
+}
+
+.markdown-source-view .HyperMD-header,
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+  margin: 0;
+}
+
+/* Header formatting prefix (###) */
+.markdown-source-view .cm-formatting-header {
+  color: inherit; /* inherit color from header, instead of using --heading-formatting */
+  opacity: 0.4;
+  font-size: 0.6em !important;
+}
+
+/* Hanging prefixes (### is outside in the text margin) */
+.markdown-source-view:not(.is-live-preview) .HyperMD-header-1,
+.markdown-source-view.is-live-preview .cm-active.HyperMD-header-1 { text-indent: -0.4884em; }
+.markdown-source-view:not(.is-live-preview) .HyperMD-header-2,
+.markdown-source-view.is-live-preview .cm-active.HyperMD-header-2 { text-indent: -0.8562em; }
+.markdown-source-view:not(.is-live-preview) .HyperMD-header-3,
+.markdown-source-view.is-live-preview .cm-active.HyperMD-header-3 { text-indent: -1.2402em; }
+.markdown-source-view:not(.is-live-preview) .HyperMD-header-4,
+.markdown-source-view.is-live-preview .cm-active.HyperMD-header-4 { text-indent: -1.7866em; }
+.markdown-source-view:not(.is-live-preview) .HyperMD-header-5,
+.markdown-source-view.is-live-preview .cm-active.HyperMD-header-5 { text-indent: -2.2291em; }
+.markdown-source-view:not(.is-live-preview) .HyperMD-header-6,
+.markdown-source-view.is-live-preview .cm-active.HyperMD-header-6 { text-indent: -2.6894em; }
+
+/* Empty line after headers, to align Preview with Source (sizing looks
+   tricky, but it's just to make the padding the same size in pixels) */
+.markdown-preview-view h1 { margin-bottom: calc(var(--empty-line-height) / 2); }
+.markdown-preview-view h2 { margin-bottom: calc(var(--empty-line-height) / 1.8); }
+.markdown-preview-view h3 { margin-bottom: calc(var(--empty-line-height) / 1.6); }
+.markdown-preview-view h4 { margin-bottom: calc(var(--empty-line-height) / 1.4); }
+.markdown-preview-view h5 { margin-bottom: calc(var(--empty-line-height) / 1.2); }
+.markdown-preview-view h6 { margin-bottom: calc(var(--empty-line-height) / 1); }
+
+/*
+ ********************************************************************************************************************
+ * Links
+*/
+
+body {
+  --link-color: var(--color-dracula-pink);
+  --link-color-hover: var(--color-dracula-purple);
+  --link-external-color: var(--color-dracula-pink);
+  --link-external-color-hover: var(--color-dracula-purple);
+  --link-unresolved-color: var(--color-dracula-pink);
+  --link-unresolved-opacity: 0.5;
+  --link-unresolved-decoration-color: var(--color-dracula-pink);
+}
+
+/* URL part in `[text](url)` */
+.markdown-source-view .cm-string.cm-url {
+  color: var(--color-dracula-cyan);
+}
+/* Parens around URL in `[text](url)`, since they don't use punctuation color by default */
+.markdown-source-view .cm-string.cm-url.cm-formatting-link-string {
+  color: var(--text-faint);
+}
+
+/*
+ ********************************************************************************************************************
+ * Lists
+ * - Because overriding `--list-spacing` is not enough
+*/
+
+body {
+  /* Obsidian vars */
+  --list-spacing: 0; /* takes care of vertical padding on list items */
+  --list-indent: 1.172em; /* with the code below, this var only affects OL */
+
+  /* Custom vars */
+  --list-item-gap: 0.375em; /* bottom margin for a list item, to keep the items separated */
+  --list-ul-margin: 0.272em; /* left margin of ul list, before `- ` */
+  --list-ul-bullet-width: 0.75em; /* width of `- ` is 11.42px by default, we round it to 12px */
+  --list-ol-margin: 0.125em; /* left margin of ol list, before `1. ` */
+  --list-ol-bullet-width: 1.75em; /* width of `99. ` is 28.16px; we set it to 28px, even for `1. ` */
+  --list-task-checkbox-width: 2.0625em; /* width of `[ ] ` is 33px */
+}
+
+/* Source OL+UL list items (vertical) */
+.markdown-source-view .HyperMD-list-line + .HyperMD-list-line {
+  padding-top: var(--list-item-gap) !important;
+  padding-bottom: 0 !important;
+}
+
+/* Source UL indentation (non-task, top-level only) */
+.markdown-source-view .HyperMD-list-line-1:has(> .cm-formatting-list-ul) {
+  text-indent: calc(-1 * var(--list-ul-bullet-width)) !important;
+  padding-inline-start: calc(var(--list-ul-margin) + var(--list-ul-bullet-width)) !important;
+}
+/* Source UL indentation (tasks, top level) */
+.markdown-source-view .HyperMD-list-line-1.HyperMD-task-line:has(> .cm-formatting-list-ul) {
+  text-indent: calc(-1 * var(--list-ul-bullet-width) - var(--list-task-checkbox-width)) !important;
+  padding-inline-start: calc(var(--list-ul-margin) + var(--list-ul-bullet-width) + var(--list-task-checkbox-width)) !important;
+}
+/* Source UL indentation (tasks, 2nd level) */
+.markdown-source-view .HyperMD-list-line-2.HyperMD-task-line:has(> .cm-formatting-list-ul) {
+  text-indent: calc(-1 * var(--list-indent) - var(--list-ul-bullet-width) - var(--list-task-checkbox-width)) !important;
+  padding-inline-start: calc(var(--list-indent) + var(--list-ul-margin) + var(--list-ul-bullet-width) + var(--list-task-checkbox-width)) !important;
+}
+/* Source UL indentation (tasks, 3rd level) */
+.markdown-source-view .HyperMD-list-line-3.HyperMD-task-line:has(> .cm-formatting-list-ul) {
+  text-indent: calc(-2 * var(--list-indent) - var(--list-ul-bullet-width) - var(--list-task-checkbox-width)) !important;
+  padding-inline-start: calc(2 * var(--list-indent) + var(--list-ul-margin) + var(--list-ul-bullet-width) + var(--list-task-checkbox-width)) !important;
+}
+
+/* Source OL indentation (non-task, top-level only) */
+.markdown-source-view .HyperMD-list-line-1:has(> .cm-formatting-list-ol) {
+  text-indent: calc(-1 * var(--list-ol-bullet-width)) !important;
+  padding-inline-start: calc(var(--list-ol-margin) + var(--list-ol-bullet-width)) !important;
+}
+/* Source OL indentation (tasks, top level) */
+.markdown-source-view .HyperMD-list-line-1.HyperMD-task-line:has(> .cm-formatting-list-ol) {
+  text-indent: calc(-1 * var(--list-ol-bullet-width) - var(--list-task-checkbox-width)) !important;
+  padding-inline-start: calc(var(--list-ol-margin) + var(--list-ol-bullet-width) + var(--list-task-checkbox-width)) !important;
+}
+/* Source OL indentation (tasks, 2nd level) */
+.markdown-source-view .HyperMD-list-line-2.HyperMD-task-line:has(> .cm-formatting-list-ol) {
+  text-indent: calc(-1 * var(--list-indent) - var(--list-ol-bullet-width) - var(--list-task-checkbox-width)) !important;
+  padding-inline-start: calc(var(--list-indent) + var(--list-ol-margin) + var(--list-ol-bullet-width) + var(--list-task-checkbox-width)) !important;
+}
+/* Source OL indentation (tasks, 3rd level) */
+.markdown-source-view .HyperMD-list-line-3.HyperMD-task-line:has(> .cm-formatting-list-ol) {
+  text-indent: calc(-2 * var(--list-indent) - var(--list-ol-bullet-width) - var(--list-task-checkbox-width)) !important;
+  padding-inline-start: calc(2 * var(--list-indent) + var(--list-ol-margin) + var(--list-ol-bullet-width) + var(--list-task-checkbox-width)) !important;
+}
+
+/* Source UL bullet width (any-level) */
+.markdown-source-view .HyperMD-list-line .cm-formatting-list-ul {
+  display: inline-block;
+  min-width: var(--list-ul-bullet-width);
+  text-align: right;
+}
+/* Source OL bullet width (any-level) */
+.markdown-source-view .HyperMD-list-line .cm-formatting-list-ol {
+  display: inline-block;
+  min-width: var(--list-ol-bullet-width);
+  text-align: right;
+}
+
+/* Preview UL+OL list items (vertical)
+ * - top-level ones get gaps, except for the first one
+ * - nested ones get gaps, including the first one */
+.markdown-preview-view li + li,
+.markdown-preview-view li li {
+  margin: var(--list-item-gap) 0 0 0;
+}
+
+/* Preview UL+OL lists (vertical, top-level only) */
+.markdown-preview-view :not(li) > ul,
+.markdown-preview-view :not(li) > ol {
+  margin-top: 0;
+  margin-bottom: var(--empty-line-height); /* like paragraphs */
+}
+
+/* Preview UL indentation (any-level) */
+.markdown-preview-view ul {
+  margin-left: calc(var(--list-ul-margin) + var(--list-ul-bullet-width));
+  padding: 0;
+}
+/* Preview OL indentation (top-level only) */
+.markdown-preview-view :not(li) > ol {
+  margin-left: calc(var(--list-ol-margin) + var(--list-ol-bullet-width));
+  padding: 0;
+}
+
+/* Preview UL tasks */
+.markdown-preview-view :not(li) > ul.contains-task-list {
+  padding-left: calc(var(--checkbox-size) * 2.065);
+}
+.markdown-preview-view li > ul.contains-task-list {
+  padding-left: calc(var(--checkbox-size) * 0.152);
+}
+.markdown-preview-view ul.contains-task-list .task-list-item-checkbox {
+  margin-left: calc(var(--checkbox-size) * -1.65);
+  margin-right: calc(var(--checkbox-size) * 0.65);
+}
+
+/* Preview OL tasks */
+.markdown-preview-view ol li.task-list-item {
+  padding-left: calc(var(--checkbox-size) * 2.065);
+}
+.markdown-preview-view li > ol.contains-task-list {
+  margin-left: calc(var(--checkbox-size) * -2.065);
+}
+.markdown-preview-view ol.contains-task-list .task-list-item-checkbox {
+  margin-left: calc(var(--checkbox-size) * -1.65);
+  margin-right: calc(var(--checkbox-size) * 0.65);
+}
+
+/* Preview UL bullet: move down and right */
+.markdown-preview-view .list-bullet {
+  justify-content: initial;
+  padding-top: 0.0625em; /* 1px */
+  margin-left: -0.75em; /* distance between bullet and text; default is -1em */
+}
+
+/* Missing checked/done style for OL tasks (copied from the existing UL style in app.css) */
+ol > li.task-list-item[data-task="x"],
+ol > li.task-list-item[data-task="X"] {
+  text-decoration: var(--checklist-done-decoration);
+  color: var(--checklist-done-color);
+}
+
+/*
+ ********************************************************************************************************************
+ * Paragraphs & empty lines
+ * - in Source, we'll have empty lines after each block (header, paragraph, list etc.)
+ * - in Preview, we'll emulate empty lines with the equivalent padding-bottom / margin-bottom
+*/
+
+/* Empty line in Source is a separator, and should look smaller than a line with text */
+.markdown-source-view .cm-line:has(> br:only-child) {
+  height: var(--empty-line-height);
+  line-height: var(--empty-line-height); /* to vertically align the text cursor in the empty line */
+}
+
+/* Empty line after paragraphs, to align Preview with Source */
+.markdown-preview-view p {
+  margin: 0 0 var(--empty-line-height) 0;
+  padding: 0;
+}
+
+/*
+ ********************************************************************************************************************
+ * Tables
+*/
+
+body {
+  --table-header-background: var(--color-base-20);
+}
+
+/*
+ ********************************************************************************************************************
+ * Thematic breaks (horizontal rules, <hr>)
+*/
+
+.markdown-source-view .cm-hr {
+  /* Preview's color (--hr-color) is `--color-base-30`, but for Source's short `---` we need a brighter one */
+  color: var(--color-base-40);
+  font-weight: bold;
+}
+
+.markdown-preview-view hr {
+  /* to match Source's paragraphs, the height must be = 1.5, plus --empty-line-height on both sides */
+  --hr-required-size: 1.5em; /* normal text line height */
+  --hr-remainder: calc(var(--hr-required-size) - var(--hr-thickness));
+  --hr-margin: calc(var(--hr-remainder) / 2 + var(--empty-line-height));
+
+  margin: var(--hr-margin) 0;
+}
+
+/*
+ ********************************************************************************************************************
+ * YAML front matter (metadata)
+ * - Metadata is only visible if enabled in the settings
+ * - We make it look very much like a code block
+*/
+
+/* All metadata rows (formatting + content) */
+.markdown-source-view .cm-line:has(> .cm-hmd-frontmatter) {
+  background-color: var(--code-background);
+  padding-left: var(--size-4-4);
+}
+
+/* Text in metadata rows (formatting + content) */
+.markdown-source-view .cm-line > .cm-hmd-frontmatter {
+  color: var(--text-faint);
+}
+
+/* Formatting rows (top and bottom) */
+.markdown-source-view .cm-line:has(> .cm-hmd-frontmatter.cm-def) {
+  /* make "---" small */
+  font-size: 0.625em;
+
+  /* limit "top padding" height of the block */
+  height: 0.75rem; /* 12px */
+  line-height: 0.75rem; /* 12px */
+
+  border-radius: var(--radius-s) var(--radius-s) 0 0;
+}
+
+/* Bottom formatting row */
+.markdown-source-view .cm-line:has(> .cm-hmd-frontmatter) + .cm-line:has(> .cm-hmd-frontmatter.cm-def) {
+  border-radius: 0 0 var(--radius-s) var(--radius-s);
+}
+
+/* Content rows */
+.markdown-source-view .cm-line > .cm-hmd-frontmatter:not(.cm-def) {
+  height: 1.5rem;
+  line-height: 1.5rem;
+  vertical-align: top;
+}
+
+/* The rest is for Preview */
+.markdown-preview-view .frontmatter-container {
+  color: var(--text-faint);
+  background-color: var(--code-background);
+  border-radius: var(--radius-s);
+  padding: 0.75em 1em; /* 12px - to match Source's top and bottom backtick rows */
+  margin: 0 0 var(--empty-line-height) 0; /* like paragraphs */
+}
+.markdown-preview-view .frontmatter-container-header {
+  display: none;
+}
+.markdown-preview-view .frontmatter-section {
+  line-height: 1.5em;
+  margin: 0;
+}
+.markdown-preview-view .frontmatter-section-label,
+.markdown-preview-view .frontmatter-section-data {
+  font-family: var(--font-monospace);
+  font-size: var(--font-smaller);
+  text-transform: none;
+}

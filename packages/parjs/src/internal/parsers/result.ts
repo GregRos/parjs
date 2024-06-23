@@ -4,7 +4,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class Result<T> extends ParjserBase<T> {
-    type = "result";
     expecting = "expecting anything";
     constructor(private value: T) {
         super();

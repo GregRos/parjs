@@ -4,7 +4,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class CharCodeWhere extends ParjserBase<string> {
-    type = "charCodeWhere";
     expecting = "expecting a character matching a predicate";
 
     constructor(private predicate: ParjsValidator<number>) {

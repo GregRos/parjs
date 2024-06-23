@@ -7,8 +7,6 @@ import type { ImplicitParjser } from "../wrap-implicit";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Expects<T> extends Combinated<T, T> {
-    type = "expects";
-
     expecting = typeof this.messageOrFunction === "string" ? this.messageOrFunction : "<dynamic>";
     constructor(
         source: CombinatorInput<T>,

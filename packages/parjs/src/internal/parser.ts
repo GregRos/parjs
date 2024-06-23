@@ -1,6 +1,6 @@
 import { ParserDefinitionError } from "../errors";
 import { clone, defaults } from "../utils";
-import type { ParjsCombinator, Parjser } from "./parjser";
+import type { ParjsFunctionCombinator, Parjser } from "./parjser";
 import type { ErrorLocation, ParjsResult, Trace } from "./result";
 import { ParjsFailure, ParjsSuccess, ResultKind } from "./result";
 import type { ParsingState, UserState } from "./state";
@@ -80,7 +80,7 @@ export function string<T extends string>(str: T): Parjser<T> {
  * used in user code.
  */
 export abstract class ParjserBase<TValue> implements Parjser<TValue> {
-    abstract type: string;
+    readonly type = this.constructor.name;
     abstract expecting: string;
     private debugFunction?: ParjserDebugFunction;
 
@@ -190,19 +190,19 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
 
     // eslint-disable-next-line max-params
     pipe<T, T1, T2 = T1, T3 = T2, T4 = T3, T5 = T4, T6 = T5>(
-        cmb1?: ParjsCombinator<T, T1>,
-        cmb2?: ParjsCombinator<T1, T2>,
-        cmb3?: ParjsCombinator<T2, T3>,
-        cmb4?: ParjsCombinator<T3, T4>,
-        cmb5?: ParjsCombinator<T4, T5>,
-        cmb6?: ParjsCombinator<T5, T6>
+        cmb1?: ParjsFunctionCombinator<T, T1>,
+        cmb2?: ParjsFunctionCombinator<T1, T2>,
+        cmb3?: ParjsFunctionCombinator<T2, T3>,
+        cmb4?: ParjsFunctionCombinator<T3, T4>,
+        cmb5?: ParjsFunctionCombinator<T4, T5>,
+        cmb6?: ParjsFunctionCombinator<T5, T6>
     ): Parjser<T6> {
         const combinators = [cmb1, cmb2, cmb3, cmb4, cmb5, cmb6].filter(x => x != null);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let last: any = wrapImplicit(this);
 
         for (const cmb of combinators) {
-            last = (cmb as ParjsCombinator<unknown, unknown>)(last);
+            last = (cmb as ParjsFunctionCombinator<unknown, unknown>)(last);
         }
 
         return last as Parjser<T6>;

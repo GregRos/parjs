@@ -25,7 +25,6 @@ export type RecoveryFunction<T> = (
 ) => SuccessInfo<T> | Partial<FailureInfo> | null;
 
 class Soft<T> extends Combinated<T, T> {
-    type = "recover";
     expecting = this.source.expecting;
 
     constructor(

@@ -1,0 +1,11 @@
+{
+  "name": "@parjs/site",
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "sass --watch styles/main.electron.scss:parjs.vault/.obsidian/snippets/main.electron.css styles/main.web.scss:parjs.vault/publish.css"
+  },
+  "devDependencies": {
+    "sass": "^1.75.0"
+  },
+  "packageManager": "yarn@4.1.0"
+}

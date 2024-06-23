@@ -1,0 +1,712 @@
+@charset "UTF-8";
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🧩parser"].data-link-text {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🧩parser"].data-link-text::before {
+  content: "🧩‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🧩parser"].data-link-text:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🧩parser"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(124, 255, 124) !important;
+  -webkit-text-fill-color: rgb(124, 255, 124) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🧩parser"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline:hover {
+  text-decoration: none !important;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🧩parser"] {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(124, 255, 124) !important;
+  -webkit-text-fill-color: rgb(124, 255, 124) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🧩parser"]::before {
+  content: "🧩‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🧩parser"]:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🧩parser"]:hover {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🧩parser"]) {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🧩parser"]):hover {
+  text-decoration: none !important;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🧩parser"]) .inline-title {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(124, 255, 124) !important;
+  -webkit-text-fill-color: rgb(124, 255, 124) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🧩parser"]) .inline-title::before {
+  content: "🧩‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🧩parser"]) .inline-title:hover {
+  text-decoration: none !important;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#⚙️combinator"].data-link-text {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#⚙️combinator"].data-link-text::before {
+  content: "⚙️‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#⚙️combinator"].data-link-text:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#⚙️combinator"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(146, 146, 244) !important;
+  -webkit-text-fill-color: rgb(146, 146, 244) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#⚙️combinator"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline:hover {
+  text-decoration: none !important;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#⚙️combinator"] {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(146, 146, 244) !important;
+  -webkit-text-fill-color: rgb(146, 146, 244) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#⚙️combinator"]::before {
+  content: "⚙️‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#⚙️combinator"]:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#⚙️combinator"]:hover {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#⚙️combinator"]) {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#⚙️combinator"]):hover {
+  text-decoration: none !important;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#⚙️combinator"]) .inline-title {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(146, 146, 244) !important;
+  -webkit-text-fill-color: rgb(146, 146, 244) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#⚙️combinator"]) .inline-title::before {
+  content: "⚙️‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#⚙️combinator"]) .inline-title:hover {
+  text-decoration: none !important;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🚀booster"].data-link-text {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🚀booster"].data-link-text::before {
+  content: "🚀‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🚀booster"].data-link-text:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🚀booster"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(247, 125, 172) !important;
+  -webkit-text-fill-color: rgb(247, 125, 172) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🚀booster"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline:hover {
+  text-decoration: none !important;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🚀booster"] {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(247, 125, 172) !important;
+  -webkit-text-fill-color: rgb(247, 125, 172) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🚀booster"]::before {
+  content: "🚀‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🚀booster"]:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🚀booster"]:hover {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🚀booster"]) {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🚀booster"]):hover {
+  text-decoration: none !important;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🚀booster"]) .inline-title {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(247, 125, 172) !important;
+  -webkit-text-fill-color: rgb(247, 125, 172) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🚀booster"]) .inline-title::before {
+  content: "🚀‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🚀booster"]) .inline-title:hover {
+  text-decoration: none !important;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🛠️tuner"].data-link-text {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🛠️tuner"].data-link-text::before {
+  content: "🛠️‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🛠️tuner"].data-link-text:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🛠️tuner"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(135, 229, 248) !important;
+  -webkit-text-fill-color: rgb(135, 229, 248) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🛠️tuner"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline:hover {
+  text-decoration: none !important;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🛠️tuner"] {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(135, 229, 248) !important;
+  -webkit-text-fill-color: rgb(135, 229, 248) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🛠️tuner"]::before {
+  content: "🛠️‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🛠️tuner"]:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🛠️tuner"]:hover {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🛠️tuner"]) {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🛠️tuner"]):hover {
+  text-decoration: none !important;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🛠️tuner"]) .inline-title {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(135, 229, 248) !important;
+  -webkit-text-fill-color: rgb(135, 229, 248) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🛠️tuner"]) .inline-title::before {
+  content: "🛠️‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🛠️tuner"]) .inline-title:hover {
+  text-decoration: none !important;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🎁capture"].data-link-text {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🎁capture"].data-link-text::before {
+  content: "🎁‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🎁capture"].data-link-text:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🎁capture"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(236, 249, 151) !important;
+  -webkit-text-fill-color: rgb(236, 249, 151) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .markdown-source-view.is-live-preview [data-link-tags*="#🎁capture"].data-link-text a.cm-underline.cm-underline.cm-underline.cm-underline:hover {
+  text-decoration: none !important;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🎁capture"] {
+  border-radius: 6px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-left: 1px;
+  margin-right: 1px;
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(236, 249, 151) !important;
+  -webkit-text-fill-color: rgb(236, 249, 151) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🎁capture"]::before {
+  content: "🎁‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🎁capture"]:hover {
+  outline: 4px solid rgba(87, 85, 85, 0.487);
+}
+.app-container .tree-item-self .data-link-icon[data-link-tags*="#🎁capture"]:hover {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🎁capture"]) {
+  text-decoration: none !important;
+}
+.app-container .cm-hmd-internal-link:has([data-link-tags*="#🎁capture"]):hover {
+  text-decoration: none !important;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🎁capture"]) .inline-title {
+  text-decoration: none !important;
+  font-weight: bold;
+  color: rgb(236, 249, 151) !important;
+  -webkit-text-fill-color: rgb(236, 249, 151) !important;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🎁capture"]) .inline-title::before {
+  content: "🎁‍" !important;
+  -webkit-text-fill-color: white;
+}
+.app-container .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#🎁capture"]) .inline-title:hover {
+  text-decoration: none !important;
+}
+.app-container .m .inline-title {
+  -webkit-text-fill-color: transparent;
+}
+.app-container .m .inline-title::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .p .inline-title {
+  -webkit-text-fill-color: transparent;
+}
+.app-container .p .inline-title::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .c .inline-title {
+  -webkit-text-fill-color: transparent;
+}
+.app-container .c .inline-title::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cap .inline-title {
+  -webkit-text-fill-color: transparent;
+}
+.app-container .cap .inline-title::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .t .inline-title {
+  -webkit-text-fill-color: transparent;
+}
+.app-container .t .inline-title::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .b .inline-title {
+  -webkit-text-fill-color: transparent;
+}
+.app-container .b .inline-title::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-1:has([emo]) {
+  -webkit-text-fill-color: unset;
+}
+.app-container .cm-header-1:has([emo]) [emo=m] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-1:has([emo]) [emo=m] > span::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-1:has([emo]) [emo=p] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-1:has([emo]) [emo=p] > span::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-1:has([emo]) [emo=c] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-1:has([emo]) [emo=c] > span::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-1:has([emo]) [emo=cap] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-1:has([emo]) [emo=cap] > span::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-1:has([emo]) [emo=t] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-1:has([emo]) [emo=t] > span::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-1:has([emo]) [emo=b] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-1:has([emo]) [emo=b] > span::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-2:has([emo]) {
+  -webkit-text-fill-color: unset;
+}
+.app-container .cm-header-2:has([emo]) [emo=m] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-2:has([emo]) [emo=m] > span::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-2:has([emo]) [emo=p] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-2:has([emo]) [emo=p] > span::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-2:has([emo]) [emo=c] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-2:has([emo]) [emo=c] > span::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-2:has([emo]) [emo=cap] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-2:has([emo]) [emo=cap] > span::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-2:has([emo]) [emo=t] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-2:has([emo]) [emo=t] > span::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-2:has([emo]) [emo=b] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-2:has([emo]) [emo=b] > span::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-3:has([emo]) {
+  -webkit-text-fill-color: unset;
+}
+.app-container .cm-header-3:has([emo]) [emo=m] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-3:has([emo]) [emo=m] > span::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-3:has([emo]) [emo=p] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-3:has([emo]) [emo=p] > span::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-3:has([emo]) [emo=c] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-3:has([emo]) [emo=c] > span::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-3:has([emo]) [emo=cap] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-3:has([emo]) [emo=cap] > span::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-3:has([emo]) [emo=t] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-3:has([emo]) [emo=t] > span::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-3:has([emo]) [emo=b] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-3:has([emo]) [emo=b] > span::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-4:has([emo]) {
+  -webkit-text-fill-color: unset;
+}
+.app-container .cm-header-4:has([emo]) [emo=m] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-4:has([emo]) [emo=m] > span::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-4:has([emo]) [emo=p] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-4:has([emo]) [emo=p] > span::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-4:has([emo]) [emo=c] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-4:has([emo]) [emo=c] > span::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-4:has([emo]) [emo=cap] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-4:has([emo]) [emo=cap] > span::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-4:has([emo]) [emo=t] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-4:has([emo]) [emo=t] > span::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-4:has([emo]) [emo=b] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-4:has([emo]) [emo=b] > span::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-5:has([emo]) {
+  -webkit-text-fill-color: unset;
+}
+.app-container .cm-header-5:has([emo]) [emo=m] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-5:has([emo]) [emo=m] > span::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-5:has([emo]) [emo=p] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-5:has([emo]) [emo=p] > span::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-5:has([emo]) [emo=c] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-5:has([emo]) [emo=c] > span::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-5:has([emo]) [emo=cap] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-5:has([emo]) [emo=cap] > span::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-5:has([emo]) [emo=t] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-5:has([emo]) [emo=t] > span::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-5:has([emo]) [emo=b] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-5:has([emo]) [emo=b] > span::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-6:has([emo]) {
+  -webkit-text-fill-color: unset;
+}
+.app-container .cm-header-6:has([emo]) [emo=m] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-6:has([emo]) [emo=m] > span::before {
+  content: "🧰";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-6:has([emo]) [emo=p] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-6:has([emo]) [emo=p] > span::before {
+  content: "🧩";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-6:has([emo]) [emo=c] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-6:has([emo]) [emo=c] > span::before {
+  content: "⚙️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-6:has([emo]) [emo=cap] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-6:has([emo]) [emo=cap] > span::before {
+  content: "🎁";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-6:has([emo]) [emo=t] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-6:has([emo]) [emo=t] > span::before {
+  content: "🛠️";
+  -webkit-text-fill-color: white;
+}
+.app-container .cm-header-6:has([emo]) [emo=b] > span {
+  -webkit-text-fill-color: transparent;
+  break-inside: avoid;
+}
+.app-container .cm-header-6:has([emo]) [emo=b] > span::before {
+  content: "🚀";
+  -webkit-text-fill-color: white;
+}
+.app-container .code-styler-line.code-styler-line.code-styler-line {
+  color: white;
+}
+.app-container .code-styler-line.code-styler-line.code-styler-line .token.function {
+  color: red;
+}
+.app-container .code-styler-line.code-styler-line.code-styler-line .token.keyword {
+  color: rgb(105, 105, 219);
+}
+.app-container .code-styler-line.code-styler-line.code-styler-line .token.variable {
+  color: green;
+}
+.app-container .code-styler-line.code-styler-line.code-styler-line .token.class-name {
+  color: rgb(122, 116, 241);
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=publish.css.map */

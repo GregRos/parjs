@@ -3,7 +3,7 @@ export type {
     FailureInfo,
     FloatOptions,
     IntOptions,
-    ParjsCombinator,
+    ParjsFunctionCombinator,
     ParjsProjection,
     ParjsResult,
     ParjsValidator,

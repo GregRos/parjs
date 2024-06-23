@@ -61,7 +61,6 @@ ISSUES:
  b.
 */
 class Float extends ParjserBase<number> {
-    type = "float";
     expecting = "expecting a floating-point number";
 
     constructor(readonly options: FloatOptions) {

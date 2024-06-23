@@ -5,7 +5,6 @@ import type { Parjser } from "../parjser";
 import { ParjserBase } from "../parser";
 
 class State<T> extends ParjserBase<T> {
-    type = "state";
     expecting = "expecting anything";
 
     _apply(ps: ParsingState): void {

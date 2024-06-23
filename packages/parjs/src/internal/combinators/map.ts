@@ -5,7 +5,6 @@ import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Map<T, S> extends Combinated<T, S> {
-    type = "map";
     expecting = this.source.expecting;
     constructor(
         source: ParjserBase<T>,

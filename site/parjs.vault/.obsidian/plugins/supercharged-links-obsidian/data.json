@@ -1,0 +1,74 @@
+{
+  "targetAttributes": [],
+  "targetTags": true,
+  "getFromInlineField": true,
+  "enableTabHeader": true,
+  "activateSnippet": true,
+  "enableEditor": true,
+  "enableFileList": true,
+  "enableBacklinks": true,
+  "enableQuickSwitcher": true,
+  "enableSuggestor": true,
+  "selectors": [
+    {
+      "type": "tag",
+      "name": "",
+      "value": "🧰modifier",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "c03d-c469",
+      "selectText": true,
+      "selectAppend": true,
+      "selectPrepend": true,
+      "selectBackground": true
+    },
+    {
+      "type": "tag",
+      "name": "",
+      "value": "🎁capture",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "50d1-d5d9",
+      "selectText": true,
+      "selectAppend": true,
+      "selectPrepend": true,
+      "selectBackground": true
+    },
+    {
+      "type": "tag",
+      "name": "",
+      "value": "⚙️combinator",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "e9c1-329c",
+      "selectText": true,
+      "selectAppend": true,
+      "selectPrepend": true,
+      "selectBackground": true
+    },
+    {
+      "type": "tag",
+      "name": "",
+      "value": "🧩parser",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "ed9b-889b",
+      "selectText": true,
+      "selectAppend": true,
+      "selectPrepend": true,
+      "selectBackground": true
+    },
+    {
+      "type": "tag",
+      "name": "",
+      "value": "⚡instance-combinator",
+      "matchCaseSensitive": false,
+      "match": "exact",
+      "uid": "5bda-c2a2",
+      "selectText": true,
+      "selectAppend": true,
+      "selectPrepend": true,
+      "selectBackground": true
+    }
+  ]
+}

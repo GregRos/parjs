@@ -26,7 +26,6 @@ export interface ManySepByOptions<Sep> {
 }
 
 class ManySepBy<E, Sep> extends Combinated<E, ArrayWithSeparators<E, Sep>> {
-    type = "manySepBy";
     expecting = this.source.expecting;
     constructor(
         source: CombinatorInput<E>,

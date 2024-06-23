@@ -1,6 +1,6 @@
 import type { ParjserDebugFunction } from "./parser";
 import type { FailureInfo, ParjsResult } from "./result";
-import type { ParsingState, UserState } from "./state";
+import type { UserState } from "./state";
 import type { ImplicitParjser } from "./wrap-implicit";
 
 /** A combinator or operator that takes a source parser that returns a new parser based on it. */
@@ -26,7 +26,7 @@ export type ParjsValidator<T> = ParjsProjection<T, Partial<FailureInfo> | true>;
  * @group functional
  */
 export interface Parjser<out T> {
-    apply(ps: ParsingState): void;
+    apply(ps: ParsingStte): void;
 
     readonly expecting: string;
     /**

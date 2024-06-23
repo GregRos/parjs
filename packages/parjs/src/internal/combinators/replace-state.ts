@@ -10,7 +10,6 @@ import { wrapImplicit } from "../wrap-implicit";
 export type UserStateOrProjection = UserState | ((externalState: UserState) => UserState);
 
 class IsolateState<T> extends Combinated<T, T> {
-    type = "replaceState";
     expecting = this.source.expecting;
     constructor(
         source: ParjserBase<T>,

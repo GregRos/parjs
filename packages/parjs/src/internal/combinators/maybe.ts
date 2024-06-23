@@ -6,8 +6,6 @@ import type { ParsingState } from "../state";
 import { wrapImplicit } from "../wrap-implicit";
 
 class MaybeCombinator<T, S> extends Combinated<T, S | T> {
-    type = "maybe";
-
     expecting = "expecting anything";
 
     constructor(

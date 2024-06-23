@@ -2,7 +2,7 @@ export { ParjserBase, ParserUserState } from "./parser";
 export type { ParsingState, UserState } from "./state";
 
 export { composeCombinator, defineCombinator } from "./combinators";
-export type { ParjsCombinator, ParjsProjection, ParjsValidator, Parjser } from "./parjser";
+export type { ParjsFunctionCombinator, ParjsProjection, ParjsValidator, Parjser } from "./parjser";
 export { regexp, string } from "./parser";
 export {
     anyChar,

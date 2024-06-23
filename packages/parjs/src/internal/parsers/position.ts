@@ -9,7 +9,6 @@ import type { ParsingState } from "../state";
  */
 export function position(): Parjser<number> {
     return new (class Position extends ParjserBase<number> {
-        type = "position";
         expecting = "anything";
 
         _apply(ps: ParsingState) {

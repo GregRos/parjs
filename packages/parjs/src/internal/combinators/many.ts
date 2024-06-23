@@ -8,7 +8,6 @@ import { Combinated } from "../combinated";
 import { wrapImplicit } from "../wrap-implicit";
 
 class Many<T> extends Combinated<T, T[]> {
-    type = "many";
     expecting = this.source.expecting;
 
     constructor(

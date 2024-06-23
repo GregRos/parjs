@@ -4,7 +4,6 @@ import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
 
 class Rest extends ParjserBase<string> {
-    type = "rest";
     expecting = "expecting anything";
 
     _apply(pr: ParsingState) {

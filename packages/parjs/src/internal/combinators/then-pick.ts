@@ -6,7 +6,6 @@ import type { ImplicitParjser } from "../wrap-implicit";
 import { wrapImplicit } from "../wrap-implicit";
 
 class ThenPick<A, B> extends Combinated<A, B> {
-    type = "then-pick";
     expecting = `${this.source.expecting} then <dynamic>`;
     constructor(
         source: CombinatorInput<A>,

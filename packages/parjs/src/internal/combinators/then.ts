@@ -43,7 +43,6 @@ class Then<T, Rest extends CombinatorInput<unknown>[]> extends Combinated<
         }
     ]
 > {
-    type = "then";
     expecting = this.source.expecting;
     private _seq = [this.source, ...this._rest];
 

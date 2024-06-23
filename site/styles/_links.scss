@@ -1,0 +1,158 @@
+@mixin margin-h($value) {
+    margin-left: $value;
+    margin-right: $value;
+}
+
+@mixin padding-h($value) {
+    padding-left: $value;
+    padding-right: $value;
+}
+
+@mixin link-wrapper($color) {
+    border-radius: 6px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    background-color: fade-out(black, 0.9);
+    @include margin-h(1px);
+    &:hover {
+        outline: 4px solid rgba(87, 85, 85, 0.487);
+    }
+}
+
+@mixin link($color) {
+    text-decoration: none !important;
+    font-weight: bold;
+    color: $color !important;
+    -webkit-text-fill-color: $color !important;
+    @include padding-h(4px);
+    &:hover {
+        text-decoration: none !important;
+    }
+}
+
+@mixin prefix($prefix) {
+    &::before {
+        content: "#{$prefix}\200D" !important;
+        -webkit-text-fill-color: white;
+    }
+}
+
+$combinator-color: rgb(146, 146, 244);
+$parser-color: rgb(124, 255, 124);
+$capture-color: rgb(236, 249, 151);
+$tuner-color: rgb(135, 229, 248);
+$booster-color: rgb(247, 125, 172);
+$tag-to-styles: (
+    "#🧩parser": (
+        "color": $parser-color,
+        "prefix": "🧩"
+    ),
+    "#⚙️combinator": (
+        "color": $combinator-color,
+        "prefix": "⚙️"
+    ),
+    "#🚀booster": (
+        "color": $booster-color,
+        "prefix": "🚀"
+    ),
+    "#🛠️tuner": (
+        "color": $tuner-color,
+        "prefix": "🛠️"
+    ),
+    "#🎁capture": (
+        "color": $capture-color,
+        "prefix": "🎁"
+    )
+);
+
+@mixin superlink($prefix, $color) {
+    @include prefix($prefix);
+
+    @include link-wrapper($color);
+}
+.app-container {
+    @each $tag, $styles in $tag-to-styles {
+        $color: map-get($styles, "color");
+        $prefix: map-get($styles, "prefix");
+
+        .markdown-source-view.is-live-preview {
+            [data-link-tags*="#{$tag}"].data-link-text {
+                @include superlink($prefix, $color);
+                a.cm-underline.cm-underline.cm-underline.cm-underline {
+                    @include link($color);
+                }
+            }
+        }
+
+        .tree-item-self .data-link-icon[data-link-tags*="#{$tag}"] {
+            @include superlink($prefix, $color);
+            @include link($color);
+        }
+
+        .cm-hmd-internal-link:has([data-link-tags*="#{$tag}"]) {
+            text-decoration: none !important;
+            &:hover {
+                text-decoration: none !important;
+            }
+        }
+
+        .workspace-tabs:has(.workspace-tab-header.is-active [data-link-tags*="#{$tag}"]) {
+            .inline-title {
+                @include prefix($prefix);
+                @include link($color);
+            }
+        }
+    }
+
+    $code-to-emoji: (
+        "m": "🧰",
+        "p": "🧩",
+        "c": "⚙️",
+        "cap": "🎁",
+        "t": "🛠️",
+        "b": "🚀"
+    );
+
+    @each $code, $emoji in $code-to-emoji {
+        .#{$code} {
+            .inline-title {
+                -webkit-text-fill-color: transparent;
+                &::before {
+                    content: $emoji;
+                    -webkit-text-fill-color: white;
+                }
+            }
+        }
+    }
+    @for $i from 1 through 6 {
+        .cm-header-#{$i}:has([emo]) {
+            -webkit-text-fill-color: unset;
+            @each $code, $emoji in $code-to-emoji {
+                [emo="#{$code}"] > span {
+                    -webkit-text-fill-color: transparent;
+                    &::before {
+                        content: $emoji;
+                        -webkit-text-fill-color: white;
+                    }
+                    break-inside: avoid;
+                }
+            }
+        }
+    }
+
+    .code-styler-line.code-styler-line.code-styler-line {
+        color: white;
+        .token.function {
+            color: red;
+        }
+        .token.keyword {
+            color: rgb(105, 105, 219);
+        }
+        .token.variable {
+            color: green;
+        }
+        .token.class-name {
+            color: rgb(122, 116, 241);
+            font-weight: bold;
+        }
+    }
+}
