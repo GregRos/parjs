@@ -1,7 +1,11 @@
-node_modules/
+**/node_modules/
+**/coverage/
+**/dist/
+**/dist-spec/
 .git
 .idea/
 .vscode/
 .obsidian/
-
+jest
 *.js
+*.mjs

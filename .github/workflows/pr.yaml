@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Monorepo PR
 on:
   pull_request:
     branches:
@@ -11,27 +11,41 @@ jobs:
         node-version:
           - 20.9.0
     steps:
-      - uses: actions/checkout@v4
-      - name: Enable corepack
+      - name: CHECKOUT CODE
+        uses: actions/checkout@v4
+
+      - name: SETUP COREPACK
         run: corepack enable
-      - name: Use Node.js ${{ matrix.node-version }}
+
+      - name: SETUP NODE.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: "20.9.0"
           cache: yarn
           registry-url: "https://registry.yarnpkg.com"
 
-      - name: Set yarn version
+      - name: SETUP YARN
         run: yarn set version stable
-      - name: Install dependencies
+
+      - name: INSTALL
         run: yarn install --immutable
-      - name: build
-        run: yarn build
-      - name: lint:check
-        run: yarn lint:check
-      - name: test
-        run: yarn test
-      - name: code coverage
-        uses: coverallsapp/github-action@master
+
+      - name: BUILD
+        run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run build
+
+      - name: LINT
+        run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run lint:check
+
+      - name: TEST
+        run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run test:coverage
+
+      - name: UPLOAD COVERAGE REPORT FOR CHAR-INFO
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./packages/char-info/coverage/lcov.info
+      - name: UPLOAD COVERAGE REPORT FOR PARJS
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: packages/parjs/coverage/lcov.info

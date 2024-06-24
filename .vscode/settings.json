@@ -49,6 +49,5 @@
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "typescript.suggest.autoImports": true,
   "typescript.suggest.includeCompletionsForImportStatements": true,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }

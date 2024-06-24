@@ -1,0 +1,18 @@
+{
+  "name": "char-info-examples",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "clean": "shx rm -rf dist"
+  },
+  "dependencies": {
+    "char-info": "*"
+  },
+  "devDependencies": {
+    "@types/node": "20.9.1",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "yarn@4.1.1"
+}
