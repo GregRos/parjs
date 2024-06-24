@@ -36,7 +36,7 @@ A combinator can either be:
 All built-in combinators are objects, but you can use a function as a combinator as well.
 # Boosting
 
-# Composition
+# Compose
 You can compose combinators using the [[compose]] booster, which is defined on object combinators. Function combinators don’t have this method, but you can pass them to the `compose` method of object combinators.
 
 You can also import `compose` as a static function that you can apply on one or more combinators. In this case, any of them can be functions.

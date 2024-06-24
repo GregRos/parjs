@@ -5,4 +5,4 @@ aliases:
   - ✅accepted
 ---
 #stage-0
-[[‍‍‍‍‍‍‍accept]] is a #result that can be returned by a 
+[[‍‍‍‍‍‍‍accept]] is a #result that can be returned by a

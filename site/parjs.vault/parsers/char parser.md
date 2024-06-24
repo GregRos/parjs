@@ -106,6 +106,24 @@ anythingButLetter.parse("1")
 anythingButLetter.parse(",")
 anythingButLetter.parse("!")
 ```
+
+# reading strings
+This [[tuner]], which exists on all [[char parser|char parsers]], produces a parser that reads a string of a fixed number of characters, where each char matches the char class of the parser. If it can’t, the parser [[results/fail|⛔‍fails]]. 
+
+```ts title:char-parser.read.ts
+
+import {ascii} from "parjs"
+
+ascii.read(3).parse("abc") // "abc"
+```
+
+The length is computed using the parser’s definition of a character, so the following will parse a string that has a JavaScript `length` of `3`.
+
+```ts title:char-parser.read.crlf.ts
+import {ascii} from "parjs"
+
+ascii.read(2).parse("a\r\n") // "a\r\n"
+```
 # empty classes
 It’s possible to construct a char parser that has an empty char class and so will always fail.
 
@@ -115,3 +133,4 @@ import { ascii } from "parjs";
 // this char parser has an empty class:
 const letterAndDigit = ascii("letter").and("digit");
 ```
+
