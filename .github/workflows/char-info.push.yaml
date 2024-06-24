@@ -59,11 +59,11 @@ jobs:
       - name: TEST
         run: yarn workspace char-info run test:coverage
 
-      - name: UPLOAD COVERAGE REPORT
+      - name: UPLOAD COVERAGE REPORT FOR CHAR-INFO
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: packages/char-info
+          path-to-lcov: ./packages/char-info/coverage/lcov.info
 
       # - name: GENERATE DOCS
       #   run: yarn workspace char-info run docs

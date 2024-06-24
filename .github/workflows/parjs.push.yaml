@@ -60,11 +60,11 @@ jobs:
       - name: TEST
         run: yarn workspace parjs run test:coverage
 
-      - name: UPLOAD COVERAGE REPORT
+      - name: UPLOAD COVERAGE REPORT FOR PARJS
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: packages/parjs
+          path-to-lcov: ./packages/parjs/coverage/lcov.info
 
       # - name: GENERATE DOCS
       #   run: yarn workspace parjs run docs
