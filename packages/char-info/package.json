@@ -66,13 +66,18 @@
     ]
   },
   "nyc": {
+    "all": true,
+    "include": [
+      "dist/**/*.js",
+      "src/**/*.ts"
+    ],
     "reporter": [
       "lcov",
       "text-summary"
-    ]
+    ],
+    "sourceMap": true
   },
   "dependencies": {
-    "espree": "^10.0.1",
     "node-interval-tree": "^1.3.3"
   },
   "devDependencies": {

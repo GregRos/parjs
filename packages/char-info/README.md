@@ -1,10 +1,10 @@
 # char-info
 
-[![Travic CI](https://travis-ci.org/GregRos/char-info.svg?branch=master)](https://travis-ci.org/GregRos/char-info)
-[![Codecov](https://codecov.io/gh/GregRos/char-info/branch/master/graph/badge.svg)](https://codecov.io/gh/GregRos/char-info/branch/master)
-[![NPM](https://badge.fury.io/js/char-info.svg)](https://www.npmjs.com/package/char-info)
-
-[API Documentation](https://char-info.netlify.com/)
+![build](https://github.com/GregRos/parjs/actions/workflows/char-info.push.yaml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/GregRos/parjs/badge.svg?branch=master)](https://coveralls.io/github/GregRos/parjs?branch=master)
+[![npm](https://img.shields.io/npm/v/parjs)](https://www.npmjs.com/package/parjs)
+[![Downloads](https://img.shields.io/npm/dm/parjs)](https://www.npmjs.com/package/parjs)
+[![Gzipped Size](https://img.shields.io/bundlephobia/minzip/parjs)](https://bundlephobia.com/result?p=parjs)
 
 A library that gives you information about individual Unicode characters. It also provides a list of Unicode groupings and their names, including lists of categories, blocks, and scripts. This is also reflected in the library's type definition files.
 

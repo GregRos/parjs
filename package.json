@@ -30,7 +30,6 @@
   "prettier": "./.prettierrc.json",
   "dependencies": {
     "char-info": "workspace:^",
-    "espree": "^10.0.1",
     "parjs": "workspace:^"
   },
   "devDependencies": {
