@@ -49,4 +49,4 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: packages/parjs/coverage/lcov.info
+          path-to-lcov: packages/parjs/coverage/lcov.info
