@@ -6,7 +6,7 @@
 [![Downloads](https://img.shields.io/npm/dm/parjs)](https://www.npmjs.com/package/parjs)
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/parjs)](https://bundlephobia.com/result?p=parjs)
 
-[** 🌍 ABOUT THIS REPOSITORY 🌍**](#Repository)
+**[🌍 ABOUT THIS REPOSITORY 🌍](#Repository)**
 
 Documentation:
 
@@ -462,7 +462,7 @@ I made the examples folders separate workspace so they can import the package by
 
 Commands can be executed with `yarn` normally by going into a workspace root like `packages/parjs`.
 
-However, you can also use the [workspace](https://classic.yarnpkg.com/lang/en/docs/cli/workspace/) and [workspaces](https://classic.yarnpkg.com/lang/en/docs/cli/workspaces/) action groups to execute commands on multiple packages. For example:
+However, you can also use the [workspace](https://yarnpkg.com/cli/workspace) and [workspaces](https://yarnpkg.com/cli/workspaces/foreach) action groups to execute commands on multiple packages. For example:
 
 ```bash
 yarn workspaces foreach -A run clean
@@ -470,7 +470,7 @@ yarn workspaces foreach -A run clean
 
 To execute a command on a single workspace, you can use, for example:
 
-```
+```bash
 yarn workspace parjs run build
 ```
 
@@ -478,7 +478,7 @@ yarn workspace parjs run build
 
 If you run the following in the repo root, you'll add the package to the workspace:
 
-```
+```bash
 yarn add X
 ```
 
