@@ -44,9 +44,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           base-path: packages/char-info
-
+          path-to-lcov: ./packages/char-info/coverage/lcov.info
       - name: UPLOAD COVERAGE REPORT FOR PARJS
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: packages/parjs
+          base-path: packages/parjs/coverage/lcov.info
