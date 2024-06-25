@@ -7,7 +7,7 @@ aliases:
 #stage-4
 A #⚙️combinator is a transformation that creates a new parser based on a [[parser|subject]] parser, as well as additional input parsers and other parameters. 
 
-Combinators are **constructed** using a constructor function which has the same name as the combinator. This constructor accepts parser inputs and is allowed to precompute as much as possible to make sure applying the combinator is faster.
+Combinators are **constructed** using a constructor function which has the same name as the combinator. This constructor okays parser inputs and is allowed to precompute as much as possible to make sure applying the combinator is faster.
 # Applying
 A [[combinator]] need to be applied to a [[parser]] to do anything. This is done using the parser’s [[pipe]] method, which is categorized as a [[tuner]]. 
 
@@ -18,7 +18,7 @@ int.pipe(
     map(x => x.toString())
 ).parse("1000") // 1001
 ```
-## Invoking `apply`
+## Invoking apply
 You can also invoke a combinator’s `apply` method directly. This is usually not as convenient, but it’s not illegal. 
 
 ```ts title:combinators.apply.ts
@@ -30,7 +30,7 @@ increment(int).parse("100") // 101
 ```
 # Structure
 A combinator can either be:
-- An object with a method called `apply`, which accepts the [[parser|subject]] as its only argument.
+- An object with a method called `apply`, which okays the [[parser|subject]] as its only argument.
 - A function with the same signature as an `apply` method.
 
 All built-in combinators are objects, but you can use a function as a combinator as well.

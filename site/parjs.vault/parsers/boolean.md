@@ -11,7 +11,7 @@ You can instead give it **two string arguments**, one string for `true` and anot
 boolean("T", "F").parse("T"); // true
 ```
 
-You can also give it **one or more pairs of strings**. In that case, the first item of each pair is mapping to `true `and the next one to `false`, and any of the strings will be accepted.
+You can also give it **one or more pairs of strings**. In that case, the first item of each pair is mapping to `true `and the next one to `false`, and any of the strings will be okayed.
 
 ```ts title:boolean.arrays.ts
 boolean(["T", "F"], ["true", "false"]);

@@ -5,7 +5,7 @@ aliases:
 #stage-2
 A #🚀booster  is an instance method on a combinator that lets you configure it.
 ## Adding input parsers
-The [[or]] combinator lets you apply alternative parsers until one [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]]. It has the [[or#or]] booster, which lets you add additional alternatives to its original set.
+The [[or]] combinator lets you apply alternative parsers until one [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]]. It has the [[or#or]] booster, which lets you add additional alternatives to its original set.
 
 ```ts title:combinators.boosting.alts.ts
 import {or} from "parjs"
@@ -39,10 +39,10 @@ int.pipe(
 )
 ```
 ## Advanced functionality
-The [[many]] combinator is the best example of this. By itself, it applies a [[parser|subject]] parser until that parser [[results/fail|⛔‍fails]]. However, using its [[booster]], it lets you access variations of this pattern:
+The [[many]] combinator is the best example of this. By itself, it applies a [[parser|subject]] parser until that parser [[signal/fail|⛔‍fails]]. However, using its [[booster]], it lets you access variations of this pattern:
 
 - Apply a [[parser|separator]] between every two applications of the [[parser|subject]].
-- Add a [[parser|terminator]] that will close the sequence if it [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]].
-- Add a minimum or maximum number of [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]]. 
+- Add a [[parser|terminator]] that will close the sequence if it [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]].
+- Add a minimum or maximum number of [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]]. 
 ## Convenience
 Some are just provided for convenience. For example, [[many]] has the [[booster|boosters]]  [[many#map]] and [[many#filter]]. These boosters just apply the `map` and `filter` functions on the array returned by the combinator.

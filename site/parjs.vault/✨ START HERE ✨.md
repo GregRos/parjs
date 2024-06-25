@@ -1,4 +1,4 @@
-This is a progress report.
+This is a progress report. **It will only render if you’re viewing the site locally as an Obsidian vault.**
 
 I’ve finished the general API, more or less, and now I need to work on  implementation-sensitive stuff that I’m less sure about, so this is where I start writing code.
 

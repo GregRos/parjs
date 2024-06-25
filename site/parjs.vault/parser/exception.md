@@ -3,7 +3,7 @@ aliases:
   - 🤯 exception
 ---
 #stage-1
-A parser [[results/fail|⛔fails]], [[panic|😬‍panics]], or even [[die|💀‍‍dies]] if there is a problem with the **input**. In contrast, a parser throws an exception only if it hasn’t been configured correctly, or simply has a bug. 
+A parser [[signal/fail|⛔fails]], [[panic|😬‍panics]], or even [[die|💀‍‍dies]] if there is a problem with the **input**. In contrast, a parser throws an exception only if it hasn’t been configured correctly, or simply has a bug. 
 
 That’s why there is no [[combinator]] that recovers from exceptions thrown by parsers — it’s just not a normal part of parsing an input.
 # Why?

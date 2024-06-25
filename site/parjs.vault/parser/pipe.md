@@ -1,5 +1,5 @@
 #stage-4
-This is an #🛠️tuner  defined on all [[parser]] objects. It’s the primary way you’ll apply combinators to a [[parser|subject]] parser. 
+This is a #🛠️tuner  defined on all [[parser]] objects. It’s the primary way you’ll apply combinators to a [[parser|subject]] parser. 
 
 You call this method with zero or more combinators. It will start be applying the first combinator to the [[parser|subject]] parser, and continue by applying each subsequent combinator to the parser returned in the previous one.
 

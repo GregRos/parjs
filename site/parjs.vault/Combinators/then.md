@@ -1,7 +1,7 @@
 #stage-4
 This #⚙️combinator is the main thing you use when you want to apply one parser after another. It applies the [[parser|subject]] parser, **and then** one or more parsers in sequence, returning the collected results in a tuple.
 
-This combinator #upgrades-failures. If the [[parser|subject]] parser [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]] but a subsequent parser [[results/fail|⛔‍fails]], the [[results/fail|⛔fail]] will be upgraded into a [[panic|😬‍panic]].
+This combinator #upgrades-failures. If the [[parser|subject]] parser [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]] but a subsequent parser [[signal/fail|⛔‍fails]], the [[signal/fail|⛔fail]] will be upgraded into a [[panic|😬‍panic]].
 
 While in some other libraries this only happens if a parser [[consumed input]], in this one it doesn’t matter. This is because **parser structure** rather than **input consumption** is what determines whether failures are upgraded.
 
@@ -104,7 +104,7 @@ This [[booster]] lets you apply a **separator** between every pair of parsers, a
 
 The results of the separator won’t be included in the array.
 
-If the separator [[results/fail|⛔‍fails]] after succeeding at least once, the failure will be [[Upgrading failure|upgraded]] to a [[panic|😬‍panic]].
+If the separator [[signal/fail|⛔‍fails]] after succeeding at least once, the failure will be [[Upgrading failure|upgraded]] to a [[panic|😬‍panic]].
 
 ```ts
 import { int, f } from "parjs";

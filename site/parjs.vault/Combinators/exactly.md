@@ -3,7 +3,7 @@ This #⚙️combinator works like [[many]], but with an exact number of iteratio
 
 It will apply [[parser|subject]] a specific number of times, one after another, and return the collected results in an array.
 
-If the [[parser|subject]] [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]] at least once, but not the specified number of times, the returned parser will [[panic|😬‍panic]].
+If the [[parser|subject]] [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]] at least once, but not the specified number of times, the returned parser will [[panic|😬‍panic]].
 
 ```ts title:exactly.ts
 import {string, exactly} from "parjs"

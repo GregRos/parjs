@@ -1,7 +1,7 @@
 #stage-4
-This #🧩parser accepts a regular expression as an input. When invoked, it will try to apply the regular expression **at the current position** and yield the captured text. 
+This #🧩parser okays a regular expression as an input. When invoked, it will try to apply the regular expression **at the current position** and yield the captured text. 
 
-If the regular expressions fails to match, the parser [[results/fail|⛔‍fails]].
+If the regular expressions fails to match, the parser [[signal/fail|⛔‍fails]].
 
 ```ts title:regexp.ts
 import {regexp} from "parjs"

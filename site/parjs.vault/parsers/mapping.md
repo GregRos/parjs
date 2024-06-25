@@ -1,5 +1,5 @@
 #stage-2 %%might need more work but not sure what%%
-This #🧩parser parses strings that it maps into values. The prototypical use-case is parsing an enum. In this case, both strings and values are accepted.
+This #🧩parser parses strings that it maps into values. The prototypical use-case is parsing an enum. In this case, both strings and values are okayed.
 
 ```ts title:mapping.ts
 import { mapping } from "parjs";
@@ -13,7 +13,7 @@ mapping(MyEnum).parse("First"); // 1
 mapping(MyEnum).parse("1"); // 1
 ```
 
-You can supply a name for the enum as a second argument, so it can be used in [[results/fail|⛔fail]] messages. `parjs` can’t derive the name from the enum itself.
+You can supply a name for the enum as a second argument, so it can be used in [[signal/fail|⛔fail]] messages. `parjs` can’t derive the name from the enum itself.
 
 ```ts title:mapping.name.ts
 import { mapping } from "parjs";

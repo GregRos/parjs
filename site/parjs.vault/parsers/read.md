@@ -18,7 +18,7 @@ read(3).every(x => x < 127).parse("abc") // "abc"
 # must
 **⛔ Don’t use this.**
 
-This [[booster]] lets you apply a predicate on the entire string. If the predicate returns `false`, the returned parser [[results/fail|⛔‍fails]]. 
+This [[booster]] lets you apply a predicate on the entire string. If the predicate returns `false`, the returned parser [[signal/fail|⛔‍fails]]. 
 
 ```ts title:read.must.ts
 import {read} from "parjs"

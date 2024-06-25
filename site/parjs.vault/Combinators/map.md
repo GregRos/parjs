@@ -6,9 +6,9 @@ tags: []
 #stage-4
 This #⚙️combinator takes a single function argument, `projection`.
 
-It’s a [[projection]] that applies the [[parser|subject]] parser and, if it [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]], applies `projection` to it, and yields the result. 
+It’s a [[projection]] that applies the [[parser|subject]] parser and, if it [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]], applies `projection` to it, and yields the result. 
 
-Like other projections, if the [[parser|subject]] doesn’t [[‍‍‍‍‍‍‍accept]] this combinator won’t change its result.
+Like other projections, if the [[parser|subject]] doesn’t [[‍‍‍‍‍‍‍okay]] this combinator won’t change its result.
 
 ```typescript
 import {int, map} from "parjs"

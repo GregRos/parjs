@@ -1,7 +1,7 @@
 #stage-4
 This #⚙️combinator works like [[then]]. It applies the [[parser|subject]] and **and then** one or more parsers in sequence. It only yields the result of the [[parser|subject]], ignoring all the other results. 
 
-This combinator #upgrade-failures. If the first parser in the sequence [[‍‍‍‍‍‍‍accept|‍‍‍‍‍‍‍✅‍accepts]], but a subsequent parser [[results/fail|⛔‍fails]], the resulting parser will [[panic]].
+This combinator #upgrade-failures. If the first parser in the sequence [[‍‍‍‍‍‍‍okay|‍‍‍‍‍‍‍✅‍okays]], but a subsequent parser [[signal/fail|⛔‍fails]], the resulting parser will [[panic]].
 
 ```ts title:skip.ts
 import {skip, int} from "parjs"

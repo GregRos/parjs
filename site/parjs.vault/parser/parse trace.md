@@ -1,4 +1,4 @@
-#stage-2 %%More work needs to be done on the implementation%%
+#stage-2
 When you use apply [[combinator|combinators]] on [[parser|parsers]] you construct a graph structure called a [[parse graph]]. 
 
 The leaves of the [[parse graph]] are building block [[parser|parsers]], such as [[char parser|char parsers]], [[int]], [[boolean]], and so forth. Parent nodes are combinators such as [[map]] and [[many]].
