@@ -1,0 +1,24 @@
+# OR only to exclude workspace cache
+parjs.vault/.obsidian/workspace
+# Exclude consultant specific files "personal"
+05*-*Personal/
+
+# Exclude Day Planner directory placed in vault root
+Day*Planners/*
+
+# This file is used to keep track of last auto backup/pull
+.obsidian-git-data
+
+# Exclude Untitled Notes
+Untitled*
+# Exclude "bad" names
+null*
+
+# Add below lines to exclude OS settings and caches
+.trash/
+.DS_Store
+node_modules/
+*.map
+*.log
+*.css
+*.js
