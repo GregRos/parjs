@@ -56,6 +56,7 @@
   "scripts": {
     "build": "tsc -b .",
     "build:clean": "run-s clean build",
+    "watch": "tsc -b . --watch",
     "clean": "shx rm -rf dist dist-spec",
     "test": "../../node_modules/ava/cli.js dist-spec/**/*.spec.js --verbose",
     "test:coverage": "nyc ../../node_modules/ava/cli.js dist-spec/**/*.spec.js --verbose"

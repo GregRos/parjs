@@ -16,7 +16,32 @@
     "settings": {
         "jest.disabledWorkspaceFolders": ["root"],
         "files.exclude": {
-            "packages": true
+            "packages/parjs": true,
+            "packages/char-info": true,
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/.nyc_output": true,
+            "**/coverage": true,
+            "**/dist-spec": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "**/*.aux": true,
+            "**/*.bbl": true,
+            "**/*.fdb_latexmk": true,
+            "**/*.fls": true,
+            "**/*.log": true,
+            "**/*.out": true,
+            "**/*.synctex.gz": true,
+            "**/.idea": true,
+            "**/.mypy_cache": true,
+            "**/__pycache__": true,
+            "**/dist": true,
+            "**/dist_aux": true,
+            ".nyc_output": true,
+            "coverage": true,
+            "docs": true
         },
         "typescript.tsserver.experimental.enableProjectDiagnostics": true,
         // GregRos @ 2024

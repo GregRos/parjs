@@ -1,0 +1,42 @@
+{
+  "version": "0.2.0",
+  "inputs": [
+    {
+      "id": "EXPERIMENT",
+      "description": "Select the experiment to run",
+      "type": "pickString",
+      "options": [
+        {
+          "value": "fragmentation"
+        },
+        {
+          "value": "benchmark-charmatch"
+        }
+      ]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Run UCD Loader",
+      "runtimeArgs": ["--async-stack-traces", "--stack-trace-limit=1000"],
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/ucd/experiments/src/${input:EXPERIMENT}.ts",
+      "env": {
+        "ROARR_LOG": "true",
+        "NODE_OPTIONS": "--loader ts-node/esm"
+      }
+    },
+    {
+      "name": "Run Current File",
+      "runtimeArgs": ["--async-stack-traces", "--stack-trace-limit=1000"],
+      "type": "node",
+      "request": "launch",
+      "program": "${file}",
+      "env": {
+        "ROARR_LOG": "true",
+        "NODE_OPTIONS": "--loader ts-node/esm"
+      }
+    }
+  ]
+}

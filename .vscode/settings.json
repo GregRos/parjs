@@ -1,27 +1,4 @@
 {
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "**/*.aux": true,
-    "**/*.bbl": true,
-    "**/*.fdb_latexmk": true,
-    "**/*.fls": true,
-    "**/*.log": true,
-    "**/*.out": true,
-    "**/*.synctex.gz": true,
-    "**/.idea": true,
-    "**/.mypy_cache": true,
-    "**/__pycache__": true,
-    "**/dist": true,
-    "**/dist_aux": true,
-    ".nyc_output": true,
-    "coverage": true,
-    "docs": true
-  },
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

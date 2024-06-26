@@ -52,7 +52,9 @@ class ManySepBy<E, Sep> extends Combinated<E, ArrayWithSeparators<E, Sep>> {
         results.push(ps.value as E);
         let i = 1;
         for (;;) {
-            if (i >= max) break;
+            if (i >= max) {
+                break;
+            }
             delimeter.apply(ps);
             if (ps.isSoft) {
                 break;

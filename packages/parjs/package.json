@@ -114,6 +114,7 @@
   "scripts": {
     "build": "tsc -b .",
     "build:clean": "run-s clean build",
+    "watch": "tsc -b . --watch",
     "clean": "shx rm -rf dist",
     "test": "jest",
     "test:coverage": "jest --coverage"
@@ -130,7 +131,7 @@
     "sourceMap": true
   },
   "dependencies": {
-    "char-info": "0.3.*"
+    "char-info": "workspace:^"
   },
   "devDependencies": {
     "@swc/core": "1.3.96",

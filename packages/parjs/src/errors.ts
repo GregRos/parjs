@@ -8,7 +8,9 @@ export abstract class ParjsError extends Error {
 /** An error that is thrown when it is assumed a parser will succeed, but it fails. */
 export class ParjsParsingFailure extends ParjsError {
     constructor(public failure: ParjsFailure) {
-        super(`Expected parsing to succeed, but it failed. Reason: ${failure.trace.reason}`);
+        super(
+            `Expected parsing to succeed, but it failed. Reason: ${failure.trace.reason}.\n${failure.toString()}`
+        );
     }
 }
 

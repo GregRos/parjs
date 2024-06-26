@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.esm.json",
+  "references": [
+    {
+      "path": "../src/tsconfig.json"
+    }
+  ],
+  "compilerOptions": {
+    "composite": false,
+    "declarationMap": false,
+    "noEmit": true,
+    "baseUrl": ".",
+    "types": ["jest", "node"],
+    "paths": {
+      "ucd-fetcher": ["../src"]
+    }
+  },
+  "include": ["**/*.ts"]
+}

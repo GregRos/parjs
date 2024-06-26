@@ -1,0 +1,36 @@
+{
+  "name": "@unimatch/generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generates TypeScript source code based on the UCD.",
+  "license": "MIT",
+  "author": "GregRos <work.gregr@gmail.com>",
+  "sideEffects": false,
+  "type": "module",
+  "main": "dist/index.js",
+  "typings": "dist/index",
+  "scripts": {
+    "build": "tsc -b .",
+    "build:clean": "run-s clean build",
+    "clean": "shx rm -rf dist",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "watch": "tsc -b . --watch"
+  },
+  "dependencies": {
+    "@unimatch/fetcher": "workspace:^",
+    "@unimatch/parser": "workspace:^",
+    "char-info": "workspace:^",
+    "parjs": "workspace:^",
+    "roarr": "^7.21.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "yarn@4.1.1",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

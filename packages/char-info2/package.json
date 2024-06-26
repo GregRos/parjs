@@ -1,0 +1,81 @@
+{
+  "name": "char-info2",
+  "version": "0.3.2",
+  "description": "Unicode character information library.",
+  "keywords": [
+    "text",
+    "string",
+    "character",
+    "char",
+    "indicator",
+    "isUpper",
+    "isLower",
+    "unicode",
+    "utf8",
+    "utf16"
+  ],
+  "homepage": "https://char-info.parjs.org",
+  "repository": "https://github.com/GregRos/char-info",
+  "license": "MIT",
+  "author": "GregRos <work.gregr@gmail.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ascii": {
+      "require": "./dist/ascii.js",
+      "import": "./dist/ascii.js",
+      "default": "./dist/ascii.js",
+      "types": "./dist/ascii.d.ts"
+    }
+  },
+  "main": "dist/index.js",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.ts"
+      ],
+      "ascii": [
+        "./dist/ascii.d.ts"
+      ]
+    }
+  },
+  "typings": "dist/index",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE.md",
+    "package.json",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "build": "tsc -b .",
+    "build:clean": "run-s clean build",
+    "watch": "tsc -b . --watch",
+    "clean": "shx rm -rf dist dist-spec",
+    "test": "../../node_modules/ava/cli.js dist-spec/**/*.spec.js --verbose",
+    "test:coverage": "nyc ../../node_modules/ava/cli.js dist-spec/**/*.spec.js --verbose"
+  },
+  "ava": {
+    "files": [
+      "dist-spec/**/*.spec.js"
+    ]
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^3",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.1.0",
+    "typescript": "^5.4.5"
+  }
+}

@@ -5,6 +5,22 @@
     },
     {
       "path": "./packages/char-info/tsconfig.json"
+    },
+
+    {
+      "path": "./packages/char-info2/tsconfig.json"
+    },
+    {
+      "path": "./ucd/generator/tsconfig.json"
+    },
+    {
+      "path": "./ucd/parser/tsconfig.json"
+    },
+    {
+      "path": "./ucd/fetcher/tsconfig.json"
+    },
+    {
+      "path": "./ucd/graph-builder/tsconfig.json"
     }
   ],
   "compilerOptions": {

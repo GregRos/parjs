@@ -1,0 +1,11 @@
+export { pBlocks } from "./Blocks.js";
+export { pDerivedCoreProperties } from "./DerivedCoreProperties.js";
+export { pDerivedGeneralCategory } from "./DerivedGeneralCategory.js";
+export { pEmojiData } from "./EmojiData.js";
+export { pNamesList } from "./NamesList.js";
+export { pPropList } from "./PropList.js";
+export { pPropertyAliases } from "./PropertyAliases.js";
+export { pPropertyValueAliases } from "./PropertyValueAliases.js";
+export { pScripts } from "./Scripts.js";
+export { pUnicodeData } from "./UnicodeData.js";
+export { Range } from "./range.js";

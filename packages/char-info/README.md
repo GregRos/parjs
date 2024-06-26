@@ -59,3 +59,7 @@ import { uniIsLetter, uniIsDigit } from "char-info";
 assert.isTrue(uniIsLetter.char("א"));
 assert.isTrue(uniIsDigit.char("٩"));
 ```
+
+# Performance
+
+According to internal testing, this library current performs over twice as fast as applying Unicode regexes to individual characters.
