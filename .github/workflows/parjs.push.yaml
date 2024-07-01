@@ -60,27 +60,10 @@ jobs:
       - name: TEST
         run: yarn workspace parjs run test:coverage
 
-      - name: UPLOAD COVERAGE REPORT FOR PARJS
-        uses: coverallsapp/github-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./packages/parjs/coverage/lcov.info
-
-      # - name: GENERATE DOCS
-      #   run: yarn workspace parjs run docs
-
-      # - name: SETUP PAGES
-      #   uses: actions/configure-pages@v3
-
-      # - name: UPLOAD PAGES ARTIFACT
-      #   uses: actions/upload-pages-artifact@v2
-      #   with:
-      #     path: "packages/parjs/docs"
-
-      # - name: DEPLOY PAGES
-      #   id: deployment
-      #   uses: actions/deploy-pages@v2
-
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v4.2.0
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
       - name: SETUP PUBLISH TOKEN
         run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
 

@@ -96,3 +96,4 @@ jspm_packages
 !.yarn/sdks
 !.yarn/versions
 **/dist-spec
+*.cpuprofile
