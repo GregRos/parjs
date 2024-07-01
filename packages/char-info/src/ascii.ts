@@ -7,6 +7,7 @@
 
 /** Common ASCII character codes. */
 export namespace AsciiCodes {
+    export const _ = "_".charCodeAt(0);
     export const a = "a".charCodeAt(0);
     export const f = "f".charCodeAt(0);
     export const F = "F".charCodeAt(0);

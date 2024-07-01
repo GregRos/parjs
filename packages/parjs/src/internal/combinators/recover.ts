@@ -36,6 +36,7 @@ class Soft<T> extends Combinated<T, T> {
     }
 
     _apply(ps: ParsingState): void {
+        ps.atLeast("Hard");
         this.source.apply(ps);
         if (ps.isOk || ps.isFatal) return;
         const result = this.recoverFunction({

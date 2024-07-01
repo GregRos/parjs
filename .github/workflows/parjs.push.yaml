@@ -67,6 +67,6 @@ jobs:
       - name: SETUP PUBLISH TOKEN
         run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
 
-      - name: PUBLISH PARJS PACKAGE
-        working-directory: packages/parjs
-        run: yarn npm publish --access public
+      # - name: PUBLISH PARJS PACKAGE
+      #   working-directory: packages/parjs
+      #   run: yarn npm publish --access public
