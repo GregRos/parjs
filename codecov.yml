@@ -1,5 +1,4 @@
 codecov:
-  token: ${{ secrets.CODECOV_TOKEN }}
   require_ci_to_pass: true
   notify:
     wait_for_ci: true
@@ -8,6 +7,17 @@ coverage:
   precision: 1
   round: down
   range: "70...100"
+  status:
+    project:
+      default:
+        target: 90% #overall project/ repo coverage
+      parjs:
+        flags:
+          - parjs
+      char-info:
+        flags:
+          - char-info
+
 flags:
   char-info:
     paths:
