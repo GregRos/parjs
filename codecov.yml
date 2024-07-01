@@ -17,7 +17,10 @@ coverage:
       char-info:
         flags:
           - char-info
-
+# adding Flags to your `layout` configuration to show up in the PR comment
+comment:
+  layout: "diff, flags, files"
+  behavior: default
 flags:
   char-info:
     paths:

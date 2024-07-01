@@ -118,17 +118,6 @@
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
-  "nyc": {
-    "include": [
-      "dist/**/*.js"
-    ],
-    "produce-source-map": true,
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "sourceMap": true
-  },
   "dependencies": {
     "char-info": "0.3.*"
   },

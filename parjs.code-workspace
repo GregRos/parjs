@@ -39,7 +39,6 @@
             "**/dist": true,
             "**/dist_aux": true,
             ".nyc_output": true,
-            "coverage": true,
             "docs": true
         },
         "typescript.tsserver.experimental.enableProjectDiagnostics": true,
