@@ -44,6 +44,7 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
+          plugin: noop
           directory: packages/char-info/coverage
           flags: char-info
 
@@ -54,3 +55,4 @@ jobs:
         with:
           directory: packages/parjs/coverage
           flags: parjs
+          plugin: noop
