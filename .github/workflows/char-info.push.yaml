@@ -64,7 +64,9 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          codecov-yml-path: .github/codecov.yml
+          directory: packages/char-info/coverage
+          flags: char-info
+
       - name: SETUP PUBLISH TOKEN
         run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
 

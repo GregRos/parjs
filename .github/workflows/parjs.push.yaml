@@ -62,10 +62,11 @@ jobs:
 
       - name: Upload coverage reports to Codecov with GitHub Action
         uses: codecov/codecov-action@v4.2.0
-        with:
-          codecov-yml-path: .github/codecov.yml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          directory: packages/parjs/coverage
+          flags: parjs
       - name: SETUP PUBLISH TOKEN
         run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
 
