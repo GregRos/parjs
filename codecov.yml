@@ -1,0 +1,24 @@
+codecov:
+  token: ${{ secrets.CODECOV_TOKEN }}
+  require_ci_to_pass: true
+  notify:
+    wait_for_ci: true
+  # Notification settings
+coverage:
+  precision: 1
+  round: down
+  range: "70...100"
+flags:
+  char-info:
+    paths:
+      - "packages/char-info/**"
+      - ".github/workflows/char-info.push.yaml"
+      - "yaml.lock"
+      - ".*"
+
+  parjs:
+    paths:
+      - "packages/parjs/**"
+      - ".github/workflows/parjs.push.yaml"
+      - "yaml.lock"
+      - ".*"
