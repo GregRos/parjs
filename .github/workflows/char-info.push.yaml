@@ -1,4 +1,4 @@
-name: PUBLISH CHAR-INFO
+name: publish char-info
 on:
   push:
     branches:
@@ -70,6 +70,6 @@ jobs:
       - name: SETUP PUBLISH TOKEN
         run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'
 
-      # - name: PUBLISH CHAR-INFO PACKAGE
-      #   working-directory: packages/char-info
-      #   run: yarn npm publish --access public
+      - name: PUBLISH CHAR-INFO PACKAGE
+        working-directory: packages/char-info
+        run: yarn npm publish --access public
