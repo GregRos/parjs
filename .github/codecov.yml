@@ -21,14 +21,14 @@ coverage:
 flags:
   char-info:
     paths:
-      - "packages/char-info/**"
+      - "packages/char-info"
       - ".github/workflows/char-info.push.yaml"
       - "yaml.lock"
       - ".*"
 
   parjs:
     paths:
-      - "packages/parjs/**"
+      - "packages/parjs"
       - ".github/workflows/parjs.push.yaml"
       - "yaml.lock"
       - ".*"
