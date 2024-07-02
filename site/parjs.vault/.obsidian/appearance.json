@@ -1,0 +1,10 @@
+{
+  "cssTheme": "Royal Velvet",
+  "enabledCssSnippets": [
+    "main.electron"
+  ],
+  "theme": "obsidian",
+  "monospaceFontFamily": "",
+  "baseFontSize": 16,
+  "baseFontSizeAction": true
+}

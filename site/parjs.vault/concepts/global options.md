@@ -1,0 +1,2 @@
+#stage-0 %%Needs to be an article about global options that e.g. turn on [[debug mode]], disable some data collection, maybe other stuff. %%
+Parsers are mostly configured through their parameters, but `parjs` does okay a handful of global options. These global options need to be given to the `parjs` function.
