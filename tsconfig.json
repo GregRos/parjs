@@ -6,6 +6,9 @@
     {
       "path": "./packages/char-info/tsconfig.json"
     },
+    {
+      "path": "./packages/char-info-pack/tsconfig.json"
+    },
 
     {
       "path": "./packages/unicode-info-parser/tsconfig.json"

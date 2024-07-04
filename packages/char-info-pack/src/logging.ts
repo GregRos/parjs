@@ -1,8 +1,11 @@
 import chalk from "chalk";
+import "./setup.js";
+
 import dayjs from "dayjs";
 import { ROARR } from "roarr";
 import { yamprint } from "yamprint";
 chalk.level = 2;
+
 function getLevelEmoji(level: number) {
     switch (level) {
         case 10:

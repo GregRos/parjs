@@ -1,9 +1,10 @@
 {
-  "extends": "../../../tsconfig.base.json",
+  "extends": "../../../tsconfig.esm.json",
   "compilerOptions": {
     "outDir": "../dist",
     "rootDir": ".",
-    "noEmit": false
+    "noEmit": false,
+    "lib": ["es2022", "dom"]
   },
   "include": ["**/*.ts"]
 }

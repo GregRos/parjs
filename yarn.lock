@@ -644,10 +644,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@char-info/pack@workspace:packages/char-info-pack"
   dependencies:
-    ava: "npm:^3"
+    dayjs: "npm:^1.11.11"
     npm-run-all: "npm:^4.1.5"
     nyc: "npm:^15.1.0"
-    typescript: "npm:^5.5.2"
+    roarr: "npm:^7.21.1"
+    unicode-info: "npm:*"
+    yamprint: "npm:^0.8.4"
   languageName: unknown
   linkType: soft
 
@@ -9455,6 +9457,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"unicode-info@portal:./packages/unicode-info::locator=root-workspace-0b6124%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "unicode-info@portal:./packages/unicode-info::locator=root-workspace-0b6124%40workspace%3A."
+  dependencies:
+    "@unicode-info/parser": "npm:*"
+    file-system-cache: "npm:^2.4.4"
+    got: "npm:^14.4.1"
+    parjs: "npm:*"
+    preszr: "npm:^2.1.0"
+    pretty-ms: "npm:^9.0.0"
+    roarr: "npm:^7.21.1"
+    stdlazy: "npm:^1.0.6"
+    stdseq: "npm:^1.2.0"
+  languageName: node
+  linkType: soft
+
 "unicode-info@workspace:packages/unicode-info":
   version: 0.0.0-use.local
   resolution: "unicode-info@workspace:packages/unicode-info"
@@ -9463,7 +9481,6 @@ __metadata:
     "@swc/jest": "npm:0.2.29"
     "@types/node": "npm:^20.14.9"
     "@unicode-info/parser": "npm:*"
-    dayjs: "npm:^1.11.11"
     file-system-cache: "npm:^2.4.4"
     got: "npm:^14.4.1"
     jest: "npm:^29.7.0"
@@ -9474,7 +9491,6 @@ __metadata:
     stdlazy: "npm:^1.0.6"
     stdseq: "npm:^1.2.0"
     typescript: "npm:^5.5.2"
-    yamprint: "npm:^0.8.4"
   languageName: unknown
   linkType: soft
 
