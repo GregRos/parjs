@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.esm.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": false,
+    "outDir": "../dist",
+    // DOM is needed for one of got's dependencies
+    "lib": ["es2022", "dom"],
+    "types": ["node"]
+  },
+  "include": ["**/*.ts"]
+}

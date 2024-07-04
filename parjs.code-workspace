@@ -1,16 +1,28 @@
 {
     "folders": [
         {
+            "path": ".",
+            "name": "root"
+        },
+        {
             "path": "./packages/parjs",
             "name": "parjs"
+        },
+        {
+            "path": "./packages/char-info-pack",
+            "name": "char-info-pack"
         },
         {
             "path": "./packages/char-info",
             "name": "char-info"
         },
         {
-            "path": ".",
-            "name": "root"
+            "path": "./packages/unicode-info-parser",
+            "name": "unicode-info-parser"
+        },
+        {
+            "path": "./packages/unicode-info",
+            "name": "unicode-info"
         }
     ],
     "settings": {
@@ -18,6 +30,9 @@
         "files.exclude": {
             "packages/parjs": true,
             "packages/char-info": true,
+            "packages/unicode-info-parser": true,
+            "packages/unicode-info": true,
+            "packages/char-info-pack": true,
             "**/.git": true,
             "**/.svn": true,
             "**/.hg": true,
@@ -40,7 +55,8 @@
             "**/dist_aux": true,
             ".nyc_output": true,
             "coverage": true,
-            "docs": true
+            "docs": true,
+            "**/node_modules": true
         },
         "typescript.tsserver.experimental.enableProjectDiagnostics": true,
         // GregRos @ 2024
@@ -56,6 +72,7 @@
                 "background-image": "linear-gradient(to right, #6EED1314, transparent)",
                 "border-left": "2px solid #6EED137C"
             }
-        }
+        },
+        "typescript.tsdk": "root\\node_modules\\typescript\\lib"
     }
 }
