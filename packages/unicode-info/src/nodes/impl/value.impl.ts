@@ -8,7 +8,7 @@ import { UniImplProp } from "./prop.impl.js";
 import type { UniCharInput } from "./shared.impl.js";
 import { getLongest, getShortest, normalizeString, normalizeToCodepoint } from "./utils.js";
 export interface UniImplValueBase<Type extends TypeName = TypeName> extends Iterable<UniImplChar> {
-    get transientSeqId(): number;
+    get localId(): number;
     readonly property: any;
     readonly ranges: Seq<Range>;
     readonly shortLabel: string;
@@ -92,8 +92,18 @@ export class UniImplValue<Type extends TypeName = TypeName> implements UniImplVa
         }
         return this.ranges.some(range => range.contains(codepoint)).pull();
     }
-    get transientSeqId() {
+
+    is(value: getPropValue<Type>): boolean {
+        value = normalizeString(value);
+        return this._values.has(value);
+    }
+    get localId() {
         return this.property.getTransientSeqIdForValue(seq(this.values).first().pull()! as any);
+    }
+    get key() {
+        const propId = this.property.key;
+        const vId = this.localId;
+        return (propId << 16) | vId;
     }
     toString() {
         const parts = [this.property.formattedName] as any[];
@@ -114,7 +124,7 @@ export class UniImplValueUnion<Type extends TypeName = TypeName> implements UniI
             .pull()!;
     }
 
-    get transientSeqId() {
+    get localId() {
         return this.property.getTransientSeqIdForValue(this.shortLabel);
     }
 

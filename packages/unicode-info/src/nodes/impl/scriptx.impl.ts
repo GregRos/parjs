@@ -99,7 +99,7 @@ export class UniImplScriptxValue {
     }
 
     get transientSeqId() {
-        return this._scriptValue.transientSeqId;
+        return this._scriptValue.localId;
     }
 
     get shortLabel() {

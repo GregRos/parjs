@@ -32,13 +32,14 @@
     "@char-info/pack": "portal:./packages/char-info-pack",
     "@unicode-info/parser": "portal:./packages/unicode-info-parser",
     "char-info": "portal:./packages/char-info",
+    "immutable-unicode-trie": "portal:./packages/immutable-unicode-trie",
     "parjs": "portal:./packages/parjs",
     "stdlazy": "portal:/C:/codegr/lazies/packages/stdlazy",
     "stdseq": "portal:/C:/codegr/lazies/packages/stdseq",
     "unicode-info": "portal:./packages/unicode-info"
   },
   "devDependencies": {
-    "@types/node": "20.9.1",
+    "@types/node": "^20.14.10",
     "@types/unicode-trie": "^2",
     "@typescript-eslint/eslint-plugin": "^7.12.0",
     "@typescript-eslint/parser": "^7.12.0",

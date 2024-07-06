@@ -31,7 +31,7 @@ const cache = createCache("graph");
 export class UniImplGraph {
     _charValues?: Map<Codepoint, Map<number, number>> = new Map();
     private _flags: Set<DataFlags>;
-    props: UniImplProp[] = [];
+    _props: UniImplProp[] = [];
     private _nameToProp: Map<string, number> = new Map();
     private _codeToTitle: Map<Codepoint, string> = new Map();
     private _scriptx!: UniImplScriptxProp;
@@ -41,10 +41,17 @@ export class UniImplGraph {
     get scriptx() {
         return this._scriptx;
     }
+    get props() {
+        return seq(this._props);
+    }
     get chars() {
-        return seq(function* (this: UniImplGraph) {
-            for (const category of this.category.values) {
+        const self = this;
+        return seq(function* () {
+            for (const category of self.category.values) {
                 if (category instanceof UniImplValueUnion) {
+                    continue;
+                }
+                if (category.is("Cn") || category.is("Co")) {
                     continue;
                 }
                 for (const char of category) {
@@ -78,7 +85,7 @@ export class UniImplGraph {
             [UCD.Scripts]: pGraphScripts,
             [UCD.UnicodeData]:
                 graph.hasDataFlag("char:name") || graph.hasDataFlag("char:prop:val")
-                    ? pUnicodeData
+                    ? pUnicodeData(graph.hasDataFlag("char:name"))
                     : undefined,
             [UCD.DerivedCoreProperties]: graph.hasDataFlag("props:ucd")
                 ? pGraphDerivedCoreProperties
@@ -98,14 +105,14 @@ export class UniImplGraph {
             results[UCD.Blocks],
             results[UCD.DerivedGeneralCategory]
         ];
-        graph.props = props;
+        graph._props = props;
         for (let i = 0; i < props.length; i++) {
             const prop = props[i];
             for (const name of prop.names) {
                 graph._setNameToProp(name, i);
             }
             prop.graph = graph;
-            prop.transientSeqId = i;
+            prop.key = i;
         }
         const scriptxAliases = new Set(["scx", "Script_Extensions"].map(normalizeString));
         const skipped = new Set<string>();
@@ -131,9 +138,9 @@ export class UniImplGraph {
                 }
                 continue;
             }
-            graph._registerAliases(canonicalProp.transientSeqId, ...allNames);
+            graph._registerAliases(canonicalProp.key, ...allNames);
         }
-        graph._registerAliases(graph.prop("General_Category", "string").transientSeqId, "category");
+        graph._registerAliases(graph.prop("General_Category", "string").key, "category");
         const gcProp = graph.prop("General_Category", "string");
         // Register union categories
         const singeLetterGroups = gcProp.values
@@ -215,17 +222,20 @@ export class UniImplGraph {
         return graph;
     }
 
-    private _buildCodepointMap() {
+    private _buildCodepointMap(allowedCodepoints: Set<number>) {
         const codepointMap = new Map<number, Map<number, number>>();
-        for (const prop of this.props) {
-            const propSeqId = prop.transientSeqId;
+        for (const prop of this._props) {
+            const propSeqId = prop.key;
             for (const value of prop.values) {
-                const valueSeqId = value.transientSeqId;
+                const valueSeqId = value.localId;
                 if (!(value instanceof UniImplValue)) {
                     continue;
                 }
                 for (const range of value.ranges) {
                     for (const codepoint of range) {
+                        if (!allowedCodepoints.has(codepoint)) {
+                            continue;
+                        }
                         let myMap = codepointMap.get(codepoint);
                         if (!myMap) {
                             myMap = new Map();
@@ -239,19 +249,18 @@ export class UniImplGraph {
         return codepointMap;
     }
 
-    private _loadChars(unicodeData: getParsedType<typeof pUnicodeData>) {
+    private _loadChars(unicodeData: getParsedType<ReturnType<typeof pUnicodeData>>) {
         const graph = this;
-        const props = graph.props;
         graph._codeToTitle = new Map();
-        if (graph.hasDataFlag("char:prop:val")) {
-            graph._charValues = graph._buildCodepointMap();
-        }
-        if (graph.hasDataFlag("char:name")) {
-            for (const row of unicodeData) {
-                if (graph.hasDataFlag("char:name")) {
-                    graph._codeToTitle.set(row.codepoint, row.name);
-                }
+        const codepoints = new Set<number>();
+        for (const row of unicodeData) {
+            if (graph.hasDataFlag("char:name")) {
+                graph._codeToTitle.set(row.codepoint, row.name!);
             }
+            codepoints.add(row.codepoint);
+        }
+        if (graph.hasDataFlag("char:prop:val")) {
+            graph._charValues = graph._buildCodepointMap(codepoints);
         }
     }
 
@@ -273,12 +282,12 @@ export class UniImplGraph {
         return this.prop("Script", "string");
     }
 
-    getPropByTransientSeqId(seqId: number) {
-        return this.props[seqId];
+    getPropByTransientId(seqId: number) {
+        return this._props[seqId];
     }
 
     getTransientSeqIdForProp(prop: UniImplProp) {
-        return this.props.indexOf(prop);
+        return this._props.indexOf(prop);
     }
 
     tryProp<Type extends TypeName = any>(
@@ -292,7 +301,7 @@ export class UniImplGraph {
         if (seqId === undefined) {
             return undefined;
         }
-        return this.getPropByTransientSeqId(seqId);
+        return this.getPropByTransientId(seqId);
     }
 
     prop<Type extends TypeName>(prop: UniImplProp<Type>): UniImplProp<Type>;
@@ -330,7 +339,7 @@ export class UniImplGraph {
         for (const alias of aliases) {
             this._setNameToProp(alias, to);
         }
-        const prop = this.getPropByTransientSeqId(to);
+        const prop = this.getPropByTransientId(to);
         for (const alias of aliases) {
             prop._names.add(alias);
         }

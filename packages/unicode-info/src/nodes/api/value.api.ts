@@ -8,6 +8,10 @@ import { DataFlags, TypeName, getPropValue, type UniCharInput } from "./shared.a
 /** A base object representing either {@see UnicodeValue} or {@see UnicodeValueUnion}. */
 export interface UnicodeBaseValue<Flags extends DataFlags, Type extends TypeName>
     extends Iterable<UnicodeCharacter<Flags>> {
+    /** Gets a non-deterministic ID for the property value, unique to the property. */
+    readonly localId: number;
+    /** Gets a globally unique but non-deterministic ID for the property value, globally unique. */
+    readonly key: number;
     /** The {@link UnicodeGraph} of this value. */
     readonly graph: UnicodeGraph<Flags>;
 

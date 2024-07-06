@@ -1,6 +1,32 @@
 {
   "version": "0.2.0",
+  "inputs": [
+    {
+      "id": "EXPERIMENT",
+      "description": "Select the experiment to run",
+      "type": "pickString",
+      "options": [
+        {
+          "value": "combinations-experiment"
+        },
+        {
+          "value": "trie-stuff"
+        }
+      ]
+    }
+  ],
   "configurations": [
+    {
+      "name": "Run Graph builder",
+      "runtimeArgs": ["--async-stack-traces", "--stack-trace-limit=1000"],
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/packages/char-info-pack/src/${input:EXPERIMENT}.ts",
+      "env": {
+        "ROARR_LOG": "true",
+        "NODE_OPTIONS": "--loader ts-node/esm"
+      }
+    },
     {
       "name": "Run Graph builder",
       "runtimeArgs": ["--async-stack-traces", "--stack-trace-limit=1000"],

@@ -6,6 +6,8 @@ import { UnicodeValue } from "./value.api.js";
 
 /** A property object that represents a Unicode property. */
 export type UnicodeProperty<Flags extends DataFlags, Type extends TypeName> = {
+    /** Gets a globally unique but non-deterministic ID for the property. */
+    readonly key: number;
     /** Gets the {@link UnicodeGraph} that contains this property. */
     readonly graph: UnicodeGraph<Flags>;
     /** The type of the property, one of the {@link TypeName} values. */

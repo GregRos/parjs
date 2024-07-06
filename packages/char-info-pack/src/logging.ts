@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import "./setup.js";
 
 import dayjs from "dayjs";
 import { ROARR } from "roarr";

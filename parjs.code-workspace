@@ -5,6 +5,10 @@
             "name": "root"
         },
         {
+            "path": "./packages/immutable-unicode-trie",
+            "name": "immutable-unicode-trie"
+        },
+        {
             "path": "./packages/parjs",
             "name": "parjs"
         },
@@ -33,6 +37,8 @@
             "packages/unicode-info-parser": true,
             "packages/unicode-info": true,
             "packages/char-info-pack": true,
+            "packages/immutable-unicode-trie": true,
+            // Don't replace with packages/*, makes it easier to make new packages.
             "**/.git": true,
             "**/.svn": true,
             "**/.hg": true,

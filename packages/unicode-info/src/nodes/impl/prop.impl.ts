@@ -58,7 +58,7 @@ export class UniImplProp<Type extends TypeName = any> {
         this.type = v ? (typeof v as any) : "boolean";
     }
 
-    transientSeqId!: number;
+    key!: number;
 
     private __searchValueFor(char: UniCharInput) {
         return this._values.find(v => v.search(char)) as UniImplValue<Type> | undefined;
@@ -81,7 +81,7 @@ export class UniImplProp<Type extends TypeName = any> {
     }
 
     _registerAlias(main: UniImplValueBase, aliases: Iterable<getPropValue<Type>>) {
-        const seqId = main.transientSeqId;
+        const seqId = main.localId;
         for (const alias of aliases) {
             this._setTransientSeqIdForValue(alias, seqId);
             main._addAlias(alias);
@@ -108,9 +108,11 @@ export class UniImplProp<Type extends TypeName = any> {
     }
 
     getTransientSeqIdForValue(value: getPropValue<Type>) {
-        value = normalizeString(value);
-
         return this._valueToSeqId.get(value)!;
+    }
+
+    getValueByTransientId(seqId: number) {
+        return this._values[seqId];
     }
 
     tryGetValue(value: getPropValue<Type>) {

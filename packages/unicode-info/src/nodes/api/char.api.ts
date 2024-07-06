@@ -7,7 +7,7 @@ import { UnicodeValue } from "./value.api.js";
 export type CharFormats = "hex" | "char" | "decimal" | "escape" | "long";
 
 /** A character object that represents a Unicode character. */
-export type UnicodeCharacter<Flags extends DataFlags> = {
+export type UnicodeCharacter<Flags extends DataFlags = any> = {
     /** The {@link UnicodeGraph} that contains this character. */
     readonly graph: UnicodeGraph<Flags>;
     /** The codepoint. */

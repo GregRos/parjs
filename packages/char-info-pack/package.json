@@ -75,7 +75,11 @@
   },
   "dependencies": {
     "dayjs": "^1.11.11",
+    "immutable-unicode-trie": "workspace:^",
     "roarr": "^7.21.1",
+    "stdlazy": "^2.0.0",
+    "stdseq": "*",
+    "type-plus": "^7.6.2",
     "unicode-info": "*",
     "yamprint": "^0.8.4"
   },

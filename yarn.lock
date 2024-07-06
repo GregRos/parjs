@@ -645,9 +645,13 @@ __metadata:
   resolution: "@char-info/pack@workspace:packages/char-info-pack"
   dependencies:
     dayjs: "npm:^1.11.11"
+    immutable-unicode-trie: "workspace:^"
     npm-run-all: "npm:^4.1.5"
     nyc: "npm:^15.1.0"
     roarr: "npm:^7.21.1"
+    stdlazy: "npm:^2.0.0"
+    stdseq: "npm:*"
+    type-plus: "npm:^7.6.2"
     unicode-info: "npm:*"
     yamprint: "npm:^0.8.4"
   languageName: unknown
@@ -1579,21 +1583,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.9.1":
-  version: 20.9.1
-  resolution: "@types/node@npm:20.9.1"
+"@types/node@npm:^20.14.10":
+  version: 20.14.10
+  resolution: "@types/node@npm:20.14.10"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: 10c0/0cb52c0840fe9a2e8f988564da6823bb3141e34fef8cb7264762c851c0dac5d9ef4859db422dfa41cd1a864ad126a9bd3b588d0285bc9af6de814de3280da9b3
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^20.14.9":
-  version: 20.14.9
-  resolution: "@types/node@npm:20.14.9"
-  dependencies:
-    undici-types: "npm:~5.26.4"
-  checksum: 10c0/911ffa444dc032897f4a23ed580c67903bd38ea1c5ec99b1d00fa10b83537a3adddef8e1f29710cbdd8e556a61407ed008e06537d834e48caf449ce59f87d387
+  checksum: 10c0/0b06cff14365c2d0085dc16cc8cbea5c40ec09cfc1fea966be9eeecf35562760bfde8f88e86de6edfaf394501236e229d9c1084fad04fb4dec472ae245d8ae69
   languageName: node
   linkType: hard
 
@@ -1988,6 +1983,15 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 10c0/3ff155f8812e4a746fee8ecff1f227d527c4c45655bb1fad6347c3cb58e46190598217551b1500f18542d2bbe5c87120cb6927f5a074a59166fbdd9468f0a299
+  languageName: node
+  linkType: hard
+
+"acorn@npm:^8.8.2":
+  version: 8.12.1
+  resolution: "acorn@npm:8.12.1"
+  bin:
+    acorn: bin/acorn
+  checksum: 10c0/51fb26cd678f914e13287e886da2d7021f8c2bc0ccc95e03d3e0447ee278dd3b40b9c57dc222acd5881adcf26f3edc40901a4953403232129e3876793cd17386
   languageName: node
   linkType: hard
 
@@ -2690,7 +2694,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "char-info-examples@workspace:packages/char-info/examples"
   dependencies:
-    "@types/node": "npm:20.9.1"
+    "@types/node": "npm:^20.14.10"
     char-info: "npm:*"
     npm-run-all: "npm:^4.1.5"
     ts-node: "npm:^10.9.2"
@@ -4884,6 +4888,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"immutable-unicode-trie@portal:./packages/immutable-unicode-trie::locator=root-workspace-0b6124%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "immutable-unicode-trie@portal:./packages/immutable-unicode-trie::locator=root-workspace-0b6124%40workspace%3A."
+  languageName: node
+  linkType: soft
+
+"immutable-unicode-trie@workspace:packages/immutable-unicode-trie":
+  version: 0.0.0-use.local
+  resolution: "immutable-unicode-trie@workspace:packages/immutable-unicode-trie"
+  dependencies:
+    "@types/jest": "npm:^29.5.12"
+    "@types/node": "npm:^20.14.10"
+    "@types/unicode-trie": "npm:^2"
+    jest: "npm:^29.7.0"
+    npm-run-all: "npm:^4.1.5"
+    unicode-trie: "npm:^2.0.0"
+  languageName: unknown
+  linkType: soft
+
 "import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -5039,6 +5062,13 @@ __metadata:
     call-bind: "npm:^1.0.2"
     has-tostringtag: "npm:^1.0.0"
   checksum: 10c0/6090587f8a8a8534c0f816da868bc94f32810f08807aa72fa7e79f7e11c466d281486ffe7a788178809c2aa71fe3e700b167fe80dd96dad68026bfff8ebf39f7
+  languageName: node
+  linkType: hard
+
+"is-buffer@npm:^2.0.5":
+  version: 2.0.5
+  resolution: "is-buffer@npm:2.0.5"
+  checksum: 10c0/e603f6fced83cf94c53399cff3bda1a9f08e391b872b64a73793b0928be3e5f047f2bcece230edb7632eaea2acdbfcb56c23b33d8a20c820023b230f1485679a
   languageName: node
   linkType: hard
 
@@ -7424,6 +7454,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pako@npm:^0.2.5":
+  version: 0.2.9
+  resolution: "pako@npm:0.2.9"
+  checksum: 10c0/79c1806ebcf325b60ae599e4d7227c2e346d7b829dc20f5cf24cef07c934079dc3a61c5b3c8278a2f7a190c4a613e343ea11e5302dbe252efd11712df4b6b041
+  languageName: node
+  linkType: hard
+
 "parameter.js@npm:^1.0.0":
   version: 1.0.0
   resolution: "parameter.js@npm:1.0.0"
@@ -7444,7 +7481,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "parjs-examples@workspace:packages/parjs/examples"
   dependencies:
-    "@types/node": "npm:20.9.1"
+    "@types/node": "npm:^20.14.10"
     npm-run-all: "npm:^4.1.5"
     parjs: "npm:*"
     ts-node: "npm:^10.9.2"
@@ -7467,7 +7504,7 @@ __metadata:
     "@swc/core": "npm:1.3.96"
     "@swc/jest": "npm:0.2.29"
     "@types/jest": "npm:^29.5.12"
-    "@types/node": "npm:20.9.1"
+    "@types/node": "npm:^20.14.10"
     char-info: "workspace:^"
     jest: "npm:^29.7.0"
     npm-run-all: "npm:^4.1.5"
@@ -8258,7 +8295,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@types/node": "npm:20.9.1"
+    "@types/node": "npm:^20.14.10"
     "@types/unicode-trie": "npm:^2"
     "@typescript-eslint/eslint-plugin": "npm:^7.12.0"
     "@typescript-eslint/parser": "npm:^7.12.0"
@@ -9056,6 +9093,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tersify@npm:^3.11.1":
+  version: 3.12.1
+  resolution: "tersify@npm:3.12.1"
+  dependencies:
+    acorn: "npm:^8.8.2"
+    is-buffer: "npm:^2.0.5"
+    unpartial: "npm:^1.0.4"
+  checksum: 10c0/b2701bacb9c8f1e063ca2c1c1d1559cfac491230b95d1b33a273343aa9ad8c62130a9f54a64f381a221d56869df74f938c3a284187e769697db49bc8cc7e7e4a
+  languageName: node
+  linkType: hard
+
 "test-exclude@npm:^6.0.0":
   version: 6.0.0
   resolution: "test-exclude@npm:6.0.0"
@@ -9078,6 +9126,13 @@ __metadata:
   version: 1.0.0
   resolution: "time-zone@npm:1.0.0"
   checksum: 10c0/d00ebd885039109011b6e2423ebbf225160927333c2ade6d833e9cc4676db20759f1f3855fafde00d1bd668c243a6aa68938ce71fe58aab0d514e820d59c1d81
+  languageName: node
+  linkType: hard
+
+"tiny-inflate@npm:^1.0.0":
+  version: 1.0.3
+  resolution: "tiny-inflate@npm:1.0.3"
+  checksum: 10c0/fab687537254f6ec44c9a2e880048fe70da3542aba28f73cda3e74c95cabf342a339372f2a6c032e322324f01accc03ca26c04ba2bad9b3eb8cf3ee99bba7f9b
   languageName: node
   linkType: hard
 
@@ -9288,6 +9343,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-plus@npm:^7.6.2":
+  version: 7.6.2
+  resolution: "type-plus@npm:7.6.2"
+  dependencies:
+    tersify: "npm:^3.11.1"
+    unpartial: "npm:^1.0.4"
+  checksum: 10c0/79c75bc3ad5b8e72021b2424c3d21dfae1177cf7afd64b894dd821b6f580dcf792a9951e8e8effdad682019cd143008da1163e4df4371963ec2ad899b3171163
+  languageName: node
+  linkType: hard
+
 "typed-array-buffer@npm:^1.0.0":
   version: 1.0.1
   resolution: "typed-array-buffer@npm:1.0.1"
@@ -9479,7 +9544,7 @@ __metadata:
   dependencies:
     "@swc/core": "npm:1.3.96"
     "@swc/jest": "npm:0.2.29"
-    "@types/node": "npm:^20.14.9"
+    "@types/node": "npm:^20.14.10"
     "@unicode-info/parser": "npm:*"
     file-system-cache: "npm:^2.4.4"
     got: "npm:^14.4.1"
@@ -9493,6 +9558,16 @@ __metadata:
     typescript: "npm:^5.5.2"
   languageName: unknown
   linkType: soft
+
+"unicode-trie@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "unicode-trie@npm:2.0.0"
+  dependencies:
+    pako: "npm:^0.2.5"
+    tiny-inflate: "npm:^1.0.0"
+  checksum: 10c0/2422368645249f315640a1c9e9506046aa7738fc9c5d59e15c207cdd6ec66101c35b0b9f75dc3ac28fe7be19aaf1efc898bbea074fa1e8e295ef736aeb7904bb
+  languageName: node
+  linkType: hard
 
 "uniq@npm:^1.0.1":
   version: 1.0.1
@@ -9541,6 +9616,13 @@ __metadata:
   version: 2.0.1
   resolution: "universalify@npm:2.0.1"
   checksum: 10c0/73e8ee3809041ca8b818efb141801a1004e3fc0002727f1531f4de613ea281b494a40909596dae4a042a4fb6cd385af5d4db2e137b1362e0e91384b828effd3a
+  languageName: node
+  linkType: hard
+
+"unpartial@npm:^1.0.4":
+  version: 1.0.5
+  resolution: "unpartial@npm:1.0.5"
+  checksum: 10c0/bdfe89d0712679e22eee654a645493a2aad2428bf9cc0d27d5b56e986001e40c1c70b41407708f33d5ccffe1ced71ee3245e99bb62559fef3d6960feac625a07
   languageName: node
   linkType: hard
 

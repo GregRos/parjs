@@ -31,61 +31,68 @@ const pUnicodeDataRow = pCodepoint // 0: codepoint
     )
     .expects("UnicodeData row");
 
-export const pUnicodeData = pUcdRowParser(
-    pUnicodeDataRow,
-    ([[[codepoint, name], category], oldName]) => {
+export const pUnicodeData = (includeName: boolean) =>
+    pUcdRowParser(pUnicodeDataRow, ([[[codepoint, name], category], oldName]) => {
+        let inclName = includeName || name.includes(", ");
         return {
             codepoint,
-            name,
+            name: inclName ? name : undefined,
             category,
-            oldName
+            oldName: inclName ? oldName : undefined
         };
-    }
-).pipe(
-    map(function* (rows) {
-        let stateRangeStart: (typeof rows)[0] | null = null;
-        for (const codepoint of rows) {
-            if (codepoint.name.includes("Private Use")) {
-                continue;
-            }
-            if (codepoint.name.includes(", First")) {
-                // This is a range, we need to generate the characters ourselves
-                stateRangeStart = codepoint;
-                continue;
-            }
-            if (codepoint.name.includes(", Last")) {
-                if (!stateRangeStart) {
-                    throw new Error("Invalid state, expected range start");
+    }).pipe(
+        map(function* (rows) {
+            let stateRangeStart: (typeof rows)[0] | null = null;
+            for (const codepoint of rows) {
+                if (codepoint.name?.includes("Private Use")) {
+                    continue;
                 }
-                // Get rid of start, end < >
-                let group = stateRangeStart.name.slice(1, -1);
-                // Get rid of the ", Last" part
-                group = group.split(", ")[0];
-                group = group.toUpperCase();
-                // IMPORTANT: A single string is used for all codepoints in the range
-                // so we don't fill memory with useless generated strings
-                const template = `${group}-%CODEPOINT`;
+                if (codepoint.name?.includes(", First")) {
+                    // This is a range, we need to generate the characters ourselves
+                    stateRangeStart = codepoint;
+                    continue;
+                }
+                if (codepoint.name?.includes(", Last")) {
+                    if (!stateRangeStart) {
+                        throw new Error("Invalid state, expected range start");
+                    }
+                    // Get rid of start, end < >
+                    let group = stateRangeStart.name!.slice(1, -1);
+                    // Get rid of the ", Last" part
+                    group = group.split(", ")[0];
+                    group = group.toUpperCase();
+                    // IMPORTANT: A single string is used for all codepoints in the range
+                    // so we don't fill memory with useless generated strings
+                    const template = `${group}-%CODEPOINT`;
 
-                for (const cp of seq.range(stateRangeStart.codepoint, codepoint.codepoint)) {
+                    for (const cp of seq.range(stateRangeStart.codepoint, codepoint.codepoint)) {
+                        yield {
+                            codepoint: cp,
+                            name: includeName ? template : undefined,
+                            category: stateRangeStart.category
+                        };
+                    }
+                    stateRangeStart = null;
                     yield {
-                        codepoint: cp,
-                        name: template,
-                        category: stateRangeStart.category
+                        codepoint: codepoint.codepoint,
+                        name: includeName
+                            ? codepoint.name === "<control>"
+                                ? codepoint.oldName
+                                : codepoint.name
+                            : undefined,
+                        category: codepoint.category
                     };
+                    continue;
                 }
-                stateRangeStart = null;
                 yield {
                     codepoint: codepoint.codepoint,
-                    name: codepoint.name === "<control>" ? codepoint.oldName : codepoint.name,
+                    name: includeName
+                        ? codepoint.name === "<control>"
+                            ? codepoint.oldName
+                            : codepoint.name
+                        : undefined,
                     category: codepoint.category
                 };
-                continue;
             }
-            yield {
-                codepoint: codepoint.codepoint,
-                name: codepoint.name === "<control>" ? codepoint.oldName : codepoint.name,
-                category: codepoint.category
-            };
-        }
-    })
-);
+        })
+    );

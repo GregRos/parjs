@@ -9,6 +9,9 @@
     {
       "path": "./packages/char-info-pack/tsconfig.json"
     },
+    {
+      "path": "./packages/immutable-unicode-trie/tsconfig.json"
+    },
 
     {
       "path": "./packages/unicode-info-parser/tsconfig.json"

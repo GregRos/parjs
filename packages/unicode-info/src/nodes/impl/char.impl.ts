@@ -1,3 +1,4 @@
+import { seq } from "stdseq";
 import type { CharFormats } from "../api/char.api.js";
 import type { TypeName } from "../api/shared.api.js";
 import { UniImplGraph } from "./graph.impl.js";
@@ -11,16 +12,16 @@ export class UniImplChar {
         return this.graph._charValues!.get(this.code)!;
     }
     get script() {
-        return this._vals.get(this.graph.prop("Script").transientSeqId);
+        return this._vals.get(this.graph.prop("Script").key);
     }
     get scripts() {
         return this.graph.scriptx.scriptsFor(this.code);
     }
     get block() {
-        return this._vals.get(this.graph.prop("Block").transientSeqId);
+        return this._vals.get(this.graph.prop("Block").key);
     }
     get category() {
-        return this._vals.get(this.graph.prop("Category").transientSeqId);
+        return this._vals.get(this.graph.prop("Category").key);
     }
     constructor(
         readonly code: number,
@@ -64,7 +65,10 @@ export class UniImplChar {
     }
 
     get values() {
-        return this._vals.values();
+        return seq(this._vals).map(
+            ([prop, val]) =>
+                this.graph.getPropByTransientId(prop).getValueByTransientId(val) as UniImplValue
+        );
     }
 
     is(char: UniCharInput) {
@@ -81,7 +85,7 @@ export class UniImplChar {
     getValue(...args: [UniImplProp<any>] | [string, TypeName]) {
         const prop = args.length === 1 ? args[0] : this.graph.prop(args[0], args[1]);
         if (this.graph.hasDataFlag("char:prop:val")) {
-            return this._vals.get(prop.transientSeqId);
+            return this._vals.get(prop.key);
         }
         return prop.getValueFor(this);
     }
@@ -90,6 +94,6 @@ export class UniImplChar {
         if (!maybeProp) {
             throw new Error(`Property not found: ${name}`);
         }
-        return this._vals.has(maybeProp.transientSeqId);
+        return this._vals.has(maybeProp.key);
     }
 }

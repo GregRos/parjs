@@ -7,6 +7,10 @@ export class Range {
         this.end = end ?? start;
     }
 
+    clone() {
+        return new Range(this.start, this.end);
+    }
+
     toString() {
         return this.start === this.end
             ? `Range[${this.start}]`
