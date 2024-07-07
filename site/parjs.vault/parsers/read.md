@@ -7,7 +7,7 @@ import {read} from "parjs"
 read(3).parse("abc") // "abc"
 ```
 # every
-**⛔ Don’t use this. Use [[base char class|char classes]] instead.**
+**⛔ Don’t use this. Use [[char class|char classes]] instead.**
 
 This [[booster]] lets you apply a predicate on codepoint read from the input. **You receive the codepoint as an integer.**
 

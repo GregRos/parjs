@@ -48,7 +48,7 @@ Although char parsers seem simple, they are actually quite complicated, as they 
 
 This system works kind of like parsers and combinators, but with notable differences that make it more efficient, without the normal overhead of a [[parse graph]], and so that char parsers can perform optimizations other parsers can’t.
 
-Char classes are constructed from  denoted as strings called [[base char class|class specifiers]], together with  [[tuner|tuners]] for boolean operations defined on the char parsers themselves.
+Char classes are constructed from  denoted as strings called [[char class|class specifiers]], together with  [[tuner|tuners]] for boolean operations defined on the char parsers themselves.
 
 Unlike with [[combinator|combinators]], where a parser has an [[parse graph|internal structure]] matching the way it was constructed, the only difference between char classes is which characters they okay. 
 
@@ -57,7 +57,7 @@ This means two char parsers that parse the same char class are functionally equi
 > [!tip] PROTIP
 > The way in which a char parser was constructed may be stored as metadata for debugging purposes.
 # constructing a char parser
-Char parsers constructors always okay a single parameter, which is a [[base char class]] specifier.  
+Char parsers constructors always okay a single parameter, which is a [[char class]] specifier.  
 
 ```ts
 import { ascii, unicode } from "parjs";
@@ -68,7 +68,7 @@ const uniDigit = unicode("digit");
 # constructing classes
 Character classes can be combined using [[tuner|tuners]] defined and implemented by the char parser itself.
 ## and(…classes)
-This modifier intersects the parser’s current char class with all of `classes`. Each argument can be either a [[base char class]] or another [[char parser]] instance of the same type, which represents the character class it parses.
+This modifier intersects the parser’s current char class with all of `classes`. Each argument can be either a [[char class]] or another [[char parser]] instance of the same type, which represents the character class it parses.
 
 ```ts
 // Parse a-z:

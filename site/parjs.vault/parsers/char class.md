@@ -5,7 +5,7 @@ aliases:
   - base char classes
 ---
 #stage-4
-[[char parser|char parsers]] accept chars based on their **char class**, which is constructed from [[base char class|base char classes]], together with boolean operations on those classes. These base char classes are denoted using strings with a simple structure.
+[[char parser|char parsers]] accept chars based on their **char class**, which is constructed from [[char class|base char classes]], together with boolean operations on those classes. These base char classes are denoted using strings with a simple structure.
 
 The two char parsers [[ascii]] and [[unicode]] don’t support the same base char classes, and when they do support a class they usually map it to a different set of characters. For example:
 - [[ascii]] — `lower` means the lowercase ASCII characters `[a-z]`.

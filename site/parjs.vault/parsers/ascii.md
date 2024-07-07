@@ -6,7 +6,7 @@ This gives it a **char set** of 129 characters.
 Internally, this parser creates a bit array of 128 bits, with each bit indicating whether a character is allowed. The operations `or` and `and` manipulate this set of bits using binary operations. Whether the parser will parse a DOS newline is a separate boolean.
 
 This also means it inherently can’t parse anything except ASCII.
-# [[base char class|base char classes]]
+# [[char class|base char classes]]
 This parser recognizes the following base char classes.
 
 | ID             | Description                          | RegExp           |
