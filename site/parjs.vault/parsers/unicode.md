@@ -1,4 +1,4 @@
-#stage-2 %%Core implementation and characteristics still unclear %%
+#stage-3 %%Core implementation and characteristics still unclear %%
 This #🧩parser is a [[char parser]] for parsing individual Unicode codepoints, or the sequence `\r\n`.
 
 All values in the Unicode range `0x000000 -- 0x10FFFF` are supported, including both assigned and unassigned codepoints.
