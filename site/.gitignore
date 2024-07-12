@@ -20,5 +20,6 @@ null*
 node_modules/
 *.map
 *.log
-*.css
-*.js
+publish.css
+main.electron.css
+publish.js
