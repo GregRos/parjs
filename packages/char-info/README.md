@@ -1,10 +1,10 @@
 # char-info
 
 ![build](https://github.com/GregRos/parjs/actions/workflows/char-info.push.yaml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/GregRos/parjs/badge.svg?branch=master)](https://coveralls.io/github/GregRos/parjs?branch=master)
-[![npm](https://img.shields.io/npm/v/parjs)](https://www.npmjs.com/package/parjs)
-[![Downloads](https://img.shields.io/npm/dm/parjs)](https://www.npmjs.com/package/parjs)
-[![Gzipped Size](https://img.shields.io/bundlephobia/minzip/parjs)](https://bundlephobia.com/result?p=parjs)
+[![codecov](https://codecov.io/github/GregRos/parjs/graph/badge.svg?flag=char-info)](https://codecov.io/github/GregRos/parjs?flags[0]=char-info)
+[![npm](https://img.shields.io/npm/v/char-info)](https://www.npmjs.com/package/char-info)
+[![Downloads](https://img.shields.io/npm/dm/char-info)](https://www.npmjs.com/package/char-info)
+[![Gzipped Size](https://img.shields.io/bundlephobia/minzip/char-info)](https://bundlephobia.com/result?p=char-info)
 
 A library that gives you information about individual Unicode characters. It also provides a list of Unicode groupings and their names, including lists of categories, blocks, and scripts. This is also reflected in the library's type definition files.
 

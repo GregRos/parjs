@@ -1,4 +1,4 @@
-name: Monorepo PR
+name: monorepo PR
 on:
   pull_request:
     branches:
@@ -39,13 +39,20 @@ jobs:
       - name: TEST
         run: yarn workspaces foreach -Rpt --from '{char-info,parjs}' run test:coverage
 
-      - name: UPLOAD COVERAGE REPORT FOR CHAR-INFO
-        uses: coverallsapp/github-action@v2
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v4.2.0
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./packages/char-info/coverage/lcov.info
-      - name: UPLOAD COVERAGE REPORT FOR PARJS
-        uses: coverallsapp/github-action@v2
+          plugin: noop
+          directory: packages/char-info/coverage
+          flags: char-info
+
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v4.2.0
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: packages/parjs/coverage/lcov.info
+          directory: packages/parjs/coverage
+          flags: parjs
+          plugin: noop

@@ -1,4 +1,4 @@
-name: PUBLISH CHAR-INFO
+name: publish char-info
 on:
   push:
     branches:
@@ -59,26 +59,13 @@ jobs:
       - name: TEST
         run: yarn workspace char-info run test:coverage
 
-      - name: UPLOAD COVERAGE REPORT FOR CHAR-INFO
-        uses: coverallsapp/github-action@v2
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v4.2.0
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./packages/char-info/coverage/lcov.info
-
-      # - name: GENERATE DOCS
-      #   run: yarn workspace char-info run docs
-
-      # - name: SETUP PAGES
-      #   uses: actions/configure-pages@v3
-
-      # - name: UPLOAD PAGES ARTIFACT
-      #   uses: actions/upload-pages-artifact@v2
-      #   with:
-      #     path: "packages/char-info/docs"
-
-      # - name: DEPLOY PAGES
-      #   id: deployment
-      #   uses: actions/deploy-pages@v2
+          directory: packages/char-info/coverage
+          flags: char-info
 
       - name: SETUP PUBLISH TOKEN
         run: 'echo "npmAuthToken: ${NPM_TOKEN}" >> ~/.yarnrc.yml'

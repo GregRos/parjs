@@ -1,7 +1,7 @@
 # Parjs
 
-![build](https://github.com/GregRos/parjs/actions/workflows/push.yaml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/GregRos/parjs/badge.svg?branch=master)](https://coveralls.io/github/GregRos/parjs?branch=master)
+![build](https://github.com/GregRos/parjs/actions/workflows/parjs.push.yaml/badge.svg)
+[![codecov](https://codecov.io/github/GregRos/parjs/graph/badge.svg?flag=parjs)](https://codecov.io/github/GregRos/parjs?flags[0]=parjs)
 [![npm](https://img.shields.io/npm/v/parjs)](https://www.npmjs.com/package/parjs)
 [![Downloads](https://img.shields.io/npm/dm/parjs)](https://www.npmjs.com/package/parjs)
 [![Gzipped Size](https://img.shields.io/bundlephobia/minzip/parjs)](https://bundlephobia.com/result?p=parjs)
