@@ -1,2 +1,2 @@
-*.tsbuildinfo
-tsconfig*.json
+**/*.tsbuildinfo
+**/tsconfig*.json

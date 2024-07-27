@@ -1,6 +1,6 @@
 {
   "name": "parjs",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "Library for building parsers using combinators.",
   "keywords": [
     "parser",
@@ -18,7 +18,11 @@
     "parsimmon"
   ],
   "homepage": "https://parjs.org",
-  "repository": "github:gregros/parjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregros/parjs.git",
+    "directory": "packages/parjs"
+  },
   "license": "MIT",
   "author": "GregRos <work.gregr@gmail.com>",
   "contributors": [
