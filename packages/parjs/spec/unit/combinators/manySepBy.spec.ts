@@ -1,5 +1,5 @@
 import { ResultKind, fail, result, string } from "@lib";
-import { manySepBy, stringify, then, thenq } from "@lib/combinators";
+import { manySepBy, stringify, thenceforth, thenq } from "@lib/combinators";
 import { getArrayWithSeparators } from "@lib/internal/combinators/many-sep-by";
 
 const prs = string("ab");
@@ -38,7 +38,7 @@ describe("manySepBy combinator", () => {
     });
 
     it("many that fails hard on 2nd iteration", () => {
-        const manyParser = string("a").pipe(then("b"), stringify(), manySepBy(", "));
+        const manyParser = string("a").pipe(thenceforth("b"), stringify(), manySepBy(", "));
         expect(manyParser.parse("ab, ac")).toBeFailure("Hard");
     });
 

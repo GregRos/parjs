@@ -17,7 +17,7 @@ import type { getParsedType } from "../util-types";
  */
 export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<unknown, T> {
     return composeCombinator(
-        then(next),
+        thenceforth(next),
         map(arr => arr[1])
     );
 }
@@ -29,7 +29,7 @@ export function qthen<T>(next: ImplicitParjser<T>): ParjsCombinator<unknown, T> 
  */
 export function thenq<T>(next: ImplicitParjser<unknown>): ParjsCombinator<T, T> {
     return composeCombinator(
-        then(next),
+        thenceforth(next),
         map(arr => arr[0])
     );
 }
@@ -80,7 +80,7 @@ class Then<T, Rest extends CombinatorInput<unknown>[]> extends Combinated<
     }
 }
 
-export function then<T, Parsers extends ImplicitParjser<unknown>[]>(
+export function thenceforth<T, Parsers extends ImplicitParjser<unknown>[]>(
     ...parsers: Parsers
 ): ParjsCombinator<T, [T, ...{ [K in keyof Parsers]: getParsedType<Parsers[K]> }]> {
     const resolvedParsers = parsers.map(wrapImplicit) as {

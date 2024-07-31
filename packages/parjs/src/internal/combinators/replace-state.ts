@@ -2,9 +2,8 @@ import type { ParjsCombinator, UserState } from "../../index";
 import { defaults } from "../../utils";
 import { Combinated } from "../combinated";
 import type { ParjserBase } from "../parser";
-import { ParserUserState } from "../parser";
+import { ParserUserState, wrapImplicit } from "../parser";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../parser";
 
 /** A user state object or a projection to the external user state. */
 export type UserStateOrProjection = UserState | ((externalState: UserState) => UserState);

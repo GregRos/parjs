@@ -11,8 +11,8 @@ import {
     mapConst,
     qthen,
     stringify,
-    then,
     thenPick,
+    thenceforth,
     thenq
 } from "@lib/combinators";
 import { many1 } from "@lib/internal/combinators";
@@ -43,7 +43,7 @@ describe("sequential combinators", () => {
 
     describe("then", () => {
         describe("1 arg", () => {
-            const parser = prs.pipe(then(prs2));
+            const parser = prs.pipe(thenceforth(prs2));
             it("succeeds", () => {
                 expect(parser.parse(goodInput)).toBeSuccessful(["ab", "cd"]);
             });
@@ -58,13 +58,13 @@ describe("sequential combinators", () => {
             });
 
             it("fails hard on first hard fail", () => {
-                const parser2 = fail().pipe(then("hi"));
+                const parser2 = fail().pipe(thenceforth("hi"));
                 expect(parser2.parse("hi")).toBeFailure("Hard");
             });
 
             it("fails fatally on 2nd fatal fail", () => {
                 const parser2 = string("hi").pipe(
-                    then(
+                    thenceforth(
                         fail({
                             kind: "Fatal"
                         })
@@ -74,13 +74,13 @@ describe("sequential combinators", () => {
             });
 
             it("chain zero-matching parsers", () => {
-                const parser2 = string("hi").pipe(then(rest(), rest()));
+                const parser2 = string("hi").pipe(thenceforth(rest(), rest()));
                 expect(parser2.parse("hi")).toBeSuccessful(["hi", "", ""]);
             });
         });
 
         describe("1 arg, then zero consume", () => {
-            const parser = prs.pipe(then(prs2), thenq(eof()));
+            const parser = prs.pipe(thenceforth(prs2), thenq(eof()));
             it("succeeds", () => {
                 expect(parser.parse(goodInput)).toBeSuccessful(["ab", "cd"]);
             });
@@ -94,7 +94,7 @@ describe("sequential combinators", () => {
             const p3 = string("c").pipe(mapConst([] as string[]));
 
             const p = string("a").pipe(
-                then(p2, p3),
+                thenceforth(p2, p3),
                 each(x => {
                     Math.log(x[1]);
                     x[0].toUpperCase();
@@ -112,7 +112,7 @@ describe("sequential combinators", () => {
             const p4 = string("d").pipe(mapConst(true));
 
             const p = string("a").pipe(
-                then(p2, p3, p4),
+                thenceforth(p2, p3, p4),
                 each(x => {
                     Math.log(x[1]);
                     x[0].toUpperCase();
@@ -242,7 +242,7 @@ describe("sequential combinators", () => {
         });
 
         it("many that fails hard on 2nd iteration", () => {
-            const manyParser = string("a").pipe(then("b"), stringify(), manySepBy(", "));
+            const manyParser = string("a").pipe(thenceforth("b"), stringify(), manySepBy(", "));
             expect(manyParser.parse("ab, ac")).toBeFailure("Hard");
         });
 

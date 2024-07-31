@@ -1,9 +1,9 @@
 import { fail, ResultKind, string } from "@lib";
-import { recover, stringify, then } from "@lib/combinators";
+import { recover, stringify, thenceforth } from "@lib/combinators";
 
 describe("recover combinator", () => {
     const parser = string("a").pipe(
-        then("b"),
+        thenceforth("b"),
         stringify(),
         recover(() => ({ kind: "Soft" }))
     );

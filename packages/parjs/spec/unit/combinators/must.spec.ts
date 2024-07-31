@@ -1,5 +1,5 @@
 import { ResultKind, eof, string, stringLen } from "@lib";
-import { must, mustCapture, or, stringify, then } from "@lib/combinators";
+import { must, mustCapture, or, stringify, thenceforth } from "@lib/combinators";
 
 describe("must combinators", () => {
     describe("must combinator", () => {
@@ -24,7 +24,7 @@ describe("must combinators", () => {
 
     describe("mustCapture combinator", () => {
         const parser = string("a").pipe(
-            then("b"),
+            thenceforth("b"),
             stringify(),
             or(eof("")),
             mustCapture({

@@ -1,13 +1,13 @@
 import { fail, rest, ResultKind, string } from "@lib";
-import { not, stringify, then } from "@lib/combinators";
+import { not, stringify, thenceforth } from "@lib/combinators";
 
 describe("not combinator", () => {
-    const parser = string("a").pipe(then("b"), stringify(), not());
+    const parser = string("a").pipe(thenceforth("b"), stringify(), not());
     it("succeeds on empty input/soft fail", () => {
         expect(parser.parse("")).toBeSuccessful(undefined);
     });
     it("succeeds on hard fail if we take care of the rest", () => {
-        const parser2 = parser.pipe(then(rest()));
+        const parser2 = parser.pipe(thenceforth(rest()));
         expect(parser2.parse("a")).toBeSuccessful();
     });
     it("soft fails on passing input", () => {

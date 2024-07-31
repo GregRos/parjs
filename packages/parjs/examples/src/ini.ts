@@ -9,7 +9,7 @@ import {
     or,
     qthen,
     stringify,
-    then,
+    thenceforth,
     thenq
 } from "parjs/combinators";
 
@@ -88,7 +88,7 @@ export const value = anyCharOf(valueCharacters).pipe(many1(), stringify()).expec
 export const definitionLine = token(identifier)
     .pipe(
         thenq(token(string("="))),
-        then(value, comment.pipe(maybe())),
+        thenceforth(value, comment.pipe(maybe())),
         thenq(newline().pipe(or(eof()))),
         map(([name, val]) => new Property(name.toLowerCase(), val))
     )
@@ -113,7 +113,7 @@ export const sectionHeader = token(
 export const section = sectionHeader
     .pipe(
         thenq(newline()),
-        then(definitionList),
+        thenceforth(definitionList),
         map(([name, properties]) => new NamedSection(name, properties))
     )
     .expects("section");
@@ -126,7 +126,7 @@ export const globalSection = definitionList
 
 export const iniFile = globalSection
     .pipe(
-        then(section.pipe(many())),
+        thenceforth(section.pipe(many())),
         map(([global, sections]) => new IniFile(global, sections))
     )
     .expects("ini file");

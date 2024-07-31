@@ -1,5 +1,5 @@
 import { fail, nope } from "@lib";
-import { reason, then } from "@lib/combinators";
+import { reason, thenceforth } from "@lib/combinators";
 
 describe("expects combinator", () => {
     const base = nope("deez nuts");
@@ -13,7 +13,7 @@ describe("expects combinator", () => {
     });
     it("modifies expecting", () => {
         const parser = base.pipe(
-            then(fail("deez nuts")),
+            thenceforth(fail("deez nuts")),
             reason(x => `${x.reason}! gottem!`)
         );
         expect(parser.parse("abc")).toMatchObject({

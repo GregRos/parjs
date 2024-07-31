@@ -1,9 +1,9 @@
 import { eof, string } from "@lib";
-import { backtrack, each, map, replaceState, then } from "@lib/combinators";
+import { backtrack, each, map, replaceState, thenceforth } from "@lib/combinators";
 
 describe("special combinators", () => {
     describe("backtrack", () => {
-        const parser = string("hi").pipe(then(eof()), backtrack());
+        const parser = string("hi").pipe(thenceforth(eof()), backtrack());
 
         it("fails soft if inner fails soft", () => {
             expect(parser.parse("x")).toBeFailure("Soft");
@@ -15,7 +15,7 @@ describe("special combinators", () => {
 
         it("succeeds if inner succeeds, non-zero match", () => {
             const parseHi = string("hi");
-            const redundantParser = parseHi.pipe(backtrack(), then("his"));
+            const redundantParser = parseHi.pipe(backtrack(), thenceforth("his"));
             expect(redundantParser.parse("his")).toBeSuccessful(["hi", "his"]);
         });
     });
