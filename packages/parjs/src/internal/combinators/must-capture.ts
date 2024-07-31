@@ -6,7 +6,7 @@ import type { ParjserBase } from "../parser";
 
 import { defaults } from "../../utils";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 const defaultFailure: FailureInfo = {
     reason: "succeeded without capturing input",

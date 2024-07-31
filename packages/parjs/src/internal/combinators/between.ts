@@ -1,5 +1,5 @@
 import type { ImplicitParjser, ParjsCombinator } from "../../index";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 import { defineCombinator } from "./combinator";
 import { qthen, thenq } from "./then";
 

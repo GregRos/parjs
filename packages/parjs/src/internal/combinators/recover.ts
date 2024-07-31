@@ -3,7 +3,7 @@ import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 import type { FailureInfo, ResultKindFail, SuccessInfo } from "../result";
 import type { ParsingState, UserState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 /** Information about the failure. */
 export interface ParserFailureState {

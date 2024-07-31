@@ -3,7 +3,7 @@ import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 import type { ParjsValidator } from "../parjser";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 class Must<T> extends Combinated<T, T> {
     type = "must";

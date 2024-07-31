@@ -1,10 +1,11 @@
-import type { ImplicitParjser, ParjsCombinator } from "../../index";
+import type { ParjsCombinator } from "../../index";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 import { Issues } from "../issues";
+import type { ImplicitParjser } from "../parser";
+import { wrapImplicit } from "../parser";
 import { ResultKind } from "../result";
 import type { ParsingState, UserState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
 import { pipe } from "./combinator";
 import { qthen } from "./then";
 

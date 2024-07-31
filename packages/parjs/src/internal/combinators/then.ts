@@ -4,10 +4,10 @@ import type { ParsingState } from "../state";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../wrap-implicit";
 import { composeCombinator } from "./combinator";
 import { map } from "./map";
 
+import { wrapImplicit } from "../parser";
 import type { getParsedType } from "../util-types";
 
 /**

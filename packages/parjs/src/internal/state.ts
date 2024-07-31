@@ -100,7 +100,7 @@ export class BasicParsingState<TValue> implements ParsingState {
     }
 }
 
-/** A unique object value indicating the reuslt of a failed parser. */
+/** A unique object value indicating the result of a failed parser. */
 export const FAIL_RESULT = Object.create(null);
 /**
  * A unique object value indicating that a parser did not initialize the ParsingState's value

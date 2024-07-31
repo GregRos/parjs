@@ -3,7 +3,7 @@ import { Combinated } from "../combinated";
 import type { ParjsCombinator } from "../parjser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 class MaybeCombinator<T, S> extends Combinated<T, S | T> {
     type = "maybe";

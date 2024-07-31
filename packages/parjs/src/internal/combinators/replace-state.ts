@@ -4,7 +4,7 @@ import { Combinated } from "../combinated";
 import type { ParjserBase } from "../parser";
 import { ParserUserState } from "../parser";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 /** A user state object or a projection to the external user state. */
 export type UserStateOrProjection = UserState | ((externalState: UserState) => UserState);

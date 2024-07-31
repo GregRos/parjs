@@ -1,9 +1,10 @@
 export { ParjserBase, ParserUserState } from "./parser";
 export type { ParsingState, UserState } from "./state";
 
+export { ParjsFailure } from "./ParjsFailure";
 export { composeCombinator, defineCombinator } from "./combinators";
 export type { ParjsCombinator, ParjsProjection, ParjsValidator, Parjser } from "./parjser";
-export { regexp, string } from "./parser";
+export { regexp, string, wrapImplicit } from "./parser";
 export {
     anyChar,
     anyCharOf,
@@ -38,7 +39,6 @@ export {
     whitespace
 } from "./parsers";
 export type { FloatOptions, IntOptions } from "./parsers";
-export { ParjsFailure, ParjsSuccess, ResultKind } from "./result";
+export { ParjsSuccess, ResultKind } from "./result";
 export type { ErrorLocation, FailureInfo, ParjsResult, SuccessInfo, Trace } from "./result";
 export { BasicParsingState, FAIL_RESULT, UNINITIALIZED_RESULT } from "./state";
-export { wrapImplicit } from "./wrap-implicit";

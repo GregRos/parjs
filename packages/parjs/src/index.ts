@@ -52,4 +52,4 @@ export {
     upper,
     whitespace
 } from "./internal/index";
-export type { ConvertibleScalar, ImplicitParjser } from "./internal/wrap-implicit";
+export type { ConvertibleScalar, ImplicitParjser } from "./internal/parser";
