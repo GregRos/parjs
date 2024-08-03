@@ -7149,6 +7149,7 @@ __metadata:
     char-info: "npm:0.3.*"
     jest: "npm:^29.7.0"
     npm-run-all: "npm:^4.1.5"
+    stdlazy: "npm:^1.0.5"
     typescript: "npm:^5.4.5"
   languageName: unknown
   linkType: soft
@@ -8358,6 +8359,13 @@ __metadata:
   dependencies:
     escape-string-regexp: "npm:^2.0.0"
   checksum: 10c0/651c9f87667e077584bbe848acaecc6049bc71979f1e9a46c7b920cad4431c388df0f51b8ad7cfd6eed3db97a2878d0fc8b3122979439ea8bac29c61c95eec8a
+  languageName: node
+  linkType: hard
+
+"stdlazy@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "stdlazy@npm:1.0.5"
+  checksum: 10c0/00465d1df387bca8c93fdbd242a6059099b1508a26d18df0f4012794a1eb5ecfae37241504fb109ee8cf30962cd58bad84685db652b21d3064ca78e6ad9815c4
   languageName: node
   linkType: hard
 
