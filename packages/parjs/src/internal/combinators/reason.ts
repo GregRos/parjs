@@ -1,10 +1,10 @@
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 import type { ParjsCombinator } from "../parjser";
+import type { ImplicitParjser } from "../parser";
+import { wrapImplicit } from "../parser";
 import type { FailureInfo } from "../result";
 import type { ParsingState } from "../state";
-import type { ImplicitParjser } from "../wrap-implicit";
-import { wrapImplicit } from "../wrap-implicit";
 
 class Expects<T> extends Combinated<T, T> {
     type = "expects";

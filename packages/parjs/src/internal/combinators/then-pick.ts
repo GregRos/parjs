@@ -1,9 +1,8 @@
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 import type { ParjsCombinator, ParjsProjection } from "../parjser";
+import { wrapImplicit, type ImplicitParjser } from "../parser";
 import type { ParsingState } from "../state";
-import type { ImplicitParjser } from "../wrap-implicit";
-import { wrapImplicit } from "../wrap-implicit";
 
 class ThenPick<A, B> extends Combinated<A, B> {
     type = "then-pick";

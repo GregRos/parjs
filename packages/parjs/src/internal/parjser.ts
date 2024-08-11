@@ -1,7 +1,6 @@
-import type { ParjserDebugFunction } from "./parser";
+import type { ImplicitParjser, ParjserDebugFunction } from "./parser";
 import type { FailureInfo, ParjsResult } from "./result";
 import type { ParsingState, UserState } from "./state";
-import type { ImplicitParjser } from "./wrap-implicit";
 
 /** A combinator or operator that takes a source parser that returns a new parser based on it. */
 export interface ParjsCombinator<TFrom, TTo> {
@@ -30,7 +29,7 @@ export interface Parjser<out T> {
 
     readonly expecting: string;
     /**
-     * Exposes the display name of the parser. Userful when debugging.
+     * Exposes the display name of the parser. Useful when debugging.
      *
      * @group informational
      */
