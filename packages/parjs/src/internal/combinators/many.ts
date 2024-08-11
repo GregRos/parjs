@@ -5,7 +5,7 @@ import type { ParsingState } from "../state";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 class Many<T> extends Combinated<T, T[]> {
     type = "many";

@@ -1,5 +1,5 @@
 import type { Parjser } from "./parjser";
-import type { ImplicitParjser } from "./wrap-implicit";
+import type { ImplicitParjser } from "./parser";
 
 export type union<Args extends unknown[]> = Args extends [
     infer A,

@@ -1,11 +1,12 @@
 import { ParserDefinitionError } from "../errors";
 import { clone, defaults } from "../utils";
+import { ParjsFailure } from "./ParjsFailure";
+import type { CombinatorInput } from "./combinated";
 import type { ParjsCombinator, Parjser } from "./parjser";
 import type { ErrorLocation, ParjsResult, Trace } from "./result";
-import { ParjsFailure, ParjsSuccess, ResultKind } from "./result";
+import { ParjsSuccess, ResultKind } from "./result";
 import type { ParsingState, UserState } from "./state";
 import { BasicParsingState, FAIL_RESULT, UNINITIALIZED_RESULT } from "./state";
-import { wrapImplicit } from "./wrap-implicit";
 
 function getErrorLocation(ps: ParsingState) {
     const endln = /\r\n|\n|\r/g;
@@ -141,7 +142,7 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
     }
 
     /**
-     * The internal operation performed by the PARSER. This will be overriden by derived classes.
+     * The internal operation performed by the PARSER. This will be overridden by derived classes.
      *
      * @param ps
      */
@@ -274,5 +275,47 @@ class ParseString<T> extends ParjserBase<T> {
         ps.position += str.length;
         ps.value = str;
         ps.kind = ResultKind.Ok;
+    }
+}
+
+/** A {@link Parjser} or a literal value convertible to a {@link Parjser}. */
+/**
+ * @private Should Not be used from user code. Used to implement implicit parser literals.
+ * @type {symbol}
+ */
+export const convertibleSymbol: unique symbol = Symbol("ParjsConvertibleLiteral");
+
+/**
+ * A literal type which is implicitly convertible to a parser. This normally includes the `string`
+ * and `RegExp` types.
+ */
+export interface ConvertibleScalar<T> {
+    [convertibleSymbol](): Parjser<T>;
+}
+
+declare global {
+    interface String {
+        [convertibleSymbol](): Parjser<string>;
+    }
+
+    interface RegExp {
+        [convertibleSymbol](): Parjser<string[]>;
+    }
+}
+
+/**
+ * Either a Parjser or a scalar value convertible to one.
+ *
+ * @module parjs
+ */
+export type ImplicitParjser<T> = Parjser<T> | ConvertibleScalar<T>;
+
+export function wrapImplicit<V>(scalarOrParjser: ImplicitParjser<V>): CombinatorInput<V> {
+    if (typeof scalarOrParjser === "string") {
+        return string(scalarOrParjser) as unknown as CombinatorInput<V>;
+    } else if (scalarOrParjser instanceof RegExp) {
+        return regexp(scalarOrParjser) as CombinatorInput<V>;
+    } else {
+        return scalarOrParjser as CombinatorInput<V>;
     }
 }
