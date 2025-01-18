@@ -1,9 +1,9 @@
 import type { ImplicitParjser } from "../../index";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
+import { wrapImplicit } from "../parser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
 
 class Exactly<T> extends Combinated<T, T[]> {
     type = "exactly";

@@ -1,5 +1,5 @@
 import { ResultKind, eof } from "@lib";
-import { then } from "@lib/combinators";
+import { thenceforth } from "@lib/combinators";
 
 describe("eof", () => {
     const parser = eof();
@@ -12,7 +12,7 @@ describe("eof", () => {
         expect(parser.parse(failInput)).toBeFailure(ResultKind.SoftFail);
     });
     it("chain multiple EOF succeeds", () => {
-        const parser2 = parser.pipe(then(eof()));
+        const parser2 = parser.pipe(thenceforth(eof()));
         expect(parser2.parse("")).toBeSuccessful(undefined);
     });
 });

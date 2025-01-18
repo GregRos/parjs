@@ -20,7 +20,7 @@ import {
     upper,
     whitespace
 } from "@lib";
-import { many, then } from "@lib/combinators";
+import { many, thenceforth } from "@lib/combinators";
 
 const uState = {};
 
@@ -301,7 +301,7 @@ describe("basic string parsers", () => {
                 expect(parser.parse("abc")).toBeSuccessful(["abc"]);
             });
             it("succeds using implicit", () => {
-                expect(string("abc").pipe(then(/abc/)).parse("abcabc")).toBeSuccessful([
+                expect(string("abc").pipe(thenceforth(/abc/)).parse("abcabc")).toBeSuccessful([
                     "abc",
                     ["abc"]
                 ]);
@@ -311,13 +311,16 @@ describe("basic string parsers", () => {
             });
             it("match starts in the proper location", () => {
                 const p = string("abc");
-                expect(p.pipe(then(parser)).parse("abcabc")).toBeSuccessful(["abc", ["abc"]]);
+                expect(p.pipe(thenceforth(parser)).parse("abcabc")).toBeSuccessful([
+                    "abc",
+                    ["abc"]
+                ]);
             });
             it("match ends in the proper location", () => {
                 const p1 = string("abc");
                 const p2 = regexp(/.{3}/);
                 const p3 = string("eeee");
-                const r = p1.pipe(then(p2, p3));
+                const r = p1.pipe(thenceforth(p2, p3));
                 expect(r.parse("abcabceeee")).toBeSuccessful(["abc", ["abc"], "eeee"]);
             });
         });
@@ -327,7 +330,7 @@ describe("basic string parsers", () => {
             it("succeeds on input", () => {
                 expect(parser.parse("abc")).toBeSuccessful(["abc", "ab", "c"]);
             });
-            const parser2 = parser.pipe(then("de"));
+            const parser2 = parser.pipe(thenceforth("de"));
             it("chains correctly", () => {
                 expect(parser2.parse("abcde")).toBeSuccessful();
             });

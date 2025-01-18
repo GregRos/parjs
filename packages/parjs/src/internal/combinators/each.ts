@@ -4,7 +4,7 @@ import type { ParjsCombinator, ParjsProjection } from "../parjser";
 
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 class Each<T> extends Combinated<T, T> {
     type = "each";

@@ -2,10 +2,9 @@ import type { ImplicitParjser, ParjsCombinator } from "../../index";
 import type { CombinatorInput } from "../combinated";
 import { Combinated } from "../combinated";
 import { Issues } from "../issues";
-import type { ParjserBase } from "../parser";
+import { wrapImplicit, type ParjserBase } from "../parser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
 
 export type ArrayWithSeparators<Normal, Separator> = Normal[] & {
     separators: Separator[];

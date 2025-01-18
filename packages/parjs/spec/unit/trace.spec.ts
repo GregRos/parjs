@@ -1,6 +1,6 @@
 import type { ParjsFailure } from "@lib";
 import { string, whitespace } from "@lib";
-import { exactly, manySepBy, then } from "@lib/combinators";
+import { exactly, manySepBy, thenceforth } from "@lib/combinators";
 import { visualizeTrace } from "@lib/internal/trace-visualizer";
 
 describe("trace", () => {
@@ -35,7 +35,7 @@ describe("trace", () => {
 
     describe("line breaks \\n", () => {
         const input = "\n".repeat(11) + "a".repeat(4);
-        const parser = whitespace().pipe(then(string("a").pipe(exactly(5))));
+        const parser = whitespace().pipe(thenceforth(string("a").pipe(exactly(5))));
         const res = parser.parse(input) as ParjsFailure;
         const { trace } = res;
         it("correct position", () => {
@@ -53,7 +53,7 @@ describe("trace", () => {
 
     describe("line breaks mixed", () => {
         const input = "\r\n".repeat(3) + "\r".repeat(3) + "\n".repeat(3) + "a".repeat(4);
-        const parser = whitespace().pipe(then(string("a").pipe(exactly(5))));
+        const parser = whitespace().pipe(thenceforth(string("a").pipe(exactly(5))));
 
         const res = parser.parse(input) as ParjsFailure;
         const { trace } = res;

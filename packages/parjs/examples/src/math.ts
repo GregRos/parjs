@@ -14,7 +14,7 @@
 import type { Parjser } from "parjs";
 import { float, string } from "parjs";
 import type { DelayedParjser } from "parjs/combinators";
-import { between, later, many, map, or, then, thenq } from "parjs/combinators";
+import { between, later, many, map, or, thenceforth, thenq } from "parjs/combinators";
 
 export interface Expression {
     calculate(): number;
@@ -98,7 +98,7 @@ export const value: Parjser<Expression> = t(numberLiteral)
 
 export const unary: Parjser<Expression> = t(string("-"))
     .pipe(
-        then(value),
+        thenceforth(value),
         map(([op, val]) => new UnaryOperation(op, val)),
         or(value)
     )
@@ -108,7 +108,7 @@ export function product() {
     const operator = t(string("*").pipe(or(string("/"), string("%"))));
     return unary
         .pipe(
-            then(operator.pipe(then(unary), many())),
+            thenceforth(operator.pipe(thenceforth(unary), many())),
             map(expressions => {
                 const [first, rest] = expressions;
                 return rest.reduce((lhs, [op, rhs]) => new BinaryOperation(lhs, op, rhs), first);
@@ -121,7 +121,7 @@ export function sum() {
     const operator = t(string("+").pipe(or(string("-"))));
     return product()
         .pipe(
-            then(operator.pipe(then(product()), many())),
+            thenceforth(operator.pipe(thenceforth(product()), many())),
             map(expressions => {
                 const [first, rest] = expressions;
                 return rest.reduce((lhs, [op, rhs]) => new BinaryOperation(lhs, op, rhs), first);

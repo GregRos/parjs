@@ -4,7 +4,7 @@ import type { ParjsCombinator } from "../parjser";
 import type { ParjserBase } from "../parser";
 import { ResultKind } from "../result";
 import type { ParsingState } from "../state";
-import { wrapImplicit } from "../wrap-implicit";
+import { wrapImplicit } from "../parser";
 
 class Many1<T> extends Combinated<T, [T, ...T[]]> {
     type = "many1";

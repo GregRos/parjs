@@ -23,8 +23,8 @@ export {
     recover,
     replaceState,
     stringify,
-    then,
     thenPick,
+    thenceforth,
     thenq
 } from "./internal/combinators";
 export type {

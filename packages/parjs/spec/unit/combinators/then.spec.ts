@@ -1,11 +1,11 @@
 import { ResultKind, eof, fail, rest, string } from "@lib";
-import { each, mapConst, then, thenq } from "@lib/combinators";
+import { each, mapConst, thenceforth, thenq } from "@lib/combinators";
 
 const excessInput = "abcde";
 
 describe("then", () => {
     describe("1 arg", () => {
-        const parser = string("ab").pipe(then(string("cd")));
+        const parser = string("ab").pipe(thenceforth(string("cd")));
         it("succeeds", () => {
             expect(parser.parse("abcd")).toBeSuccessful(["ab", "cd"]);
         });
@@ -20,13 +20,13 @@ describe("then", () => {
         });
 
         it("fails hard on first hard fail", () => {
-            const parser2 = fail().pipe(then("hi"));
+            const parser2 = fail().pipe(thenceforth("hi"));
             expect(parser2.parse("hi")).toBeFailure("Hard");
         });
 
         it("fails fatally on 2nd fatal fail", () => {
             const parser2 = string("hi").pipe(
-                then(
+                thenceforth(
                     fail({
                         kind: "Fatal"
                     })
@@ -36,13 +36,13 @@ describe("then", () => {
         });
 
         it("chain zero-matching parsers", () => {
-            const parser2 = string("hi").pipe(then(rest(), rest()));
+            const parser2 = string("hi").pipe(thenceforth(rest(), rest()));
             expect(parser2.parse("hi")).toBeSuccessful(["hi", "", ""]);
         });
     });
 
     describe("1 arg, then zero consume", () => {
-        const parser = string("ab").pipe(then(string("cd")), thenq(eof()));
+        const parser = string("ab").pipe(thenceforth(string("cd")), thenq(eof()));
         it("succeeds", () => {
             expect(parser.parse("abcd")).toBeSuccessful(["ab", "cd"]);
         });
@@ -56,7 +56,7 @@ describe("then", () => {
         const p3 = string("c").pipe(mapConst([] as string[]));
 
         const p = string("a").pipe(
-            then(p2, p3),
+            thenceforth(p2, p3),
             each(x => {
                 Math.log(x[1]);
                 x[0].toUpperCase();
@@ -74,7 +74,7 @@ describe("then", () => {
         const p4 = string("d").pipe(mapConst(true));
 
         const p = string("a").pipe(
-            then(p2, p3, p4),
+            thenceforth(p2, p3, p4),
             each(x => {
                 Math.log(x[1]);
                 x[0].toUpperCase();

@@ -9,7 +9,7 @@ import {
     reason,
     recover,
     stringify,
-    then
+    thenceforth
 } from "@lib/combinators";
 
 describe("maybe combinator", () => {
@@ -80,9 +80,9 @@ describe("or combinator", () => {
 });
 
 describe("or val combinator", () => {
-    const parser = string("a").pipe(then("b"), stringify(), maybe("c"));
+    const parser = string("a").pipe(thenceforth("b"), stringify(), maybe("c"));
 
-    const p2: Parjser<[0 | "a", "b"]> = string("a").pipe(maybe(0), then(string("b")));
+    const p2: Parjser<[0 | "a", "b"]> = string("a").pipe(maybe(0), thenceforth(string("b")));
     it("succeeds to parse", () => {
         expect(parser.parse("ab")).toBeSuccessful("ab");
     });
@@ -102,12 +102,12 @@ describe("or val combinator", () => {
 });
 
 describe("not combinator", () => {
-    const parser = string("a").pipe(then("b"), stringify(), not());
+    const parser = string("a").pipe(thenceforth("b"), stringify(), not());
     it("succeeds on empty input/soft fail", () => {
         expect(parser.parse("")).toBeSuccessful(undefined);
     });
     it("succeeds on hard fail if we take care of the rest", () => {
-        const parser2 = parser.pipe(then(rest()));
+        const parser2 = parser.pipe(thenceforth(rest()));
         expect(parser2.parse("a")).toBeSuccessful();
     });
     it("soft fails on passing input", () => {
@@ -127,7 +127,7 @@ describe("not combinator", () => {
 
 describe("soft combinator", () => {
     const parser = string("a").pipe(
-        then("b"),
+        thenceforth("b"),
         stringify(),
         recover(() => ({ kind: "Soft" }))
     );
@@ -161,7 +161,7 @@ describe("expects combinator", () => {
     });
     it("modifies expecting", () => {
         const parser = base.pipe(
-            then(fail("deez nuts")),
+            thenceforth(fail("deez nuts")),
             reason(x => `${x.reason}! gottem!`)
         );
         expect(parser.parse("abc")).toMatchObject({

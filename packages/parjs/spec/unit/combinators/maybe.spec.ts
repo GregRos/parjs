@@ -1,6 +1,6 @@
 import type { Parjser } from "@lib";
 import { fail, ResultKind, string } from "@lib";
-import { maybe, qthen, stringify, then } from "@lib/combinators";
+import { maybe, qthen, stringify, thenceforth } from "@lib/combinators";
 
 describe("maybe combinator", () => {
     it("works", () => {
@@ -22,9 +22,9 @@ describe("maybe combinator", () => {
 });
 
 describe("maybe combinator again", () => {
-    const parser = string("a").pipe(then("b"), stringify(), maybe("c"));
+    const parser = string("a").pipe(thenceforth("b"), stringify(), maybe("c"));
 
-    const p2: Parjser<[0 | "a", "b"]> = string("a").pipe(maybe(0), then(string("b")));
+    const p2: Parjser<[0 | "a", "b"]> = string("a").pipe(maybe(0), thenceforth(string("b")));
     it("succeeds to parse", () => {
         expect(parser.parse("ab")).toBeSuccessful("ab");
     });

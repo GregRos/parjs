@@ -17,7 +17,7 @@ import {
     or,
     qthen,
     stringify,
-    then,
+    thenceforth,
     thenq
 } from "parjs/combinators";
 
@@ -105,7 +105,7 @@ const pArray = pJsonValue.pipe(
 // Plus, whitespace around the property
 const pObjectProperty = pStr.pipe(
     thenq(string(":").pipe(between(whitespace()))),
-    then(pJsonValue),
+    thenceforth(pJsonValue),
     between(whitespace()),
     map(([name, value]) => {
         return new JsonObjectProperty(name, value);
