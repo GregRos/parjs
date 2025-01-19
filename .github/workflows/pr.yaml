@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 20.9.0
+          - 22.13.0
     steps:
       - name: CHECKOUT CODE
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - name: SETUP NODE.JS ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: "20.9.0"
+          node-version: "22.13.0"
           cache: yarn
           registry-url: "https://registry.yarnpkg.com"
 
