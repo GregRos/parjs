@@ -1,10 +1,10 @@
 {
   "references": [
     {
-      "path": "./packages/parjs/tsconfig.json"
+      "path": "./packages/char-info/tsconfig.json"
     },
     {
-      "path": "./packages/char-info/tsconfig.json"
+      "path": "./packages/parjs/tsconfig.json"
     }
   ],
   "compilerOptions": {

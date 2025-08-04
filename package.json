@@ -8,15 +8,17 @@
   "scripts": {
     "build": "tsc -b",
     "watch": "tsc -b -w",
+    "test": "yarn workspaces foreach -Rpt --from '{char-info,parjs}' run test",
     "clean": "yarn workspaces foreach -A run clean",
     "build:clean": "run-s clean build",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "eslint:check": "eslint '**/*.ts'",
-    "eslint:fix": "eslint --fix '**/*.ts'",
+    "eslint:check": "eslint",
+    "eslint:fix": "eslint --fix",
     "lint:check": "run-s eslint:check prettier:check",
     "lint:fix": "run-s eslint:fix prettier:fix",
-    "test:coverage": "yarn workspaces foreach -Rpt --from '{char-info,parjs}' run test:coverage"
+    "test:coverage": "yarn workspaces foreach -Rpt --from '{char-info,parjs}' run test:coverage",
+    "tidy": "yarn install && run-s lint:fix build:clean test"
   },
   "husky": {
     "hooks": {
@@ -40,8 +42,7 @@
     "@typescript-eslint/parser": "^8.39.0",
     "@typescript-eslint/utils": "^8.36.0",
     "eslint": "^9.32.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-jest": "28.2.0",
+    "eslint-plugin-jest": "^29.0.1",
     "eslint-plugin-markdown": "^5.1.0",
     "husky": "9.0.11",
     "lint-staged": "15.2.2",

@@ -14,7 +14,6 @@ class StringOf<T> extends ParjserBase<T> {
     _apply(ps: ParsingState) {
         const { position, input } = ps;
         const { strs } = this;
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < strs.length; i++) {
             const curStr = strs[i];
             if (input.length - position < curStr.length) continue;

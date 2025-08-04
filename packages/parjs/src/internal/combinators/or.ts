@@ -27,7 +27,6 @@ class Or<T, Alts extends CombinatorInput<unknown>[]> extends Combinated<
         const { position } = ps;
         const resolvedAlts = [this.source, ...this._alts];
         const allExpectations = resolvedAlts.map(x => x.expecting);
-        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (let i = 0; i < resolvedAlts.length; i++) {
             // go over each alternative.
             const cur = resolvedAlts[i];

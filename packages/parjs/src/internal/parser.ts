@@ -198,7 +198,6 @@ export abstract class ParjserBase<TValue> implements Parjser<TValue> {
         cmb6?: ParjsCombinator<T5, T6>
     ): Parjser<T6> {
         const combinators = [cmb1, cmb2, cmb3, cmb4, cmb5, cmb6].filter(x => x != null);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let last: any = wrapImplicit(this);
 
         for (const cmb of combinators) {

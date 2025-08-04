@@ -83,7 +83,6 @@ export function manyTill<TSource, TTill, TResult = TSource[]>(
         return new ManyTill<TSource, TTill, TResult>(
             wrapImplicit(source),
             tillResolved,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             project as any
         );
     };
@@ -105,10 +104,6 @@ export function manyBetween<TSource, TStart, TTill = TStart, TResult = TSource[]
     const till: ImplicitParjser<TTill | TStart> = pTill || start;
     return source => {
         const wrapped = wrapImplicit(source);
-        return pipe(
-            start,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            qthen(wrapped.pipe(manyTill(till, projection as any)))
-        );
+        return pipe(start, qthen(wrapped.pipe(manyTill(till, projection as any))));
     };
 }

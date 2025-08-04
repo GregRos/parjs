@@ -2,19 +2,29 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import typescript from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import jest from "eslint-plugin-jest";
 import markdown from "eslint-plugin-markdown";
 /** @type {import("eslint").Linter.Config[]} */
 export default [
     {
-        ignores: [".obsidian", ".git", "node_modules", "dist", "coverage", ".husky", "typedoc"]
+        ignores: [
+            "**/.obsidian",
+            ".git",
+            "**/node_modules",
+            "**/dist",
+            "**/coverage",
+            ".husky",
+            "typedoc",
+            "**/coverage"
+        ]
     },
     {
-        files: ["*.md"],
+        files: ["{documentation/**,.}/*.md"],
         processor: markdown.processors.markdown
     },
     {
         // Run exclusively on TS/JS code blocks
-        files: ["**/*.md/*.{ts,js,tsx}"],
+        files: ["{documentation/**,.}/*.md/*.{ts,js,tsx}"],
         plugins: { stylistic },
         languageOptions: {
             parser: tsParser,
@@ -27,7 +37,7 @@ export default [
             "stylistic/indent": ["error", 4],
             "stylistic/no-tabs": "error",
             "stylistic/object-curly-spacing": ["error", "always"],
-            "stylistic/semi": ["error", "never"],
+            "stylistic/semi": ["error", "always"],
             "no-extra-semi": "error",
             "no-multi-spaces": "error",
             "space-infix-ops": "error",
@@ -44,9 +54,9 @@ export default [
     },
     {
         // Run exclusively on normal TS/JS files.
-        files: ["**/*.{ts,tsx}"],
+        files: ["packages/{parjs,char-info}/{src,spec}/*.{ts,tsx}"],
         ignores: ["**/*.md/*.{ts,js,tsx}"],
-        plugins: { ts: typescript },
+        plugins: { ts: typescript, jest },
 
         languageOptions: {
             parser: tsParser,
@@ -58,7 +68,7 @@ export default [
         },
         rules: {
             ...js.configs.recommended.rules,
-
+            ...jest.configs.recommended.rules,
             //! UNSORTED RULES
             // Place any additional rules either here at the top, or in the appropriate section below.
             "ts/consistent-type-imports": "error",
@@ -146,8 +156,7 @@ export default [
             "no-loss-of-precision": "off",
             "ts/no-loss-of-precision": "error",
 
-            "no-throw-literal": "off",
-            "ts/no-throw-literal": "error",
+            "no-throw-literal": "error",
 
             "no-unused-expressions": "off",
             "ts/no-unused-expressions": "error",
