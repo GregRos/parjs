@@ -43,5 +43,10 @@
         "MD050": { "style": "asterisk" }
     },
     "fix": true,
-    "globs": ["README.md", "doddle.md"]
+    "globs": [
+        "README.md",
+        "documentation/**/*.md",
+        "packages/*/README.md",
+        "packages/*/examples/README.md"
+    ]
 }
