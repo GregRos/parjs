@@ -16,7 +16,7 @@ expect(product().debug().parse("1 * 2 ")).toBeSuccessful(expected);
 
 It will log something like this to the console:
 
-```ts
+```txt
 consumed '1 * 2 ' (length 6)
 at position 0->6
 👍🏻 (Ok)

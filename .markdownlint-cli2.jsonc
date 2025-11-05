@@ -1,0 +1,52 @@
+{
+    "config": {
+        "MD001": true,
+        "MD003": { "style": "atx" },
+        "MD004": { "style": "dash" },
+        "MD005": true,
+        "MD007": { "indent": 2 },
+        "MD009": { "strict": true },
+        "MD010": { "code_blocks": false, "spaces_per_tab": 2 },
+        "MD011": true,
+        "MD012": { "maximum": 1 },
+        "MD013": {
+            "line_length": 1000,
+            "heading_line_length": 80,
+            "code_blocks": false,
+            "tables": false
+        },
+        "MD018": true,
+        "MD019": true,
+        "MD022": { "lines_above": 0, "lines_below": 0 },
+        "MD023": true,
+        "MD024": false,
+        "MD025": false,
+        "MD026": { "punctuation": ",:.;" },
+        "MD027": true,
+        "MD028": true,
+        "MD029": { "style": "one_or_ordered" },
+        "MD030": true,
+        "MD031": true,
+        "MD032": true,
+        "MD034": true,
+        "MD035": { "style": "---" },
+        "MD037": true,
+        "MD038": true,
+        "MD039": true,
+        "MD040": true,
+        "MD042": true,
+        "MD045": true,
+        "MD046": { "style": "fenced" },
+        "MD047": true,
+        "MD048": { "style": "backtick" },
+        "MD049": { "style": "asterisk" },
+        "MD050": { "style": "asterisk" }
+    },
+    "fix": true,
+    "globs": [
+        "README.md",
+        "documentation/**/*.md",
+        "packages/*/README.md",
+        "packages/*/examples/README.md"
+    ]
+}

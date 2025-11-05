@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export function cloneDeep<T>(source: T): T {
     if (typeof source !== "object" || !source) {
         return source;
