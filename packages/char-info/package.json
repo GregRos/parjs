@@ -1,6 +1,6 @@
 {
   "name": "char-info",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Unicode character information library.",
   "keywords": [
     "text",
